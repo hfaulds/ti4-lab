@@ -85,6 +85,10 @@ io.on("connection", (socket) => {
     );
   });
 
+  socket.on("joinGame", (gameId) => {
+    socket.join("game:" + gameId);
+  });
+
   socket.on("joinSoundboardSession", (sessionId) => {
     observeSocketEvent(
       "joinSoundboardSession",

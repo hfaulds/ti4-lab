@@ -182,3 +182,28 @@ export const presetMapLikes = sqliteTable(
     ),
   }),
 );
+
+export const games = sqliteTable(
+  "games",
+  {
+    id: text("id").primaryKey(),
+    urlName: text("urlName").notNull().unique(),
+    draftId: text("draftId").references(() => drafts.id),
+    // JSON-serialised GameState
+    data: blob("data").notNull(),
+    // Incremented with every action; guards against concurrent writes.
+    version: integer("version").notNull().default(0),
+    isComplete: integer("isComplete", { mode: "boolean" })
+      .notNull()
+      .default(false),
+    createdAt: text("createdAt")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: text("updatedAt")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => ({
+    draftIdIdx: index("games_draftId_index").on(table.draftId),
+  }),
+);

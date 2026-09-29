@@ -47,6 +47,7 @@ import { FactionIcon } from "~/components/icons/FactionIcon";
 import { PlayerChip } from "./PlayerChip";
 import { factions as allFactions } from "~/data/factionData";
 import { ExportDraftState } from "~/routes/draft.$id/components/ExportDraftState";
+import { StartGameButton } from "./StartGameButton";
 
 export function FinalizedDraft() {
   const navigate = useNavigate();
@@ -106,6 +107,7 @@ export function FinalizedDraft() {
         <Group justify="space-between" align="flex-start" wrap="wrap" gap="md">
           <Title order={1}>Draft Complete</Title>
           <Group gap="sm">
+            <StartGameButton />
             <Anchor href={`/draft/${draftUrl}.png`} target="_blank">
               <Button
                 size="md"

@@ -60,3 +60,17 @@ export async function broadcastDraftUpdate(
     console.error("Error broadcasting draft update:", error);
   }
 }
+
+/**
+ * Tells everyone watching a game that it has moved on. Clients fetch their
+ * own view afterwards, as each seat sees different hidden information.
+ */
+export function broadcastGameUpdate(gameId: string, version: number): void {
+  const io = getSocketIO();
+  if (!io) return;
+  try {
+    io.to(`game:${gameId}`).emit("gameUpdated", { version });
+  } catch (error) {
+    console.error("Error broadcasting game update:", error);
+  }
+}

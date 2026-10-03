@@ -1,7 +1,9 @@
 import { and, desc, eq, sql } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 import { generatePrettyUrlName } from "~/data/urlWords.server";
-import { GameState } from "~/game/types";
+import { victoryPoints } from "~/game/engine/control";
+import { GameState, Phase } from "~/game/types";
+import { FactionId } from "~/types";
 import { db } from "./config.server";
 import { games } from "./schema.server";
 
@@ -38,6 +40,56 @@ export async function latestGameForDraft(draftId: string) {
     .orderBy(desc(games.createdAt))
     .limit(1);
   return row;
+}
+
+export type OngoingGameSummary = {
+  urlName: string;
+  round: number;
+  phase: Phase;
+  victoryPointGoal: number;
+  updatedAt: string;
+  players: {
+    name: string;
+    faction: FactionId;
+    color: string;
+    victoryPoints: number;
+    speaker: boolean;
+  }[];
+};
+
+/** Unfinished games, most recently played first. */
+export async function listOngoingGames(): Promise<OngoingGameSummary[]> {
+  const rows = await db
+    .select()
+    .from(games)
+    .where(eq(games.isComplete, false))
+    .orderBy(desc(games.updatedAt));
+  return rows.map((row) => {
+    const { urlName, state } = toSavedGame(row);
+    // Clockwise around the table, starting from the speaker.
+    const speakerSeat = state.seating.indexOf(state.speaker);
+    const seating = [
+      ...state.seating.slice(speakerSeat),
+      ...state.seating.slice(0, speakerSeat),
+    ];
+    return {
+      urlName,
+      round: state.round,
+      phase: state.phase,
+      victoryPointGoal: state.options.victoryPoints,
+      updatedAt: row.updatedAt,
+      players: seating.map((id) => {
+        const player = state.players[id];
+        return {
+          name: player.name,
+          faction: player.faction,
+          color: player.color,
+          victoryPoints: victoryPoints(state, id),
+          speaker: state.speaker === id,
+        };
+      }),
+    };
+  });
 }
 
 async function uniqueUrlName() {

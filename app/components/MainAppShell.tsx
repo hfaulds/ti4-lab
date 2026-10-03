@@ -89,6 +89,7 @@ export function MainAppShell({ children, headerRightSection }: Props) {
   const isAboutActive = location.pathname === "/about";
   const isSoundboardActive = location.pathname === "/voices";
   const isMapGeneratorActive = location.pathname === "/map-generator";
+  const isGamesActive = location.pathname === "/games";
 
   const handleSoundboardClick = () => {
     trackButtonClick({
@@ -107,6 +108,7 @@ export function MainAppShell({ children, headerRightSection }: Props) {
       isActive: isMapGeneratorActive,
     },
     { to: "/map-presets", label: "Map Presets", isActive: isMapPresetsActive },
+    { to: "/games", label: "Games", isActive: isGamesActive },
     { to: "/about", label: "About", isActive: isAboutActive },
   ];
 

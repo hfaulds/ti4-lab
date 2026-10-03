@@ -17,6 +17,7 @@ import {
   ChooseSecret,
   ChooseStartingTech,
   DiscardActionCards,
+  PlaceStartingUnits,
   PoliticsAgenda,
   Redistribute,
   Resolve,
@@ -35,6 +36,8 @@ function PromptForm({ view, prompt }: { view: GameView; prompt: Prompt }) {
       return <ChooseSecret view={view} prompt={prompt} />;
     case "chooseStartingTech":
       return <ChooseStartingTech view={view} prompt={prompt} />;
+    case "placeStartingUnits":
+      return <PlaceStartingUnits view={view} prompt={prompt} />;
     case "secondary":
       return <Secondary view={view} prompt={prompt} />;
     case "politicsAgenda":

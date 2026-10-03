@@ -28,8 +28,9 @@ import {
   scorableObjectives,
 } from "~/game/engine/objectives";
 import { agendaOutcomes, tallyVotes } from "~/game/engine/phases";
+import { STRUCTURE_LIMIT } from "~/game/engine/strategic";
 import { describeSystem } from "~/game/engine/tactical";
-import { Payment, Prompt, UnitType } from "~/game/types";
+import { Payment, Prompt, UnitCounts, UnitType } from "~/game/types";
 import { asState, GameView, isHidden } from "~/game/view";
 import { useGame } from "../gameStore";
 import { defaultPools, PoolsEditor, tokensAfterGaining } from "./forms";
@@ -123,6 +124,77 @@ export function ChooseStartingTech({
         }
       >
         Confirm
+      </Button>
+    </Stack>
+  );
+}
+
+export function PlaceStartingUnits({
+  prompt,
+}: PromptProps<"placeStartingUnits">) {
+  const dispatch = useGame((state) => state.dispatch);
+  const [placement, setPlacement] = useState<Record<string, UnitCounts>>(
+    prompt.suggested,
+  );
+  const types = Object.keys(prompt.units) as UnitType[];
+  const placed = (type: UnitType) =>
+    prompt.planets.reduce((sum, name) => sum + (placement[name]?.[type] ?? 0), 0);
+  const remaining = (type: UnitType) => (prompt.units[type] ?? 0) - placed(type);
+  const done = types.every((type) => remaining(type) === 0);
+  const set = (name: string, type: UnitType, count: number) =>
+    setPlacement({
+      ...placement,
+      [name]: { ...placement[name], [type]: count },
+    });
+
+  return (
+    <Stack gap="xs">
+      <Text size="sm">
+        Place your starting ground forces and structures on your home planets.
+        Your ships start in the home system&apos;s space area.
+      </Text>
+      {prompt.planets.map((name) => (
+        <Stack key={name} gap={4}>
+          <Text size="sm" fw={600}>
+            {name}
+          </Text>
+          {types.map((type) => {
+            const value = placement[name]?.[type] ?? 0;
+            const limit =
+              type === "pds" || type === "spacedock"
+                ? STRUCTURE_LIMIT[type]
+                : Infinity;
+            return (
+              <Stepper
+                key={type}
+                label={UNIT_NAMES[type]}
+                value={value}
+                max={Math.min(value + remaining(type), limit)}
+                onChange={(count) => set(name, type, count)}
+              />
+            );
+          })}
+        </Stack>
+      ))}
+      {!done && (
+        <Text size="xs" c="dimmed">
+          Still to place:{" "}
+          {types
+            .filter((type) => remaining(type) > 0)
+            .map((type) => `${remaining(type)} ${UNIT_NAMES[type]}`)
+            .join(", ")}
+        </Text>
+      )}
+      <Button
+        disabled={!done}
+        onClick={() =>
+          dispatch(
+            { type: "PLACE_STARTING_UNITS", placement },
+            prompt.player,
+          )
+        }
+      >
+        Place units
       </Button>
     </Stack>
   );

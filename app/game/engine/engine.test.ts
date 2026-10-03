@@ -64,14 +64,93 @@ describe("setup", () => {
     expect(countOf(state.systems[sol.home].space[SOL], "carrier")).toBe(2);
   });
 
-  test("reveals two stage I objectives and asks for a secret objective", () => {
+  test("reveals two stage I objectives and asks everyone for their setup decisions at once", () => {
     const state = testGame();
     expect(state.publicObjectives).toHaveLength(10);
     expect(state.publicObjectives.filter((o) => o.revealed)).toHaveLength(2);
     expect(state.phase).toBe("setup");
-    expect(openPrompts(state).map((p) => p.kind)).toEqual(
-      Array(6).fill("chooseSecret"),
-    );
+    const open = openPrompts(state);
+    expect(open).toHaveLength(state.prompts.length);
+    expect(open.filter((p) => p.kind === "chooseSecret")).toHaveLength(6);
+    // Hacan, Jol-Nar, Xxcha and Letnev have more than one home planet.
+    expect(
+      open
+        .filter((p) => p.kind === "placeStartingUnits")
+        .map((p) => state.players[p.player].faction)
+        .sort(),
+    ).toEqual(["barony", "hacan", "jolnar", "xxcha"]);
+  });
+
+  test("players with several home planets place their own ground forces and structures", () => {
+    let state = testGame();
+    const prompt = openPrompts(state).find(
+      (p) => p.player === HACAN && p.kind === "placeStartingUnits",
+    )!;
+    expect(prompt).toMatchObject({
+      planets: expect.arrayContaining(["Arretze", "Hercant", "Kamdorn"]),
+      units: { infantry: 4, spacedock: 1 },
+    });
+    // Ships are already in place; the rest waits on the player.
+    const hacan = state.players[HACAN];
+    expect(countOf(state.systems[hacan.home].space[HACAN], "carrier")).toBe(2);
+    expect(countOf(state.planets["Arretze"].units[HACAN], "spacedock")).toBe(0);
+
+    expect(
+      rejection(state, HACAN, {
+        type: "PLACE_STARTING_UNITS",
+        placement: { Kamdorn: { infantry: 3, spacedock: 1 } },
+      }),
+    ).toMatch(/exactly 4/);
+    expect(
+      rejection(state, HACAN, {
+        type: "PLACE_STARTING_UNITS",
+        placement: { Jord: { infantry: 4, spacedock: 1 } },
+      }),
+    ).toMatch(/not one of your home planets/);
+
+    state = play(state, HACAN, {
+      type: "PLACE_STARTING_UNITS",
+      placement: { Kamdorn: { infantry: 4, spacedock: 1 } },
+    });
+    expect(countOf(state.planets["Kamdorn"].units[HACAN], "infantry")).toBe(4);
+    expect(countOf(state.planets["Kamdorn"].units[HACAN], "spacedock")).toBe(1);
+    expect(countOf(state.planets["Arretze"].units[HACAN], "infantry")).toBe(0);
+  });
+
+  test("Council Keleres choose 2 non-faction technologies owned by other players", () => {
+    let state = testGame({
+      factions: ["keleres", "sol", "hacan"],
+      expansions: ["pok", "codex3"],
+    });
+    const KELERES = 0;
+    expect(state.players[KELERES].technologies).toEqual([]);
+    // Everyone else's setup comes first, as Keleres choose from what they own.
+    while (openPrompts(state).every((p) => p.kind !== "chooseStartingTech")) {
+      const move = botMove(state)!;
+      state = play(state, move.player, move.action);
+    }
+    const prompt = openPrompts(state)[0];
+    expect(prompt).toMatchObject({ player: KELERES, count: 2 });
+    expect(
+      prompt.kind === "chooseStartingTech" && [...prompt.options].sort(),
+    ).toEqual(["amd", "nm", "st"]);
+    state = play(state, KELERES, {
+      type: "CHOOSE_STARTING_TECH",
+      technologies: ["nm", "st"],
+    });
+    expect(state.players[KELERES].technologies).toEqual(["nm", "st"]);
+    expect(state.phase).toBe("strategy");
+  });
+
+  test("Mahact purge their Alliance promissory note", () => {
+    const state = testGame({
+      factions: ["mahact", "sol", "hacan"],
+      expansions: ["pok"],
+    });
+    const notes = (id: number) =>
+      state.players[id].promissoryNotes.map((n) => n.id);
+    expect(notes(0)).not.toContain("an");
+    expect(notes(1)).toContain("an");
   });
 
   test("keeps expansion content out of a base game", () => {

@@ -151,6 +151,8 @@ function answer(state: GameState, prompt: Prompt): GameAction {
         type: "CHOOSE_STARTING_TECH",
         technologies: prompt.options.slice(0, prompt.count),
       };
+    case "placeStartingUnits":
+      return { type: "PLACE_STARTING_UNITS", placement: prompt.suggested };
     case "secondary":
       return { type: "RESOLVE_SECONDARY", promptId: prompt.id };
     case "politicsAgenda":

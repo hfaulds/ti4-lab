@@ -19,6 +19,7 @@ import {
   takePrompt,
 } from "./helpers";
 import { requireObjectivePhase, scoreObjective } from "./objectives";
+import { askKeleresStartingTech, placeStartingUnits } from "./setup";
 import {
   castVotes,
   continueAgendaPhase,
@@ -71,6 +72,7 @@ function advance(state: GameState) {
     if (state.prompts.length > 0) return;
 
     if (state.phase === "setup") {
+      if (askKeleresStartingTech(state)) continue;
       startStrategyPhase(state);
       continue;
     }
@@ -129,6 +131,10 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       );
       return;
     }
+
+    case "PLACE_STARTING_UNITS":
+      placeStartingUnits(state, id, action.placement);
+      return;
 
     // --- Strategy phase ---
     case "PICK_STRATEGY_CARD":

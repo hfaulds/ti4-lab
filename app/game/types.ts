@@ -121,6 +121,15 @@ export type HitSource =
 export type Prompt = { id: number; player: PlayerId; group: number } & (
   | { kind: "chooseSecret"; options: string[] }
   | { kind: "chooseStartingTech"; options: string[]; count: number }
+  | {
+      kind: "placeStartingUnits";
+      /** Home planets the units can go on. */
+      planets: string[];
+      /** Ground forces and structures still to be placed. */
+      units: UnitCounts;
+      /** Where the faction sheet puts them, offered as a starting point. */
+      suggested: Record<string, UnitCounts>;
+    }
   | { kind: "secondary"; card: string; from: PlayerId; free?: boolean }
   | { kind: "politicsAgenda"; cards: string[] }
   | { kind: "spaceCannon"; system: SystemKey; planet?: string; target: PlayerId }

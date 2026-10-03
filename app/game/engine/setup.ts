@@ -16,6 +16,8 @@ import {
   resolveTechnology,
   strategyCardsFor,
   technologies,
+  technologiesById,
+  UNIT_NAMES,
 } from "../data";
 import {
   Deck,
@@ -25,6 +27,8 @@ import {
   PlayerState,
   SystemKey,
   SystemState,
+  UnitCounts,
+  UnitType,
 } from "../types";
 import {
   CREUSS_GATE_ID,
@@ -33,7 +37,17 @@ import {
   systemInfo,
   WORMHOLE_NEXUS_ID,
 } from "./board";
-import { addUnits, ask, entries, log, shuffle } from "./helpers";
+import {
+  addUnits,
+  ask,
+  ensure,
+  entries,
+  log,
+  playerOf,
+  shuffle,
+  takePrompt,
+} from "./helpers";
+import { STRUCTURE_LIMIT } from "./strategic";
 
 export type GamePlayerSetup = {
   id: PlayerId;
@@ -85,6 +99,9 @@ const AGENDAS_REMOVED_BY_POK = [
 ];
 
 const STARTING_POOLS = { tactic: 3, fleet: 3, strategy: 2 };
+/** Mahact purge their own Alliance during setup. */
+const ALLIANCE = "an";
+const KELERES_STARTING_TECH = 2;
 const OBJECTIVES_PER_STAGE = 5;
 
 /** Checks that a game can be started, returning a reason when it cannot. */
@@ -332,6 +349,10 @@ export function createGame(setup: GameSetup): GameState {
   }
 
   // --- Players ---
+  const unplaced = new Map<
+    PlayerId,
+    { units: UnitCounts; suggested: Record<string, UnitCounts> }
+  >();
   const notes = enabledContent(promissoryNotes, expansions);
   setup.players.forEach((entry, idx) => {
     const data = factionSetupFor(entry.faction, entry.factionVariant)!;
@@ -359,6 +380,7 @@ export function createGame(setup: GameSetup): GameState {
       scoredSecrets: [],
       promissoryNotes: notes
         .filter((n) => !n.faction || n.faction === entry.faction)
+        .filter((n) => !(entry.faction === "mahact" && n.id === ALLIANCE))
         .map((n) => ({ id: n.id, owner: entry.id })),
       promissoryNotesInPlay: [],
       strategyCards: [],
@@ -392,58 +414,55 @@ export function createGame(setup: GameSetup): GameState {
     for (const [type, count] of entries(data.startingUnits.space)) {
       addUnits(system.space, entry.id, type, count);
     }
+    // Ground forces and structures go on whichever home planets the
+    // player likes; with a single home planet there is nothing to decide.
+    const suggested: Record<string, UnitCounts> = {};
+    const units: UnitCounts = {};
     for (const [name, counts] of Object.entries(data.startingUnits.planets)) {
-      const planet = state.planets[name] ?? state.planets[system.planets[0]];
+      const planet = system.planets.includes(name) ? name : system.planets[0];
       for (const [type, count] of entries(counts)) {
         if (type === "mech" && !usesPok) continue;
-        addUnits(planet.units, entry.id, type, count);
+        const onPlanet = (suggested[planet] ??= {});
+        onPlanet[type] = (onPlanet[type] ?? 0) + count;
+        units[type] = (units[type] ?? 0) + count;
       }
+    }
+    if (system.planets.length > 1) {
+      unplaced.set(entry.id, { units, suggested });
+    } else {
+      placeUnits(state, entry.id, suggested);
     }
   });
 
   // --- Opening decisions ---
-  const order = state.seating;
+  // Every player makes their own setup decisions at the same time.
   ask(
     state,
-    order.flatMap((id) => {
+    state.seating.flatMap((id) => {
       const player = state.players[id];
-      const data = factionSetupFor(player.faction, player.factionVariant)!;
-      if (data.startingTechChoices === 0) return [];
-      // Factions that name no options choose from every technology that
-      // has no prerequisites.
-      const listed =
-        data.startingTechOptions.length > 0
-          ? data.startingTechOptions
-          : technologies
-              .filter(
-                (t) =>
-                  !t.faction && !t.unitUpgrade && t.prerequisites.length === 0,
-              )
-              .map((t) => t.id);
-      const options = [
-        ...new Set(
-          listed
-            .map((tech) => resolveTechnology(tech, expansions)?.id)
-            .filter((tech): tech is string => !!tech),
-        ),
-      ];
-      const count = Math.min(data.startingTechChoices, options.length);
-      if (count === 0) return [];
+      const placement = unplaced.get(id);
       return [
-        { kind: "chooseStartingTech" as const, player: id, options, count },
+        ...(placement
+          ? [
+              {
+                kind: "placeStartingUnits" as const,
+                player: id,
+                planets: state.systems[player.home].planets,
+                ...placement,
+              },
+            ]
+          : []),
+        ...startingTechPrompt(state, id),
+        {
+          kind: "chooseSecret" as const,
+          player: id,
+          options: [
+            state.decks.secretObjectives.draw.shift()!,
+            state.decks.secretObjectives.draw.shift()!,
+          ],
+        },
       ];
     }),
-  );
-  ask(
-    state,
-    order.map((id) => ({
-      kind: "chooseSecret" as const,
-      player: id,
-      options: [
-        state.decks.secretObjectives.draw.shift()!,
-        state.decks.secretObjectives.draw.shift()!,
-      ],
-    })),
   );
 
   log(
@@ -451,4 +470,107 @@ export function createGame(setup: GameSetup): GameState {
     `The game begins. ${state.players[state.speaker].name} is the speaker.`,
   );
   return state;
+}
+
+function startingTechPrompt(state: GameState, id: PlayerId) {
+  const { expansions } = state.options;
+  const player = state.players[id];
+  const data = factionSetupFor(player.faction, player.factionVariant)!;
+  if (data.startingTechChoices === 0) return [];
+  // Factions that name no options choose from every technology that has no
+  // prerequisites.
+  const listed =
+    data.startingTechOptions.length > 0
+      ? data.startingTechOptions
+      : technologies
+          .filter(
+            (t) => !t.faction && !t.unitUpgrade && t.prerequisites.length === 0,
+          )
+          .map((t) => t.id);
+  const options = [
+    ...new Set(
+      listed
+        .map((tech) => resolveTechnology(tech, expansions)?.id)
+        .filter((tech): tech is string => !!tech),
+    ),
+  ];
+  const count = Math.min(data.startingTechChoices, options.length);
+  if (count === 0) return [];
+  return [{ kind: "chooseStartingTech" as const, player: id, options, count }];
+}
+
+/**
+ * Council Keleres start with 2 non-faction technologies owned by other
+ * players, so they choose once everyone else has their starting
+ * technologies. Returns whether anyone was asked.
+ */
+export function askKeleresStartingTech(state: GameState): boolean {
+  const keleres = Object.values(state.players).find(
+    (p) => p.faction === "keleres" && p.technologies.length === 0,
+  );
+  if (!keleres) return false;
+  const owned = new Set(
+    Object.values(state.players)
+      .filter((p) => p.id !== keleres.id)
+      .flatMap((p) => p.technologies)
+      .filter((tech) => !technologiesById[tech]?.faction),
+  );
+  const options = [...owned].sort();
+  const count = Math.min(KELERES_STARTING_TECH, options.length);
+  if (count === 0) return false;
+  ask(state, [
+    { kind: "chooseStartingTech", player: keleres.id, options, count },
+  ]);
+  return true;
+}
+
+function placeUnits(
+  state: GameState,
+  id: PlayerId,
+  placement: Record<string, UnitCounts>,
+) {
+  for (const [name, counts] of Object.entries(placement)) {
+    for (const [type, count] of entries(counts)) {
+      addUnits(state.planets[name].units, id, type, count);
+    }
+  }
+}
+
+/** Puts a player's starting ground forces and structures on their home planets. */
+export function placeStartingUnits(
+  state: GameState,
+  id: PlayerId,
+  placement: Record<string, UnitCounts>,
+) {
+  const player = playerOf(state, id);
+  const prompt = takePrompt(state, id, "placeStartingUnits");
+  const placed: UnitCounts = {};
+  for (const [name, counts] of Object.entries(placement)) {
+    ensure(
+      prompt.planets.includes(name),
+      `${name} is not one of your home planets.`,
+    );
+    for (const [type, count] of entries(counts)) {
+      ensure(
+        Number.isInteger(count) && count >= 0,
+        "Unit counts must be whole numbers.",
+      );
+      if (type === "pds" || type === "spacedock") {
+        ensure(
+          count <= STRUCTURE_LIMIT[type],
+          `${name} can hold at most ${STRUCTURE_LIMIT[type]} ${UNIT_NAMES[type]}.`,
+        );
+      }
+      placed[type] = (placed[type] ?? 0) + count;
+    }
+  }
+  const types = new Set([...entries(prompt.units), ...entries(placed)].map(([type]) => type));
+  for (const type of types) {
+    ensure(
+      (placed[type] ?? 0) === (prompt.units[type] ?? 0),
+      `Place exactly ${prompt.units[type] ?? 0} ${UNIT_NAMES[type as UnitType]}.`,
+    );
+  }
+  placeUnits(state, id, placement);
+  log(state, `${player.name} placed their starting units.`, { player: id });
 }

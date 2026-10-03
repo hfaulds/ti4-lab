@@ -88,7 +88,7 @@ export function setPools(
 
 // --- Structures -------------------------------------------------------------
 
-const STRUCTURE_LIMIT: Record<StructurePlacement["type"], number> = {
+export const STRUCTURE_LIMIT: Record<StructurePlacement["type"], number> = {
   pds: 2,
   spacedock: 1,
 };

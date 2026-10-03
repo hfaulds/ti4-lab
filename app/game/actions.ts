@@ -130,6 +130,7 @@ export type GameAction =
   // Setup
   | { type: "CHOOSE_SECRET"; keep: string }
   | { type: "CHOOSE_STARTING_TECH"; technologies: string[] }
+  | { type: "PLACE_STARTING_UNITS"; placement: Record<string, UnitCounts> }
   // Strategy phase
   | { type: "PICK_STRATEGY_CARD"; card: string }
   // Action phase

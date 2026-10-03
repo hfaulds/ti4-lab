@@ -4,7 +4,7 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "tsx ./server.ts",
+    "dev": "tsx --env-file=.env ./server.ts",
     "discord:deploy": "tsx ./app/discord/deployCommands.ts",
     "build": "react-router build",
     "start": "cross-env NODE_ENV=production tsx ./server.ts",

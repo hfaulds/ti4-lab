@@ -139,11 +139,17 @@ export function productionCost(
   id: PlayerId,
   orders: ProductionOrder[],
 ) {
-  let cost = 0;
+  // Units that come two for one cost are priced by the type's total, so a
+  // pair split across planets (two orders) still costs a single unit price.
+  const counts = new Map<ProductionOrder["type"], number>();
   for (const order of orders) {
-    const unit = requireUnit(state, id, order.type);
-    if (unit.cost === undefined) fail(`${UNIT_NAMES[order.type]} cannot be produced.`);
-    cost += Math.ceil(order.count / unit.producedPerCost) * unit.cost;
+    counts.set(order.type, (counts.get(order.type) ?? 0) + order.count);
+  }
+  let cost = 0;
+  for (const [type, count] of counts) {
+    const unit = requireUnit(state, id, type);
+    if (unit.cost === undefined) fail(`${UNIT_NAMES[type]} cannot be produced.`);
+    cost += Math.ceil(count / unit.producedPerCost) * unit.cost;
   }
   // Sarween Tools
   if (cost > 0 && hasTech(state, id, "st")) cost -= 1;

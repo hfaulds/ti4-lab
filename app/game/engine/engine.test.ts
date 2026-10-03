@@ -611,6 +611,33 @@ describe("production and research", () => {
     expect(next.tactical).toBeUndefined();
   });
 
+  test("a pair of infantry split into two orders costs one pair", () => {
+    let state = toActionPhase(testGame());
+    const id = state.activePlayer!;
+    const home = state.players[id].home;
+    const planet = state.systems[home].planets[0];
+    state = play(state, id, {
+      type: "ADJUST",
+      adjustment: { type: "tradeGoods", player: id, amount: 2 },
+    });
+    let next = play(state, id, { type: "ACTIVATE_SYSTEM", system: home });
+    next = play(next, id, { type: "MOVE_SHIPS", moves: [], cargo: [] });
+    expect(next.tactical?.step).toBe("production");
+
+    const before = countOf(next.planets[planet].units[id], "infantry");
+    const tradeGoods = next.players[id].tradeGoods;
+    next = play(next, id, {
+      type: "PRODUCE",
+      units: [
+        { type: "infantry", count: 1, planet },
+        { type: "infantry", count: 1, planet },
+      ],
+      payment: { planets: [], tradeGoods: 1 },
+    });
+    expect(countOf(next.planets[planet].units[id], "infantry")).toBe(before + 2);
+    expect(next.players[id].tradeGoods).toBe(tradeGoods - 1);
+  });
+
   test("Technology researches only what prerequisites allow", () => {
     let state = skipSetup(testGame());
     // Give the first player to act the Technology card.

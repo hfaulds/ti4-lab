@@ -278,7 +278,7 @@ export function ActionPanel({
     body = (
       <Stack gap="xs">
         <Text size="sm">
-          You are watching. Choose who you are playing as to take part.
+          You are watching. Use Change at the top to take a seat.
         </Text>
         <Waiting view={view} />
       </Stack>

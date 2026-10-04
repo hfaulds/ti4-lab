@@ -2,16 +2,16 @@ import {
   Alert,
   Badge,
   Box,
+  Button,
   Grid,
   Group,
   LoadingOverlay,
-  Select,
   Stack,
   Tabs,
   Text,
   Title,
 } from "@mantine/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   data,
   LoaderFunctionArgs,
@@ -22,7 +22,8 @@ import { MainAppShell } from "~/components/MainAppShell";
 import { gameByUrlName } from "~/drizzle/game.server";
 import { EXPANSIONS } from "~/game/data";
 import { openPrompts } from "~/game/engine/helpers";
-import { asState, viewFor } from "~/game/view";
+import { asState, GameView, viewFor } from "~/game/view";
+import { PlayerId } from "~/types";
 import { useSocketConnection } from "~/useSocketConnection";
 import { ActionPanel } from "./components/ActionPanel";
 import { AdjustPanel } from "./components/AdjustPanel";
@@ -31,10 +32,11 @@ import { HandPanel } from "./components/HandPanel";
 import { LogPanel } from "./components/LogPanel";
 import { ObjectivesPanel } from "./components/ObjectivesPanel";
 import { PlayersPanel } from "./components/PlayersPanel";
+import { SeatPicker } from "./components/SeatPicker";
 import { PlayerName } from "./components/shared";
 import { SystemPanel } from "./components/SystemPanel";
 import { TradePanel } from "./components/TradePanel";
-import { storedPlayer, useGame } from "./gameStore";
+import { Seat, storedSeat, useGame } from "./gameStore";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const game = await gameByUrlName(params.id!);
@@ -62,13 +64,18 @@ const PHASE_NAMES = {
 export default function Game() {
   const loaded = useLoaderData<typeof loader>();
   const view = useGame((state) => state.view);
+  const seat = useGame((state) => state.seat);
   const player = useGame((state) => state.player);
   const busy = useGame((state) => state.busy);
-  const { load, setPlayer, refresh } = useGame.getState();
+  const { load, chooseSeat, refresh } = useGame.getState();
+  // The seat lives in this browser's storage, so it is only known once the
+  // page is running here.
+  const [seatRead, setSeatRead] = useState(false);
 
   useEffect(() => {
     load(loaded.urlName, loaded.view);
-    void setPlayer(storedPlayer(loaded.urlName));
+    void chooseSeat(storedSeat(loaded.urlName));
+    setSeatRead(true);
     // Only a different game should reset what is on screen.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded.urlName]);
@@ -93,10 +100,21 @@ export default function Game() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, loaded.id]);
 
-  if (!view) {
+  if (!view || !seatRead) {
     return (
       <MainAppShell>
         <LoadingOverlay visible />
+      </MainAppShell>
+    );
+  }
+
+  if (!seat) {
+    return (
+      <MainAppShell>
+        <SeatPicker
+          view={view}
+          onChoose={(chosen) => void chooseSeat(chosen)}
+        />
       </MainAppShell>
     );
   }
@@ -133,19 +151,11 @@ export default function Game() {
               </Badge>
             </Group>
           </Box>
-          <Select
-            label="Playing as"
-            placeholder="Spectating"
-            clearable
-            w={220}
-            data={view.seating.map((id) => ({
-              value: String(id),
-              label: view.players[id].name,
-            }))}
-            value={player === undefined ? null : String(player)}
-            onChange={(value) =>
-              void setPlayer(value === null ? undefined : Number(value))
-            }
+          <SeatSummary
+            view={view}
+            seat={seat}
+            player={player}
+            onChange={() => void chooseSeat(undefined)}
           />
         </Group>
 
@@ -237,5 +247,35 @@ export default function Game() {
         </Grid>
       </Stack>
     </MainAppShell>
+  );
+}
+
+function SeatSummary({
+  view,
+  seat,
+  player,
+  onChange,
+}: {
+  view: GameView;
+  seat: Seat;
+  player?: PlayerId;
+  onChange: () => void;
+}) {
+  return (
+    <Group gap="sm" wrap="nowrap">
+      <Text size="sm" c="dimmed">
+        {seat.kind === "developer" ? "Developer, playing as" : "Playing as"}
+      </Text>
+      {player !== undefined ? (
+        <PlayerName view={view} player={player} />
+      ) : (
+        <Text size="sm" fw={600}>
+          Spectator
+        </Text>
+      )}
+      <Button size="compact-sm" variant="default" onClick={onChange}>
+        Change
+      </Button>
+    </Group>
   );
 }

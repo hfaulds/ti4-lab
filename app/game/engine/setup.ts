@@ -416,17 +416,18 @@ export function createGame(setup: GameSetup): GameState {
     }
     // Ground forces and structures go on whichever home planets the
     // player likes; with a single home planet there is nothing to decide.
-    const suggested: Record<string, UnitCounts> = {};
+    const sheet: Record<string, UnitCounts> = {};
     const units: UnitCounts = {};
     for (const [name, counts] of Object.entries(data.startingUnits.planets)) {
       const planet = system.planets.includes(name) ? name : system.planets[0];
       for (const [type, count] of entries(counts)) {
         if (type === "mech" && !usesPok) continue;
-        const onPlanet = (suggested[planet] ??= {});
+        const onPlanet = (sheet[planet] ??= {});
         onPlanet[type] = (onPlanet[type] ?? 0) + count;
         units[type] = (units[type] ?? 0) + count;
       }
     }
+    const suggested = suggestedPlacement(system, units, sheet);
     if (system.planets.length > 1) {
       unplaced.set(entry.id, { units, suggested });
     } else {
@@ -573,4 +574,47 @@ export function placeStartingUnits(
   }
   placeUnits(state, id, placement);
   log(state, `${player.name} placed their starting units.`, { player: id });
+}
+
+/**
+ * Where a player's starting ground forces and structures are offered:
+ * infantry split evenly across the home planets and space docks on the
+ * best resource planets. Anything else stays where the faction sheet puts
+ * it.
+ */
+function suggestedPlacement(
+  system: SystemState,
+  units: UnitCounts,
+  sheet: Record<string, UnitCounts>,
+): Record<string, UnitCounts> {
+  const printed = systemInfo(system.systemId)?.planets ?? [];
+  const value = (name: string) => printed.find((p) => p.name === name);
+  // Most resources first, then most influence; ties keep tile order.
+  const ranked = [...system.planets].sort(
+    (a, b) =>
+      (value(b)?.resources ?? 0) - (value(a)?.resources ?? 0) ||
+      (value(b)?.influence ?? 0) - (value(a)?.influence ?? 0),
+  );
+
+  const placement: Record<string, UnitCounts> = {};
+  const add = (planet: string, type: UnitType, count: number) => {
+    if (count <= 0) return;
+    const onPlanet = (placement[planet] ??= {});
+    onPlanet[type] = (onPlanet[type] ?? 0) + count;
+  };
+
+  const infantry = units.infantry ?? 0;
+  ranked.forEach((planet, i) => {
+    const extra = i < infantry % ranked.length ? 1 : 0;
+    add(planet, "infantry", Math.floor(infantry / ranked.length) + extra);
+  });
+  for (let i = 0; i < (units.spacedock ?? 0); i++) {
+    add(ranked[i % ranked.length], "spacedock", 1);
+  }
+  for (const [planet, counts] of Object.entries(sheet)) {
+    for (const [type, count] of entries(counts)) {
+      if (type !== "infantry" && type !== "spacedock") add(planet, type, count);
+    }
+  }
+  return placement;
 }

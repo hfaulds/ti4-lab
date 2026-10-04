@@ -117,6 +117,32 @@ describe("setup", () => {
     expect(countOf(state.planets["Arretze"].units[HACAN], "infantry")).toBe(0);
   });
 
+  test("suggests infantry spread evenly and the space dock on the best resource planet", () => {
+    const state = testGame();
+    const suggestion = (faction: string) =>
+      openPrompts(state).find(
+        (p) =>
+          p.kind === "placeStartingUnits" &&
+          state.players[p.player].faction === faction,
+      )!;
+    // Arretze 2/0, Hercant 1/1, Kamdorn 0/1: the spare infantry goes to
+    // the planet with the most resources.
+    expect(suggestion("hacan")).toMatchObject({
+      suggested: {
+        Arretze: { infantry: 2, spacedock: 1 },
+        Hercant: { infantry: 1 },
+        Kamdorn: { infantry: 1 },
+      },
+    });
+    // Nar 2/3 beats Jol 1/2; the PDS stay where the faction sheet puts them.
+    expect(suggestion("jolnar")).toMatchObject({
+      suggested: {
+        Nar: { infantry: 1, spacedock: 1, pds: 1 },
+        Jol: { infantry: 1, pds: 1 },
+      },
+    });
+  });
+
   test("Council Keleres choose 2 non-faction technologies owned by other players", () => {
     let state = testGame({
       factions: ["keleres", "sol", "hacan"],

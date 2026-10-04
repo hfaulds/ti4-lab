@@ -64,6 +64,8 @@ type DraftV2State = {
   systemPool: SystemId[];
 
   selectedPlayer?: PlayerId;
+  /** Playing every seat: the selected player follows whoever is to pick. */
+  developer: boolean;
   factionSettingsModal: boolean;
   planetFinderModal?:
     | {
@@ -85,6 +87,8 @@ type DraftV2State = {
     hydrate: (draftId: string, draftUrl: string, draft: Draft) => void;
     update: (draftId: string, draft: Draft) => void;
     setSelectedPlayer: (playerId: PlayerId) => void;
+    setDeveloper: (developer: boolean) => void;
+    leaveSeat: () => void;
     selectSpeakerOrder: (playerId: number, speakerOrder: number) => void;
     selectSlice: (playerId: number, sliceIdx: number) => void;
     selectFaction: (playerId: number, factionId: FactionId) => void;
@@ -219,6 +223,7 @@ const initialState = {
   planetFinderModal: undefined,
   factionSettingsModal: false,
   selectedPlayer: undefined,
+  developer: false,
   draft: emptyDraft(),
   replayMode: false,
   replayIndex: undefined,
@@ -374,6 +379,15 @@ export const draftStore = createStore<DraftV2State>()(
       setSelectedPlayer: (playerId: PlayerId) =>
         set((state) => {
           state.selectedPlayer = playerId;
+        }),
+      setDeveloper: (developer: boolean) =>
+        set((state) => {
+          state.developer = developer;
+        }),
+      leaveSeat: () =>
+        set((state) => {
+          state.selectedPlayer = undefined;
+          state.developer = false;
         }),
 
       selectSlice: (playerId: number, sliceIdx: number) =>

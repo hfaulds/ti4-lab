@@ -11,6 +11,8 @@ export function useNotifyActivePlayer() {
   const { activePlayer } = useHydratedDraft();
   const activePlayerId = activePlayer?.id;
   const selectedPlayer = useDraft((state) => state.selectedPlayer);
+  // A developer is every player in turn, so every pick would alert.
+  const developer = useDraft((state) => state.developer);
 
   useEffect(() => {
     requestNotificationPermission();
@@ -27,6 +29,7 @@ export function useNotifyActivePlayer() {
   };
 
   useEffect(() => {
+    if (developer) return;
     if (activePlayerId === undefined || selectedPlayer === undefined) return;
     if (activePlayerId === selectedPlayer) {
       handleNotify();

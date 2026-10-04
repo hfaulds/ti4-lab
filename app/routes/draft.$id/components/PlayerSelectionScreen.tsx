@@ -1,21 +1,23 @@
 import { Button, Grid, Stack, Title, Box } from "@mantine/core";
-import { IconEye } from "@tabler/icons-react";
+import { IconCode, IconEye } from "@tabler/icons-react";
 import { useState } from "react";
 import { playerColors } from "~/data/factionData";
 import { useHydratedDraft } from "~/hooks/useHydratedDraft";
 
 type Props = {
-  onDraftJoined: (playerId: number) => void;
+  /** A player id, -1 to spectate or "developer" to pick for everyone. */
+  onDraftJoined: (seat: number | "developer") => void;
 };
 
 const SPECTATOR_ID = -1;
+const DEVELOPER = "developer";
 
 export function PlayerSelectionScreen({ onDraftJoined }: Props) {
   const { hydratedPlayers } = useHydratedDraft();
 
-  const [selectedPlayer, setSelectedPlayer] = useState<number | undefined>(
-    undefined,
-  );
+  const [selectedPlayer, setSelectedPlayer] = useState<
+    number | typeof DEVELOPER | undefined
+  >(undefined);
 
   return (
     <Stack
@@ -45,7 +47,7 @@ export function PlayerSelectionScreen({ onDraftJoined }: Props) {
             );
           })}
           {/* spectator */}
-          <Grid.Col span={12}>
+          <Grid.Col span={{ base: 12, sm: 6 }}>
             <Button
               w="100%"
               variant={selectedPlayer === SPECTATOR_ID ? "filled" : "outline"}
@@ -55,6 +57,19 @@ export function PlayerSelectionScreen({ onDraftJoined }: Props) {
               leftSection={<IconEye size={24} />}
             >
               Spectator
+            </Button>
+          </Grid.Col>
+          {/* plays every seat, becoming whoever is to pick */}
+          <Grid.Col span={{ base: 12, sm: 6 }}>
+            <Button
+              w="100%"
+              variant={selectedPlayer === DEVELOPER ? "filled" : "outline"}
+              size="xl"
+              color="gray"
+              onMouseDown={() => setSelectedPlayer(DEVELOPER)}
+              leftSection={<IconCode size={24} />}
+            >
+              Developer
             </Button>
           </Grid.Col>
         </Grid>

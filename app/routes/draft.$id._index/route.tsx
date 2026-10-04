@@ -13,6 +13,10 @@ import { db } from "~/drizzle/config.server";
 import { drafts } from "~/drizzle/schema.server";
 import { Draft } from "~/types";
 import { CurrentPickBanner } from "../draft.$id/components/CurrentPickBanner";
+import {
+  DeveloperSeatBadge,
+  nextDraftPlayer,
+} from "../draft.$id/components/DeveloperSeatBadge";
 import { PlayerSelectionScreen } from "../draft.$id/components/PlayerSelectionScreen";
 import { LoadingOverlay } from "~/components/LoadingOverlay";
 import { validate as validateUUID } from "uuid";
@@ -72,7 +76,9 @@ export default function RunningDraft() {
   const settings = draft.settings;
   const draftActions = draftStore.draftActions;
   const selectedPlayer = draftStore.selectedPlayer;
+  const developer = draftStore.developer;
   const { draftFinished } = useHydratedDraft();
+  const seatKey = `draft:player:${result.id}`;
   const isPresetMapDraft = settings.draftGameMode === "presetMap";
 
   // Real-time socket connection to push and receive state updates.
@@ -94,13 +100,23 @@ export default function RunningDraft() {
     draftStore.draftActions.hydrate(result.id!, result.urlName!, result.data);
     draftStore.replayActions.disableReplayMode();
 
-    const storedSelectedPlayer = localStorage.getItem(
-      `draft:player:${result.id}`,
-    );
-    if (storedSelectedPlayer) {
+    const storedSelectedPlayer = localStorage.getItem(seatKey);
+    if (storedSelectedPlayer === "developer") {
+      draftActions.setDeveloper(true);
+    } else if (storedSelectedPlayer) {
       draftActions.setSelectedPlayer(parseInt(storedSelectedPlayer));
     }
   }, []);
+
+  // A developer becomes whoever the draft is waiting on.
+  const developerSeat = developer ? nextDraftPlayer(draft) : undefined;
+  useEffect(() => {
+    if (!developer) return;
+    const next = developerSeat ?? draft.players[0]?.id;
+    if (next !== undefined && next !== selectedPlayer) {
+      draftActions.setSelectedPlayer(next);
+    }
+  }, [developer, developerSeat, selectedPlayer]);
 
   if (!draftStore.hydrated) return <LoadingOverlay />;
 
@@ -123,19 +139,29 @@ export default function RunningDraft() {
     );
   }
 
-  if (selectedPlayer === undefined) {
+  if (selectedPlayer === undefined && !developer) {
     return (
       <PlayerSelectionScreen
-        onDraftJoined={(playerId) => {
-          localStorage.setItem(
-            `draft:player:${result.id}`,
-            playerId.toString(),
-          );
-          draftActions.setSelectedPlayer(playerId);
+        onDraftJoined={(seat) => {
+          localStorage.setItem(seatKey, seat.toString());
+          if (seat === "developer") {
+            draftActions.setDeveloper(true);
+          } else {
+            draftActions.setSelectedPlayer(seat);
+          }
         }}
       />
     );
   }
+
+  const developerBadge = developer && !draftFinished && (
+    <DeveloperSeatBadge
+      onLeave={() => {
+        localStorage.removeItem(seatKey);
+        draftActions.leaveSeat();
+      }}
+    />
+  );
 
   const isInBanPhase = () => {
     if (!settings.modifiers) return false;
@@ -151,6 +177,7 @@ export default function RunningDraft() {
   if (isInBanPhase()) {
     return (
       <SyncDraftContext.Provider value={syncDraftContextValue}>
+        {developerBadge}
         <BanPhase />
       </SyncDraftContext.Provider>
     );
@@ -161,6 +188,7 @@ export default function RunningDraft() {
     if (currentPick.phase === "priorityValue") {
       return (
         <SyncDraftContext.Provider value={syncDraftContextValue}>
+          {developerBadge}
           <PriorityValueSelectionPhase />
         </SyncDraftContext.Provider>
       );
@@ -169,6 +197,7 @@ export default function RunningDraft() {
     if (currentPick.phase === "homeSystem") {
       return (
         <SyncDraftContext.Provider value={syncDraftContextValue}>
+          {developerBadge}
           <HomeSystemSelectionPhase />
         </SyncDraftContext.Provider>
       );
@@ -177,6 +206,7 @@ export default function RunningDraft() {
     if (currentPick.phase === "texasFaction") {
       return (
         <SyncDraftContext.Provider value={syncDraftContextValue}>
+          {developerBadge}
           <TexasFactionSelectionPhase />
         </SyncDraftContext.Provider>
       );
@@ -185,6 +215,7 @@ export default function RunningDraft() {
     if (currentPick.phase === "texasBlueKeep1") {
       return (
         <SyncDraftContext.Provider value={syncDraftContextValue}>
+          {developerBadge}
           <TexasTileDraftPhase
             phase="texasBlueKeep1"
             title="Blue Tile Draft — Round 1"
@@ -198,6 +229,7 @@ export default function RunningDraft() {
     if (currentPick.phase === "texasBlueKeep2") {
       return (
         <SyncDraftContext.Provider value={syncDraftContextValue}>
+          {developerBadge}
           <TexasTileDraftPhase
             phase="texasBlueKeep2"
             title="Blue Tile Draft — Round 2"
@@ -211,6 +243,7 @@ export default function RunningDraft() {
     if (currentPick.phase === "texasRedKeep") {
       return (
         <SyncDraftContext.Provider value={syncDraftContextValue}>
+          {developerBadge}
           <TexasTileDraftPhase
             phase="texasRedKeep"
             title="Red Tile Draft"
@@ -225,6 +258,7 @@ export default function RunningDraft() {
   if (settings.draftGameMode === "texasStyle") {
     return (
       <SyncDraftContext.Provider value={syncDraftContextValue}>
+        {developerBadge}
         <TexasMapBuildPhase />
       </SyncDraftContext.Provider>
     );
@@ -232,6 +266,7 @@ export default function RunningDraft() {
 
   return (
     <SyncDraftContext.Provider value={syncDraftContextValue}>
+      {developerBadge}
       {socket && isDisconnected && (
         <Button
           variant="filled"

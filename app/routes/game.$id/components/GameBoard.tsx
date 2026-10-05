@@ -4,8 +4,9 @@ import { RawSystemTile } from "~/components/tiles/SystemTile";
 import { systemData } from "~/data/systemData";
 import { UNIT_NAMES } from "~/game/data";
 import { MALLICE, WORMHOLE_NEXUS_ID, wormholesOf } from "~/game/engine/board";
+import { openPrompts } from "~/game/engine/helpers";
 import { Forces, SystemState } from "~/game/types";
-import { GameView } from "~/game/view";
+import { asState, GameView } from "~/game/view";
 import { useDimensions } from "~/hooks/useDimensions";
 import { SystemTile } from "~/types";
 import { getHexPosition } from "~/utils/positioning";
@@ -208,6 +209,15 @@ function Tile({
   const selectSystem = useGame((state) => state.selectSystem);
   const active = view.tactical?.system === system.key;
   const known = !!systemData[tile.systemId];
+  // Points the player at the home system their starting units go in.
+  const placing = useGame(
+    (state) =>
+      state.player !== undefined &&
+      view.players[state.player]?.home === system.key &&
+      openPrompts(asState(view)).some(
+        (p) => p.kind === "placeStartingUnits" && p.player === state.player,
+      ),
+  );
 
   return (
     <div
@@ -215,6 +225,7 @@ function Tile({
         classes.tile,
         selected ? classes.selected : "",
         active ? classes.active : "",
+        placing ? classes.placing : "",
       ].join(" ")}
       role="button"
       tabIndex={0}

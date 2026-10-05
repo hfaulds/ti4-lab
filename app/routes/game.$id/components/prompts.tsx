@@ -150,8 +150,9 @@ export function PlaceStartingUnits({
   return (
     <Stack gap="xs">
       <Text size="sm">
-        Place your starting ground forces and structures on your home planets.
-        Your ships start in the home system&apos;s space area.
+        Place your starting ground forces and structures on your home planets,
+        glowing on the board. Your ships start in the home system&apos;s space
+        area.
       </Text>
       {prompt.planets.map((name) => (
         <Stack key={name} gap={4}>

@@ -32,6 +32,21 @@
   z-index: 3;
 }
 
+.placing {
+  z-index: 3;
+  animation: placing-glow 1.6s ease-in-out infinite;
+}
+
+@keyframes placing-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 1.5px #fff) brightness(1.05);
+  }
+  50% {
+    filter: drop-shadow(0 0 6px #fff) brightness(1.25);
+  }
+}
+
 .overlay {
   position: absolute;
   inset: 0;

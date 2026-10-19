@@ -11,14 +11,19 @@ import { GameError, GameState } from "../types";
 import { adjust } from "./adjust";
 import { applyHits } from "./combat";
 import {
+  ask,
   ensure,
   log,
-  MAX_SECRET_OBJECTIVES,
   playerOf,
+  secretObjectiveLimit,
   shuffle,
   takePrompt,
 } from "./helpers";
-import { requireObjectivePhase, scoreObjective } from "./objectives";
+import {
+  requireObjectivePhase,
+  scoreAchievements,
+  scoreObjective,
+} from "./objectives";
 import { askKeleresStartingTech, placeStartingUnits } from "./setup";
 import { research } from "./technology";
 import {
@@ -26,6 +31,7 @@ import {
   continueAgendaPhase,
   continueStatusPhase,
   continueStrategyPhase,
+  continueTurnEnd,
   endTurn,
   pass,
   pickStrategyCard,
@@ -36,10 +42,11 @@ import {
   startStrategyPhase,
 } from "./phases";
 import {
+  beginStrategicAction,
+  continueQueuedStrategic,
   finishStrategic,
   orderAgendas,
   resolveSecondary,
-  strategicAction,
 } from "./strategic";
 import {
   activateSystem,
@@ -52,11 +59,14 @@ import {
   produceUnits,
 } from "./tactical";
 import {
+  answerEffect,
+  openWindow,
   effectFor,
   passWindow,
   resolvePending,
   playReaction,
 } from "./reactions";
+import { checkCommanderUnlocks } from "./leaders";
 import {
   answerTransaction,
   playPromissoryNote,
@@ -77,6 +87,7 @@ const MAX_AUTOMATIC_STEPS = 200;
 function advance(state: GameState) {
   for (let step = 0; step < MAX_AUTOMATIC_STEPS; step++) {
     if (state.phase === "finished") return;
+    if (scoreAchievements(state)) continue;
     if (resolvePending(state)) continue;
     if (state.prompts.length > 0) return;
 
@@ -85,6 +96,8 @@ function advance(state: GameState) {
       startStrategyPhase(state);
       continue;
     }
+    if (continueQueuedStrategic(state)) continue;
+    if (continueTurnEnd(state)) continue;
     if (state.tactical) {
       if (continueTactical(state)) continue;
       return;
@@ -154,7 +167,7 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
     // --- Actions ---
     case "ACTIVATE_SYSTEM":
       requireAction(state, id);
-      activateSystem(state, id, action.system);
+      activateSystem(state, id, action.system, { influence: action.influence });
       return;
     case "MOVE_SHIPS":
       ensure(state.prompts.length === 0, "Other players still have decisions to make.");
@@ -172,7 +185,7 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
     }
     case "ANNOUNCE_RETREAT": {
       const prompt = takePrompt(state, id, "announceRetreat");
-      announceRetreat(state, id, prompt.options, action.to);
+      announceRetreat(state, id, prompt.options, action.to, prompt.required);
       return;
     }
     case "BOMBARD":
@@ -181,7 +194,7 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       return;
     case "COMMIT_GROUND_FORCES":
       ensure(state.prompts.length === 0, "Other players still have decisions to make.");
-      commitGroundForces(state, id, action.landings, action.custodians);
+      commitGroundForces(state, id, action.landings, action.custodians, action.influence);
       return;
     case "PRODUCE":
       ensure(state.prompts.length === 0, "Other players still have decisions to make.");
@@ -189,11 +202,11 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       return;
     case "STRATEGIC_ACTION":
       requireAction(state, id);
-      strategicAction(state, id, action.payload);
+      beginStrategicAction(state, id, action.payload);
       return;
     case "RESOLVE_SECONDARY": {
       const prompt = takePrompt(state, id, "secondary", action.promptId);
-      resolveSecondary(state, id, prompt, action.payload);
+      resolveSecondary(state, id, prompt, action.payload, action.jaeMirKan);
       return;
     }
     case "ORDER_AGENDAS": {
@@ -232,10 +245,13 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       playReaction(
         state,
         id,
-        { kind: "ability", id: action.ability },
+        { kind: action.source ?? "ability", id: action.ability },
         action.targets,
         action.promptId,
       );
+      return;
+    case "RESOLVE_EFFECT":
+      answerEffect(state, id, action.promptId, action.targets);
       return;
     case "PASS_WINDOW":
       passWindow(state, id, action.promptId);
@@ -307,6 +323,11 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       log(state, `${player.name} discarded down to their hand limit.`, {
         player: id,
       });
+      // Reverse Engineer
+      for (const card of cards) {
+        if (!actionCardsById[card]?.componentAction) continue;
+        openWindow(state, "afterActionCardDiscarded", { player: id, card });
+      }
       return;
     }
     case "RETURN_SECRET": {
@@ -316,18 +337,25 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       player.secretObjectives.splice(index, 1);
       const deck = state.decks.secretObjectives;
       deck.draw = shuffle(state, [...deck.draw, action.objective]);
-      ensure(
-        player.secretObjectives.length + player.scoredSecrets.length <=
-          MAX_SECRET_OBJECTIVES,
-        "You still hold too many secret objectives.",
-      );
+      // Still too many (Search Warrant draws 2): return another.
+      const pending = state.prompts.some((p) => p.kind === "returnSecret" && p.player === id);
+      if (
+        !pending &&
+        player.secretObjectives.length + player.scoredSecrets.length >
+          secretObjectiveLimit(state, id)
+      ) {
+        ask(state, [{ kind: "returnSecret", player: id }]);
+      }
       return;
     }
 
     // --- Agenda phase ---
     case "CAST_VOTES":
       takePrompt(state, id, "vote");
-      castVotes(state, id, action.outcome, action.planets, action.extraVotes);
+      castVotes(state, id, action.outcome, action.planets, action.extraVotes, {
+        predictive: action.predictive,
+        tradeGoods: action.tradeGoods,
+      });
       return;
     case "RESEARCH": {
       const prompt = takePrompt(state, id, "research", action.promptId);
@@ -444,6 +472,7 @@ export function applyAction(
     const next = immer(state, (draft) => {
       perform(draft as GameState, player, action);
       advance(draft as GameState);
+      checkCommanderUnlocks(draft as GameState);
       draft.version++;
     });
     return { ok: true, state: next };

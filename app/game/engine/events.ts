@@ -6,7 +6,9 @@
 import { PlayerId } from "~/types";
 import { promissoryNotesById, UnitCounts } from "../data";
 import { GameState, SystemKey } from "../types";
-import { systemOf, MECATOL_REX } from "./board";
+import { isLegendary, planetInfluence, planetResources, systemOf, MECATOL_REX } from "./board";
+import { achieve } from "./effects/helpers";
+import { transferRelic } from "./relics";
 import { enforceFleetSupply } from "./combat";
 import { victoryPoints } from "./control";
 import {
@@ -45,6 +47,20 @@ export function startTurn(state: GameState, id: PlayerId) {
       });
     }
   }
+  // Crimson Legionnaire II units come back to a home planet.
+  const legionnaires = player.revivingLegionnaires ?? 0;
+  if (legionnaires > 0) {
+    player.revivingLegionnaires = 0;
+    const home = systemOf(state, player.home).planets.find(
+      (p) => state.planets[p].controller === id,
+    );
+    if (home) {
+      addUnits(state.planets[home].units, id, "infantry", legionnaires);
+      log(state, `${player.name} returned ${plural(legionnaires, "infantry")} to ${home}.`, {
+        player: id,
+      });
+    }
+  }
   openWindow(state, "turnStart", { player: id });
 }
 
@@ -57,9 +73,9 @@ export function afterAction(state: GameState, id: PlayerId) {
 // --- Trade goods ------------------------------------------------------------
 
 /** After a player gains trade goods or resolves a transaction (Pillage). */
-export function afterGainingTradeGoods(state: GameState, id: PlayerId) {
+export function afterGainingTradeGoods(state: GameState, id: PlayerId, fromSupply?: number) {
   if (state.phase === "finished") return;
-  openWindow(state, "afterGainTradeGoods", { player: id });
+  openWindow(state, "afterGainTradeGoods", { player: id, amount: fromSupply });
 }
 
 export function gainTradeGoodsFrom(
@@ -73,7 +89,7 @@ export function gainTradeGoodsFrom(
   log(state, `${playerName(state, id)} gained ${plural(amount, "trade good")} (${source}).`, {
     player: id,
   });
-  afterGainingTradeGoods(state, id);
+  afterGainingTradeGoods(state, id, amount);
 }
 
 // --- Activation -------------------------------------------------------------
@@ -87,7 +103,15 @@ const hasUnitsIn = (state: GameState, id: PlayerId, key: SystemKey) => {
 };
 
 /** Promissory notes in play that go home when their owner's system is activated. */
-const RETURN_ON_ACTIVATION = ["sftt", "convoys", "pop", "antivirus"];
+const RETURN_ON_ACTIVATION = [
+  "sftt",
+  "convoys",
+  "pop",
+  "antivirus",
+  "an",
+  "blood_pact",
+  "dark_pact",
+];
 
 export function afterActivating(state: GameState, id: PlayerId, key: SystemKey) {
   const system = systemOf(state, key);
@@ -143,6 +167,18 @@ export function returnNoteInPlay(
 }
 
 export function afterMoving(state: GameState, id: PlayerId, key: SystemKey) {
+  // Voidwatch: moving in on the Empyrean costs a promissory note.
+  for (const other of state.seating) {
+    if (other === id || !hasTech(state, other, "vw") || !hasUnitsIn(state, other, key)) continue;
+    const mover = state.players[id];
+    const [note] = mover.promissoryNotes;
+    if (!note) continue;
+    mover.promissoryNotes = mover.promissoryNotes.slice(1);
+    state.players[other].promissoryNotes.push(note);
+    log(state, `Voidwatch: ${mover.name} gave a promissory note to ${playerName(state, other)}.`, {
+      player: id,
+    });
+  }
   openWindow(state, "afterMove", { system: key, player: id });
 }
 
@@ -172,6 +208,16 @@ export function afterGainingControl(
     }
   }
   if (ownsAbility(state, id, "scavenge")) gainTradeGoodsFrom(state, id, 1, "Scavenge");
+  // Liberate
+  if (ownsAbility(state, id, "liberate")) {
+    if (countOf(planet.units[id], "infantry") >= planetResources(state, name)) planet.exhausted = false;
+    else if (unitsAvailable(state, id, "infantry") > 0) addUnits(planet.units, id, "infantry", 1);
+  }
+  // Fealty Uplink
+  if (ownsAbility(state, id, "l1z1xbt")) {
+    const count = Math.min(planetInfluence(state, name), unitsAvailable(state, id, "infantry"));
+    if (count > 0) addUnits(planet.units, id, "infantry", count);
+  }
   if (lawOwner(state, "minister_exploration") === id) {
     gainTradeGoodsFrom(state, id, 1, "Minister of Exploration");
   }
@@ -186,6 +232,17 @@ export function afterGainingControl(
     state.players[id].bonusVictoryPoints += 1;
     log(state, `${playerName(state, id)} took the Crown of Emphidia.`, { player: id });
     crown.owner = id;
+  }
+  if (
+    previous !== undefined &&
+    state.players[previous].relics.includes("shard") &&
+    (isLegendary(state, name) || state.systems[planet.system]?.homeOf === previous)
+  ) {
+    transferRelic(state, previous, id, "shard");
+  }
+  // Become a Martyr
+  if (previous !== undefined && state.systems[planet.system]?.homeOf !== undefined) {
+    achieve(state, previous, "bam");
   }
   if (name === MECATOL_REX && state.tactical?.player === id) {
     (state.tactical.flags ??= []).push(`mecatol:${id}`);

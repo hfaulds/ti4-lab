@@ -303,15 +303,15 @@ const REQUIREMENTS: Record<string, Requirement> = {
   },
   ttfd: { check: (s, id) => achieved(s, id, "ttfd") },
   uf: { check: (s, id) => achieved(s, id, "uf") },
-  bam: { manual: true },
-  baf: { manual: true },
-  btv: { manual: true },
-  dts: { manual: true },
+  bam: { check: (s, id) => achieved(s, id, "bam") },
+  baf: { check: (s, id) => achieved(s, id, "baf") },
+  btv: { check: (s, id) => achieved(s, id, "btv") },
+  dts: { check: (s, id) => achieved(s, id, "dts") },
   dfat: {
     check: (s, id) =>
       systemsWithUnits(s, id).some((sys) => sys.systemId === WORMHOLE_NEXUS_ID),
   },
-  dyp: { manual: true },
+  dyp: { check: (s, id) => achieved(s, id, "dyp") },
   dhw: { cost: { relicFragments: 2 } },
   dp: { check: (s) => s.laws.length >= 3 },
   dtd: { manual: true },
@@ -322,7 +322,7 @@ const REQUIREMENTS: Record<string, Requirement> = {
         0,
       ) >= 12,
   },
-  fwp: { manual: true },
+  fwp: { check: (s, id) => achieved(s, id, "fwp") },
   fc: {
     check: (s, id) => {
       const others = s.seating.filter(
@@ -358,7 +358,7 @@ const REQUIREMENTS: Record<string, Requirement> = {
         (key) => productionCapacity(s, Number(key), id) >= 8,
       ),
   },
-  pe: { manual: true },
+  pe: { check: (s, id) => achieved(s, id, "pe") },
   sai: {
     check: (s, id) =>
       controlledPlanets(s, id).some((p) => isLegendary(s, p.name)),
@@ -527,6 +527,7 @@ export function scoreObjective(
   } else {
     ensure(revealed, "That objective has not been revealed.");
     ensure(!revealed.scoredBy.includes(id), "You already scored that objective.");
+    ensure(!player.noPublicObjectives || isSecret, "You cannot score public objectives.");
     const home = state.systems[player.home];
     ensure(
       player.faction === "saar" ||
@@ -559,6 +560,27 @@ export function scoreObjective(
   );
   unlockLeaders(state);
   checkVictory(state);
+}
+
+/**
+ * Scores the action-phase secret objectives players have just achieved, for
+ * those who hold them. Returns true if anything was scored.
+ */
+export function scoreAchievements(state: GameState): boolean {
+  if (state.phase !== "action") return false;
+  for (const id of state.seating) {
+    const player = state.players[id];
+    if (player.eliminated) continue;
+    const scorable = player.secretObjectives.find(
+      (objective) =>
+        objectivesById[objective]?.phase === "action" &&
+        player.achievements?.includes(objective),
+    );
+    if (!scorable) continue;
+    scoreObjective(state, id, scorable);
+    return true;
+  }
+  return false;
 }
 
 /** Objectives a player may try to score in the given phase. */

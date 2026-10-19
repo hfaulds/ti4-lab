@@ -7,6 +7,7 @@ import {
   unitFor,
   UNIT_LIMITS,
   UnitData,
+  unitsById,
 } from "../data";
 import {
   CombatRoll,
@@ -174,10 +175,19 @@ export function tokensOnBoard(state: GameState, id: PlayerId) {
   ).length;
 }
 
+/** Tokens of a player sitting in other players' fleet pools (Mahact Edict). */
+export const tokensHeldByOthers = (state: GameState, id: PlayerId) =>
+  state.seating.reduce(
+    (sum, other) =>
+      sum + (state.players[other].edictTokens ?? []).filter((t) => t === id).length,
+    0,
+  );
+
 export const tokensInReinforcements = (state: GameState, id: PlayerId) =>
   COMMAND_TOKEN_LIMIT -
   totalTokens(state.players[id]) -
-  tokensOnBoard(state, id);
+  tokensOnBoard(state, id) -
+  tokensHeldByOthers(state, id);
 
 export function hasTech(state: GameState, id: PlayerId, ...techs: string[]) {
   return techs.some((tech) => state.players[id].technologies.includes(tech));
@@ -189,12 +199,29 @@ export function unitOf(
   type: UnitType,
 ): UnitData | undefined {
   const player = state.players[id];
-  return unitFor(
-    player.faction,
-    type,
-    player.technologies,
-    state.options.expansions,
-  );
+  // Eidolon is flipped to Z-Grav Eidolon for the space combat it fights in.
+  if (
+    type === "mech" &&
+    state.tactical?.spaceCombat?.flags?.includes(`zgrav:${id}`) &&
+    unitsById.naaz_mech_space
+  ) {
+    return unitsById.naaz_mech_space;
+  }
+  const unit = unitFor(player.faction, type, player.technologies, state.options.expansions);
+  if (type === "spacedock" && unit && player.relics?.includes("lightrailordnance")) {
+    return { ...unit, spaceCannon: 5, spaceCannonDice: 2, deepSpaceCannon: true };
+  }
+  // The Table's Grace: the Mentak's Cruiser II becomes the Corsair.
+  if (
+    type === "cruiser" &&
+    unit?.id === "cruiser2" &&
+    player.breakthrough?.unlocked &&
+    player.breakthrough.id === "mentakbt" &&
+    unitsById.mentak_cruiser3
+  ) {
+    return unitsById.mentak_cruiser3;
+  }
+  return unit;
 }
 
 export function requireUnit(state: GameState, id: PlayerId, type: UnitType) {
@@ -265,9 +292,23 @@ export function removeUnits(
     : Math.max(0, count - healthy);
   stack.count -= count;
   stack.damaged -= damagedRemoved;
+  // Galvanize tokens stay with the units that remain, as far as they go.
+  if (stack.galvanized) stack.galvanized = Math.min(stack.galvanized, stack.count) || undefined;
   if (stack.count === 0) delete forces[player][type];
   if (Object.keys(forces[player]).length === 0) delete forces[player];
   return damagedRemoved;
+}
+
+export const galvanizedIn = (group: UnitGroup | undefined, type: UnitType) =>
+  group?.[type]?.galvanized ?? 0;
+
+/** Galvanizes up to `count` more units of a type in a group. Returns how many. */
+export function galvanize(group: UnitGroup | undefined, type: UnitType, count = 1) {
+  const stack = group?.[type];
+  if (!stack) return 0;
+  const added = Math.min(count, stack.count - (stack.galvanized ?? 0));
+  if (added > 0) stack.galvanized = (stack.galvanized ?? 0) + added;
+  return Math.max(0, added);
 }
 
 export const entries = (counts: UnitCounts | undefined) =>
@@ -289,8 +330,26 @@ export function unitsOnBoard(state: GameState, id: PlayerId, type: UnitType) {
   return total;
 }
 
+/** A player's units held captive by the Vuil'raith. */
+export const unitsCaptured = (state: GameState, id: PlayerId, type: UnitType) =>
+  state.seating.reduce(
+    (sum, other) =>
+      sum +
+      (state.players[other].captured ?? [])
+        .filter((c) => c.owner === id && c.type === type)
+        .reduce((n, c) => n + c.count, 0),
+    0,
+  );
+
+/** Units held off the board on cards (Crimson Legionnaire II). */
+const unitsOnCards = (state: GameState, id: PlayerId, type: UnitType) =>
+  type === "infantry" ? (state.players[id].revivingLegionnaires ?? 0) : 0;
+
 export const unitsAvailable = (state: GameState, id: PlayerId, type: UnitType) =>
-  UNIT_LIMITS[type] - unitsOnBoard(state, id, type);
+  UNIT_LIMITS[type] -
+  unitsOnBoard(state, id, type) -
+  unitsCaptured(state, id, type) -
+  unitsOnCards(state, id, type);
 
 // --- Cards ----------------------------------------------------------------
 
@@ -338,6 +397,10 @@ export function drawActionCards(state: GameState, id: PlayerId, count: number) {
   }
 }
 
+/** Secret objectives a player may hold, scored or not: 1 more with The Obsidian. */
+export const secretObjectiveLimit = (state: GameState, id: PlayerId) =>
+  MAX_SECRET_OBJECTIVES + (state.players[id].relics.includes("obsidian") ? 1 : 0);
+
 export function drawSecretObjective(state: GameState, id: PlayerId) {
   const player = playerOf(state, id);
   const card = draw(state, state.decks.secretObjectives);
@@ -345,7 +408,8 @@ export function drawSecretObjective(state: GameState, id: PlayerId) {
   player.secretObjectives.push(card);
   log(state, `${player.name} drew a secret objective.`, { player: id });
   const held = player.secretObjectives.length + player.scoredSecrets.length;
-  if (held > MAX_SECRET_OBJECTIVES) {
+  const asked = state.prompts.some((p) => p.kind === "returnSecret" && p.player === id);
+  if (held > secretObjectiveLimit(state, id) && !asked) {
     ask(state, [{ kind: "returnSecret", player: id }]);
   }
 }

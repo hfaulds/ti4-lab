@@ -5,8 +5,8 @@ import {
   StrategicPayload,
   StructurePlacement,
 } from "../actions";
-import { CommandPools, GameState, Payment, Prompt } from "../types";
-import { fleetProblem, MECATOL_REX, planetOf, systemOf } from "./board";
+import { CommandPools, GameState, Payment, Prompt, SystemKey } from "../types";
+import { fleetProblem, isDemilitarized, MECATOL_REX, planetOf, systemOf } from "./board";
 import { victoryPoints, checkVictory } from "./control";
 import { pay, paymentValue, produce, replenishCommodities } from "./economy";
 import {
@@ -31,7 +31,11 @@ import { scoreObjective } from "./objectives";
 import { activateSystem, describeSystem } from "./tactical";
 import { research } from "./technology";
 import { afterAction } from "./events";
-import { openWindow } from "./reactions";
+import { spendStrategyToken } from "./effects/helpers";
+import { breakDuress } from "./phases";
+import { unitIs } from "./units";
+import { spendLeader, usableLeaders } from "./leaders";
+import { openWindow, reactionsFor } from "./reactions";
 
 export type StrategyKind = StrategicPayload["card"];
 
@@ -119,10 +123,18 @@ const structureLimit = (state: GameState, type: StructurePlacement["type"]) =>
 export function placeStructure(
   state: GameState,
   id: PlayerId,
-  { type, planet: name }: StructurePlacement,
+  { type, planet: name, asMech }: StructurePlacement,
 ) {
   const planet = planetOf(state, name);
   ensure(planet.controller === id, `You do not control ${name}.`);
+  if (asMech) {
+    ensure(type === "pds" && unitIs(state, id, "mech", "titans_mech"), "You cannot place a mech this way.");
+    ensure(unitsAvailable(state, id, "mech") > 0, "You have no mechs in your reinforcements.");
+    addUnits(planet.units, id, "mech", 1);
+    addUnits(planet.units, id, "infantry", 1);
+    log(state, `${playerName(state, id)} placed a mech and an infantry on ${name}.`, { player: id });
+    return;
+  }
   ensure(
     countOf(planet.units[id], type) < structureLimit(state, type),
     `${name} cannot hold another ${UNIT_NAMES[type]}.`,
@@ -132,7 +144,7 @@ export function placeStructure(
     `You have no ${UNIT_NAMES[type]} left in your reinforcements.`,
   );
   ensure(
-    !planet.attachments.includes("demilitarized_zone"),
+    !isDemilitarized(planet),
     `${name} is a demilitarized zone.`,
   );
   addUnits(planet.units, id, type, 1);
@@ -147,6 +159,39 @@ export function placeStructure(
 
 // --- Primary abilities ------------------------------------------------------
 
+/**
+ * Starts a strategic action. When another player could stop it (Coup
+ * d'Etat), it is first tried on a copy so that an illegal choice still fails
+ * now, then held while they decide.
+ */
+export function beginStrategicAction(
+  state: GameState,
+  id: PlayerId,
+  payload: StrategicPayload,
+) {
+  const others = clockwiseFrom(state, id).filter((other) => other !== id);
+  const context = { player: id, card: payload.card };
+  const stoppable = others.some(
+    (other) => reactionsFor(state, other, "beforeStrategicAction", context).length > 0,
+  );
+  if (!stoppable) {
+    strategicAction(state, id, payload);
+    return;
+  }
+  strategicAction(JSON.parse(JSON.stringify(state)) as GameState, id, payload);
+  state.queuedStrategic = { player: id, payload };
+  openWindow(state, "beforeStrategicAction", context, others);
+}
+
+/** Performs a held strategic action once nobody stopped it. */
+export function continueQueuedStrategic(state: GameState): boolean {
+  const queued = state.queuedStrategic;
+  if (!queued) return false;
+  state.queuedStrategic = undefined;
+  strategicAction(state, queued.player, queued.payload);
+  return true;
+}
+
 export function strategicAction(
   state: GameState,
   id: PlayerId,
@@ -160,6 +205,7 @@ export function strategicAction(
   ensure(!held.exhausted, "You have already used that strategy card.");
 
   const card = strategyCardsById[held.id];
+  breakDuress(state, id, true);
   log(state, `${player.name} played ${card.name}.`, { player: id });
   state.strategic = { player: id, card: held.id };
 
@@ -347,7 +393,7 @@ export function strategicAction(
   openWindow(state, "afterStrategicAction", { player: id, card: payload.card });
 }
 
-function askSecondaries(
+export function askSecondaries(
   state: GameState,
   from: PlayerId,
   card: string,
@@ -404,6 +450,7 @@ export function resolveSecondary(
   id: PlayerId,
   prompt: Extract<Prompt, { kind: "secondary" }>,
   payload?: StrategicPayload,
+  jaeMirKan?: SystemKey,
 ) {
   const player = playerOf(state, id);
   const card = strategyCardsById[prompt.card];
@@ -420,9 +467,15 @@ export function resolveSecondary(
     kind !== "leadership" &&
     !prompt.free &&
     !(kind === "trade" && player.faction === "hacan");
-  if (costsToken) {
-    ensure(player.pools.strategy > 0, "Your strategy pool is empty.");
-    player.pools.strategy--;
+  if (costsToken && jaeMirKan !== undefined) {
+    // Jae Mir Kan: the active player's token is spent instead.
+    ensure(usableLeaders(state, id).includes("mahactagent"), "You cannot use Jae Mir Kan.");
+    const system = systemOf(state, jaeMirKan);
+    ensure(system.commandTokens.includes(prompt.from), "The active player has no command token there.");
+    spendLeader(state, id, "mahactagent");
+    system.commandTokens = system.commandTokens.filter((t) => t !== prompt.from);
+  } else if (costsToken) {
+    spendStrategyToken(state, id);
   }
   log(state, `${player.name} used the secondary of ${card.name}.`, {
     player: id,

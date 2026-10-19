@@ -3,20 +3,31 @@ import {
   isGroundForce,
   isShip,
   isStructure,
+  technologiesById,
   UNIT_NAMES,
 } from "../data";
+import { hasCommander, unlockCommander } from "./leaders";
+
+/** A player's breakthrough, once gained. */
+const breakthroughOf = (state: GameState, id: PlayerId) => {
+  const own = state.players[id]?.breakthrough;
+  return own?.unlocked ? own.id : undefined;
+};
 import { ProductionOrder } from "../actions";
 import { GameState, Payment, SystemKey } from "../types";
 import { afterProducing } from "./events";
 import {
+  adjacentSystems,
   fleetProblem,
   hasAnomaly,
+  isDemilitarized,
   neighborsOf,
   otherShipOwners,
   planetInfluence,
   planetOf,
   planetResources,
   systemOf,
+  wormholesOf,
 } from "./board";
 import { openWindow } from "./reactions";
 import {
@@ -24,7 +35,9 @@ import {
   countOf,
   ensure,
   fail,
+  hasShips,
   hasTech,
+  tokensInReinforcements,
   log,
   playerOf,
   requireUnit,
@@ -34,12 +47,15 @@ import {
   unitTypes,
 } from "./helpers";
 
-export type Currency = "resources" | "influence";
+/** "either" spends each planet for the better of its resources and influence. */
+export type Currency = "resources" | "influence" | "either";
 
 const valueOf = (state: GameState, planet: string, currency: Currency) =>
   currency === "resources"
     ? planetResources(state, planet)
-    : planetInfluence(state, planet);
+    : currency === "influence"
+      ? planetInfluence(state, planet)
+      : Math.max(planetResources(state, planet), planetInfluence(state, planet));
 
 /** Worth of a trade good when spent: 2 with Mirror Computing. */
 export const tradeGoodValue = (state: GameState, id: PlayerId | undefined) =>
@@ -68,10 +84,12 @@ export function pay(
   state: GameState,
   id: PlayerId,
   payment: Payment | undefined,
-  currency: Currency,
+  requested: Currency,
   cost: number,
   options: { allowTradeGoods?: boolean } = {},
 ) {
+  // Archon's Gift: influence and resources are interchangeable.
+  const currency: Currency = breakthroughOf(state, id) === "xxchabt" ? "either" : requested;
   const allowTradeGoods = options.allowTradeGoods ?? true;
   const player = playerOf(state, id);
   const spend: Payment = payment ?? { planets: [], tradeGoods: 0 };
@@ -166,7 +184,34 @@ export function productionCapacity(
   ) {
     capacity += 5;
   }
+  // Particle Synthesis: each wormhole where the Creuss have ships produces 1.
+  if (!options.docksOnly && breakthroughOf(state, id) === "ghostbt" && hasShips(system.space[id])) {
+    capacity += wormholesOf(system).length;
+  }
+  // Aerie Hololattice: each planet with the Argent's structures produces 1.
+  if (!options.docksOnly && hasTech(state, id, "ah")) {
+    capacity += system.planets.filter(
+      (name) => totalUnits(state.planets[name].units[id], isStructure) > 0,
+    ).length;
+  }
   return capacity;
+}
+
+/**
+ * Cost reductions chosen during the production step: Berekar Berekon,
+ * Harrugh Gefhara and AI Development Algorithm.
+ */
+export function productionOptions(state: GameState, id: PlayerId) {
+  const flags = state.tactical?.flags ?? [];
+  const upgrades = state.players[id].technologies.filter(
+    (tech) => technologiesById[tech]?.unitUpgrade,
+  ).length;
+  return {
+    discount:
+      2 * flags.filter((flag) => flag === `berekar:${id}`).length +
+      (flags.includes(`aida:${id}`) ? upgrades : 0),
+    free: flags.includes(`gefhara:${id}`),
+  };
 }
 
 export function productionCost(
@@ -207,7 +252,16 @@ export function produce(
   key: SystemKey,
   orders: ProductionOrder[],
   payment: Payment,
-  options: { docksOnly?: boolean; limit?: number } = {},
+  options: {
+    docksOnly?: boolean;
+    limit?: number;
+    /** Freelancers: influence may be spent as if it were resources. */
+    currency?: Currency;
+    /** Cost already reduced, such as by Berekar Berekon. */
+    discount?: number;
+    /** The units cost nothing (Harrugh Gefhara). */
+    free?: boolean;
+  } = {},
 ) {
   const system = systemOf(state, key);
   const player = playerOf(state, id);
@@ -215,11 +269,28 @@ export function produce(
   ensure(units.length > 0, "Choose at least one unit to produce.");
 
   const total = units.reduce((sum, o) => sum + o.count, 0);
+  // Bellum Gloriosum: cargo for the produced ships does not count.
+  const carried =
+    breakthroughOf(state, id) === "solbt"
+      ? Math.min(
+          units.filter((o) => isShip(o.type)).reduce((sum, o) => sum + (unitOf(state, id, o.type)?.capacity ?? 0) * o.count, 0),
+          units.filter((o) => o.type === "fighter" || isGroundForce(o.type)).reduce((sum, o) => sum + o.count, 0),
+        )
+      : 0;
+  // That Which Molds Flesh: 2 fighters or infantry do not count.
+  const molded = carried + (hasCommander(state, id, "cabalcommander")
+    ? Math.min(
+        2,
+        units
+          .filter((o) => o.type === "fighter" || o.type === "infantry")
+          .reduce((sum, o) => sum + o.count, 0),
+      )
+    : 0);
   const capacity =
     options.limit ?? productionCapacity(state, key, id, options);
   ensure(
-    total <= capacity,
-    `Your units there can produce ${capacity} units, not ${total}.`,
+    total - molded <= capacity,
+    `Your units there can produce ${capacity} units, not ${total - molded}.`,
   );
 
   const blockaded = otherShipOwners(system, id).length > 0;
@@ -256,10 +327,15 @@ export function produce(
       if (order.planet) {
         const planet = planetOf(state, order.planet);
         ensure(
-          !planet.attachments.includes("demilitarized_zone"),
+          !isDemilitarized(planet),
           `${order.planet} is a demilitarized zone.`,
         );
-        ensure(planet.system === key, `${order.planet} is not in that system.`);
+        const trilossa = !!state.tactical?.flags?.includes(`trilossa:${id}`);
+        ensure(
+          planet.system === key ||
+            (trilossa && adjacentSystems(state, key).includes(planet.system)),
+          `${order.planet} is not in that system.`,
+        );
         ensure(
           planet.controller === id,
           `You do not control ${order.planet}.`,
@@ -275,8 +351,24 @@ export function produce(
     );
   }
 
-  const cost = productionCost(state, id, units);
-  pay(state, id, payment, "resources", cost);
+  // Particle Synthesis: 1 cheaper for each wormhole in the system.
+  const wormholeDiscount = breakthroughOf(state, id) === "ghostbt" ? wormholesOf(system).length : 0;
+  const cost = options.free
+    ? 0
+    : Math.max(
+        0,
+        productionCost(state, id, units) -
+          (options.discount ?? 0) -
+          wormholeDiscount -
+          freeUnitsDiscount(state, id, units),
+      );
+  pay(state, id, payment, options.currency ?? "resources", cost);
+  // Auto-Factories: 3 or more non-fighter ships bring a fleet token.
+  const capitalShips = units.filter((o) => isShip(o.type) && o.type !== "fighter").reduce((sum, o) => sum + o.count, 0);
+  if (capitalShips >= 3 && breakthroughOf(state, id) === "hacanbt" && tokensInReinforcements(state, id) > 0) {
+    player.pools.fleet++;
+    log(state, `Auto-Factories: ${player.name} gained a fleet token.`, { player: id });
+  }
 
   for (const order of units) {
     if (order.planet) {
@@ -305,5 +397,55 @@ export function produce(
     state.decks.agendas.discard.push(prophecy.id);
     log(state, `${player.name} discarded Prophecy of Ixth.`, { player: id });
   }
+  // Magmus unlocks when the Muaat produce a war sun.
+  if (units.some((o) => o.type === "warsun") && player.faction === "muaat") {
+    unlockCommander(state, id);
+  }
+  // Tungstantus
+  if (hasCommander(state, id, "titanscommander")) {
+    player.tradeGoods++;
+    log(state, `Tungstantus: ${player.name} gained 1 trade good.`, { player: id });
+  }
   afterProducing(state, id, key, units);
+}
+
+/**
+ * Units that cost nothing: the flagship with Navarch Feng, and units the
+ * Vuil'raith pay for by returning a captured unit of the type (Amalgamation).
+ */
+function freeUnitsDiscount(state: GameState, id: PlayerId, orders: ProductionOrder[]) {
+  const player = state.players[id];
+  let discount = 0;
+  const produced = (type: ProductionOrder["type"]) =>
+    orders.filter((o) => o.type === type).reduce((sum, o) => sum + o.count, 0);
+  if (produced("flagship") > 0 && hasCommander(state, id, "nomadcommander")) {
+    discount += unitOf(state, id, "flagship")?.cost ?? 0;
+  }
+  if (player.faction === "vulraith" && (player.captured ?? []).length > 0) {
+    for (const type of [...new Set(orders.map((o) => o.type))]) {
+      const unit = unitOf(state, id, type);
+      if (!unit?.cost) continue;
+      const returned = returnCaptured(state, id, type, produced(type));
+      // Units bought two at a time are worth half their cost each.
+      discount += Math.floor((returned * unit.cost) / unit.producedPerCost);
+    }
+  }
+  return discount;
+}
+
+/** Gives up to `count` captured units of a type back to their owners. */
+export function returnCaptured(state: GameState, id: PlayerId, type: ProductionOrder["type"], count: number) {
+  const player = state.players[id];
+  let returned = 0;
+  for (const capture of player.captured ?? []) {
+    if (capture.type !== type || returned >= count) continue;
+    const taken = Math.min(capture.count, count - returned);
+    capture.count -= taken;
+    returned += taken;
+  }
+  player.captured = (player.captured ?? []).filter((c) => c.count > 0);
+  if (returned > 0) {
+    log(state, `${player.name} returned ${returned} captured ${UNIT_NAMES[type]}.`, { player: id });
+  }
+  return returned;
 }

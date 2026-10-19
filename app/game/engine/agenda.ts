@@ -15,9 +15,11 @@ import { GameState } from "../types";
 import {
   adjacentSystems,
   controlledPlanets,
+  isDemilitarized,
   isHomeSystem,
   MECATOL_REX,
   planetInfluence,
+  planetResources,
   planetTechSpecialties,
   planetTraits,
   systemsWithShips,
@@ -28,6 +30,7 @@ import { checkVictory, gainControl, victoryPoints } from "./control";
 import { destroyUnits, placeCommandToken, placeUnits } from "./effects/helpers";
 import {
   activePlayers,
+  addUnits,
   ask,
   clockwiseFrom,
   countOf,
@@ -38,14 +41,18 @@ import {
   log,
   playerName,
   playerOf,
+  hasTech,
   plural,
+  removeUnits,
   rollDie,
   shuffle,
   tokensInReinforcements,
   unitTypes,
 } from "./helpers";
 import { isSilenced, openWindow, ownsAbility } from "./reactions";
-import { placeStructure } from "./strategic";
+import { askSecondaries, placeStructure } from "./strategic";
+import { hasCommander } from "./leaders";
+import { gainCommandTokens, gainRelic } from "./relics";
 import { startStrategyPhase } from "./phases";
 
 export const playerByName = (state: GameState, name: string | undefined) =>
@@ -78,6 +85,12 @@ function reveal(state: GameState) {
       return;
     }
     const data = agendasById[card];
+    if (card === "covert") {
+      // Covert Legislation: the players vote on the next agenda instead.
+      state.decks.agendas.discard.push(card);
+      log(state, "Covert Legislation: the speaker draws the agenda to be voted on.");
+      continue;
+    }
     const pointless =
       (NEEDS_LAWS.includes(card) && state.laws.length === 0) ||
       (card === "classified" &&
@@ -160,6 +173,7 @@ export function canVote(state: GameState, id: PlayerId) {
   const agenda = state.agenda;
   if (!agenda?.card) return false;
   if (state.players[id].eliminated) return false;
+  if (hasCommander(state, id, "xxchacommander")) return true;
   // Galactic Threat
   if (ownsAbility(state, id, "galactic_threat")) return false;
   if (isSilenced(state, id) || agenda.barred?.includes(id)) return false;
@@ -168,16 +182,20 @@ export function canVote(state: GameState, id: PlayerId) {
 }
 
 function askVotes(state: GameState) {
-  // Voting starts left of the speaker, who votes last.
+  // Voting starts left of the speaker, who votes last; Zeal puts the Argent first.
   const order = clockwiseFrom(state, state.speaker);
   const voters = [...order.slice(1), order[0]].filter((id) => canVote(state, id));
-  for (const id of [...voters].reverse()) {
+  const zealous = voters.filter((id) => ownsAbility(state, id, "zeal"));
+  const sequence = [...zealous, ...voters.filter((id) => !zealous.includes(id))];
+  for (const id of [...sequence].reverse()) {
     ask(state, [{ kind: "vote", player: id }]);
   }
+  // Genetic Recombination
+  openWindow(state, "beforeVote", { card: state.agenda?.card }, order);
 }
 
 const representativeGovernment = (state: GameState) =>
-  lawInForce(state, "representative_government");
+  lawInForce(state, "representative_government") || lawInForce(state, "rep_govt");
 
 export function castVotes(
   state: GameState,
@@ -185,6 +203,7 @@ export function castVotes(
   outcome: string | undefined,
   planets: string[],
   extraVotes = 0,
+  options: { predictive?: boolean; tradeGoods?: number } = {},
 ) {
   const agenda = state.agenda;
   ensure(agenda?.card, "There is no agenda to vote on.");
@@ -193,11 +212,17 @@ export function castVotes(
   agenda.voted.push(id);
 
   const representative = representativeGovernment(state);
+  const recombination = agenda.recombination?.find((r) => r.player === id);
   if (
     outcome === undefined ||
-    (!representative && planets.length === 0 && extraVotes === 0)
+    (!representative &&
+      planets.length === 0 &&
+      extraVotes === 0 &&
+      !options.predictive &&
+      !options.tradeGoods)
   ) {
     log(state, `${player.name} abstained.`, { player: id });
+    if (recombination) loseFleetToken(state, id, "Genetic Recombination");
     return;
   }
   const outcomes = agendaOutcomes(state, agenda.card);
@@ -219,12 +244,32 @@ export function castVotes(
     ensure(planets.length === 0, "Planets cannot be exhausted to vote under Representative Government.");
     votes += 1;
   }
+  // Elder Qanoj: each planet exhausted to vote gives 1 more vote.
+  const qanoj = hasCommander(state, id, "xxchacommander") ? 1 : 0;
   for (const name of planets) {
     const planet = state.planets[name];
     ensure(planet?.controller === id, `You do not control ${name}.`);
     ensure(!planet.exhausted, `${name} is already exhausted.`);
-    votes += planetInfluence(state, name);
+    votes += planetInfluence(state, name) + qanoj;
     planet.exhausted = true;
+  }
+  if (options.predictive) {
+    ensure(hasTech(state, id, "pi"), "You do not own Predictive Intelligence.");
+    ensure(!player.exhaustedTechnologies.includes("pi"), "Predictive Intelligence is exhausted.");
+    votes += 3;
+    (agenda.predictive ??= []).push(id);
+  }
+  const tradeGoods = options.tradeGoods ?? 0;
+  if (tradeGoods > 0) {
+    ensure(hasCommander(state, id, "hacancommander"), "You cannot spend trade goods for votes.");
+    ensure(Number.isInteger(tradeGoods) && tradeGoods <= player.tradeGoods, "You do not have that many trade goods.");
+    player.tradeGoods -= tradeGoods;
+    votes += 2 * tradeGoods;
+  }
+  // Zeal: 1 more vote for each player in the game.
+  if (votes > 0 && ownsAbility(state, id, "zeal")) votes += activePlayers(state).length;
+  if (recombination && !(outcome === recombination.outcome && votes > 0)) {
+    loseFleetToken(state, id, "Genetic Recombination");
   }
   agenda.votes.push({ player: id, outcome, votes });
   log(state, `${player.name} cast ${plural(votes, "vote")} for ${outcome}.`, {
@@ -246,10 +291,27 @@ export function addVotes(state: GameState, id: PlayerId, votes: number) {
 
 export function tallyVotes(state: GameState) {
   const totals = new Map<string, number>();
-  for (const vote of state.agenda?.votes ?? []) {
+  const votes = state.agenda?.votes ?? [];
+  for (const vote of votes) {
     totals.set(vote.outcome, (totals.get(vote.outcome) ?? 0) + vote.votes);
+    // Blood Pact: 4 more votes when the holder votes with the Empyrean.
+    const pacts = state.players[vote.player].promissoryNotesInPlay.filter((n) => n.id === "blood_pact");
+    for (const pact of pacts) {
+      if (votes.some((v) => v.player === pact.owner && v.outcome === vote.outcome && v.votes > 0)) {
+        totals.set(vote.outcome, totals.get(vote.outcome)! + 4);
+      }
+    }
   }
   return totals;
+}
+
+/** Returns a token from a player's fleet pool to their reinforcements. */
+function loseFleetToken(state: GameState, id: PlayerId, reason: string) {
+  const pools = state.players[id].pools;
+  if (pools.fleet <= 0) return;
+  pools.fleet--;
+  enforceFleetSupply(state, id);
+  log(state, `${reason}: ${playerName(state, id)} lost a token from their fleet pool.`, { player: id });
 }
 
 // --- Resolving --------------------------------------------------------------------
@@ -261,8 +323,13 @@ export function resolveAgenda(state: GameState, outcome: string) {
   const elected = playerByName(state, outcome);
   agenda.step = "elected";
   if (elected !== undefined && agendasById[agenda.card!].target === "player") {
-    // Confusing Legal Text
-    openWindow(state, "whenElected", { card: agenda.card, player: elected }, [elected]);
+    // Confusing Legal Text, Confounding Legal Text
+    openWindow(
+      state,
+      "whenElected",
+      { card: agenda.card, player: elected },
+      clockwiseFrom(state, state.speaker),
+    );
   }
 }
 
@@ -319,6 +386,11 @@ export function continueAgendaPhase(state: GameState): boolean {
     case "tie":
       return false;
     case "elected":
+      // Deadly Plot
+      agenda.step = "outcome";
+      openWindow(state, "whenOutcomeResolved", { card: agenda.card }, clockwiseFrom(state, state.speaker));
+      return true;
+    case "outcome":
       agenda.step = "done";
       applyOutcome(state);
       return true;
@@ -335,8 +407,14 @@ function finishAgenda(state: GameState) {
     reveal(state);
     return;
   }
+  // Checks and Balances (Against): each player readies only 3 planets.
+  const limit = state.readyLimit;
+  state.readyLimit = undefined;
   for (const id of state.seating) {
-    for (const planet of controlledPlanets(state, id)) planet.exhausted = false;
+    const exhausted = controlledPlanets(state, id)
+      .filter((p) => p.exhausted)
+      .sort((a, b) => planetInfluence(state, b.name) + planetResources(state, b.name) - planetInfluence(state, a.name) - planetResources(state, a.name));
+    for (const planet of exhausted.slice(0, limit ?? exhausted.length)) planet.exhausted = false;
   }
   state.agenda = undefined;
   state.executed = undefined;
@@ -356,7 +434,7 @@ export function discardLaw(state: GameState, law: string) {
   }
   // Cards that came with a victory point take it back.
   if (
-    (law === "shard_of_the_throne" || law === "crown_of_emphidia") &&
+    (law === "shard_of_the_throne" || law === "crown_of_emphidia" || law === "censure") &&
     removed.owner !== undefined
   ) {
     state.players[removed.owner].bonusVictoryPoints -= 1;
@@ -403,7 +481,26 @@ function applyOutcome(state: GameState) {
 
   OUTCOMES[card.id]?.(state, outcome);
   resolvePredictions(state, outcome);
+  afterOutcome(state, outcome);
   checkVictory(state);
+}
+
+/** Future Sight, and Predictive Intelligence exhausting when its outcome lost. */
+function afterOutcome(state: GameState, outcome: string) {
+  const agenda = state.agenda!;
+  for (const id of activePlayers(state)) {
+    const backed =
+      agenda.votes.some((v) => v.player === id && v.outcome === outcome && v.votes > 0) ||
+      !!agenda.predictions?.some((p) => p.player === id && p.outcome === outcome);
+    if (backed && ownsAbility(state, id, "future_sight")) {
+      state.players[id].tradeGoods++;
+      log(state, `Future Sight: ${playerName(state, id)} gained 1 trade good.`, { player: id });
+    }
+  }
+  for (const id of agenda.predictive ?? []) {
+    const vote = agenda.votes.find((v) => v.player === id);
+    if (vote?.outcome !== outcome) state.players[id].exhaustedTechnologies.push("pi");
+  }
 }
 
 const votersFor = (state: GameState, outcome: string) =>
@@ -434,7 +531,7 @@ function destroyBeyond(state: GameState, id: PlayerId, type: UnitType, keep: num
 
 function placeInfantryEverywhere(state: GameState, id: PlayerId) {
   for (const planet of controlledPlanets(state, id)) {
-    if (planet.attachments.includes("demilitarized_zone")) continue;
+    if (isDemilitarized(planet)) continue;
     placeUnits(state, id, "infantry", 1, { system: planet.system, planet: planet.name });
   }
 }
@@ -723,6 +820,90 @@ const OUTCOMES: Record<string, (state: GameState, outcome: string) => void> = {
       ];
     }
   },
+  rep_govt: (state, outcome) => OUTCOMES.representative_government(state, outcome),
+  standardization: (state, outcome) => {
+    const id = playerByName(state, outcome);
+    if (id === undefined) return;
+    const player = state.players[id];
+    const available =
+      player.pools.tactic + player.pools.fleet + player.pools.strategy + tokensInReinforcements(state, id);
+    const tactic = Math.min(3, available);
+    const fleet = Math.min(3, available - tactic);
+    player.pools = { tactic, fleet, strategy: Math.min(2, available - tactic - fleet) };
+    enforceFleetSupply(state, id);
+  },
+  articles_war: (state, outcome) => {
+    if (outcome !== "Against") return;
+    for (const id of votersFor(state, "For")) state.players[id].tradeGoods += 3;
+  },
+  checks: (state, outcome) => {
+    if (outcome === "Against") state.readyLimit = 3;
+  },
+  cladenstine: (state, outcome) => {
+    for (const id of everyone(state)) {
+      if (outcome === "For") {
+        loseCommandToken(state, id);
+        loseCommandToken(state, id);
+      } else {
+        loseFleetToken(state, id, "Clandestine Operations");
+      }
+    }
+  },
+  crisis: (state, outcome) => {
+    const card = state.strategyCards.find((c) => strategyCardsById[c].name === outcome);
+    if (!card) return;
+    const players = clockwiseFrom(state, state.speaker);
+    askSecondaries(state, state.speaker, card, players, players);
+  },
+  minister_antiquities: (state, outcome) => {
+    const id = playerByName(state, outcome);
+    if (id !== undefined) gainRelic(state, id);
+  },
+  nexus: (state, outcome) => {
+    if (outcome !== "Against") return;
+    const mecatol = state.planets[MECATOL_REX]?.system;
+    if (mecatol !== undefined) state.systems[mecatol].addedWormholes.push("GAMMA");
+  },
+  censure: (state, outcome) => gainCardPoint(state, outcome),
+  rearmament: (state, outcome) => {
+    for (const id of everyone(state)) {
+      if (outcome === "For") {
+        const home = controlledPlanets(state, id).find((p) => p.system === state.players[id].home);
+        if (home) placeUnits(state, id, "mech", 1, { system: home.system, planet: home.name });
+        continue;
+      }
+      for (const planet of Object.values(state.planets)) {
+        const mechs = countOf(planet.units[id], "mech");
+        if (mechs === 0) continue;
+        removeUnits(planet.units, id, "mech", mechs);
+        addUnits(planet.units, id, "infantry", mechs);
+      }
+      for (const system of Object.values(state.systems)) {
+        const mechs = countOf(system.space[id], "mech");
+        if (mechs === 0) continue;
+        removeUnits(system.space, id, "mech", mechs);
+        addUnits(system.space, id, "infantry", mechs);
+      }
+    }
+  },
+  grant_reallocation: (state, outcome) => {
+    const id = playerByName(state, outcome);
+    if (id === undefined) return;
+    ask(state, [
+      {
+        kind: "effect",
+        player: id,
+        reaction: { kind: "ability", id: "grant_reallocation" },
+        context: {},
+      },
+    ]);
+  },
+  warrant: (state, outcome) => {
+    const id = playerByName(state, outcome);
+    if (id === undefined) return;
+    drawSecretObjective(state, id);
+    drawSecretObjective(state, id);
+  },
   shard_of_the_throne: (state, outcome) => gainCardPoint(state, outcome),
   crown_of_emphidia: (state, outcome) => gainCardPoint(state, outcome),
 };
@@ -785,7 +966,7 @@ type Prediction = NonNullable<NonNullable<GameState["agenda"]>["predictions"]>[n
 const RIDER_REWARDS: Record<string, (state: GameState, id: PlayerId, prediction: Prediction) => void> = {
   "Construction Rider": (state, id, prediction) => {
     const planets = controlledPlanets(state, id).filter(
-      (p) => countOf(p.units[id], "spacedock") === 0 && !p.attachments.includes("demilitarized_zone"),
+      (p) => countOf(p.units[id], "spacedock") === 0 && !isDemilitarized(p),
     );
     const planet =
       planets.find((p) => p.name === prediction.planet) ??
@@ -813,6 +994,21 @@ const RIDER_REWARDS: Record<string, (state: GameState, id: PlayerId, prediction:
     log(state, `${playerName(state, id)} is now the speaker.`);
   },
   "Technology Rider": (state, id) => grantResearch(state, id, 1),
+  "Keleres Rider": (state, id) => {
+    drawActionCards(state, id, 1);
+    state.players[id].tradeGoods += 2;
+    log(state, `${playerName(state, id)} gained 2 trade goods.`, { player: id });
+  },
+  // Odlynn Myrr: a trade good and a command token for each player who did not back the prediction.
+  "Odlynn Myrr": (state, id, prediction) => {
+    const against = activePlayers(state).filter(
+      (other) =>
+        other !== id &&
+        !state.agenda!.votes.some((v) => v.player === other && v.outcome === prediction.outcome && v.votes > 0),
+    ).length;
+    state.players[id].tradeGoods += against;
+    gainCommandTokens(state, id, against);
+  },
   "Trade Rider": (state, id) => {
     state.players[id].tradeGoods += 5;
     log(state, `${playerName(state, id)} gained 5 trade goods.`, { player: id });

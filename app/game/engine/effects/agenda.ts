@@ -64,6 +64,11 @@ const rider = (name: string): Effect => ({
   },
 });
 
+/** The Keleres Rider promissory notes predict like a rider. */
+export const KELERES_RIDERS: Record<string, Effect> = Object.fromEntries(
+  ["rider", "ridera", "riderm", "riderx"].map((id) => [id, rider("Keleres Rider")]),
+);
+
 const ACTION_CARDS: Record<string, Effect> = {
   "Ancient Burial Sites": {
     windows: ["agendaStart"],

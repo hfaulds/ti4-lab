@@ -80,6 +80,7 @@ import {
   researchableTechnologies,
 } from "../engine/technology";
 import { botMove } from "../engine/testing";
+import { effectAnswers } from "../engine/reactions";
 import { componentPlays, reactions } from "./reactions";
 import {
   chasesPosition,
@@ -345,7 +346,12 @@ function answerPrompt(state: GameState, prompt: Prompt): GameAction[] {
         },
       ];
     case "announceRetreat":
-      return [...retreats(state, id, prompt), { type: "ANNOUNCE_RETREAT" }];
+      return [
+        ...retreats(state, id, prompt),
+        ...(prompt.required
+          ? prompt.options.map((to): GameAction => ({ type: "ANNOUNCE_RETREAT", to }))
+          : [{ type: "ANNOUNCE_RETREAT" } as GameAction]),
+      ];
     case "scoreObjectives":
       return scoringActions(state, id);
     case "redistribute":
@@ -378,6 +384,8 @@ function answerPrompt(state: GameState, prompt: Prompt): GameAction[] {
     }
     case "resolve":
       return [{ type: "RESOLVE", promptId: prompt.id }];
+    case "effect":
+      return effectAnswers(state, prompt);
     case "window":
       return [...reactions(state, prompt), { type: "PASS_WINDOW", promptId: prompt.id }];
     case "research": {
@@ -1410,7 +1418,10 @@ function primaryPayloads(
         );
       return [
         ...withShips.slice(0, 1).map((s) => ({ card: kind, removeFrom: s.key })),
-        { card: kind },
+        // Thunder's Edge Warfare is a tactical action: the home system will do.
+        ...(strategyCardsById[card]?.source === "te"
+          ? [{ card: kind, removeFrom: state.players[id].home }]
+          : [{ card: kind }]),
       ];
     }
     case "technology": {

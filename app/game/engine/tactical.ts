@@ -19,23 +19,30 @@ import {
 } from "../types";
 import {
   adjacentSystems,
+  anomaliesOf,
   capacityIn,
   findRoute,
   fleetProblem,
+  freeRiders,
   hasAnomaly,
+  isDemilitarized,
+  isLegendary,
   MECATOL_REX,
   moveRulesFor,
   nonFighterShips,
   otherShipOwners,
+  physicallyAdjacent,
   planetTraits,
+  MoveRules,
   retreatOptions,
-  riftsExited,
+  riftRolls,
   routeProblem,
   systemOf,
   WORMHOLE_NEXUS_ID,
   wormholesIn,
 } from "./board";
 import {
+  canSustain,
   combatFlag,
   naaluFightersLand,
   plasmaScoring,
@@ -44,9 +51,13 @@ import {
   rerollMisses,
   rollAbility,
   rollHits,
+  rollUnitAbility,
+  setCombatFlag,
   Shooters,
   shootersIn,
 } from "./combat";
+import { hasCommander, unlockCommander } from "./leaders";
+import { hasGroundForcesFor, holdsUnit, isGroundForceFor, unitIs } from "./units";
 import {
   activateNexus,
   checkElimination,
@@ -56,7 +67,7 @@ import {
   victoryPoints,
 } from "./control";
 import { achieve, destroyUnits, exhaustTech } from "./effects/helpers";
-import { pay, produce, productionCapacity } from "./economy";
+import { pay, produce, productionCapacity, productionOptions } from "./economy";
 import {
   afterAction,
   afterActivating,
@@ -64,9 +75,11 @@ import {
   gainTradeGoodsFrom,
 } from "./events";
 import { closeWindows, openWindow, ownsAbility } from "./reactions";
+import { breakDuress, endTurnNow } from "./phases";
 import {
   addUnits,
   ask,
+  galvanize,
   clockwiseFrom,
   countOf,
   ensure,
@@ -107,6 +120,8 @@ export function tacticalOf(state: GameState, id: PlayerId): TacticalAction {
  */
 export function moveBonus(state: GameState, id: PlayerId, from: SystemKey) {
   let bonus = state.tactical?.flags?.includes(`flank:${id}`) ? 1 : 0;
+  // Aetherstream
+  if (state.tactical?.flags?.includes(`aetherstream:${id}`)) bonus++;
   if (ownsAbility(state, id, "slipstream")) {
     const origin = systemOf(state, from);
     if (
@@ -123,11 +138,16 @@ export function activateSystem(
   state: GameState,
   id: PlayerId,
   key: SystemKey,
-  options: { free?: boolean } = {},
+  options: { free?: boolean; influence?: Payment } = {},
 ) {
   const player = playerOf(state, id);
   const system = state.systems[key];
   ensure(system, "That system is not on the board.");
+  // Artemiris: activating the Keleres flagship's system costs 2 influence.
+  const artemiris = Object.keys(system.space)
+    .map(Number)
+    .some((other) => other !== id && holdsUnit(state, other, system.space[other], "flagship", "keleres_flagship"));
+  if (artemiris) pay(state, id, options.influence, "influence", 2);
   // Chaos Mapping keeps others out of asteroid fields holding Saar ships.
   ensure(
     !hasAnomaly(system, "ASTEROID_FIELD") ||
@@ -136,6 +156,17 @@ export function activateSystem(
       ),
     "Chaos Mapping: you cannot activate that asteroid field.",
   );
+  // Il Na Viroset: activating a system with their own token returns both and ends the turn.
+  if (!options.free && system.commandTokens.includes(id) && hasCommander(state, id, "mahactcommander")) {
+    ensure(player.pools.tactic > 0, "Your tactic pool is empty.");
+    player.pools.tactic--;
+    system.commandTokens = system.commandTokens.filter((t) => t !== id);
+    log(state, `${player.name} returned their command tokens from ${describeSystem(state, key)} and ended their turn.`, {
+      player: id,
+    });
+    endTurnNow(state, id);
+    return;
+  }
   if (!options.free) {
     ensure(
       !system.commandTokens.includes(id),
@@ -146,6 +177,7 @@ export function activateSystem(
     system.commandTokens.push(id);
   }
 
+  breakDuress(state, id);
   state.tactical = {
     player: id,
     system: key,
@@ -153,7 +185,9 @@ export function activateSystem(
     invaded: [],
     resolved: [],
     bombarded: false,
+    notesFrom: player.promissoryNotesInPlay.map((note) => note.owner),
   };
+  state.lastActivated = key;
   log(state, `${player.name} activated ${describeSystem(state, key)}.`, {
     player: id,
   });
@@ -188,9 +222,12 @@ export function moveShips(
     moves.filter((m) => m.gravityDrive).length <= 1,
     "Gravity Drive applies to a single ship.",
   );
+  const dominus = !!tactical.flags?.includes(`dominus:${id}`);
+  let mendosa = !!tactical.flags?.includes(`mendosa:${id}`);
+  let tempesta = !!tactical.flags?.includes(`tempesta:${id}`);
 
   const visited = new Map<SystemKey, number>();
-  const planned: { move: ShipMove; path: SystemKey[] }[] = [];
+  const planned: { move: ShipMove; path: SystemKey[]; rules: MoveRules }[] = [];
 
   for (const move of moves) {
     const ships = entries(move.ships);
@@ -198,8 +235,11 @@ export function moveShips(
     ensure(move.from !== tactical.system, "Those ships are already there.");
     const origin = state.systems[move.from];
     ensure(origin, "Unknown system.");
+    const siven =
+      !!state.players[id].used?.includes("siven") &&
+      entries(move.ships).every(([type]) => type === "flagship");
     ensure(
-      !origin.commandTokens.includes(id),
+      !origin.commandTokens.includes(id) || dominus || siven,
       `Ships in ${describeSystem(state, move.from)} cannot move: you have a command token there.`,
     );
     if (move.gravityDrive) {
@@ -218,6 +258,21 @@ export function moveShips(
       );
       slowest = Math.min(slowest, unit.move + (move.gravityDrive ? 1 : 0));
       capacity += (unit.capacity ?? 0) * count;
+    }
+    // Gravleash Maneuvers: non-fighter ships keep pace with the fastest one.
+    if (readyOrPassiveBreakthrough(state, id, "letnevbt")) {
+      slowest = Math.max(
+        slowest,
+        ...ships.filter(([type]) => type !== "fighter").map(([type]) => unitOf(state, id, type)?.move ?? 0),
+      );
+    }
+    if (tempesta && sumCounts(move.ships) === 1) {
+      slowest += 1;
+      tempesta = false;
+    }
+    if (mendosa && sumCounts(move.ships) === 1) {
+      slowest = Math.max(slowest, fastestOnBoard(state));
+      mendosa = false;
     }
     slowest += moveBonus(state, id, move.from);
     const rules = moveRulesFor(state, id, tactical.system, {
@@ -240,7 +295,7 @@ export function moveShips(
       path = route.path;
     }
     for (const key of path) visited.set(key, (visited.get(key) ?? 0) + capacity);
-    planned.push({ move, path });
+    planned.push({ move, path, rules });
   }
 
   // Ships already in the active system can pick up units there too.
@@ -250,12 +305,14 @@ export function moveShips(
   );
 
   for (const pickup of cargo) {
-    const amount = sumCounts(pickup.units);
-    if (amount === 0) continue;
+    // Aerie Sentinels need no room.
+    const riders = freeRiders(state, id, { mech: { count: pickup.units.mech ?? 0, damaged: 0 } });
+    const amount = sumCounts(pickup.units) - riders;
+    if (sumCounts(pickup.units) === 0) continue;
     const source = state.systems[pickup.system];
     ensure(source, "Unknown system.");
     ensure(
-      pickup.system === tactical.system || !source.commandTokens.includes(id),
+      pickup.system === tactical.system || !source.commandTokens.includes(id) || dominus,
       `Units in ${describeSystem(state, pickup.system)} cannot be picked up: you have a command token there.`,
     );
     ensure(
@@ -283,9 +340,10 @@ export function moveShips(
 
   // Everything is validated against the board as it stood; now move it.
   let riftLosses = false;
-  for (const { move, path } of planned) {
-    const rifts = riftsExited(state, path);
+  for (const { move, path, rules } of planned) {
+    const rifts = riftRolls(state, path, rules);
     for (const [type, count] of entries(move.ships)) {
+      const galvanized = Math.min(count, state.systems[move.from].space[id]?.[type]?.galvanized ?? 0);
       const damaged = removeUnits(
         state.systems[move.from].space,
         id,
@@ -309,6 +367,7 @@ export function moveShips(
         }
       }
       addUnits(destination.space, id, type, survivors, survivingDamaged);
+      if (galvanized > 0) galvanize(destination.space[id], type, Math.min(galvanized, survivors));
     }
   }
 
@@ -322,10 +381,30 @@ export function moveShips(
     }
   }
 
+  if (planned.some(({ path }) => usesIonStorm(state, path))) flipIonStorm(state);
+  if (hasCommander(state, id, "ghostcommander")) {
+    const carriers = planned
+      .filter(({ path }) => path.some((key, i) => i > 0 && !physicallyAdjacent(state, path[i - 1], key)))
+      .reduce(
+        (sum, { move }) =>
+          sum +
+          entries(move.ships)
+            .filter(([type]) => (unitOf(state, id, type)?.capacity ?? 0) > 0)
+            .reduce((n, [, count]) => n + count, 0),
+        0,
+      );
+    const room = capacityIn(state, tactical.system, id) - totalUnits(destination.space[id], (t) => t === "fighter" || t === "infantry" || t === "mech");
+    const fighters = Math.min(carriers, Math.max(0, room), unitsAvailable(state, id, "fighter"));
+    if (fighters > 0) {
+      addUnits(destination.space, id, "fighter", fighters);
+      log(state, `Sai Seravus: ${player.name} placed ${plural(fighters, "fighter")}.`, { player: id });
+    }
+  }
   if (riftLosses) removeExcessCargo(state, tactical.system, id);
   // Fighters and ground forces left behind with nothing to carry them are
-  // returned to reinforcements (LRR 16.3).
-  for (const { move } of planned) removeExcessCargo(state, move.from, id);
+  // returned to reinforcements (LRR 16.3), as are fighters that fly on their
+  // own beyond the fleet pool.
+  for (const { move } of planned) removeExcessShips(state, move.from, id);
   const problem = fleetProblem(state, tactical.system, id);
   if (problem) fail(problem);
 
@@ -348,6 +427,45 @@ export function moveShips(
   if (moved > 0) afterMoving(state, id, tactical.system);
 }
 
+const readyOrPassiveBreakthrough = (state: GameState, id: PlayerId, breakthrough: string) =>
+  state.players[id].breakthrough?.unlocked === true && state.players[id].breakthrough?.id === breakthrough;
+
+/** The highest move value among ships on the board. */
+function fastestOnBoard(state: GameState) {
+  let fastest = 0;
+  for (const system of Object.values(state.systems)) {
+    for (const owner of Object.keys(system.space).map(Number)) {
+      for (const type of unitTypes(system.space[owner])) {
+        fastest = Math.max(fastest, unitOf(state, owner, type)?.move ?? 0);
+      }
+    }
+  }
+  return fastest;
+}
+
+/** Whether a path moves through the ion storm's wormhole. */
+function usesIonStorm(state: GameState, path: SystemKey[]) {
+  const storm = state.ionStorm?.system;
+  if (storm === undefined) return false;
+  return path.some(
+    (key, i) =>
+      i > 0 &&
+      (key === storm || path[i - 1] === storm) &&
+      !physicallyAdjacent(state, path[i - 1], key),
+  );
+}
+
+export function flipIonStorm(state: GameState) {
+  const storm = state.ionStorm;
+  if (!storm) return;
+  const system = systemOf(state, storm.system);
+  const next = storm.side === "ALPHA" ? "BETA" : "ALPHA";
+  system.addedWormholes = system.addedWormholes.filter((w) => w !== storm.side);
+  system.addedWormholes.push(next);
+  storm.side = next;
+  log(state, `The ion storm flipped to its ${next.toLowerCase()} side.`);
+}
+
 // --- Hits -------------------------------------------------------------------
 
 type HitsPrompt = Extract<NewPrompt, { kind: "assignHits" }>;
@@ -363,6 +481,12 @@ export function queueHits(state: GameState, prompts: HitsPrompt[]) {
   const queued = state.prompts.slice(0, asked.length);
   for (const prompt of queued) {
     if (prompt.kind !== "assignHits") continue;
+    openWindow(state, "beforeHits", {
+      player: prompt.player,
+      system: prompt.system,
+      ref: prompt.id,
+      amount: prompt.hits,
+    });
     const window: WindowId | undefined =
       prompt.source === "spaceCannonOffense" || prompt.source === "spaceCannonDefense"
         ? "beforeSpaceCannonHits"
@@ -420,12 +544,13 @@ function startSpaceCannonOffense(state: GameState) {
   for (const id of clockwiseFrom(state, active)) {
     const shooters = spaceCannonOffenseShooters(state, id, tactical.system);
     if (shooters.length === 0) continue;
-    const targets =
+    const targets = (
       id === active
         ? otherShipOwners(system, active)
         : hasShips(system.space[active])
           ? [active]
-          : [];
+          : []
+    ).filter((target) => !cannonProof(state, target, tactical.system));
     if (targets.length === 0) continue;
     // With several fleets present the active player fires on the largest.
     const target = [...targets].sort(
@@ -469,7 +594,7 @@ export function fireSpaceCannon(
   }
   // Antimass Deflectors make the target harder to hit.
   const modifier = hasTech(state, prompt.target, "amd") ? -1 : 0;
-  const { rolls, hits } = rollAbility(state, id, shooters, "spaceCannon", {
+  const { rolls, hits } = rollUnitAbility(state, id, shooters, "spaceCannon", {
     modifier,
     bonusDice: plasmaScoring(state, id),
   });
@@ -491,6 +616,10 @@ export function fireSpaceCannon(
     },
   ]);
 }
+
+/** Quetzecoatl: other players cannot use SPACE CANNON against the Argent's ships here. */
+const cannonProof = (state: GameState, target: PlayerId, key: SystemKey) =>
+  holdsUnit(state, target, systemOf(state, key).space[target], "flagship", "argent_flagship");
 
 // --- Combat rolls -------------------------------------------------------------
 
@@ -525,6 +654,55 @@ function combatModifier(
   if (type === "fighter" && state.laws.some((l) => l.id === "prophecy" && l.owner === id)) {
     modifier += 1;
   }
+  const opponent = opponentIn(combat as SpaceCombat, id);
+  // Arvicon Rex
+  if (
+    type === "flagship" &&
+    unitIs(state, id, "flagship", "mahact_flagship") &&
+    !(state.players[id].edictTokens ?? []).includes(opponent)
+  ) {
+    modifier += 2;
+  }
+  // Iconoclast
+  if (
+    type === "mech" &&
+    unitIs(state, id, "mech", "naalu_mech") &&
+    state.players[opponent].relicFragments.length > 0
+  ) {
+    modifier += 2;
+  }
+  // Shield Paling: Jol-Nar infantry beside their mech ignore Fragile.
+  const ground = tactical.groundCombat;
+  if (
+    !space &&
+    type === "infantry" &&
+    ground &&
+    state.players[id].faction === "jolnar" &&
+    holdsUnit(state, id, state.planets[ground.planet].units[id], "mech", "jolnar_mech")
+  ) {
+    modifier += 1;
+  }
+  // The Egeiro: +1 for each non-home system with a planet the Bastion control.
+  if (type === "flagship" && unitIs(state, id, "flagship", "bastion_flagship")) {
+    modifier += new Set(
+      Object.values(state.planets)
+        .filter((p) => p.controller === id && state.systems[p.system]?.homeOf === undefined)
+        .map((p) => p.system),
+    ).size;
+  }
+  // Imperator: +1 for each Support for the Throne in the opponent's play area.
+  if (state.players[id].breakthrough?.unlocked && state.players[id].breakthrough?.id === "winnubt") {
+    modifier += state.players[opponent].promissoryNotesInPlay.filter((n) => n.id === "sftt").length;
+  }
+  // Rickar Rickani
+  if (
+    hasCommander(state, id, "winnucommander") &&
+    (system.planets.includes(MECATOL_REX) ||
+      system.homeOf === id ||
+      system.planets.some((p) => isLegendary(state, p)))
+  ) {
+    modifier += 2;
+  }
   return modifier;
 }
 
@@ -540,14 +718,71 @@ function rollCombatDice(
   const tactical = state.tactical!;
   const opponent = opponentIn(combat as SpaceCombat, id);
   const shooters = shootersIn(state, id, group, "combat", filter);
-  return rollAbility(state, id, shooters, "combat", {
+  const system = systemOf(state, tactical.system);
+  // The Cavalry: one ship fights as the Nomad's flagship.
+  const cavalry = space ? cavalryShip(state, id, combat, group) : undefined;
+  const extra: CombatRoll[] = [];
+  if (cavalry) {
+    const shooter = shooters.find((s) => s.type === cavalry.type);
+    if (shooter) shooter.count--;
+    extra.push(
+      memoriaRoll(state, id, cavalry.type, cavalry.memoria.combat!, cavalry.memoria.combatDice ?? 1,
+        combatModifier(state, id, cavalry.type, combat, space)),
+    );
+  }
+  // Visz El Vir: Naaz-Rokha mechs in its system roll an extra die.
+  const vizsElVir = holdsUnit(state, id, system.space[id], "flagship", "naaz_flagship");
+  const rolls = rollAbility(state, id, shooters.filter((s) => s.count > 0), "combat", {
     unitModifier: (type) => combatModifier(state, id, type, combat, space),
-    diceFor: (type) =>
+    diceFor: (type) => {
       // Salai Sai Corian rolls a die per enemy non-fighter ship.
-      type === "flagship" && unitOf(state, id, type)?.id === "winnu_flagship"
-        ? nonFighterShips(state, tactical.system, opponent)
-        : undefined,
+      if (type === "flagship" && unitOf(state, id, type)?.id === "winnu_flagship") {
+        return nonFighterShips(state, tactical.system, opponent);
+      }
+      if (type === "mech" && vizsElVir) return (unitOf(state, id, type)?.combatDice ?? 1) + 1;
+      return undefined;
+    },
+    extraDice: (type) =>
+      (combat.flags ?? []).filter((flag) => flag === `r.die@${type}:${id}`).length +
+      (group?.[type]?.galvanized ?? 0),
   }).rolls;
+  return [...rolls, ...extra];
+}
+
+/** The ship The Cavalry turns into the Nomad's flagship, and that flagship. */
+function cavalryShip(
+  state: GameState,
+  id: PlayerId,
+  combat: CombatEffects,
+  group: UnitGroup | undefined,
+) {
+  const flag = combat.flags?.find((f) => f.startsWith("cavalry@") && f.endsWith(`:${id}`));
+  if (!flag) return undefined;
+  const type = flag.slice("cavalry@".length, flag.lastIndexOf(":")) as UnitType;
+  const nomad = state.seating.find((p) => state.players[p].faction === "nomad");
+  const memoria = nomad !== undefined ? unitOf(state, nomad, "flagship") : undefined;
+  if (!memoria?.combat || countOf(group, type) === 0) return undefined;
+  return { type, memoria };
+}
+
+function memoriaRoll(
+  state: GameState,
+  id: PlayerId,
+  unit: UnitType,
+  target: number,
+  dice: number,
+  modifier: number,
+): CombatRoll {
+  const roll: CombatRoll = {
+    player: id,
+    unit,
+    target,
+    dice: Array.from({ length: dice }, () => rollDie(state)),
+    hits: 0,
+    modifier,
+  };
+  roll.hits = rollHits(state, roll);
+  return roll;
 }
 
 // --- Space combat -----------------------------------------------------------
@@ -596,6 +831,16 @@ function startSpaceCombat(state: GameState) {
     round: 1,
     stage: "start",
   };
+  for (const id of [attacker, opponents[0]]) {
+    // Eidolon flips to Z-Grav Eidolon and fights as a ship.
+    if (holdsUnit(state, id, system.space[id], "mech", "naaz_mech")) {
+      setCombatFlag(tactical.spaceCombat, "zgrav", id);
+    }
+    // Rickar Rickani unlocks on entering a combat at Mecatol Rex.
+    if (system.planets.includes(MECATOL_REX) && state.players[id].faction === "winnu") {
+      unlockCommander(state, id);
+    }
+  }
   log(
     state,
     `Space combat: ${playerName(state, attacker)} attacks ${playerName(state, opponents[0])} in ${describeSystem(state, tactical.system)}.`,
@@ -661,6 +906,15 @@ function endSpaceCombat(state: GameState) {
       : "The space combat ended with no winner.",
   );
   tactical.spaceCombat = undefined;
+  // Demonstrate Your Power
+  for (const id of [combat.attacker, combat.defender]) {
+    if (nonFighterShips(state, tactical.system, id) >= 3) achieve(state, id, "dyp");
+  }
+  openWindow(state, "combatEnd", {
+    system: tactical.system,
+    player: combat.attacker,
+    players: [combat.attacker, combat.defender],
+  });
 
   for (const id of [combat.attacker, combat.defender]) {
     // Salvage Operations
@@ -700,8 +954,30 @@ const destroyedCounts = (combat: CombatEffects): UnitCounts => {
   return counts;
 };
 
-/** What winning any combat brings: Spark a Rebellion, Shard of the Throne. */
+/** What winning any combat brings: objectives, Edict, the Shard of the Throne. */
 function afterCombatWon(state: GameState, winner: PlayerId, loser: PlayerId) {
+  const tactical = state.tactical;
+  if (tactical) {
+    const system = systemOf(state, tactical.system);
+    // Brave the Void, Darken the Skies, Betray a Friend
+    if (anomaliesOf(system).length > 0) achieve(state, winner, "btv");
+    if (system.homeOf !== undefined && system.homeOf !== winner) achieve(state, winner, "dts");
+    if (tactical.player === winner && tactical.notesFrom?.includes(loser)) {
+      achieve(state, winner, "baf");
+    }
+  }
+  // Edict: a token from the loser's reinforcements joins the Mahact fleet pool.
+  const mahact = state.players[winner];
+  if (
+    ownsAbility(state, winner, "edict") &&
+    !(mahact.edictTokens ?? []).includes(loser) &&
+    tokensInReinforcements(state, loser) > 0
+  ) {
+    (mahact.edictTokens ??= []).push(loser);
+    log(state, `Edict: ${mahact.name} placed a command token of ${playerName(state, loser)} in their fleet pool.`, {
+      player: winner,
+    });
+  }
   const loserPoints = victoryPoints(state, loser);
   if (
     state.seating.every(
@@ -757,6 +1033,11 @@ function continueSpaceCombat(state: GameState) {
       }
       queueHits(state, prompts);
       openCombatWindow(state, "combatStart", combat);
+      // Waylay
+      for (const id of sides) {
+        if (shootersIn(state, id, system.space[id], "afb").length === 0) continue;
+        openWindow(state, "beforeAfb", { system: tactical.system, player: opponentOf(id) }, [id]);
+      }
       return;
     }
     case "afb": {
@@ -766,19 +1047,7 @@ function continueSpaceCombat(state: GameState) {
         return;
       }
       // Anti-fighter barrage, first round only.
-      for (const id of sides) {
-        const shooters = shootersIn(state, id, system.space[id], "afb");
-        if (shooters.length === 0) continue;
-        const { rolls, hits } = rollAbility(state, id, shooters, "afb");
-        const target = opponentOf(id);
-        const lost = Math.min(hits, countOf(system.space[target], "fighter"));
-        log(
-          state,
-          `${playerName(state, id)} anti-fighter barrage: ${plural(hits, "hit")}, ${plural(lost, "fighter")} destroyed.`,
-          { player: id, rolls },
-        );
-        if (lost > 0) destroyUnits(state, target, { system: tactical.system }, "fighter", lost, id);
-      }
+      for (const id of sides) antiFighterBarrage(state, id, opponentOf(id));
       if (spaceCombatOver(state)) endSpaceCombat(state);
       return;
     }
@@ -803,8 +1072,16 @@ function continueSpaceCombat(state: GameState) {
         endSpaceCombat(state);
         return;
       }
+      if (!combatFlag(combat, "r.announcing", combat.defender)) {
+        setCombatFlag(combat, "r.announcing", combat.defender);
+        if (openCombatWindowFor(state, "announceRetreats", combat, combat.defender)) return;
+      }
       combat.stage = "roll";
       combat.retreat = undefined;
+      if (combatFlag(combat, "r.rout", combat.defender)) {
+        askAttackerToRetreat(state, true);
+        return;
+      }
       const options = retreatOptions(state, tactical.system, combat.defender);
       if (options.length > 0) {
         ask(state, [
@@ -825,7 +1102,9 @@ function continueSpaceCombat(state: GameState) {
       for (const id of sides) {
         const fights = combatFlag(combat, "alastor", id)
           ? (type: UnitType) => isShip(type) || isGroundForce(type)
-          : isShip;
+          : combatFlag(combat, "zgrav", id)
+            ? (type: UnitType) => isShip(type) || type === "mech"
+            : isShip;
         const own = rollCombatDice(state, id, system.space[id], fights, combat, true);
         // Munitions Reserves
         if (combatFlag(combat, "r.munitions", id)) {
@@ -903,6 +1182,92 @@ function continueSpaceCombat(state: GameState) {
   }
 }
 
+/** One side's anti-fighter barrage, with Waylay, Raid Formation and Strike Wing Alpha II. */
+function antiFighterBarrage(state: GameState, id: PlayerId, target: PlayerId) {
+  const tactical = state.tactical!;
+  const combat = tactical.spaceCombat!;
+  const system = systemOf(state, tactical.system);
+  const shooters = shootersIn(state, id, system.space[id], "afb");
+  const cavalry = cavalryShip(state, id, combat, system.space[id]);
+  const armaments = state.players[id].relics.includes("metalivoidarmaments");
+  if (shooters.length === 0 && !cavalry?.memoria.afb && !armaments) return;
+  const barrage = rollUnitAbility(state, id, shooters, "afb");
+  if (cavalry?.memoria.afb) {
+    barrage.rolls.push(memoriaRoll(state, id, cavalry.type, cavalry.memoria.afb, cavalry.memoria.afbDice ?? 1, 0));
+    barrage.hits = barrage.rolls.reduce((sum, r) => sum + r.hits, 0);
+  }
+  if (state.players[id].relics.includes("metalivoidarmaments")) {
+    barrage.rolls.push(memoriaRoll(state, id, "fighter", 6, 3, 0));
+    barrage.hits = barrage.rolls.reduce((sum, r) => sum + r.hits, 0);
+  }
+  const { rolls, hits } = barrage;
+  const where = { system: tactical.system };
+  if (combatFlag(combat, "waylay", id)) {
+    log(
+      state,
+      `${playerName(state, id)} anti-fighter barrage: ${plural(hits, "hit")} against any ships (Waylay).`,
+      { player: id, rolls },
+    );
+    queueHits(state, [
+      {
+        kind: "assignHits",
+        player: target,
+        hits,
+        source: "barrageAllShips",
+        system: tactical.system,
+        from: id,
+      },
+    ]);
+  } else {
+    const fighters = countOf(system.space[target], "fighter");
+    const lost = Math.min(hits, fighters);
+    log(
+      state,
+      `${playerName(state, id)} anti-fighter barrage: ${plural(hits, "hit")}, ${plural(lost, "fighter")} destroyed.`,
+      { player: id, rolls },
+    );
+    if (lost > 0) destroyUnits(state, target, where, "fighter", lost, id);
+    // Fight with Precision
+    if (fighters > 0 && lost === fighters) achieve(state, id, "fwp");
+    if (hits > lost && ownsAbility(state, id, "raid_formation")) {
+      raidFormation(state, target, hits - lost);
+    }
+  }
+  // Strike Wing Alpha II: each 9 or 10 also destroys an infantry in space.
+  if (unitIs(state, id, "destroyer", "argent_destroyer2")) {
+    const nines = rolls
+      .filter((r) => r.unit === "destroyer")
+      .reduce((n, r) => n + r.dice.filter((d) => d >= 9).length, 0);
+    const infantry = Math.min(nines, countOf(system.space[target], "infantry"));
+    if (infantry > 0) destroyUnits(state, target, where, "infantry", infantry, id);
+  }
+}
+
+/**
+ * Raid Formation: barrage hits beyond the opponent's fighters damage their
+ * ships that have SUSTAIN DAMAGE. The Argent would choose; the engine takes
+ * the most expensive ships first.
+ */
+function raidFormation(state: GameState, target: PlayerId, hits: number) {
+  const key = state.tactical!.system;
+  const group = systemOf(state, key).space[target];
+  const cost = (type: UnitType) => unitOf(state, target, type)?.cost ?? 0;
+  let remaining = hits;
+  let damaged = 0;
+  for (const type of unitTypes(group).sort((a, b) => cost(b) - cost(a))) {
+    if (!isShip(type) || !canSustain(state, target, type, key)) continue;
+    const stack = group![type]!;
+    while (remaining > 0 && stack.damaged < stack.count) {
+      stack.damaged++;
+      remaining--;
+      damaged++;
+    }
+  }
+  if (damaged > 0) {
+    log(state, `Raid Formation damaged ${plural(damaged, "ship")} of ${playerName(state, target)}.`);
+  }
+}
+
 /**
  * Duranium Armor: after hits are assigned, repair 1 unit that was already
  * damaged before this round, the most expensive first.
@@ -925,7 +1290,7 @@ function duraniumArmor(state: GameState, id: PlayerId, damagedBefore: UnitType[]
   });
 }
 
-function askAttackerToRetreat(state: GameState) {
+function askAttackerToRetreat(state: GameState, required = false) {
   const tactical = state.tactical!;
   const combat = tactical.spaceCombat!;
   const options = retreatOptions(state, tactical.system, combat.attacker);
@@ -936,8 +1301,24 @@ function askAttackerToRetreat(state: GameState) {
       player: combat.attacker,
       system: tactical.system,
       options,
+      required: required || undefined,
     },
   ]);
+}
+
+/** Opens a combat window for one side only. Returns whether anyone was asked. */
+function openCombatWindowFor(
+  state: GameState,
+  window: WindowId,
+  combat: { attacker: PlayerId; defender: PlayerId },
+  id: PlayerId,
+) {
+  return openWindow(
+    state,
+    window,
+    { system: state.tactical!.system, player: opponentIn(combat, id) },
+    [id],
+  );
 }
 
 export function announceRetreat(
@@ -945,9 +1326,11 @@ export function announceRetreat(
   id: PlayerId,
   options: SystemKey[],
   to?: SystemKey,
+  required = false,
 ) {
   const combat = state.tactical?.spaceCombat;
   ensure(combat, "There is no space combat.");
+  ensure(!required || to !== undefined, "Rout: you must announce a retreat.");
   if (to === undefined) {
     // The attacker may only retreat if the defender chose not to.
     if (id === combat.defender) askAttackerToRetreat(state);
@@ -1016,6 +1399,17 @@ export function executeRetreat(
     `${playerName(state, id)} retreated to ${describeSystem(state, to)}.`,
     { player: id },
   );
+  if (holdsUnit(state, id, target.space[id], "flagship", "ralnel_flagship")) {
+    for (const other of Object.keys(from.space).map(Number)) {
+      const victim = unitTypes(from.space[other]).find(
+        (type) => isShip(type) && !unitOf(state, other, type)?.sustainDamage,
+      );
+      if (victim) {
+        destroyUnits(state, other, { system: from.key }, victim, 1, id);
+        break;
+      }
+    }
+  }
   // Joining ships already there, or losing a fleet token to the command
   // token, can leave more ships than the fleet pool supports.
   removeExcessShips(state, to, id);
@@ -1023,12 +1417,19 @@ export function executeRetreat(
 
 // --- Invasion ---------------------------------------------------------------
 
-/** Ground forces, and Naalu fighters committed to a planet, that fight there. */
-const fightsOnPlanet = (group: UnitGroup | undefined) =>
-  hasGroundForces(group) || countOf(group, "fighter") > 0;
+/**
+ * Ground forces, Titans PDS and Naalu fighters committed to a planet: the
+ * units that fight there.
+ */
+const fightsOnPlanet = (state: GameState, id: PlayerId, group: UnitGroup | undefined) =>
+  hasGroundForcesFor(state, id, group) || countOf(group, "fighter") > 0;
 
-const groundForceOwners = (state: GameState, planet: string) =>
-  playersWith(state.planets[planet].units, fightsOnPlanet);
+const groundForceOwners = (state: GameState, planet: string) => {
+  const units = state.planets[planet].units;
+  return Object.keys(units)
+    .map(Number)
+    .filter((owner) => fightsOnPlanet(state, owner, units[owner]));
+};
 
 const tacticalFlagged = (state: GameState, flag: string, id: PlayerId) =>
   !!state.tactical?.flags?.includes(`${flag}:${id}`);
@@ -1042,6 +1443,8 @@ function isShielded(state: GameState, planet: string, attacker: PlayerId) {
     return unit?.disablesPlanetaryShield || unit?.id === "letnev_flagship";
   });
   if (ignoresShields) return false;
+  // 2RAM
+  if (hasCommander(state, attacker, "l1z1xcommander")) return false;
   // Disable: PDS lose PLANETARY SHIELD for this invasion.
   const disabled = tacticalFlagged(state, "disable", attacker);
   return Object.keys(target.units)
@@ -1070,12 +1473,29 @@ export function bombardmentTargets(state: GameState, id: PlayerId) {
   );
 }
 
+/**
+ * Units that can bombard in the active system: ships in space, and Annihilator
+ * mechs on its planets, which bombard as if they were ships.
+ */
+export function bombarders(state: GameState, id: PlayerId, key: SystemKey): UnitGroup {
+  const system = systemOf(state, key);
+  const group: UnitGroup = { ...system.space[id] };
+  if (unitIs(state, id, "mech", "l1z1x_mech")) {
+    const mechs = system.planets.reduce(
+      (sum, p) => sum + countOf(state.planets[p].units[id], "mech"),
+      countOf(system.space[id], "mech"),
+    );
+    if (mechs > 0) group.mech = { count: mechs, damaged: 0 };
+  }
+  return group;
+}
+
 const canBombard = (state: GameState) => {
   const tactical = state.tactical!;
   const id = tactical.player;
   return (
-    shootersIn(state, id, systemOf(state, tactical.system).space[id], "bombardment")
-      .length > 0 && bombardmentTargets(state, id).length > 0
+    shootersIn(state, id, bombarders(state, id, tactical.system), "bombardment").length > 0 &&
+    bombardmentTargets(state, id).length > 0
   );
 };
 
@@ -1099,7 +1519,7 @@ export function bombard(
 ) {
   const tactical = tacticalOf(state, id);
   ensure(tactical.step === "bombardment", "It is not the bombardment step.");
-  const system = systemOf(state, tactical.system);
+  const available = bombarders(state, id, tactical.system);
   const allowed = bombardmentTargets(state, id);
   const chosen = targets.filter((t) => t.count > 0);
 
@@ -1115,7 +1535,7 @@ export function bombard(
     );
     used[target.unit] = (used[target.unit] ?? 0) + target.count;
     ensure(
-      used[target.unit]! <= countOf(system.space[id], target.unit),
+      used[target.unit]! <= countOf(available, target.unit),
       `You do not have that many ${UNIT_NAMES[target.unit]} there.`,
     );
   }
@@ -1134,7 +1554,7 @@ export function bombard(
       tacticalFlagged(state, "bunker", state.planets[planet].controller!)
         ? -4
         : 0;
-    const { rolls, hits } = rollAbility(state, id, shooters, "bombardment", {
+    const { rolls, hits } = rollUnitAbility(state, id, shooters, "bombardment", {
       bonusDice: bonus,
       modifier,
     });
@@ -1180,6 +1600,7 @@ export function commitGroundForces(
   id: PlayerId,
   landings: { planet: string; units: UnitCounts }[],
   custodians?: Payment,
+  influence?: Payment,
 ) {
   const tactical = tacticalOf(state, id);
   ensure(tactical.step === "commit", "It is not time to commit ground forces.");
@@ -1192,7 +1613,7 @@ export function commitGroundForces(
   for (const { planet, units } of chosen) {
     ensure(system.planets.includes(planet), `${planet} is not in that system.`);
     ensure(
-      !state.planets[planet].attachments.includes("demilitarized_zone"),
+      !isDemilitarized(state.planets[planet]),
       `${planet} is a demilitarized zone.`,
     );
     for (const [type, count] of entries(units)) {
@@ -1207,6 +1628,15 @@ export function commitGroundForces(
       );
     }
   }
+
+  // Omniopiares: landing beside a Keleres mech costs 1 influence a planet.
+  const guarded = chosen.filter((l) => {
+    const units = state.planets[l.planet].units;
+    return Object.keys(units)
+      .map(Number)
+      .some((other) => other !== id && holdsUnit(state, other, units[other], "mech", "keleres_mech"));
+  }).length;
+  if (guarded > 0) pay(state, id, influence, "influence", guarded);
 
   const landsOnMecatol = chosen.some((l) => l.planet === MECATOL_REX);
   if (landsOnMecatol && state.custodians) {
@@ -1226,8 +1656,10 @@ export function commitGroundForces(
 
   for (const { planet, units } of chosen) {
     for (const [type, count] of entries(units)) {
+      const galvanized = Math.min(count, system.space[id]?.[type]?.galvanized ?? 0);
       const damaged = removeUnits(system.space, id, type, count, false);
       addUnits(state.planets[planet].units, id, type, count, damaged);
+      if (galvanized > 0) galvanize(state.planets[planet].units[id], type, galvanized);
     }
     log(
       state,
@@ -1260,7 +1692,7 @@ function startSpaceCannonDefense(state: GameState) {
   const prompts: NewPrompt[] = [];
   for (const planet of tactical.invaded) {
     const units = state.planets[planet].units;
-    if (!fightsOnPlanet(units[id])) continue;
+    if (!fightsOnPlanet(state, id, units[id])) continue;
     for (const owner of Object.keys(units).map(Number)) {
       if (owner === id) continue;
       const shooters = shootersIn(state, owner, units[owner], "spaceCannon").filter(
@@ -1317,7 +1749,7 @@ function continueGroundCombat(state: GameState) {
   const units = state.planets[combat.planet].units;
   const sides = [combat.attacker, combat.defender];
   const opponentOf = (id: PlayerId) => opponentIn(combat, id);
-  const over = () => sides.some((id) => !fightsOnPlanet(units[id]));
+  const over = () => sides.some((id) => !fightsOnPlanet(state, id, units[id]));
   const context = { planet: combat.planet };
 
   switch (combat.stage) {
@@ -1349,7 +1781,7 @@ function continueGroundCombat(state: GameState) {
             state,
             id,
             units[id],
-            (type) => isGroundForce(type) || (fighters && type === "fighter"),
+            (type) => isGroundForceFor(state, id, type) || (fighters && type === "fighter"),
             combat,
             false,
           ),
@@ -1410,7 +1842,7 @@ function continueGroundCombat(state: GameState) {
   }
 
   // The combat is over.
-  const winner = sides.find((id) => fightsOnPlanet(units[id]));
+  const winner = sides.find((id) => fightsOnPlanet(state, id, units[id]));
   log(
     state,
     winner !== undefined
@@ -1419,6 +1851,12 @@ function continueGroundCombat(state: GameState) {
   );
   tactical.groundCombat = undefined;
   closeWindows(state, COMBAT_WINDOWS);
+  openWindow(state, "combatEnd", {
+    system: tactical.system,
+    planet: combat.planet,
+    player: combat.attacker,
+    players: [combat.attacker, combat.defender],
+  });
   if (winner !== undefined) {
     afterCombatWon(state, winner, opponentOf(winner));
     if (state.phase === "finished") return;
@@ -1454,7 +1892,7 @@ function harrow(state: GameState, combat: GroundCombat) {
       "bombardment",
     );
     if (shooters.length === 0) continue;
-    const { rolls, hits } = rollAbility(state, id, shooters, "bombardment");
+    const { rolls, hits } = rollUnitAbility(state, id, shooters, "bombardment");
     log(state, `Harrow: ${playerName(state, id)} bombarded ${combat.planet}: ${plural(hits, "hit")}.`, {
       player: id,
       rolls,
@@ -1485,9 +1923,12 @@ function establishControl(state: GameState) {
       removeUnits(planet.units, id, "fighter", fighters);
       addUnits(system.space, id, "fighter", fighters);
     }
-    const owners = playersWith(planet.units, hasGroundForces);
-    if (owners.includes(id) && owners.every((owner) => owner === id)) {
+    const owners = Object.keys(planet.units)
+      .map(Number)
+      .filter((owner) => hasGroundForcesFor(state, owner, planet.units[owner]));
+    if (owners.includes(id) && owners.every((owner) => owner === id) && planet.controller !== id) {
       gainControl(state, id, name);
+      (tactical.gained ??= []).push(name);
     }
     for (const owner of Object.keys(planet.units).map(Number)) {
       checkElimination(state, owner);
@@ -1503,7 +1944,9 @@ function startProduction(state: GameState) {
   tactical.step = "production";
   if (productionCapacity(state, tactical.system, tactical.player) === 0) {
     finishTactical(state);
+    return;
   }
+  openWindow(state, "productionStart", { system: tactical.system, player: tactical.player });
 }
 
 export function produceUnits(
@@ -1515,7 +1958,7 @@ export function produceUnits(
   const tactical = tacticalOf(state, id);
   ensure(tactical.step === "production", "It is not the production step.");
   if (units.some((u) => u.count > 0)) {
-    produce(state, id, tactical.system, units, payment);
+    produce(state, id, tactical.system, units, payment, productionOptions(state, id));
   }
   finishTactical(state);
 }
@@ -1540,6 +1983,7 @@ function finishTactical(state: GameState) {
     }
     log(state, `Reclamation: ${player.name} built on Mecatol Rex.`, { player: id });
   }
+  openWindow(state, "afterTacticalAction", { player: id, system: tactical.system });
   afterAction(state, id);
   // Dark Energy Tap
   if (

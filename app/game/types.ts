@@ -1,5 +1,6 @@
 import { FactionId, Map as TiMap, PlayerId, Wormhole } from "~/types";
 import { Expansion, UnitCounts, UnitType } from "./data/types";
+import type { StrategicPayload } from "./actions";
 
 export type { Expansion, UnitCounts, UnitType };
 
@@ -8,7 +9,12 @@ export type GameOptions = {
   victoryPoints: number;
 };
 
-export type UnitStack = { count: number; damaged: number };
+export type UnitStack = {
+  count: number;
+  damaged: number;
+  /** Thunder's Edge: units with a galvanize token, which roll 1 more die. */
+  galvanized?: number;
+};
 /** One player's units in a single space area or on a single planet. */
 export type UnitGroup = Partial<Record<UnitType, UnitStack>>;
 /** Units in one location, keyed by owning player. */
@@ -40,6 +46,8 @@ export type PlanetState = {
   units: Forces;
   attachments: string[];
   legendaryExhausted?: boolean;
+  /** Titans sleeper token. */
+  sleeper?: boolean;
 };
 
 export type CommandPools = { tactic: number; fleet: number; strategy: number };
@@ -48,7 +56,12 @@ export type LeaderState = {
   id: string;
   type: "agent" | "commander" | "hero";
   status: "locked" | "ready" | "exhausted" | "purged";
+  /** Trade goods waiting on the card (Artuno the Betrayer). */
+  tradeGoods?: number;
 };
+
+/** A unit the Vuil'raith hold on their faction sheet. */
+export type CapturedUnit = { owner: PlayerId; type: UnitType; count: number };
 
 export type PromissoryNote = {
   /** Card id from the data set. */
@@ -97,6 +110,16 @@ export type PlayerState = {
   used?: string[];
   /** Political Stability: keeps strategy cards through the next strategy phase. */
   keepsStrategyCards?: boolean;
+  /** Exploration cards kept faceup in the play area (Enigmatic Device). */
+  explorationCards?: string[];
+  /** Units the Vuil'raith have captured. */
+  captured?: CapturedUnit[];
+  /** Mahact Edict: other players' command tokens in this player's fleet pool. */
+  edictTokens?: PlayerId[];
+  /** Crimson Legionnaire II units waiting to return at the start of the next turn. */
+  revivingLegionnaires?: number;
+  /** The Silver Flame failed: this player can no longer score public objectives. */
+  noPublicObjectives?: boolean;
   /** Victory points from sources other than objectives. */
   bonusVictoryPoints: number;
   eliminated: boolean;
@@ -131,7 +154,9 @@ export type HitSource =
   /** Ships the player must choose and destroy; SUSTAIN DAMAGE does not help. */
   | "destroyShips"
   /** As above, but only non-fighter ships (Assault Cannon). */
-  | "destroyNonFighterShips";
+  | "destroyNonFighterShips"
+  /** Anti-fighter barrage hits that Waylay lets land on any ship. */
+  | "barrageAllShips";
 
 /**
  * Moments in the game when players may play cards or use abilities. Each
@@ -167,6 +192,20 @@ export type WindowId =
   | "afterStrategicAction"
   | "afterResearch"
   | "actionCardPlayed"
+  | "turnEnd"
+  | "afterExplore"
+  | "beforeAfb"
+  | "announceRetreats"
+  | "beforeStrategicAction"
+  | "productionStart"
+  | "beforeHits"
+  | "unitDestroyedInCombat"
+  | "afterAgentExhausted"
+  | "afterActionCardDiscarded"
+  | "beforeMove"
+  | "afterSustainAny"
+  | "combatEnd"
+  | "afterPillage"
   // Strategy phase
   | "strategyStart"
   | "afterPickStrategyCard"
@@ -182,7 +221,11 @@ export type WindowId =
   | "afterAgendaRevealed"
   | "afterSpeakerVotes"
   | "afterVote"
-  | "whenElected";
+  | "beforeVote"
+  | "whenElected"
+  | "whenOutcomeResolved"
+  | "afterOutcomeResolved"
+  | "publicObjectiveRevealed";
 
 /** What a window is about. Which fields are set depends on the window. */
 export type WindowContext = {
@@ -200,6 +243,10 @@ export type WindowContext = {
   units?: UnitCounts;
   /** Set when a promissory note is played: the player it belongs to. */
   noteOwner?: PlayerId;
+  /** Cards involved, such as the exploration cards drawn with Distant Suns. */
+  cards?: string[];
+  /** Everyone involved, such as both sides of a combat. */
+  players?: PlayerId[];
 };
 
 /** Something a player can use: an action card in hand, an ability, a note. */
@@ -207,7 +254,14 @@ export type Reaction =
   | { kind: "actionCard"; id: string }
   /** Faction abilities, technologies, unit abilities and laws the player owns. */
   | { kind: "ability"; id: string }
-  | { kind: "promissoryNote"; id: string; owner: PlayerId };
+  | { kind: "promissoryNote"; id: string; owner: PlayerId }
+  /** Agents, commanders and heroes, by leader id. */
+  | { kind: "leader"; id: string }
+  | { kind: "relic"; id: string }
+  /** Exploration cards in the play area, and relic fragments. */
+  | { kind: "exploration"; id: string }
+  /** Legendary planet abilities, by planet name. */
+  | { kind: "planet"; id: string };
 
 /** Choices made when playing a card or using an ability. */
 export type EffectTargets = {
@@ -234,6 +288,12 @@ export type EffectTargets = {
   }[];
   /** A named choice, such as "tradeGood" or "commodity" for Pillage. */
   choice?: string;
+  /** Relic fragments to purge. */
+  fragments?: string[];
+  /** Systems chosen together, such as the 2 Riftwalker Meian swaps. */
+  systems?: SystemKey[];
+  /** Turns down an optional effect that was offered as a prompt. */
+  decline?: boolean;
 };
 
 /** A card or ability that has been played and resolves once nobody cancels it. */
@@ -273,7 +333,13 @@ export type Prompt = { id: number; player: PlayerId; group: number } & (
       /** Hits that must go to non-fighter ships if able (Graviton Laser System, L1Z1X flagship). */
       nonFighter?: number;
     }
-  | { kind: "announceRetreat"; system: SystemKey; options: SystemKey[] }
+  | {
+      kind: "announceRetreat";
+      system: SystemKey;
+      options: SystemKey[];
+      /** Rout: the player must retreat if able. */
+      required?: boolean;
+    }
   | { kind: "scoreObjectives" }
   | { kind: "redistribute"; gained: number }
   | { kind: "discardActionCards"; count: number }
@@ -289,6 +355,16 @@ export type Prompt = { id: number; player: PlayerId; group: number } & (
       options: Reaction[];
       /** Abilities and notes already used in this window; each is used once. */
       used?: string[];
+    }
+  | {
+      /**
+       * A card or ability that resolves now and needs the player's choices,
+       * such as an exploration card. `optional` ones may be turned down.
+       */
+      kind: "effect";
+      reaction: Reaction;
+      context: WindowContext;
+      optional?: boolean;
     }
   | {
       /** A card or ability the table resolves by hand before play continues. */
@@ -387,6 +463,10 @@ export type TacticalAction = {
   bombarded: boolean;
   /** Card and ability flags in force for this tactical action, as "<id>:<player>". */
   flags?: string[];
+  /** Owners of the notes in the active player's play area when it began (Betray a Friend). */
+  notesFrom?: PlayerId[];
+  /** Planets the active player gained control of during this action. */
+  gained?: string[];
 };
 
 export type StrategicAction = {
@@ -417,7 +497,20 @@ export type AgendaState = {
     planet?: string;
     system?: SystemKey;
   }[];
-  step?: "start" | "revealed" | "riders" | "voting" | "tally" | "tie" | "elected" | "done";
+  step?:
+    | "start"
+    | "revealed"
+    | "riders"
+    | "voting"
+    | "tally"
+    | "tie"
+    | "elected"
+    | "outcome"
+    | "done";
+  /** Genetic Recombination: voters who must vote for an outcome or lose a fleet token. */
+  recombination?: { player: PlayerId; outcome: string }[];
+  /** Players who cast Predictive Intelligence votes on this agenda. */
+  predictive?: PlayerId[];
 };
 
 export type Transaction = {
@@ -480,6 +573,28 @@ export type GameState = {
   strategyEnding?: boolean;
   /** Holder of the Naalu "0" token, first in initiative order this round. */
   zeroToken?: PlayerId;
+  /** The player whose turn is ending, while end-of-turn abilities are offered. */
+  turnEnding?: PlayerId;
+  /** A strategic action waiting while other players decide whether to stop it (Coup d'Etat). */
+  queuedStrategic?: { player: PlayerId; payload: StrategicPayload };
+  /** Checks and Balances (Against): planets each player readies at the end of this agenda phase. */
+  readyLimit?: number;
+  /** The ion storm token: where it is and which wormhole side is faceup. */
+  ionStorm?: { system: SystemKey; side: "ALPHA" | "BETA" };
+  /** The system most recently activated this turn (Field Marshal Mercer). */
+  lastActivated?: SystemKey;
+  /** Thunder's Edge: who claimed each expedition slice. */
+  expedition?: (PlayerId | null)[];
+  /** Thunder's Edge: The Fracture has entered play. */
+  fracture?: boolean;
+  /** Crisis: the next player's turn is skipped. */
+  skipTurn?: boolean;
+  /** Extreme Duress: a player whose next action must be strategic, and who played it. */
+  duress?: { player: PlayerId; by: PlayerId };
+  /** Share Knowledge: technologies lent until the end of the status phase. */
+  borrowedTechnologies?: { player: PlayerId; technology: string }[];
+  /** Sever: systems whose wormholes do nothing during movement. */
+  severed?: SystemKey[];
   /** Public Execution: the player who cannot vote for the rest of the agenda phase. */
   executed?: PlayerId;
   /** What agendas left to happen at the start of the next strategy phase. */

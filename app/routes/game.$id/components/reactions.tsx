@@ -13,13 +13,17 @@ import {
   abilitiesById,
   actionCardsById,
   agendasById,
+  explorationsById,
+  leadersById,
   promissoryNotesById,
+  relicsById,
   strategyCardsById,
   technologies,
   technologiesById,
   UNIT_NAMES,
   unitsById,
 } from "~/game/data";
+import { planetInfo } from "~/game/engine/board";
 import { agendaOutcomes } from "~/game/engine/agenda";
 import { TargetKind } from "~/game/engine/effects/types";
 import { effectFor, reactionAction, reactionName } from "~/game/engine/reactions";
@@ -55,8 +59,28 @@ export function reactionText(view: GameView, reaction: Reaction) {
         agendasById[reaction.id]?.text1 ??
         ""
       );
+    case "leader": {
+      const leader = leadersById[reaction.id];
+      return leader ? `${leader.window} ${leader.text}` : "";
+    }
+    case "relic":
+      return relicsById[reaction.id]?.text ?? "";
+    case "exploration":
+      return explorationsById[reaction.id]?.text ?? "";
+    case "planet":
+      return (
+        planetInfo(asState(view), reaction.id)?.legendaryDescription ??
+        LEGENDARY_TEXT[reaction.id] ??
+        ""
+      );
   }
 }
+
+/** Legendary abilities the system data does not carry. */
+const LEGENDARY_TEXT: Record<string, string> = {
+  Mallice:
+    "You may exhaust this card at the end of your turn to gain 2 trade goods or convert all of your commodities into trade goods.",
+};
 
 const UNIT_TYPES = Object.keys(UNIT_NAMES) as UnitType[];
 
@@ -92,6 +116,7 @@ function TargetFields({
   reaction,
   value,
   onChange,
+  cards,
 }: {
   view: GameView;
   player: PlayerId;
@@ -99,6 +124,8 @@ function TargetFields({
   reaction: Reaction;
   value: EffectTargets;
   onChange: (value: EffectTargets) => void;
+  /** Cards the effect is about, such as exploration cards drawn. */
+  cards?: string[];
 }) {
   const state = asState(view);
   const set = (patch: EffectTargets) => onChange({ ...value, ...patch });
@@ -201,18 +228,47 @@ function TargetFields({
             size="xs"
             label="Card"
             searchable
-            data={[
-              ...view.players[player].actionCards.map((id) => ({
-                value: id,
-                label: actionCardsById[id]?.name ?? id,
-              })),
-              ...view.players[player].strategyCards.map((c) => ({
-                value: c.id,
-                label: strategyCardsById[c.id]?.name ?? c.id,
-              })),
-            ]}
+            data={cardOptions(view, player, cards)}
             value={value.card ?? null}
             onChange={(v) => set({ card: v ?? undefined })}
+          />
+        );
+      case "cards":
+        return (
+          <MultiSelect
+            key={kind}
+            size="xs"
+            label="Cards"
+            searchable
+            data={cardOptions(view, player, cards)}
+            value={value.cards ?? []}
+            onChange={(v) => set({ cards: v })}
+          />
+        );
+      case "fragments":
+        return (
+          <MultiSelect
+            key={kind}
+            size="xs"
+            label="Relic fragments"
+            data={view.players[player].relicFragments.map((id, i) => ({
+              value: id,
+              label: `${explorationsById[id]?.name ?? id} ${i + 1}`,
+            }))}
+            value={value.fragments ?? []}
+            onChange={(v) => set({ fragments: v })}
+          />
+        );
+      case "systems":
+        return (
+          <MultiSelect
+            key={kind}
+            size="xs"
+            label="Systems"
+            searchable
+            data={systems}
+            value={(value.systems ?? []).map(String)}
+            onChange={(v) => set({ systems: v.map(Number) })}
           />
         );
       case "choice":
@@ -300,19 +356,56 @@ function TargetFields({
   return <>{fields}</>;
 }
 
-const choiceHint = (reaction: Reaction) => {
-  switch (reaction.id) {
-    case "star_forge":
-      return "fighters or destroyer";
-    case "pillage":
-      return "tradeGood or commodity";
-    case "wg":
-    case "iff":
-      return "alpha or beta";
-    default:
-      return "strategy card id to take";
-  }
+/** Action cards, strategy cards and cards the effect is about, to choose from. */
+function cardOptions(view: GameView, player: PlayerId, extra: string[] = []) {
+  const label = (id: string) =>
+    actionCardsById[id]?.name ??
+    strategyCardsById[id]?.name ??
+    explorationsById[id]?.name ??
+    technologiesById[id]?.name ??
+    id;
+  const ids = [
+    ...extra,
+    ...view.players[player].actionCards,
+    ...view.strategyCards,
+    ...view.decks.actionCards.discard,
+  ];
+  return [...new Set(ids)].map((id) => ({ value: id, label: label(id) }));
+}
+
+/** What a named choice can be, by card name or ability id. */
+const CHOICE_HINTS: Record<string, string> = {
+  star_forge: "fighters or destroyer",
+  pillage: "tradeGood or commodity",
+  wg: "alpha or beta",
+  iff: "alpha or beta",
+  ghost_mech: "alpha or beta",
+  "Ion Storm": "alpha or beta",
+  "Archaeological Expedition": "cultural, hazardous or industrial",
+  "Abandoned Warehouses": "commodities or convert",
+  "Functioning Base": "commodity or actionCard",
+  "Local Fabricators": "commodity or mech",
+  "Merchant Station": "replenish or convert",
+  "Volatile Fuel Source": "tactic, fleet or strategy",
+  "Minor Entropic Field": "tactic, fleet or strategy",
+  "Entropic Field": "tactic, fleet or strategy",
+  "Major Entropic Field": "tactic, fleet or strategy",
+  "Keleres Ship": "tactic, fleet or strategy",
+  fabrication: "tactic, fleet or strategy (with 1 fragment)",
+  "Hope's End": "mech or actionCard",
+  Mallice: "tradeGoods or convert",
+  mitosis: "mech to replace an infantry",
+  orbital_drop: "mech to add one for 3 resources",
+  indoctrination: "mech to take a mech for 1 more influence",
+  winnu_mech: "pds or spacedock",
+  hacanagent: "gain or replenish",
+  nekroagent: "discard or token",
+  xxchaagent: "remove to return an infantry",
+  arborecagent: "the replacement ship type",
 };
+
+const choiceHint = (reaction: Reaction) =>
+  CHOICE_HINTS[reactionName(reaction)] ?? CHOICE_HINTS[reaction.id] ?? "strategy card id to take";
 
 /**
  * A card or ability with the choices it needs and a button to use it, in a
@@ -369,6 +462,54 @@ export function ReactionForm({
   );
 }
 
+/**
+ * An effect that resolves now and needs the player's choices, such as an
+ * exploration card, starting from what the effect itself suggests.
+ */
+export function EffectPrompt({
+  view,
+  prompt,
+}: {
+  view: GameView;
+  prompt: Extract<Prompt, { kind: "effect" }>;
+}) {
+  const dispatch = useGame((state) => state.dispatch);
+  const effect = effectFor(prompt.reaction);
+  const [targets, setTargets] = useState<EffectTargets>(() => {
+    try {
+      return effect?.bot?.(asState(view), prompt.player, prompt.context) ?? {};
+    } catch {
+      return {};
+    }
+  });
+  const answer = (value: EffectTargets) =>
+    dispatch({ type: "RESOLVE_EFFECT", promptId: prompt.id, targets: value }, prompt.player);
+  return (
+    <Stack gap="xs">
+      <CardText title={reactionName(prompt.reaction)}>
+        <Stack gap={6}>
+          <Text size="xs">{reactionText(view, prompt.reaction)}</Text>
+          <TargetFields
+            view={view}
+            player={prompt.player}
+            kinds={effect?.targets ?? []}
+            reaction={prompt.reaction}
+            value={targets}
+            onChange={setTargets}
+            cards={prompt.context.cards}
+          />
+        </Stack>
+      </CardText>
+      <Button onClick={() => answer(targets)}>Resolve</Button>
+      {prompt.optional && (
+        <Button variant="default" onClick={() => answer({ decline: true })}>
+          Decline
+        </Button>
+      )}
+    </Stack>
+  );
+}
+
 const WINDOW_NAMES: Partial<Record<string, string>> = {
   actionCardPlayed: "An action card was played",
   turnStart: "Start of a turn",
@@ -395,7 +536,30 @@ const WINDOW_NAMES: Partial<Record<string, string>> = {
   afterAgendaRevealed: "Before voting",
   afterSpeakerVotes: "The speaker has voted",
   afterVote: "After your vote",
-  whenElected: "You were elected",
+  whenElected: "A player was elected",
+  turnEnd: "End of a turn",
+  afterExplore: "A planet was explored",
+  beforeAfb: "Before anti-fighter barrage",
+  announceRetreats: "Before retreats are announced",
+  beforeStrategicAction: "A strategic action is about to be performed",
+  productionStart: "Units are about to be produced",
+  beforeHits: "Hits are about to be assigned",
+  unitDestroyedInCombat: "A unit was destroyed in combat",
+  afterAgentExhausted: "An agent was exhausted",
+  afterActionCardDiscarded: "An action card was discarded",
+  afterSustainAny: "A unit sustained damage",
+  combatEnd: "End of combat",
+  afterPillage: "Pillage was used",
+  beforeVote: "Before voting",
+  whenOutcomeResolved: "An outcome is about to be resolved",
+  afterTacticalAction: "After a tactical action",
+  afterReplenish: "Commodities were replenished",
+  afterGainTradeGoods: "Trade goods were gained",
+  afterResearch: "A technology was researched",
+  strategyStart: "Start of the strategy phase",
+  statusStart: "Start of the status phase",
+  statusEnd: "End of the status phase",
+  agendaStart: "Start of the agenda phase",
 };
 
 export function WindowPrompt({

@@ -28,7 +28,7 @@ import {
 import { enforceFleetSupply, removeExcessShips } from "../combat";
 import { discardLaw } from "../agenda";
 import { gainControl } from "../control";
-import { produce, productionCapacity, productionCost } from "../economy";
+import { pay, produce, productionCapacity, productionCost } from "../economy";
 import { gainTradeGoodsFrom } from "../events";
 import {
   addUnits,
@@ -53,11 +53,14 @@ import {
   unitTypes,
 } from "../helpers";
 import { undoLastPick, endTurnNow } from "../phases";
-import { cancelPending, closeWindows } from "../reactions";
+import { cancelPending, closeWindows, openWindow } from "../reactions";
+import { unitIs } from "../units";
+import { hasCommander } from "../leaders";
 import { setPools } from "../strategic";
 import { describeSystem } from "../tactical";
 import { research } from "../technology";
 import {
+  canSpendStrategyToken,
   destroyUnits,
   exhaustTech,
   markUsed,
@@ -78,8 +81,7 @@ import { Effect } from "./types";
 const isSabotage = (card: string | undefined) =>
   card !== undefined && actionCardsById[card]?.name === "Sabotage";
 
-const hasStrategyToken = (state: GameState, id: PlayerId) =>
-  state.players[id].pools.strategy > 0;
+const hasStrategyToken = (state: GameState, id: PlayerId) => canSpendStrategyToken(state, id);
 
 const unitsIn = (state: GameState, id: PlayerId, key: SystemKey) => {
   const system = systemOf(state, key);
@@ -128,7 +130,7 @@ function placeCreussToken(state: GameState, id: PlayerId, targets: EffectTargets
  * Moves ground forces to planets the player controls. `near` limits each
  * move to the same or an adjacent system (Bioplasmosis).
  */
-function transferGroundForces(
+export function transferGroundForces(
   state: GameState,
   id: PlayerId,
   targets: EffectTargets,
@@ -182,7 +184,7 @@ function transferGroundForces(
 
 // --- Production outside the production step ---------------------------------------
 
-function produceWithin(
+export function produceWithin(
   state: GameState,
   id: PlayerId,
   key: SystemKey,
@@ -208,7 +210,9 @@ function produceWithin(
 const ACTION_CARDS: Record<string, Effect> = {
   Sabotage: {
     windows: ["actionCardPlayed"],
-    usable: (_state, _id, context) => !isSabotage(context.card),
+    usable: (state, _id, context) =>
+      !isSabotage(context.card) &&
+      !(context.player !== undefined && hasCommander(state, context.player, "bastioncommander")),
     resolve: (state, _id, _targets, context) => cancelPending(state, context.ref),
   },
 
@@ -754,6 +758,18 @@ const ABILITIES: Record<string, Effect> = {
       const key = targetSystem(state, targets).key;
       if (targets.choice === "destroyer") placeUnits(state, id, "destroyer", 1, { system: key });
       else placeUnits(state, id, "fighter", 2, { system: key });
+      // Ember Colossus: an infantry with each mech in or next to the system.
+      if (!unitIs(state, id, "mech", "muaat_mech")) return;
+      for (const near of [key, ...adjacentSystems(state, key)]) {
+        const system = state.systems[near];
+        if (countOf(system.space[id], "mech") > 0) {
+          placeUnits(state, id, "infantry", countOf(system.space[id], "mech"), { system: near });
+        }
+        for (const planet of system.planets) {
+          const mechs = countOf(state.planets[planet].units[id], "mech");
+          if (mechs > 0) placeUnits(state, id, "infantry", mechs, { system: near, planet });
+        }
+      }
     },
   },
   muaat_flagship: {
@@ -772,42 +788,75 @@ const ABILITIES: Record<string, Effect> = {
   // Sol
   orbital_drop: {
     action: true,
-    targets: ["planet"],
+    targets: ["planet", "choice", "payment"],
     usable: (state, id) => hasStrategyToken(state, id),
     play: (state, id, targets) => {
       ownPlanet(state, id, targets);
       spendStrategyToken(state, id);
+      // ZS Thunderbolt M2: 3 resources for a mech as well.
+      if (targets.choice === "mech") {
+        ensure(unitIs(state, id, "mech", "sol_mech"), "You cannot deploy a mech this way.");
+        pay(state, id, targets.payment, "resources", 3);
+      }
     },
     resolve: (state, id, targets) => {
       const planet = ownPlanet(state, id, targets);
       placeUnits(state, id, "infantry", 2, { system: planet.system, planet: planet.name });
+      if (targets.choice === "mech") {
+        placeUnits(state, id, "mech", 1, { system: planet.system, planet: planet.name });
+      }
     },
   },
 
   // Yssaril
   stall_tactics: {
     action: true,
-    targets: ["card"],
+    targets: ["card", "planet"],
     usable: (state, id) => state.players[id].actionCards.length > 0,
     play: (state, id, targets) => {
       const player = playerOf(state, id);
       const index = player.actionCards.indexOf(targets.card ?? "");
       ensure(index >= 0, "Choose an action card from your hand.");
+      if (targets.planet) {
+        ownPlanet(state, id, targets);
+        ensure(unitIs(state, id, "mech", "yssaril_mech"), "You cannot deploy a mech this way.");
+      }
       player.actionCards.splice(index, 1);
       state.decks.actionCards.discard.push(targets.card!);
+      // Reverse Engineer
+      openWindow(state, "afterActionCardDiscarded", { player: id, card: targets.card });
     },
-    resolve: () => {},
+    resolve: (state, id, targets) => {
+      // Blackshade Infiltrator
+      if (!targets.planet) return;
+      const planet = ownPlanet(state, id, targets);
+      placeUnits(state, id, "mech", 1, { system: planet.system, planet: planet.name });
+    },
   },
 
   // Arborec
   mitosis: {
     windows: ["statusStart"],
-    targets: ["planet"],
+    targets: ["planet", "choice"],
     usable: (state, id) => controlledPlanets(state, id).length > 0,
     play: (state, id, targets) => {
-      ownPlanet(state, id, targets);
+      if (targets.choice !== "mech") {
+        ownPlanet(state, id, targets);
+        return;
+      }
+      // Letani Behemoth: replace 1 infantry with a mech instead.
+      const planet = targetPlanet(state, targets);
+      ensure(unitIs(state, id, "mech", "arborec_mech"), "You cannot deploy a mech this way.");
+      ensure(countOf(planet.units[id], "infantry") > 0, `You have no infantry on ${planet.name}.`);
+      ensure(unitsAvailable(state, id, "mech") > 0, "You have no mechs in your reinforcements.");
     },
     resolve: (state, id, targets) => {
+      if (targets.choice === "mech") {
+        const planet = targetPlanet(state, targets);
+        removeUnits(planet.units, id, "infantry", 1);
+        placeUnits(state, id, "mech", 1, { system: planet.system, planet: planet.name });
+        return;
+      }
       const planet = ownPlanet(state, id, targets);
       placeUnits(state, id, "infantry", 1, { system: planet.system, planet: planet.name });
     },
@@ -911,6 +960,7 @@ const ABILITIES: Record<string, Effect> = {
         `Pillage: ${playerName(state, id)} took 1 ${takeCommodity ? "commodity" : "trade good"} from ${victim.name}.`,
         { player: id },
       );
+      openWindow(state, "afterPillage", { player: context.player });
     },
   },
 

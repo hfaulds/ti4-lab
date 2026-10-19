@@ -15,6 +15,7 @@ import {
   factionSetupFor,
   objectivesById,
   promissoryNotesById,
+  EXPANSIONS,
   strategyCardsById,
   technologiesById,
   UNIT_NAMES,
@@ -83,6 +84,11 @@ function unitsLabel(group: UnitGroup | undefined) {
 export function describeGame(state: GameState, seat: PlayerId) {
   const lines: string[] = [];
   lines.push(`You are ${playerLabel(state, seat)}.`, "");
+  const expansions = EXPANSIONS.filter((e) => state.options.expansions.includes(e.id));
+  lines.push(
+    `Expansions in play: ${expansions.length > 0 ? expansions.map((e) => e.name).join(", ") : "none (base game)"}.`,
+    "",
+  );
   lines.push("## Factions");
   for (const id of state.seating) {
     const setup = factionSetupFor(state.players[id].faction);
@@ -389,7 +395,9 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
       return `Play the action card ${card?.name ?? action.card}${targetsLabel(state, action.targets)}: ${card?.text ?? ""}`;
     }
     case "USE_ABILITY":
-      return `Use ${reactionName({ kind: "ability", id: action.ability })}${targetsLabel(state, action.targets)}`;
+      return `Use ${reactionName({ kind: action.source ?? "ability", id: action.ability })}${targetsLabel(state, action.targets)}`;
+    case "RESOLVE_EFFECT":
+      return `Resolve it${targetsLabel(state, action.targets)}${action.targets?.decline ? " (decline)" : ""}`;
     case "PLAY_PROMISSORY_NOTE":
       return `Play ${promissoryNotesById[action.note]?.name ?? action.note} (P${action.owner}'s note)${targetsLabel(state, action.targets)}`;
     case "PASS":
@@ -411,6 +419,8 @@ function targetsLabel(state: GameState, targets: EffectTargets | undefined) {
     targets.technology ? `for ${technologiesById[targets.technology]?.name ?? targets.technology}` : "",
     targets.outcome ? `predicting ${targets.outcome}` : "",
     targets.choice ? `(${targets.choice})` : "",
+    targets.card ? `choosing ${targets.card}` : "",
+    targets.fragments?.length ? `purging ${targets.fragments.length} relic fragments` : "",
   ].filter(Boolean);
   return parts.length > 0 ? ` ${parts.join(", ")}` : "";
 }

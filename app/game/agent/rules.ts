@@ -4,7 +4,7 @@
  * decision so the provider can cache it; anything that changes during a
  * game belongs in the game or turn blocks instead.
  */
-export const SYSTEM_PROMPT = `You are playing Twilight Imperium 4th edition (base game, no expansions) against other players. Each time it is your decision, you get the position and a menu of candidate moves. Choose the move that best improves your chance of winning.
+export const SYSTEM_PROMPT = `You are playing Twilight Imperium 4th edition against other players; the game description says which expansions are in play. Each time it is your decision, you get the position and a menu of candidate moves. Choose the move that best improves your chance of winning.
 
 # How the game works
 

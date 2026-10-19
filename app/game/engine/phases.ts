@@ -23,6 +23,27 @@ import { afterGainingTradeGoods, startTurn, statusEndEffects } from "./events";
 import { requireObjectivePhase, scoreObjective } from "./objectives";
 import { openWindow, ownsAbility } from "./reactions";
 import { setPools } from "./strategic";
+import { achieve } from "./effects/helpers";
+import { readyLeader, unlockCommander } from "./leaders";
+
+/**
+ * Extreme Duress: a player whose next action is not strategic discards their
+ * action cards and hands over their trade goods.
+ */
+export function breakDuress(state: GameState, id: PlayerId, strategic = false) {
+  const duress = state.duress;
+  if (!duress || duress.player !== id) return;
+  state.duress = undefined;
+  if (strategic) return;
+  const player = state.players[id];
+  state.decks.actionCards.discard.push(...player.actionCards);
+  player.actionCards = [];
+  state.players[duress.by].tradeGoods += player.tradeGoods;
+  log(state, `Extreme Duress: ${player.name} discarded their action cards and gave up ${player.tradeGoods} trade goods.`, {
+    player: id,
+  });
+  player.tradeGoods = 0;
+}
 
 // --- Strategy phase ---------------------------------------------------------
 
@@ -53,6 +74,16 @@ export function startStrategyPhase(state: GameState) {
   }
   log(state, `Round ${state.round}: strategy phase.`);
   applyNextStrategyEffects(state);
+  // Council Patronage
+  for (const id of activePlayers(state)) {
+    if (!ownsAbility(state, id, "council_patronage")) continue;
+    const player = state.players[id];
+    player.commodities = player.commodityLimit;
+    player.tradeGoods++;
+    log(state, `Council Patronage: ${player.name} replenished commodities and gained 1 trade good.`, {
+      player: id,
+    });
+  }
   const first = nextPicker(state);
   if (first === undefined) {
     endStrategyPhase(state);
@@ -212,7 +243,7 @@ export function requireTurn(state: GameState, id: PlayerId) {
 export function requireAction(state: GameState, id: PlayerId) {
   requireTurn(state, id);
   ensure(
-    !state.tactical && !state.strategic,
+    !state.tactical && !state.strategic && !state.queuedStrategic,
     "Finish the action in progress first.",
   );
   ensure(state.prompts.length === 0, "Other players still have decisions to make.");
@@ -233,7 +264,14 @@ function nextTurn(state: GameState, from: PlayerId) {
   const order = initiativeOrder(state);
   const start = order.indexOf(from);
   const rotation = [...order.slice(start + 1), ...order.slice(0, start + 1)];
-  const next = rotation.find((id) => !state.players[id].passed);
+  let next = rotation.find((id) => !state.players[id].passed);
+  // Crisis: the next player's turn is skipped.
+  if (state.skipTurn && next !== undefined) {
+    state.skipTurn = undefined;
+    const after = rotation.filter((id) => !state.players[id].passed && id !== next)[0];
+    log(state, `${playerName(state, next)}'s turn is skipped.`);
+    if (after !== undefined) next = after;
+  }
   state.actionsThisTurn = 0;
   state.tradedWith = [];
   for (const id of state.seating) state.players[id].achievements = undefined;
@@ -253,7 +291,22 @@ export function endTurn(state: GameState, id: PlayerId) {
   );
   ensure(state.prompts.length === 0, "Other players still have decisions to make.");
   ensure(state.actionsThisTurn > 0, "Take an action or pass.");
+  beginTurnEnd(state, id);
+}
+
+/** Offers end-of-turn abilities; the next turn starts once they are settled. */
+function beginTurnEnd(state: GameState, id: PlayerId) {
+  state.turnEnding = id;
+  openWindow(state, "turnEnd", { player: id }, clockwiseFrom(state, id));
+}
+
+/** Moves on to the next turn once end-of-turn abilities are settled. */
+export function continueTurnEnd(state: GameState): boolean {
+  const id = state.turnEnding;
+  if (id === undefined || state.phase !== "action") return false;
+  state.turnEnding = undefined;
   nextTurn(state, id);
+  return true;
 }
 
 export function pass(state: GameState, id: PlayerId) {
@@ -270,7 +323,14 @@ export function pass(state: GameState, id: PlayerId) {
   );
   player.passed = true;
   log(state, `${player.name} passed.`, { player: id });
-  nextTurn(state, id);
+  breakDuress(state, id);
+  // Prove Endurance: the last player to pass.
+  if (activePlayers(state).every((other) => state.players[other].passed)) {
+    achieve(state, id, "pe");
+    // Watchful Ojz unlocks for the last to pass.
+    if (player.faction === "ralnel") unlockCommander(state, id);
+  }
+  beginTurnEnd(state, id);
 }
 
 // --- Status phase -----------------------------------------------------------
@@ -364,9 +424,7 @@ export function continueStatusPhase(state: GameState): boolean {
       player.exhaustedTechnologies = [];
       player.exhaustedRelics = [];
       if (player.breakthrough) player.breakthrough.exhausted = false;
-      for (const leader of player.leaders) {
-        if (leader.status === "exhausted") leader.status = "ready";
-      }
+      for (const leader of player.leaders) readyLeader(state, id, leader.id);
     }
     for (const planet of Object.values(state.planets)) {
       planet.exhausted = false;
@@ -392,6 +450,12 @@ export function continueStatusPhase(state: GameState): boolean {
       player.passed = player.eliminated;
     }
     state.statusStep = "end";
+    for (const loan of state.borrowedTechnologies ?? []) {
+      const player = state.players[loan.player];
+      player.technologies = player.technologies.filter((t) => t !== loan.technology);
+    }
+    state.borrowedTechnologies = undefined;
+    state.severed = undefined;
     statusEndEffects(state);
     openWindow(state, "statusEnd", {}, initiativeOrder(state));
     return true;

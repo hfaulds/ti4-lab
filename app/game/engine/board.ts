@@ -3,6 +3,7 @@ import {
   Anomaly,
   Map as TiMap,
   Planet,
+  PlanetTrait,
   PlayerId,
   System,
   TechSpecialty,
@@ -16,6 +17,7 @@ import {
   PlanetState,
   SystemKey,
   SystemState,
+  UnitGroup,
   UnitType,
 } from "../types";
 import {
@@ -64,11 +66,28 @@ export function planetOf(state: GameState, name: string): PlanetState {
   return planet;
 }
 
+export const MIRAGE = "Mirage";
+
+/** Planets that arrive during play rather than printed on a tile. */
+const EXTRA_PLANETS: Record<string, Planet> = {
+  [MIRAGE]: {
+    name: MIRAGE,
+    resources: 1,
+    influence: 2,
+    legendary: true,
+    legendaryTitle: "Mirage Flight Academy",
+    legendaryDescription:
+      "You may exhaust this card at the end of your turn to place up to 2 fighters from your reinforcements in any system that contains 1 or more of your ships.",
+    trait: ["CULTURAL"],
+  },
+};
+
 export function planetInfo(state: GameState, name: string): Planet | undefined {
   const planet = state.planets[name];
   if (!planet) return undefined;
-  return infoOf(state.systems[planet.system])?.planets.find(
-    (p) => p.name === name,
+  return (
+    infoOf(state.systems[planet.system])?.planets.find((p) => p.name === name) ??
+    EXTRA_PLANETS[name]
   );
 }
 
@@ -85,8 +104,20 @@ const LAW_ATTACHMENTS: Record<string, { resources: number; influence: number }> 
 const lawBonus = (planet: PlanetState, key: "resources" | "influence") =>
   planet.attachments.reduce((sum, a) => sum + (LAW_ATTACHMENTS[a]?.[key] ?? 0), 0);
 
+/** 4X41C "Helios": +1 resource on its planet, or +2 once upgraded. */
+function heliosBonus(state: GameState, name: string) {
+  const planet = state.planets[name];
+  for (const owner of Object.keys(planet?.units ?? {}).map(Number)) {
+    if (countOf(planet.units[owner], "spacedock") === 0) continue;
+    const dock = unitOf(state, owner, "spacedock")?.id;
+    if (dock === "bastion_spacedock2") return 2;
+    if (dock === "bastion_spacedock") return 1;
+  }
+  return 0;
+}
+
 export function planetResources(state: GameState, name: string) {
-  const base = planetInfo(state, name)?.resources ?? 0;
+  const base = (planetInfo(state, name)?.resources ?? 0) + heliosBonus(state, name);
   return attachmentsOf(state.planets[name]).reduce(
     (sum, a) => sum + a.resources,
     base + lawBonus(state.planets[name], "resources"),
@@ -111,8 +142,13 @@ export function planetTechSpecialties(
   ];
 }
 
-export const planetTraits = (state: GameState, name: string) =>
-  planetInfo(state, name)?.trait ?? [];
+/** Attachments that give a planet every trait (Terraform). */
+const ALL_TRAITS = ["titanspn"];
+
+export const planetTraits = (state: GameState, name: string): PlanetTrait[] =>
+  state.planets[name]?.attachments.some((a) => ALL_TRAITS.includes(a))
+    ? ["CULTURAL", "HAZARDOUS", "INDUSTRIAL"]
+    : (planetInfo(state, name)?.trait ?? []);
 
 export const isLegendary = (state: GameState, name: string) =>
   !!planetInfo(state, name)?.legendary ||
@@ -120,6 +156,10 @@ export const isLegendary = (state: GameState, name: string) =>
 
 export const isHomeSystem = (system: SystemState) =>
   system.homeOf !== undefined;
+
+/** The Demilitarized Zone law or exploration card is attached. */
+export const isDemilitarized = (planet: PlanetState) =>
+  planet.attachments.includes("demilitarized_zone") || planet.attachments.includes("dmz");
 
 export const controlledPlanets = (state: GameState, player: PlayerId) =>
   Object.values(state.planets).filter((p) => p.controller === player);
@@ -129,6 +169,20 @@ export const anomaliesOf = (system: SystemState): Anomaly[] =>
 
 export const hasAnomaly = (system: SystemState, anomaly: Anomaly) =>
   anomaliesOf(system).includes(anomaly);
+
+/** Owners of a Vuil'raith dimensional tear (space dock) in a system. */
+export function tearOwners(state: GameState, system: SystemState): PlayerId[] {
+  return state.seating.filter(
+    (id) =>
+      state.players[id].faction === "vulraith" &&
+      (countOf(system.space[id], "spacedock") > 0 ||
+        system.planets.some((p) => countOf(state.planets[p]?.units[id], "spacedock") > 0)),
+  );
+}
+
+/** A gravity rift, printed or made by a dimensional tear. */
+export const isGravityRift = (state: GameState, system: SystemState) =>
+  hasAnomaly(system, "GRAVITY_RIFT") || tearOwners(state, system).length > 0;
 
 export function wormholesOf(system: SystemState): Wormhole[] {
   const printed = (infoOf(system)?.wormholes ?? []).filter(
@@ -171,8 +225,12 @@ function physicalNeighbors(map: TiMap): Map<number, number[]> {
   return neighbors;
 }
 
+/** Systems whose tiles touch or are joined by a hyperlane. */
+export const physicallyAdjacent = (state: GameState, a: SystemKey, b: SystemKey) =>
+  !!state.systems[a]?.onBoard && !!physicalNeighbors(state.map).get(a)?.includes(b);
+
 const lawInForce = (state: GameState, law: string) =>
-  state.laws.some((l) => l.id === law);
+  state.laws.some((l) => l.id === law && l.outcome !== "Against");
 
 /**
  * Wormholes in a system, including the delta wormhole the Creuss flagship
@@ -233,22 +291,38 @@ export function adjacentSystems(
   const linked =
     lawInForce(state, "wormhole_recon") || entangled || flag("lostStar");
 
-  const usable = (wormholes: Wormhole[]) =>
-    travelBan && !entangled
+  const sovereignty = mover !== undefined && lawInForce(state, "nexus");
+  const sundered = mover !== undefined && state.players[mover]?.faction === "crimson";
+  const usable = (wormholes: Wormhole[], of: SystemState) => {
+    if (mover !== undefined && state.severed?.includes(of.key)) return [];
+    if (sundered) return wormholes.filter((w) => w === "EPSILON");
+    return (travelBan && !entangled) || (sovereignty && of.systemId === WORMHOLE_NEXUS_ID)
       ? wormholes.filter((w) => !ALPHA_BETA.includes(w))
       : wormholes;
-  const wormholes = usable(wormholesIn(state, system, mover));
+  };
+  const wormholes = usable(wormholesIn(state, system, mover), system);
   if (wormholes.length > 0) {
     const alphaOrBeta = linked && wormholes.some((w) => ALPHA_BETA.includes(w));
     for (const other of Object.values(state.systems)) {
       if (other.key === key) continue;
-      const theirs = usable(wormholesIn(state, other, mover));
+      const theirs = usable(wormholesIn(state, other, mover), other);
       if (
         theirs.some((w) => wormholes.includes(w)) ||
         (alphaOrBeta && theirs.some((w) => ALPHA_BETA.includes(w)))
       ) {
         adjacent.add(other.key);
       }
+    }
+  }
+  // Emissary Taivra joins the active system to every system with a wormhole.
+  if (mover !== undefined && flag("taivra") && state.tactical) {
+    const active = state.tactical.system;
+    if (key === active) {
+      for (const other of Object.values(state.systems)) {
+        if (other.key !== key && wormholesIn(state, other, mover).length > 0) adjacent.add(other.key);
+      }
+    } else if (wormholesIn(state, system, mover).length > 0) {
+      adjacent.add(active);
     }
   }
   // Spatial Conduit Cylinder joins the active system to every system with
@@ -373,8 +447,18 @@ export function dockFighterAllowance(
       (sum, p) => sum + countOf(state.planets[p].units[player], "spacedock"),
       0,
     ) + countOf(system.space[player], "spacedock");
-  return docks * 3;
+  // Dimensional tears hold 6 fighters, or 12 once upgraded.
+  const dock = unitOf(state, player, "spacedock")?.id;
+  const perDock = dock === "cabal_spacedock2" ? 12 : dock === "cabal_spacedock" ? 6 : 3;
+  return docks * perDock;
 }
+
+/** Aerie Sentinels ride for free with ships that have capacity. */
+export const freeRiders = (state: GameState, player: PlayerId, group: UnitGroup | undefined) =>
+  unitOf(state, player, "mech")?.id === "argent_mech" &&
+  !state.laws.some((law) => law.id === "articles_war" && law.outcome !== "Against")
+    ? countOf(group, "mech")
+    : 0;
 
 export function nonFighterShips(
   state: GameState,
@@ -387,8 +471,11 @@ export function nonFighterShips(
 
 /** Non-fighter ships a player may have in one system (Armada adds 2). */
 export const fleetLimit = (state: GameState, player: PlayerId) =>
-  state.players[player].pools.fleet +
-  (state.players[player].faction === "barony" ? 2 : 0);
+  state.players[player].used?.includes("darktalon")
+    ? Infinity
+    : state.players[player].pools.fleet +
+      (state.players[player].edictTokens?.length ?? 0) +
+      (state.players[player].faction === "barony" ? 2 : 0);
 
 /**
  * Describes why a player's units in a system break fleet supply or capacity,
@@ -402,8 +489,11 @@ export function fleetProblem(
   const system = systemOf(state, key);
   const group = system.space[player];
   const fighters = countOf(group, "fighter");
-  const groundForces = countOf(group, "infantry") + countOf(group, "mech");
   const capacity = capacityIn(state, key, player);
+  const groundForces =
+    countOf(group, "infantry") +
+    countOf(group, "mech") -
+    (capacity > 0 ? freeRiders(state, player, group) : 0);
   const uncounted = Math.min(fighters, dockFighterAllowance(state, key, player));
   let excess = Math.max(0, fighters - uncounted + groundForces - capacity);
 
@@ -433,6 +523,14 @@ export function fleetProblem(
 export type MoveRules = {
   player: PlayerId;
   destination: SystemKey;
+  /** Nebulae do not slow or stop these ships (Voidborn, Nav Suite). */
+  ignoreNebulae?: boolean;
+  /** Gravity rifts neither help nor roll for these ships (Nav Suite). */
+  ignoreRifts?: boolean;
+  /** Ships of these players do not block movement (Aetherpassage). */
+  passThrough?: PlayerId[];
+  /** Systems the moving ships count as adjacent to (Memoria and the Nomad's mechs). */
+  extraAdjacent?: SystemKey[];
   /** Ships may pass through other players' fleets (Light/Wave Deflector). */
   ignoreBlockades: boolean;
   /** Ships may enter asteroid fields (Antimass Deflectors). */
@@ -457,23 +555,38 @@ export function moveRulesFor(
   const silenced =
     group.origin !== undefined &&
     !!state.tactical?.flags?.includes(`silence@${group.origin}:${player}`);
-  const yssarilFlagship =
+  const flagshipOnly = (unitId: string) =>
     !!group.ships?.length &&
     group.ships.every(
-      (type) =>
-        type === "flagship" &&
-        unitOf(state, player, type)?.id === "yssaril_flagship",
+      (type) => type === "flagship" && unitOf(state, player, type)?.id.startsWith(unitId),
     );
+  const flagged = (flag: string) => !!state.tactical?.flags?.includes(`${flag}:${player}`);
+  const navSuite = flagged("navsuite");
+  // Memoria counts as adjacent to every system with the Nomad's mechs.
+  const mechSystems = flagshipOnly("nomad_flagship")
+    ? Object.values(state.systems)
+        .filter(
+          (s) =>
+            countOf(s.space[player], "mech") > 0 ||
+            s.planets.some((p) => countOf(state.planets[p].units[player], "mech") > 0),
+        )
+        .map((s) => s.key)
+    : undefined;
   return {
     player,
     destination,
-    ignoreBlockades: hasTech(state, player, "lwd") || silenced || yssarilFlagship,
-    enterAsteroids: hasTech(state, player, "amd"),
+    ignoreBlockades:
+      hasTech(state, player, "lwd") || silenced || flagshipOnly("yssaril_flagship"),
+    enterAsteroids: hasTech(state, player, "amd") || navSuite,
     enterSupernovas:
-      state.players[player]?.faction === "muaat" || hasTech(state, player, "mr"),
+      state.players[player]?.faction === "muaat" || hasTech(state, player, "mr") || navSuite,
     throughNebulae: state.laws.some(
       (l) => l.id === "shared_research" && l.outcome !== "Against",
     ),
+    ignoreNebulae: navSuite || state.players[player]?.faction === "empyrean",
+    ignoreRifts: navSuite,
+    passThrough: state.seating.filter((other) => flagged(`aether@${other}`)),
+    extraAdjacent: mechSystems,
   };
 }
 
@@ -488,7 +601,8 @@ function canEnter(state: GameState, key: SystemKey, rules: MoveRules) {
   if (
     hasAnomaly(system, "NEBULA") &&
     key !== rules.destination &&
-    !rules.throughNebulae
+    !rules.throughNebulae &&
+    !rules.ignoreNebulae
   ) {
     return false;
   }
@@ -498,16 +612,49 @@ function canEnter(state: GameState, key: SystemKey, rules: MoveRules) {
 function canLeave(state: GameState, key: SystemKey, rules: MoveRules) {
   if (key === rules.destination) return true;
   const system = state.systems[key];
-  return rules.ignoreBlockades || otherShipOwners(system, rules.player).length === 0;
+  // Aerie Hololattice: no passing through systems with the Argent's structures.
+  const hololattice = state.seating.some(
+    (other) =>
+      other !== rules.player &&
+      hasTech(state, other, "ah") &&
+      system.planets.some((p) =>
+        unitTypes(state.planets[p].units[other]).some((t) => t === "pds" || t === "spacedock"),
+      ),
+  );
+  if (hololattice) return false;
+  const blockers = otherShipOwners(system, rules.player).filter(
+    (other) => !rules.passThrough?.includes(other),
+  );
+  return rules.ignoreBlockades || blockers.length === 0;
 }
+
+/** Systems a ship can step to next: adjacent ones, and any the rules add. */
+const nextSteps = (state: GameState, key: SystemKey, rules: MoveRules) => [
+  ...new Set([...adjacentSystems(state, key, rules.player), ...(rules.extraAdjacent ?? [])]),
+];
 
 export type Route = { path: SystemKey[]; rifts: number };
 
 /** Number of gravity rifts a path moves out of or through. */
-export const riftsExited = (state: GameState, path: SystemKey[]) =>
-  path
-    .slice(0, -1)
-    .filter((key) => hasAnomaly(state.systems[key], "GRAVITY_RIFT")).length;
+export const riftsExited = (state: GameState, path: SystemKey[], rules?: MoveRules) =>
+  rules?.ignoreRifts
+    ? 0
+    : path.slice(0, -1).filter((key) => isGravityRift(state, state.systems[key])).length;
+
+/**
+ * Gravity rifts a player's ships roll for on a path: not the Vuil'raith's own
+ * dimensional tears, and none at all with the Crucible or Nav Suite.
+ */
+export function riftRolls(state: GameState, path: SystemKey[], rules: MoveRules) {
+  const player = rules.player;
+  if (rules.ignoreRifts || state.tactical?.flags?.includes(`crucible:${player}`)) return 0;
+  return path.slice(0, -1).filter((key) => {
+    const system = state.systems[key];
+    if (hasAnomaly(system, "GRAVITY_RIFT")) return true;
+    const tears = tearOwners(state, system);
+    return tears.length > 0 && !tears.includes(player);
+  }).length;
+}
 
 /**
  * Checks a path a ship intends to fly. `path` starts at the origin and ends
@@ -524,12 +671,12 @@ export function routeProblem(
     return "Ships must end their movement in the active system.";
   }
   const origin = state.systems[path[0]];
-  let allowance = hasAnomaly(origin, "NEBULA") ? 1 : move;
-  allowance += riftsExited(state, path);
+  let allowance = hasAnomaly(origin, "NEBULA") && !rules.ignoreNebulae ? 1 : move;
+  allowance += riftsExited(state, path, rules);
   if (path.length - 1 > allowance) return "That ship cannot move that far.";
 
   for (let i = 1; i < path.length; i++) {
-    if (!areAdjacent(state, path[i - 1], path[i], rules.player)) {
+    if (!nextSteps(state, path[i - 1], rules).includes(path[i])) {
       return "That route passes between systems that are not adjacent.";
     }
     if (!canEnter(state, path[i], rules)) {
@@ -555,7 +702,7 @@ export function findRoute(
 ): Route | undefined {
   const origin = state.systems[from];
   if (!origin) return undefined;
-  const baseMove = hasAnomaly(origin, "NEBULA") ? 1 : move;
+  const baseMove = hasAnomaly(origin, "NEBULA") && !rules.ignoreNebulae ? 1 : move;
   const maxRifts = 3;
 
   type Node = { key: SystemKey; path: SystemKey[]; rifts: number };
@@ -580,11 +727,11 @@ export function findRoute(
 
       const rifts =
         node.rifts +
-        (hasAnomaly(state.systems[node.key], "GRAVITY_RIFT") ? 1 : 0);
+        (!rules.ignoreRifts && isGravityRift(state, state.systems[node.key]) ? 1 : 0);
       if (rifts > maxRifts) continue;
       if (steps + 1 > baseMove + rifts) continue;
 
-      for (const neighbor of adjacentSystems(state, node.key, rules.player)) {
+      for (const neighbor of nextSteps(state, node.key, rules)) {
         if (!canEnter(state, neighbor, rules)) continue;
         const stateKey = `${neighbor}:${rifts}`;
         const previous = seen.get(stateKey);
@@ -622,6 +769,15 @@ export function retreatOptions(
     const hasPlanet = system.planets.some(
       (p) => state.planets[p].controller === player,
     );
-    return hasUnits || hasPlanet;
+    // Dark Energy Tap: any adjacent system without other players' units.
+    const empty =
+      hasTech(state, player, "det") &&
+      Object.keys(system.space).every((o) => Number(o) === player || totalUnits(system.space[Number(o)]) === 0) &&
+      system.planets.every((p) =>
+        Object.keys(state.planets[p].units).every(
+          (o) => Number(o) === player || totalUnits(state.planets[p].units[Number(o)]) === 0,
+        ),
+      );
+    return hasUnits || hasPlanet || empty;
   });
 }

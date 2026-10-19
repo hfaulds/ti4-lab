@@ -72,6 +72,16 @@ function transfer(
   giver.commodities -= commodities;
   // Commodities become trade goods when they change hands.
   receiver.tradeGoods += tradeGoods + commodities;
+  // Dark Pact: a full load of commodities to the Empyrean pays both sides.
+  if (
+    commodities > 0 &&
+    commodities === giver.commodityLimit &&
+    giver.promissoryNotesInPlay.some((n) => n.id === "dark_pact" && n.owner === to)
+  ) {
+    giver.tradeGoods++;
+    receiver.tradeGoods++;
+    log(state, `Dark Pact: ${giver.name} and ${receiver.name} each gained 1 trade good.`);
+  }
 
   for (const note of side.promissoryNotes ?? []) {
     giver.promissoryNotes = giver.promissoryNotes.filter(
@@ -164,6 +174,12 @@ export function proposeTransaction(
   );
   requireSide(state, from, give);
   requireSide(state, to, receive);
+  // Hubris: the Mahact cannot be given an Alliance.
+  ensure(
+    !(give.promissoryNotes ?? []).some((n) => n.id === "an" && state.players[to].faction === "mahact") &&
+      !(receive.promissoryNotes ?? []).some((n) => n.id === "an" && state.players[from].faction === "mahact"),
+    "Hubris: the Mahact cannot be given an Alliance.",
+  );
 
   state.transactions = state.transactions.filter(
     (t) => !(t.from === from && t.to === to),

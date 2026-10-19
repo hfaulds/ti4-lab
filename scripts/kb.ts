@@ -7,6 +7,7 @@
  *   tsx scripts/kb.ts assemble [NNN]     check drafts, write knowledge/chunks/
  *   tsx scripts/kb.ts mentions           concept names across all chunks
  *   tsx scripts/kb.ts concepts           check the concepts draft, write concepts.json
+ *   tsx scripts/kb.ts index              build knowledge/knowledge.db for search
  *
  * Files:
  *   knowledge/work/scpt-NNN.sentences.txt   "s412 [0:43:02] text", for agents to read
@@ -16,8 +17,11 @@
  *   knowledge/chunks/scpt-NNN.json          assembled EpisodeChunks
  *   knowledge/chunks/concepts.json          assembled Concept[]
  */
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
+import Database from "better-sqlite3";
+import { buildIndex } from "~/knowledge/indexer";
+import type { SynonymList } from "~/knowledge/synonyms";
 import {
   Chunk,
   ChunkDraft,
@@ -306,6 +310,29 @@ function concepts() {
   console.log(`${out.length} concepts (${unexplained} never explained in the episodes).`);
 }
 
+// --- Search index -----------------------------------------------------------------------
+
+const INDEX_PATH = "knowledge/knowledge.db";
+
+/** Builds the search index from the assembled chunks, sections and concepts. */
+function index() {
+  for (const suffix of ["", "-wal", "-shm"]) rmSync(`${INDEX_PATH}${suffix}`, { force: true });
+  const db = new Database(INDEX_PATH);
+  const episodes = readEpisodes();
+  const conceptsFile = "knowledge/chunks/concepts.json";
+  const conceptList = existsSync(conceptsFile)
+    ? (JSON.parse(readFileSync(conceptsFile, "utf8")) as Concept[])
+    : [];
+  const synonyms = JSON.parse(readFileSync("knowledge/synonyms.json", "utf8")) as SynonymList;
+  const indexed = buildIndex(db, episodes, conceptList, synonyms);
+  db.exec("VACUUM");
+  db.close();
+  console.log(
+    `${INDEX_PATH}: ${episodes.length} episodes, ${indexed} chunks with advice, ${conceptList.length} concepts` +
+      (conceptList.length === 0 ? " (run the concepts step to add them)" : "") + ".",
+  );
+}
+
 // --- Main -----------------------------------------------------------------------------
 
 if (process.argv[1]?.endsWith("kb.ts")) {
@@ -314,8 +341,9 @@ if (process.argv[1]?.endsWith("kb.ts")) {
   else if (command === "assemble") assemble(argument);
   else if (command === "mentions") mentions();
   else if (command === "concepts") concepts();
+  else if (command === "index") index();
   else {
-    console.error("Usage: tsx scripts/kb.ts prepare | assemble [episode] | mentions | concepts");
+    console.error("Usage: tsx scripts/kb.ts prepare | assemble [episode] | mentions | concepts | index");
     process.exit(1);
   }
 }

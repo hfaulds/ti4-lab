@@ -1,0 +1,618 @@
+[
+  {
+    "name": "threat perception",
+    "aliases": ["heat", "target on your back", "being the target", "table ire"],
+    "definition": "How dangerous the rest of the table judges you to be, which decides who gets attacked, who gets trade offers and who gets ganged up on. A visible leader, a Mecatol Rex holder or a faction with a scary reputation is treated as more dangerous than a rival on equal points, so trades dry up and attacks come from round three on. Manage it deliberately: avoid early heat with weak or fragile factions, stay in the pack rather than leading early, point out when you are only tied for the lead, and when heat is unavoidable plan to absorb the hits (second dock, defended home) rather than pretending you can stay liked.",
+    "explained": true,
+    "covers": ["threat perception"]
+  },
+  {
+    "name": "tech skip",
+    "aliases": ["skip", "technology specialty", "blue skip", "red skip", "yellow skip", "green skip"],
+    "definition": "A planet with a technology specialty lets you ignore one prerequisite of that colour, so a slice's skips decide which tech paths are cheap and fast. Read your slice's skips (and those reachable by trade or conquest) before committing to a path: a blue skip speeds Gravity Drive-led paths, a yellow skip opens Dreadnought II, Transit Diodes or Space Dock II, a green skip speeds Hyper Metabolism. Red skips are usually least valuable because those planets mostly add influence. Factions with no skips often have to double tech at some point, and a skip is wasted if you keep using it on something you would have bought anyway.",
+    "explained": false,
+    "covers": ["tech skip"]
+  },
+  {
+    "name": "home system defense",
+    "aliases": ["defending home", "home defence"],
+    "definition": "Keeping your home system safe enough that losing a planet there never stops you scoring public objectives or cripples production. Factions with spread-out multi-planet homes should defend in space (a second dock, fighters, carriers or dreadnoughts) rather than with thin infantry; factions that can empty home (e.g. with abilities that do not need it) can send everything out early. Build up home defence once you have a stockpile or a lead, especially in the late game when others look for a decisive blow, and never leave your only dock under-defended next to an aggressive neighbour.",
+    "explained": true,
+    "covers": ["home system defense"]
+  },
+  {
+    "name": "tech path",
+    "aliases": ["tech route", "blue-green", "red-yellow", "blue-red", "blue-yellow"],
+    "definition": "The planned order of technologies for a game, usually described by colour pair (blue-green, red-yellow, blue-red) plus the unit upgrades it unlocks. Players get only about four to six techs a game, so each path should be aimed at the faction's needs, the slice's skips and the likely tech objectives (two techs in two colours, unit upgrades), not at everything. Choose the path from the slice and objectives, prefer reliable generic paths (blue-green) when unsure, and stop teching once the core is done to spend on units and objectives.",
+    "explained": true,
+    "covers": ["tech path"]
+  },
+  {
+    "name": "tech path commitment",
+    "aliases": ["committing to a path", "choosing the path early"],
+    "definition": "The need to lock in a tech path early, before you would like, because later techs depend on earlier purchases and switching wastes money. Base the choice on available skips, your slice and the first two or three revealed objectives; by about the fourth objective you should be committed. Teching early in round one with a generic tech can commit you before you know which path you need, so some factions delay tech until the picture is clearer.",
+    "explained": true,
+    "covers": ["tech path commitment"]
+  },
+  {
+    "name": "tech light",
+    "aliases": ["minimal tech", "Sarweenless"],
+    "definition": "Deliberately buying as little technology as possible and spending on units, economy and objectives instead. It suits factions that start behind on tech or whose strength is plastic, where each tech competes with the units that are their real advantage. The cost is weakness on tech objectives, so a tech-light player buys the couple of techs that open the most options and hopes tech objectives do not dominate.",
+    "explained": false,
+    "covers": ["tech light"]
+  },
+  {
+    "name": "command token economy",
+    "aliases": ["command counters", "token economy", "token problem"],
+    "definition": "Managing the flow of command tokens, which fund every tactical action, every strategy card secondary and fleet supply. Influence-rich slices, Leadership, Hyper Metabolism and Mecatol Rex's influence fix token shortages; token-hungry factions (whose abilities cost tokens) must plan for them all game. Banking Leadership tokens in round one for a stronger round two is a common use, and a token surplus translates into more actions, more secondaries and more stalling than opponents.",
+    "explained": true,
+    "covers": ["command token economy"]
+  },
+  {
+    "name": "secondary timing",
+    "aliases": ["strategy card timing", "Warfare stall", "first action extortion", "selling timing"],
+    "definition": "When a strategy card's primary is played decides who can afford and use its secondary, so holders time their play to help friends and hurt rivals, and players pay or negotiate for good timing. Classic cases: a Warfare holder stalling until one-carrier factions can no longer use the build, or playing Technology first action before resource-poor players can follow. Players with an early action (e.g. initiative zero) can charge others to play a card they need immediately, or to not play a denying card. Guard against it by picking cards that make you hard to stall out, keeping a stall action, or buying the timing you need.",
+    "explained": true,
+    "covers": ["secondary timing", "first action extortion"]
+  },
+  {
+    "name": "stall action",
+    "aliases": ["stalling", "stall", "stall tactics"],
+    "definition": "A cheap or useful action taken mainly to avoid passing, so you outlast opponents in the action phase, hold your strategy card until the timing suits you, and act after others have committed or passed. Sources include spare command tokens, component actions and action cards that are actions. Hide your stalling: open with small, unthreatening parts of your plan, and save dedicated stall cards for late in the round when others are running out.",
+    "explained": false,
+    "covers": ["stall action"]
+  },
+  {
+    "name": "plastic advantage",
+    "aliases": ["out-plastic", "plastic", "board presence"],
+    "definition": "Having more units (and more units in useful places) than your neighbours, which wins positional and control objectives and deters attacks. Some factions build their game on it, investing early in units rather than tech and then turning on neighbours once their fleets are too scary to stop. Over-investing in one unit type (e.g. only infantry) or letting tech purchases erode your plastic undermines it; aim to have won the economic and plastic game before fighting starts.",
+    "explained": false,
+    "covers": ["plastic advantage"]
+  },
+  {
+    "name": "points or units",
+    "aliases": ["build up or score"],
+    "definition": "The recurring choice between spending on objectives (spend resources, influence, trade goods, tech) and spending on the units that keep you relevant on the board. For factions whose only advantage is board presence, every economic objective competes directly with that advantage. Decide per game whether to build up first or score first; both approaches can fail late, so watch which is falling behind.",
+    "explained": true,
+    "covers": ["points or units"]
+  },
+  {
+    "name": "forward dock",
+    "aliases": ["forward space dock", "spread-out docks"],
+    "definition": "A space dock placed out of the home system on a good planet toward Mecatol Rex or an equidistant system, letting you reinforce your slice and front line from round two. It suits steady expansion and Mecatol plays, and is a good place to deploy a flagship. The risks: a bad dock is no better than a PDS, a forward dock is another target to defend, and rich players with exposed docks get extorted (e.g. with Reactor Meltdown); good neighbours avoid or defend them, so place them on the path to Mecatol rather than the wings and protect them (a Construction PDS helps).",
+    "explained": false,
+    "covers": ["forward dock"]
+  },
+  {
+    "name": "double dock home",
+    "aliases": ["double docking", "second home dock"],
+    "definition": "Putting a second space dock in the home system, typically on a multi-planet home, to roughly double home production and make the home dock impossible to knock out with one card. It suits factions whose home produces too little or who want big late fighter swarms, and pairs with Transit Diodes rather than Space Dock II. The trade-off is slower board presence: you strike early with what you have, then pull back and score from home, and the second PDS from Construction helps defend it.",
+    "explained": true,
+    "covers": ["double dock home"]
+  },
+  {
+    "name": "production redundancy",
+    "aliases": ["second dock insurance"],
+    "definition": "Having more than one space dock so that losing or disabling one (Reactor Meltdown, an attack, a blockade) never stops you building. It matters most for strong, hated factions the table will drag down at every opportunity. Build the second dock early, in round one if possible, so cards aimed at your only dock become irrelevant.",
+    "explained": true,
+    "covers": ["production redundancy"]
+  },
+  {
+    "name": "production bottleneck",
+    "aliases": ["production capacity", "production limit"],
+    "definition": "Being limited by how many units your docks can build per round rather than by money, so extra resources go unused or must be spent on tech. Low-resource homes and single docks cause it, and fighter-heavy factions feel it most; it also means building at home first in round one can waste a resource. Solve it as early as you can with a second dock (home or forward), Space Dock II, or staging planets, and remember that two docks in one system already build many units.",
+    "explained": true,
+    "covers": ["production capacity", "production bottleneck"]
+  },
+  {
+    "name": "wasted resources",
+    "aliases": ["overspending", "dead resources"],
+    "definition": "Resources lost because planets can only be exhausted whole, so paying for a tech or unit with a planet worth more than the cost throws the excess away. Single big-resource home systems (e.g. a 5/0) waste a resource on a standard tech purchase, and extra costs paid separately waste again. Plan purchases so planet values add up exactly, use Sarween Tools or trade goods to smooth leftovers, and prefer building over teching when tech would waste money.",
+    "explained": true,
+    "covers": ["wasted resources"]
+  },
+  {
+    "name": "custodians rush",
+    "aliases": ["Mecatol rush", "round-two Mecatol", "custodians point"],
+    "definition": "Racing to land on Mecatol Rex first, usually in round two (sometimes round one), to pay six influence and take the custodians point. The standard setup is Politics in round one for the speaker token and Leadership or Diplomacy in round two, with a carrier and Gravity Drive in range and six influence saved. It is worth it for factions that hold Mecatol well; for others it costs tokens, a carrier and influence, spreads them thin and leaves the slice exposed, so check who else is racing and whether you can hold it afterwards.",
+    "explained": true,
+    "covers": ["custodians rush"]
+  },
+  {
+    "name": "Mecatol racers, holders and takers",
+    "aliases": ["uprooter", "uprooters", "Mecatol roles"],
+    "definition": "A way of classing factions by their relationship to Mecatol Rex: racers get there first for the custodians point, holders can sit on it once there, and takers (which SCPT calls uprooters) are strong enough late to take it from an entrenched holder. Know your role: a holder wants to arrive first and not need to retake it, while an uprooter should skip the race, build up and take Mecatol late (often with Imperial for a swing round), since the second holder is rarely dislodged.",
+    "explained": true,
+    "covers": ["mecatol racers, holders and takers", "uprooter"]
+  },
+  {
+    "name": "table meta",
+    "aliases": ["meta", "local meta", "TTS meta"],
+    "definition": "The norms and habits of a particular group: how freely they trade, what they will tolerate (pillage, extortion, Mecatol holding), standard prices, whether support swaps happen and how aggressive they are. Many strategies are meta-dependent, so read each player in the first rounds and adapt; a play that is right in one meta (e.g. round-one PDS II against a hyper-aggressive table) is wasted in another. Assume the TTS standard (X-1 trades, common support swaps) unless the table shows otherwise.",
+    "explained": false,
+    "covers": ["table meta"]
+  },
+  {
+    "name": "metagame manipulation",
+    "aliases": ["controlling the table", "funding wars"],
+    "definition": "Actively shaping the table's power dynamics instead of just reacting to them: steering speaker order, funding neighbours' wars against each other, selling access or cards that set rivals fighting, or cornering a resource like trade agreements. It suits factions whose abilities depend on other players. Tactics that worked once will be refused next time, so keep changing them, and be aware that surprising moves that break promises cost goodwill.",
+    "explained": true,
+    "covers": ["metagame manipulation"]
+  },
+  {
+    "name": "speaker order control",
+    "aliases": ["controlling speaker", "pick order"],
+    "definition": "Manipulating who holds the speaker token, and so the strategy card pick order, to secure a key card in a key round (Imperial for a swing, Politics or Leadership for a Mecatol take, Technology for a tech objective). Plan the sequence of cards across rounds, for example Politics one round to guarantee Imperial the next, or pay a neighbour to take Politics and hand you speaker. Speaker order is also key information for early choices like the starting tech.",
+    "explained": true,
+    "covers": ["speaker order control"]
+  },
+  {
+    "name": "speaker token sale",
+    "aliases": ["selling speaker", "selling the speaker token", "buying the speaker token"],
+    "definition": "Using Politics to choose another player as speaker in exchange for payment, typically to the player on your right or the Trade holder, often for three or four trade goods or a full commodity wash. It turns a weak round-one card into money for Warfare and Technology secondaries. Do not sell to someone racing you for Mecatol Rex or who will take the card you need; keep the token when you plan a round-two Mecatol take or will not get much for it. The reverse, buying speaker from the Politics player, works only if Politics is picked right before you.",
+    "explained": true,
+    "covers": ["speaker token sale"]
+  },
+  {
+    "name": "non-binding deals",
+    "aliases": ["promises", "non-binding promises"],
+    "definition": "Agreements whose future part cannot be enforced by the rules, only by reputation: promises about later votes, how a promissory note will be used, future payments or not attacking. Only transactions that happen immediately are binding. Use them to build goodwill and leverage, but assume others may break theirs when it wins them the game; avoid making promises you might need to break late, and decide whether you trust a buyer before handing over something whose use you cannot control.",
+    "explained": true,
+    "covers": ["non-binding deals"]
+  },
+  {
+    "name": "gumming up the works",
+    "aliases": ["gum", "gumming", "fighter screen", "fighter coverage"],
+    "definition": "Spreading cheap units, usually fighters (with Fighter II) or single destroyers, across the systems around your slice so attackers must spend extra activations, tokens and fleet supply and cannot reach key systems in one move. It makes a weak early slice safe and blocks rivals' Mecatol or objective plays. Build the coverage incrementally by leaving a fighter or two behind as you move, and pair it with token-rich play since spreading units costs command tokens.",
+    "explained": true,
+    "covers": ["gumming up the works", "fighter screen"]
+  },
+  {
+    "name": "positional play",
+    "aliases": ["position", "manoeuvre"],
+    "definition": "Winning through where units are rather than through fighting: blocking approaches, sitting next to key systems, sneaking onto undefended objectives and repositioning when opponents have passed. It suits fast, fragile factions that should avoid fights until their plastic catches up. Moving is token-hungry, so positional factions favour Leadership and Trade for tokens and money.",
+    "explained": false,
+    "covers": ["positional play"]
+  },
+  {
+    "name": "trade leverage",
+    "aliases": ["leverage", "negotiating position"],
+    "definition": "Whatever makes others want to deal with you on your terms: holding Trade or the speaker token, a valuable promissory note, a strategy card whose timing others need, a strong defence that lets you refuse bad deals, or a threat. With leverage you can demand better than X-1 rates and get paid for timing; without it, take the nice deals on offer. Factions that rely on others for income must manufacture leverage, and should not overpay when the other side has none.",
+    "explained": false,
+    "covers": ["trade leverage"]
+  },
+  {
+    "name": "swing round",
+    "aliases": ["Imperial swing", "swing"],
+    "definition": "A planned round in which you score several points at once, typically by combining Imperial (ideally while holding Mecatol Rex) with public and secret objectives set up in advance. Factions that score slowly early plan their mid game toward one, around round three to five, arranging speaker order to secure Imperial and lining up objectives so they jump from the back of the pack to a winning position. Move the swing earlier if Imperial becomes available sooner than planned.",
+    "explained": false,
+    "covers": ["swing round"]
+  },
+  {
+    "name": "slice value",
+    "aliases": ["slice", "slice quality"],
+    "definition": "The worth of your starting slice: its resources, influence, skips, planet traits, PDS spots, equidistant systems and path to Mecatol Rex. Assess it immediately and let it decide your tech path, strategy card choices and whether a defensive or expansive plan is viable; a killer slice can support camping all game, a weak one forces trading or aggression. Also note which neighbours lack resources so you can use card timing against them.",
+    "explained": false,
+    "covers": ["slice value"]
+  },
+  {
+    "name": "camping slice",
+    "aliases": ["camping", "staying home"],
+    "definition": "Staying in and scoring entirely from your own slice for the whole game, fortifying it (e.g. with PDS and a red-yellow path) rather than expanding. It is viable only with a self-sufficient slice whose economy and planet traits can meet enough objectives, and easily reached equidistants. The main dangers are a very aggressive neighbour and objectives that require leaving the slice.",
+    "explained": false,
+    "covers": ["camping slice"]
+  },
+  {
+    "name": "trade good banking",
+    "aliases": ["saving trade goods", "stockpile", "war chest"],
+    "definition": "Saving trade goods across rounds instead of spending them immediately, to pay for the custodians token, stage two spend objectives, a future double tech or reactive plays. A stockpile also lets you extend the game until an objective you can score appears. Bank once early needs are met; banking too early starves the plastic and tech you need to survive.",
+    "explained": false,
+    "covers": ["trade good banking"]
+  },
+  {
+    "name": "influence reserve",
+    "aliases": ["holding influence"],
+    "definition": "Keeping influence or trade goods unspent in the final rounds to fund a reactive ability (in the base game, e.g. Yin's Indoctrination) when someone tries a last-point move. Let the table see the reserve so it deters the attempt. Banking trade goods for it avoids having to leave a planet unexhausted.",
+    "explained": false,
+    "covers": ["influence reserve"]
+  },
+  {
+    "name": "2C4I opening",
+    "aliases": ["two carriers four infantry", "2C5I", "standard opening"],
+    "definition": "The standard round-one expansion: two carriers each carrying two infantry, taking two planet systems on the first two actions. Starting fleets are judged against it; factions with one carrier, too few infantry or no fighters struggle and must use Warfare's secondary or build to reach it. Anything beyond it in round one is a bonus, and factions without it should not overextend to match it.",
+    "explained": false,
+    "covers": ["2C4I opening"]
+  },
+  {
+    "name": "support for the throne swap",
+    "aliases": ["support swap", "SftT swap"],
+    "definition": "Two players exchanging Support for the Throne notes so each gains a point that the other loses only by attacking them, effectively a mutual non-aggression pact worth a point. Swap early, ideally round two, with a neighbour able to hurt you, before you look too strong; leaders rarely find partners after round three. Feared factions' supports are worth more, and swapping with one neighbour lets you attack the other; keep a note back if you will need it to buy votes.",
+    "explained": false,
+    "covers": ["support for the throne swap"]
+  },
+  {
+    "name": "table talk",
+    "aliases": ["above-the-table play", "diplomacy", "reputation"],
+    "definition": "Everything done by negotiation and persuasion rather than on the board: framing yourself as weak or only tied for the lead, painting refusers as hostile, being upfront to avoid a gang-up and building a reputation others want to deal with. Friendly, open-handed players get swaps and deals that aggressive players with a reputation cannot. Start working above the table early so the table is not united against you by the mid game, and do not make threats you cannot back up.",
+    "explained": false,
+    "covers": ["table talk", "above-the-table play"]
+  },
+  {
+    "name": "controlled aggression",
+    "aliases": ["smart aggression", "anger one, not five"],
+    "definition": "Being aggressive deliberately and in limited doses: attack one player, not five, when it scores a point or captures something valuable like a space dock, and avoid early fights that create game-long enemies or open the game for a third player. Make your slice work before getting crazy, swap support with one neighbour and pressure the other. If the game forces you into a war, finish the job rather than leaving a wounded enemy.",
+    "explained": true,
+    "covers": ["controlled aggression"]
+  },
+  {
+    "name": "eat a neighbour",
+    "aliases": ["steamrolling a neighbour", "bully a neighbour"],
+    "definition": "Planning from the start to overrun one neighbour's slice early, using a fleet or ground army bigger than they can answer, to gain their planets and economy. It suits factions that are otherwise weak but can mass units; support-swap with the stronger neighbour and bully the weaker. The risk is that it can wreck a friend's game without winning yours, and it is slower and riskier for some factions than others.",
+    "explained": true,
+    "covers": ["eat a neighbour"]
+  },
+  {
+    "name": "magic christmas land",
+    "aliases": ["magic Christmas tree land", "Christmas land", "dream scenario"],
+    "definition": "SCPT's term for a plan that only works if several lucky things line up: the right action card draws (e.g. Flank Speed), perfect strategy card timing, a big trade payout or an opponent's mistake. The hosts normally avoid planning around such lines, especially in round one where unknown action cards tempt optimistic budgeting. Plan with the resources you can count on, and treat a magic christmas land line as a bonus to take only if it actually appears.",
+    "explained": false,
+    "covers": ["magic christmas land"]
+  },
+  {
+    "name": "win more",
+    "aliases": ["win-more"],
+    "definition": "A tech, unit or play that only adds to a position you have already won rather than helping you get there, such as extra capacity for a faction already rich in it or a defensive tech that locks down a game. Prioritise securing points and fixing real weaknesses first, and treat win-more items as late additions or skip them. A big round-one payoff that the faction would get anyway is also win-more.",
+    "explained": true,
+    "covers": ["win more"]
+  },
+  {
+    "name": "action card brokering",
+    "aliases": ["selling action cards", "card mercenary"],
+    "definition": "Treating action cards as goods to sell, or to be paid to play or not play, rather than hoarding them. Sell cards like Sabotage or Flank Speed to players who need them, especially to fund others' wars and drain rivals' plastic, and charge a specific target at the moment the deal matters to them rather than making broad offers. Selling instead of holding a big hand also keeps you looking unthreatening; weigh each sale against saving a combo for the final round.",
+    "explained": true,
+    "covers": ["action card brokering"]
+  },
+  {
+    "name": "initiative zero",
+    "aliases": ["the zero", "always going first", "Telepathic"],
+    "definition": "Always acting first in the action phase (in the base game, the Naalu's 0 token), probably the strongest faction ability because it wins final rounds. The zero player picks strategy cards purely for value, never for timing, and can score tech objectives or play Imperial before anyone can respond. Opponents must hurt such a faction before the late game, and must not let it get gifts that strengthen its timing further.",
+    "explained": true,
+    "covers": ["initiative zero"]
+  },
+  {
+    "name": "double action turn",
+    "aliases": ["Fleet Logistics double", "two actions in a row"],
+    "definition": "Taking two actions before anyone can respond, typically with Fleet Logistics (two tactical actions) or by combining a move with an immediate strategy card play. It wins final rounds: take the last planet and then play Imperial, or move in and then play Diplomacy to lock it. Combined with acting first it is a game-winning threat, so plan your final round around it and guard against opponents who have it.",
+    "explained": true,
+    "covers": ["double action turn"]
+  },
+  {
+    "name": "X-1 trade",
+    "aliases": ["X minus one", "commodity for trade goods at one less", "standard trade rate"],
+    "definition": "The standard trade rate in the common online (TTS) meta: the Trade holder refreshes your commodities and you trade X commodities for X-1 trade goods, the holder keeping one as their cut. Round-one budgets assume it, so a non-Trade player typically has home resources plus about two trade goods, too little for both the Warfare and Technology secondaries. With leverage (holding Trade, a paid strategy card pick, a strong defence) push for better, such as four-for-four or five or six for four, because repeatedly taking losing rates keeps you behind.",
+    "explained": false,
+    "covers": ["X-1 trade"]
+  },
+  {
+    "name": "trade ship",
+    "aliases": ["trading destroyer", "trade partner ship"],
+    "definition": "A cheap, mobile ship (usually the starting cruiser or destroyer) sent to sit next to another player, often the Trade holder, so you become neighbours and can trade in round one. Factions without a fast spare ship struggle to reach trade partners. Prefer partners who send their ship to you, so you give up no plastic or position.",
+    "explained": true,
+    "covers": ["trade ship"]
+  },
+  {
+    "name": "commodity wash",
+    "aliases": ["wash", "full wash"],
+    "definition": "Two players swapping commodities so that both receive trade goods, turning commodities that are worthless to their owner into money for each other. A wash, or a refresh plus wash, is a common sweetener or payment (e.g. for the speaker token or to stop a Warfare holder stalling). Generous free washes build goodwill; factions with many commodities and a reach to several neighbours profit most.",
+    "explained": false,
+    "covers": ["commodity wash"]
+  },
+  {
+    "name": "debt meta",
+    "aliases": ["owing favours", "IOUs"],
+    "definition": "A table culture of informal debts, where refreshes, washes or favours are given now in exchange for something owed later (a trade good, an agenda vote, not pillaging). It can turn a generous Trade round into future leverage, but debts are non-binding and can force you to break a promise late. Factions that will be extorting people later get no goodwill from it and should just take simple, immediate deals.",
+    "explained": false,
+    "covers": ["debt meta"]
+  },
+  {
+    "name": "trade agreement lockdown",
+    "aliases": ["buying up Trade Agreements", "locking out trade"],
+    "definition": "Buying up other players' Trade Agreements (or a key note like Research Agreement) to lock down the table's trading, either to bank value you release later or to deny a trade-reliant faction its income. A Trade holder can likewise lock everyone out instead of replenishing them. Trade-dependent factions guard against it by keeping their notes enticing, dealing with the table's outcast, or having income that does not need willing partners.",
+    "explained": true,
+    "covers": ["trade agreement lockdown"]
+  },
+  {
+    "name": "early control scoring",
+    "aliases": ["control objectives early"],
+    "definition": "Scoring control and positional objectives in rounds two and three, while opponents' slices are still thinly held and your early units (cruisers, early upgrades, a War Sun) can take what you need. It suits factions strong early but weaker late; a control objective revealed late is their worst enemy. Do not chase early control at the cost of plastic and command tokens you need to survive.",
+    "explained": false,
+    "covers": ["early control scoring"]
+  },
+  {
+    "name": "economy before control",
+    "aliases": ["objectives in reverse order", "economy, tech, then control"],
+    "definition": "Scoring peaceful economic objectives (spend and resource objectives) first, tech objectives later, and control objectives only in the late game, avoiding fights until the engine is built. It suits factions that punch hard late but cannot afford early losses. The risk is that delaying tech objectives gates your tech too much, and that you fall behind if the table pressures you early.",
+    "explained": true,
+    "covers": ["economy before control"]
+  },
+  {
+    "name": "Turtles path",
+    "aliases": ["the Turtles", "PDS fortress"],
+    "definition": "SCPT's defensive framework for Xxcha: stack PDS, build the flagship around round three or four, spend on objectives and tech, and make your slice nearly indestructible by the final round. It is easier to execute but leaves scoring to luck, since control objectives and many stage twos are hard from your own slice; you need points outside the public objectives (agendas, an early support swap). It fails in the late game when the tenth point does not come, and suits patient manipulators.",
+    "explained": true,
+    "covers": ["Turtles path"]
+  },
+  {
+    "name": "Blastoise path",
+    "aliases": ["Blastoise"],
+    "definition": "SCPT's aggressive framework for Xxcha: rush the flagship (round one if possible) and Gravity Drive (round two) on a blue skip, then drive the flagship into equidistants or neighbours' slices to threaten and profit. It is proactive but costs around 16 trade goods early, delays spend and control objectives, and is easier to stop than it looks; when it fails in the mid game you are out. It suits aggressive point-every-round players.",
+    "explained": true,
+    "covers": ["Blastoise path"]
+  },
+  {
+    "name": "pre-combat fire",
+    "aliases": ["first strike", "pre-combat hits"],
+    "definition": "Stacking hits that resolve before regular combat rounds (PDS space cannon, anti-fighter barrage, faction abilities like Ambush) so the opponent loses fighters and sustain before rolling. Enough of it wins fights, especially on defence, against fleets that rely on fighters or sustain damage. Attackers should count it before committing and avoid systems covered by enemy PDS.",
+    "explained": true,
+    "covers": ["pre-combat fire"]
+  },
+  {
+    "name": "PDS network",
+    "aliases": ["PDS play", "PDS fortress"],
+    "definition": "Building many PDS so their space cannon covers your key systems, often with PDS II's range and Magen Defense Grid, to defend a slice cheaply and shoot into attackers. It suits red-yellow paths and factions that extend PDS reach (e.g. through wormholes). Its weaknesses are low mobility and cards or agendas that remove PDS, and it takes real skill to play well.",
+    "explained": false,
+    "covers": ["PDS network"]
+  },
+  {
+    "name": "free points",
+    "aliases": ["points outside the horse race", "points outside the public objectives"],
+    "definition": "Points that do not come from the public objectives race: the custodians point, Imperial points while holding Mecatol Rex, Support for the Throne, agendas and other one-off sources. They cannot be blocked the way public objectives can and reduce how many publics you must score. Factions weak at public objectives must work these hard, especially the agenda phase, while Mecatol factions plan around repeated Imperial points.",
+    "explained": true,
+    "covers": ["free points", "points outside the horse race"]
+  },
+  {
+    "name": "tenth point problem",
+    "aliases": ["finding the tenth point"],
+    "definition": "The common failure of reaching eight or nine points but having no reliable route to the tenth, because remaining objectives are out of reach for your faction or position. Map a trajectory for all ten points from early on, counting stage ones, secrets, Support for the Throne and specific stage twos or free points, rather than chasing a point every round. Conversely, avoid leaving easy points on the table for others, such as an exposed flagship.",
+    "explained": true,
+    "covers": ["tenth point problem"]
+  },
+  {
+    "name": "point trading",
+    "aliases": ["point-for-point deals"],
+    "definition": "Making deals where players help each other score, such as letting a neighbour take a planet for a control objective in exchange for the same favour or a payment. It can be a weak faction's only mid-game scoring. Such deals are usually non-binding, so do not antagonise a partner (e.g. by pillaging them) while one is unresolved.",
+    "explained": false,
+    "covers": ["point trading"]
+  },
+  {
+    "name": "sell access to points",
+    "aliases": ["selling access"],
+    "definition": "Selling another player the means to reach points or tech they cannot otherwise get, such as wormhole access into a slice or onto Mecatol Rex, or territory you do not need, in exchange for trade goods or Support for the Throne. Know exactly how the buyer will use it and charge accordingly, and prefer access that points rivals at each other rather than at you.",
+    "explained": false,
+    "covers": ["sell access to points"]
+  },
+  {
+    "name": "survive to the late game",
+    "aliases": ["survive early", "slow start into big payoff"],
+    "definition": "Playing safe and tight through the early and mid game because the faction's real strength arrives late (a game-winning ability or a late-game tool). Avoid early fights and risky point grabs, focus on plastic and planets, fix the economy and stay liked; equal footing entering the late game is a win. Accept that some games will flounder if the slice or objectives are bad.",
+    "explained": true,
+    "covers": ["survive to the late game"]
+  },
+  {
+    "name": "tech nibble",
+    "aliases": ["nibble", "nibbling", "paying for nibbles"],
+    "definition": "Sending a small force, such as a cruiser or two, to kill a single cheap unit like a lone destroyer or fighter purely to trigger a tech copy (in the base game, the Nekro Virus). It is pitched as harmless to the victim, unlike killing a carrier with infantry, and can be negotiated: offer payment for the victim to leave a unit to be nibbled, paid up front. Victims who cannot retreat get no payment; avoid nibbling into PDS coverage.",
+    "explained": true,
+    "covers": ["tech nibble"]
+  },
+  {
+    "name": "extortion",
+    "aliases": ["threats", "pay or else"],
+    "definition": "Demanding payment, trade goods, a Support for the Throne or a concession under threat of an attack or a harmful card. Make the threat first and see what it is worth before attacking, typically against an under-defended space dock or home system, and do it only about twice a game so the table does not turn on you. Factions with one big threat may need to threaten to flip the table rather than give in; when you are threatened, paying to make the threat go away is sometimes right.",
+    "explained": false,
+    "covers": ["extortion"]
+  },
+  {
+    "name": "friend of the table enemy",
+    "aliases": ["trading with the outcast", "friend of the enemy of the table"],
+    "definition": "Dealing with the player the rest of the table shuns or fears, because they have few other partners and will give you favourable terms. It gives leverage to factions that otherwise lack it and works when the table tries to freeze you out. Feed them only while it benefits you, and be ready to turn on them before they win.",
+    "explained": true,
+    "covers": ["friend of the table enemy"]
+  },
+  {
+    "name": "infantry shortage",
+    "aliases": ["not enough ground forces"],
+    "definition": "Having too few infantry to take and garrison the planets your ships can reach, which leaves captured planets empty and vulnerable. Fix it by building infantry at home before expanding, reusing infantry (Transit Diodes), or techs that reduce the ground forces needed; avoid sending a ship out with a single infantry. Do not leave planets ungarrisoned unless you are deliberately blitzing.",
+    "explained": false,
+    "covers": ["infantry shortage"]
+  },
+  {
+    "name": "infantry stacking",
+    "aliases": ["bombardment ceiling", "giant infantry stack"],
+    "definition": "Holding a key planet such as Mecatol Rex with a very large infantry stack so attackers cannot clear it. Bombardment caps at around six shots, so keep the stack well above what bombardment can remove; halving it (e.g. to cash in infantry) can drop you below that ceiling. A big stack draws the whole table and can be whittled by bombardment, invasions and cards, so plan for PDS to disappear.",
+    "explained": true,
+    "covers": ["infantry stacking", "bombardment ceiling"]
+  },
+  {
+    "name": "denial pick",
+    "aliases": ["blocker pick", "imperial block", "hate pick", "deny pick"],
+    "definition": "Taking or playing a strategy card (or another choice) mainly to stop someone else using it: Technology first action against resource-poor neighbours, Construction first to deny forward docks, or Imperial to block a Mecatol Rex holder from scoring. A Mecatol holder can even welcome being Imperial-blocked, following the secondary to cycle secrets. Consider whether the denial is worth your own lost value, and whether others will take the card anyway.",
+    "explained": false,
+    "covers": ["denial pick", "blocker pick", "imperial block"]
+  },
+  {
+    "name": "objective denial",
+    "aliases": ["stopping objectives", "sniping"],
+    "definition": "Using units and action cards in the action phase to stop specific opponents scoring hard objectives, for example sniping a carrier or flagship before it completes a control objective, or killing ground forces before they land. Mobile, spread-out fleets and a stockpile to extend the game make it a strategy in itself. It is easiest before infantry land and works best combined with coordinating the table against a leader.",
+    "explained": false,
+    "covers": ["objective denial"]
+  },
+  {
+    "name": "Hunter's Law",
+    "aliases": ["Max Hunter's Law"],
+    "definition": "SCPT's old rule of thumb that the best techs are those you use very often and extract lots of value from, and that such techs are best bought as early as possible (e.g. Hyper Metabolism in round one). Starting techs that give value from round one fully satisfy it. Techs used once, such as a final-round game winner, break the law but can still be worth holding for their threat.",
+    "explained": true,
+    "covers": ["Hunter's Law"]
+  },
+  {
+    "name": "nothing to lose",
+    "aliases": ["play like a weak hand", "desperate gambits"],
+    "definition": "When your faction or position is weak, take risky, unusual or table-wide deals that a strong player would refuse (early swaps, selling political secrets, Hail Mary picks, gambits in the agenda phase), because the downside is small and one lucky card can turn your fortune. Play fast and loose rather than safe. The flip side: a forced war should be finished, since a desperate opponent left alive has nothing to lose against you.",
+    "explained": false,
+    "covers": ["nothing to lose"]
+  },
+  {
+    "name": "win from ahead",
+    "aliases": ["winning from ahead"],
+    "definition": "Closing out a game you lead while the table treats you as the main threat: take safe, controlled points, hold Mecatol Rex and free points, make home untakeable and plan escape routes rather than swinging wildly. Strong factions that score easily must be comfortable here and expect to be hit. Defence, Support for the Throne and secure points matter more than flashy plays.",
+    "explained": false,
+    "covers": ["win from ahead"]
+  },
+  {
+    "name": "win from behind",
+    "aliases": ["winning from behind", "catching up"],
+    "definition": "Winning after a slow or damaged start by staying in contention unnoticed and catching up with a late burst of stage two objectives, secrets and free points. Factions with strong economies and late-game tools can afford to miss stage ones, while weak factions rarely convert. Avoid looking threatening while behind so the table spends its effort on the leaders.",
+    "explained": false,
+    "covers": ["win from behind"]
+  },
+  {
+    "name": "flagship pressure",
+    "aliases": ["flagship threat", "surprise flagship"],
+    "definition": "Using a flagship as a mobile threat to force concessions, take equidistants or win a fight nobody saw coming (e.g. building it and moving it immediately). A flagship is expensive and easier to stop than it looks, and losing it can hand an opponent a point or a dramatic finish, so build it only when it can actually reach the systems that matter.",
+    "explained": false,
+    "covers": ["flagship pressure"]
+  },
+  {
+    "name": "economic fallback",
+    "aliases": ["economic plan B"],
+    "definition": "Switching to a trade-focused, low-threat game when your main plan (usually Mecatol Rex) fails: take Trade, sell notes, spread out, buy high-influence planets and tell the table you are no longer a threat. It needs a meta willing to trade with you, so it works only if you are not far ahead.",
+    "explained": true,
+    "covers": ["economic fallback"]
+  },
+  {
+    "name": "pillage restraint",
+    "aliases": ["soft pillage", "settling pillage"],
+    "definition": "Weighing the table's anger each time you could use a punishing ability like Pillage (base-game Mentak), rather than using it relentlessly. Read how each player reacts in rounds one and two, soften it where the table will punish you, settle with the Trade holder for a lump sum, and hold off against partners in unresolved deals or when the table is already hurting your rival. Against a purely optimising table, use it as much as possible.",
+    "explained": true,
+    "covers": ["pillage restraint"]
+  },
+  {
+    "name": "pillage token",
+    "aliases": ["pillage forgiveness"],
+    "definition": "A promise not to pillage someone later, given in exchange for something now; popular in online play. It is cheap leverage since you often would not have pillaged anyway, but it relies on a debt meta and can force you to break a promise late when one trade good would win. A safer version is to offer not to pillage someone in place of a debt you already owe, after the fact.",
+    "explained": true,
+    "covers": ["pillage token"]
+  },
+  {
+    "name": "quash for hire",
+    "aliases": ["paid quash", "selling the quash"],
+    "definition": "Holding the ability to discard an agenda (e.g. Political Favor) until a scary agenda is revealed, then charging those it threatens to remove it, which earns far more than selling the note early. Politics can also stack nasty agendas on top to create the demand. It can backfire if nobody pays.",
+    "explained": true,
+    "covers": ["quash for hire"]
+  },
+  {
+    "name": "secret objective cycling",
+    "aliases": ["drawing extra secrets"],
+    "definition": "Drawing extra secret objectives (via Imperial's secondary or an early Imperial pick) until you hold three you can actually score. A Mecatol holder can provoke others into taking Imperial to block it and follow the secondary each time. An early extra secret widens options for a faction that rarely gets to draw them later.",
+    "explained": true,
+    "covers": ["secret objective cycling"]
+  },
+  {
+    "name": "single fleet vulnerability",
+    "aliases": ["one big ship problem", "all eggs in one basket"],
+    "definition": "When a faction's strength rests on one fleet or ship, wherever it is will be fine but everything else is exposed. Plan around where the big fleet is not: an undefended slice gets robbed when it leaves home, and overextending it spreads the rest thin. Opponents exploit this by striking where the fleet is absent.",
+    "explained": true,
+    "covers": ["single fleet vulnerability"]
+  },
+  {
+    "name": "skilled retreat escape",
+    "aliases": ["hit and run", "escape hatch"],
+    "definition": "Using a retreat or move-away effect (e.g. Skilled Retreat, or Naalu's Foresight in the base game) to escape a bad attack, so you can commit units to a risky position, take a point and leave before the owner returns. Keep the resource it needs (e.g. a strategy token) available so the threat stays live.",
+    "explained": false,
+    "covers": ["skilled retreat escape"]
+  },
+  {
+    "name": "acceptable losses",
+    "aliases": ["planned losses"],
+    "definition": "Knowing which units actually matter and being willing to lose the rest, rather than spending cards or plastic to protect everything. Late in the game losses may not cost the win, so do not burn a key card like Sabotage to save a minor fleet; early, though, losing a carrier can make a fragile faction spiral.",
+    "explained": false,
+    "covers": ["acceptable losses"]
+  },
+  {
+    "name": "agenda vote trading",
+    "aliases": ["buying votes", "selling votes"],
+    "definition": "Trading agenda votes for trade goods, notes, political secrets or past favours. Factions likely to be targeted by agendas should keep notes and secrets to hand out for votes, and avoid leading on points when dangerous agendas could appear. Generous early trading can be repaid later as votes.",
+    "explained": false,
+    "covers": ["agenda vote trading"]
+  },
+  {
+    "name": "promissory note pricing",
+    "aliases": ["note pricing", "ceasefire value"],
+    "definition": "Pricing a promissory note by what it is worth to the buyer, not what it costs you: a note that costs you nothing but can swing a combat or neutralise your main threat (such as a Ceasefire from a faction with few, powerful units) should fetch several trade goods. Use a foot-in-the-door tactic, selling it cheap once so the table sees its value, then charge more, and do not swap a high-value note for a low-value one.",
+    "explained": true,
+    "covers": ["promissory note pricing", "ceasefire value"]
+  },
+  {
+    "name": "promissory note sale timing",
+    "aliases": ["sell at the moment of need"],
+    "definition": "Selling a reusable note at the exact moment the buyer needs it (usually the attacker during their activation, since you can only trade with the active player) rather than in advance, where it can get stuck in someone's hand or be used against you. A note that cannot hurt you can be offered freely and repeatedly.",
+    "explained": true,
+    "covers": ["promissory note sale timing"]
+  },
+  {
+    "name": "hidden promissory note",
+    "aliases": ["secret note sale"],
+    "definition": "Trading a dangerous note privately so its victim cannot play around it, and selling your other notes often so the table never knows where it is. Sell to rich, flimsy factions or neighbours of aggressive ones, who value it most.",
+    "explained": false,
+    "covers": ["hidden promissory note"]
+  },
+  {
+    "name": "spend to zero",
+    "aliases": ["retirement fund", "all-in finish"],
+    "definition": "Treating the units and money built up earlier as a fund to spend down at the end: pour everything into spend objectives and send every unit out for the final points, finishing with almost nothing. It suits factions that need not protect home or can keep income without planets, and occasionally a weak slice that must spend everything on ships to stay relevant.",
+    "explained": false,
+    "covers": ["spend to zero"]
+  },
+  {
+    "name": "threat diversion",
+    "aliases": ["drawing fire elsewhere"],
+    "definition": "Giving another player power that draws the table's attention away from you, such as selling a unit-upgrade note to someone across the table so they become the scary one. Weigh how much power you hand them, prefer recipients who will not out-threaten you in the end game, and do not make it routine.",
+    "explained": false,
+    "covers": ["threat diversion"]
+  },
+  {
+    "name": "anti-pick faction",
+    "aliases": ["parasite faction"],
+    "definition": "A faction whose ability profits from others holding a particular strategy card (like Mentak's Pillage, Hacan's or Jol-Nar's specialties) and so prefers not to take that card itself. Let someone else take it and insert yourself into their activity, taking the card only when you cannot reach any targets.",
+    "explained": false,
+    "covers": ["anti-pick faction"]
+  },
+  {
+    "name": "counter-kingmaking",
+    "aliases": ["mutually assured destruction"],
+    "definition": "When one player deliberately hands the game to another, the remaining players respond by giving the win to someone else instead. If tables routinely did this, kingmaking would stop paying off and so be deterred.",
+    "explained": true,
+    "covers": ["counter-kingmaking"]
+  },
+  {
+    "name": "kingmaking",
+    "aliases": ["kingmake"],
+    "definition": "Deciding who wins when you cannot win yourself, by handing a player points, planets or cards, or by choosing whom to stop. The hosts prefer stopping nobody over stopping only one leader, and advise risking your own game rather than feeding a rival a point. Do not give away game-winning tools cheaply, and be wary that a gift may simply win the game for its recipient.",
+    "explained": false,
+    "covers": ["kingmaking"]
+  },
+  {
+    "name": "kingslaying",
+    "aliases": ["stopping the leader"],
+    "definition": "Stopping the leader from winning, with cards, units or notes. When the table asks you to stop a leader for free, demand a price or a positional gain, since a tool handed out to stop the leader may instead be used by its buyer to win. Get within reach of the leader and stop them when it opens your own win path.",
+    "explained": true,
+    "covers": ["kingslaying"]
+  },
+  {
+    "name": "paid strategy card pick",
+    "aliases": ["getting paid to pick"],
+    "definition": "Charging the table for which strategy card you take when your choice affects them, for example taking a card that makes everyone rich (Diplomacy's or Trade's secondary) only if compensated, instead of a card that gives them nothing. Use it to win better trade terms than X-1.",
+    "explained": true,
+    "covers": ["paid strategy card pick"]
+  }
+]

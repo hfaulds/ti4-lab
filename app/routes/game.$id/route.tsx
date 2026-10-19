@@ -38,6 +38,7 @@ import { GameBoard } from "./components/GameBoard";
 import { HandPanel } from "./components/HandPanel";
 import { HistoryBar } from "./components/HistoryBar";
 import { LogPanel } from "./components/LogPanel";
+import { ReasoningPanel } from "./components/ReasoningPanel";
 import { ObjectivesPanel } from "./components/ObjectivesPanel";
 import { PlayersPanel } from "./components/PlayersPanel";
 import { SeatPicker } from "./components/SeatPicker";
@@ -288,6 +289,7 @@ export default function Game() {
                       <Tabs.Tab value="trade">Trade</Tabs.Tab>
                       <Tabs.Tab value="adjust">Adjust</Tabs.Tab>
                       <Tabs.Tab value="log">Log</Tabs.Tab>
+                      <Tabs.Tab value="reasoning">Reasoning</Tabs.Tab>
                     </Tabs.List>
                     {/* The tabs and panel toggle stay usable while looking back. */}
                     <ReadOnly when={inPast}>
@@ -316,6 +318,10 @@ export default function Game() {
                         <LogPanel view={view} />
                       </Tabs.Panel>
                     </ReadOnly>
+                    {/* Reading reasoning is not playing, so it stays usable. */}
+                    <Tabs.Panel value="reasoning">
+                      <ReasoningPanel view={liveView} player={player} />
+                    </Tabs.Panel>
                   </Tabs>
                 </div>
               )}

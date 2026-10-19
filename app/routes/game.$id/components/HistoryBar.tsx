@@ -298,7 +298,7 @@ export function HistoryBar({ view }: { view: GameView }) {
 }
 
 /** Why the player chose the move, as they explained it. */
-function Reasoning({ note }: { note: MoveNote }) {
+export function Reasoning({ note }: { note: MoveNote }) {
   const [showOptions, setShowOptions] = useState(false);
   return (
     <Blockquote p="sm" mt={4} color="violet">

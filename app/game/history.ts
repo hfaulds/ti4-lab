@@ -44,7 +44,26 @@ export type HistoryStep = {
   events: string[];
   /** Why the player chose the move, if they said, and the viewer may read it. */
   note?: MoveNote;
+  /**
+   * The version of the first step of the action this move was part of, so
+   * moves made while resolving someone's action (secondaries of a strategy
+   * card, hits assigned in combat) group under it.
+   */
+  section: number;
+  /** Whose turn it was, when the move was made on someone's turn. */
+  turn?: PlayerId;
 };
+
+/** Moves that finish a player's turn, so whatever follows begins another. */
+const TURN_ENDING = new Set<GameAction["type"]>([
+  "END_TURN",
+  "PASS",
+  "PICK_STRATEGY_CARD",
+]);
+
+/** Where in the game a move was made: on whose turn, or which agenda. */
+const momentOf = (state: GameState) =>
+  `${state.round}/${state.phase}/${state.activePlayer ?? ""}/${state.agenda?.number ?? ""}`;
 
 export class GameHistory {
   /** Every state from the start, one per move. */
@@ -97,16 +116,29 @@ export class GameHistory {
       revealAll ||
       !entry.visibleTo ||
       (viewer !== undefined && entry.visibleTo.includes(viewer));
+    let section = this.states[0].version;
     return this.states.map((state, index) => {
       const move = this.moves[index - 1];
       const previous = this.states[index - 1];
       const after = previous?.log[previous.log.length - 1]?.id ?? -1;
+      if (index > 0) {
+        const lastMove = this.moves[index - 2];
+        if (
+          !lastMove ||
+          TURN_ENDING.has(lastMove.action.type) ||
+          momentOf(previous) !== momentOf(this.states[index - 2])
+        ) {
+          section = state.version;
+        }
+      }
       return {
         version: state.version,
         round: state.round,
         phase: state.phase,
         player: move?.player,
         action: move?.action.type,
+        section,
+        turn: previous?.activePlayer,
         note:
           move?.note && (revealNotes || move.player === viewer)
             ? move.note

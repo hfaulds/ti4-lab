@@ -191,13 +191,6 @@ export default function Game() {
 
         <HistoryBar view={liveView} />
 
-        {inPast && (
-          <Alert color="blue" title="Viewing an earlier point">
-            The board and panels show the game as it stood then; nothing can be
-            played until you go back to now.
-          </Alert>
-        )}
-
         {isDisconnected && (
           <Alert color="orange" title="Disconnected">
             Live updates have stopped. They will resume when the connection

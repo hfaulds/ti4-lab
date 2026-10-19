@@ -5,15 +5,19 @@ import {
   Button,
   Group,
   Paper,
+  ScrollArea,
   SegmentedControl,
   Slider,
   Stack,
   Text,
   Tooltip,
+  UnstyledButton,
 } from "@mantine/core";
 import {
   IconChevronLeft,
+  IconChevronLeftPipe,
   IconChevronRight,
+  IconChevronRightPipe,
   IconChevronsLeft,
   IconChevronsRight,
   IconHistory,
@@ -22,7 +26,7 @@ import {
   IconPlayerPlayFilled,
   IconX,
 } from "@tabler/icons-react";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { HistoryStep, MoveNote } from "~/game/history";
 import { GameView } from "~/game/view";
 import { useGame } from "../gameStore";
@@ -44,6 +48,30 @@ type Speed = keyof typeof SPEEDS;
 /** "SCORE_OBJECTIVE" reads as "Score objective". */
 const actionName = (type: string) =>
   type.charAt(0) + type.slice(1).toLowerCase().replace(/_/g, " ");
+
+/** What a player did with their turn, from the move that began it. */
+const TURN_KINDS: Partial<Record<string, string>> = {
+  ACTIVATE_SYSTEM: "Tactical action",
+  STRATEGIC_ACTION: "Strategic action",
+  COMPONENT_ACTION: "Component action",
+  PLAY_ACTION_CARD: "Component action",
+  USE_ABILITY: "Component action",
+  PASS: "Passed",
+  PICK_STRATEGY_CARD: "Picked a strategy card",
+};
+
+/** A heading for the action a group of moves resolved. */
+function sectionTitle(section: HistoryStep[], when: HistoryStep) {
+  const first = section[0];
+  if (first.player === undefined) return "Start of the game";
+  for (const step of section) {
+    const kind = step.player === step.turn && TURN_KINDS[step.action ?? ""];
+    if (kind) return kind;
+  }
+  return first.turn !== undefined
+    ? actionName(first.action ?? "")
+    : `${PHASE_NAMES[when.phase]} phase`;
+}
 
 const samePhase = (a: HistoryStep, b: HistoryStep) =>
   a.round === b.round && a.phase === b.phase;
@@ -95,6 +123,20 @@ export function HistoryBar({ view }: { view: GameView }) {
     ) {
       if (steps[i].note) return goTo(i);
     }
+  };
+  const previousSection = () => {
+    if (!steps) return;
+    const start = steps.findIndex((s) => s.section === steps[index].section);
+    if (start < index) return goTo(start);
+    const before = steps[Math.max(0, start - 1)].section;
+    goTo(steps.findIndex((s) => s.section === before));
+  };
+  const nextSection = () => {
+    if (!steps) return;
+    const next = steps.findIndex(
+      (s, i) => i > index && s.section !== steps[index].section,
+    );
+    goTo(next === -1 ? steps.length - 1 : next);
   };
   const nextPhase = () => {
     if (!steps) return;
@@ -177,6 +219,9 @@ export function HistoryBar({ view }: { view: GameView }) {
             <Control label="Previous phase (shift ←)" onClick={previousPhase}>
               <IconChevronsLeft size={18} />
             </Control>
+            <Control label="Previous action" onClick={previousSection}>
+              <IconChevronLeftPipe size={18} />
+            </Control>
             <Control label="Previous move (←)" onClick={() => goTo(index - 1)}>
               <IconChevronLeft size={18} />
             </Control>
@@ -195,6 +240,9 @@ export function HistoryBar({ view }: { view: GameView }) {
             </Control>
             <Control label="Next move (→)" onClick={() => goTo(index + 1)}>
               <IconChevronRight size={18} />
+            </Control>
+            <Control label="Next action" onClick={nextSection}>
+              <IconChevronRightPipe size={18} />
             </Control>
             <Control label="Next phase (shift →)" onClick={nextPhase}>
               <IconChevronsRight size={18} />
@@ -265,35 +313,143 @@ export function HistoryBar({ view }: { view: GameView }) {
           mb="md"
         />
 
-        <Group gap="xs" wrap="wrap" mt="xs">
-          <Badge variant="light">
-            Round {step.round} · {PHASE_NAMES[step.phase]}
-          </Badge>
-          {step.player !== undefined ? (
-            <>
-              <PlayerName view={view} player={step.player} />
-              <Text size="sm" fw={600}>
-                {actionName(step.action ?? "")}
-              </Text>
-            </>
-          ) : (
-            <Text size="sm" fw={600}>
-              Start of the game
-            </Text>
-          )}
-        </Group>
-        {step.events.length > 0 && (
-          <Stack gap={0}>
-            {step.events.map((event, i) => (
-              <Text key={i} size="sm">
-                {event}
-              </Text>
-            ))}
-          </Stack>
-        )}
-        {step.note && <Reasoning note={step.note} />}
+        <Section
+          view={view}
+          steps={steps.filter((s) => s.section === step.section)}
+          before={steps[steps.findIndex((s) => s.section === step.section) - 1]}
+          current={step}
+          onSelect={(target) => goTo(steps.indexOf(target))}
+        />
       </Stack>
     </Paper>
+  );
+}
+
+/**
+ * Every move of the action the step on screen belongs to, so the moves other
+ * players made while resolving it, such as strategy card secondaries, read
+ * as part of it. Moves still to come are faded.
+ */
+function Section({
+  view,
+  steps,
+  before,
+  current,
+  onSelect,
+}: {
+  view: GameView;
+  steps: HistoryStep[];
+  /** The point just before the action began, which says when it was taken. */
+  before?: HistoryStep;
+  current: HistoryStep;
+  onSelect: (step: HistoryStep) => void;
+}) {
+  const first = steps[0];
+  const when = before ?? first;
+  const viewport = useRef<HTMLDivElement>(null);
+  const selectedRow = useRef<HTMLDivElement>(null);
+
+  // Keep the move on screen in view within the list, without scrolling the page.
+  useEffect(() => {
+    const list = viewport.current;
+    const row = selectedRow.current;
+    if (!list || !row) return;
+    const top =
+      row.getBoundingClientRect().top -
+      list.getBoundingClientRect().top +
+      list.scrollTop;
+    if (top < list.scrollTop) list.scrollTop = top;
+    else if (top + row.offsetHeight > list.scrollTop + list.clientHeight) {
+      list.scrollTop = top + row.offsetHeight - list.clientHeight;
+    }
+  }, [current.version]);
+
+  return (
+    <Stack gap={6} mt="xs">
+      <Group gap="xs" wrap="wrap">
+        <Badge variant="light">
+          Round {when.round} · {PHASE_NAMES[when.phase]}
+        </Badge>
+        {first.turn !== undefined && (
+          <PlayerName view={view} player={first.turn} />
+        )}
+        <Text size="sm" fw={600}>
+          {sectionTitle(steps, when)}
+        </Text>
+        {steps.length > 1 && (
+          <Text size="xs" c="dimmed">
+            {steps.length} moves
+          </Text>
+        )}
+      </Group>
+      <ScrollArea.Autosize mah={360} type="auto" viewportRef={viewport}>
+        <Stack gap={2}>
+          {steps.map((step) => {
+            const selected = step.version === current.version;
+            const aside =
+              step.turn !== undefined &&
+              step.player !== undefined &&
+              step.player !== step.turn;
+            return (
+              <Stack
+                key={step.version}
+                ref={selected ? selectedRow : undefined}
+                gap={2}
+                ml={aside ? "lg" : 0}
+                pl="xs"
+                py={2}
+                opacity={step.version > current.version ? 0.5 : 1}
+                style={{
+                  borderLeft: `3px solid ${
+                    selected
+                      ? "var(--mantine-primary-color-filled)"
+                      : "var(--mantine-color-default-border)"
+                  }`,
+                  background: selected
+                    ? "var(--mantine-primary-color-light)"
+                    : undefined,
+                }}
+              >
+                <UnstyledButton onClick={() => onSelect(step)}>
+                  <Group gap="xs" wrap="nowrap">
+                    {step.player !== undefined ? (
+                      <>
+                        <PlayerName view={view} player={step.player} />
+                        <Text size="sm" fw={selected ? 600 : undefined}>
+                          {actionName(step.action ?? "")}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text size="sm" fw={selected ? 600 : undefined}>
+                        Start of the game
+                      </Text>
+                    )}
+                    {!selected && step.events[0] && (
+                      <Text size="xs" c="dimmed" truncate>
+                        {step.events[0]}
+                      </Text>
+                    )}
+                    {!selected && step.note && (
+                      <IconMessageChatbot size={14} color="gray" />
+                    )}
+                  </Group>
+                </UnstyledButton>
+                {selected && step.events.length > 0 && (
+                  <Stack gap={0}>
+                    {step.events.map((event, i) => (
+                      <Text key={i} size="sm">
+                        {event}
+                      </Text>
+                    ))}
+                  </Stack>
+                )}
+                {selected && step.note && <Reasoning note={step.note} />}
+              </Stack>
+            );
+          })}
+        </Stack>
+      </ScrollArea.Autosize>
+    </Stack>
   );
 }
 

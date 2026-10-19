@@ -62,6 +62,33 @@ describe("game history", () => {
     );
   });
 
+  test("moves made while resolving an action group under it", () => {
+    const { states, moves } = botGame(300);
+    const history = new GameHistory(states[0]);
+    history.extend(moves);
+    const steps = history.timeline(undefined, true);
+    expect(steps[0].section).toBe(steps[0].version);
+    steps.forEach((step, i) => {
+      const first = steps.find((s) => s.section === step.section)!;
+      expect(first.version).toBe(step.section);
+      // A section never spans two players' turns.
+      expect(step.turn).toBe(first.turn);
+      if (i > 0 && ["END_TURN", "PASS"].includes(steps[i - 1].action ?? "")) {
+        expect(step.section).toBe(step.version);
+      }
+    });
+    // Another player's secondary sits in the strategic action it answers.
+    const secondary = steps.find((s) => s.action === "RESOLVE_SECONDARY");
+    expect(secondary).toBeDefined();
+    expect(secondary!.player).not.toBe(secondary!.turn);
+    expect(
+      steps.some(
+        (s) =>
+          s.section === secondary!.section && s.action === "STRATEGIC_ACTION",
+      ),
+    ).toBe(true);
+  });
+
   test("a move's note is read by its player, or by anyone once revealed", () => {
     const { states, moves } = botGame(20);
     const noted = moves.map((move, i) =>

@@ -136,15 +136,26 @@ describe("skipped secondaries", () => {
     from: (player + 1) % 6,
   });
 
-  test("say what the player lacked, or that the planner does not use the card", () => {
+  test("offer every affordable use, the bot's choice first", () => {
+    const state = advance(newGame(2), (s) => s.phase === "action" && s.prompts.length === 0);
+    const seat = state.activePlayer!;
+    const politics = state.strategyCards.find((id) => strategyCardsById[id]?.name === "Politics")!;
+    const prompt = secondary(state, seat, politics);
+    const withPrompt = { ...state, prompts: [prompt] };
+    const menu = buildMenu(withPrompt, seat);
+    // The bot never uses Politics' secondary, so its choice, Skip, stays first.
+    expect(menu[0].text).toBe("Skip the secondary");
+    expect(menu.map((c) => c.text)).toContain(
+      "Use the secondary: draw 2 action cards (they cannot be played in this engine) (costs 1 strategy token)",
+    );
+  });
+
+  test("say what the player lacked when only skipping is possible", () => {
     const state = structuredClone(advance(newGame(2), (s) => s.phase === "action"));
     const seat = state.activePlayer!;
     const card = (name: string) =>
       state.strategyCards.find((id) => strategyCardsById[id]?.name === name)!;
 
-    expect(secondarySkipReason(state, seat, secondary(state, seat, card("Politics")))).toMatch(
-      /never uses the Politics secondary/,
-    );
     state.players[seat].pools.strategy = 0;
     expect(secondarySkipReason(state, seat, secondary(state, seat, card("Technology")))).toBe(
       "You have no strategy token to pay for the Technology secondary.",
@@ -154,8 +165,8 @@ describe("skipped secondaries", () => {
       if (planet.controller === seat) planet.exhausted = true;
     }
     state.players[seat].tradeGoods = 0;
-    expect(secondarySkipReason(state, seat, secondary(state, seat, card("Technology")))).toMatch(
-      /costs 4 resources .* you have 0 ready/,
+    expect(secondarySkipReason(state, seat, secondary(state, seat, card("Technology")))).toBe(
+      "Technology's secondary costs 4 resources; you have 0 ready.",
     );
   });
 

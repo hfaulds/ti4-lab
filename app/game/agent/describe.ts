@@ -29,7 +29,7 @@ import {
   planetTechSpecialties,
   wormholesOf,
 } from "../engine/board";
-import { unitTypes } from "../engine/helpers";
+import { openPrompts, unitTypes } from "../engine/helpers";
 import { objectiveStatus } from "../engine/objectives";
 import { viewFor } from "../view";
 import { bestPlan } from "./scriptedBot";
@@ -303,6 +303,38 @@ function payloadLabel(payload: StrategicPayload) {
   }
 }
 
+/** What a secondary does, which differs from the card's primary. */
+function secondaryLabel(state: GameState, payload: StrategicPayload) {
+  switch (payload.card) {
+    case "leadership": {
+      const spent = payload.influence
+        ? payload.influence.planets.reduce(
+            (sum, p) => sum + planetInfluence(state, p),
+            payload.influence.tradeGoods,
+          )
+        : 0;
+      const gained = Math.floor(spent / 3);
+      return `spend influence from ${paymentLabel(payload.influence)} for ${gained} command token${gained === 1 ? "" : "s"}; ` +
+        `pools become ${payload.pools.tactic}/${payload.pools.fleet}/${payload.pools.strategy} (tactic/fleet/strategy)`;
+    }
+    case "politics":
+      return "draw 2 action cards (they cannot be played in this engine)";
+    case "construction": {
+      const [structure] = payload.structures;
+      if (!structure) return "build nothing";
+      const system = state.planets[structure.planet]?.system;
+      return `build a ${structure.type === "pds" ? "PDS" : "space dock"} on ${structure.planet}; ` +
+        `your command token goes into #${system}, so you cannot activate it this round`;
+    }
+    case "trade":
+      return "replenish your commodities (no trade goods)";
+    case "imperial":
+      return "draw a secret objective";
+    default:
+      return payloadLabel(payload);
+  }
+}
+
 /** A short, readable description of an action the agent could take. */
 export function describeAction(state: GameState, seat: PlayerId, action: GameAction): string {
   switch (action.type) {
@@ -334,10 +366,15 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
     }
     case "STRATEGIC_ACTION":
       return `Play ${payloadName(action.payload)} (primary): ${payloadLabel(action.payload)}`;
-    case "RESOLVE_SECONDARY":
-      return action.payload
-        ? `Use the secondary: ${payloadLabel(action.payload)}`
-        : "Skip the secondary";
+    case "RESOLVE_SECONDARY": {
+      if (!action.payload) return "Skip the secondary";
+      const [prompt] = openPrompts(state);
+      const free =
+        action.payload.card === "leadership" ||
+        (prompt?.kind === "secondary" && prompt.free);
+      return `Use the secondary: ${secondaryLabel(state, action.payload)}` +
+        (free ? "" : " (costs 1 strategy token)");
+    }
     case "SCORE_OBJECTIVES": {
       const scored = [action.publicObjective, action.secretObjective].filter(Boolean).map((o) => objectiveName(o!));
       return scored.length

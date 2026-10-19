@@ -89,7 +89,6 @@ import {
 import {
   findPayment,
   objectivePayment,
-  plannedObjective,
   readyPlanets,
   Reservation,
   reservationFor,
@@ -1430,9 +1429,86 @@ function primaryPayloads(
 }
 
 /**
- * Why the bot offers nothing but skipping a secondary, in the player's own
- * terms. Mirrors the rules in `secondaryPayloads`, and says so plainly when
- * the planner simply does not use that card's secondary.
+ * Every use of a secondary the player can pay for, whatever the bot would
+ * do: unlike `secondaryPayloads`, nothing is held back for objectives and no
+ * use is judged not worth it. For an agent to choose between. The engine
+ * still decides what is legal.
+ */
+export function secondaryChoices(
+  state: GameState,
+  id: PlayerId,
+  prompt: Extract<Prompt, { kind: "secondary" }>,
+): StrategicPayload[] {
+  const player = state.players[id];
+  const kind = strategyKind(prompt.card);
+  const hasToken = player.pools.strategy > 0 || prompt.free;
+  if (kind !== "leadership" && !hasToken) return [];
+  switch (kind) {
+    case "leadership": {
+      if (tokenRoom(state, id) === 0) return [];
+      const spare = spendable(state, id, "influence");
+      const choices: StrategicPayload[] = [];
+      const gains = new Set<number>();
+      for (const amount of [3, 6, 9]) {
+        if (amount > spare) break;
+        const influence = findPayment(state, id, amount, "influence");
+        if (!influence) break;
+        const spent = influence.planets.reduce(
+          (sum, name) => sum + planetInfluence(state, name),
+          influence.tradeGoods,
+        );
+        const gained = Math.floor(spent / 3);
+        if (gains.has(gained)) continue;
+        gains.add(gained);
+        choices.push({ card: kind, influence, pools: poolsAfterGaining(state, id, gained) });
+      }
+      return choices;
+    }
+    case "diplomacy": {
+      const exhausted = controlledPlanets(state, id)
+        .filter((p) => p.exhausted)
+        .map((p) => p.name)
+        .sort((a, b) => planetValue(state, id, b) - planetValue(state, id, a) || a.localeCompare(b));
+      return exhausted.length > 0 ? [{ card: kind, ready: exhausted.slice(0, 2) }] : [];
+    }
+    case "politics":
+    case "trade":
+      return [{ card: kind }];
+    case "construction": {
+      const seen = new Set<string>();
+      const choices: StrategicPayload[] = [];
+      for (const structure of structurePlacements(state, id).flat()) {
+        const key = `${structure.type}:${structure.planet}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        choices.push({ card: kind, structures: [structure] });
+      }
+      return choices;
+    }
+    case "warfare": {
+      const budget = spendable(state, id, "resources");
+      const orders = productionOrders(state, id, player.home, budget, { docksOnly: true });
+      if (orders.length === 0) return [];
+      const payment = findPayment(state, id, productionCost(state, id, orders), "resources");
+      return payment ? [{ card: kind, production: { units: orders, payment } }] : [];
+    }
+    case "technology": {
+      const payment = findPayment(state, id, SECONDARY_TECHNOLOGY_COST, "resources");
+      if (!payment) return [];
+      return researchOptions(state, id, payment.planets)
+        .slice(0, 4)
+        .map((research) => ({ card: kind, research, payment }));
+    }
+    case "imperial": {
+      const secrets = player.secretObjectives.length + player.scoredSecrets.length;
+      return secrets < 3 ? [{ card: kind }] : [];
+    }
+  }
+}
+
+/**
+ * Why a player has nothing to do with a secondary but skip it, in their own
+ * terms. Mirrors `secondaryChoices`.
  */
 export function secondarySkipReason(
   state: GameState,
@@ -1442,67 +1518,36 @@ export function secondarySkipReason(
   const player = state.players[id];
   const kind = strategyKind(prompt.card);
   const name = strategyCardsById[prompt.card]?.name ?? prompt.card;
-  const reserved = reservationOf(state, id);
   const hasToken = player.pools.strategy > 0 || prompt.free;
-  const noToken = `You have no strategy token to pay for the ${name} secondary.`;
-  /** Ready value of a currency after what is held back, and a note on it. */
-  const ready = (currency: "resources" | "influence") => {
-    const free = spendable(state, id, currency, reserved);
-    const all = spendable(state, id, currency);
-    const objective = plannedObjective(state, id)?.objective;
-    const what = objective
-      ? `scoring ${objectivesById[objective]?.name ?? objective}`
-      : "the custodians token";
-    return {
-      amount: free,
-      note: all > free ? ` (another ${all - free} is held back for ${what})` : "",
-    };
-  };
-  if (secondaryPayloads(state, id, prompt).length > 0) {
-    return `The planner's options for the ${name} secondary were not legal here.`;
+  if (secondaryChoices(state, id, prompt).length > 0) {
+    return `None of the ways to use the ${name} secondary were legal here.`;
   }
-
+  if (kind !== "leadership" && !hasToken) {
+    return `You have no strategy token to pay for the ${name} secondary.`;
+  }
   switch (kind) {
-    case "leadership": {
-      if (tokenRoom(state, id) === 0) {
-        return "All your command tokens are already in use, so Leadership's secondary would gain nothing.";
-      }
-      const { amount, note } = ready("influence");
-      return `Leadership's secondary costs 3 influence per command token; you have ${amount} to spare${note}.`;
-    }
+    case "leadership":
+      return tokenRoom(state, id) === 0
+        ? "All your command tokens are already in use, so Leadership's secondary would gain nothing."
+        : `Leadership's secondary costs 3 influence per command token; you have ${spendable(state, id, "influence")} ready.`;
     case "technology": {
-      if (!hasToken) return noToken;
-      const { amount, note } = ready("resources");
-      if (amount < SECONDARY_TECHNOLOGY_COST + 1) {
-        return `Technology's secondary costs ${SECONDARY_TECHNOLOGY_COST} resources and the planner keeps 1 spare; you have ${amount} ready${note}.`;
-      }
-      return "No technology can be researched with the prerequisites and planets you have.";
+      const resources = spendable(state, id, "resources");
+      return resources < SECONDARY_TECHNOLOGY_COST
+        ? `Technology's secondary costs ${SECONDARY_TECHNOLOGY_COST} resources; you have ${resources} ready.`
+        : "No technology can be researched with the prerequisites and planets you have.";
     }
-    case "warfare": {
-      if (!hasToken) return noToken;
-      const { amount, note } = ready("resources");
-      if (amount < 3) {
-        return `The planner only builds with Warfare's secondary when it has 3 resources to spend; you have ${amount} ready${note}.`;
-      }
-      return "Nothing can be built at your home space dock: production, fleet pool or reinforcements are used up.";
-    }
-    case "trade": {
-      if (!hasToken) return noToken;
-      const missing = player.commodityLimit - player.commodities;
-      if (missing < 2) {
-        return `Your commodities are already ${player.commodities}/${player.commodityLimit}, so replenishing gains little.`;
-      }
-      return "The planner keeps its last strategy token rather than spend it replenishing commodities.";
-    }
+    case "warfare":
+      return `Nothing you can afford can be built at your home space dock (${spendable(state, id, "resources")} resources ready).`;
+    case "diplomacy":
+      return "None of your planets are exhausted, so there is nothing to ready.";
+    case "construction":
+      return "There is nowhere to place a PDS or space dock, or none are left in your reinforcements.";
     case "imperial": {
-      if (!hasToken) return noToken;
       const secrets = player.secretObjectives.length + player.scoredSecrets.length;
       return `You already have ${secrets} secret objectives, the most allowed.`;
     }
     default:
-      return hasToken
-        ? `Not offered: the scripted planner never uses the ${name} secondary, so only Skip was on the menu.`
-        : noToken;
+      return `The ${name} secondary cannot be used here.`;
   }
 }
 

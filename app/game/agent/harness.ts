@@ -18,6 +18,7 @@ import {
   SCRIPTED_BOT_VERSION,
   scriptedCandidates,
   scriptedMove,
+  secondaryChoices,
   secondarySkipReason,
 } from "./scriptedBot";
 import { lookup, TOOLS } from "./tools";
@@ -109,7 +110,7 @@ export function buildMenu(state: GameState, player: PlayerId): Candidate[] {
   const seen = new Set<string>();
   const legal: GameAction[] = [];
   let activations = 0;
-  for (const action of ranked.actions) {
+  for (const action of withEverySecondary(state, player, ranked.actions)) {
     const key = JSON.stringify(action);
     if (seen.has(key)) continue;
     seen.add(key);
@@ -125,6 +126,24 @@ export function buildMenu(state: GameState, player: PlayerId): Candidate[] {
     text: describeAction(state, player, action),
     action,
   }));
+}
+
+/**
+ * For a secondary, every use the player can pay for, not only the bot's
+ * picks. The bot's choices come first, so the first option is still what
+ * the bot would do (skipping, if it would skip), then the rest.
+ */
+function withEverySecondary(state: GameState, player: PlayerId, actions: GameAction[]) {
+  const [prompt] = openPrompts(state);
+  if (prompt?.kind !== "secondary" || prompt.player !== player) return actions;
+  const isSkip = (a: GameAction) => a.type === "RESOLVE_SECONDARY" && !a.payload;
+  const others = secondaryChoices(state, player, prompt).map(
+    (payload): GameAction => ({ type: "RESOLVE_SECONDARY", promptId: prompt.id, payload }),
+  );
+  const picks = actions.filter((a) => !isSkip(a));
+  const skip = actions.filter(isSkip);
+  // Duplicates of the bot's picks are dropped when the menu is built.
+  return picks.length > 0 ? [...picks, ...others, ...skip] : [...skip, ...others];
 }
 
 // --- Replay log ---------------------------------------------------------------

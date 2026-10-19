@@ -1,0 +1,1090 @@
+{
+  "episode": 139,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro, recording day and baby news",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s40",
+          "title": "The imagined pitch meeting for psychic space snakes",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Naalu Collective"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Starting units, tech and home system",
+      "summary": "Naalu's starting fleet is middle of the pack: it lacks a second carrier. Starting with Neural Motivator and Sarween Tools gives full value from the start. The two-planet home system is poor because the 0/2 planet does nothing early and the low resources create a production bottleneck for a fighter-based faction.",
+      "chunks": [
+        {
+          "start": "s76",
+          "title": "Starting units and technologies",
+          "kind": "strategy",
+          "summary": "The starting units are middling, not bad. The starting techs, Neural Motivator and Sarween Tools, follow Hunter's Law and give maximum value from round one.",
+          "advice": [
+            {
+              "point": "Naalu's starting units are middle of the pack: workable, but short a second carrier.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective", "Carrier"]
+            },
+            {
+              "point": "Starting with Neural Motivator and Sarween Tools is excellent, a 'super Hunter's Law' start that gets maximum value immediately.",
+              "stance": "rating",
+              "subjects": ["Neural Motivator", "Sarween Tools"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["setup", "round 1"],
+          "topics": ["technology", "opening"],
+          "requires": [],
+          "concepts": ["Hunter's Law"]
+        },
+        {
+          "start": "s88",
+          "title": "Home system and the production bottleneck",
+          "kind": "strategy",
+          "summary": "The home system is a 3/1 and a 0/2. The 0/2 just sits unused in round one and often round two unless combined with a trade good or another influence planet for a command token. The low resources make it hard for a fighter-leaning faction to produce enough, a production bottleneck that recurs throughout the guide.",
+          "advice": [
+            {
+              "point": "The home system is bad: the 0/2 planet sits idle in round one and often round two unless you can pair it with a trade good or a 1/1 planet to buy a command token.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective"]
+            },
+            {
+              "point": "Treat the production bottleneck as a core problem: Naalu leans on fighters but its home planets make it hard to produce them, so plan from the start how to fix it.",
+              "stance": "recommended",
+              "subjects": ["Naalu Collective", "Fighter"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["setup", "early"],
+          "topics": ["economy", "general strategy"],
+          "requires": [],
+          "concepts": ["production capacity", "production bottleneck"]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities, flagship and promissory note",
+      "summary": "Telepathic is one of the best abilities in the game and is what lifts Naalu from a middling faction to top tier. Foresight is a reliable escape tool to keep in reserve rather than plan around. The flagship patches Naalu's weakness at invading. Gift of Prescience should essentially never be given away.",
+      "chunks": [
+        {
+          "start": "s106",
+          "title": "Telepathic",
+          "kind": "strategy",
+          "summary": "Always going first is probably the best faction ability in the game and wins games. Without it Naalu would be a middling defensive faction that struggles to win economically; with it they are top tier.",
+          "advice": [
+            {
+              "point": "Telepathic is one of the best, if not the best, abilities in the game; Naalu's whole game plan is shaped around always going first.",
+              "stance": "rating",
+              "subjects": ["Telepathic"]
+            },
+            {
+              "point": "Without Telepathic Naalu would be middling, hard to get off the ground with no route to an economic victory; this single ability makes them top tier.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective", "Telepathic"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["any"],
+          "topics": ["faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["initiative zero"]
+        },
+        {
+          "start": "s116",
+          "title": "Foresight",
+          "kind": "strategy",
+          "summary": "Foresight works like a more reliable skilled retreat. It is less something to use actively than a get-out-of-jail-free card for when someone attacks you badly, but you must keep a strategy token available to have it.",
+          "advice": [
+            {
+              "point": "Treat Foresight as a get-out-of-jail-free card that lets you avoid the brunt of a bad attack, not as something to build plans around.",
+              "stance": "rating",
+              "subjects": ["Foresight"]
+            },
+            {
+              "point": "Keep a token in your strategy pool when you may need to escape; Foresight only works if you planned to have one available.",
+              "stance": "recommended",
+              "subjects": ["Foresight"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy", "skilled retreat escape"]
+        },
+        {
+          "start": "s126",
+          "title": "Flagship: Matriarch",
+          "kind": "strategy",
+          "summary": "The Matriarch plugs a hole in Naalu's weak invasion capability by letting fighters fight on the ground, but you still need at least one real ground force to land and survive to take the planet.",
+          "advice": [
+            {
+              "point": "The Matriarch is an interesting flagship that partly plugs Naalu's weakness at taking planets.",
+              "stance": "rating",
+              "subjects": ["Matriarch"]
+            },
+            {
+              "point": "When invading with the Matriarch, still commit at least one ground force; fighters alone cannot take the planet.",
+              "stance": "recommended",
+              "subjects": ["Matriarch", "Fighter", "Infantry"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s135",
+          "title": "Gift of Prescience: do not give it out",
+          "kind": "strategy",
+          "summary": "Giving away Gift of Prescience is almost never a good idea. It is only worth it if it wins you the game, or in odd metas. It is a game winner in the final round, and because it cannot be traded during the strategy phase any promise to play it early is non-binding, so the holder will usually keep it for the final round.",
+          "advice": [
+            {
+              "point": "Do not give or sell Gift of Prescience; the hosts cannot describe a normal situation where it is a good idea.",
+              "stance": "avoid",
+              "subjects": ["Gift of Prescience"]
+            },
+            {
+              "point": "Only hand it over if it gives you the win (for example a final-round deal where it lets both players win), or in a strange table meta where players act against their own incentives.",
+              "stance": "situational",
+              "subjects": ["Gift of Prescience"]
+            },
+            {
+              "point": "Even a sale for four or five trade goods is only safe if you are certain it will not give the buyer the game; that certainty is almost impossible.",
+              "stance": "avoid",
+              "subjects": ["Gift of Prescience"]
+            },
+            {
+              "point": "Any promise to play it this round is non-binding, since it cannot be traded during the strategy phase; a smart holder keeps it for the final round, where it is a game winner.",
+              "stance": "rating",
+              "subjects": ["Gift of Prescience"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["any", "late"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals", "kingmaking", "table meta", "initiative zero"]
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies and commodities",
+      "summary": "Hybrid Crystal Fighter II is the bread and butter of the faction and makes cruisers obsolete. Neuroglaive is a devastating deterrent when combined with fighters spread around your home, but the hosts now walk back calling it integral: it is purely defensive and can be planned around. Commodities are average.",
+      "chunks": [
+        {
+          "start": "s163",
+          "title": "Hybrid Crystal Fighter II",
+          "kind": "strategy",
+          "summary": "Hybrid Crystal Fighter II is the core of the faction: for the cost of one cruiser you get four fighters, and for one cruiser's fleet pool, two of them. With it there is rarely a reason to build cruisers.",
+          "advice": [
+            {
+              "point": "Hybrid Crystal Fighter II is the bread and butter of the faction, how Naalu gets everything done.",
+              "stance": "rating",
+              "subjects": ["Hybrid Crystal Fighter II"]
+            },
+            {
+              "point": "Once you have Hybrid Crystal Fighter II, cruisers are priced out: the fighters are strictly better per cost and per fleet pool, so rarely build cruisers.",
+              "stance": "avoid",
+              "subjects": ["Cruiser", "Hybrid Crystal Fighter II"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["gumming up the works"]
+        },
+        {
+          "start": "s177",
+          "title": "Neuroglaive and gumming up the works",
+          "kind": "strategy",
+          "summary": "Neuroglaive combos with Hybrid Crystal Fighters: leave ships in the systems around your home so an attacker must activate two of your systems and lose two fleet pool tokens. It is devastating if gotten early, but the hosts walk back their old view that it is integral; it is purely defensive and opponents can over-invest in fleet pool to handle it. Commodities are an unremarkable three.",
+          "advice": [
+            {
+              "point": "Spread fighters into the systems around your home system so that attacking your home costs the attacker two fleet pool tokens.",
+              "stance": "recommended",
+              "subjects": ["Neuroglaive", "Hybrid Crystal Fighter II"]
+            },
+            {
+              "point": "Neuroglaive is as strong as Mirror Computing but not required; the hosts half-step back from their earlier guide that called it integral to Naalu's strategy.",
+              "stance": "rating",
+              "subjects": ["Neuroglaive"]
+            },
+            {
+              "point": "Neuroglaive falters sometimes because it is purely defensive: it only helps if it deters or stops an attack, and opponents can over-invest in fleet pool to plan around it.",
+              "stance": "rating",
+              "subjects": ["Neuroglaive"]
+            },
+            {
+              "point": "Naalu's three commodities are middle of the road and nothing to plan around.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["gumming up the works", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Round one is awkward for Naalu: the zero removes any stall potential, the starting techs mean a round-one tech gains little, and the production bottleneck caps what you can build. Trade is the hosts' favourite pick, since it funds both the Warfare and Technology secondaries. Politics edges out Warfare, Construction is a reasonable sixth pick as an investment, Leadership sits in the middle to low, and Diplomacy and Imperial are not picks. Survive the early game safely, because an equal position in the late game wins for Naalu.",
+      "chunks": [
+        {
+          "start": "s206",
+          "title": "Round one goals: plastic, tech and the bottleneck",
+          "kind": "strategy",
+          "summary": "Every card has some case, but the round-one problems are the same: Naalu needs a second carrier, and tech gains little immediately. With three resources plus Sarween Tools you can build only five units at home, so even one extra trade good maxes out production. Antimass Deflectors, on the way to Hybrid Crystal Fighter II, is the tech to get.",
+          "advice": [
+            {
+              "point": "Round one priorities are plastic, especially a second carrier, then tech; the starting techs mean an extra tech does little right away.",
+              "stance": "recommended",
+              "subjects": ["Carrier", "Naalu Collective"]
+            },
+            {
+              "point": "When you do research, take Antimass Deflectors, which is pretty essential as the route to Hybrid Crystal Fighter II.",
+              "stance": "recommended",
+              "subjects": ["Antimass Deflectors", "Hybrid Crystal Fighter II"]
+            },
+            {
+              "point": "Expect to hit the production bottleneck in round one: one extra trade good already maxes out a carrier, two fighters and two infantry, which is a bad sign to fix early.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective", "Space Dock"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "technology", "economy"],
+          "requires": [],
+          "concepts": ["production bottleneck", "production capacity", "plastic advantage", "tech path"]
+        },
+        {
+          "start": "s245",
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is middle to low; Naalu cannot expect to afford both secondaries anyway. On an X-1 trade you have about five resources, so choose Warfare for the second carrier over Technology. The hosts are now comfortable skipping tech in round one entirely, since round-two techs do little immediately for Naalu.",
+          "advice": [
+            {
+              "point": "Leadership is middling to low for Naalu; it does not unlock much since you cannot afford both secondaries anyway. The hosts leave it to personal preference.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Following Construction to double dock your home system helps the bottleneck, but the Warfare secondary only builds from one dock and the second home planet is a 0/2, so it is not optimal.",
+              "stance": "rating",
+              "subjects": ["Construction", "Warfare", "Space Dock"]
+            },
+            {
+              "point": "If your slice has a strong planet like Lirta IV or Abyz, putting a space dock there is better than a second home dock; it effectively becomes your home system.",
+              "stance": "situational",
+              "subjects": ["Space Dock", "Lirta IV", "Abyz"]
+            },
+            {
+              "point": "With about five resources from an X-1 trade, prefer the Warfare secondary for a second carrier over the Technology secondary.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Technology", "Carrier"]
+            },
+            {
+              "point": "Be willing to skip tech entirely in round one: you can catch up in round two or three, and even Antimass Deflectors in round one enables little in round two, Gravity Drive for Mecatol Rex only rarely.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Antimass Deflectors", "Gravity Drive"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening", "technology"],
+          "requires": [],
+          "concepts": ["X-1 trade", "double dock home", "forward dock", "production bottleneck"]
+        },
+        {
+          "start": "s275",
+          "title": "Round one: Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy has no real place in Naalu's round one. The most charitable case is taking a blue skip like Gral to research Gravity Drive for a round-two Mecatol play, but blue-skip planets add influence rather than resources, one carrier cannot take more, and you build nothing while sending your only fleet away from home. As sixth pick, Construction is better.",
+          "advice": [
+            {
+              "point": "Do not take Diplomacy in round one as Naalu.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy"]
+            },
+            {
+              "point": "The only argument is skipping on a blue planet to Gravity Drive for a round-two Mecatol Rex play while still getting Hybrid Crystal Fighter II next round; it rarely works without hurting round one.",
+              "stance": "situational",
+              "subjects": ["Diplomacy", "Gravity Drive", "Gral", "Thibah", "Mecatol Rex"]
+            },
+            {
+              "point": "If you are sixth pick, take Construction over Diplomacy.",
+              "stance": "recommended",
+              "subjects": ["Construction", "Diplomacy"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "mecatol"],
+          "requires": [],
+          "concepts": ["tech skip", "custodians rush", "production bottleneck"]
+        },
+        {
+          "start": "s298",
+          "title": "Round one: Politics and the lack of timing pressure",
+          "kind": "strategy",
+          "summary": "Politics is decent: Naalu can sell the speaker token for about three to four trade goods, fund plastic and tech, and keep options like an Imperial plus Mecatol double point in round two. Because Naalu always goes first, they pick strategy cards purely on what they gain, never on timing, so they never need a specific card in round two.",
+          "advice": [
+            {
+              "point": "Take Politics and sell the speaker token, at about three to four trade goods (or two plus a wash), to fund plastic and tech.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Naalu Collective"]
+            },
+            {
+              "point": "The extra money can set up taking Imperial in round two to sneak Mecatol Rex for a double point, though opponents will see it coming.",
+              "stance": "situational",
+              "subjects": ["Politics", "Imperial", "Mecatol Rex"]
+            },
+            {
+              "point": "Pick strategy cards purely for what they gain you; going first removes the timing factor every other player must weigh, so you are never forced into a particular card or tech round.",
+              "stance": "recommended",
+              "subjects": ["Telepathic"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening", "mecatol", "trade and diplomacy"],
+          "requires": ["faction abilities"],
+          "concepts": ["speaker token sale", "commodity wash", "initiative zero", "secondary timing"]
+        },
+        {
+          "start": "s323",
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Construction in round one is an investment. Play it as your first action, unless you have a choice planet for a forward dock, to lock others out of building production. Double docking the home system is questionable but carries you through the early and mid game, and the second PDS helps defend a two-planet home. It is a solid sixth pick, better than Diplomacy.",
+          "advice": [
+            {
+              "point": "Take Construction as an investment and play it as your first action, locking everyone else out of extra production.",
+              "stance": "recommended",
+              "subjects": ["Construction"]
+            },
+            {
+              "point": "Double docking the home system is questionable, but it gets you through the early to mid game; put the PDS on the second home planet, since two planets are harder to defend than one.",
+              "stance": "situational",
+              "subjects": ["Construction", "Space Dock", "PDS"]
+            },
+            {
+              "point": "Construction is a good sixth pick, better than Diplomacy, because it at least gives you a plan.",
+              "stance": "rating",
+              "subjects": ["Construction", "Diplomacy"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "economy"],
+          "requires": [],
+          "concepts": ["double dock home", "forward dock", "denial pick", "production bottleneck"]
+        },
+        {
+          "start": "s339",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is the hosts' favourite round-one pick: it funds both the Warfare secondary for a carrier, fighters and infantry and the Technology secondary for Antimass Deflectors. It is the only reliable way to use the 0/2 planet, and the cruiser and destroyer as trade ships let Naalu reach many neighbours. Play it first action and do deals all round, open-handed as long as the money flows to you.",
+          "advice": [
+            {
+              "point": "Trade is the best round-one pick for Naalu: it pays for both the Warfare and Technology secondaries, a solid if unflashy start.",
+              "stance": "rating",
+              "subjects": ["Trade", "Warfare", "Technology"]
+            },
+            {
+              "point": "Use a trade good with the 0/2 home planet for an extra command token; Trade is the only reliable way to make that planet useful early.",
+              "stance": "recommended",
+              "subjects": ["Trade", "Naalu Collective"]
+            },
+            {
+              "point": "Use the cruiser and destroyer as trade ships to reach as many neighbours as possible, and be open-handed with refreshes as long as the money comes to you, for example in exchange for agenda votes.",
+              "stance": "recommended",
+              "subjects": ["Trade", "Cruiser", "Destroyer"]
+            },
+            {
+              "point": "Play Trade as your literal first action so almost no strategy card disrupts it, then do your trades through the rest of the round; Matt prefers deals to be binding, Hunter says they need not be.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "trade and diplomacy", "economy"],
+          "requires": [],
+          "concepts": ["X-1 trade", "commodity wash", "trade leverage", "agenda vote trading"]
+        },
+        {
+          "start": "s365",
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is weaker than for other factions: Naalu has one carrier and cannot stall with the zero. The safe use is to build the second carrier at home and take another adjacent system. The bold use is a round-two Mecatol rush, moving a carrier twice, which leaves the slice unprotected but lets you score points outside the public objectives and escape with Foresight. The hosts rank Politics above Warfare here.",
+          "advice": [
+            {
+              "point": "Warfare is weaker for Naalu than for most factions: you are a one-carrier faction, and going first means you cannot use it to stall.",
+              "stance": "rating",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "The safe line is expand, send a trade ship, build the second carrier, then play Warfare to move that carrier into another adjacent system.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Carrier"]
+            },
+            {
+              "point": "Warfare is the easiest route to a round-two Mecatol Rex play: move a carrier forward twice to sit adjacent to Mecatol, sending all three ships on the first move and leaving the cruiser and destroyer behind on the second. This leaves your slice badly exposed.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Mecatol Rex", "Cruiser", "Destroyer"]
+            },
+            {
+              "point": "Points outside the public objectives, like Mecatol Rex, matter for Naalu so you are already ahead when the final round arrives; Foresight can save the carrier you send there.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "Foresight"]
+            },
+            {
+              "point": "Both hosts prefer Politics to Warfare for Naalu round one, unusually letting Warfare drop to around fourth pick.",
+              "stance": "rating",
+              "subjects": ["Warfare", "Politics"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening", "mecatol"],
+          "requires": ["faction abilities"],
+          "concepts": ["custodians rush", "stall action", "free points", "initiative zero"]
+        },
+        {
+          "start": "s394",
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology gets the job done, and the only tech worth taking is Antimass Deflectors. The guide does not recommend rushing Neuroglaive through Dacxive Animators, which some strong players might get away with, because Naalu is flimsy early.",
+          "advice": [
+            {
+              "point": "If you take Technology in round one, research Antimass Deflectors; there is no real argument for anything else.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Antimass Deflectors"]
+            },
+            {
+              "point": "Do not rush Neuroglaive via Dacxive Animators; very strong players may get away with it, but Naalu is too flimsy early.",
+              "stance": "avoid",
+              "subjects": ["Neuroglaive", "Dacxive Animators"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology", "opening"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path"]
+        },
+        {
+          "start": "s399",
+          "title": "Round one problems and the survive-early philosophy",
+          "kind": "strategy",
+          "summary": "Naalu must get its second carrier, solve the production bottleneck (a second home dock, Space Dock II later, or a staging planet like Lirta IV or Abyz) and accept that going first hurts in round one. Since Naalu has the best late-game ability, survive the early game safely and focus on plastic and planets; equal footing in the late game means a win. Only tech in round one to use money you cannot spend; with a blue skip, consider banking trade goods for Gravity Drive and Hybrid Crystal Fighter II together in round two. Do not pick Imperial in round one.",
+          "advice": [
+            {
+              "point": "Fix the production bottleneck with a second home space dock, later Space Dock II, or a staging planet such as Lirta IV or Abyz.",
+              "stance": "recommended",
+              "subjects": ["Space Dock", "Space Dock II", "Lirta IV", "Abyz"]
+            },
+            {
+              "point": "Going first is not useful in round one: it removes your stall potential and makes you easier to stall out of secondaries.",
+              "stance": "rating",
+              "subjects": ["Telepathic"]
+            },
+            {
+              "point": "Play the early game safely and do not sacrifice your late-game position for flashy early plays; if you reach the late game level with everyone, you win.",
+              "stance": "recommended",
+              "subjects": ["Naalu Collective"]
+            },
+            {
+              "point": "Prioritise planets, plastic and economy early and take tech later; unlike the Barony, Naalu has no round-three tech play that rewards early research.",
+              "stance": "recommended",
+              "subjects": ["Naalu Collective", "Barony of Letnev"]
+            },
+            {
+              "point": "Take a round-one tech mainly when you have more money than the bottleneck lets you spend.",
+              "stance": "situational",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "With a blue skip, consider passing on round-one tech and banking trade goods so that in round two you can skip to Gravity Drive and research Hybrid Crystal Fighter II in the same turn.",
+              "stance": "situational",
+              "subjects": ["Gravity Drive", "Hybrid Crystal Fighter II"]
+            },
+            {
+              "point": "Do not pick Imperial in round one.",
+              "stance": "avoid",
+              "subjects": ["Imperial"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["round 1", "early"],
+          "topics": ["general strategy", "opening", "technology", "economy"],
+          "requires": ["faction technologies"],
+          "concepts": ["production bottleneck", "forward dock", "double dock home", "trade good banking", "tech skip", "survive to the late game", "economy before control"]
+        }
+      ]
+    },
+    {
+      "title": "Technology path",
+      "summary": "Hybrid Crystal Fighter II is essential every game. Naalu is a blue-green faction: blue is the best direction because Fleet Logistics, combined with going first, is Naalu's real win condition and arguably their best tech, so plan on it with or without a blue skip. Neuroglaive comes after Fleet Logistics as a deterrent if time allows. Ignore red; from yellow only Space Dock II is worth it. Carrier II and Dreadnought II are useful extra upgrades.",
+      "chunks": [
+        {
+          "start": "s427",
+          "title": "Hybrid Crystal Fighter II is essential",
+          "kind": "strategy",
+          "summary": "Tech should follow your slice's skips and current needs, but Hybrid Crystal Fighter II is essential in every game. It gives positional flexibility, combos with Neuroglaive, and its half-fleet-pool rule allows scary mixed fleets. It is strong enough that Naalu can almost get by without Carrier II, though Carrier II is still great.",
+          "advice": [
+            {
+              "point": "Research to your slice's skips and what you need this round and next, but get Hybrid Crystal Fighter II in every game.",
+              "stance": "recommended",
+              "subjects": ["Hybrid Crystal Fighter II"]
+            },
+            {
+              "point": "Use Hybrid Crystal Fighter II's half fleet pool to field inherently scary fleets, such as a dreadnought or carrier escorted by many fighters, and to keep two fighters gumming up a system even with a damaged fleet pool.",
+              "stance": "recommended",
+              "subjects": ["Hybrid Crystal Fighter II", "Dreadnought", "Carrier"]
+            },
+            {
+              "point": "Hybrid Crystal Fighter II makes Carrier II less critical than for other fighter factions; a game with only the fighter upgrade would probably be okay, though Carrier II is still awesome.",
+              "stance": "rating",
+              "subjects": ["Hybrid Crystal Fighter II", "Carrier II"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "gumming up the works", "fighter screen"]
+        },
+        {
+          "start": "s448",
+          "title": "Red and yellow technology",
+          "kind": "strategy",
+          "summary": "Red has nothing for Naalu: Cruiser II is a worse Hybrid Crystal Fighter II, and Neuroglaive with good fighters covers defence better than PDS II. Naalu is mainly blue-green, but with a yellow skip Space Dock II solves the production problem; Transit Diodes is situationally interesting, while Graviton Laser System and Integrated Economy are not worth it.",
+          "advice": [
+            {
+              "point": "Skip red technology: Cruiser II is a worse Hybrid Crystal Fighter II, and PDS II is only an option if you decide against Neuroglaive, which is better.",
+              "stance": "avoid",
+              "subjects": ["Cruiser II", "PDS II", "Neuroglaive"]
+            },
+            {
+              "point": "With a yellow skip, Space Dock II is the yellow tech to get because it solves the production problem.",
+              "stance": "situational",
+              "subjects": ["Space Dock II"]
+            },
+            {
+              "point": "Transit Diodes can help in some situations by moving ground forces to where you need them, so you can neglect producing infantry; Matt would still only take Space Dock II.",
+              "stance": "situational",
+              "subjects": ["Transit Diodes"]
+            },
+            {
+              "point": "Graviton Laser System and Integrated Economy are not worth it; Integrated Economy could build lots of fighters but there are many techs Naalu wants more.",
+              "stance": "avoid",
+              "subjects": ["Graviton Laser System", "Integrated Economy"]
+            },
+            {
+              "point": "A blue-yellow Naalu is arguable, but the hosts do not recommend it.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "economy"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "production bottleneck"]
+        },
+        {
+          "start": "s471",
+          "title": "Green: Hyper Metabolism and Neuroglaive",
+          "kind": "strategy",
+          "summary": "With a green skip, skip Dacxive Animators to Hyper Metabolism, then go to Neuroglaive. Neuroglaive locks down the late game and deters attacks so strongly that opponents only attack Naalu when Naalu is about to win. Hyper Metabolism matters because spreading fighters costs many command tokens, unless your slice is high influence.",
+          "advice": [
+            {
+              "point": "With a green skip, go to Hyper Metabolism, then Neuroglaive.",
+              "stance": "situational",
+              "subjects": ["Hyper Metabolism", "Neuroglaive", "Dacxive Animators"]
+            },
+            {
+              "point": "Neuroglaive is a huge deterrent: opponents will avoid attacking Naalu unless Naalu is about to win, rather than rig their fleet pool around one player.",
+              "stance": "rating",
+              "subjects": ["Neuroglaive"]
+            },
+            {
+              "point": "Hyper Metabolism is valuable because spreading fighters around consumes many command tokens; with a high-influence slice it is worth less, so consider going elsewhere first.",
+              "stance": "situational",
+              "subjects": ["Hyper Metabolism"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "threats and matchups"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip", "command token economy", "gumming up the works", "threat perception"]
+        },
+        {
+          "start": "s487",
+          "title": "Blue: Fleet Logistics, Naalu's best tech",
+          "kind": "strategy",
+          "summary": "Blue is Naalu's best direction. Gravity Drive helps the flagship and one-carrier fighter fleets, but Fleet Logistics combined with going first is the real superpower: two actions before anyone can respond, such as taking a final planet then playing Imperial, or playing Diplomacy right after moving in. It is arguably Naalu's best tech, a final-round game winner, worth rushing with or without a blue skip, and it comes before Neuroglaive: Fleet Logistics unlocks the win, Neuroglaive keeps people from stopping it.",
+          "advice": [
+            {
+              "point": "Blue is the best tech colour for Naalu.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective"]
+            },
+            {
+              "point": "Gravity Drive is fine, making the flagship usable and letting one carrier with many fighters do a lot if you lack Carrier II.",
+              "stance": "rating",
+              "subjects": ["Gravity Drive", "Matriarch"]
+            },
+            {
+              "point": "Fleet Logistics is arguably Naalu's best tech: as first action you can do two things before anyone responds, and in the final round that is a guaranteed game winner.",
+              "stance": "rating",
+              "subjects": ["Fleet Logistics", "Telepathic"]
+            },
+            {
+              "point": "Use Fleet Logistics as your first action to take the last planet you need for an objective and immediately play Imperial to score it, or to move into a stretched position, score and leave.",
+              "stance": "recommended",
+              "subjects": ["Fleet Logistics", "Imperial"]
+            },
+            {
+              "point": "Use Fleet Logistics first action with Diplomacy to move in and immediately lock a system down.",
+              "stance": "recommended",
+              "subjects": ["Fleet Logistics", "Diplomacy"]
+            },
+            {
+              "point": "Combine Fleet Logistics with action cards, such as playing a strategy card first and then Unexpected Action to recover the token.",
+              "stance": "situational",
+              "subjects": ["Fleet Logistics", "Unexpected Action"]
+            },
+            {
+              "point": "Plan to get Fleet Logistics, with or without a blue skip, even rushing it; Antimass Deflectors is a necessary step and conditionally useful for parking fighters in asteroid fields.",
+              "stance": "recommended",
+              "subjects": ["Fleet Logistics", "Antimass Deflectors"]
+            },
+            {
+              "point": "Get Neuroglaive after Fleet Logistics, if time allows; going three deep in both blue and green while also getting unit upgrades is hard, so upgrades may matter more.",
+              "stance": "recommended",
+              "subjects": ["Neuroglaive", "Fleet Logistics"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "objectives", "strategy cards", "faction abilities"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["initiative zero", "tech path", "double action turn"]
+        },
+        {
+          "start": "s536",
+          "title": "Other unit upgrades and taking planets",
+          "kind": "strategy",
+          "summary": "Carrier II is useful much of the time and Dreadnought II is an easy pickup since Naalu goes blue and starts with yellow. Infantry II is only conditionally okay. Naalu is weak at taking hard planets, so the flagship and Dreadnought II help, and control objectives need focus and sneaky methods.",
+          "advice": [
+            {
+              "point": "Carrier II will be useful much of the time.",
+              "stance": "rating",
+              "subjects": ["Carrier II"]
+            },
+            {
+              "point": "Dreadnought II is an easy, worthwhile pickup since Naalu starts with yellow and almost always goes blue.",
+              "stance": "recommended",
+              "subjects": ["Dreadnought II"]
+            },
+            {
+              "point": "Infantry II is conditionally okay but not essential.",
+              "stance": "rating",
+              "subjects": ["Infantry II"]
+            },
+            {
+              "point": "Naalu is weak at taking well-defended planets; use the flagship or Dreadnought II for hard invasions, or find ways around them.",
+              "stance": "situational",
+              "subjects": ["Matriarch", "Dreadnought II"]
+            },
+            {
+              "point": "Control objectives are a problem all game: they are possible, but commit to them deliberately when you go for them and use sneakier means than other factions.",
+              "stance": "situational",
+              "subjects": ["Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat", "objectives"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech path"]
+        }
+      ]
+    },
+    {
+      "title": "Trading",
+      "summary": "Naalu has little to trade: three commodities and a promissory note it should never give away. The only real angle is charging players to play, or not play, a strategy card as your first action. Otherwise do standard trade agreements. Neuroglaive's deterrence frees Naalu from the usual neighbour Support for the Throne swap.",
+      "chunks": [
+        {
+          "start": "s551",
+          "title": "Selling first-action timing",
+          "kind": "strategy",
+          "summary": "The hosts' best trading idea is extortion with the zero: charge players to play a strategy card they need immediately as your first action, such as Technology when someone needs Gravity Drive, or charge them for not playing a denying card like Construction or Diplomacy with Fleet Logistics first. They admit it is not compelling; Naalu is uninteresting at trading, so just do standard deals.",
+          "advice": [
+            {
+              "point": "Sell the timing of your first action: if others need Technology or Politics resolved right away, have them pay you to play it as your first action.",
+              "stance": "situational",
+              "subjects": ["Technology", "Politics", "Telepathic"]
+            },
+            {
+              "point": "Conversely, with cards like Construction, or Diplomacy with Fleet Logistics, you can threaten to play them first so no one else benefits, and take payment to hold off.",
+              "stance": "situational",
+              "subjects": ["Construction", "Diplomacy", "Fleet Logistics"]
+            },
+            {
+              "point": "Naalu is not very interesting at trading; otherwise make standard trade agreements and deals.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["trade and diplomacy", "strategy cards"],
+          "requires": ["faction abilities"],
+          "concepts": ["initiative zero", "first action extortion", "trade leverage"]
+        },
+        {
+          "start": "s575",
+          "title": "Support for the Throne",
+          "kind": "strategy",
+          "summary": "Players expect Naalu to get Neuroglaive, so Naalu may not need Support for the Throne as a buffer against attack. Instead of the usual neighbour swap, Naalu can be choosy: buy others' Support for the Throne and sell its own.",
+          "advice": [
+            {
+              "point": "If your defences are locked down with Neuroglaive, or the table expects them to be, skip the usual neighbour Support for the Throne swap; buy other players' Support for the Throne and sell your own for value.",
+              "stance": "situational",
+              "subjects": ["Support for the Throne", "Neuroglaive"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes", "faction technologies"],
+          "concepts": ["support for the throne swap", "trade leverage"]
+        }
+      ]
+    },
+    {
+      "title": "Mid game",
+      "summary": "In rounds three to five Naalu must fix its production bottleneck as soon as possible, look for sneaky Mecatol Rex points using first action and Foresight, and steadily build positional coverage of fighters for the late game. Do not chase Neuroglaive at the expense of a real path to points.",
+      "chunks": [
+        {
+          "start": "s583",
+          "title": "Solve the production bottleneck",
+          "kind": "strategy",
+          "summary": "Solve the production bottleneck as soon as you can, through Space Dock II or more space docks. More docks in the home system is the worst solution but easy, and often what you will do.",
+          "advice": [
+            {
+              "point": "Solve the production bottleneck as soon as you can with Space Dock II or more space docks; extra home docks are the worst but easiest fix, and often the one you will use.",
+              "stance": "recommended",
+              "subjects": ["Space Dock", "Space Dock II"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid"],
+          "topics": ["economy", "general strategy"],
+          "requires": [],
+          "concepts": ["production bottleneck", "double dock home", "production capacity"]
+        },
+        {
+          "start": "s589",
+          "title": "Sneaky Mecatol points",
+          "kind": "strategy",
+          "summary": "Naalu is bad at taking Mecatol Rex from others, but going first with Fleet Logistics lets it hit a poorly defended Mecatol, play Imperial for a point, and then use Foresight to escape when the owner returns, so the plastic committed barely matters.",
+          "advice": [
+            {
+              "point": "Look for sneaky Mecatol Rex points: if it is lightly defended, move in with a carrier, play Imperial (ideally with Fleet Logistics), score, then use Foresight to escape the counterattack.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex", "Imperial", "Fleet Logistics", "Foresight"]
+            },
+            {
+              "point": "Naalu is not good at taking Mecatol Rex from other players by force.",
+              "stance": "rating",
+              "subjects": ["Mecatol Rex", "Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["mecatol", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["initiative zero", "skilled retreat escape", "free points"]
+        },
+        {
+          "start": "s595",
+          "title": "Building your position for the late game",
+          "kind": "strategy",
+          "summary": "Set up your fighter coverage incrementally all game by leaving one or two fighters behind as you move, rather than spending command tokens repositioning later. Use Foresight to reach useful positions without fighting, such as blockading a space dock or sitting next to a home system for a secret objective. Without Neuroglaive, play safer. By the late game you should be everywhere, with Fleet Logistics and ideally Neuroglaive, but never pass up a path to winning points for Neuroglaive.",
+          "advice": [
+            {
+              "point": "Build your gum incrementally: leave one or two fighters behind every time you move and catch others up as you build; do not waste command tokens shuffling it around later.",
+              "stance": "recommended",
+              "subjects": ["Hybrid Crystal Fighter II", "Fighter"]
+            },
+            {
+              "point": "Use Foresight deliberately to reach positions without a fight, such as blockading an enemy space dock, getting next to a home system for a secret objective, or reaching wormholes.",
+              "stance": "recommended",
+              "subjects": ["Foresight"]
+            },
+            {
+              "point": "If you do not plan to get Neuroglaive, play the mid game more safely since you lack its defences.",
+              "stance": "situational",
+              "subjects": ["Neuroglaive"]
+            },
+            {
+              "point": "Aim to enter the late game spread across the map, with position-based secret objectives already scored or locked down, Fleet Logistics, and optionally Neuroglaive.",
+              "stance": "recommended",
+              "subjects": ["Fleet Logistics", "Neuroglaive"]
+            },
+            {
+              "point": "Do not ignore your path to victory to get a defensive tech like Neuroglaive; if Transit Diodes lets you take a planet you need, get that. Neuroglaive is for holding points you have locked in.",
+              "stance": "avoid",
+              "subjects": ["Neuroglaive", "Transit Diodes"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["mid", "late"],
+          "topics": ["general strategy", "faction abilities", "technology", "objectives"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["gumming up the works", "skilled retreat escape", "command token economy", "threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Late game and the final round",
+      "summary": "Naalu's late game is usually a cakewalk if the early and mid game went well. Politics in round five is fine but unnecessary; with Fleet Logistics, getting Imperial in the final round, even by controlling the speaker token, wins very often. Going first means Technology is a guaranteed late-game scoring tool. Expect experienced players to pressure Naalu all game, so play tight early and keep the works gummed.",
+      "chunks": [
+        {
+          "start": "s628",
+          "title": "Final round: Imperial and speaker control",
+          "kind": "strategy",
+          "summary": "Look for an action-phase win or Imperial plays in the final round. Taking Politics in round five for a better pick is okay but not needed, because any card can work if you can score. With Fleet Logistics, Imperial in the final round is extremely potent, so it is worth controlling the speaker token to get it when ahead. Watch for Sabotage and Public Disgrace.",
+          "advice": [
+            {
+              "point": "Taking Politics in round five for a favourable pick is okay but not necessary; even picking last in the final round, any card works if you can score your points.",
+              "stance": "situational",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "With Fleet Logistics, try to get Imperial in the final round, even by becoming speaker; going first means no one can respond before you win.",
+              "stance": "recommended",
+              "subjects": ["Imperial", "Fleet Logistics", "Telepathic"]
+            },
+            {
+              "point": "When ahead on points in the late game, control the speaker token so you can use the zero with Imperial before anyone can stop you.",
+              "stance": "recommended",
+              "subjects": ["Imperial", "Naalu Collective"]
+            },
+            {
+              "point": "Watch out for Sabotage and Public Disgrace, the main ways to stop your final-round play.",
+              "stance": "situational",
+              "subjects": ["Sabotage", "Public Disgrace"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["late"],
+          "topics": ["strategy cards", "objectives", "action cards"],
+          "requires": ["faction abilities", "action cards"],
+          "concepts": ["speaker order control", "initiative zero", "double action turn"]
+        },
+        {
+          "start": "s639",
+          "title": "Final round: scoring tech objectives first",
+          "kind": "strategy",
+          "summary": "Normally taking Technology to complete a late tech objective puts you last in scoring order, letting everyone else score first. For Naalu timing does not matter: Technology is a guaranteed tool in the last round and you still score first, which is also why Gift of Prescience must never leave your hands. Just take whichever card makes your points easiest.",
+          "advice": [
+            {
+              "point": "In the final round, take Technology freely when you need upgrades for an objective; as Naalu you still score first, so the usual trap of handing others the scoring does not apply.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Telepathic"]
+            },
+            {
+              "point": "In the final round, take whichever strategy card makes it easiest to score your points; speaker order does not bind you.",
+              "stance": "recommended",
+              "subjects": ["Telepathic"]
+            },
+            {
+              "point": "Never give out Gift of Prescience, because the final-round scoring advantage is where Naalu's whole edge lies.",
+              "stance": "avoid",
+              "subjects": ["Gift of Prescience"]
+            },
+            {
+              "point": "If you play the early and mid game correctly, the late game is usually a cakewalk for Naalu.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["late"],
+          "topics": ["strategy cards", "objectives", "faction abilities"],
+          "requires": ["faction abilities", "promissory notes"],
+          "concepts": ["initiative zero", "speaker order control", "secondary timing"]
+        },
+        {
+          "start": "s656",
+          "title": "Strong even at high level: a tournament example",
+          "kind": "strategy",
+          "summary": "Even at high levels the ability wins games: in a tournament semifinal, John's Naalu had closed out the game before strong opponents realised it, and they could not find a way to stop it.",
+          "advice": [
+            {
+              "point": "Telepathic remains potent at high levels of play; strong tables have failed to realise Naalu had closed out a game until it was too late.",
+              "stance": "rating",
+              "subjects": ["Telepathic", "Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["late"],
+          "topics": ["faction abilities", "threats and matchups"],
+          "requires": ["faction abilities"],
+          "concepts": ["initiative zero", "threat perception"]
+        },
+        {
+          "start": "s664",
+          "title": "Expect heat and keep the works gummed",
+          "kind": "strategy",
+          "summary": "Nothing else about Naalu is overpowered, and staying in contention, especially for control objectives, is the hard part. Experienced players will try to hurt Naalu all game before the late game arrives, so play close, tight and safe early. If you solve the production bottleneck, a flexible fighter fleet and gummed-up systems make Naalu hard to strike decisively.",
+          "advice": [
+            {
+              "point": "Expect heat all game against experienced players, who know a Naalu in decent position in the late game will win; play close, tight and very safe early.",
+              "stance": "recommended",
+              "subjects": ["Naalu Collective"]
+            },
+            {
+              "point": "Keep systems gummed up with fighters so opponents looking for an opening cannot sneak an attack on you.",
+              "stance": "recommended",
+              "subjects": ["Hybrid Crystal Fighter II"]
+            },
+            {
+              "point": "Once the production bottleneck is solved, use your many fighters flexibly, combining a carrier with fighters from elsewhere to form a fleet unexpectedly.",
+              "stance": "recommended",
+              "subjects": ["Hybrid Crystal Fighter II", "Carrier"]
+            },
+            {
+              "point": "Staying in contention is the hard part, since control objectives remain tricky without strong invasion tools.",
+              "stance": "rating",
+              "subjects": ["Naalu Collective"]
+            }
+          ],
+          "factions": ["Naalu Collective"],
+          "phases": ["any"],
+          "topics": ["threats and matchups", "general strategy"],
+          "requires": ["faction technologies"],
+          "concepts": ["threat perception", "gumming up the works", "production bottleneck", "survive to the late game"]
+        },
+        {
+          "start": "s682",
+          "title": "The hosts' feelings about the zero",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Naalu Collective"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s690",
+          "title": "Patron thanks and polls",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s717",
+          "title": "Stream schedule, book club and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "NALU": "Naalu",
+    "Nalo": "Naalu",
+    "Nala": "Naalu",
+    "allu collective": "Naalu Collective",
+    "Hyper Crystal Fighter": "Hybrid Crystal Fighter",
+    "Neuroglave": "Neuroglaive",
+    "Neuro Glaive": "Neuroglaive",
+    "Gift of the Prescience": "Gift of Prescience",
+    "gift oppressions": "Gift of Prescience",
+    "Gift of the Press": "Gift of Prescience",
+    "gift of the pressions": "Gift of Prescience",
+    "gifted oppressions": "Gift of Prescience",
+    "sarwen": "Sarween",
+    "anti-mass": "Antimass Deflectors",
+    "Animas": "Antimass Deflectors",
+    "any mass": "Antimass Deflectors",
+    "anti-masks": "Antimass Deflectors",
+    "Daxiv": "Dacxive Animators",
+    "Daxive": "Dacxive Animators",
+    "Barrigler to 4": "Lirta IV",
+    "Bariglarda": "Lirta IV",
+    "Abyss Fria": "Abyz / Fria",
+    "Abyssfria": "Abyz / Fria",
+    "Centauri Grawl": "Centauri / Gral",
+    "FIBa": "Thibah",
+    "McIntyre Rex": "Mecatol Rex",
+    "Mechathal": "Mecatol",
+    "Mechital": "Mecatol",
+    "transit diet": "Transit Diodes",
+    "grab drive": "Gravity Drive",
+    "graph drive": "Gravity Drive",
+    "Space Dog 2": "Space Dock II",
+    "Space Talk 2": "Space Dock II",
+    "Space Doxair": "space dock there",
+    "Jolnar": "Jol-Nar",
+    "train goods": "trade goods",
+    "Ram 1": "round 1",
+    "Rain one": "round one",
+    "mirror computing": "Mirror Computing"
+  }
+}

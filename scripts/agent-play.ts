@@ -93,8 +93,9 @@ const total = decisions.reduce(
     cached: sum.cached + d.usage.cachedInputTokens,
     output: sum.output + d.usage.outputTokens,
     requests: sum.requests + d.usage.requests,
+    retries: sum.retries + (d.usage.retries ?? 0),
   }),
-  { input: 0, cached: 0, output: 0, requests: 0 },
+  { input: 0, cached: 0, output: 0, requests: 0, retries: 0 },
 );
 const cost =
   ((total.input - total.cached) * PRICES.cacheMiss +
@@ -112,7 +113,7 @@ console.log(
 );
 console.log(
   `${decisions.length} agent decisions, ${decisions.filter((d) => d.fallback).length} fallbacks, ` +
-    `${total.requests} requests. Tokens: ${total.input} in (${total.cached} cached), ${total.output} out; ` +
+    `${total.requests} requests (${total.retries} retried). Tokens: ${total.input} in (${total.cached} cached), ${total.output} out; ` +
     `about $${cost.toFixed(3)} at peak prices.`,
 );
 console.log(`Replay log: ${file}`);

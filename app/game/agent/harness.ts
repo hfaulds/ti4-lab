@@ -12,7 +12,7 @@ import { openPrompts } from "../engine/helpers";
 import { applyAction } from "../engine/index";
 import { objectiveStatus } from "../engine/objectives";
 import { describeAction, describeGame, describeTurn } from "./describe";
-import { Decision, MenuEntry, Policy, Usage } from "./policy";
+import { Decision, MenuEntry, noUsage, Policy, Usage } from "./policy";
 import { SYSTEM_PROMPT } from "./rules";
 import { SCRIPTED_BOT_VERSION, scriptedCandidates, scriptedMove } from "./scriptedBot";
 import { lookup, TOOLS } from "./tools";
@@ -285,7 +285,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         rationale: decision?.rationale ?? "",
         planNote: planNotes.get(seat) ?? "",
         steps: decision?.steps ?? [],
-        usage: decision?.usage ?? { inputTokens: 0, cachedInputTokens: 0, outputTokens: 0, requests: 0 },
+        usage: decision?.usage ?? noUsage(),
         error,
         ms: Date.now() - started,
       };

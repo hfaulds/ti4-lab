@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import type OpenAI from "openai";
+import OpenAI from "openai";
 import { GameState } from "../types";
 import { objectivesById } from "../data";
 import { objectiveStatus } from "../engine/objectives";
@@ -137,7 +137,14 @@ describe("tool arguments", () => {
 });
 
 describe("chat policy", () => {
-  type Reply = { content?: string; calls?: { name: string; args: string }[] };
+  type Reply = {
+    content?: string;
+    calls?: { name: string; args: string }[];
+    /** Fail the request with this error instead of replying. */
+    fail?: Error;
+    /** Never answer, until the request is aborted. */
+    hang?: boolean;
+  };
 
   /** A fake chat API that replies with a fixed script and records requests. */
   function fakeClient(replies: Reply[]) {
@@ -146,9 +153,15 @@ describe("chat policy", () => {
     const client = {
       chat: {
         completions: {
-          create: async (body: unknown) => {
+          create: async (body: unknown, options?: { signal?: AbortSignal }) => {
             requests.push(JSON.parse(JSON.stringify(body)));
             const reply = replies[Math.min(i++, replies.length - 1)];
+            if (reply.fail) throw reply.fail;
+            if (reply.hang) {
+              await new Promise((_, reject) =>
+                options?.signal?.addEventListener("abort", () => reject(options.signal!.reason)),
+              );
+            }
             return {
               choices: [
                 {
@@ -222,5 +235,39 @@ describe("chat policy", () => {
     const decision = await policy.decide(request);
     expect(decision.label).toBe("A");
     expect(decision.steps[0].result).toMatch(/Error: candidate must be one of A, B/);
+  });
+
+  const choose = {
+    calls: [{ name: "choose", args: '{"candidate":"A","rationale":"Safe.","plan_note":""}' }],
+  };
+
+  test("sends a request again when the connection drops", async () => {
+    const { client, requests } = fakeClient([{ fail: new TypeError("terminated") }, choose]);
+    const policy = new ChatPolicy({ model: "m", apiKey: "k", client });
+    const decision = await policy.decide(request);
+    expect(decision.label).toBe("A");
+    expect(decision.usage).toMatchObject({ requests: 1, retries: 1 });
+    expect(requests).toHaveLength(2);
+  });
+
+  test("abandons a request that takes too long, then tries once more", async () => {
+    const { client } = fakeClient([{ hang: true }, choose]);
+    const policy = new ChatPolicy({ model: "m", apiKey: "k", client, requestTimeoutMs: 20 });
+    const decision = await policy.decide(request);
+    expect(decision.label).toBe("A");
+    expect(decision.usage.retries).toBe(1);
+
+    const stuck = fakeClient([{ hang: true }]);
+    const patient = new ChatPolicy({ model: "m", apiKey: "k", client: stuck.client, requestTimeoutMs: 20 });
+    await expect(patient.decide(request)).rejects.toThrow();
+    expect(stuck.requests).toHaveLength(2);
+  });
+
+  test("does not resend a request the API rejected", async () => {
+    const rejected = new OpenAI.BadRequestError(400, undefined, "bad request", new Headers());
+    const { client, requests } = fakeClient([{ fail: rejected }, choose]);
+    const policy = new ChatPolicy({ model: "m", apiKey: "k", client });
+    await expect(policy.decide(request)).rejects.toThrow("bad request");
+    expect(requests).toHaveLength(1);
   });
 });

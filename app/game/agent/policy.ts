@@ -26,6 +26,8 @@ export type Usage = {
   cachedInputTokens: number;
   outputTokens: number;
   requests: number;
+  /** Requests sent again after a timeout or a dropped connection. */
+  retries: number;
 };
 
 export type Decision = {
@@ -44,11 +46,12 @@ export interface Policy {
   decide(request: DecisionRequest): Promise<Decision>;
 }
 
-const noUsage = (): Usage => ({
+export const noUsage = (): Usage => ({
   inputTokens: 0,
   cachedInputTokens: 0,
   outputTokens: 0,
   requests: 0,
+  retries: 0,
 });
 
 /** Always takes the first candidate: the scripted bot's own top choice. */
@@ -83,8 +86,12 @@ export type ChatPolicyOptions = {
   model: string;
   apiKey: string;
   baseURL?: string;
-  /** Model calls allowed per decision, counting lookups and retries. */
+  /** Model calls allowed per decision, counting lookups and nudges. */
   maxRequests?: number;
+  /** How long one request may take, response included, before it is abandoned. */
+  requestTimeoutMs?: number;
+  /** Times a timed-out or failed request is sent again. */
+  retries?: number;
   /** Provider-specific request fields, such as a thinking switch. */
   extraBody?: Record<string, unknown>;
   /** A client to use instead of creating one, e.g. a fake in tests. */
@@ -92,6 +99,20 @@ export type ChatPolicyOptions = {
 };
 
 type Message = OpenAI.Chat.Completions.ChatCompletionMessageParam;
+type CreateParams = OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming;
+
+const REQUEST_TIMEOUT_MS = 180_000;
+
+/**
+ * Whether a failed request is worth sending again: timeouts, dropped
+ * connections and server errors are; a request the API rejected is not. The
+ * SDK already retries rate limits and server errors that fail before a
+ * response starts, but not a response cut off partway through.
+ */
+function worthRetrying(error: unknown) {
+  if (!(error instanceof OpenAI.APIError) || error.status === undefined) return true;
+  return error.status >= 500 || [408, 409, 429].includes(error.status);
+}
 
 /**
  * A policy backed by any OpenAI-compatible chat completions API, such as
@@ -123,12 +144,10 @@ export class ChatPolicy implements Policy {
     let nudged = false;
 
     for (let i = 0; i < maxRequests; i++) {
-      const response = await this.client.chat.completions.create({
-        model: this.options.model,
-        messages,
-        tools,
-        ...this.options.extraBody,
-      });
+      const response = await this.complete(
+        { model: this.options.model, messages, tools, ...this.options.extraBody },
+        usage,
+      );
       usage.requests++;
       usage.inputTokens += response.usage?.prompt_tokens ?? 0;
       usage.outputTokens += response.usage?.completion_tokens ?? 0;
@@ -191,5 +210,21 @@ export class ChatPolicy implements Policy {
       usage,
       error: `No valid choice after ${usage.requests} requests.`,
     };
+  }
+
+  /** One request, abandoned after the timeout and sent again if worth it. */
+  private async complete(body: CreateParams, usage: Usage) {
+    const timeout = this.options.requestTimeoutMs ?? REQUEST_TIMEOUT_MS;
+    const retries = this.options.retries ?? 1;
+    for (let attempt = 0; ; attempt++) {
+      try {
+        return await this.client.chat.completions.create(body, {
+          signal: AbortSignal.timeout(timeout),
+        });
+      } catch (error) {
+        if (attempt >= retries || !worthRetrying(error)) throw error;
+        usage.retries++;
+      }
+    }
   }
 }

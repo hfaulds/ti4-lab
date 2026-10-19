@@ -1,0 +1,1078 @@
+{
+  "episode": 150,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro, living in the woods, bears and mountain lions",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s57",
+          "title": "Guides after the expansion announcement, mech reveal teased",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Clan of Saar"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview and starting setup",
+      "summary": "Saar is hard to play badly: its abilities make the plan obvious, and its strength is having options, being able to redirect a large volume of plastic wherever it is needed. The weak home system does not matter because Saar does not need it, and the starting fleet with a mobile Floating Factory acts like a third carrier, letting Saar take up to six planets in round one.",
+      "chunks": [
+        {
+          "start": "s76",
+          "title": "Saar is about options and volume of plastic",
+          "kind": "strategy",
+          "summary": "The hosts' earlier Saar guide largely still holds; Saar is a strong faction whose plan is easy to read from its abilities. Its strength is flexibility of position and sheer volume of units rather than technology.",
+          "advice": [
+            {
+              "point": "Saar is a good faction and hard to mess up; the plan follows naturally from its faction abilities.",
+              "stance": "rating",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "Saar's strength is having options: it can redirect itself into whatever it needs through position and volume of plastic, much as Jol-Nar does through technology.",
+              "stance": "rating",
+              "subjects": ["Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": ["faction abilities"],
+          "concepts": ["plastic advantage"]
+        },
+        {
+          "start": "s100",
+          "title": "Home system, starting fleet and Floating Factory",
+          "kind": "strategy",
+          "summary": "The starting fleet is better than a normal two-carrier, four-infantry opening because the Floating Factory carries units and moves, effectively a third carrier. With two more infantry Saar can take six planets in round one. The Floating Factory's ability to enter a PDS system without being fired on and drop infantry is a trick worth using about once a game. The home system is merely passable, and Saar does not need it.",
+          "advice": [
+            {
+              "point": "Treat the Floating Factory as a third carrier in round one: build two more infantry and you can take six planets in round one without needing luck.",
+              "stance": "recommended",
+              "subjects": ["Floating Factory", "Infantry", "Carrier"]
+            },
+            {
+              "point": "Use the Floating Factory alone to move into a system with enemy PDS, which cannot fire at it, and invade with its infantry; look for a chance to do this at least once a game.",
+              "stance": "recommended",
+              "subjects": ["Floating Factory", "PDS"]
+            },
+            {
+              "point": "The two-planet home system is passable but unimportant, because Saar does not need its home system.",
+              "stance": "rating",
+              "subjects": ["Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening", "expansion", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["2C4I opening", "magic christmas land"]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities, flagship and faction technologies",
+      "summary": "Nomadic and Scavenge make Saar the ultimate round-one faction: Scavenge means a single expansion pays for round-one technology despite a poor 3/1 home, and Nomadic means you can empty your home system without worry. The Son of Ragh is one of the better flagships but should be built only when needed, typically against fighter screens; with Chaos Mapping it can be built and used as a surprise. Chaos Mapping protects ships in asteroid fields from everything, but its build is full price.",
+      "chunks": [
+        {
+          "start": "s122",
+          "title": "Nomadic and Scavenge: empty your home system",
+          "kind": "strategy",
+          "summary": "Scavenge turns a weak 3-resource, 0-influence home into a non-issue because expanding on your first action gives enough to afford technology before the Technology card is played. Nomadic lets you send everything out; the hosts almost always empty their home system in round one.",
+          "advice": [
+            {
+              "point": "Saar is the ultimate round-one faction; expanding even once on your first action gives the trade goods to afford a round-one technology, so the poor home system is not a worry.",
+              "stance": "rating",
+              "subjects": ["Scavenge", "Clan of Saar"]
+            },
+            {
+              "point": "Empty your home system completely in round one: send all ground forces and ships out instead of holding units back to defend the space dock.",
+              "stance": "recommended",
+              "subjects": ["Nomadic", "Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1", "early"],
+          "topics": ["faction abilities", "opening", "expansion", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense", "plastic advantage"]
+        },
+        {
+          "start": "s140",
+          "title": "Flagship: Son of Ragh",
+          "kind": "strategy",
+          "summary": "The Son of Ragh is one of the better flagships and fits in big fleets, but base-game objectives mean you build it only when you need it, most often to chew through an opponent's large fighter screen.",
+          "advice": [
+            {
+              "point": "The Son of Ragh is very good, one of the better flagships, but not an automatic build; build it when you need it.",
+              "stance": "rating",
+              "subjects": ["Son of Ragh"]
+            },
+            {
+              "point": "Build the flagship when an opponent relies on a big fighter screen you need to chew through.",
+              "stance": "situational",
+              "subjects": ["Son of Ragh"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["fighter screen"]
+        },
+        {
+          "start": "s150",
+          "title": "Chaos Mapping and the surprise flagship",
+          "kind": "strategy",
+          "summary": "Chaos Mapping makes ships in asteroid fields untouchable, even by PDS, but its build is not a production step, so Sarween Tools does not apply and the unit costs full price. Its best trick is building the flagship at the start of your turn and immediately moving it to win an easy fight nobody saw coming. Floating Factory II is rated highly.",
+          "advice": [
+            {
+              "point": "Get Chaos Mapping eventually; ships parked in an asteroid field with it cannot be activated against, so nothing, not even PDS, can touch them.",
+              "stance": "recommended",
+              "subjects": ["Chaos Mapping"]
+            },
+            {
+              "point": "Remember Chaos Mapping's build pays full price because Sarween Tools does not apply to it.",
+              "stance": "rating",
+              "subjects": ["Chaos Mapping", "Sarween Tools"]
+            },
+            {
+              "point": "Use Chaos Mapping to build the Son of Ragh at the start of your turn and move it out the same turn to win a fight the opponent did not see coming.",
+              "stance": "recommended",
+              "subjects": ["Chaos Mapping", "Son of Ragh"]
+            },
+            {
+              "point": "Floating Factory II is a very nice upgrade.",
+              "stance": "rating",
+              "subjects": ["Floating Factory II"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "faction abilities", "combat"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": ["flagship pressure"]
+        }
+      ]
+    },
+    {
+      "title": "Promissory note",
+      "summary": "Ragh's Call is middling at best; the hosts mildly disagree on whether it is middle of the road or worse. Treat it more like a faction ability than a trade item: hand it over at the moment someone is about to land on a planet where you left a ground force, since saving your units is already most of the value, and take any payment as a bonus. Players mostly forget it exists.",
+      "chunks": [
+        {
+          "start": "s169",
+          "title": "Ragh's Call",
+          "kind": "strategy",
+          "summary": "Ragh's Call is fine to weak; it is used opportunistically rather than planned around. Give it to someone just as they are about to invade a planet where you left infantry, possibly for a trade good, since moving your infantry to safety is already most of its value.",
+          "advice": [
+            {
+              "point": "Ragh's Call is middle of the road at best; Hunter calls it middle of the road while Matt thinks it is not even that.",
+              "stance": "rating",
+              "subjects": ["Ragh's Call"]
+            },
+            {
+              "point": "Give Ragh's Call only at the moment someone is about to land on one of your planets where you left a ground force, so your infantry survive and relocate.",
+              "stance": "situational",
+              "subjects": ["Ragh's Call"]
+            },
+            {
+              "point": "Ask for a trade good for it when the invader wants to take two planets in a system with limited infantry, but since rescuing your units is already the payoff, giving it for free is often fine.",
+              "stance": "situational",
+              "subjects": ["Ragh's Call"]
+            },
+            {
+              "point": "Treat it more like a faction ability than a note to wheel and deal; players usually forget it, and it deserves a bit more use than it gets.",
+              "stance": "rating",
+              "subjects": ["Ragh's Call"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Saar cannot make a bad round-one pick except Diplomacy and Imperial. The round-one goals are Gravity Drive (preferred over Sarween Tools or Chaos Mapping), a second space dock, and optionally the Warfare secondary. Leadership, Politics (to guarantee Mecatol Rex in round two), Construction and Warfare are all excellent; Technology is surprisingly mediocre and Trade is low priority because positioning matters more than extra plastic. Gravity Drive lets Saar score early control objectives and take Mecatol Rex in round two, and the second dock insures against the table's attacks.",
+      "chunks": [
+        {
+          "start": "s198",
+          "title": "Round-one goal: Gravity Drive",
+          "kind": "strategy",
+          "summary": "Take Gravity Drive in round one; Sarween Tools and Chaos Mapping are good later but not in round one. Scavenge guarantees you can afford a tech whether or not you hold Technology. Chaos Mapping does nothing in round one because you have more transports than tactic tokens and asteroid fields are a waste of time then.",
+          "advice": [
+            {
+              "point": "Research Gravity Drive in round one rather than Sarween Tools or Chaos Mapping; Sarween Tools is too limited in round one compared to Gravity Drive's benefits.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Sarween Tools", "Chaos Mapping"]
+            },
+            {
+              "point": "Do not take Chaos Mapping in round one: with three transports and only three tactic tokens you cannot use a new ship built at the start of an activation, and moving into an asteroid field round one wastes time.",
+              "stance": "avoid",
+              "subjects": ["Chaos Mapping"]
+            },
+            {
+              "point": "Your most important round-one build is two more infantry to fill the third transport.",
+              "stance": "recommended",
+              "subjects": ["Infantry", "Floating Factory"]
+            },
+            {
+              "point": "Neighbours of Saar get the Conquer the Weak secret objective easily because Saar's home is often empty and not an asteroid field.",
+              "stance": "rating",
+              "subjects": ["Conquer the Weak"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1"],
+          "topics": ["technology", "opening"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["tech path", "command token economy"]
+        },
+        {
+          "start": "s225",
+          "title": "Second space dock and the Warfare secondary",
+          "kind": "strategy",
+          "summary": "A second space dock in round one is not required but smart: it nets nothing that round but protects you in rounds one and two. The Warfare secondary only builds at a dock in your home system, so if you want it, move the dock out last; usually you would rather have the fleet further forward, so it is optional.",
+          "advice": [
+            {
+              "point": "Aim to build a second space dock in round one when you can afford it, as protection for rounds one and two.",
+              "stance": "recommended",
+              "subjects": ["Floating Factory", "Construction"]
+            },
+            {
+              "point": "If you plan to use the Warfare secondary, make sure the space dock is the last thing to leave your home system.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Floating Factory"]
+            },
+            {
+              "point": "Use the Warfare secondary only when it fits: three systems adjacent to home and two infantry to build, an unusual slice shape, needing a trade ship, or a command token squeeze; otherwise prefer moving the dock forward.",
+              "stance": "situational",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Not needing Warfare frees you to take Construction more often.",
+              "stance": "rating",
+              "subjects": ["Construction", "Warfare"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": ["faction technologies"],
+          "concepts": ["secondary timing", "forward dock", "slice value", "command token economy"]
+        },
+        {
+          "start": "s246",
+          "title": "Round one: Diplomacy and Imperial",
+          "kind": "strategy",
+          "summary": "Diplomacy and Imperial are the only cards not to take. Even the Codex Diplomacy only refreshes two planets, and Saar's home planets are poor, so it returns about six resources at best, while you already make enough money and Construction's second dock is worth more.",
+          "advice": [
+            {
+              "point": "Do not take Diplomacy or Imperial in round one.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy", "Imperial"]
+            },
+            {
+              "point": "Diplomacy's refresh is worth about six resources at best for Saar and you make enough money anyway; Construction for an early second space dock is better.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy", "Construction"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s263",
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is very good: going first, expand to gain the trade good for tech, then play Leadership, and you can do everything this round. Take the Technology and Construction secondaries, probably Warfare too, and take a lot of planets.",
+          "advice": [
+            {
+              "point": "Leadership is very, very good for Saar because it acts before Construction and Technology.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "With Leadership, first expand (carrier, fighter, two ground forces, maybe the cruiser) to gain the trade good, then play Leadership as your second action, placing the tokens one each into tactics, fleet and strategy.",
+              "stance": "recommended",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "With the extra tokens, take the Technology secondary for Gravity Drive, the Construction secondary for a second dock where your first expansion went, and the Warfare secondary if timing allows building two infantry and fighters for the second carrier.",
+              "stance": "recommended",
+              "subjects": ["Leadership", "Technology", "Construction", "Warfare", "Gravity Drive"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy", "secondary timing", "forward dock"]
+        },
+        {
+          "start": "s279",
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Politics may be Saar's best round-one pick because it guarantees taking Mecatol Rex in round two: you will still afford tech, then take Leadership in round two and have enough trade goods for the six influence. Keep the speaker token rather than selling it; the action cards also help a faction with a weak action card economy.",
+          "advice": [
+            {
+              "point": "Politics is one of the best round-one picks, perhaps the best, because it sets up a guaranteed Mecatol Rex as your first action in round two; no faction does this as easily, not even Sol.",
+              "stance": "rating",
+              "subjects": ["Politics", "Mecatol Rex"]
+            },
+            {
+              "point": "After Politics in round one, take Leadership in round two; Scavenge will have given you enough trade goods for the six influence.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Leadership", "Mecatol Rex"]
+            },
+            {
+              "point": "Do not sell the speaker token after taking Politics, unless your table meta reliably honours a promise of first pick.",
+              "stance": "avoid",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "The two action cards are valuable because Saar generally has a weak action card economy.",
+              "stance": "rating",
+              "subjects": ["Politics"]
+            }
+          ],
+          "factions": ["Clan of Saar", "Federation of Sol"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol"],
+          "requires": ["faction abilities"],
+          "concepts": ["custodians rush", "speaker order control", "speaker token sale", "table meta"]
+        },
+        {
+          "start": "s301",
+          "title": "Round one: Construction and the hated faction",
+          "kind": "strategy",
+          "summary": "Construction is a great pick from fourth to sixth, sometimes even over Technology. The second space dock matters because Saar is good, everyone knows it, and the table will use cards such as Reactor Meltdown or plays against your only dock to set you back. Prioritise the Construction secondary over the Warfare secondary, since you want to build on the front lines.",
+          "advice": [
+            {
+              "point": "Construction is a great pick if you pick last and reasonable even at fourth; in some games pick it over Technology.",
+              "stance": "rating",
+              "subjects": ["Construction", "Technology"]
+            },
+            {
+              "point": "Get the second space dock in round one or as soon as possible, by round three at the latest; with one dock you signal to the table that losing it cripples you, inviting Reactor Meltdown or an attack.",
+              "stance": "recommended",
+              "subjects": ["Floating Factory", "Reactor Meltdown"]
+            },
+            {
+              "point": "Prioritise the Construction secondary over the Warfare secondary, because you build on the move at the front rather than at home.",
+              "stance": "recommended",
+              "subjects": ["Construction", "Warfare"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "threats and matchups", "action cards"],
+          "requires": ["faction technologies"],
+          "concepts": ["threat perception", "forward dock", "secondary timing", "production redundancy"]
+        },
+        {
+          "start": "s337",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is surprisingly low for Saar. It is fine if early objectives are spend objectives and you are budgeting for them, but taking it to build a huge army adds little: production is hard-capped, fighter screens fill production slots, and you will out-plastic everyone going into round two anyway. Position matters more than raw volume.",
+          "advice": [
+            {
+              "point": "Trade is a low pick for Saar; it doubles down on plastic you already have plenty of.",
+              "stance": "rating",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Trade is acceptable when the opening public objectives are spend objectives and you are saving for them.",
+              "stance": "situational",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Trade can make sense if you want to hit a neighbour such as Xxcha before they build their flagship, but you generally do not need to.",
+              "stance": "situational",
+              "subjects": ["Trade", "Xxcha Kingdom"]
+            },
+            {
+              "point": "Prioritise positional advantage over maximising the amount of plastic built in round one.",
+              "stance": "recommended",
+              "subjects": ["Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar", "Xxcha Kingdom"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "economy"],
+          "requires": [],
+          "concepts": ["plastic advantage", "production capacity", "fighter screen"]
+        },
+        {
+          "start": "s363",
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is the best round-one card for Saar and the one opponents fear most. Move everything out, build at the dock, reclaim the token and move it all out again, ending round one holding both equidistants and adjacent to Mecatol Rex. Warfare even makes a round-one Mecatol Rex possible, but the hosts advise against spending everything on it.",
+          "advice": [
+            {
+              "point": "Warfare is the best round-one card for Saar.",
+              "stance": "rating",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "With Warfare, move everything out of home, build out of the space dock, reclaim the command token and send everything out again to take both equidistant systems and end adjacent to Mecatol Rex.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Floating Factory"]
+            },
+            {
+              "point": "Warfare makes a round-one Mecatol Rex possible if you have the money, but the hosts advise keeping the plastic rather than burning all your trade goods on it.",
+              "stance": "avoid",
+              "subjects": ["Warfare", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "mecatol"],
+          "requires": ["faction technologies"],
+          "concepts": ["custodians rush", "command token economy"]
+        },
+        {
+          "start": "s375",
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is surprisingly mediocre because Saar always affords a tech anyway. Its best feature is getting Gravity Drive as your first action and sending everything two systems away. Do not take the second tech: Sarween Tools for six is not worth it in round one; save that money for plastic.",
+          "advice": [
+            {
+              "point": "Technology is surprisingly mediocre for Saar since you can always afford one tech anyway.",
+              "stance": "rating",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "If you take Technology, research Gravity Drive as your first action and then send everything two systems away.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Gravity Drive"]
+            },
+            {
+              "point": "Do not use the second research in round one; spending six on Sarween Tools is not worth it. Get Sarween Tools in round two and spend the money on plastic.",
+              "stance": "avoid",
+              "subjects": ["Technology", "Sarween Tools"]
+            },
+            {
+              "point": "If forced to choose between Technology and Construction late in the pick order, the table is probably passive enough not to stall you, so Construction is fine.",
+              "stance": "situational",
+              "subjects": ["Technology", "Construction"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology"],
+          "requires": [],
+          "concepts": ["tech path", "stall action"]
+        },
+        {
+          "start": "s399",
+          "title": "Gravity Drive payoffs: round-one objectives and Mecatol Rex",
+          "kind": "strategy",
+          "summary": "Gravity Drive lets Saar take the most lucrative systems, often score one of the first two public objectives in round one (for example four planets of one trait), and stay in range of Mecatol Rex for round two even without Politics. Saar's docks are not limited by planet resources, so Saar can land a dock and one ground force on Mecatol Rex and build a big fleet there immediately, even past a parked Xxcha flagship. Saar is a Mecatol Rex faction.",
+          "advice": [
+            {
+              "point": "Use Gravity Drive range in round one to grab the systems that score early control objectives; Saar can consistently score one of the first two public objectives in round one.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Corner the Market"]
+            },
+            {
+              "point": "Keep carriers within range of Mecatol Rex at the end of round one so you can take it in round two even without Politics if the speaker cannot rush it, for example an Arborec speaker.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Mecatol Rex", "The Arborec"]
+            },
+            {
+              "point": "Always take Mecatol Rex as Saar; it is a free point you should not pass up.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Send a space dock and a single ground force to Mecatol Rex, invade, then build a big fleet there; with Winnu and Arborec you are one of the few factions that can produce heavily on Mecatol, and the only one that can do so right away.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "Floating Factory"]
+            }
+          ],
+          "factions": ["Clan of Saar", "The Arborec", "Winnu", "Xxcha Kingdom"],
+          "phases": ["round 1", "early"],
+          "topics": ["mecatol", "objectives", "expansion", "technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["early control scoring", "custodians rush", "free points"]
+        },
+        {
+          "start": "s422",
+          "title": "Everyone will hate you anyway",
+          "kind": "strategy",
+          "summary": "Saar does everything so well that the table will drag it at every opportunity, however nicely you play. Plan to absorb the hits: the round-one second dock makes Reactor Meltdown irrelevant, and spreading out correctly lets you survive even Ixthian Artifact.",
+          "advice": [
+            {
+              "point": "Expect the table to hate and target you no matter how kindly you play; build your plan around absorbing hits rather than avoiding them.",
+              "stance": "rating",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "Spread your units out sensibly around Mecatol Rex and the equidistants so that Reactor Meltdown or Ixthian Artifact cannot cripple you.",
+              "stance": "recommended",
+              "subjects": ["Reactor Meltdown", "Ixthian Artifact"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["early", "mid"],
+          "topics": ["threats and matchups", "general strategy"],
+          "requires": ["action cards", "agendas"],
+          "concepts": ["threat perception", "production redundancy"]
+        },
+        {
+          "start": "s435",
+          "title": "Prophecy of Kings tease",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Clan of Saar"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Tech path",
+      "summary": "Gravity Drive first, then usually Sarween Tools in round two, with Saar as a blue-yellow faction: Dreadnought II, Chaos Mapping by round four, and Floating Factory II if needed. Chaos Mapping's timing depends on when the table turns on you and where the asteroid field is. Transit Diodes beats building lots of infantry; Carrier II, Dreadnought II and Fighter II are a happy set of upgrades, and Neural Motivator helps find Sabotage. Do not fear Nekro copying Floating Factory II.",
+      "chunks": [
+        {
+          "start": "s445",
+          "title": "Gravity Drive and Sarween Tools",
+          "kind": "strategy",
+          "summary": "Gravity Drive is the automatic first tech and is especially good because the docks can use it too, for escaping or for annoying plays. From round two, Sarween Tools is a common second tech despite recent criticism.",
+          "advice": [
+            {
+              "point": "Gravity Drive is especially good for Saar because the space docks gain range too, to escape danger or reach an asteroid field.",
+              "stance": "rating",
+              "subjects": ["Gravity Drive", "Floating Factory"]
+            },
+            {
+              "point": "Sarween Tools is a common, reasonable second tech in round two.",
+              "stance": "recommended",
+              "subjects": ["Sarween Tools"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["round 1", "early"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path"]
+        },
+        {
+          "start": "s463",
+          "title": "Chaos Mapping timing",
+          "kind": "strategy",
+          "summary": "Saar is blue-yellow: blue-blue and yellow-yellow, then Chaos Mapping. You need Chaos Mapping by the late game, around round four, mainly to protect yourself in an asteroid field; get it earlier only if the table is already throwing plastic at you in round two. If the asteroid field is badly placed and you lack the faction-tech secret, consider going deeper into blue instead.",
+          "advice": [
+            {
+              "point": "Plan a blue-yellow path ending in Chaos Mapping, and have Chaos Mapping by about round four.",
+              "stance": "recommended",
+              "subjects": ["Chaos Mapping"]
+            },
+            {
+              "point": "Get Chaos Mapping in round two only if opponents are already throwing their plastic at you and you need to shelter in an asteroid field.",
+              "stance": "situational",
+              "subjects": ["Chaos Mapping"]
+            },
+            {
+              "point": "If the asteroid field is poorly placed and you lack a faction-tech secret objective, consider Fleet Logistics or Light/Wave Deflector instead.",
+              "stance": "situational",
+              "subjects": ["Chaos Mapping", "Fleet Logistics", "Light/Wave Deflector"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "threat perception"]
+        },
+        {
+          "start": "s478",
+          "title": "Yellow skip, tech objectives and Transit Diodes",
+          "kind": "strategy",
+          "summary": "Matt would still take Sarween Tools before Dreadnought II with a yellow skip, then Floating Factory. With a two-techs-in-two-colours objective, go Sarween plus Graviton or ideally Transit Diodes. Hunter leans blue-green, but both agree blue-yellow with Transit Diodes is simpler: Saar wins in space, so reuse about six infantry all game instead of spending production on infantry. Magen Defense Grid Omega does not work with floating docks.",
+          "advice": [
+            {
+              "point": "With a yellow skip, Matt would still take Sarween Tools then Dreadnought II then Floating Factory II rather than skipping straight to Dreadnought II.",
+              "stance": "situational",
+              "subjects": ["Sarween Tools", "Dreadnought II", "Floating Factory II"]
+            },
+            {
+              "point": "If a two-techs-in-two-colours objective is out, take Sarween Tools with Graviton Laser System or ideally Transit Diodes.",
+              "stance": "situational",
+              "subjects": ["Diversify Research", "Sarween Tools", "Transit Diodes", "Graviton Laser System"]
+            },
+            {
+              "point": "Prefer blue-yellow with Transit Diodes over heavy infantry: Saar wins in space, so move a pool of about six infantry around all game instead of spending capped production on infantry. Hunter personally leans blue-green; neither sees blue-red as a factor.",
+              "stance": "recommended",
+              "subjects": ["Transit Diodes", "Infantry"]
+            },
+            {
+              "point": "Abandon the ground: do not worry much about opponents taking your planets.",
+              "stance": "recommended",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "Magen Defense Grid's Codex version is useless to Saar because its docks are not on planets.",
+              "stance": "avoid",
+              "subjects": ["Magen Defense Grid"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "objectives"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip", "tech path", "production capacity", "infantry shortage"]
+        },
+        {
+          "start": "s509",
+          "title": "Unit upgrades and Neural Motivator",
+          "kind": "strategy",
+          "summary": "Without two-techs-in-two-colours, a path like Gravity Drive, Chaos Mapping when needed, and Dreadnought II via a yellow skip can then add Neural Motivator and Fighter II. Carrier II, Dreadnought II and Fighter II make a very happy Saar; Carrier II eases the infantry capacity problem. Neural Motivator is valued for drawing Sabotage, because opponents' hands likely hold something nasty for you.",
+          "advice": [
+            {
+              "point": "Carrier II, Dreadnought II and Fighter II are a great set of unit upgrades for Saar; Carrier II's capacity helps carry both fighters and infantry.",
+              "stance": "rating",
+              "subjects": ["Carrier II", "Dreadnought II", "Fighter II"]
+            },
+            {
+              "point": "With a green skip, go straight to Fighter II.",
+              "stance": "situational",
+              "subjects": ["Fighter II"]
+            },
+            {
+              "point": "Take Neural Motivator, as early as round three, mainly to draw more action cards and find Sabotage, which Saar values more than most since others will play cards against it.",
+              "stance": "recommended",
+              "subjects": ["Neural Motivator", "Sabotage"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "action cards"],
+          "requires": ["action cards"],
+          "concepts": ["tech skip", "tech path"]
+        },
+        {
+          "start": "s529",
+          "title": "Floating Factory II and Nekro",
+          "kind": "strategy",
+          "summary": "Do not avoid Floating Factory II just because Nekro is in the game. You get it late, around round four, as a third upgrade, for two faction techs, for extra production, or to rebuild after a disaster, so Nekro rarely has set up for it and must still defend its home dock. Check whether a mobile Nekro dock would unlock a key point. It is never a required tech; two docks in one system already build ten units.",
+          "advice": [
+            {
+              "point": "Do not fear researching Floating Factory II with Nekro in the game; unlike Letani Warrior II or Exotrireme II, it gives Nekro little.",
+              "stance": "recommended",
+              "subjects": ["Floating Factory II", "The Nekro Virus"]
+            },
+            {
+              "point": "Skip Floating Factory II if unlocking a mobile Nekro dock would clearly give them access to a crucial point; a Nekro planning for it will be obvious.",
+              "stance": "situational",
+              "subjects": ["Floating Factory II", "The Nekro Virus"]
+            },
+            {
+              "point": "Floating Factory II is a late, optional tech: get it as a third unit upgrade, for an objective needing two faction techs, to boost production, or to rebuild after losing a lot.",
+              "stance": "situational",
+              "subjects": ["Floating Factory II"]
+            },
+            {
+              "point": "Get all three space docks out; two docks in one system is your peak production per turn.",
+              "stance": "recommended",
+              "subjects": ["Floating Factory"]
+            }
+          ],
+          "factions": ["Clan of Saar", "The Nekro Virus"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "threats and matchups"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": ["production capacity"]
+        }
+      ]
+    },
+    {
+      "title": "Trade and table meta",
+      "summary": "Saar is not a trading faction. Trades come in two modes: extorting others with your big fleet, or paying to be left alone. Do not rely on non-binding deals, since opponents have every reason to break them against Saar. Your support for the throne and ceasefire are still valuable, and neighbours often want to be Saar's support swap partner.",
+      "chunks": [
+        {
+          "start": "s575",
+          "title": "Extort or be extorted",
+          "kind": "strategy",
+          "summary": "Saar trades in two modes: early on, use your big fleet to extort a home system, a key planet or Mecatol Rex; or, when threatened, pay your commodities to make the threat go away.",
+          "advice": [
+            {
+              "point": "In round three, before others match your fleet, use your big ships to extort neighbours: take payment not to threaten their home system, a critical planet or Mecatol Rex.",
+              "stance": "recommended",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "When threatened by a dangerous card or move, pay your commodities to make it go away.",
+              "stance": "situational",
+              "subjects": ["Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["early", "mid"],
+          "topics": ["trade and diplomacy"],
+          "requires": [],
+          "concepts": ["extortion", "trade leverage"]
+        },
+        {
+          "start": "s597",
+          "title": "Do not rely on non-binding deals",
+          "kind": "strategy",
+          "summary": "Especially in the mid and late game, do not plan on non-binding deals or favours: other players have little reason to honour them, can justify breaking their word to stop Saar winning, and anyone dealing generously with Saar angers the rest of the table.",
+          "advice": [
+            {
+              "point": "Do not plan on non-binding deals or favours as Saar, especially mid and late game; opponents can justify breaking them to stop you winning.",
+              "stance": "avoid",
+              "subjects": ["Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["mid", "late"],
+          "topics": ["trade and diplomacy"],
+          "requires": [],
+          "concepts": ["non-binding deals", "threat perception"]
+        },
+        {
+          "start": "s606",
+          "title": "Support swaps and ceasefire",
+          "kind": "strategy",
+          "summary": "In a meta where support swaps happen, neighbours want Saar as their swap partner. Your Ceasefire is worth a lot and sells better than most factions', for example to reassure a neighbour your fleet is not coming for them. The hosts again stress building the second dock so your only dock is never threatened.",
+          "advice": [
+            {
+              "point": "Do support for the throne swaps; neighbours will want to be your swap partner when the table swaps.",
+              "stance": "recommended",
+              "subjects": ["Support for the Throne"]
+            },
+            {
+              "point": "Sell your Ceasefire; it is worth more from Saar than from most factions because your scary fleet makes the reassurance valuable.",
+              "stance": "recommended",
+              "subjects": ["Ceasefire"]
+            },
+            {
+              "point": "Matt once had to give up his Ceasefire to call off a threat to his only space dock early in round two; build the second dock in round one to avoid this.",
+              "stance": "recommended",
+              "subjects": ["Ceasefire", "Floating Factory"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["early", "mid"],
+          "topics": ["trade and diplomacy", "promissory notes"],
+          "requires": ["promissory notes"],
+          "concepts": ["support for the throne swap", "table meta", "production redundancy"]
+        }
+      ]
+    },
+    {
+      "title": "Mid game",
+      "summary": "In the mid game, make sure you have a route to an asteroid field and aim to have a space dock in one by round four. Go hard after control objectives, where your round two and three plastic advantage is greatest; the trade goods from taking planets then fund spend objectives, and tech is bought only to score objectives. Expect your plastic lead to peak early, the table to catch up, and something bad to happen to you, though Saar sometimes eliminates a weak neighbour and stays dominant.",
+      "chunks": [
+        {
+          "start": "s623",
+          "title": "Asteroid field and control objectives",
+          "kind": "strategy",
+          "summary": "Keep a route to an asteroid field and get a dock into one by about round four. Matt goes all-in on control objectives, where Saar's rounds two and three plastic lead is decisive, then uses the trade goods gained to score spend objectives and buys tech only when it scores an objective. His ideal path is Gravity Drive, Chaos Mapping and Dreadnought II, with other techs only for unit upgrade objectives.",
+          "advice": [
+            {
+              "point": "Keep a route to an asteroid field without going for broke, and aim to have a space dock inside one by about round four.",
+              "stance": "recommended",
+              "subjects": ["Chaos Mapping", "Floating Factory"]
+            },
+            {
+              "point": "Focus on the harder control objectives that others cannot pull off, using your plastic lead in rounds two and three.",
+              "stance": "recommended",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "Use the trade goods Scavenge gives while taking planets to score spend objectives.",
+              "stance": "recommended",
+              "subjects": ["Scavenge"]
+            },
+            {
+              "point": "Do not over-tech; Matt's ideal path is Gravity Drive, Chaos Mapping and Dreadnought II, spending the rest on plastic and adding techs only when they score an objective such as two or three unit upgrades.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Chaos Mapping", "Dreadnought II", "Develop Weaponry", "Revolutionize Warfare"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["mid"],
+          "topics": ["objectives", "technology", "expansion"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": ["plastic advantage", "early control scoring", "tech path"]
+        },
+        {
+          "start": "s643",
+          "title": "The shape of Saar's plastic advantage",
+          "kind": "strategy",
+          "summary": "Saar's plastic lead peaks early, is caught in the mid game, and then goes one of two ways: Saar is obliterated (which does not mean losing; many Saar wins come with almost no plastic left) or Saar swallows a weaker neighbour whose slice holds the control objectives and enters the late game with the biggest fleets. Expect something bad to happen to you in the mid game, more often a play against a weak fleet than an action card.",
+          "advice": [
+            {
+              "point": "Expect your plastic lead to peak early and the table to catch up in the mid game.",
+              "stance": "rating",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "Be ready for something bad to happen to you in the mid game, such as an action card or an opponent attacking a weakly guarded fleet.",
+              "stance": "recommended",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "When control objectives lie in a weaker player's slice, Saar can swallow that player whole and finish the mid game with an enormous fleet.",
+              "stance": "situational",
+              "subjects": ["Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["mid"],
+          "topics": ["general strategy", "threats and matchups"],
+          "requires": [],
+          "concepts": ["plastic advantage", "threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Late game",
+      "summary": "Saar's late games are decisive: either it has fleets so big nobody can stop it, or, more often, it throws every last unit and trade good at its final points. Do not fear losses, judge which losses actually matter, and spend down to nothing, since Saar can come back from nothing, does not need to protect home, and Scavenge keeps income flowing even after losing planets.",
+      "chunks": [
+        {
+          "start": "s664",
+          "title": "Two late-game scenarios",
+          "kind": "strategy",
+          "summary": "Late game is either stretching everything to score the last points, using tricks like an unveiled flagship or a dock in an asteroid field, or using huge fleets to take objectives no one else could, such as grabbing the remaining tech-specialty planets. Usually the table gangs up on Saar, so plan for the last-ditch version.",
+          "advice": [
+            {
+              "point": "With a dock in an asteroid field and Chaos Mapping, use surprise plays such as an unveiled flagship to scrape together the last points.",
+              "stance": "recommended",
+              "subjects": ["Chaos Mapping", "Son of Ragh"]
+            },
+            {
+              "point": "If you still have huge fleets, use them to score objectives no one else can, such as taking the remaining planets with technology specialties.",
+              "stance": "situational",
+              "subjects": ["Clan of Saar"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["late"],
+          "topics": ["objectives", "general strategy"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": ["threat perception", "win from ahead"]
+        },
+        {
+          "start": "s676",
+          "title": "Do not be afraid of losses",
+          "kind": "strategy",
+          "summary": "Late game, losses may not cost you the win; know which units actually matter and plan to lose the right ones. For example, weigh whether a round-four Sabotage is really worth spending to stop an attack on a smaller fleet, since Saar can come back from nothing.",
+          "advice": [
+            {
+              "point": "Do not be afraid of late-game losses; decide which units matter and plan to lose the ones that do not, such as a carrier with fighters and a cruiser.",
+              "stance": "recommended",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "Before spending Sabotage to protect a small fleet, judge whether the damage really matters, since Saar can come back from nothing.",
+              "stance": "situational",
+              "subjects": ["Sabotage"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["late"],
+          "topics": ["combat", "action cards", "general strategy"],
+          "requires": ["action cards"],
+          "concepts": ["acceptable losses"]
+        },
+        {
+          "start": "s688",
+          "title": "The retirement fund: finish clean",
+          "kind": "strategy",
+          "summary": "Treat the ships built in rounds two to four as a retirement fund to spend down: put money into spend objectives and send out everything for the final points, ideally finishing with nothing but a dock and a ground force in an asteroid field. Saar can throw everything because it need not protect home, and Scavenge keeps income up even after losing most planets.",
+          "advice": [
+            {
+              "point": "Build heavily in rounds two to four, then in the late game spend everything on spend objectives and commit every last unit to the final points, finishing with nothing left.",
+              "stance": "recommended",
+              "subjects": ["Clan of Saar"]
+            },
+            {
+              "point": "Saar uniquely can throw everything at the last points because it does not have to protect home, and Scavenge still yields a manageable income after losing most planets.",
+              "stance": "rating",
+              "subjects": ["Nomadic", "Scavenge"]
+            }
+          ],
+          "factions": ["Clan of Saar"],
+          "phases": ["late"],
+          "topics": ["general strategy", "economy", "objectives"],
+          "requires": ["faction abilities"],
+          "concepts": ["spend to zero", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Wrap-up and mailbag",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s707",
+          "title": "Wrap-up of the guide",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s713",
+          "title": "Root Woodland Alliance mailbag",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s752",
+          "title": "Eggs in refrigerators",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro and announcements",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s771",
+          "title": "Patrons, Patreon polls and stream schedule",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Prophecy of Kings spoilers",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s847",
+          "title": "Freelancers exploration card reveal",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s872",
+          "title": "Saar mech reveal and expansion outlook",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Clan of Saar"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s918",
+          "title": "Sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Clan of Star": "Clan of Saar",
+    "Tsar": "Saar",
+    "Star": "Saar",
+    "SAR": "Saar",
+    "Sar": "Saar",
+    "Sara": "Saar",
+    "Sarah": "Saar",
+    "Klanisaur": "Clan of Saar",
+    "Clan Assaur": "Clan of Saar",
+    "Clanasar": "Clan of Saar",
+    "Clanisaar": "Clan of Saar",
+    "Clan Sar": "Clan of Saar",
+    "Son of Raw": "Son of Ragh",
+    "rocks call": "Ragh's Call",
+    "Sarwen": "Sarween",
+    "Mechatarex": "Mecatol Rex",
+    "Mechital Rex": "Mecatol Rex",
+    "Mechataw Rex": "Mecatol Rex",
+    "Mechatar X": "Mecatol Rex",
+    "Mekatol Rex": "Mecatol Rex",
+    "Mecca Rex": "Mecatol Rex",
+    "Mechatella": "Mecatol Rex",
+    "gravity job": "Gravity Drive",
+    "X-Traw": "Xxcha",
+    "X-Tron": "Xxcha",
+    "XCHA": "Xxcha",
+    "Isarl": "Yssaril",
+    "Andre": "Arborec",
+    "Joel and R": "Jol-Nar",
+    "Jolnar": "Jol-Nar",
+    "Seoul": "Sol",
+    "Exotrian": "Exotrireme",
+    "Latani 2": "Letani Warrior II",
+    "Omega Magin": "Magen Defense Grid Omega",
+    "Omega Diplo": "Diplomacy (Codex Omega)",
+    "Neural": "Neural Motivator",
+    "Nuzluck": "Nuzlocke",
+    "Hunter Dawson": "Hunter Donaldson"
+  }
+}

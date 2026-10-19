@@ -1,0 +1,2005 @@
+{
+  "episode": 136,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "Yssaril are easy to learn and hard to master: they win a lot in new groups' first games through surprise action card plays, but experienced tables learn to play around them and they rarely win tournaments. The hosts rate them as not a very strong faction because they lack ships and an economic engine to build them.",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro, Matt's baby and the episode backlog",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s80",
+          "title": "Faction guides in release order; L1Z1X and Naalu next",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "L1Z1X Mindnet",
+            "Naalu Collective"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s113",
+          "title": "Yssaril's difficulty curve and overall strength",
+          "kind": "strategy",
+          "summary": "Yssaril are the playmaker faction that wins often with new groups, but experienced players get ahead of their tricks and they rarely win tournaments. Their core problem is ending the game without enough ships, and the hard part is turning their advantage into a win.",
+          "advice": [
+            {
+              "point": "Yssaril are not a very strong faction at experienced tables; they seldom win tournaments, and unlike Mentak they lack obvious tools that convert into wins.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes",
+                "Mentak Coalition"
+              ]
+            },
+            {
+              "point": "Yssaril win often in new groups' first games through surprise action card plays; the advantage fades as the group learns the action card deck.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "The recurring failure is reaching the end game without ships: the faction has no hook or economic engine pushing you to build them, so you must make a point of it.",
+              "stance": "avoid",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "plastic advantage"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Starting units, tech and home system",
+      "summary": "Yssaril have one of the best expansion starts in the game, with two carriers and five infantry, and Neural Motivator is the best single starting technology. The home system is resource-poor but rich in influence, which guarantees two command tokens from Leadership every round and gives some weight in agenda phases.",
+      "chunks": [
+        {
+          "start": "s135",
+          "title": "Starting fleet",
+          "kind": "strategy",
+          "summary": "Two carriers and five infantry is essentially the best possible start for expanding to many systems quickly; the cruiser is the better trade ship to have, and the fighters and PDS are welcome extras.",
+          "advice": [
+            {
+              "point": "The 2C5I start is about the best possible for expanding to many systems quickly in round one; the extra infantry is a real bonus.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "The starting cruiser is the ideal ship to send to a trade negotiation.",
+              "stance": "recommended",
+              "subjects": [
+                "Cruiser"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "expansion"
+          ],
+          "requires": [],
+          "concepts": [
+            "2C4I opening"
+          ]
+        },
+        {
+          "start": "s153",
+          "title": "Neural Motivator start",
+          "kind": "strategy",
+          "summary": "If a faction starts with only one technology, Neural Motivator is the best one to have, and it underpins Yssaril's faction abilities.",
+          "advice": [
+            {
+              "point": "Neural Motivator is the best single starting technology, ahead of Sarween Tools; Antimass Deflectors is only valuable as a step to Gravity Drive.",
+              "stance": "rating",
+              "subjects": [
+                "Neural Motivator",
+                "Sarween Tools",
+                "Antimass Deflectors"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "setup"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s160",
+          "title": "Influence-heavy home system",
+          "kind": "strategy",
+          "summary": "The home system is weak on resources but has five influence, so Yssaril can reliably buy two command tokens off Leadership every round, which the hosts treat as the baseline for staying relevant. Home influence also tends to give more weight in agenda phases on balanced maps.",
+          "advice": [
+            {
+              "point": "Use the home influence to buy at least two command tokens every time Leadership is played; with one trade good this is guaranteed every round.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "High home influence gives Yssaril more say in agenda phases, especially on well-balanced maps; the opposite of L1Z1X.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes",
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "The home system is short on resources, so you must find resources out on the map.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "economy",
+            "agendas"
+          ],
+          "requires": [],
+          "concepts": [
+            "command token economy"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities",
+      "summary": "Stall Tactics is the reason Yssaril can act last in a round, but action cards that are themselves actions usually do the stalling, so Stall Tactics is mostly a last resort in the final rounds. Scheming gives Yssaril a better hand rather than a bigger one, and Crafty makes them the action card faction, whose strength depends on how well the table plays around action cards.",
+      "chunks": [
+        {
+          "start": "s171",
+          "title": "Stall Tactics",
+          "kind": "strategy",
+          "summary": "Stall Tactics is the price of delaying: you wait for others to act or pass, then take your actions last. In practice the deck has enough action cards with ACTION timing that you stall with those first and save Stall Tactics for the final rounds.",
+          "advice": [
+            {
+              "point": "Use stalling to wait until other players have acted or passed, then take your decisive actions last in the round.",
+              "stance": "recommended",
+              "subjects": [
+                "Stall Tactics"
+              ]
+            },
+            {
+              "point": "Prefer to stall with action cards that are themselves actions; Stall Tactics itself is a last-ditch tool, rarely used in the first few rounds.",
+              "stance": "recommended",
+              "subjects": [
+                "Stall Tactics"
+              ]
+            },
+            {
+              "point": "Stall Tactics is best when the discarded card is one you would have burned anyway.",
+              "stance": "recommended",
+              "subjects": [
+                "Stall Tactics"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "any",
+            "late"
+          ],
+          "topics": [
+            "faction abilities",
+            "action cards"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "stall action"
+          ]
+        },
+        {
+          "start": "s186",
+          "title": "Scheming and Crafty",
+          "kind": "strategy",
+          "summary": "Scheming does not give more action cards than anyone else with Neural Motivator, but it guarantees a better hand because Yssaril always prune a junk card. Crafty makes them the action card faction and even overrides the agenda that limits hands to three cards. Their balance depends on the table's knowledge of the action card deck.",
+          "advice": [
+            {
+              "point": "Scheming means Yssaril's hand quality, not quantity, is better than everyone else's; discard the junk card every draw.",
+              "stance": "rating",
+              "subjects": [
+                "Scheming"
+              ]
+            },
+            {
+              "point": "Crafty overrides the agenda that limits players to three action cards, which makes Yssaril even stronger if it passes.",
+              "stance": "rating",
+              "subjects": [
+                "Crafty",
+                "Executive Sanctions"
+              ]
+            },
+            {
+              "point": "Yssaril's strength rises and falls with how good action cards are at the table; experienced players who know the deck and what to sabotage blunt them.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "action cards"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "table meta"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Flagship",
+      "summary": "Matt loves the flagship as a fast, sneaky ship that can slip through enemy fleets, especially with Gravity Drive, and can be fun to get out early. Hunter warns that sending a flagship undefended into enemy territory is usually a mistake because someone will hold the secret objective to destroy it, though it is great for Unveil Flagship.",
+      "chunks": [
+        {
+          "start": "s202",
+          "title": "Y'sia Y'ssrila as a sneaky raider",
+          "kind": "strategy",
+          "summary": "Matt's favourite flagship for flavour: a cheap, hard-hitting, two-move ship that moves through enemy ships. Built in round two or three, and especially with Gravity Drive, it can make sneaky plays taking weakly defended planets.",
+          "advice": [
+            {
+              "point": "The flagship is very good for its cost and the only one with base move two; Matt calls it his favourite, though not the best flagship.",
+              "stance": "rating",
+              "subjects": [
+                "Y'sia Y'ssrila"
+              ]
+            },
+            {
+              "point": "If you get it out in round two or three, pair it with Gravity Drive and carry a fighter and two infantry to snipe weakly defended planets; the hosts stop short of recommending an early build.",
+              "stance": "situational",
+              "subjects": [
+                "Y'sia Y'ssrila",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "Use it in the mid or late game to hit anything left weakly defended.",
+              "stance": "recommended",
+              "subjects": [
+                "Y'sia Y'ssrila"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "early",
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s226",
+          "title": "Hunter's counterpoint: flagship exposure",
+          "kind": "strategy",
+          "summary": "Hunter argues that putting a flagship deep in enemy territory, which is what this ship does best, is almost always a bad decision because someone will usually hold the secret to destroy it. It is excellent if you hold Unveil Flagship.",
+          "advice": [
+            {
+              "point": "Hunter: avoid leaving the flagship undefended in enemy territory; with the secret objective deck, assume someone can score Destroy Their Greatest Ship.",
+              "stance": "avoid",
+              "subjects": [
+                "Y'sia Y'ssrila",
+                "Destroy Their Greatest Ship"
+              ]
+            },
+            {
+              "point": "With Unveil Flagship, this flagship is excellent: find a lone enemy ship it can beat and snipe it.",
+              "stance": "situational",
+              "subjects": [
+                "Unveil Flagship",
+                "Y'sia Y'ssrila"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "threat perception"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies and commodities",
+      "summary": "Transparasteel Plating is cheap enough to take at any time and is key to Yssaril's late-game swing, but is not needed right away. Mageon Implants is a strong stall that also gathers information, but it is only worthwhile when you have something meaningful to do after stalling.",
+      "chunks": [
+        {
+          "start": "s237",
+          "title": "Transparasteel Plating",
+          "kind": "strategy",
+          "summary": "Transparasteel Plating needs only the starting green technology, so you can pick it up whenever you like. It is key to Yssaril's big end-of-round action card plays, so get it before the end of the game, but both hosts agree you do not need it right away.",
+          "advice": [
+            {
+              "point": "Get Transparasteel Plating before the end of the game; it is key to the late-game swing when Yssaril end rounds as the only player still acting.",
+              "stance": "recommended",
+              "subjects": [
+                "Transparasteel Plating"
+              ]
+            },
+            {
+              "point": "Do not rush Transparasteel Plating; both hosts agree it is not needed early.",
+              "stance": "avoid",
+              "subjects": [
+                "Transparasteel Plating"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies",
+            "action cards"
+          ],
+          "concepts": [
+            "swing round",
+            "stall action"
+          ]
+        },
+        {
+          "start": "s252",
+          "title": "Mageon Implants and commodities",
+          "kind": "strategy",
+          "summary": "Mageon Implants is comparable to Mentak's Mirror Computing: an action that stalls, gathers information about other hands, and nets a card that can stall again. Its power depends on having a meaningful action once you finish stalling. Three commodities is middle-of-the-road, and Yssaril badly need the money.",
+          "advice": [
+            {
+              "point": "Use Mageon Implants as a stall that also draws a card you can stall with again.",
+              "stance": "recommended",
+              "subjects": [
+                "Mageon Implants"
+              ]
+            },
+            {
+              "point": "Track what you see in other players' hands with Mageon Implants; in a competitive game Matt would keep notes.",
+              "stance": "recommended",
+              "subjects": [
+                "Mageon Implants"
+              ]
+            },
+            {
+              "point": "Stalling is only worth it if you have an action that matters once you are done; this is what makes Yssaril hard to master.",
+              "stance": "situational",
+              "subjects": [
+                "Mageon Implants",
+                "Stall Tactics"
+              ]
+            },
+            {
+              "point": "Three commodities is middle-of-the-road but welcome; Yssaril badly need the trade goods.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "action cards",
+            "economy"
+          ],
+          "requires": [
+            "faction technologies",
+            "action cards"
+          ],
+          "concepts": [
+            "stall action"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "With only three home resources, Yssaril should accept that they will usually not do both Warfare and Technology in round one; expand with the 2C5I start and spend money on cheap units. Trade is the best pick because it plugs Yssaril's resource and plastic holes, followed by Politics, then Warfare, with Technology roughly tied with Politics; Leadership is middling, Construction (for a second home dock) beats Diplomacy, and Imperial is never good.",
+      "chunks": [
+        {
+          "start": "s277",
+          "title": "Do not expect both Warfare and Technology",
+          "kind": "strategy",
+          "summary": "Accept that you probably won't do both Warfare and Technology in round one: you have only three resources, no technology that saves round one, and a persistent plastic problem. Spend round-one money on units and treat anything beyond the 2C5I expansion as a bonus.",
+          "advice": [
+            {
+              "point": "Do not plan to use both the Warfare and Technology secondaries in round one; expand to two systems with the starting fleet and treat anything else as a bonus.",
+              "stance": "avoid",
+              "subjects": [
+                "Warfare",
+                "Technology"
+              ]
+            },
+            {
+              "point": "If you spend your three resources on anything in round one, spend them on units, not technology.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Focus on building units all game; resources come from the map, which needs ships to take and defend.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1",
+            "any"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "plastic advantage",
+            "2C4I opening",
+            "swing round"
+          ]
+        },
+        {
+          "start": "s303",
+          "title": "Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is middling in round one but a top-tier choice from round three on, when you can stall it to stop others buying tokens they need that round. In round one it mainly ensures you can use Warfare, and a third carrier only if three planet systems are in range.",
+          "advice": [
+            {
+              "point": "Leadership is only middling in round one but an excellent pick from round three onward.",
+              "stance": "rating",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "From round three on, take Leadership and stall it every round so opponents cannot buy the command tokens they need that round.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership",
+                "Stall Tactics"
+              ]
+            },
+            {
+              "point": "With round-one Leadership, use Warfare as well; build a third carrier only if three systems with planets are within reach, which is rare.",
+              "stance": "situational",
+              "subjects": [
+                "Leadership",
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Matt does not necessarily recommend spending a home planet on an extra command token in round one.",
+              "stance": "avoid",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "If you do take a technology in round one, make it Antimass Deflectors so you can get Gravity Drive in round two.",
+              "stance": "situational",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1",
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "stall action",
+            "command token economy",
+            "tech path"
+          ]
+        },
+        {
+          "start": "s331",
+          "title": "Round-one budget",
+          "kind": "strategy",
+          "summary": "Round one invites magic christmas land thinking because of unknown action card draws. In the usual TTS meta, unless you hold Trade you have about five resources: three at home plus an X-1 trade, which is too little for both Warfare and Technology, and Yssaril have no way to make extra money in round one.",
+          "advice": [
+            {
+              "point": "Budget around five resources in round one if you do not hold Trade (three at home plus an X-1 trade); that is too little for both Warfare and Technology.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Do not plan round one around action cards you might draw.",
+              "stance": "avoid",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "You will not sell your promissory note or make extra trade goods in round one.",
+              "stance": "rating",
+              "subjects": [
+                "Spy Net"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "economy",
+            "opening",
+            "trade and diplomacy"
+          ],
+          "requires": [],
+          "concepts": [
+            "magic christmas land",
+            "X-1 trade"
+          ]
+        },
+        {
+          "start": "s341",
+          "title": "Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is a last pick and Construction is better when both remain. Yssaril have no tech skip worth justifying Diplomacy (only a green skip to Hyper Metabolism), and readying Abyz and Fria gives money without timing control over Warfare.",
+          "advice": [
+            {
+              "point": "When Construction and Diplomacy are both left, take Construction to put a second space dock at home.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "Diplomacy"
+              ]
+            },
+            {
+              "point": "Diplomacy is weak for Yssaril in round one: there is no strong tech skip to justify it, and a green skip to Hyper Metabolism is not worth it.",
+              "stance": "rating",
+              "subjects": [
+                "Diplomacy",
+                "Hyper Metabolism"
+              ]
+            },
+            {
+              "point": "Even five resources from readying Abyz and Fria come without timing control and do not help Warfare much.",
+              "stance": "rating",
+              "subjects": [
+                "Diplomacy",
+                "Abyz",
+                "Fria"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": [
+            "double dock home",
+            "tech skip",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s357",
+          "title": "Politics",
+          "kind": "strategy",
+          "summary": "Politics synergises with Scheming, starting a strong action card hand. The main round-one goal is selling the speaker token, ideally three or four trade goods from the Trade holder on your right, to fund Warfare and Technology. Otherwise keep the token and double-tech to Gravity Drive in round two.",
+          "advice": [
+            {
+              "point": "Politics is a strong round-one pick that starts building a great action card hand.",
+              "stance": "rating",
+              "subjects": [
+                "Politics",
+                "Scheming"
+              ]
+            },
+            {
+              "point": "Sell the speaker token for three or four trade goods, ideally to the Trade holder sitting to your right; with that money do Warfare and Technology (Antimass Deflectors) and get Gravity Drive next round.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics",
+                "Antimass Deflectors",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "Only try the sale when the Trade holder sits directly to your right; elsewhere it takes too much effort.",
+              "stance": "situational",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "If you will have enough money for a double tech in round two, keep the speaker token, do a normal Warfare round, save the token you would have spent on Technology, and buy two technologies (to Gravity Drive) in round two. Matt rates this a great opening.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "From round four on you can take Politics every round to hold the speaker token and build a huge hand, but it gives your neighbours a lot of power; an option, not a recommendation.",
+              "stance": "situational",
+              "subjects": [
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1",
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "action cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "speaker token sale",
+            "win more",
+            "speaker order control"
+          ]
+        },
+        {
+          "start": "s380",
+          "title": "Construction",
+          "kind": "strategy",
+          "summary": "Yssaril have a real reason for Construction: a second space dock at home, not a forward dock, because the home system can only produce four units a round. Doing only Warfare and Politics as secondaries is a fine round alongside it.",
+          "advice": [
+            {
+              "point": "With Construction, always put the second space dock in the home system rather than a forward dock next to it; raising home production beats splitting production and spending two tokens to build.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "Construction is a fine last pick, but it is not only a sixth-pick card; it is worth taking third as well.",
+              "stance": "rating",
+              "subjects": [
+                "Construction"
+              ]
+            },
+            {
+              "point": "Alongside Construction, using the Warfare and Politics secondaries is a satisfying round.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "double dock home",
+            "production capacity",
+            "forward dock"
+          ]
+        },
+        {
+          "start": "s401",
+          "title": "What to build in round one",
+          "kind": "strategy",
+          "summary": "Build the cheapest units available, mostly fighters, because Yssaril will lean on fighters and Fighter II later. A cruiser is pointless in round one, and a carrier only fits the specific three-system case.",
+          "advice": [
+            {
+              "point": "Spend round-one resources on the cheapest units, such as two or three fighters plus a destroyer and an infantry, or two destroyers and two fighters.",
+              "stance": "recommended",
+              "subjects": [
+                "Fighter",
+                "Destroyer"
+              ]
+            },
+            {
+              "point": "Do not build a cruiser in round one; you already have one and are not a muscle faction.",
+              "stance": "avoid",
+              "subjects": [
+                "Cruiser"
+              ]
+            },
+            {
+              "point": "Build at least two fighters immediately to start the fighter stockpile; Fighter II is an easy tech path and fighters carry the mid and late game.",
+              "stance": "recommended",
+              "subjects": [
+                "Fighter",
+                "Fighter II"
+              ]
+            },
+            {
+              "point": "It can be better to skip technology in round one and put more units on the board.",
+              "stance": "situational",
+              "subjects": [
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "economy",
+            "combat"
+          ],
+          "requires": [],
+          "concepts": [
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s425",
+          "title": "Trade",
+          "kind": "strategy",
+          "summary": "Trade is the best round-one pick because it plugs Yssaril's resource and plastic holes. Replenish everyone, tracking debts like a favour on agendas, and start funding your neighbours' wars against each other so their ships point away from you. Don't buy the speaker token; the money is worth more.",
+          "advice": [
+            {
+              "point": "Trade is the best round-one pick for Yssaril; Politics is flavourful but Trade fixes their actual weaknesses.",
+              "stance": "rating",
+              "subjects": [
+                "Trade",
+                "Politics"
+              ]
+            },
+            {
+              "point": "Replenish everyone with Trade and ask for a trade good back or a favour in a later agenda phase.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Fund your neighbours so they build ships and point them at each other instead of you; this is the long-term Yssaril plan.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Holding Trade, do not buy the speaker token; the trade goods matter more than picking first. Matt wavers if the speaker sits directly to your left.",
+              "stance": "avoid",
+              "subjects": [
+                "Trade"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1",
+            "any"
+          ],
+          "topics": [
+            "strategy cards",
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "friend of the table enemy",
+            "metagame manipulation",
+            "non-binding deals"
+          ]
+        },
+        {
+          "start": "s456",
+          "title": "Warfare",
+          "kind": "strategy",
+          "summary": "Warfare ranks below Trade and Politics. Matt's optimal line takes two adjacent systems with the carriers, trades with the cruiser, and builds a third carrier at home after Leadership has let him buy an extra token, ending round one with three carriers spread over the slice. Skip the Technology secondary and aim for a big round two.",
+          "advice": [
+            {
+              "point": "Warfare is a good pick but ranks after Politics and Trade.",
+              "stance": "rating",
+              "subjects": [
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Matt's round-one Warfare line: expand with both carriers, send the cruiser to a trade negotiation, buy an extra command token off Leadership, build a third carrier at home, then use Warfare to expand a third time.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Carrier",
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Don't spend a fourth command token until Leadership has been played, so you can buy the extra token in time.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "The carrier built at home becomes the carrier that moves a stack of fighters once you have Gravity Drive.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "On a Warfare round, skip the Technology secondary and focus on taking as many planets as possible so round two can be huge.",
+              "stance": "avoid",
+              "subjects": [
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "expansion"
+          ],
+          "requires": [],
+          "concepts": [
+            "slice value",
+            "command token economy",
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s514",
+          "title": "Technology",
+          "kind": "strategy",
+          "summary": "Technology is not bad and worth taking at third pick as a free tech (Antimass Deflectors), leaving all your money for units; it is about tied with Politics. Gravity Drive in round one by double-teching after Trade money arrives is possible, but Matt calls it the kind of play that ruins his own games.",
+          "advice": [
+            {
+              "point": "Technology is roughly tied with Politics for Yssaril: worse for them than for others, while Politics is better.",
+              "stance": "rating",
+              "subjects": [
+                "Technology",
+                "Politics"
+              ]
+            },
+            {
+              "point": "Take Technology for a free Antimass Deflectors and spend all your resources on units, or bank a couple of trade goods.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Antimass Deflectors"
+              ]
+            },
+            {
+              "point": "Spending the 2/3 planet on a command token in round one is sometimes worth it, not always.",
+              "stance": "situational",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Double-teching to Gravity Drive in round one (by stalling until after Trade and getting three trade goods) is possible, but avoid it unless the Gravity Drive benefit is obvious; it spends unit money and overextends your slice.",
+              "stance": "avoid",
+              "subjects": [
+                "Gravity Drive",
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "technology",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "magic christmas land",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s543",
+          "title": "Imperial",
+          "kind": "strategy",
+          "summary": "Yssaril are a bit of a secret objective faction, but Imperial in round one is never great.",
+          "advice": [
+            {
+              "point": "Do not take Imperial in round one, even as a secret objective faction.",
+              "stance": "avoid",
+              "subjects": [
+                "Imperial"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Overall game plan",
+      "summary": "Every round, plan your units first and points second: Yssaril ruin their games by overextending for points with action card tricks, and their cards are only as good as the fleets they enhance. Their superpower is the big unexpected swing, but they must also cash in action cards for money whenever the timing is right.",
+      "chunks": [
+        {
+          "start": "s547",
+          "title": "Plastic first, every round",
+          "kind": "strategy",
+          "summary": "Each round, decide first how to build the right units, then look at points. Overextending for points with action card tricks is how Yssaril lose. Even with a double dock home Hunter still felt short of units, because Yssaril's combat cards mostly enhance fleets that must already be capable.",
+          "advice": [
+            {
+              "point": "Every round, plan your unit builds first and only then look at how to score.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Do not stretch thin chasing points with elaborate action card combos; that is how Yssaril ruin their games.",
+              "stance": "avoid",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Action cards are only as good as the units you play them on; most combat cards, such as Morale Boost, enhance a fleet rather than win a fight alone.",
+              "stance": "rating",
+              "subjects": [
+                "Morale Boost"
+              ]
+            },
+            {
+              "point": "Even with a double-docked home system from round-one Construction, Hunter still fell behind on units, so make building a priority all game.",
+              "stance": "rating",
+              "subjects": [
+                "Construction"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "general strategy",
+            "economy",
+            "action cards"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "plastic advantage",
+            "double dock home"
+          ]
+        },
+        {
+          "start": "s568",
+          "title": "Big swings versus selling cards",
+          "kind": "strategy",
+          "summary": "Yssaril's superpower is stalling everyone out and taking several unsabotageable actions in a row to score, but they are also opportunists who need cash. Constantly weigh saving a combo for the final round against selling a card like Flank Speed to another player now. Expect to be disliked as possibly the meanest faction.",
+          "advice": [
+            {
+              "point": "Build towards a final-round swing: stall everyone out, then take several actions in a row that nobody can respond to and score, for example several technology objectives at once.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes",
+                "Stall Tactics"
+              ]
+            },
+            {
+              "point": "Weigh saving combos (Morale Boost, Skilled Retreat, In the Silence of Space, Flank Speed) for the end against selling a card to another player now, such as Flank Speed to the Ghosts to attack Muaat's home system.",
+              "stance": "situational",
+              "subjects": [
+                "Flank Speed",
+                "Morale Boost",
+                "Skilled Retreat",
+                "In the Silence of Space"
+              ]
+            },
+            {
+              "point": "Yssaril are perhaps the meanest faction, winning with gotchas and extortion; expect the table to resent it.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Ghosts of Creuss",
+            "Embers of Muaat"
+          ],
+          "phases": [
+            "any",
+            "late"
+          ],
+          "topics": [
+            "general strategy",
+            "action cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "action cards",
+            "faction abilities"
+          ],
+          "concepts": [
+            "swing round",
+            "stall action",
+            "action card brokering"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Technology path",
+      "summary": "Keep the tech path simple and cheap: Antimass Deflectors and Gravity Drive early, then Carrier II and Fighter II, Transparasteel Plating before the last rounds, and Infantry II to finish, with Dreadnought II if a yellow skip appears. Do not sprint down green for Mageon Implants, Hyper Metabolism is win-more, and the community's Cruiser II path does not fit Yssaril.",
+      "chunks": [
+        {
+          "start": "s590",
+          "title": "Blue-green core, don't sprint green",
+          "kind": "strategy",
+          "summary": "The tech path is as basic as Sol's: blue and green plus easy unit upgrades. Double-teching is usually a negative because Yssaril need units. Unlike Mentak sprinting yellow, Yssaril do not recoup the cost of sprinting green for Mageon Implants.",
+          "advice": [
+            {
+              "point": "Go blue and green with the unit upgrades that follow, and get Gravity Drive quickly.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "Double-teching in any round is probably a negative; the resources should go to units.",
+              "stance": "avoid",
+              "subjects": [
+                "Technology"
+              ]
+            },
+            {
+              "point": "Do not sprint down green for Mageon Implants; take it only in a game where you end up with Technology two or three times.",
+              "stance": "avoid",
+              "subjects": [
+                "Mageon Implants"
+              ]
+            },
+            {
+              "point": "Prefer blue first, Transparasteel Plating before the last two or three rounds, and prioritise Carrier II and Fighter II, then Infantry II.",
+              "stance": "recommended",
+              "subjects": [
+                "Transparasteel Plating",
+                "Carrier II",
+                "Fighter II",
+                "Infantry II"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Mentak Coalition",
+            "Federation of Sol"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path",
+            "Hunter's Law",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s613",
+          "title": "Hyper Metabolism is win-more; the recommended order",
+          "kind": "strategy",
+          "summary": "Hunter calls Hyper Metabolism win-more because five home influence already covers command tokens. Matt's order: Antimass Deflectors and Gravity Drive, Carrier II and Fighter II, Transparasteel Plating, then Infantry II, with Dreadnought II if a yellow skip comes along. With a green skip (or green and blue skips) a green-first route to Hyper Metabolism and Mageon Implants can work.",
+          "advice": [
+            {
+              "point": "Hyper Metabolism is win-more for Yssaril; five home influence already covers command tokens.",
+              "stance": "rating",
+              "subjects": [
+                "Hyper Metabolism"
+              ]
+            },
+            {
+              "point": "Recommended order: Antimass Deflectors and Gravity Drive right away, then Carrier II and Fighter II, then Transparasteel Plating, finishing with Infantry II.",
+              "stance": "recommended",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive",
+                "Carrier II",
+                "Fighter II",
+                "Transparasteel Plating",
+                "Infantry II"
+              ]
+            },
+            {
+              "point": "Take Dreadnought II if a yellow skip makes it easy; plenty of action cards help dreadnoughts, but do not take Sarween Tools just to reach it.",
+              "stance": "situational",
+              "subjects": [
+                "Dreadnought II",
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "Play conservatively with tech spending; six technologies is a lot for a 10-point game.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "With a green skip, you can skip to Hyper Metabolism and later Mageon Implants and pick up Transparasteel Plating last; with both blue and green skips, going green first is reasonable. Hunter dislikes getting Gravity Drive that late.",
+              "stance": "situational",
+              "subjects": [
+                "Hyper Metabolism",
+                "Mageon Implants",
+                "Transparasteel Plating"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path",
+            "tech skip",
+            "win more"
+          ]
+        },
+        {
+          "start": "s646",
+          "title": "When Transparasteel Plating pays off",
+          "kind": "strategy",
+          "summary": "Transparasteel Plating can help in the mid game, but its chance of enabling a killer play rises every round and peaks in the final round, by which point it is almost always worth having.",
+          "advice": [
+            {
+              "point": "Transparasteel Plating's value climbs each round and is almost always worth it by the final round; skipping it may cost a round-four opportunity.",
+              "stance": "rating",
+              "subjects": [
+                "Transparasteel Plating"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "swing round"
+          ]
+        },
+        {
+          "start": "s650",
+          "title": "Community suggestion: red-yellow Cruiser II",
+          "kind": "strategy",
+          "summary": "Patreon feedback suggested a red-yellow Sarween Tools and Cruiser II path, possibly with Transit Diodes and Space Dock II. Matt has not tested it and thinks it is too risky: Cruiser II works for Mentak because of Ambush, and a blue-green carrier-fighter path suits a resource-light faction better.",
+          "advice": [
+            {
+              "point": "A red-yellow Cruiser II path (Sarween Tools, Cruiser II, maybe Transit Diodes and Space Dock II) is a community idea; Matt has not tested it and does not recommend it.",
+              "stance": "rating",
+              "subjects": [
+                "Cruiser II",
+                "Sarween Tools",
+                "Transit Diodes",
+                "Space Dock II"
+              ]
+            },
+            {
+              "point": "Space Dock II is the strongest piece of that idea: two upgraded docks at home is another way to fix the plastic problem.",
+              "stance": "situational",
+              "subjects": [
+                "Space Dock II"
+              ]
+            },
+            {
+              "point": "Avoid Cruiser II paths as Yssaril; they work for Mentak only because Ambush lets them shoot first.",
+              "stance": "avoid",
+              "subjects": [
+                "Cruiser II",
+                "Ambush"
+              ]
+            },
+            {
+              "point": "Carrier II and Fighter II suit Yssaril's low resources better than Cruiser II, which needs spare money.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier II",
+                "Fighter II"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech path",
+            "tech skip",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s671",
+          "title": "Action cards favour many cheap units",
+          "kind": "strategy",
+          "summary": "Action cards reinforce carrier-and-fighter plays more than cruisers: Flank Speed on a Carrier II with Gravity Drive carries a stack of fighters, and Morale Boost, Fighter Prototype and Fire Team gain value the more units they affect. Get two docks at home, build many cheap units, and keep the tech path simple.",
+          "advice": [
+            {
+              "point": "Combine Flank Speed with a Gravity Drive Carrier II full of fighters, then Morale Boost the fight; this uses Yssaril's advantages far better than cruisers.",
+              "stance": "recommended",
+              "subjects": [
+                "Flank Speed",
+                "Morale Boost",
+                "Carrier II",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "Combat action cards such as Morale Boost, Fighter Prototype and Fire Team are worth more the more fighters and infantry they affect.",
+              "stance": "rating",
+              "subjects": [
+                "Morale Boost",
+                "Fighter Prototype",
+                "Fire Team"
+              ]
+            },
+            {
+              "point": "Get two space docks at home and build many cheap units, and follow the same simple tech path every game so you can focus on action cards.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes",
+                "Space Dock"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "combat",
+            "action cards"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "double dock home",
+            "tech path",
+            "fighter screen"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trading and table manipulation",
+      "summary": "Yssaril should trade with everyone and fund other players' wars so that rivals lose ships. Sell action cards: get paid to play or not play them, but only when the target truly cares and the timing makes the threat real. Spy Net works as a way to sell a specific card to someone who wants to attack another player.",
+      "chunks": [
+        {
+          "start": "s697",
+          "title": "Fund everyone's wars",
+          "kind": "strategy",
+          "summary": "This section is personal and table-dependent. Use your three commodities every round, take Trade as often as you can, and trade with everybody; the Yssaril theme is subterfuge, nudging opponents into attacks that cost them and their neighbours ships.",
+          "advice": [
+            {
+              "point": "Use your commodities every round and take Trade as often as possible.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Trade freely with everyone and push opponents into attacks they would not otherwise make, costing them and their neighbours ships.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "metagame manipulation",
+            "table meta",
+            "friend of the table enemy"
+          ]
+        },
+        {
+          "start": "s717",
+          "title": "Extorting with action cards: Reactor Meltdown",
+          "kind": "strategy",
+          "summary": "Whenever you could play an action card, try to get paid to play it or not, without grinding the game to a halt. A broad offer to the table gets nothing; first check the target truly cares, then threaten one player specifically, or offer to hit a rival's dock instead for more money, at the moment the deal has value to them.",
+          "advice": [
+            {
+              "point": "Whenever you could play an action card, try to get paid to play it or to hold it, but don't overdo it or the table will turn on you.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Don't open with a general offer like \"who will pay me not to Reactor Meltdown them\"; nobody bites.",
+              "stance": "avoid",
+              "subjects": [
+                "Reactor Meltdown"
+              ]
+            },
+            {
+              "point": "First check the target actually cares; a late-game dock they have finished using is not leverage.",
+              "stance": "recommended",
+              "subjects": [
+                "Reactor Meltdown"
+              ]
+            },
+            {
+              "point": "Threaten one player directly to pay you; or offer them the chance to pay more for you to hit a threatening neighbour's dock instead, such as a Letnev forward dock before they build from it.",
+              "stance": "recommended",
+              "subjects": [
+                "Reactor Meltdown"
+              ]
+            },
+            {
+              "point": "Make the threat at the moment the target can see its value; Yssaril control timing better than anyone.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Barony of Letnev"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "action cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "action card brokering",
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s760",
+          "title": "Spy Net as a card sale",
+          "kind": "strategy",
+          "summary": "Spy Net plays like Hacan's action card trading: hand it to a player who wants to attack someone, pointing at the card they need, such as Flank Speed, in exchange for trade goods. You earn money and encourage attacks on other players.",
+          "advice": [
+            {
+              "point": "Give Spy Net to a player planning an attack, pointing them to the card they need, such as Flank Speed, for a price like two trade goods.",
+              "stance": "recommended",
+              "subjects": [
+                "Spy Net",
+                "Flank Speed"
+              ]
+            },
+            {
+              "point": "Use these sales to tip other players into attacking each other.",
+              "stance": "recommended",
+              "subjects": [
+                "Spy Net"
+              ]
+            },
+            {
+              "point": "There is no fixed price list for action cards; price them by the influence they give you over the table.",
+              "stance": "situational",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "promissory notes",
+            "action cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes",
+            "action cards"
+          ],
+          "concepts": [
+            "action card brokering",
+            "metagame manipulation"
+          ]
+        },
+        {
+          "start": "s788",
+          "title": "Selling cards to hurt rivals' plastic",
+          "kind": "strategy",
+          "summary": "Matt has changed his mind: instead of keeping every action card for yourself, sell them to fund other people's wars. Because the plastic gap is so severe, a sale that also costs the buyer and their target ships helps you catch up.",
+          "advice": [
+            {
+              "point": "Sell action cards that make other players fight each other; aim to earn money while the buyer also loses ships.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Matt now thinks keeping every action card for yourself is wrong, even though Yssaril can always stall with them.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "action cards",
+            "trade and diplomacy",
+            "general strategy"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "action card brokering",
+            "plastic advantage"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mid and late game",
+      "summary": "Do not hold everything for a round-six swing: take a big action card swing as soon as a lucrative opportunity appears, even in round four, when the table is not watching for it. Hide your stalling, use Fighter II screens to protect your slice, and use your strength at kingslaying but demand payment for it.",
+      "chunks": [
+        {
+          "start": "s797",
+          "title": "Timing the action card swing",
+          "kind": "strategy",
+          "summary": "The ideal win is a round-six swing after everyone else has passed, but you cannot count on it. If a round-four opportunity to score big appears, take it; tables are not watching for it then, and a strong unit base lets you survive kingslaying afterwards. Yssaril lack the defensive or economic tools to sit back and wait.",
+          "advice": [
+            {
+              "point": "The ideal win is a final-round swing (around round six) holding Imperial or Leadership, acting after everyone has passed and scoring before anyone can respond.",
+              "stance": "rating",
+              "subjects": [
+                "Yssaril Tribes",
+                "Imperial",
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Do not hold every secret objective and action card for the last round; if you can score around four points in a round earlier, such as round four, do it.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Swing early because the table spends all its energy stopping a round-six Yssaril swing; in round four they are focused on their own scoring and won't react.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes",
+                "Stall Tactics"
+              ]
+            },
+            {
+              "point": "An early swing only holds up if you have invested heavily in units to withstand kingslaying in rounds five and six; Yssaril cannot shell up like the Xxcha, Hacan, Jol-Nar or Sol.",
+              "stance": "situational",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Xxcha Kingdom",
+            "Emirates of Hacan",
+            "Universities of Jol-Nar",
+            "Federation of Sol"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "general strategy",
+            "objectives",
+            "action cards"
+          ],
+          "requires": [
+            "action cards",
+            "faction abilities"
+          ],
+          "concepts": [
+            "swing round",
+            "threat perception",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s834",
+          "title": "Fighter II screens and command tokens",
+          "kind": "strategy",
+          "summary": "Keep building units and use Fighter II to gum up your slice, spending the command token advantage (from Leadership) to spread fighters out so attacks on your home cannot get through. From round three on, any round could be your swing round.",
+          "advice": [
+            {
+              "point": "Spread Fighter II across your slice using your command token surplus so attackers cannot reach your home system.",
+              "stance": "recommended",
+              "subjects": [
+                "Fighter II"
+              ]
+            },
+            {
+              "point": "From round three onward, treat every round as a possible swing round and read which path your hand suggests.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "fighter screen",
+            "command token economy",
+            "home system defense",
+            "swing round"
+          ]
+        },
+        {
+          "start": "s843",
+          "title": "Hide your stalling",
+          "kind": "strategy",
+          "summary": "Don't open a round burning cards to Stall Tactics. Start with small, unthreatening parts of your plan, stall with action cards that are actions (like Industrial Initiative), and save Stall Tactics for your fourth and fifth actions when others are running out.",
+          "advice": [
+            {
+              "point": "Do not spend the first actions of a round on Stall Tactics; it telegraphs your plan.",
+              "stance": "avoid",
+              "subjects": [
+                "Stall Tactics"
+              ]
+            },
+            {
+              "point": "Mix small, innocuous moves with stalls from action cards (such as Industrial Initiative), and use Stall Tactics only from your fourth or fifth action as others run out of actions.",
+              "stance": "recommended",
+              "subjects": [
+                "Stall Tactics",
+                "Industrial Initiative"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "faction abilities",
+            "action cards"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "stall action",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s852",
+          "title": "Kingslaying: demand a price",
+          "kind": "strategy",
+          "summary": "Few factions are better at stopping a leader than the Yssaril. When the table demands your Spy Net or cards for free to stop a leader, demand a price or a positional gain. Get within reach of the leader, then stop them when it gives you the win path.",
+          "advice": [
+            {
+              "point": "When the table demands your action cards or Spy Net for free to stop a leader, demand payment; the cards were your only advantage all game.",
+              "stance": "recommended",
+              "subjects": [
+                "Spy Net"
+              ]
+            },
+            {
+              "point": "Yssaril excel at stopping a leader in rounds five and six; get into a comparable position, then stop the player about to win.",
+              "stance": "recommended",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            },
+            {
+              "point": "Helping for free can be right when stopping the leader clearly opens your own path to victory; otherwise take money or a positional advantage.",
+              "stance": "situational",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes",
+            "Universities of Jol-Nar"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "threats and matchups",
+            "trade and diplomacy",
+            "action cards"
+          ],
+          "requires": [
+            "action cards",
+            "promissory notes"
+          ],
+          "concepts": [
+            "kingmaking",
+            "action card brokering"
+          ]
+        },
+        {
+          "start": "s884",
+          "title": "Confusing Legal Text and riders",
+          "kind": "strategy",
+          "summary": "Keep Confusing Legal Text: Yssaril are the likeliest Public Execution target, and only that target is likely to spend a Sabotage on it. With a pile of riders, the hosts like the classic play of Imperial Rider on one outcome and every other rider on the other, saving them up so it hurts when they come out.",
+          "advice": [
+            {
+              "point": "Keep Confusing Legal Text as insurance against Public Execution, which targets Yssaril more than anyone.",
+              "stance": "recommended",
+              "subjects": [
+                "Confusing Legal Text",
+                "Public Execution"
+              ]
+            },
+            {
+              "point": "If you hold many riders, play Imperial Rider on one outcome and every other rider on the other.",
+              "stance": "recommended",
+              "subjects": [
+                "Imperial Rider"
+              ]
+            },
+            {
+              "point": "Save riders up to make one agenda count, rather than spreading them thinly.",
+              "stance": "recommended",
+              "subjects": [
+                "Imperial Rider"
+              ]
+            }
+          ],
+          "factions": [
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "agendas",
+            "action cards"
+          ],
+          "requires": [
+            "action cards",
+            "agendas"
+          ],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s911",
+          "title": "Wrapping up the guide",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s916",
+          "title": "Patron thanks, polls and book club",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s959",
+          "title": "Stream schedule, socials and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Asaral": "Yssaril",
+    "Asarl": "Yssaril",
+    "Isarl": "Yssaril",
+    "Asaro": "Yssaril",
+    "Isaro": "Yssaril",
+    "Isar": "Yssaril",
+    "Asarul": "Yssaril",
+    "Isarul": "Yssaril",
+    "Asaril": "Yssaril",
+    "Assaral": "Yssaril",
+    "Sorrow": "Yssaril",
+    "Sorrel": "Yssaril",
+    "Sorl": "Yssaril",
+    "Sarl": "Yssaril",
+    "Soro": "Yssaril",
+    "Sauro": "Yssaril",
+    "Mentat": "Mentak",
+    "Men tac": "Mentak",
+    "Men Tac": "Mentak",
+    "Excha": "Xxcha",
+    "Extra": "Xxcha",
+    "Jolnar": "Jol-Nar",
+    "Jill Narr": "Jol-Nar",
+    "Jilnar": "Jol-Nar",
+    "Goodyin Brotherhood": "Gudnyn Brotherhood",
+    "Essea Isrila": "Y'sia Y'ssrila",
+    "transpara steel plating": "Transparasteel Plating",
+    "Transparency Plating": "Transparasteel Plating",
+    "Transparest deal": "Transparasteel Plating",
+    "TransParaistil": "Transparasteel Plating",
+    "Mageon implant": "Mageon Implants",
+    "Magion implants": "Mageon Implants",
+    "Neuromotivator": "Neural Motivator",
+    "anti-mask": "Antimass Deflectors",
+    "anti-ask": "Antimass Deflectors",
+    "Abyss Frea": "Abyz and Fria",
+    "hypermetabolism": "Hyper Metabolism",
+    "Spynette": "Spy Net",
+    "Spinette": "Spy Net",
+    "Spynet": "Spy Net",
+    "space talk": "space dock",
+    "Space Talk 2": "Space Dock II",
+    "space knock": "space dock",
+    "Muwatt": "Muaat",
+    "the Barris": "Varys",
+    "little finger": "Littlefinger",
+    "writers": "riders",
+    "Hunter Audson Fan Club": "Hunter Donaldson Fan Club"
+  }
+}

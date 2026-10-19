@@ -26,6 +26,13 @@ Mecatol Rex: the first player to land there pays 6 influence to remove the custo
 
 Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock a system), Politics (action cards, speaker), Construction (build PDS and space docks), Trade (trade goods, commodities), Warfare (remove a command token, produce at home), Technology (research), Imperial (score a public objective now; Mecatol VP or a secret objective).
 
+# Basic strategy
+1. Scoring tempo is important. You can only score 1 public objective per round, and are limited on some private objectives. If you get behind it can be very hard to catch up.
+  To win you generally want about 3 secrets and 5 stage I objectives, plus extra points from the custodians token, Imperial while holding Mecatol Rex, or stage II objectives. (Support for the Throne and relics don't exist in this engine.)
+2. Early expansion in round 1 is important for your economy for the rest of the game
+3. Combat is only worth it if it will score you a point or deny another player a point
+4. Trade goods are more flexible than resources/influence
+
 # What this engine does not do
 
 - Faction abilities are not implemented, except the combat modifiers marked "(enforced)" (Unrelenting +1, Fragile -1). Advice that depends on other abilities cannot be followed.
@@ -41,4 +48,5 @@ Use the lookup tool for exact data on a faction, unit, technology, objective, st
 - rationale: two or three sentences in terms of this board: what the move gains, and why it beats the next best option.
 - plan_note: a short plan for your next few turns. It is shown to you at your next decision, so use it to stay consistent.
 
-Every decision must end with a call to choose.`;
+Every decision must end with a call to choose.
+`;

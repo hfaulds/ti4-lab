@@ -1928,6 +1928,8 @@ function establishControl(state: GameState) {
       .filter((owner) => hasGroundForcesFor(state, owner, planet.units[owner]));
     if (owners.includes(id) && owners.every((owner) => owner === id) && planet.controller !== id) {
       gainControl(state, id, name);
+      // Taking a planet can win the game (the Shard of the Throne).
+      if (state.phase === "finished") return;
       (tactical.gained ??= []).push(name);
     }
     for (const owner of Object.keys(planet.units).map(Number)) {

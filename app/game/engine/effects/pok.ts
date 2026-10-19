@@ -970,6 +970,7 @@ const ABILITIES: Record<string, Effect> = {
       player.technologies.push(tech.id);
       const lost = Math.min(tech.prerequisites.length, player.pools.fleet);
       player.pools.fleet -= lost;
+      enforceFleetSupply(state, id);
       log(state, `${player.name} gained ${tech.name} and returned ${plural(lost, "fleet token")}.`, { player: id });
     },
     bot: (state, id) => {

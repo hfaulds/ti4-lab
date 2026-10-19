@@ -51,10 +51,7 @@ function NavItem({
       data-mobile={mobile || undefined}
     >
       <Box className={classes.navItemIndicator} />
-      <Text
-        size="sm"
-        fw={isActive ? 600 : 500}
-      >
+      <Text size="sm" fw={isActive ? 600 : 500}>
         {label}
       </Text>
       {badge && (
@@ -90,6 +87,7 @@ export function MainAppShell({ children, headerRightSection }: Props) {
   const isSoundboardActive = location.pathname === "/voices";
   const isMapGeneratorActive = location.pathname === "/map-generator";
   const isGamesActive = location.pathname === "/games";
+  const isCombatOddsActive = location.pathname === "/combat-odds";
 
   const handleSoundboardClick = () => {
     trackButtonClick({
@@ -109,6 +107,11 @@ export function MainAppShell({ children, headerRightSection }: Props) {
     },
     { to: "/map-presets", label: "Map Presets", isActive: isMapPresetsActive },
     { to: "/games", label: "Games", isActive: isGamesActive },
+    {
+      to: "/combat-odds",
+      label: "Combat Odds",
+      isActive: isCombatOddsActive,
+    },
     { to: "/about", label: "About", isActive: isAboutActive },
   ];
 
@@ -166,7 +169,9 @@ export function MainAppShell({ children, headerRightSection }: Props) {
                 className={classes.discordButton}
               >
                 <IconBrandDiscordFilled size={14} />
-                <Text size="xs" fw={500}>Join Discord</Text>
+                <Text size="xs" fw={500}>
+                  Join Discord
+                </Text>
               </UnstyledButton>
               {headerRightSection}
             </Group>
@@ -208,13 +213,13 @@ export function MainAppShell({ children, headerRightSection }: Props) {
             target="_blank"
             onClick={() => setMobileMenuOpened(false)}
           >
-            <Box
-              className={classes.navItem}
-              data-mobile
-            >
+            <Box className={classes.navItem} data-mobile>
               <Box className={classes.navItemIndicator} />
               <Group gap="xs">
-                <IconBrandDiscordFilled size={16} color="var(--mantine-color-discordBlue-5)" />
+                <IconBrandDiscordFilled
+                  size={16}
+                  color="var(--mantine-color-discordBlue-5)"
+                />
                 <Text size="sm" fw={500}>
                   Discord
                 </Text>

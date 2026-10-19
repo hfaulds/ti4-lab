@@ -1,0 +1,10 @@
+/* Plain CSS rather than Mantine Grid, whose responsive styles depend on useId. */
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--mantine-spacing-lg);
+
+  @media (min-width: 48em) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

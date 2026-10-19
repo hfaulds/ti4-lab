@@ -10,3 +10,10 @@ generated/*.png
 .voice-sync-cache.json
 .react-router/
 deployment/
+
+# Derived knowledge-base artifacts (regenerable; see docs/agent-play-plan.md)
+knowledge/audio/
+knowledge/transcripts/
+knowledge/chunks/
+knowledge/knowledge.db
+knowledge/knowledge.db-*

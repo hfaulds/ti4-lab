@@ -1,0 +1,2199 @@
+{
+  "episode": 163,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "The hosts frame the Arborec as the weakest faction in six-player games: fun to play, but with no recorded SCPT win and a strong ability that has little bearing on scoring points. They rank them slightly below the Winnu for win rate, though far more fun when things go wrong.",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro, last base-game guide and Extra Life stream",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s33",
+          "title": "Why the Arborec are bad: no wins, compared with the Winnu",
+          "kind": "strategy",
+          "summary": "The Arborec essentially never win six-player games; four-player games give them time to grow and two strategy cards a round. Even when their plan works it does not bring them closer to winning, unlike the Winnu, though a losing Arborec game is still fun.",
+          "advice": [
+            {
+              "point": "In six-player games the Arborec are arguably the worst faction; the hosts know of no proven SCPT game the Arborec won by design.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Four-player games are much better for the Arborec because they have time to grow and get two strategy cards a round.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "When the Winnu plan works it wins games; when the Arborec plan works it still does not necessarily bring them closer to winning. Matt expects to win slightly more often as Winnu, but picks Arborec for fun.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec",
+                "Winnu"
+              ]
+            },
+            {
+              "point": "Play to minimise the faction's disadvantages rather than expecting a reliable winning plan.",
+              "stance": "recommended",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Winnu"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "win from behind"
+          ]
+        },
+        {
+          "start": "s100",
+          "title": "Arborec history in TI3",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Starting units, tech and home system",
+      "summary": "Everything in the Arborec start is weak: one carrier short of a two-carrier, four-infantry opening, a poor starting tech in Magen Defense Grid, and a 3/1 home planet that can afford the second carrier but no round-one tech. Their economy is middle of the road with three commodities and no economic boons.",
+      "chunks": [
+        {
+          "start": "s116",
+          "title": "Starting fleet and Magen Defense Grid",
+          "kind": "strategy",
+          "summary": "With only one carrier the Arborec must build a second to reach the standard opening. Magen Defense Grid is a poor starting tech for a faction meant to avoid building structures, though it has some use if you go for PDS; Hunter doubts PDS Arborec is genuinely potent.",
+          "advice": [
+            {
+              "point": "Build a second carrier early: the starting fleet is one carrier short of a two-carrier, four-infantry opening, which hinders expansion.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier"
+              ]
+            },
+            {
+              "point": "Magen Defense Grid is a bad starting tech for the Arborec, since their advantage is not needing structures; it is somewhat useful only if you invest in PDS.",
+              "stance": "rating",
+              "subjects": [
+                "Magen Defense Grid",
+                "PDS"
+              ]
+            },
+            {
+              "point": "Matt calls PDS Arborec potent; Hunter scales that back to merely one of the things you can try.",
+              "stance": "situational",
+              "subjects": [
+                "PDS",
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "2C4I opening"
+          ]
+        },
+        {
+          "start": "s139",
+          "title": "Home system and commodities",
+          "kind": "strategy",
+          "summary": "The single-planet home system is easy to defend, but its three resources only pay for the second carrier, not a round-one tech. The faction is designed to start slowly so it can snowball, but the snowball gives board presence rather than points.",
+          "advice": [
+            {
+              "point": "The 3/1 home planet is defensible but only affords the extra carrier in round one, leaving nothing for tech.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "The late snowball the faction is designed around gives lots of units on the board but is overrated for scoring victory points, similar to the Sardakk N'orr combat bonus; Hunter thinks the Sardakk bonus can at least be pushed in the mid to late game.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec",
+                "Sardakk N'orr"
+              ]
+            },
+            {
+              "point": "Three commodities make the Arborec a middling trader with no economic advantages.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "economy",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "plastic advantage"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities",
+      "summary": "Mitosis is mandatory and easy to forget; place the free infantry deliberately to strengthen a forward position. Letani Warriors are the heart of the faction, but production is capped by infantry count, so balance building infantry with building ships: without ships the infantry cannot reach new planets.",
+      "chunks": [
+        {
+          "start": "s164",
+          "title": "Mitosis",
+          "kind": "strategy",
+          "summary": "Never forget the free infantry each status phase; it is mandatory and players often miss it. Use it to strengthen a forward position, considering upcoming agendas.",
+          "advice": [
+            {
+              "point": "Always remember the free Mitosis infantry at the start of every status phase; use a reminder if needed.",
+              "stance": "recommended",
+              "subjects": [
+                "Mitosis"
+              ]
+            },
+            {
+              "point": "Place the Mitosis infantry where it improves a forward position rather than defaulting to the home system.",
+              "stance": "recommended",
+              "subjects": [
+                "Mitosis"
+              ]
+            },
+            {
+              "point": "Think about the following agenda phase when placing the Mitosis infantry, since agendas can make its location matter.",
+              "stance": "situational",
+              "subjects": [
+                "Mitosis"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s191",
+          "title": "Letani Warriors: production snowball and building ships",
+          "kind": "strategy",
+          "summary": "Infantry production lets the Arborec snowball, doubling infantry each round, and they can stack huge numbers on Mecatol Rex cheaply. But over-investing in infantry without ships is the key mistake: infantry are useless if you cannot move them to new planets, so never fall behind in space.",
+          "advice": [
+            {
+              "point": "The low production per infantry is one of the faction's biggest problems.",
+              "stance": "rating",
+              "subjects": [
+                "Letani Warrior I"
+              ]
+            },
+            {
+              "point": "Do not over-invest in infantry at the expense of ships; you cannot fall behind in space combat, because infantry are useless if you cannot carry them to new planets.",
+              "stance": "avoid",
+              "subjects": [
+                "Letani Warrior I"
+              ]
+            },
+            {
+              "point": "Build enough infantry to have decent production centres and to make your planets so heavily garrisoned that nobody wants to invade your slice, but recognise this alone scores no points.",
+              "stance": "recommended",
+              "subjects": [
+                "Letani Warrior I"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "production capacity",
+            "plastic advantage",
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s218",
+          "title": "Garrisoning planets versus steamrolling a neighbour",
+          "kind": "strategy",
+          "summary": "Matt's golden rule is not to leave planets without infantry. Hunter notes you could ignore that to blaze through a neighbour, but it is slower than Saar doing the same and may only ruin a friend's game without winning yours.",
+          "advice": [
+            {
+              "point": "Generally avoid leaving planets without infantry.",
+              "stance": "recommended",
+              "subjects": [
+                "Letani Warrior I"
+              ]
+            },
+            {
+              "point": "If your plan is to eat a neighbour, you can leave planets unguarded and steamroll forward, but it is slower than for the Clan of Saar and may wreck another player's game without winning you the game.",
+              "stance": "situational",
+              "subjects": [
+                "Arborec",
+                "Clan of Saar"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Clan of Saar"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "general strategy",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "eat a neighbour",
+            "kingmaking"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Flagship",
+      "summary": "The Duha Menaimon is weak and rarely built. Its only real use is to rebuild infantry after being wiped out, and by then the game is probably lost. Hunter notes it is an unexplored option worth experimenting with.",
+      "chunks": [
+        {
+          "start": "s234",
+          "title": "Duha Menaimon",
+          "kind": "strategy",
+          "summary": "Use the flagship's production for five infantry, which then let you build more in the same activation. It is a purely defensive recovery tool for when you have lost almost all your infantry, and the eight resources are usually better spent elsewhere.",
+          "advice": [
+            {
+              "point": "The flagship is weak; Matt would rather spend the eight resources elsewhere, and neither host has seen it built much.",
+              "stance": "rating",
+              "subjects": [
+                "Duha Menaimon"
+              ]
+            },
+            {
+              "point": "If you use the flagship's production, build five infantry with it and then produce out of those infantry, rather than building ships that are stuck in place.",
+              "stance": "recommended",
+              "subjects": [
+                "Duha Menaimon"
+              ]
+            },
+            {
+              "point": "The flagship matters only when you have lost nearly all your infantry and have no other way back, but by then your chances are probably gone.",
+              "stance": "situational",
+              "subjects": [
+                "Duha Menaimon"
+              ]
+            },
+            {
+              "point": "Hunter suggests the flagship is an under-explored option worth trying, since the conventional Arborec approach does not win anyway.",
+              "stance": "situational",
+              "subjects": [
+                "Duha Menaimon"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "faction abilities",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "infantry shortage"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Promissory note: Stymie",
+      "summary": "The updated Stymie is a very good promissory note, though hard to sell in the current meta. Every known use shut down an aggressor's forward dock before it built. Trade it secretly, trade other notes too so the table fears it, and give it to rich but fragile factions or neighbours of aggressive factions.",
+      "chunks": [
+        {
+          "start": "s282",
+          "title": "Stymie's value",
+          "kind": "strategy",
+          "summary": "The new Stymie is strong despite its conditions, which are easy to spot. In all three known uses it was played on an aggressor to lock their forward dock before they built, wasting their whole round's resources.",
+          "advice": [
+            {
+              "point": "The updated Stymie is very good but currently hard to sell; Hunter expects that to change.",
+              "stance": "rating",
+              "subjects": [
+                "Stymie"
+              ]
+            },
+            {
+              "point": "Stymie is best used when an aggressor activates you while they still have another fleet or dock to use: lock their forward dock before they build from it so their resources are wasted.",
+              "stance": "recommended",
+              "subjects": [
+                "Stymie",
+                "Space Dock"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "forward dock",
+            "wasted resources"
+          ]
+        },
+        {
+          "start": "s305",
+          "title": "Selling Stymie secretly and choosing the buyer",
+          "kind": "strategy",
+          "summary": "Trade Stymie privately so the victim cannot play around it, and sell your other promissory notes often so the whole table fears Stymie. Good buyers are rich, flimsy factions such as Hacan and Jol-Nar, or neighbours of aggressive factions such as Nekro and Saar.",
+          "advice": [
+            {
+              "point": "Never trade Stymie publicly; let the table know a note was traded but not which one, so opponents cannot plan around it.",
+              "stance": "recommended",
+              "subjects": [
+                "Stymie"
+              ]
+            },
+            {
+              "point": "Sell promissory notes as often as possible so everyone fears Stymie might be out and takes inefficient actions to avoid it.",
+              "stance": "recommended",
+              "subjects": [
+                "Stymie"
+              ]
+            },
+            {
+              "point": "Sell Stymie to wealthy but fragile factions like the Emirates of Hacan and Universities of Jol-Nar, who are likely to be attacked even in round one.",
+              "stance": "recommended",
+              "subjects": [
+                "Stymie",
+                "Emirates of Hacan",
+                "Universities of Jol-Nar"
+              ]
+            },
+            {
+              "point": "Alternatively give Stymie to a neighbour of an aggressive faction such as the Nekro Virus or Clan of Saar.",
+              "stance": "recommended",
+              "subjects": [
+                "Stymie",
+                "Nekro Virus",
+                "Clan of Saar"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Emirates of Hacan",
+            "Universities of Jol-Nar",
+            "Nekro Virus",
+            "Clan of Saar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "threat perception",
+            "hidden promissory note"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies",
+      "summary": "Matt has come around to Letani Warrior II, especially for a scrappy, ship-first early game that catches up on production later; the prevailing view is that it is win-more once you already have enough infantry. Bioplasmosis is a valid but unproven style; Hunter is sceptical it fixes anything and prefers Letani Warrior II. Both being double-green techs from a red start is awkward.",
+      "chunks": [
+        {
+          "start": "s323",
+          "title": "Letani Warrior II",
+          "kind": "strategy",
+          "summary": "Doubling production is a big deal if you get it early enough for the mid game, and suits a scrappy start that went light on infantry. If you already built a strong infantry economy it is win-more, and on a yellow path with Transit Diodes you do not need it.",
+          "advice": [
+            {
+              "point": "Matt rates Letani Warrior II much higher than in the old guide: doubling production capacity early can be a big deal for the mid game.",
+              "stance": "rating",
+              "subjects": [
+                "Letani Warrior II"
+              ]
+            },
+            {
+              "point": "Letani Warrior II fits a plan of focusing on ships early, playing loose, and catching up on production once the tech arrives.",
+              "stance": "situational",
+              "subjects": [
+                "Letani Warrior II"
+              ]
+            },
+            {
+              "point": "The prevailing view is that Letani Warrior II is win-more: if you already have plenty of infantry you do not need the extra production.",
+              "stance": "rating",
+              "subjects": [
+                "Letani Warrior II"
+              ]
+            },
+            {
+              "point": "Skip Letani Warrior II on a yellow path with Transit Diodes, where better options exist.",
+              "stance": "avoid",
+              "subjects": [
+                "Letani Warrior II",
+                "Transit Diodes"
+              ]
+            },
+            {
+              "point": "Needing two green prerequisites from a red-only start makes it awkward to reach.",
+              "stance": "rating",
+              "subjects": [
+                "Letani Warrior II"
+              ]
+            },
+            {
+              "point": "More production capacity does not help without the resources to spend; the slow start means money, not capacity, is usually short.",
+              "stance": "rating",
+              "subjects": [
+                "Letani Warrior II"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "win more",
+            "production capacity",
+            "tech path"
+          ]
+        },
+        {
+          "start": "s363",
+          "title": "Bioplasmosis",
+          "kind": "strategy",
+          "summary": "Bioplasmosis supports a style of producing heavily in production centres and then rippling infantry outward each status phase, which community players have championed. Matt considers it a valid option alongside Letani Warrior II; Hunter thinks it mainly lets you play sloppier and prefers Letani Warrior II.",
+          "advice": [
+            {
+              "point": "Bioplasmosis enables a produce-heavily-then-wave-outward style; it is a legitimate option but not proven better than alternatives.",
+              "stance": "situational",
+              "subjects": [
+                "Bioplasmosis"
+              ]
+            },
+            {
+              "point": "Hunter is sceptical: Bioplasmosis mostly lets you be sloppier with infantry placement; plan to have infantry where needed instead, and he finds Letani Warrior II more helpful.",
+              "stance": "rating",
+              "subjects": [
+                "Bioplasmosis",
+                "Letani Warrior II"
+              ]
+            },
+            {
+              "point": "Matt half-seriously suggests Dacxive Animators may be better than Bioplasmosis for the Arborec, since Bioplasmosis arrives around round three and is only used a few times; Hunter calls that too bold.",
+              "stance": "rating",
+              "subjects": [
+                "Bioplasmosis",
+                "Dacxive Animators"
+              ]
+            },
+            {
+              "point": "Bioplasmosis can soften the problem of leaving planets open after a light-infantry start, though it cannot retake planets someone snuck in to take.",
+              "stance": "situational",
+              "subjects": [
+                "Bioplasmosis"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The Arborec's core problems",
+      "summary": "The Arborec start several rounds behind strong factions, rarely score in rounds one and two, and have a red start with no tech path that turns things around. The real bottleneck is production as much as resources. Round one is a choice between ships first and infantry first; neither reliably works, so decide by the map. Whether Sarween Tools is worth it is genuinely unresolved.",
+      "chunks": [
+        {
+          "start": "s410",
+          "title": "Slow start: rounds behind everyone",
+          "kind": "strategy",
+          "summary": "The slow start means the Arborec reach the position a strong faction like Letnev has in round two only by round three or four. Expect bad first two rounds; you may have to forgo scoring in round two if you can set up a later swing round, though neither host has made that win.",
+          "advice": [
+            {
+              "point": "Expect to be two or more rounds behind strong factions economically; the Arborec lack both speed and economic tools to exploit building anywhere.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec",
+                "Barony of Letnev"
+              ]
+            },
+            {
+              "point": "If the objectives let you guarantee a swing round later, it can be right to skip scoring in round two and keep building your setup.",
+              "stance": "situational",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Barony of Letnev"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "economy",
+            "objectives",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "swing round",
+            "economy before control"
+          ]
+        },
+        {
+          "start": "s442",
+          "title": "Production, not resources: ships first or infantry first",
+          "kind": "strategy",
+          "summary": "Per Magi, the Arborec problem is production more than resources: moving infantry away costs production. In round one choose between building ships to protect your space (infantry in round two) or only infantry (ships in round two); both reach a similar place by round three and neither reliably works, so choose by your map.",
+          "advice": [
+            {
+              "point": "Treat production capacity as a key constraint: every infantry you move forward reduces production behind, so you cannot easily both move and produce early.",
+              "stance": "rating",
+              "subjects": [
+                "Letani Warrior I"
+              ]
+            },
+            {
+              "point": "In round one, either build ships to protect your space and build infantry in round two, or build only infantry and then ships in round two; choose based on your map, since neither is right every game.",
+              "stance": "situational",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "opening",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "production bottleneck",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s463",
+          "title": "Matt's game: all-in on ships with a terrible slice",
+          "kind": "strategy",
+          "summary": "With a resource-poor slice, Matt skipped Sarween Tools and the infantry economy, took Trade repeatedly and spent everything on ships to stay relevant in space, which let him score in rounds two and three. The hosts stress this was highly situational, but unreliable factions sometimes need unconventional calls.",
+          "advice": [
+            {
+              "point": "With a resource-starved slice, consider skipping Sarween Tools and the infantry economy, taking Trade as often as you can and spending everything on ships so you stay relevant in space and can score.",
+              "stance": "situational",
+              "subjects": [
+                "Trade",
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "Because the reliable Arborec plan is not reliably good, be willing to make unconventional calls that fit your slice.",
+              "stance": "recommended",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "opening",
+            "strategy cards",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "slice value",
+            "spend to zero",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s484",
+          "title": "Weak tech path",
+          "kind": "strategy",
+          "summary": "Starting with only a red tech and no round-one tech budget, the Arborec stay behind on tech all game, like a Sardakk without a payoff such as Exotrireme II. In some games just buy a couple of techs and hope tech objectives do not appear; neither faction tech changes the math enough to force a green path.",
+          "advice": [
+            {
+              "point": "Expect to be behind on tech all game; in some games decide to research only a couple of techs and accept the risk on tech objectives.",
+              "stance": "situational",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Neither faction tech is strong enough to make a green path mandatory.",
+              "stance": "rating",
+              "subjects": [
+                "Letani Warrior II",
+                "Bioplasmosis"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path",
+            "tech light"
+          ]
+        },
+        {
+          "start": "s503",
+          "title": "The Sarween Tools debate",
+          "kind": "strategy",
+          "summary": "Whether the Arborec need Sarween Tools has become a divisive issue. Hunter used to insist on it but now finds the arguments on both sides unconvincing and is undecided.",
+          "advice": [
+            {
+              "point": "Hunter is undecided whether Sarween Tools is worth it for the Arborec; both going with it and going without it have unsolved problems.",
+              "stance": "rating",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "technology",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Strategy cards in round one",
+      "summary": "Technology (for an immediate Sarween Tools) and Trade are the best round-one picks because they open the most plans. Diplomacy is better than the hosts first thought for a desperate faction, ahead of Warfare and Leadership. Politics is fine for action cards and guaranteed tech next round, Construction suits PDS players or an early space dock, and Imperial is a galaxy-brain option for a late pick.",
+      "chunks": [
+        {
+          "start": "s512",
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "As first pick, take Technology in almost every case and research Sarween Tools as your first action. Tech goes after Warfare, so you can expand with the carrier, send the cruiser to trade, then build the second carrier at home and expand again, ending round one with eight infantry, two carriers and Sarween Tools.",
+          "advice": [
+            {
+              "point": "With first pick in round one, take Technology and research Sarween Tools as your first action.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "Standard round one with Technology: research Sarween Tools, expand with the carrier building two infantry, send the cruiser out, then after Warfare is likely played build the second carrier at home and expand again.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Carrier",
+                "Cruiser"
+              ]
+            },
+            {
+              "point": "If the Warfare holder has lots of stall potential you can still be locked down, since you lack actions to outlast them.",
+              "stance": "situational",
+              "subjects": [
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Hunter stresses this standard opening is the community consensus, not something proven good.",
+              "stance": "rating",
+              "subjects": [
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "stall action",
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s535",
+          "title": "What Sarween Tools is worth to the Arborec",
+          "kind": "strategy",
+          "summary": "Sarween Tools costs about four resources, but because the Arborec build on almost every activation it can return around twelve over a game, and it is also a step toward yellow techs like Dreadnought II. Hunter also likes that it smooths awkward leftover production without wasting resources.",
+          "advice": [
+            {
+              "point": "Sarween Tools pays off better for the Arborec than most factions because they build on almost every activation, potentially saving around twelve resources over a game if researched early.",
+              "stance": "rating",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "Value Sarween Tools as a prerequisite as well, for example toward Dreadnought II.",
+              "stance": "rating",
+              "subjects": [
+                "Sarween Tools",
+                "Dreadnought II"
+              ]
+            },
+            {
+              "point": "Use Sarween Tools to fill awkward leftover production without spending an extra planet or trade good, even if the build is not perfectly optimal.",
+              "stance": "recommended",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "technology",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "wasted resources",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s562",
+          "title": "Hunter's theory: Trade, bank trade goods and eat a neighbour",
+          "kind": "strategy",
+          "summary": "Hunter's untested idea is to skip Technology, take Trade, bank trade goods while building infantry for four production, then in round two move toward a neighbour and build a fleet too big for them. He thinks about half the factions are viable victims, but admits there is a lot not to like.",
+          "advice": [
+            {
+              "point": "A theoretical alternative: pass on Technology in round one, take Trade, bank trade goods, build infantry and a little home defence, then in round two push at a neighbour with a fleet too big for them. Untested and with many downsides.",
+              "stance": "situational",
+              "subjects": [
+                "Trade",
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "combat"
+          ],
+          "requires": [],
+          "concepts": [
+            "eat a neighbour",
+            "trade good banking"
+          ]
+        },
+        {
+          "start": "s574",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is the second-best round-one pick because it enables several plans: eating a neighbour, buying Sarween Tools on the secondary (if you avoid being stalled), or going Sarweenless and building a fleet presence. With Trade money, consider moving out with infantry and building one infantry plus a dreadnought per landing.",
+          "advice": [
+            {
+              "point": "Trade is the Arborec's second-best round-one pick because it keeps the most plans open.",
+              "stance": "rating",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Trade can fund Sarween Tools via the Technology secondary, but timing is risky because you can be stalled by Technology and Warfare.",
+              "stance": "situational",
+              "subjects": [
+                "Trade",
+                "Sarween Tools",
+                "Technology"
+              ]
+            },
+            {
+              "point": "With Trade money in round one, consider building one infantry and one dreadnought at each landing, inefficient but establishing a fleet presence; one dreadnought plus a cruiser or second carrier may be enough.",
+              "stance": "situational",
+              "subjects": [
+                "Trade",
+                "Dreadnought"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "eat a neighbour",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s602",
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Politics lets you guarantee Technology or Trade in round two; Matt would not double tech. Its real upside is drawing useful action cards like Frontline Deployment, Rise of a Messiah or Flank Speed, which push it slightly above the remaining options.",
+          "advice": [
+            {
+              "point": "Take Politics to guarantee Technology or Trade next round, accepting a weak round one.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Technology",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Do not research two techs with the Technology card in round two; it wastes scarce money.",
+              "stance": "avoid",
+              "subjects": [
+                "Technology"
+              ]
+            },
+            {
+              "point": "Politics' action cards can rescue an Arborec opening, such as Frontline Deployment or Rise of a Messiah for free infantry, or Flank Speed to win races for Mecatol Rex.",
+              "stance": "rating",
+              "subjects": [
+                "Politics",
+                "Frontline Deployment",
+                "Rise of a Messiah",
+                "Flank Speed"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "action cards"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "speaker order control"
+          ]
+        },
+        {
+          "start": "s619",
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership does little for the Arborec, whose command token economy is efficient because they build on the move. Using it only to avoid being stalled on Warfare would burn all your tokens.",
+          "advice": [
+            {
+              "point": "Avoid Leadership in round one: the Arborec use command tokens efficiently because they build on the move, so the card does not get them ahead.",
+              "stance": "avoid",
+              "subjects": [
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": [
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s630",
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is fine but hard to use well: move the carrier out, build the second carrier at home, retrieve the token and expand again, which needs two good systems next to home and means no round-one tech. Hunter suggests using it to move aggressively next to a neighbour's home system.",
+          "advice": [
+            {
+              "point": "With Warfare, expand with the carrier, build the second carrier at home, retrieve the token and expand again; this needs two good systems adjacent to home and gives up round-one tech.",
+              "stance": "situational",
+              "subjects": [
+                "Warfare",
+                "Carrier"
+              ]
+            },
+            {
+              "point": "Hunter's aggressive variant: use Warfare to move next to a neighbour's home system and build there.",
+              "stance": "situational",
+              "subjects": [
+                "Warfare"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "eat a neighbour"
+          ]
+        },
+        {
+          "start": "s638",
+          "title": "Round one: Diplomacy",
+          "kind": "strategy",
+          "summary": "The old guide's Diplomacy recommendation had the wrong logic but was not far off: readying two planets (likely including home) can yield about six resources and help afford Sarween Tools in round one. Matt rates it above Politics, Warfare and Leadership, despite the usual timing issues.",
+          "advice": [
+            {
+              "point": "Diplomacy is a reasonable round-one pick for a desperate Arborec: ready two planets, such as your home planet, for around six extra resources to afford Sarween Tools.",
+              "stance": "recommended",
+              "subjects": [
+                "Diplomacy",
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "Matt ranks Diplomacy above Politics, Warfare and Leadership for the Arborec, while noting timing issues with when Technology and Warfare are played.",
+              "stance": "rating",
+              "subjects": [
+                "Diplomacy",
+                "Politics",
+                "Warfare",
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s652",
+          "title": "Round one: Construction for PDS Arborec",
+          "kind": "strategy",
+          "summary": "For players who like PDS Arborec, Construction is a top round-one pick: Magen Defense Grid and Sarween Tools lead efficiently to PDS II, and spare command tokens let you follow the secondary once or twice to fill your slice with PDS, so you can push harder at your outer edges.",
+          "advice": [
+            {
+              "point": "If you go the PDS route, take Construction in round one, follow its secondary once or twice later using spare command tokens, and head for PDS II via Magen Defense Grid and Sarween Tools.",
+              "stance": "situational",
+              "subjects": [
+                "Construction",
+                "PDS II",
+                "Magen Defense Grid"
+              ]
+            },
+            {
+              "point": "A slice full of PDS lets you leave fewer units behind and push harder at your outer edges.",
+              "stance": "situational",
+              "subjects": [
+                "PDS"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "home system defense",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s663",
+          "title": "Early forward space dock",
+          "kind": "strategy",
+          "summary": "Counterintuitively, an early space dock helps the Arborec: infantry keep producing infantry while the dock builds ships, speeding the transition to the mid game. Build infantry in round one and drop a forward dock so round two can add about three ships; it particularly helps round three.",
+          "advice": [
+            {
+              "point": "Consider an early forward space dock as a short-term fix: let infantry reproduce themselves while the dock puts ships in the sky, helping rounds two and three.",
+              "stance": "recommended",
+              "subjects": [
+                "Space Dock",
+                "Construction"
+              ]
+            },
+            {
+              "point": "Overall, Technology and Trade are the best round-one picks because they open the most plans; other picks force you to improvise.",
+              "stance": "rating",
+              "subjects": [
+                "Technology",
+                "Trade"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "economy",
+            "expansion"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "forward dock",
+            "production redundancy"
+          ]
+        },
+        {
+          "start": "s685",
+          "title": "Round one: Imperial as a late pick",
+          "kind": "strategy",
+          "summary": "As a late pick, Hunter suggests Imperial to draw an extra secret objective and avoid being stalled out of the Warfare secondary. Matt agrees: with a bad slice and a Mecatol plan you will rarely draw secrets later, so an early extra secret widens your options. Play the Arborec like a weak hand and make unusual calls.",
+          "advice": [
+            {
+              "point": "If you are a late pick and cannot get Technology or Trade, consider Imperial to gain an extra secret objective and keep command tokens to follow Warfare.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial",
+                "Warfare"
+              ]
+            },
+            {
+              "point": "If you plan to hold Mecatol Rex and use Imperial later, an early extra secret is valuable because you will not draw secrets while taking Imperial points.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Play the Arborec like the weak hand they are: take unusual gambles rather than the conventional line.",
+              "stance": "recommended",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives",
+            "mecatol"
+          ],
+          "requires": [],
+          "concepts": [
+            "secret objective cycling",
+            "nothing to lose"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Technology paths",
+      "summary": "Research as little tech as possible and rely on tech skips. With Sarween Tools, blue-red (Gravity Drive, Dreadnought II, Carrier II, then PDS II or Destroyer II) is the most rounded if you have a blue skip; red-yellow (PDS II, Transit Diodes) suits a yellow skip; without it, add Neural Motivator and Cruiser II. The Sarweenless blue-green path needs a blue skip and Trade, and pairs well with a forward dock. These are mostly Matt's options; Hunter does not co-sign them.",
+      "chunks": [
+        {
+          "start": "s709",
+          "title": "Baseline: Sarween Tools and minimal tech",
+          "kind": "strategy",
+          "summary": "In most games research Sarween Tools early, then keep infantry both behind and moving forward rather than picking up infantry and leaving planets empty. Get as little tech as possible.",
+          "advice": [
+            {
+              "point": "In most games get Sarween Tools early and use the savings to keep leaving infantry behind while also moving infantry forward.",
+              "stance": "recommended",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "Avoid picking up all your infantry from a planet and leaving it empty as you move forward.",
+              "stance": "avoid",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Research as little technology as possible; every tech path for the Arborec is poor.",
+              "stance": "recommended",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "early"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech light",
+            "tech path"
+          ]
+        },
+        {
+          "start": "s722",
+          "title": "Going without Sarween: keep trade goods",
+          "kind": "strategy",
+          "summary": "Hunter's counter if you skip Sarween Tools: always keep some trade goods in the bank to smooth production against awkward resource denominations, and do not spend them on objectives.",
+          "advice": [
+            {
+              "point": "Without Sarween Tools, always keep a few trade goods banked to fill awkward production, and do not spend them on objectives.",
+              "stance": "recommended",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "economy",
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "trade good banking"
+          ]
+        },
+        {
+          "start": "s733",
+          "title": "Blue-red path",
+          "kind": "strategy",
+          "summary": "With Sarween Tools and a blue skip, the most rounded path is Gravity Drive in round two, then Dreadnought II, Carrier II and either PDS II or Destroyer II as the game needs. It is tech-light and opens the most options. Destroyer II is underused and Arborec production makes it easy to round out fleets with destroyers.",
+          "advice": [
+            {
+              "point": "With a blue skip, go Gravity Drive in round two, then Dreadnought II and Carrier II, and choose PDS II or Destroyer II depending on the game; it is the most well-rounded, tech-light path.",
+              "stance": "situational",
+              "subjects": [
+                "Gravity Drive",
+                "Dreadnought II",
+                "Carrier II",
+                "PDS II",
+                "Destroyer II"
+              ]
+            },
+            {
+              "point": "Use spare Arborec production capacity to round out fleets with destroyers; Destroyer II makes them very effective and is underused.",
+              "stance": "recommended",
+              "subjects": [
+                "Destroyer II",
+                "Plasma Scoring"
+              ]
+            },
+            {
+              "point": "Going through Antimass Deflectors instead of a blue skip is slow and not ideal.",
+              "stance": "rating",
+              "subjects": [
+                "Antimass Deflectors"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech skip",
+            "tech path",
+            "tech light"
+          ]
+        },
+        {
+          "start": "s763",
+          "title": "Red-yellow path",
+          "kind": "strategy",
+          "summary": "With a yellow skip, lean into defence: Sarween Tools, PDS II quickly and Transit Diodes, keeping all ships on the perimeter and protecting the interior with PDS for a slow, constant steamroll. Possibly stop there, or add Plasma Scoring and Destroyer II; War Suns are fun but the economy probably cannot support them. Hunter does not co-sign this section.",
+          "advice": [
+            {
+              "point": "With a yellow skip, research Sarween Tools, PDS II and Transit Diodes, keep ships on your perimeter, protect the interior with PDS and use Transit Diodes to push infantry to the front.",
+              "stance": "situational",
+              "subjects": [
+                "PDS II",
+                "Transit Diodes",
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "In some games stop researching after Sarween Tools, Transit Diodes and PDS II and spend everything else on units at the front.",
+              "stance": "situational",
+              "subjects": [
+                "Sarween Tools",
+                "Transit Diodes",
+                "PDS II"
+              ]
+            },
+            {
+              "point": "Graviton Laser System is reasonable with a strong PDS network, depending on neighbours, but Matt prefers skipping to Transit Diodes.",
+              "stance": "situational",
+              "subjects": [
+                "Graviton Laser System",
+                "Transit Diodes"
+              ]
+            },
+            {
+              "point": "War Suns are reachable with a red skip and building one at the front is not terrible, but the Arborec economy probably cannot support it.",
+              "stance": "rating",
+              "subjects": [
+                "War Sun"
+              ]
+            },
+            {
+              "point": "Hunter explicitly does not co-sign Matt's tech path suggestions.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech skip",
+            "tech path",
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s792",
+          "title": "Adding Neural Motivator and Cruiser II",
+          "kind": "strategy",
+          "summary": "Hunter would add Neural Motivator and Cruiser II to red-yellow for versatility, building toward objectives that may appear later, such as control objectives after moving into a neighbour's slice. Matt would do so without a yellow skip (green-red), or with a green skip, but worries it is too much tech; Plasma Scoring is optional.",
+          "advice": [
+            {
+              "point": "Do not chase two techs in two colours; build to score objectives that may appear later, such as conquering or control objectives after moving into a neighbour's slice.",
+              "stance": "recommended",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Add Neural Motivator and Cruiser II for versatility, letting Transit Diodes move infantry to a new cruiser fleet for a distant strike; Matt would do this only with a green skip, worrying it is too much tech.",
+              "stance": "situational",
+              "subjects": [
+                "Neural Motivator",
+                "Cruiser II",
+                "Transit Diodes"
+              ]
+            },
+            {
+              "point": "Without a yellow skip, skip Transit Diodes and go Sarween Tools, Neural Motivator, Cruiser II and PDS II (green-red), optionally Plasma Scoring and Destroyer II so cruisers have a destroyer to soak PDS hits.",
+              "stance": "situational",
+              "subjects": [
+                "Neural Motivator",
+                "Cruiser II",
+                "PDS II",
+                "Destroyer II"
+              ]
+            },
+            {
+              "point": "Hunter's possible list with a yellow skip: PDS II, Transit Diodes, Neural Motivator, Cruiser II, and stop; Plasma Scoring is optional.",
+              "stance": "situational",
+              "subjects": [
+                "PDS II",
+                "Transit Diodes",
+                "Neural Motivator",
+                "Cruiser II",
+                "Plasma Scoring"
+              ]
+            },
+            {
+              "point": "Command token supply depends heavily on the slice; a bad slice means command token problems.",
+              "stance": "rating",
+              "subjects": []
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "objectives"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech skip",
+            "tech path",
+            "eat a neighbour",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s831",
+          "title": "Sarweenless blue-green path",
+          "kind": "strategy",
+          "summary": "Going without Sarween Tools requires a blue skip on your first planet and Trade in round one or two. Research no tech in round one, Gravity Drive in round two, then Neural Motivator, Fighter II and Carrier II for carrier and fighter swarms; with a green skip, Letani Warrior II lifts production to unleash the fighters.",
+          "advice": [
+            {
+              "point": "Only go Sarweenless with an early blue skip (your first planet) and trade goods from taking Trade in round one or two.",
+              "stance": "situational",
+              "subjects": [
+                "Sarween Tools",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Sarweenless blue-green: no tech in round one, Gravity Drive in round two to reach distant targets, then Neural Motivator, Fighter II and Carrier II for carriers full of fighters and infantry.",
+              "stance": "situational",
+              "subjects": [
+                "Gravity Drive",
+                "Neural Motivator",
+                "Fighter II",
+                "Carrier II"
+              ]
+            },
+            {
+              "point": "With a green skip, skip to Letani Warrior II to fix production capacity and start building large Fighter II swarms; Matt would not go through Dacxive Animators for it.",
+              "stance": "situational",
+              "subjects": [
+                "Letani Warrior II",
+                "Fighter II",
+                "Dacxive Animators"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip",
+            "tech path",
+            "fighter screen"
+          ]
+        },
+        {
+          "start": "s862",
+          "title": "Blue-green with a forward dock",
+          "kind": "strategy",
+          "summary": "Hunter would skip Letani Warrior II, which solves production too late, and instead place a space dock to lift production for fighter swarms, possibly via the Construction secondary in round one while holding Trade and following Warfare. Matt agrees. Choose among the paths based on your slice.",
+          "advice": [
+            {
+              "point": "On blue-green, drop a forward space dock for production instead of waiting for Letani Warrior II; in round one consider Trade plus the Construction and Warfare secondaries with no tech.",
+              "stance": "recommended",
+              "subjects": [
+                "Space Dock",
+                "Construction",
+                "Trade",
+                "Warfare",
+                "Letani Warrior II"
+              ]
+            },
+            {
+              "point": "Pick among blue-red, red-yellow, green-red and blue-green based on the slice you are given; none is reliably winning.",
+              "stance": "situational",
+              "subjects": [
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "technology",
+            "strategy cards",
+            "expansion"
+          ],
+          "requires": [],
+          "concepts": [
+            "forward dock",
+            "production capacity",
+            "slice value"
+          ]
+        },
+        {
+          "start": "s882",
+          "title": "Sarween versus Sarweenless",
+          "kind": "strategy",
+          "summary": "The Sarweenless argument (from Magi) is that money and time spent on Sarween Tools could instead buy tools like Gravity Drive that take more planets and grow the economy. With Sarween you build up slowly and spike board presence in round three; without it you have resources but may lack production. Both have weaknesses.",
+          "advice": [
+            {
+              "point": "Weigh Sarween Tools against spending on Gravity Drive and expansion: more planets may give a better long-run economy than Sarween's countable savings.",
+              "stance": "situational",
+              "subjects": [
+                "Sarween Tools",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "With Sarween Tools, expect little board presence in rounds one and two and a burst in round three; without it, the question is whether you have the production capacity to spend your resources.",
+              "stance": "rating",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "early"
+          ],
+          "topics": [
+            "technology",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "production bottleneck",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s899",
+          "title": "Design wish: swap Magen for Dacxive",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Arborec",
+            "Nekro Virus"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Trading and diplomacy",
+      "summary": "With nothing to lose, trade aggressively: sell everything, including your political secret, trade Support for the Throne immediately, and sell promissory notes often to hide Stymie. Pair diplomacy with a plan from the start: support-swap with one neighbour and bully the other.",
+      "chunks": [
+        {
+          "start": "s911",
+          "title": "Trade everything away",
+          "kind": "strategy",
+          "summary": "There is little new trading for the Arborec, but play the trading game riskily: get money wherever you can, sell your political secret since few agendas hurt the Arborec, swap Support for the Throne without waiting, and keep selling notes to hide Stymie.",
+          "advice": [
+            {
+              "point": "Play the trading game riskily rather than carefully; you need to make up ground, so take money wherever you can.",
+              "stance": "recommended",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Selling your political secret is fine because few agendas specifically hurt the Arborec, apart from ones like Ixthian Artifact if you hold Mecatol.",
+              "stance": "recommended",
+              "subjects": [
+                "Political Secret",
+                "Ixthian Artifact"
+              ]
+            },
+            {
+              "point": "Trade Support for the Throne early rather than waiting for the ideal swap.",
+              "stance": "recommended",
+              "subjects": [
+                "Support for the Throne"
+              ]
+            },
+            {
+              "point": "Keep selling promissory notes so nobody can tell when Stymie has been traded.",
+              "stance": "recommended",
+              "subjects": [
+                "Stymie"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "promissory notes"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "nothing to lose",
+            "support for the throne swap"
+          ]
+        },
+        {
+          "start": "s936",
+          "title": "Support-swap one neighbour, bully the other",
+          "kind": "strategy",
+          "summary": "Eating a neighbour is one of the few things the Arborec do well, but it must be planned from the start. Support-swap with the stronger neighbour (e.g. Letnev) and bully the weaker one (e.g. Winnu). Hunter's only Arborec win came from eating Matt's Winnu slice by round three.",
+          "advice": [
+            {
+              "point": "Plan to eat a neighbour from the start of the game; it is one of the few things the Arborec are good at.",
+              "stance": "recommended",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Offer Support for the Throne to a strong neighbour such as the Barony of Letnev and bully a weak one such as the Winnu; neighbours often want to be your support buddy rather than your target.",
+              "stance": "recommended",
+              "subjects": [
+                "Support for the Throne",
+                "Barony of Letnev",
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Barony of Letnev",
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "threats and matchups",
+            "combat"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "eat a neighbour",
+            "support for the throne swap"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mid and late game",
+      "summary": "In the mid game either eat a neighbour or take Mecatol Rex late from a weaker holder and fortify it with mass infantry for Imperial points; Hunter warns that an infantry stack makes you a table threat that can be whittled down from many angles. The late game is hard: the Arborec are poor at many stage II and secret objectives, and every game is a choice between spending on points or on units.",
+      "chunks": [
+        {
+          "start": "s955",
+          "title": "Taking and holding Mecatol Rex",
+          "kind": "strategy",
+          "summary": "Do not race for Mecatol Rex; build up, then take it from a holder who could not defend it, landing five infantry and immediately building more to make it untakable for one or two Imperial points. Hunter disagrees on tone: a big infantry stack draws the whole table, and infantry can be whittled down by bombardment, invasions and Plague, unlike a Muaat War Sun.",
+          "advice": [
+            {
+              "point": "Do not try to beat others to Mecatol Rex early; build up and take it later from a player who cannot defend it.",
+              "stance": "recommended",
+              "subjects": [
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "When you take Mecatol Rex, land with enough infantry to immediately build a large garrison, aiming for one or two Imperial points; do not leave too much behind elsewhere.",
+              "stance": "situational",
+              "subjects": [
+                "Mecatol Rex",
+                "Imperial"
+              ]
+            },
+            {
+              "point": "Hunter warns a big Arborec infantry stack on Mecatol Rex makes you a table threat, and infantry can be whittled down from many angles by bombardment, invasions and Plague; an Embers of Muaat War Sun is better leverage for holding Mecatol.",
+              "stance": "rating",
+              "subjects": [
+                "Mecatol Rex",
+                "Plague",
+                "Embers of Muaat",
+                "War Sun"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Embers of Muaat"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "mecatol",
+            "threats and matchups"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "threat perception",
+            "imperial block"
+          ]
+        },
+        {
+          "start": "s983",
+          "title": "Late-game objectives are hard",
+          "kind": "strategy",
+          "summary": "An early space dock helps rounds two and three but does not secure the late game. The Arborec are bad at many stage II and secret objectives: tech objectives, spending objectives, and even control objectives, because they arrive late and must take planets by muscle, possibly lacking movement.",
+          "advice": [
+            {
+              "point": "Expect to struggle in the late game: the Arborec are poor at tech secret objectives and many stage II objectives, so plan for where your final points will come from.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Do not assume the Arborec are good at control objectives: they take planets late and by force, and some tech paths lack the movement to reach them.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Aggression and threat matter more than actual fighting; frequent combat is generally bad.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "objectives"
+          ],
+          "requires": [],
+          "concepts": [
+            "controlled aggression",
+            "tenth point problem"
+          ]
+        },
+        {
+          "start": "s1007",
+          "title": "Points or units",
+          "kind": "strategy",
+          "summary": "Every economic objective (spend resources, influence, trade goods, command tokens) and every tech competes with the units that are the Arborec's only advantage. Every Arborec game is a choice between points and board presence; Hunter has argued to build up first, Matt to score first, and both approaches have failed late.",
+          "advice": [
+            {
+              "point": "Every resource spent on points or tech is a unit not built, so each game is a choice between scoring and board presence; neither host's approach (build first, or score first) has reliably worked.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Without board presence the Arborec effectively have no ability, which is why at their worst they are worse than a vanilla Winnu.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec",
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Winnu"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "objectives",
+            "economy",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "points or units",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s1040",
+          "title": "A worse Clan of Saar",
+          "kind": "strategy",
+          "summary": "Functionally the Arborec are the Clan of Saar but worse in every way, lacking Saar's economic hook of gaining trade goods when taking planets. Hunter thinks the production cap is an even bigger problem than the economy.",
+          "advice": [
+            {
+              "point": "The Arborec are like the Clan of Saar without Saar's economic advantage; Hunter rates the production cap as an even bigger problem than the lack of money.",
+              "stance": "rating",
+              "subjects": [
+                "Arborec",
+                "Clan of Saar"
+              ]
+            }
+          ],
+          "factions": [
+            "Arborec",
+            "Clan of Saar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "general strategy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "production bottleneck"
+          ]
+        },
+        {
+          "start": "s1054",
+          "title": "Still fun; prove us wrong",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Errata: Nekro Virus guide",
+      "summary": "Community feedback on the Nekro Virus guide: when the table is unanimous on an agenda, players may all abstain to deny the Galactic Threat prediction. Watch for unanimous agendas, save the prediction for a later agenda, or negotiate a vote beforehand.",
+      "chunks": [
+        {
+          "start": "s1098",
+          "title": "Nekro prediction denied by abstaining",
+          "kind": "strategy",
+          "summary": "If the Nekro predicts the side the whole table supports, everyone may abstain so the speaker decides and no tech is gained. Before predicting, check whether the table looks unanimous, save the prediction for a later agenda if the first looks like a wash, and pre-negotiate a vote, framing it as a way to give you a tech without losing plastic.",
+          "advice": [
+            {
+              "point": "As the Nekro Virus, beware predicting an agenda the whole table supports: players may all abstain so nobody votes and you gain no technology.",
+              "stance": "avoid",
+              "subjects": [
+                "Nekro Virus",
+                "Galactic Threat"
+              ]
+            },
+            {
+              "point": "If the first agenda looks like a wash, save the prediction for the second agenda rather than wasting it.",
+              "stance": "recommended",
+              "subjects": [
+                "Galactic Threat"
+              ]
+            },
+            {
+              "point": "Before committing the prediction, ask a specific player to cast a vote for the predicted outcome, pitching it as letting you copy their tech without attacking them.",
+              "stance": "recommended",
+              "subjects": [
+                "Galactic Threat"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "agendas",
+            "faction abilities",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities",
+            "agendas"
+          ],
+          "concepts": [
+            "table talk",
+            "non-binding deals"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Outro and Prophecy of Kings previews",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1129",
+          "title": "Extra Life stream schedule and Patreon thanks",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1188",
+          "title": "Ratings and spoiler talk",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1220",
+          "title": "Prophecy of Kings reveal: Arborec commander",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Arborec"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1247",
+          "title": "Prophecy of Kings reveals: Barony commander and a new objective",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Barony of Letnev"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1290",
+          "title": "Sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Arborc": "Arborec",
+    "Arbor Eck": "Arborec",
+    "Arbor Ac": "Arborec",
+    "Arbor Ack": "Arborec",
+    "Arboret": "Arborec",
+    "Arborack": "Arborec",
+    "Arbrack": "Arborec",
+    "Arbrec": "Arborec",
+    "Arbreck": "Arborec",
+    "Arbarec": "Arborec",
+    "Arbarak": "Arborec",
+    "Arborette": "Arborec",
+    "Art Barreque": "Arborec",
+    "Armoric": "Arborec",
+    "Arbore x": "Arborec's",
+    "Arbor X": "Arborec's",
+    "Arbor Rec": "Arborec",
+    "Arbor Reck": "Arborec",
+    "Arbrecht": "Arborec",
+    "Arbork": "Arborec",
+    "Arborrect": "Arborec",
+    "Arborat": "Arborec",
+    "Arborck": "Arborec",
+    "Arbrex": "Arborec",
+    "Majin Defense Grid": "Magen Defense Grid",
+    "Majin": "Magen Defense Grid",
+    "Magin": "Magen Defense Grid",
+    "Omega Majin": "Magen Defense Grid Omega",
+    "Dooha Minamon": "Duha Menaimon",
+    "Duha Manaiman Manaman": "Duha Menaimon",
+    "Latani Warriors": "Letani Warrior",
+    "Latani 2": "Letani Warrior II",
+    "Latoni 2": "Letani Warrior II",
+    "Latino": "Letani Warrior II",
+    "Illatani 2": "Letani Warrior II",
+    "Stymy": "Stymie",
+    "Styme": "Stymie",
+    "Steime": "Stymie",
+    "Steiny": "Stymie",
+    "Symey": "Stymie",
+    "Bioplasmasis": "Bioplasmosis",
+    "myoplasmosis": "Bioplasmosis",
+    "Daxiv": "Dacxive Animators",
+    "Daxive": "Dacxive Animators",
+    "Dax of an": "Dacxive Animators",
+    "sarween": "Sarween Tools",
+    "Sarwen": "Sarween Tools",
+    "Starween": "Sarween Tools",
+    "Star Ween Tools": "Sarween Tools",
+    "Star Wing tools": "Sarween Tools",
+    "Mechital Rex": "Mecatol Rex",
+    "Mechatolrex": "Mecatol Rex",
+    "Mecatol Rats": "Mecatol Rex",
+    "Mechatomics": "Mecatol Rex",
+    "Stardak": "Sardakk N'orr",
+    "Jolnar": "Jol-Nar",
+    "Tsar": "Saar",
+    "sorrel": "Saar",
+    "Barony of Lutna": "Barony of Letnev",
+    "Gravitone laser systems": "Graviton Laser System",
+    "anti-mass": "Antimass Deflectors",
+    "exotrireme twos": "Exotrireme II",
+    "Tarman": "Tar'Mann",
+    "Thiba": "Thibah",
+    "Necrovirus": "Nekro Virus",
+    "X-Tra": "Xxcha",
+    "verata": "errata",
+    "Derzuga Rowfall": "Dirzuga Rophal",
+    "Rear Admiral Farron": "Rear Admiral Farran",
+    "NES": "Non-Euclidean Shielding",
+    "Deranium armor": "Duranium Armor",
+    "Squire Cell Chaos Theory": "Splinter Cell: Chaos Theory",
+    "Romstein": "Rammstein"
+  }
+}

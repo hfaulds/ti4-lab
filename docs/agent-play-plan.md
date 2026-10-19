@@ -1,740 +1,342 @@
-# Agent Play: TI4 agents that decide moves from engine state and SCPT knowledge
+# TI4 RAG agent
 
 ## Goal
 
-Build a headless harness in which agents play base-game Twilight Imperium 4
-through the existing engine, making decisions using two knowledge sources:
+An agent that plays base-game Twilight Imperium 4 through this repo's engine:
+an LLM (DeepSeek Flash) chooses each move, with retrieval over the rules,
+card data and the SCPT Strategy Guides. The agent gets better over time through its prompts,
+its retrieval and lessons learned from its own games. No model weights are
+trained.
 
-1. **Structured rules and card data** already in this repo.
-2. **Strategy judgment** distilled from Space Cats Peace Turtles (SCPT).
+Out of scope for now: fine-tuning, expansions, and proving effects
+statistically (see "Measuring it, later").
 
-The primary deliverable is evidence, not a demo: does retrieved strategy
-knowledge measurably improve play over a competent scripted bot, as judged by
-both game outcomes and expert review of individual decisions?
+## What exists
 
-## Scope: base game only
-
-Every game runs with `expansions: []`. That switches off leaders, exploration,
-relics, the Prophecy of Kings agenda changes and the PoK factions, and it
-matches the corpus: the SCPT Strategy Guides were recorded in 2019 for the
-base game. Expansions are out of scope until the base-game results are in.
-
-## What the repo already provides
-
-| Asset | Location | Why it matters |
+| Asset | Location | Role |
 | --- | --- | --- |
-| Pure validated reducer | `app/game/engine/index.ts` (`applyAction`, `settle`) | Legal-move oracle; returns `{ok:false,error}` without mutating state |
-| Typed action space | `app/game/actions.ts` (`GameAction`) | ~35-variant union the agent emits as JSON |
-| Per-seat projection | `app/game/view.ts` (`viewFor`) | Hides other hands, deck order, RNG; prevents cheating by construction |
-| Pending-decision queue | `app/game/engine/helpers.ts` (`openPrompts`) | Off-turn decisions (hits, votes, secondaries) are first-class |
-| Headless harness | `app/game/engine/testing.ts` | `testGame`, `skipSetup`, `autoplay`, `play`, `rejection` |
-| Test bot | `app/game/engine/testing.ts` (`botMove`) | Drives tests forward; **not** a usable baseline (see Phase 1) |
-| Expansion switch | `app/game/engine/setup.ts` (`createGame`) | `expansions: []` gives a base-game deck, faction pool and setup |
-| Structured game data | `app/game/data/generated/*.ts` | Exact faction, ability and tech data for glossary and lookup |
+| Rules engine | `app/game/engine/` (`applyAction`) | Pure, validated reducer; the only judge of legality |
+| Seat view | `app/game/view.ts` (`viewFor`) | What one seat may see; the agent's only window on the game |
+| Pending decisions | `openPrompts` in `engine/helpers.ts` | Off-turn choices (hits, secondaries, votes) |
+| Scripted bot v2 | `app/game/agent/scriptedBot.ts` | Opponent, low-stakes decision maker, and planner of concrete moves |
+| Game runner | `scripts/scripted-games.ts` | Seeded 6-player games with random factions, seats and maps |
+| Corpus | `knowledge/audio/`, `knowledge/manifest.json` | 17 base-game Strategy Guide episodes (2019), one per faction, ~30 hours |
 
-### What the engine does not enforce
+## What the engine cannot do yet
 
-The engine is partly a tracker. These actions bypass rules enforcement and
-exist for human tables to fix up state by hand:
+The engine tracks more than it enforces. The agent must not use the escape
+hatches, and some of the game is missing:
 
-| Action | Problem for an agent |
+| Gap | Consequence for the agent |
 | --- | --- |
-| `ADJUST` | Arbitrary state edits, including VP |
-| `SET_EXHAUSTED`, `SET_LEADER`, `SET_BREAKTHROUGH` | Toggle card state without paying for it |
-| `COMPONENT_ACTION { description }` | Free text; no effect is applied |
-| `PLAY_ACTION_CARD { card }` | Discards the card; its effect is not resolved |
-| `PLAY_PROMISSORY_NOTE` | Logs the note; its effect (including Support for the Throne's VP) is not applied |
+| `ADJUST`, `SET_*`, `COMPONENT_ACTION` bypass the rules | Never offered; rejected if emitted |
+| `PLAY_ACTION_CARD` discards without resolving | Action cards are drawn but not played |
+| `PLAY_PROMISSORY_NOTE` logs without effect | Notes are not played; trades are goods only |
+| Agenda outcomes only raise a "resolve by hand" prompt | Votes change nothing |
+| "Manual" objectives score without a check | The agent may only claim objectives the engine can check |
+| **Faction abilities are not implemented** | Factions differ only in units, technologies, starting position and combat modifiers |
 
-Agents never see these in their candidate menu, and the harness rejects them
-if emitted. Consequence: **action cards and component actions are out of the
-experiment.** Agents still draw action cards (they count toward hand limit and
-discards) but cannot play them. This is a known distortion of the game,
-applied equally to every condition.
+The last row matters most: most of each SCPT episode is about its faction's
+abilities. Implementing them is a parallel engine track (Milestone 5), and
+the retrieval index tags advice the engine cannot play yet, so the agent
+knows not to act on it.
 
-More gaps shape the experiment:
-
-- **Faction abilities are not implemented.** Pillage, Mitosis, Assimilate,
-  Star Forge, Orbital Drop, Telepathic, Peace Accords and the rest reach the
-  board only through `ADJUST`. Factions differ in unit stats, starting
-  position, faction technologies and the two combat modifiers (Unrelenting,
-  Fragile), and nothing else. Each corpus episode is about one faction and
-  mostly about these abilities, so most faction-specific advice cannot be
-  played. **Open decision:** implement the abilities the guides lean on, or
-  narrow the hypothesis to general strategy (expansion, objectives, tech,
-  fleet use) and tag ability advice `unplayable`. Until it is decided, expect
-  the knowledge-base effect to be small by construction.
-- **Agenda effects are not resolved.** Voting works, but the outcome only
-  raises a `resolve` prompt for the table to apply by hand. Agendas never
-  award VP or change state, so agenda play is out of the experiment too.
-- **Manual objectives score unchecked.** Objectives the engine cannot verify
-  (several secrets, such as Destroy Their Greatest Ship) are accepted by
-  `SCORE_OBJECTIVE(S)` without any check. The harness rejects an agent's
-  claim to an objective whose status is `manual`.
-
-The VP left in play comes from public objectives, checkable secrets, the
-custodians token and Imperial with Mecatol Rex.
-
-### Transactions
-
-Transactions are legal between neighbors and validated for legality only, so
-an opponent that accepts anything can be drained by one-sided offers. The
-scripted bot accepts only trade goods and commodities, and only when it
-receives at least as much as it gives. Agents may propose and answer
-transactions of trade goods and commodities only; promissory notes and
-action cards are left out of their menu, since note effects are not applied.
-
-## Architecture
+## How a decision works
 
 ```
-SCPT audio ──► Parakeet ──► raw transcript ──► glossary correction ──► chunks ──┐
-                                                                                │
-knowledge/lessons.jsonl ──────────────────────────────────────────► lessons ───┤
-        ▲                                                                       ▼
-        │                                                     SQLite + FTS5 index
-        │                                                                       │
-        │   repo game data ──► exact lookup ────────────────────────────────────┤
-        │                                                                       ▼
-        │                     observe ──► retrieve ──► decide ──► validate ──► log
-        │                                                                       │
-        │                                         ┌─────────────────────────────┤
-        │                                         ▼                             ▼
-        └──────────── human-approved ─── decision review UI       replay + evaluation
-                                                  │
-                                                  ▼
-                                      puzzle set (dev / held-out)
+game loop ──► router ──► low-stakes? ──► scripted bot answers
+                │
+                └──► agent decision
+                       │  system: rules digest + how to play      (cached)
+                       │  game:   factions, map, objectives        (cached per game)
+                       │  turn:   seat view summary, plan note, candidate menu
+                       │
+                       ├─ tools: search_guides, lookup, search_lessons, combat_odds
+                       └─ choose(candidate, rationale, citations, plan_note)
+                              │
+                     harness expands the candidate into engine actions,
+                     validates with applyAction, logs the decision
 ```
 
-Knowledge flows one way within a game. Nothing in the agent loop writes back
-to the index. Between games, the review step can add **lessons**: short,
-human-approved notes learned from playthroughs. They live in a tracked file,
-are loaded into their own table next to the strategy-guide chunks, and only
-change when the index is rebuilt. Puzzles are an evaluation input, never a
-retrieval source.
+### The router
 
-## Build order
+The scripted bot handles low-stakes decisions: hit assignment, discards,
+token redistribution, tie-breaks, starting units, agenda votes, and steps
+inside a move the agent has already chosen. The agent handles the real
+choices:
 
-The knowledge base is the hypothesis, so it is built last. First prove the
-harness, the baseline and the evaluation can tell good play from bad. If an
-LLM with no knowledge base cannot handle the action space, retrieval will not
-rescue it.
+- picking a strategy card,
+- what to do on each action-phase turn,
+- whether to use a strategy card's secondary,
+- research,
+- what to score and how to pay,
+- whether to retreat,
+- trade offers.
 
-1. Phase 1 — Scripted bot
-2. Phase 2 — Agent harness (no knowledge base)
-3. Phase 3 — Decision review and puzzle set
-4. Phase 4 — Corpus, glossary and knowledge index
-5. Phase 5 — Evaluation
-6. Phase 6 — Improvement loop (runs continuously from Phase 3 onward)
+Routing rules are code, logged per decision, and easy to change.
 
-## Phase 1 — Scripted bot
+### Candidate menu: intents, not raw actions
 
-`botMove` exists to push tests forward. It picks strategy cards by
-`state.version % cards.length`, always produces nothing, never bombards, and
-activates systems when `version % 3 !== 0`. Beating it proves nothing, and a
-rollout driven by a bot that never builds measures noise.
-
-Write `app/game/agent/scriptedBot.ts`, a deterministic heuristic player that is
-used in three roles:
-
-- **Baseline** — the condition every LLM agent must beat.
-- **Reflex tier** — answers forced and low-stakes prompts for LLM agents.
-- **Rollout policy** — plays forward from candidate moves (Phase 2).
-
-Minimum competence:
-
-- **Strategy phase:** fixed priority list per card, adjusted for what is
-  scorable (e.g. Imperial when holding Mecatol or a scorable public).
-- **Expansion:** activate the highest-value adjacent uncontrolled planet
-  system the fleet can reach and the ground forces can take.
-- **Production:** spend available resources each round; carriers and infantry
-  early, warships when an enemy fleet is within reach.
-- **Combat:** reuse `suggestAssignment`; retreat when the exact odds in
-  `app/game/engine/odds.ts` fall below a threshold.
-- **Tech:** follow one colour toward a faction-appropriate unit upgrade.
-- **Scoring:** score the cheapest eligible public and any met secret every
-  status phase.
-- **Agenda:** abstain. Agenda effects are not resolved, so votes change
-  nothing.
-- **Transactions:** swap commodities evenly with neighbors; accept only
-  offers of trade goods and commodities worth at least what it gives.
-
-Acceptance, measured with `tsx scripts/scripted-games.ts 20` (6-player
-scripted-vs-scripted games, seeds 1–20; each seed draws 6 of the 17 base
-factions into random seats and shuffles the systems on the map):
-
-- At least 90% of games end by a player reaching 10 VP, not by the public
-  objectives running out after round 9.
-- The median VP win comes by round 8.
-- Fewer than 0.1% of moves fall back to `botMove`, and none is illegal.
-
-The bar sits below a human table's pace (10 VP by round 6–7) because the
-reduced game has fewer VP sources: no agendas and no action cards. Track the
-mean leader VP by round alongside these numbers; it is the most sensitive
-signal when tuning. Keep `botMove` untouched for the existing tests.
-
-Status (scripted bot v2, 40 games): 73% of games end by VP, median VP win in
-round 9, leader averages 6.4 VP after round 6, no fallbacks, wins by seat
-6/8/8/8/5/5. Not yet passing.
-
-Known weaknesses that make it a soft opponent: few space combats (about two
-per game), it never retakes lost planets, and it abstains on every agenda.
-Gains against it partly measure exploiting these gaps, and every LLM
-condition gets them equally, which hides differences between conditions.
-Compare LLM conditions with each other, not only with the bot.
-
-## Phase 2 — Agent harness
-
-New entry point: `scripts/agent-play.ts`, run with `tsx`.
-
-```ts
-for (;;) {
-  const view = viewFor(state, seat);
-  const prompt = openPrompts(state).find((p) => p.player === seat);
-  if (!prompt && state.activePlayer !== seat) { /* not our decision */ }
-
-  const decision = prompt ? describePrompt(prompt) : describeTurn(view);
-  if (isReflex(decision)) { play(scriptedBot(state, seat)); continue; }
-
-  const context = retrieve(decision, view);           // empty until Phase 4
-  const candidates = enumerateLegal(state, seat)       // applyAction probes
-    .filter((a) => !BLOCKED.has(a.type));              // see "does not enforce"
-  const sampled = determinize(view, rng);              // never the real state
-  const rollouts = rollout(sampled, seat, candidates); // scripted bot forward
-  const choice = await policy.choose(decision, context, candidates, rollouts);
-
-  const result = applyAction(state, seat, choice.action);
-  if (!result.ok) { retry with result.error; else fall back to scriptedBot; }
-  log({ state, seat, decision, candidates, rollouts, choice, result });
-}
-```
-
-`policy.choose` returns a structured decision, not just an action:
-
-```ts
-type Decision = {
-  action: GameAction;
-  rationale: string;            // why, in board terms
-  alternatives: { action: GameAction; rejectedBecause: string }[];
-  citations: (
-    | { kind: "guide"; episode: number; startMs: number }
-    | { kind: "lesson"; lessonId: string }
-  )[];
-};
-```
-
-The rationale and alternatives cost a few hundred tokens per decision and are
-what make Phase 3 possible.
-
-### Levers
-
-1. **Two-tier policy.** Route forced and low-stakes prompts (hit assignment,
-   discards, tie-breaks, redistribution, secondaries the bot would always take)
-   through the scripted bot. Spend the model on real choices: strategy card,
-   activation, Mecatol, tech path, scoring payment, contested votes.
-2. **Candidate enumeration.** `applyAction` is pure and cheap, so probe
-   candidates and hand the model a menu of legal moves. The model chooses
-   instead of guessing syntax.
-3. **Rollout.** For each of the top few candidates, let the scripted bot play
-   forward to the end of the round on several seeds and report the mean VP
-   and resource deltas next to the retrieved advice.
-
-### Hidden information
-
-`viewFor` strips the RNG and turns decks into counts, so the engine cannot
-run on a view. Two rules keep the agent honest:
-
-- **Legality probes may use the real state.** `enumerateLegal` reads only
-  `ok`/`error`, and the agent's own legal moves do not depend on hidden
-  cards. Nothing else from a probe reaches the agent.
-- **Rollouts run on a determinized state.** `determinize(view, rng)` rebuilds
-  a full `GameState` from the view: unseen cards (deck contents, other
-  players' action cards and secrets) are reshuffled from what remains, and
-  the RNG is fresh. Without this, a rollout through the status phase
-  reveals the next public objective and Politics or Imperial reveal draws.
-  Opponent bots in a rollout plan from their sampled secrets, so rollouts
-  show what a plausible opponent does, not what the real one will do.
-
-### Paired comparisons
-
-The engine draws every die from one sequential stream (`helpers.ts`), so two
-runs from the same seed share dice only until their first different roll;
-after that every later roll differs and pairing by seed removes little
-variance. For seat-swap comparisons, key dice to the situation instead
-(round, system, combat round, player, roll index) so the same fight rolls
-the same dice in both runs.
-
-### Role of the scripted bot
-
-The bot plays three roles in an LLM seat: reflex tier, rollout policy and,
-in other seats, opponent. That pulls results toward its style: reflex
-decisions spend the seat's resources by the bot's priorities, and rollouts
-score a candidate by how well the bot follows it up. Report the share of
-each seat's decisions made by the reflex tier, keep reflex routing
-identical across conditions, and run one condition without rollouts.
-
-### Replay
-
-Every game writes `{seed, setup, agentVersions, actions[], decisions[]}`.
-Seeds plus an action log make games exactly reproducible and give head-to-head
-matches with only one seat changed.
-
-`agentVersions` records, per seat, a hash of everything that can change the
-agent's behaviour: model id, prompt templates, reflex routing rules, rollout
-settings, retrieval settings, the index build (guide chunks and the active
-lessons set) and the scripted-bot version. Every result is attributable to a
-version.
-
-## Phase 3 — Decision review and puzzle set
-
-Win rate is a slow, noisy signal. Expert review of individual decisions is
-fast and says *why* an agent is weak.
-
-### Review UI
-
-A route in the app that loads a replay log and steps through the LLM's
-decisions (reflex-tier decisions are hidden by default). Each decision renders
-as a card:
+`MOVE_SHIPS` and `PRODUCE` have huge action spaces, so asking the model for
+raw JSON invites illegal or senseless moves. Instead the menu offers
+*intents*, each with a concrete plan the harness can carry out:
 
 ```
-Round 3, action phase — Hacan, 4 tactic / 2 fleet / 3 strategy
-[board rendered at this point in the replay]
-
-Chosen: ACTIVATE_SYSTEM 26 (Lodor) → move 2 carriers + 4 inf
-Rationale: secures a 3-resource planet for Diversify Research; Sol is 2 away
-           with fleet pressure but no carrier lane.
-Cited: SCPT Ep118 @ 41:12 "Hacan wants trade goods early…"
-Rollout: +0.6 VP / end of round (vs pass: +0.1)
-
-Alternatives considered:
-  B. Take Imperial (Mecatol)  — rejected: Letnev dreadnoughts adjacent
-  C. Pass                     — rejected: wastes a tactic token
-
-Move:      [Agree] [Prefer B] [Prefer C] [Other…]
-Rationale: [Sound] [Right move, wrong reason] [Wrong]
-Failure:   [Board misread] [Rule error] [Menu] [Bad advice] [Judgment] [Routing]
-Note: ________
-[Draft a lesson from this note]
+A. Invade Lodor (3/1, cultural) from home: 2 carriers, 4 infantry.  Odds: no combat.
+B. Attack Letnev fleet at Arinam: 2 dreadnoughts + 1 cruiser vs 2 cruisers.  Win 78%.
+C. Build at home: carrier, 2 infantry, cruiser (6 of 7 resources).
+D. Play Technology: research Gravity Drive; second tech Sarween Tools for 6.
+E. Move a destroyer next to Mecatol Rex (Intimidate Council 1/2).
+F. Pass.
 ```
 
-Rate the move and the rationale separately. "Right move, wrong reason" catches
-the two failure modes this project cares about: board-blind podcast advice and
-strategy opinion presented as a rule. The failure category is required when
-the reviewer disagrees; Phase 6 uses it to choose what to change next.
+The scripted bot's planners already produce these plans: invasion targets,
+movement, landings, production orders, research options and payments. The
+menu lists the top few of each kind, ranked by the bot, so it shows the
+bot's view without deciding. After the agent picks an intent, the harness
+plays out its steps (activation, movement, landing, production) through the
+bot's step logic and validates each one.
 
-Reviews are stored next to the replay as `{gameId, decisionIndex, verdict,
-preferred?, rationaleVerdict, failure?, note, reviewer}`.
+A free-form option (`custom: GameAction`) stays available for moves the menu
+misses. It is validated with `applyAction`; an error goes back to the model
+once, and after a second failure the bot's top candidate is played.
+Free-form use is logged: when it is frequent, the menu is missing something.
 
-### Blind review
+### Tools
 
-A reviewer who sees the agent's rationale and citations before choosing is
-anchored by them, and a reviewer steeped in SCPT will favour SCPT-shaped
-moves. Either way a condition can score well by matching the reviewer rather
-than by playing better. So review in two steps:
-
-1. **Choose blind.** The card shows the board, the seat and the candidate
-   menu in a shuffled order. The agent's choice, rationale, citations,
-   rollout numbers and condition are hidden. The reviewer picks the move
-   they would play, plus any acceptable alternatives.
-2. **Rate after.** The agent's choice and rationale are revealed for the
-   rationale and failure ratings. The condition stays hidden.
-
-Triage (Phase 6) uses rollout regret to pick decisions, so the queue leans
-toward positions where the scripted bot disagrees with the agent. Mix in a
-share of decisions sampled at random so the puzzle set is not only made of
-those.
-
-A second reviewer independently answers a sample of at least 50 positions.
-Report agreement between reviewers (Cohen's kappa on the chosen move). A
-puzzle only counts toward the held-out score when its answer is not
-contested, or when both reviewers accept the same set of moves.
-
-### Puzzle set
-
-Every review where the reviewer chose a move becomes a puzzle: a serialized
-game state, the seat to move, the candidate menu and the expert's preferred
-action (plus acceptable alternatives). Puzzles are stored in
-`knowledge/puzzles/` as JSON and are tracked.
-
-Each puzzle is assigned to one of two splits when it is created:
-
-- **Dev** — visible while diagnosing failures and writing lessons.
-- **Held-out** — never inspected while changing the agent. Only held-out
-  scores decide whether a change ships. Roughly a third of new puzzles go
-  here, assigned by hash of the puzzle id so the split is stable.
-
-Held-out puzzles are rotated into dev periodically as new ones arrive, so the
-held-out set stays unseen without becoming stale. A rotated puzzle never
-returns to held-out.
-
-Size matters. Agreement on 33 held-out puzzles has a 95% confidence interval
-of about ±17 points, wide enough that almost any change passes a "no drop
-beyond noise" gate. Treat held-out scores as indicative until there are at
-least 300 held-out puzzles (about ±5 points), and record how many agent
-versions have been scored against the current held-out set, since every
-look at it spends some of its independence.
-
-Every agent version is scored against both splits: agreement rate, plus
-rationale ratings where a reviewer has rated that version. This is cheap,
-repeatable and directly comparable across conditions.
-
-### Live mode
-
-`scripts/agent-play.ts --approve` pauses on each non-reflex decision, prints
-the decision card and waits for approve or override. Overrides are applied to
-the game and logged as reviews. Play a few full games this way early to find
-where the agent breaks before running anything at scale.
-
-## Phase 4 — Corpus, glossary and knowledge index
-
-### Corpus: the original Strategy Guide series
-
-SCPT published faction material in several generations. The **Strategy
-Guides** (eps. 097–163) are one episode per faction, 17 episodes, recorded in
-2019 before Prophecy of Kings shipped. They cover exactly the base-game
-faction pool this project plays.
-
-| Episode | Faction | Duration | Size |
-| --- | --- | --- | --- |
-| Ep 097 | Federation of Sol | 2:05:12 | 180.3 MB |
-| Ep 104 | Barony of Letnev | 2:06:45 | 182.5 MB |
-| Ep 109 | Sardakk N'orr | 1:46:58 | 154.1 MB |
-| Ep 118 | Emirates of Hacan | 2:01:29 | 175.0 MB |
-| Ep 122 | Universities of Jol-Nar | 2:08:52 | 185.6 MB |
-| Ep 132 | Xxcha Kingdom | 2:08:53 | 185.6 MB |
-| Ep 135 | Mentak Coalition | 1:57:45 | 169.6 MB |
-| Ep 136 | Yssaril Tribes | 1:37:21 | 140.2 MB |
-| Ep 139 | Naalu Collective | 1:18:32 | 113.1 MB |
-| Ep 140 | L1Z1X Mindnet | 1:40:08 | 144.2 MB |
-| Ep 145 | The Winnu | 1:28:25 | 127.3 MB |
-| Ep 150 | Clan of Saar | 1:16:04 | 109.6 MB |
-| Ep 156 | Yin Brotherhood | 1:32:45 | 133.6 MB |
-| Ep 159 | Embers of Muaat | 1:18:04 | 112.4 MB |
-| Ep 160 | Ghosts of Creuss | 1:42:51 | 148.1 MB |
-| Ep 161 | Nekro Virus | 1:28:48 | 127.9 MB |
-| Ep 163 | Arborec | 2:01:22 | 174.8 MB |
-
-Total: 17 episodes, 17 factions, 29:40:14 of audio, 2.56 GB.
-
-Much faction advice in these episodes concerns action cards and component
-actions, which the experiment cannot play. Chunks are tagged so that advice
-can be filtered out or flagged in the prompt (see Index rules).
-
-### Layout
-
-```
-knowledge/
-  manifest.json            # tracked: episode metadata, hashes, source URLs
-  glossary.json            # tracked: alias -> canonical, versioned
-  lessons.jsonl            # tracked: lessons from playthroughs (Phase 6)
-  puzzles/                 # tracked: reviewed decisions (Phase 3)
-  audio/                   # ignored: original MP3s
-  transcripts/             # ignored: raw Parakeet JSON, gzipped, word timings
-  chunks/                  # ignored: topical chunk JSON per episode
-  knowledge.db             # ignored: SQLite + FTS5 index
-```
-
-### Transcription
-
-Use Parakeet TDT 0.6B v3 via FluidAudio on the M1 Max. At the published
-150–300× realtime range, the 29.7-hour corpus takes minutes, so the cost is in
-the correction and chunking passes, not the ASR.
-
-Store word-level timings only as gzipped per-episode JSON. Only segment-level
-rows go into SQLite.
-
-### Glossary and correction
-
-The ASR will get faction names wrong. Fix it deterministically before any
-model sees the text.
-
-1. Generate `knowledge/glossary.json` from the base-game entries in
-   `app/game/data/generated/`: canonical faction names, short names, tech
-   names, unit names, plus hand-written aliases for known confusions.
-2. Run a deterministic alias pass (exact and fuzzy) over transcripts.
-3. Run one LLM correction pass over remaining uncertain proper nouns, with the
-   glossary in the prompt and instructions to change proper nouns only.
-4. Stamp each transcript with `glossaryVersion`. A glossary fix re-runs the
-   correction pass, never the ASR.
-
-### Index
-
-Single SQLite file, FTS5, no server.
-
-```sql
-episodes(id, number, title, publishedAt, audioPath, durationMs, glossaryVersion)
-segments(id, episodeId, startMs, endMs, speakerId, text)
-segments_fts USING fts5(text, content='segments')   -- external content
-chunks(id, episodeId, startMs, endMs, title, summary, text, tags)
-chunks_fts USING fts5(text, content='chunks')
-glossary(alias, canonical, kind, factionId)
-lessons(id, text, faction, phase, topic, status,
-        sourceGameId, decisionIndex, puzzleId,
-        addedInVersion, retiredInVersion)
-lessons_fts USING fts5(text, content='lessons')
-```
-
-`knowledge.db` is ignored and rebuildable. The guide tables are rebuilt from
-transcripts; the `lessons` table is rebuilt from `knowledge/lessons.jsonl`,
-which is the source of truth because lessons are hand-written and cannot be
-regenerated. See Phase 6 for how lessons are written and checked.
-
-Rules:
-
-- Retrieve **chunks**, not isolated utterances. Cut at semantic-distance spikes
-  so a hit is a coherent topic, not five scattered sentences.
-- Return windows with episode and timestamp so every claim is citable.
-- Tag chunks at build time: faction, game phase (opening / mid / late),
-  topic (strategy cards, tech, expansion, combat, politics, objectives), and
-  `unplayable` when the advice depends on action cards or component actions.
-- Precompute faction- and objective-keyed rollups once the chunks exist. Most
-  in-game queries then become a lookup rather than a search.
-- Keep `search_transcripts(query)` as the long-tail tool behind the rollups.
-- `retrieve()` queries guide chunks and active lessons with the same tags and
-  labels each hit by source, so the prompt and the review card show whether
-  the agent leaned on SCPT or on a lesson. Each source can be switched off
-  independently.
-
-## Phase 5 — Evaluation
-
-### Conditions
-
-Run every condition on identical seeds.
-
-| Condition | Question it answers |
+| Tool | What it returns |
 | --- | --- |
-| Scripted bot | Baseline |
-| LLM, no knowledge base | What the model already knows |
-| LLM, own faction's full transcript in context | Does raw source help at all |
-| LLM, retrieved chunks | The actual hypothesis |
-| LLM, retrieved chunks + rollout | Does grounding beat vibes |
-| LLM, irrelevant retrieved chunks | Is it following advice that doesn't fit the board |
-| LLM, lessons only + rollout | Do our own playthrough notes help without SCPT |
-| LLM, chunks + lessons + rollout | Do the two sources combine |
+| `search_guides(query, faction?)` | Top SCPT chunks with episode, timestamp and `playable` tag |
+| `lookup(kind, id)` | Exact data for a faction, unit, technology, objective, strategy card or planet |
+| `search_lessons(query)` | Active lessons from past games (see Improving) |
+| `combat_odds(system)` | Exact odds for a fight, from `engine/odds.ts` |
+| `choose(candidate, rationale, citations, plan_note)` | Ends the decision |
 
-The lessons conditions only become meaningful once the active lessons set is
-non-trivial; until then they are skipped.
+The harness validates every tool call's arguments against its schema (Zod)
+and returns a validation error as the tool result, so it does not depend on
+the provider enforcing schemas. The model must finish with `choose`: the
+system prompt says so, and the harness re-asks once if a response ends
+without it. Each decision allows a bounded number of retrieval calls
+(about 6).
 
-**Pre-register the primary comparison:** LLM with no knowledge base against
-LLM with retrieved chunks, on held-out puzzles and seat-swap VP. The other
-conditions are exploratory and reported as such; with eight conditions and
-two metrics, some difference will look significant by chance.
+`plan_note` is a short, free-text plan the agent writes for itself ("take
+Mecatol in round 3, hold Imperial"). It is passed into the next decision,
+which gives the agent continuity without carrying a whole game of
+conversation.
 
-The full-transcript condition loads one faction's episode (roughly 20–30k
-tokens), not the whole corpus.
+### Model and API
 
-### Match formats
+- **Model:** `deepseek-flash` (served as DeepSeek-V4.1-Flash-1017 as of
+  October 2026), with thinking mode, its default. It has a 1M-token context
+  and supports tool calls and JSON output. Per million tokens, peak /
+  off-peak:
 
-Six-player win rate needs hundreds of games per condition before differences
-are meaningful, and each game is 1000+ decisions. Use cheaper formats first
-and save full games for the conditions that survive.
+  | Price type | Peak | Off-peak |
+  | --- | --- | --- |
+  | Input, cache miss | $0.30 | $0.15 |
+  | Input, cache hit | $0.006 | $0.003 |
+  | Output | $1.20 | $0.60 |
 
-1. **Puzzle set** — agreement with expert choices. Cheapest; run on every
-   change.
-2. **Seat swap** — one LLM seat against five scripted bots, same seed and
-   factions, swapping only the condition in that seat. Compare VP at the end
-   of round 4 and final VP against the scripted bot in the same seat. Rotate
-   the LLM seat across all six seats, since seat strongly affects outcomes.
-3. **Full games** — multiple LLM seats, for the final comparison only.
+  `deepseek-v4-pro` is the stronger, pricier option to compare against.
+- **Behind an interface.** The agent talks to a small `Policy` interface
+  (`decide(turn) -> Decision`), so the model and provider are configuration.
+  Swapping in another model, for comparison or if Flash falls short, should
+  not touch the harness. The provider and model are part of `agentVersion`.
+- **Client.** DeepSeek's API is OpenAI-compatible at
+  `https://api.deepseek.com`, so use the `openai` npm package with that base
+  URL. It also offers an Anthropic-compatible endpoint
+  (`https://api.deepseek.com/anthropic`).
+- **One fresh request per decision.** Each decision is its own short
+  conversation: the turn context, a few tool calls, then `choose`. Nothing
+  is carried over except `plan_note`. That keeps cost per decision flat and
+  sidesteps questions about replaying reasoning across long histories.
+- **Manual tool loop.** A plain loop (call, validate and run tools, append
+  results, repeat until `choose`), with a hard cap on iterations, gives
+  exact control over turn budgets and logging.
+- **To check before building:**
+  - whether thinking mode needs its reasoning passed back between tool
+    calls,
+  - which `tool_choice` values are supported,
+  - whether tool calls run in parallel.
 
-### Power and cost
+  The docs don't say. The design works either way: arguments are validated
+  locally and `choose` is enforced by re-asking.
+- **Prompt caching is automatic.** DeepSeek caches shared prompt prefixes
+  with no opt-in, so the prompt order is what matters:
+  1. tools,
+  2. the system prompt (rules digest, how to read the menu),
+  3. the game block (factions in play, map, revealed objectives),
+  4. the turn.
 
-From scripted-bot games, final VP per seat has a standard deviation of about
-2. Detecting a difference of 0.5 VP between two conditions (α = 0.05,
-power 0.8) takes about 250 games per condition; dice keyed to the situation
-(Phase 2) should cut that. About a third of games end on objective
-exhaustion in round 9, so win rate is mostly a VP comparison anyway: use VP
-share (seat VP / total VP) as the headline game metric.
+  Anything that changes per turn (round, a timestamp) must stay out of the
+  first three. Check `usage.prompt_cache_hit_tokens` across decisions.
+  Caching is best-effort and cleared after hours to days of disuse.
+- **Offline work runs off-peak.** Use off-peak hours (half price) for the
+  transcript correction pass, chunk titles and tags, drafting lessons from
+  review notes, and checking that citations match the chunks they cite.
+  There is no separate batch API to rely on.
+- **Failures.** Retry on rate limits and server errors with backoff. If a
+  decision still fails (an error, a malformed answer after the retry, or an
+  empty response), play the bot's top candidate and log it, so a game never
+  stalls.
 
-An LLM seat makes roughly 50–80 non-reflex decisions per game at 10–30k
-tokens each, about 1M tokens per game. 250 games for each of two conditions
-is about 500M tokens. Budget for the primary comparison first and run the
-exploratory conditions on puzzles only, unless the primary result justifies
-more games.
+### Staying honest
 
-### Metrics
+- The agent's context is built from `viewFor(state, seat)` only.
+- Legality probes and candidate planning may run on the real state, because
+  they report only what is legal for the agent's own seat. Anything that
+  plays the game forward (rollouts) must run on a state rebuilt from the
+  view, with unseen cards reshuffled. Rollouts are not in the first version.
+- Blocked actions are filtered from the menu and rejected if emitted.
 
-- Puzzle agreement rate (held-out is the headline number); rationale rating
-  distribution.
-- VP share, VP at round N, final VP, win rate (vs. scripted bot in the same
-  seat).
-- Share of the seat's decisions made by the reflex tier.
-- Objectives scored, VP per round.
-- Illegal-action retry rate (speaks to action-space fluency).
-- Tokens and cost per game, wall-clock per game.
-- Citation rate and citation accuracy (does the cited chunk say what the
-  rationale claims).
+### Replay log
 
-## Phase 6 — Improvement loop
+Every game writes `{seed, setup, agentVersion, actions[], decisions[]}`.
+Each decision records:
+- the view summary and the menu,
+- the tool calls and their results,
+- the choice, rationale, citations and plan note,
+- token usage and latency.
 
-Phases 1–5 build the agent and measure it once. This phase is how it gets
-better. Each iteration changes one thing and is judged on puzzles the change
-was not tuned on.
+The game can be replayed exactly from the seed and actions. `agentVersion`
+hashes the model, effort, prompts, routing rules, index build, lessons set
+and bot version.
 
-```
-play batch ──► triage ──► review ──► diagnose ──► change one lever ──► gate ──► record
-     ▲                                                                   │
-     └───────────────────────────────────────────────────────────────────┘
-```
+## Knowledge
 
-### 1. Play a batch
+### Rules digest
 
-About 20 seat-swap games (one LLM seat, five scripted bots) on fixed seeds,
-with the version stamped in every replay.
+A compact system-prompt section, written once and then cached:
+- turn structure, the action types, combat steps, and scoring and payment
+  rules,
+- what the engine does not support (the gaps table, in plain words).
 
-### 2. Triage
+Exact numbers stay out of the prose: the agent gets them through `lookup`,
+which reads `app/game/data/generated/`.
 
-A batch produces thousands of model decisions; a reviewer can look at a few
-dozen. `scripts/triage.ts` ranks decisions for the review queue by:
+### SCPT index
 
-- **Rollout regret** — a rejected alternative's rollout beat the chosen move
-  by more than a threshold.
-- **Version disagreement** — another agent version chose differently from the
-  same position (replay the position under both versions).
-- **Retries** — an illegal first attempt, or a fallback to the scripted bot.
-- **Swing** — the decision precedes a large VP, planet or fleet loss.
-- **Citation mismatch** — the rationale claims something the cited chunk or
-  lesson does not say (a cheap model check).
+1. **Transcribe** with Parakeet TDT 0.6B v3 (FluidAudio, local); store word
+   timings as gzipped JSON in `knowledge/transcripts/`.
+2. **Correct proper nouns.** Build a glossary from the base-game data
+   (factions, leaders, technologies, planets, units), run an exact and fuzzy
+   alias pass, then one batch LLM pass limited to proper nouns.
+3. **Chunk** by topic, not by fixed size. Give each chunk a title, a summary,
+   a faction, a game phase and a topic.
+4. **Tag playability.** A chunk is `playable` if its advice can be acted on in
+   this engine, and `unplayable: <reason>` if it relies on faction
+   abilities, action cards, agendas or promissory notes. The agent sees the
+   tag. As abilities are implemented (Milestone 5), re-tag those chunks.
+5. **Index** in SQLite with FTS5 (`knowledge/knowledge.db`, rebuildable):
+   `episodes`, `chunks`, `chunks_fts`, `glossary`, `lessons`, `lessons_fts`.
+   Add embeddings only if keyword search proves too weak.
 
-### 3. Review
+### Lessons
 
-Through the Phase 3 review UI. Disagreements carry a failure category; agreed
-decisions with a sound rationale can still become puzzles.
+Lessons are short, checkable heuristics learned from the agent's own games:
+for example, "don't leave home without ships while an enemy carrier is two
+moves away".
+- `knowledge/lessons.jsonl` is tracked and is the source of truth; the index
+  build loads it into the `lessons` table.
+- A model may draft a lesson from a review note (as `draft`); only a human
+  makes it `active`.
+- Lessons record where they came from (game and decision) and are retired,
+  never deleted.
 
-### 4. Diagnose
+## Watching and improving
 
-Count failure categories across the batch and work on the largest. Each
-category maps to the part of the system to change:
+### Seeing what it does
 
-| Failure | Lever |
+- **Live mode:** `scripts/agent-play.ts --approve` prints each agent
+  decision (menu, choice, rationale, citations) and waits for approve or
+  override before playing it.
+- **Replay page:** steps through a logged game with the board and a card per
+  decision. Each card is rated on the move (agree / prefer another), the
+  rationale (sound / right move for the wrong reason / wrong) and the
+  failure type:
+  - board misread,
+  - rule error,
+  - menu missing the right move,
+  - bad advice,
+  - judgment,
+  - routing.
+
+### The loop
+
+1. Play a batch: one agent seat against five scripted bots, rotating the
+   agent's seat.
+2. Review the decisions that look worst: big VP or fleet swings, free-form
+   moves, retries, and choices that differ sharply from the bot's top
+   candidate.
+3. Count failure types and fix the most common:
+
+| Failure | Change |
 | --- | --- |
-| Board misread (missed an adjacent fleet, wrong resource count) | State description: `describeTurn`, `describePrompt` |
-| Rule error | Exact lookup from repo game data; rules text in the prompt |
-| Menu (good move missing, or too many candidates to choose well) | `enumerateLegal` generation and ranking |
-| Bad advice (retrieved advice that does not fit the board) | Retrieval queries, chunk tags, the `unplayable` filter |
-| Judgment (knew the idea, weighed it wrong) | Rollout depth and seeds, prompt framing, or a lesson |
-| Routing (model spent on a trivial choice, or bot on a real one) | Reflex routing rules |
+| Board misread | The turn summary or the menu text |
+| Rule error | The rules digest or `lookup` |
+| Menu missing the right move | Candidate generation |
+| Bad advice | Retrieval queries or tags |
+| Judgment | A lesson, the prompt, or effort |
+| Routing | The router |
 
-### 5. Change one lever
+4. Record each change in `docs/agent-changelog.md`: version, what changed,
+   why, and before-and-after numbers.
 
-One change per agent version, so the result is attributable. Writing lessons
-is one lever among these, not the default.
+### Numbers to watch
 
-#### Lessons
+- **Agent seat:** VP share (seat VP / total VP), VP after round 6, and how
+  often it wins against five bots.
+- **Mechanics:** free-form rate, retry rate, and refusals.
+- **Cost:** tokens and cost per decision and per game, and cache hit rate.
+- **Retrieval:** citation rate, and how often the agent cites `unplayable`
+  advice.
 
-A lesson is a short, board-checkable heuristic learned from a reviewed
-decision, for example: "Do not leave the home system without ships while an
-enemy carrier is within two moves." Lessons:
-
-- Are written from a review note. The review UI can ask a model to draft one;
-  a draft is saved with `status: "draft"` and only a human sets it `active`.
-- Carry the same tags as guide chunks (`faction`, `phase`, `topic`) so one
-  `retrieve()` call finds both.
-- Record provenance: `sourceGameId`, `decisionIndex` and, if derived from a
-  puzzle, `puzzleId`.
-- Are retired, never deleted: `status: "retired"` with `retiredInVersion`,
-  so the changelog can show which lessons helped and which hurt.
-
-The index build enforces two checks and fails if either is violated:
-
-- No active lesson's `puzzleId` is a held-out puzzle, so lessons cannot leak
-  held-out answers.
-- Every lesson has a source decision that exists in a stored replay.
-
-### 6. Gate
-
-A change ships only if:
-
-1. Held-out puzzle agreement does not drop beyond noise (bootstrap the
-   confidence interval over puzzles). With fewer than 300 held-out puzzles
-   this gate is weak; lean on gate 2 until the set is larger.
-2. A seat-swap run on **fresh** seeds shows no regression in VP against the
-   previous version in the same seat.
-
-Shipped versions join a running Elo-style ladder from head-to-head games
-between versions, so progress is measured against earlier agents and not only
-against the scripted bot.
-
-### 7. Record
-
-`docs/agent-changelog.md` gets one entry per iteration: version, lever
-changed, failure category targeted, held-out agreement before and after,
-seat-swap VP before and after, and whether it shipped. Over time this shows
-which levers pay off and feeds the final investment decision.
-
-### Keeping the opponent honest
-
-Once the agent beats the scripted bot easily, seat-swap results stop
-discriminating. Improve the scripted bot from the same reviews (it has its own
-version in `agentVersions`), and always compare agent versions against the
-same bot version.
-
-### Later: model-assisted review
-
-A model can pre-rate rationales and pre-fill failure categories so the
-reviewer only sees uncertain cases. Trust it only after measuring its
-agreement with a few hundred human ratings, and never let it create puzzles or
-activate lessons on its own.
-
-## Risks and open questions
-
-- **The knowledge base may not help.** A frontier model has probably read TI4
-  material. The marginal value is likely SCPT-specific heuristics and
-  faction-specific openings, and most faction-specific advice concerns
-  abilities the engine does not implement. The no-knowledge-base condition
-  measures this.
-- **The scripted bot may be the real bottleneck.** If it is weak, the
-  baseline, reflex tier and rollouts all mislead. Phase 1 acceptance criteria
-  exist for this reason; revisit them if LLM agents beat it trivially.
-- **No action cards.** Excluding action cards and component actions changes
-  the game, especially for factions like Yssaril. Results apply to this
-  reduced game. Automating card effects is a separate engine project.
-- **Rules authority.** Where the model's prior and the engine disagree, the
-  engine wins, always. Never let retrieved prose override a legality check.
-- **Reviewer bandwidth.** The puzzle set and the lessons set grow only as fast
-  as someone reviews decisions. Triage exists to spend that time well.
-- **Overfitting to the puzzles.** Prompt tweaks and lessons tuned on dev
-  puzzles can look like progress without being progress. The held-out split
-  and the build-time leak check exist for this.
-- **Lessons that encode the reviewer's own style.** Lessons reflect one
-  reviewer's judgment. Test them as their own condition rather than assuming
-  they help.
-- **Diarization.** Parakeet gives text, not speakers. `speakerId` stays null
-  until a separate pass exists.
-- **Latency.** The reflex tier is not an optimization, it is what makes the
-  experiment finish.
-- **Hidden information.** The agent boundary is `viewFor`, never the raw
-  `GameState`. Legality probes may use the real state; rollouts must run on a
-  determinized state (Phase 2, "Hidden information").
-- **Engine-chosen losses.** When ships exceed the fleet pool after a retreat,
-  the engine removes the cheapest; the rules let the player choose. A
-  retreat with no tokens left in reinforcements also takes the command token
-  from the tactic, then strategy, then fleet pool without asking. Agents lose
-  these small decisions.
+These are for steering, not proof; a batch of 20 games is noisy.
 
 ## Milestones
 
-- [x] Download the 17 base-game Strategy Guide episodes and record a manifest.
-- [ ] Decide on faction abilities: implement the ones the guides rely on, or
-  narrow the hypothesis to general strategy.
-- [ ] Block bypass actions (`ADJUST`, `SET_*`, `COMPONENT_ACTION`,
-  `PLAY_ACTION_CARD`, `PLAY_PROMISSORY_NOTE`, manual objectives, non-goods
-  transactions) at the agent boundary.
-- [x] Write the scripted bot (v2: fair-trade acceptance).
-- [ ] Meet the Phase 1 acceptance criteria.
-- [ ] Write `determinize(view, rng)` for rollouts.
-- [ ] Key dice to the situation for paired seat-swap comparisons.
-- [ ] Write `scripts/agent-play.ts` with two-tier policy, structured decisions
-  and replay logs; run LLM-no-knowledge-base vs. scripted bot.
-- [ ] Build the decision review UI (with failure categories) and `--approve`
-  live mode.
-- [ ] Review enough decisions blind to seed a puzzle set of ~100 positions,
-  split dev / held-out, with a second reviewer on a sample; grow toward 300
-  held-out.
-- [ ] Write `scripts/triage.ts` and `docs/agent-changelog.md`; run the first
-  improvement iterations on the no-knowledge-base agent.
-- [ ] Transcribe with Parakeet; store word timings as gzipped JSON.
-- [ ] Generate the glossary from base-game data and run correction.
-- [ ] Build `knowledge.db` with FTS5, tagged topical chunks, rollups and the
-  `lessons` table loaded from `knowledge/lessons.jsonl` with leak checks.
-- [ ] Run the evaluation: puzzles, then seat swap, then full games.
-- [ ] Decide from the numbers whether to invest in action-card automation,
-  expansions, or embeddings.
+1. **The agent plays a whole game, without retrieval.**
+   - Router, intent menu from the bot's planners, `choose` and `lookup`
+     tools, rules digest, `plan_note` and replay log.
+   - Block the escape hatches at the agent boundary.
+   - Done when the agent finishes games against five bots without stalls,
+     and cost per game is measured.
+2. **Watchable.** `--approve` mode and the replay page with decision cards.
+3. **Knowledge.** Transcription, glossary correction, chunking with
+   playability tags, the FTS5 index, `search_guides`, and citations in
+   decisions and on the cards.
+4. **Lessons.** The lessons file and table, `search_lessons`, drafting
+   lessons from reviews, and the changelog.
+5. **Faction abilities** (an engine track, parallel from Milestone 1).
+   Implement the abilities that most change how a faction plays, starting
+   with:
+   - Sardakk Orbital Drop,
+   - Mentak Pillage,
+   - Arborec Mitosis,
+   - Nekro Assimilate,
+   - Muaat Star Forge,
+   - Yssaril Stall Tactics,
+   - Xxcha Peace Accords,
+   - Saar Scavenge.
+
+   Re-tag the matching chunks as each lands.
+6. **Stronger bot.** Fighting back for lost planets, a deliberate plan for
+   Mecatol and Imperial, and spending idle tactic tokens. A stronger
+   opponent makes the agent's wins mean more and gives it better menu
+   candidates.
+
+## Measuring it, later
+
+When it is time to make claims ("retrieval helps", "lessons help"), the
+earlier review of this design lists what is needed:
+
+- **Fixed comparisons.** Pick the comparison in advance (for example, no
+  retrieval against retrieval).
+- **Matched dice.** Derive dice from the situation (round, system, combat
+  round, player) so paired games share them.
+- **A real puzzle set.** Hundreds of reviewed positions, answered blind by
+  two reviewers.
+- **Enough games.** About 250 games per condition to detect a 0.5 VP
+  difference.
+
+None of this blocks building the agent.

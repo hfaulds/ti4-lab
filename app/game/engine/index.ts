@@ -20,10 +20,12 @@ import {
 } from "./helpers";
 import { requireObjectivePhase, scoreObjective } from "./objectives";
 import { askKeleresStartingTech, placeStartingUnits } from "./setup";
+import { research } from "./technology";
 import {
   castVotes,
   continueAgendaPhase,
   continueStatusPhase,
+  continueStrategyPhase,
   endTurn,
   pass,
   pickStrategyCard,
@@ -50,6 +52,12 @@ import {
   produceUnits,
 } from "./tactical";
 import {
+  effectFor,
+  passWindow,
+  resolvePending,
+  playReaction,
+} from "./reactions";
+import {
   answerTransaction,
   playPromissoryNote,
   proposeTransaction,
@@ -69,6 +77,7 @@ const MAX_AUTOMATIC_STEPS = 200;
 function advance(state: GameState) {
   for (let step = 0; step < MAX_AUTOMATIC_STEPS; step++) {
     if (state.phase === "finished") return;
+    if (resolvePending(state)) continue;
     if (state.prompts.length > 0) return;
 
     if (state.phase === "setup") {
@@ -84,6 +93,7 @@ function advance(state: GameState) {
       finishStrategic(state);
       continue;
     }
+    if (continueStrategyPhase(state)) continue;
     if (continueStatusPhase(state)) continue;
     if (continueAgendaPhase(state)) continue;
     return;
@@ -152,7 +162,7 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       return;
     case "FIRE_SPACE_CANNON": {
       const prompt = takePrompt(state, id, "spaceCannon", action.promptId);
-      fireSpaceCannon(state, id, prompt, action.fire);
+      fireSpaceCannon(state, id, prompt, action.fire, action.gravitonLaser);
       return;
     }
     case "ASSIGN_HITS": {
@@ -198,6 +208,17 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       const index = player.actionCards.indexOf(action.card);
       ensure(index >= 0, "You do not hold that action card.");
       const card = actionCardsById[action.card];
+      if (effectFor({ kind: "actionCard", id: action.card })) {
+        playReaction(
+          state,
+          id,
+          { kind: "actionCard", id: action.card },
+          action.targets,
+          action.promptId,
+        );
+        return;
+      }
+      // Cards from expansions the engine does not resolve are only logged.
       if (card.componentAction) requireAction(state, id);
       player.actionCards.splice(index, 1);
       state.decks.actionCards.discard.push(action.card);
@@ -207,6 +228,18 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       });
       return;
     }
+    case "USE_ABILITY":
+      playReaction(
+        state,
+        id,
+        { kind: "ability", id: action.ability },
+        action.targets,
+        action.promptId,
+      );
+      return;
+    case "PASS_WINDOW":
+      passWindow(state, id, action.promptId);
+      return;
     case "COMPONENT_ACTION": {
       requireAction(state, id);
       const description = action.description.trim();
@@ -296,6 +329,15 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
       takePrompt(state, id, "vote");
       castVotes(state, id, action.outcome, action.planets, action.extraVotes);
       return;
+    case "RESEARCH": {
+      const prompt = takePrompt(state, id, "research", action.promptId);
+      ensure(
+        action.research.length <= prompt.count,
+        `Research at most ${prompt.count} technologies.`,
+      );
+      for (const request of action.research) research(state, id, request);
+      return;
+    }
     case "BREAK_TIE": {
       const prompt = takePrompt(state, id, "breakTie");
       ensure(
@@ -316,9 +358,19 @@ function perform(state: GameState, id: PlayerId, action: GameAction) {
     case "ANSWER_TRANSACTION":
       answerTransaction(state, id, action.transaction, action.accept);
       return;
-    case "PLAY_PROMISSORY_NOTE":
+    case "PLAY_PROMISSORY_NOTE": {
+      const reaction = {
+        kind: "promissoryNote" as const,
+        id: action.note,
+        owner: action.owner,
+      };
+      if (effectFor(reaction)) {
+        playReaction(state, id, reaction, action.targets, action.promptId);
+        return;
+      }
       playPromissoryNote(state, id, { id: action.note, owner: action.owner });
       return;
+    }
     case "RETURN_PROMISSORY_NOTE":
       returnPromissoryNote(state, id, { id: action.note, owner: action.owner });
       return;

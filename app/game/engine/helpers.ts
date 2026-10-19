@@ -146,6 +146,7 @@ export function clockwiseFrom(state: GameState, from: PlayerId): PlayerId[] {
 }
 
 export const initiativeOf = (state: GameState, id: PlayerId) => {
+  if (state.zeroToken === id) return 0;
   const cards = state.players[id].strategyCards.map(
     (card) => strategyCardsById[card.id]?.initiative ?? 99,
   );
@@ -293,8 +294,21 @@ export const unitsAvailable = (state: GameState, id: PlayerId, type: UnitType) =
 
 // --- Cards ----------------------------------------------------------------
 
+/** Action cards a player may keep: 7, 3 under Executive Sanctions, any for the Yssaril. */
+export function handLimit(state: GameState, id: PlayerId) {
+  // Crafty
+  if (state.players[id].faction === "yssaril") return Infinity;
+  const sanctions = state.laws.some(
+    (law) => law.id === "sanctions" && law.outcome !== "Against",
+  );
+  return sanctions ? 3 : MAX_ACTION_CARDS;
+}
+
 export function drawActionCards(state: GameState, id: PlayerId, count: number) {
   const player = playerOf(state, id);
+  // Scheming: one more card, then one discarded.
+  const scheming = count > 0 && player.faction === "yssaril";
+  if (scheming) count++;
   let drawn = 0;
   for (let i = 0; i < count; i++) {
     const card = draw(state, state.decks.actionCards);
@@ -309,7 +323,11 @@ export function drawActionCards(state: GameState, id: PlayerId, count: number) {
       { player: id },
     );
   }
-  const excess = player.actionCards.length - MAX_ACTION_CARDS;
+  if (scheming && drawn > 0) {
+    ask(state, [{ kind: "discardActionCards", player: id, count: 1 }]);
+    return;
+  }
+  const excess = player.actionCards.length - handLimit(state, id);
   if (
     excess > 0 &&
     !state.prompts.some(

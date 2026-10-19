@@ -3,9 +3,31 @@ import { availableTechnologies, TechColor, technologiesById } from "../data";
 import { Research } from "../actions";
 import { GameState } from "../types";
 import { planetTechSpecialties } from "./board";
-import { ensure, hasTech, log, playerOf } from "./helpers";
+import { pay } from "./economy";
+import { ask, ensure, hasTech, log, playerOf } from "./helpers";
+import { destroyUnits } from "./effects/helpers";
+import { openWindow } from "./reactions";
 
 const AIDA = "aida";
+
+const RESEARCH_TEAMS: Record<string, TechColor> = {
+  rt_biotic: "BIOTIC",
+  rt_cybernetic: "CYBERNETIC",
+  rt_propulsion: "PROPULSION",
+  rt_warfare: "WARFARE",
+};
+
+/** Destroys a player's cheapest non-fighter ship (the engine chooses). */
+function loseCheapestShip(state: GameState, id: PlayerId) {
+  const ships = ["destroyer", "cruiser", "carrier", "dreadnought", "flagship", "warsun"] as const;
+  for (const type of ships) {
+    const system = Object.values(state.systems).find((s) => (s.space[id]?.[type]?.count ?? 0) > 0);
+    if (!system) continue;
+    destroyUnits(state, id, { system: system.key }, type, 1);
+    log(state, `Anti-Intellectual Revolution: ${state.players[id].name} lost a ship.`, { player: id });
+    return;
+  }
+}
 const PSYCHOARCHAEOLOGY = "pa";
 
 export function ownedColors(state: GameState, id: PlayerId) {
@@ -43,6 +65,14 @@ export function missingPrerequisites(
 
 export function research(state: GameState, id: PlayerId, request: Research) {
   const player = playerOf(state, id);
+  // Propagation: the Nekro gain command tokens instead.
+  if (player.faction === "nekro") {
+    ask(state, [{ kind: "redistribute", player: id, gained: 3 }]);
+    log(state, `${player.name} gains 3 command tokens instead of researching.`, {
+      player: id,
+    });
+    return;
+  }
   const tech = researchableTechnologies(state, id).find(
     (t) => t.id === request.technology,
   );
@@ -64,6 +94,34 @@ export function research(state: GameState, id: PlayerId, request: Research) {
     );
     ensure(specialty, `${name} does not help with this technology.`);
     missing.splice(missing.indexOf(specialty), 1);
+  }
+
+  // Analytical: the Jol-Nar ignore 1 prerequisite on other technologies.
+  if (player.faction === "jolnar" && !tech.unitUpgrade && missing.length > 0) {
+    missing.pop();
+  }
+
+  if (request.inheritance && missing.length > 0) {
+    ensure(hasTech(state, id, "is"), "You do not own Inheritance Systems.");
+    ensure(
+      !player.exhaustedTechnologies.includes("is"),
+      "Inheritance Systems is exhausted.",
+    );
+    pay(state, id, request.inheritance, "resources", 2);
+    player.exhaustedTechnologies.push("is");
+    missing.length = 0;
+  }
+
+  // Research Team laws attached to the player's planets ignore a prerequisite of their color.
+  for (const planet of Object.values(state.planets)) {
+    if (planet.controller !== id) continue;
+    for (const attachment of planet.attachments) {
+      const color = RESEARCH_TEAMS[attachment];
+      const key = `${attachment}@${planet.name}`;
+      if (!color || !missing.includes(color) || player.used?.includes(key)) continue;
+      missing.splice(missing.indexOf(color), 1);
+      (player.used ??= []).push(key);
+    }
   }
 
   if (request.useAida && missing.length > 0) {
@@ -88,4 +146,9 @@ export function research(state: GameState, id: PlayerId, request: Research) {
   if (!free) for (const name of skips) state.planets[name].exhausted = true;
   player.technologies.push(tech.id);
   log(state, `${player.name} researched ${tech.name}.`, { player: id });
+  openWindow(state, "afterResearch", { player: id, card: tech.id });
+  // Anti-Intellectual Revolution
+  if (state.laws.some((law) => law.id === "revolution" && law.outcome !== "Against")) {
+    loseCheapestShip(state, id);
+  }
 }

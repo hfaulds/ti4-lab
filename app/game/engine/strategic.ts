@@ -30,6 +30,8 @@ import {
 import { scoreObjective } from "./objectives";
 import { activateSystem, describeSystem } from "./tactical";
 import { research } from "./technology";
+import { afterAction } from "./events";
+import { openWindow } from "./reactions";
 
 export type StrategyKind = StrategicPayload["card"];
 
@@ -41,6 +43,16 @@ const isThundersEdge = (card: string) => strategyCardsById[card].source === "te"
 const INFLUENCE_PER_TOKEN = 3;
 const SECOND_TECHNOLOGY_COST = 6;
 const SECONDARY_TECHNOLOGY_COST = 4;
+
+/** Most tokens a fleet pool may hold: 4 under Fleet Regulations. */
+export const fleetPoolLimit = (state: GameState) =>
+  state.laws.some((law) => law.id === "regulations" && law.outcome !== "Against")
+    ? 4
+    : Infinity;
+
+/** Minister of Sciences researches through the Technology card for free. */
+const scienceCost = (state: GameState, id: PlayerId, cost: number) =>
+  state.laws.some((law) => law.id === "minister_sciences" && law.owner === id) ? 0 : cost;
 
 // --- Command tokens ---------------------------------------------------------
 
@@ -71,6 +83,10 @@ export function setPools(
     requested === expected,
     `Distribute exactly ${expected} command tokens between your pools.`,
   );
+  ensure(
+    pools.fleet <= fleetPoolLimit(state),
+    "Fleet Regulations: no more than 4 tokens in your fleet pool.",
+  );
   const previous = player.pools.fleet;
   player.pools = { ...pools };
   if (pools.fleet < previous) {
@@ -93,6 +109,13 @@ export const STRUCTURE_LIMIT: Record<StructurePlacement["type"], number> = {
   spacedock: 1,
 };
 
+/** Structures of a type allowed per planet: any number of PDS under Homeland Defense Act. */
+const structureLimit = (state: GameState, type: StructurePlacement["type"]) =>
+  type === "pds" &&
+  state.laws.some((law) => law.id === "defense_act" && law.outcome !== "Against")
+    ? Infinity
+    : STRUCTURE_LIMIT[type];
+
 export function placeStructure(
   state: GameState,
   id: PlayerId,
@@ -101,17 +124,25 @@ export function placeStructure(
   const planet = planetOf(state, name);
   ensure(planet.controller === id, `You do not control ${name}.`);
   ensure(
-    countOf(planet.units[id], type) < STRUCTURE_LIMIT[type],
+    countOf(planet.units[id], type) < structureLimit(state, type),
     `${name} cannot hold another ${UNIT_NAMES[type]}.`,
   );
   ensure(
     unitsAvailable(state, id, type) > 0,
     `You have no ${UNIT_NAMES[type]} left in your reinforcements.`,
   );
+  ensure(
+    !planet.attachments.includes("demilitarized_zone"),
+    `${name} is a demilitarized zone.`,
+  );
   addUnits(planet.units, id, type, 1);
   log(state, `${playerName(state, id)} built a ${UNIT_NAMES[type]} on ${name}.`, {
     player: id,
   });
+  // Minister of Industry
+  if (type === "spacedock") {
+    openWindow(state, "afterPlaceDock", { system: planet.system, planet: name }, [id]);
+  }
 }
 
 // --- Primary abilities ------------------------------------------------------
@@ -276,7 +307,7 @@ export function strategicAction(
           id,
           payload.second.payment,
           "resources",
-          SECOND_TECHNOLOGY_COST,
+          scienceCost(state, id, SECOND_TECHNOLOGY_COST),
         );
         research(state, id, payload.second);
       }
@@ -312,6 +343,8 @@ export function strategicAction(
   // Secondaries wait behind anything the primary itself is waiting on.
   secondaryFor = secondaryFor.filter((other) => !state.players[other].eliminated);
   askSecondaries(state, id, held.id, secondaryFor, free);
+  // Peace Accords, Acquiescence
+  openWindow(state, "afterStrategicAction", { player: id, card: payload.card });
 }
 
 function askSecondaries(
@@ -347,6 +380,7 @@ export function finishStrategic(state: GameState) {
   if (held) held.exhausted = true;
   state.strategic = undefined;
   state.actionsThisTurn++;
+  afterAction(state, strategic.player);
 }
 
 function readyPlanets(state: GameState, id: PlayerId, planets: string[]) {
@@ -380,8 +414,12 @@ export function resolveSecondary(
   const kind = strategyKind(prompt.card);
   ensure(payload.card === kind, "That does not match the strategy card played.");
 
-  // Leadership's secondary is free; Trade's is when the active player says so.
-  const costsToken = kind !== "leadership" && !prompt.free;
+  // Leadership's secondary is free; Trade's is when the active player says
+  // so, and always for the Hacan (Masters of Trade).
+  const costsToken =
+    kind !== "leadership" &&
+    !prompt.free &&
+    !(kind === "trade" && player.faction === "hacan");
   if (costsToken) {
     ensure(player.pools.strategy > 0, "Your strategy pool is empty.");
     player.pools.strategy--;
@@ -401,6 +439,7 @@ export function resolveSecondary(
     }
     case "diplomacy":
       readyPlanets(state, id, payload.ready);
+      openWindow(state, "afterStrategicAction", { player: id, card: "diplomacy" }, [id]);
       break;
     case "politics":
       drawActionCards(state, id, 2);
@@ -411,7 +450,7 @@ export function resolveSecondary(
         structure && payload.structures.length === 1,
         "Construction's secondary places 1 structure.",
       );
-      if (!isThundersEdge(prompt.card)) {
+      if (!isThundersEdge(prompt.card) && !prompt.free) {
         // The spent token lands in the structure's system.
         const system = systemOf(state, planetOf(state, structure.planet).system);
         if (!system.commandTokens.includes(id)) system.commandTokens.push(id);
@@ -434,8 +473,29 @@ export function resolveSecondary(
       break;
     }
     case "technology": {
+      // Brilliant: the Jol-Nar resolve the primary ability instead.
+      if (player.faction === "jolnar") {
+        if (payload.research) research(state, id, payload.research);
+        if (payload.second) {
+          pay(
+            state,
+            id,
+            payload.second.payment,
+            "resources",
+            scienceCost(state, id, SECOND_TECHNOLOGY_COST),
+          );
+          research(state, id, payload.second);
+        }
+        break;
+      }
       ensure(payload.research, "Choose a technology to research.");
-      pay(state, id, payload.payment, "resources", SECONDARY_TECHNOLOGY_COST);
+      pay(
+        state,
+        id,
+        payload.payment,
+        "resources",
+        scienceCost(state, id, SECONDARY_TECHNOLOGY_COST),
+      );
       research(state, id, payload.research);
       break;
     }

@@ -153,7 +153,7 @@ export function lookup(state: GameState, args: LookupArgs): string {
         `${factions[faction].name} (${faction}). Commodities ${setup.commodities}.`,
         `Starting technologies: ${setup.startingTech.map((t) => technologiesById[t]?.name ?? t).join(", ") || "none"}.`,
         `Faction technologies: ${setup.factionTech.map((t) => technologiesById[t]?.name ?? t).join(", ")}.`,
-        `Abilities (not enforced by this engine):`,
+        `Abilities:`,
         ...abilities.map((a) => `- ${a}`),
       ].join("\n");
     }

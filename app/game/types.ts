@@ -86,6 +86,17 @@ export type PlayerState = {
   relicFragments: string[];
   breakthrough?: { id: string; unlocked: boolean; exhausted: boolean };
   passed: boolean;
+  /**
+   * Events this turn that action-phase secret objectives ask for, such as
+   * "dtgs" after destroying a war sun. Cleared when the turn ends.
+   */
+  achievements?: string[];
+  /** Infantry waiting on the Infantry II card to return at the next turn. */
+  revivingInfantry?: number;
+  /** Abilities used this round or this combat that are limited in use. */
+  used?: string[];
+  /** Political Stability: keeps strategy cards through the next strategy phase. */
+  keepsStrategyCards?: boolean;
   /** Victory points from sources other than objectives. */
   bonusVictoryPoints: number;
   eliminated: boolean;
@@ -116,7 +127,126 @@ export type HitSource =
   | "spaceCombat"
   | "bombardment"
   | "spaceCannonDefense"
-  | "groundCombat";
+  | "groundCombat"
+  /** Ships the player must choose and destroy; SUSTAIN DAMAGE does not help. */
+  | "destroyShips"
+  /** As above, but only non-fighter ships (Assault Cannon). */
+  | "destroyNonFighterShips";
+
+/**
+ * Moments in the game when players may play cards or use abilities. Each
+ * one is offered, as a "window" prompt, only to players with something they
+ * could use in it.
+ */
+export type WindowId =
+  // Action phase
+  | "turnStart"
+  | "afterActivate"
+  | "afterMove"
+  | "beforeSpaceCannonHits"
+  | "combatStart"
+  | "roundStart"
+  | "afterRolls"
+  | "beforeCombatHits"
+  | "afterSustain"
+  | "afterShipDestroyed"
+  | "afterUnitDestroyed"
+  | "roundEnd"
+  | "afterRetreat"
+  | "afterCombat"
+  | "invasionStart"
+  | "afterCommit"
+  | "groundCombatStart"
+  | "afterGainControl"
+  | "afterProduce"
+  | "afterPlaceDock"
+  | "afterTacticalAction"
+  | "afterAction"
+  | "afterGainTradeGoods"
+  | "afterReplenish"
+  | "afterStrategicAction"
+  | "afterResearch"
+  | "actionCardPlayed"
+  // Strategy phase
+  | "strategyStart"
+  | "afterPickStrategyCard"
+  | "strategyEnd"
+  // Status phase
+  | "statusStart"
+  | "returnStrategyCards"
+  | "gainStatusTokens"
+  | "statusEnd"
+  // Agenda phase
+  | "agendaStart"
+  | "agendaRevealed"
+  | "afterAgendaRevealed"
+  | "afterSpeakerVotes"
+  | "afterVote"
+  | "whenElected";
+
+/** What a window is about. Which fields are set depends on the window. */
+export type WindowContext = {
+  system?: SystemKey;
+  planet?: string;
+  /** The other player involved: the opponent, the active player, the player who played a card. */
+  player?: PlayerId;
+  unit?: UnitType;
+  /** Action card, agenda, strategy card kind or technology the window is about. */
+  card?: string;
+  /** Prompt (hits to cancel) or pending effect (card to cancel) it refers to. */
+  ref?: number;
+  amount?: number;
+  /** Units involved, such as the structures lost with a planet. */
+  units?: UnitCounts;
+  /** Set when a promissory note is played: the player it belongs to. */
+  noteOwner?: PlayerId;
+};
+
+/** Something a player can use: an action card in hand, an ability, a note. */
+export type Reaction =
+  | { kind: "actionCard"; id: string }
+  /** Faction abilities, technologies, unit abilities and laws the player owns. */
+  | { kind: "ability"; id: string }
+  | { kind: "promissoryNote"; id: string; owner: PlayerId };
+
+/** Choices made when playing a card or using an ability. */
+export type EffectTargets = {
+  player?: PlayerId;
+  planet?: string;
+  planets?: string[];
+  system?: SystemKey;
+  unit?: UnitType;
+  units?: UnitCounts;
+  technology?: string;
+  card?: string;
+  cards?: string[];
+  outcome?: string;
+  amount?: number;
+  payment?: Payment;
+  production?: { type: UnitType; count: number; planet?: string }[];
+  pools?: CommandPools;
+  /** Units moved from one place to a planet (Transit Diodes, Bioplasmosis). */
+  transfers?: {
+    from: { system: SystemKey; planet?: string };
+    to: string;
+    unit: UnitType;
+    count: number;
+  }[];
+  /** A named choice, such as "tradeGood" or "commodity" for Pillage. */
+  choice?: string;
+};
+
+/** A card or ability that has been played and resolves once nobody cancels it. */
+export type PendingEffect = {
+  id: number;
+  player: PlayerId;
+  reaction: Reaction;
+  targets: EffectTargets;
+  context: WindowContext;
+  /** Prompt group (players deciding whether to cancel it) to wait for. */
+  group: number;
+  cancelled?: boolean;
+};
 
 export type Prompt = { id: number; player: PlayerId; group: number } & (
   | { kind: "chooseSecret"; options: string[] }
@@ -140,6 +270,8 @@ export type Prompt = { id: number; player: PlayerId; group: number } & (
       system: SystemKey;
       planet?: string;
       from?: PlayerId;
+      /** Hits that must go to non-fighter ships if able (Graviton Laser System, L1Z1X flagship). */
+      nonFighter?: number;
     }
   | { kind: "announceRetreat"; system: SystemKey; options: SystemKey[] }
   | { kind: "scoreObjectives" }
@@ -148,6 +280,16 @@ export type Prompt = { id: number; player: PlayerId; group: number } & (
   | { kind: "returnSecret" }
   | { kind: "vote" }
   | { kind: "breakTie"; outcomes: string[] }
+  /** Research technologies for free, as an agenda or rider allows. */
+  | { kind: "research"; count: number }
+  | {
+      kind: "window";
+      window: WindowId;
+      context: WindowContext;
+      options: Reaction[];
+      /** Abilities and notes already used in this window; each is used once. */
+      used?: string[];
+    }
   | {
       /** A card or ability the table resolves by hand before play continues. */
       kind: "resolve";
@@ -168,11 +310,42 @@ export type CombatRoll = {
   target: number;
   dice: number[];
   hits: number;
+  /** Added to each die before comparing it with the target. */
+  modifier?: number;
 };
 
-export type CombatStage = "start" | "announce" | "roll" | "assign" | "retreat";
+export type CombatStage =
+  /** Start-of-combat abilities (Assault Cannon, Ambush). */
+  | "start"
+  /** Anti-fighter barrage, or the start of the invasion combat on the ground. */
+  | "afb"
+  /** Start of a combat round (Morale Boost). */
+  | "roundStart"
+  | "announce"
+  | "roll"
+  /** Dice are counted once rerolls are done. */
+  | "hits"
+  | "assign"
+  /** End of a combat round (Devotion, Harrow). */
+  | "roundEnd"
+  | "retreat";
 
-export type SpaceCombat = {
+export type CombatEffects = {
+  /** Added to every combat roll of a player this round (Morale Boost). */
+  roundModifiers?: Record<PlayerId, number>;
+  /** Added to every combat roll of a player for the whole combat. */
+  modifiers?: Record<PlayerId, number>;
+  /** Card and ability flags in force, as "<id>:<player>". */
+  flags?: string[];
+  /** Dice rolled this round, kept so they can be rerolled before hits count. */
+  rolls?: CombatRoll[];
+  /** Unit types destroyed in the combat (Salvage Operations). */
+  destroyed?: UnitType[];
+  /** Damaged units each player had at the start of the round (Duranium Armor). */
+  damagedAtStart?: Record<PlayerId, UnitType[]>;
+};
+
+export type SpaceCombat = CombatEffects & {
   attacker: PlayerId;
   defender: PlayerId;
   round: number;
@@ -180,7 +353,7 @@ export type SpaceCombat = {
   retreat?: { player: PlayerId; to: SystemKey };
 };
 
-export type GroundCombat = {
+export type GroundCombat = CombatEffects & {
   planet: string;
   attacker: PlayerId;
   defender: PlayerId;
@@ -190,10 +363,12 @@ export type GroundCombat = {
 
 export type TacticalStep =
   | "movement"
+  | "moved"
   | "spaceCannonOffense"
   | "spaceCombat"
   | "bombardment"
   | "commit"
+  | "committed"
   | "spaceCannonDefense"
   | "groundCombat"
   | "production"
@@ -210,6 +385,8 @@ export type TacticalAction = {
   /** Planets already resolved in the ground combat step. */
   resolved: string[];
   bombarded: boolean;
+  /** Card and ability flags in force for this tactical action, as "<id>:<player>". */
+  flags?: string[];
 };
 
 export type StrategicAction = {
@@ -227,6 +404,20 @@ export type AgendaState = {
   voted: PlayerId[];
   /** Outcome chosen once voting has finished. */
   result?: string;
+  /** Players who cannot vote on this agenda (Political Secret, Assassinate Representative). */
+  silenced?: PlayerId[];
+  /** Players who may not vote, but did not lose the use of action cards and abilities. */
+  barred?: PlayerId[];
+  /** Rider predictions: who predicted which outcome with which card or ability. */
+  predictions?: {
+    player: PlayerId;
+    card: string;
+    outcome: string;
+    /** Where a correct prediction places things, chosen when it was made. */
+    planet?: string;
+    system?: SystemKey;
+  }[];
+  step?: "start" | "revealed" | "riders" | "voting" | "tally" | "tie" | "elected" | "done";
 };
 
 export type Transaction = {
@@ -281,6 +472,21 @@ export type GameState = {
   strategyCards: string[];
   /** Trade goods sitting on unpicked strategy cards. */
   strategyCardBonus: Record<string, number>;
+  /** The pick other players may still object to (Public Disgrace). */
+  lastPick?: { player: PlayerId; card: string; bonus: number };
+  /** A card a player may not choose again this strategy phase. */
+  disgraced?: { player: PlayerId; card: string };
+  /** The strategy phase has ended; waiting on end-of-phase abilities. */
+  strategyEnding?: boolean;
+  /** Holder of the Naalu "0" token, first in initiative order this round. */
+  zeroToken?: PlayerId;
+  /** Public Execution: the player who cannot vote for the rest of the agenda phase. */
+  executed?: PlayerId;
+  /** What agendas left to happen at the start of the next strategy phase. */
+  nextStrategyEffects?: {
+    kind: "exhaustPerTech" | "exhaustSpecialty" | "exhaustHome" | "exhaustCultural";
+    players?: PlayerId[];
+  }[];
 
   decks: {
     actionCards: Deck;
@@ -301,10 +507,12 @@ export type GameState = {
   strategic?: StrategicAction;
   agenda?: AgendaState;
   /** Step of the status phase that is waiting on players. */
-  statusStep?: "score" | "redistribute";
+  statusStep?: "score" | "redistribute" | "return" | "end";
   transactions: Transaction[];
 
   prompts: Prompt[];
+  /** Played cards and abilities waiting to resolve, newest last. */
+  pending?: PendingEffect[];
   nextId: number;
   rng: number;
   log: LogEntry[];

@@ -40,6 +40,10 @@ function promptFor(
   if (prompt.kind === "politicsAgenda") {
     return { ...prompt, cards: hide(prompt.cards) };
   }
+  if (prompt.kind === "window") {
+    // What a player could play gives away their hand.
+    return { ...prompt, options: [], used: undefined };
+  }
   return prompt;
 }
 

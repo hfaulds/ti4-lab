@@ -6,7 +6,8 @@ import {
   isStructure,
   objectivesById,
 } from "../data";
-import { GameState, SystemKey } from "../types";
+import { GameState, SystemKey, UnitCounts } from "../types";
+import { afterGainingControl } from "./events";
 import {
   isLegendary,
   MALLICE,
@@ -39,7 +40,11 @@ export function victoryPoints(state: GameState, id: PlayerId) {
     (sum, secret) => sum + (objectivesById[secret]?.points ?? 1),
     0,
   );
-  return publics + secrets + player.bonusVictoryPoints;
+  // Holy Planet of Ixth is worth a point to whoever controls it.
+  const holy = Object.values(state.planets).filter(
+    (p) => p.controller === id && p.attachments.includes("holy_planet_of_ixth"),
+  ).length;
+  return publics + secrets + player.bonusVictoryPoints + holy;
 }
 
 export const scoredObjectives = (state: GameState, id: PlayerId) =>
@@ -174,10 +179,13 @@ export function gainControl(
   const previous = planet.controller;
 
   // Structures belonging to anyone else do not survive the takeover.
+  const lost: UnitCounts = {};
   for (const owner of Object.keys(planet.units).map(Number)) {
     if (owner === id) continue;
     for (const type of unitTypes(planet.units[owner])) {
-      if (isStructure(type)) delete planet.units[owner][type];
+      if (!isStructure(type)) continue;
+      lost[type] = (lost[type] ?? 0) + planet.units[owner][type]!.count;
+      delete planet.units[owner][type];
     }
     if (unitTypes(planet.units[owner]).length === 0) delete planet.units[owner];
   }
@@ -200,6 +208,7 @@ export function gainControl(
     explorePlanet(state, id, name);
   }
   if (previous !== undefined) checkElimination(state, previous);
+  afterGainingControl(state, id, name, previous, lost);
 }
 
 /**
@@ -232,6 +241,18 @@ export function checkElimination(state: GameState, id: PlayerId) {
 
   player.eliminated = true;
   player.passed = true;
+  // Support for the Throne is worth nothing once its owner is gone.
+  for (const other of state.seating) {
+    const holder = state.players[other];
+    const notes = holder.promissoryNotesInPlay.filter(
+      (note) => note.id === "sftt" && note.owner === id,
+    );
+    if (notes.length === 0) continue;
+    holder.promissoryNotesInPlay = holder.promissoryNotesInPlay.filter(
+      (note) => !notes.includes(note),
+    );
+    holder.bonusVictoryPoints -= notes.length;
+  }
   for (const system of Object.values(state.systems)) {
     delete system.space[id];
     system.commandTokens = system.commandTokens.filter((t) => t !== id);

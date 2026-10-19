@@ -121,6 +121,10 @@ const mecatolSystem = (state: GameState) =>
 const capitalShipsIn = (state: GameState, id: PlayerId, system: SystemState) =>
   countOf(system.space[id], "flagship") + countOf(system.space[id], "warsun");
 
+/** Action-phase secrets ask for events this turn, which combat records. */
+const achieved = (state: GameState, id: PlayerId, objective: string) =>
+  !!state.players[id].achievements?.includes(objective);
+
 const REQUIREMENTS: Record<string, Requirement> = {
   // Stage I
   corner: { check: (s, id) => mostOfOneTrait(s, id) >= 4 },
@@ -262,7 +266,7 @@ const REQUIREMENTS: Record<string, Requirement> = {
         ),
       ),
   },
-  dtgs: { manual: true },
+  dtgs: { check: (s, id) => achieved(s, id, "dtgs") },
   eap: { check: (s, id) => unitsOnBoard(s, id, "pds") >= 4 },
   faa: { check: (s, id) => planetsWithTrait(s, id, "CULTURAL") >= 4 },
   fsn: { cost: { actionCards: 5 } },
@@ -276,7 +280,7 @@ const REQUIREMENTS: Record<string, Requirement> = {
         ),
       ).length >= 3,
   },
-  mew: { manual: true },
+  mew: { check: (s, id) => achieved(s, id, "mew") },
   mlp: { check: (s, id) => colorsWithAtLeast(s, id, 4) >= 1 },
   mrm: { check: (s, id) => planetsWithTrait(s, id, "HAZARDOUS") >= 4 },
   mp: { check: (s, id) => planetsWithTrait(s, id, "INDUSTRIAL") >= 4 },
@@ -287,7 +291,7 @@ const REQUIREMENTS: Record<string, Requirement> = {
       return totalUnits(s.systems[mecatol.system].space[id], isShip) >= 3;
     },
   },
-  sar: { manual: true },
+  sar: { check: (s, id) => achieved(s, id, "sar") },
   te: {
     check: (s, id) =>
       systemsWithShips(s, id).some((sys) =>
@@ -297,8 +301,8 @@ const REQUIREMENTS: Record<string, Requirement> = {
         }),
       ),
   },
-  ttfd: { manual: true },
-  uf: { manual: true },
+  ttfd: { check: (s, id) => achieved(s, id, "ttfd") },
+  uf: { check: (s, id) => achieved(s, id, "uf") },
   bam: { manual: true },
   baf: { manual: true },
   btv: { manual: true },
@@ -525,7 +529,8 @@ export function scoreObjective(
     ensure(!revealed.scoredBy.includes(id), "You already scored that objective.");
     const home = state.systems[player.home];
     ensure(
-      home.planets.every((p) => state.planets[p].controller === id),
+      player.faction === "saar" ||
+        home.planets.every((p) => state.planets[p].controller === id),
       "You cannot score public objectives without every planet in your home system.",
     );
   }

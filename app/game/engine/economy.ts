@@ -7,14 +7,18 @@ import {
 } from "../data";
 import { ProductionOrder } from "../actions";
 import { GameState, Payment, SystemKey } from "../types";
+import { afterProducing } from "./events";
 import {
   fleetProblem,
+  hasAnomaly,
+  neighborsOf,
   otherShipOwners,
   planetInfluence,
   planetOf,
   planetResources,
   systemOf,
 } from "./board";
+import { openWindow } from "./reactions";
 import {
   addUnits,
   countOf,
@@ -24,6 +28,7 @@ import {
   log,
   playerOf,
   requireUnit,
+  totalUnits,
   unitOf,
   unitsAvailable,
   unitTypes,
@@ -36,18 +41,26 @@ const valueOf = (state: GameState, planet: string, currency: Currency) =>
     ? planetResources(state, planet)
     : planetInfluence(state, planet);
 
+/** Worth of a trade good when spent: 2 with Mirror Computing. */
+export const tradeGoodValue = (state: GameState, id: PlayerId | undefined) =>
+  id !== undefined && hasTech(state, id, "mc") ? 2 : 1;
+
 export function paymentValue(
   state: GameState,
   payment: Payment | undefined,
   currency: Currency,
   allowTradeGoods = true,
+  payer?: PlayerId,
 ) {
   if (!payment) return 0;
   const planets = payment.planets.reduce(
     (sum, name) => sum + valueOf(state, name, currency),
     0,
   );
-  return planets + (allowTradeGoods ? payment.tradeGoods : 0);
+  return (
+    planets +
+    (allowTradeGoods ? payment.tradeGoods * tradeGoodValue(state, payer) : 0)
+  );
 }
 
 /** Exhausts the planets and spends the trade goods in a payment. */
@@ -81,7 +94,7 @@ export function pay(
     spend.tradeGoods <= player.tradeGoods,
     "You do not have that many trade goods.",
   );
-  const value = paymentValue(state, spend, currency, allowTradeGoods);
+  const value = paymentValue(state, spend, currency, allowTradeGoods, id);
   ensure(
     value >= cost,
     `That pays ${value} ${currency}, but ${cost} ${cost === 1 ? "is" : "are"} needed.`,
@@ -95,6 +108,14 @@ export function replenishCommodities(state: GameState, id: PlayerId) {
   const player = playerOf(state, id);
   player.commodities = player.commodityLimit;
   log(state, `${player.name} replenished commodities.`, { player: id });
+  if (state.laws.some((law) => law.id === "minister_commerce" && law.owner === id)) {
+    const neighbors = neighborsOf(state, id).length;
+    player.tradeGoods += neighbors;
+    log(state, `Minister of Commerce: ${player.name} gained ${neighbors} trade goods.`, {
+      player: id,
+    });
+  }
+  openWindow(state, "afterReplenish", { player: id });
 }
 
 // --- Production -------------------------------------------------------------
@@ -108,6 +129,11 @@ export function productionCapacity(
 ) {
   const system = systemOf(state, key);
   let capacity = 0;
+  // Hegemonic Trade Policy swaps a planet's values for this production.
+  const resourcesOf = (name: string) =>
+    state.tactical?.flags?.includes(`htp@${name}:${id}`)
+      ? planetInfluence(state, name)
+      : planetResources(state, name);
   const valueOfUnit = (type: Parameters<typeof unitOf>[2], resources: number) => {
     const unit = unitOf(state, id, type);
     if (!unit) return 0;
@@ -118,18 +144,27 @@ export function productionCapacity(
   };
   for (const name of system.planets) {
     const planet = state.planets[name];
+    if (planet.attachments.includes("holy_planet_of_ixth")) continue;
     for (const type of unitTypes(planet.units[id])) {
       if (options.docksOnly && type !== "spacedock") continue;
       if (options.excludeDocks && type === "spacedock") continue;
       capacity +=
-        valueOfUnit(type, planetResources(state, name)) *
-        countOf(planet.units[id], type);
+        valueOfUnit(type, resourcesOf(name)) * countOf(planet.units[id], type);
     }
   }
   for (const type of unitTypes(system.space[id])) {
     if (options.docksOnly && type !== "spacedock") continue;
     if (options.excludeDocks && type === "spacedock") continue;
     capacity += valueOfUnit(type, 0) * countOf(system.space[id], type);
+  }
+  // Magmus Reactor: a supernova with the player's units produces 5.
+  if (
+    !options.docksOnly &&
+    hasTech(state, id, "mr") &&
+    hasAnomaly(system, "SUPERNOVA") &&
+    totalUnits(system.space[id]) > 0
+  ) {
+    capacity += 5;
   }
   return capacity;
 }
@@ -149,7 +184,13 @@ export function productionCost(
   for (const [type, count] of counts) {
     const unit = requireUnit(state, id, type);
     if (unit.cost === undefined) fail(`${UNIT_NAMES[type]} cannot be produced.`);
-    cost += Math.ceil(count / unit.producedPerCost) * unit.cost;
+    // Regulated Conscription: fighters and infantry come one at a time.
+    const perCost = state.laws.some(
+      (law) => law.id === "conscription" && law.outcome !== "Against",
+    )
+      ? 1
+      : unit.producedPerCost;
+    cost += Math.ceil(count / perCost) * unit.cost;
   }
   // Sarween Tools
   if (cost > 0 && hasTech(state, id, "st")) cost -= 1;
@@ -214,6 +255,10 @@ export function produce(
     if (isGroundForce(order.type)) {
       if (order.planet) {
         const planet = planetOf(state, order.planet);
+        ensure(
+          !planet.attachments.includes("demilitarized_zone"),
+          `${order.planet} is a demilitarized zone.`,
+        );
         ensure(planet.system === key, `${order.planet} is not in that system.`);
         ensure(
           planet.controller === id,
@@ -250,4 +295,15 @@ export function produce(
       .join(", ")} for ${cost} resources.`,
     { player: id },
   );
+  // Prophecy of Ixth is kept only by producing 2 or more fighters.
+  const prophecy = state.laws.find((law) => law.id === "prophecy" && law.owner === id);
+  const fighters = units
+    .filter((o) => o.type === "fighter")
+    .reduce((sum, o) => sum + o.count, 0);
+  if (prophecy && fighters < 2) {
+    state.laws = state.laws.filter((law) => law !== prophecy);
+    state.decks.agendas.discard.push(prophecy.id);
+    log(state, `${player.name} discarded Prophecy of Ixth.`, { player: id });
+  }
+  afterProducing(state, id, key, units);
 }

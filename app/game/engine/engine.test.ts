@@ -721,7 +721,8 @@ describe("objectives", () => {
       resources: 8,
     });
     expect(objectiveStatus(state, SOL, "develop").met).toBe(false);
-    expect(objectiveStatus(state, SOL, "dtgs").met).toBe("manual");
+    // Action-phase secrets are checked against what happened this turn.
+    expect(objectiveStatus(state, SOL, "dtgs").met).toBe(false);
   });
 
   test("neighbors are found across adjacent systems", () => {
@@ -928,6 +929,11 @@ describe("status and agenda phases", () => {
     });
     state = until(state, "agenda");
     expect(state.agenda?.number).toBe(1);
+    // Players holding agenda-phase cards are asked first; they pass here.
+    while (openPrompts(state)[0]?.kind === "window") {
+      const [prompt] = openPrompts(state);
+      state = play(state, prompt.player, { type: "PASS_WINDOW", promptId: prompt.id });
+    }
 
     // The player left of the speaker votes first, the speaker last.
     const order = openPrompts(state).map((p) => p.player);

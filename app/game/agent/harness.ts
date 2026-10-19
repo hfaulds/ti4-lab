@@ -30,8 +30,6 @@ export const BLOCKED: ReadonlySet<GameActionType> = new Set<GameActionType>([
   "SET_LEADER",
   "SET_BREAKTHROUGH",
   "COMPONENT_ACTION",
-  "PLAY_ACTION_CARD",
-  "PLAY_PROMISSORY_NOTE",
   "RETURN_PROMISSORY_NOTE",
 ]);
 

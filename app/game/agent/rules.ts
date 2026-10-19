@@ -14,7 +14,7 @@ A round has four phases:
 1. Strategy phase: in speaker order, each player picks a strategy card. Its initiative number sets turn order for the round.
 2. Action phase: in initiative order, each player takes one action per turn: a tactical action, a strategic action (your card's primary ability; other players may then pay a strategy token to use its secondary), a trade offer, or pass. You must play your strategy card before you can pass. Once everyone has passed, the phase ends.
 3. Status phase: each player may score one public objective and one secret objective, then a new public objective is revealed. Everyone draws an action card, removes their command tokens from the board, gains 2 command tokens, and readies planets.
-4. Agenda phase: happens once the custodians token is off Mecatol Rex. Players vote with influence. (In this engine agenda outcomes have no effect.)
+4. Agenda phase: happens once the custodians token is off Mecatol Rex. Two agendas are revealed in turn; players vote with influence and the outcome takes effect (laws stay in play).
 
 Tactical action: place a command token from your tactic pool in a system to activate it. Move ships into it from systems without your command token, within their move value, carrying ground forces and fighters up to capacity. Then: space cannon, space combat, bombardment, landing ground forces to take planets, ground combat, and production if you have a space dock there. A system with your command token cannot be activated again this round, and your ships there cannot move out.
 
@@ -28,15 +28,15 @@ Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock
 
 # Basic strategy
 1. Scoring tempo is important. You can only score 1 public objective per round, and are limited on some private objectives. If you get behind it can be very hard to catch up.
-  To win you generally want about 3 secrets and 5 stage I objectives, plus extra points from the custodians token, Imperial while holding Mecatol Rex, or stage II objectives. (Support for the Throne and relics don't exist in this engine.)
+  To win you generally want about 3 secrets and 5 stage I objectives, plus extra points from the custodians token, Imperial while holding Mecatol Rex, or stage II objectives. (Relics don't exist in this engine.)
 2. Early expansion in round 1 is important for your economy for the rest of the game
 3. Combat is only worth it if it will score you a point or deny another player a point
 4. Trade goods are more flexible than resources/influence
 
 # What this engine does not do
 
-- Faction abilities are not implemented, except the combat modifiers marked "(enforced)" (Unrelenting +1, Fragile -1). Advice that depends on other abilities cannot be followed.
-- Action cards are drawn but cannot be played. Promissory notes have no effect. Agenda outcomes have no effect.
+- Faction abilities, technologies, action cards, promissory notes and agendas all take effect. When your menu offers a component action (an action card or an ability marked ACTION), it was chosen by the scripted planner; reactions during combat and the agenda phase are played for you by the same planner.
+- Agenda votes are cast for you by the scripted planner, which abstains.
 - You only see public information and your own cards.
 
 # How to answer

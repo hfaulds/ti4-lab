@@ -30,16 +30,17 @@ hatches, and some of the game is missing:
 | Gap | Consequence for the agent |
 | --- | --- |
 | `ADJUST`, `SET_*`, `COMPONENT_ACTION` bypass the rules | Never offered; rejected if emitted |
-| `PLAY_ACTION_CARD` discards without resolving | Action cards are drawn but not played |
-| `PLAY_PROMISSORY_NOTE` logs without effect | Notes are not played; trades are goods only |
-| Agenda outcomes only raise a "resolve by hand" prompt | Votes change nothing |
-| "Manual" objectives score without a check | The agent may only claim objectives the engine can check |
-| **Faction abilities are not implemented** | Factions differ only in units, technologies, starting position and combat modifiers |
+| Reactions (window prompts) and agenda votes go to the scripted bot | The agent chooses turns, secondaries, scoring and retreats; the bot plays its cards in combat and votes |
+| The engine picks for players in a few agenda outcomes (which ships Arms Reduction destroys, which planets Anti-Intellectual Revolution exhausts) | Rarely matters; noted in the log |
+| Expansion content (leaders, exploration, relics, PoK cards) still resolves by hand | Base game only |
 
-The last row matters most: most of each SCPT episode is about its faction's
-abilities. Implementing them is a parallel engine track (Milestone 5), and
-the retrieval index tags advice the engine cannot play yet, so the agent
-knows not to act on it.
+Base-game faction abilities, technologies, unit abilities, action cards,
+promissory notes, agenda outcomes and laws are resolved by the engine
+(`app/game/engine/effects/`, `reactions.ts`, `agenda.ts`). Players use them
+in **windows**: at each timing point the engine asks only the players
+holding something usable there, and an action card waits while others
+decide whether to cancel it with Sabotage. Action-phase secret objectives
+are checked against what happened in the current turn.
 
 ## How a decision works
 
@@ -224,9 +225,8 @@ which reads `app/game/data/generated/`.
 3. **Chunk** by topic, not by fixed size. Give each chunk a title, a summary,
    a faction, a game phase and a topic.
 4. **Tag playability.** A chunk is `playable` if its advice can be acted on in
-   this engine, and `unplayable: <reason>` if it relies on faction
-   abilities, action cards, agendas or promissory notes. The agent sees the
-   tag. As abilities are implemented (Milestone 5), re-tag those chunks.
+   this engine, and `unplayable: <reason>` if it relies on something the
+   engine leaves out (see the table above). The agent sees the tag.
 5. **Index** in SQLite with FTS5 (`knowledge/knowledge.db`, rebuildable):
    `episodes`, `chunks`, `chunks_fts`, `glossary`, `lessons`, `lessons_fts`.
    Add embeddings only if keyword search proves too weak.
@@ -307,19 +307,9 @@ These are for steering, not proof; a batch of 20 games is noisy.
    decisions and on the cards.
 4. **Lessons.** The lessons file and table, `search_lessons`, drafting
    lessons from reviews, and the changelog.
-5. **Faction abilities** (an engine track, parallel from Milestone 1).
-   Implement the abilities that most change how a faction plays, starting
-   with:
-   - Sardakk Orbital Drop,
-   - Mentak Pillage,
-   - Arborec Mitosis,
-   - Nekro Assimilate,
-   - Muaat Star Forge,
-   - Yssaril Stall Tactics,
-   - Xxcha Peace Accords,
-   - Saar Scavenge.
-
-   Re-tag the matching chunks as each lands.
+5. **Faction abilities** (an engine track). Done for the base game, along
+   with action cards, promissory notes and agendas. Still to do: let the
+   agent decide the reactions and votes that now go to the scripted bot.
 6. **Stronger bot.** Fighting back for lost planets, a deliberate plan for
    Mecatol and Imperial, and spending idle tactic tokens. A stronger
    opponent makes the agent's wins mean more and gives it better menu

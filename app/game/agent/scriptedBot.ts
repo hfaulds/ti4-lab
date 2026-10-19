@@ -49,6 +49,7 @@ import {
   planetResources,
   planetTechSpecialties,
   systemsWithShips,
+  fleetLimit,
 } from "../engine/board";
 import { suggestAssignment } from "../engine/combat";
 import { productionCapacity, productionCost } from "../engine/economy";
@@ -69,7 +70,7 @@ import { applyAction } from "../engine/index";
 import { objectiveStatus, scorableObjectives } from "../engine/objectives";
 import { spaceCombatOdds } from "../engine/odds";
 import { availableStrategyCards } from "../engine/phases";
-import { StrategyKind, strategyKind } from "../engine/strategic";
+import { fleetPoolLimit, StrategyKind, strategyKind } from "../engine/strategic";
 import {
   bombardmentTargets,
   spaceCannonOffenseShooters,
@@ -79,6 +80,7 @@ import {
   researchableTechnologies,
 } from "../engine/technology";
 import { botMove } from "../engine/testing";
+import { componentPlays, reactions } from "./reactions";
 import {
   chasesPosition,
   goalsOf,
@@ -96,7 +98,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 2;
+export const SCRIPTED_BOT_VERSION = 3;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -376,6 +378,27 @@ function answerPrompt(state: GameState, prompt: Prompt): GameAction[] {
     }
     case "resolve":
       return [{ type: "RESOLVE", promptId: prompt.id }];
+    case "window":
+      return [...reactions(state, prompt), { type: "PASS_WINDOW", promptId: prompt.id }];
+    case "research": {
+      // The best option, then the best one after it for a second research.
+      const [first] = researchOptions(state, id);
+      if (!first) return [{ type: "RESEARCH", promptId: prompt.id, research: [] }];
+      const picks: Research[] = [first];
+      if (prompt.count > 1) {
+        const [second] = researchOptions(
+          withTechnology(state, id, first.technology),
+          id,
+          first.skips ?? [],
+        );
+        if (second) picks.push(second);
+      }
+      return [
+        { type: "RESEARCH", promptId: prompt.id, research: picks },
+        { type: "RESEARCH", promptId: prompt.id, research: [first] },
+        { type: "RESEARCH", promptId: prompt.id, research: [] },
+      ];
+    }
   }
 }
 
@@ -459,13 +482,19 @@ const tokenRoom = (state: GameState, id: PlayerId) =>
  * Pools after adding tokens: one strategy token for secondaries, a fleet pool
  * that grows with the game, then tactic tokens.
  */
-function poolsAfterGaining(
+export function poolsAfterGaining(
   state: GameState,
   id: PlayerId,
   gained: number,
 ): CommandPools {
   const pools = { ...state.players[id].pools };
-  const fleetTarget = state.round <= 2 ? 3 : state.round <= 4 ? 4 : 5;
+  const limit = fleetPoolLimit(state);
+  const fleetTarget = Math.min(limit, state.round <= 2 ? 3 : state.round <= 4 ? 4 : 5);
+  // Fleet Regulations may have left too many tokens in the fleet pool.
+  if (pools.fleet > limit) {
+    pools.tactic += pools.fleet - limit;
+    pools.fleet = limit;
+  }
   const received = Math.min(gained, tokenRoom(state, id));
   for (let i = 0; i < received; i++) {
     if (pools.strategy < 1) pools.strategy++;
@@ -553,6 +582,7 @@ function takeTurn(state: GameState, id: PlayerId): GameAction[] {
   }
   actions.push(...activations(state, id));
   actions.push(...strategic());
+  actions.push(...componentPlays(state, id));
   actions.push({ type: "PASS" });
   return actions;
 }
@@ -692,7 +722,7 @@ function planMovement(
 ): MovementPlan {
   const player = state.players[id];
   const rules = moveRulesFor(state, id, target);
-  let room = Math.max(0, player.pools.fleet - nonFighterShips(state, target, id));
+  let room = Math.max(0, fleetLimit(state, id) - nonFighterShips(state, target, id));
   const homeThreatened = enemyShipsNear(state, id, player.home, 2);
   const plan: MovementPlan = { moves: [], cargo: [], ships: {}, groundForces: 0 };
   let wanted = intent.groundForces;
@@ -1099,10 +1129,9 @@ function productionOrders(
   budget: number,
   options: { docksOnly?: boolean } = {},
 ): ProductionOrder[] {
-  const player = state.players[id];
   const system = state.systems[key];
   let slots = productionCapacity(state, key, id, options);
-  let room = player.pools.fleet - nonFighterShips(state, key, id);
+  let room = fleetLimit(state, id) - nonFighterShips(state, key, id);
   const space = system.space[id];
   let freeCapacity =
     capacityIn(state, key, id) +

@@ -11,14 +11,16 @@ import { PlayerId } from "~/types";
 import { factions } from "~/data/factionData";
 import {
   abilitiesById,
+  actionCardsById,
   factionSetupFor,
   objectivesById,
+  promissoryNotesById,
   strategyCardsById,
   technologiesById,
   UNIT_NAMES,
 } from "../data";
 import { GameAction, ObjectivePayment, StrategicPayload } from "../actions";
-import { GameState, Payment, SystemKey, UnitGroup } from "../types";
+import { EffectTargets, GameState, Payment, SystemKey, UnitGroup } from "../types";
 import {
   adjacentSystems,
   anomaliesOf,
@@ -31,11 +33,9 @@ import {
 } from "../engine/board";
 import { openPrompts, unitTypes } from "../engine/helpers";
 import { objectiveStatus } from "../engine/objectives";
+import { reactionName } from "../engine/reactions";
 import { viewFor } from "../view";
 import { bestPlan } from "./scriptedBot";
-
-/** Faction abilities the engine applies; the rest exist only on paper. */
-const ENFORCED_ABILITIES = new Set(["Unrelenting", "Fragile"]);
 
 const factionName = (state: GameState, id: PlayerId) =>
   factions[state.players[id].faction]?.name ?? state.players[id].faction;
@@ -89,7 +89,6 @@ export function describeGame(state: GameState, seat: PlayerId) {
     const abilities = (setup?.abilities ?? [])
       .map((a) => abilitiesById[a]?.name)
       .filter(Boolean)
-      .map((name) => (ENFORCED_ABILITIES.has(name) ? `${name} (enforced)` : name))
       .join(", ");
     lines.push(
       `- ${playerLabel(state, id)}${id === seat ? " — you" : ""}: home ${systemLabel(state, state.players[id].home)}. ` +
@@ -385,6 +384,14 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
       return action.to !== undefined ? `Retreat to ${systemLabel(state, action.to)}` : "Do not retreat";
     case "PROPOSE_TRANSACTION":
       return `Offer P${action.to} a trade: give ${JSON.stringify(action.give)}, receive ${JSON.stringify(action.receive)}`;
+    case "PLAY_ACTION_CARD": {
+      const card = actionCardsById[action.card];
+      return `Play the action card ${card?.name ?? action.card}${targetsLabel(state, action.targets)}: ${card?.text ?? ""}`;
+    }
+    case "USE_ABILITY":
+      return `Use ${reactionName({ kind: "ability", id: action.ability })}${targetsLabel(state, action.targets)}`;
+    case "PLAY_PROMISSORY_NOTE":
+      return `Play ${promissoryNotesById[action.note]?.name ?? action.note} (P${action.owner}'s note)${targetsLabel(state, action.targets)}`;
     case "PASS":
       return "Pass for the rest of the round";
     case "END_TURN":
@@ -392,6 +399,20 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
     default:
       return JSON.stringify(action);
   }
+}
+
+/** Choices made with a card or ability, in words. */
+function targetsLabel(state: GameState, targets: EffectTargets | undefined) {
+  if (!targets) return "";
+  const parts = [
+    targets.player !== undefined ? `targeting ${playerLabel(state, targets.player)}` : "",
+    targets.planet ? `on ${targets.planet}` : "",
+    targets.system !== undefined ? `in ${systemLabel(state, targets.system)}` : "",
+    targets.technology ? `for ${technologiesById[targets.technology]?.name ?? targets.technology}` : "",
+    targets.outcome ? `predicting ${targets.outcome}` : "",
+    targets.choice ? `(${targets.choice})` : "",
+  ].filter(Boolean);
+  return parts.length > 0 ? ` ${parts.join(", ")}` : "";
 }
 
 const payloadName = (payload: StrategicPayload) =>

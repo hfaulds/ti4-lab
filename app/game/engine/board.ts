@@ -16,6 +16,7 @@ import {
   PlanetState,
   SystemKey,
   SystemState,
+  UnitType,
 } from "../types";
 import {
   countOf,
@@ -74,11 +75,21 @@ export function planetInfo(state: GameState, name: string): Planet | undefined {
 const attachmentsOf = (planet: PlanetState) =>
   planet.attachments.map((id) => attachmentsById[id]).filter(Boolean);
 
+/** Laws attached to planets that change their values. */
+const LAW_ATTACHMENTS: Record<string, { resources: number; influence: number }> = {
+  core_mining: { resources: 2, influence: 0 },
+  senate_sanctuary: { resources: 0, influence: 2 },
+  terraforming_initiative: { resources: 1, influence: 1 },
+};
+
+const lawBonus = (planet: PlanetState, key: "resources" | "influence") =>
+  planet.attachments.reduce((sum, a) => sum + (LAW_ATTACHMENTS[a]?.[key] ?? 0), 0);
+
 export function planetResources(state: GameState, name: string) {
   const base = planetInfo(state, name)?.resources ?? 0;
   return attachmentsOf(state.planets[name]).reduce(
     (sum, a) => sum + a.resources,
-    base,
+    base + lawBonus(state.planets[name], "resources"),
   );
 }
 
@@ -86,7 +97,7 @@ export function planetInfluence(state: GameState, name: string) {
   const base = planetInfo(state, name)?.influence ?? 0;
   return attachmentsOf(state.planets[name]).reduce(
     (sum, a) => sum + a.influence,
-    base,
+    base + lawBonus(state.planets[name], "influence"),
   );
 }
 
@@ -160,26 +171,114 @@ function physicalNeighbors(map: TiMap): Map<number, number[]> {
   return neighbors;
 }
 
-export function adjacentSystems(state: GameState, key: SystemKey): SystemKey[] {
+const lawInForce = (state: GameState, law: string) =>
+  state.laws.some((l) => l.id === law);
+
+/**
+ * Wormholes in a system, including the delta wormhole the Creuss flagship
+ * carries and the alpha and beta wormholes Lazax Gate Folding lends Mecatol
+ * Rex during the Winnu's tactical actions.
+ */
+export function wormholesIn(
+  state: GameState,
+  system: SystemState,
+  mover?: PlayerId,
+): Wormhole[] {
+  const wormholes = wormholesOf(system);
+  const extra: Wormhole[] = [];
+  for (const owner of Object.keys(system.space).map(Number)) {
+    if (
+      countOf(system.space[owner], "flagship") > 0 &&
+      unitOf(state, owner, "flagship")?.id === "ghost_flagship"
+    ) {
+      extra.push("DELTA");
+    }
+  }
+  if (
+    mover !== undefined &&
+    state.tactical?.player === mover &&
+    system.planets.includes(MECATOL_REX) &&
+    state.planets[MECATOL_REX]?.controller !== mover &&
+    hasTech(state, mover, "lgf")
+  ) {
+    extra.push("ALPHA", "BETA");
+  }
+  return extra.length > 0 ? [...new Set([...wormholes, ...extra])] : wormholes;
+}
+
+const ALPHA_BETA: Wormhole[] = ["ALPHA", "BETA"];
+
+/**
+ * Systems adjacent to `key`. With `mover`, also the adjacency that only a
+ * moving player enjoys: Quantum Entanglement, Lost Star Chart, Spatial
+ * Conduit Cylinder, and the Enforced Travel Ban law cutting alpha and beta
+ * wormholes during movement.
+ */
+export function adjacentSystems(
+  state: GameState,
+  key: SystemKey,
+  mover?: PlayerId,
+): SystemKey[] {
   const system = state.systems[key];
   if (!system) return [];
   const adjacent = new Set<SystemKey>(
     system.onBoard ? (physicalNeighbors(state.map).get(key) ?? []) : [],
   );
-  const wormholes = wormholesOf(system);
+  const flag = (name: string) =>
+    mover !== undefined && !!state.tactical?.flags?.includes(`${name}:${mover}`);
+  const entangled =
+    mover !== undefined &&
+    factionOf(state, mover) === "creuss";
+  const travelBan = mover !== undefined && lawInForce(state, "travel_ban");
+  const linked =
+    lawInForce(state, "wormhole_recon") || entangled || flag("lostStar");
+
+  const usable = (wormholes: Wormhole[]) =>
+    travelBan && !entangled
+      ? wormholes.filter((w) => !ALPHA_BETA.includes(w))
+      : wormholes;
+  const wormholes = usable(wormholesIn(state, system, mover));
   if (wormholes.length > 0) {
+    const alphaOrBeta = linked && wormholes.some((w) => ALPHA_BETA.includes(w));
     for (const other of Object.values(state.systems)) {
       if (other.key === key) continue;
-      if (wormholesOf(other).some((w) => wormholes.includes(w))) {
+      const theirs = usable(wormholesIn(state, other, mover));
+      if (
+        theirs.some((w) => wormholes.includes(w)) ||
+        (alphaOrBeta && theirs.some((w) => ALPHA_BETA.includes(w)))
+      ) {
         adjacent.add(other.key);
       }
+    }
+  }
+  // Spatial Conduit Cylinder joins the active system to every system with
+  // the player's units.
+  if (mover !== undefined && flag("scc") && state.tactical) {
+    const active = state.tactical.system;
+    const hasUnits = (k: SystemKey) =>
+      totalUnits(state.systems[k].space[mover]) > 0 ||
+      state.systems[k].planets.some(
+        (p) => totalUnits(state.planets[p].units[mover]) > 0,
+      );
+    if (key === active) {
+      for (const other of Object.values(state.systems)) {
+        if (other.key !== key && hasUnits(other.key)) adjacent.add(other.key);
+      }
+    } else if (hasUnits(key)) {
+      adjacent.add(active);
     }
   }
   return [...adjacent].filter((k) => state.systems[k]);
 }
 
-export const areAdjacent = (state: GameState, a: SystemKey, b: SystemKey) =>
-  adjacentSystems(state, a).includes(b);
+const factionOf = (state: GameState, id: PlayerId) => state.players[id]?.faction;
+
+export const areAdjacent = (
+  state: GameState,
+  a: SystemKey,
+  b: SystemKey,
+  mover?: PlayerId,
+) => adjacentSystems(state, a, mover).includes(b);
 
 /** A tile with at least one side not touching another tile (LRR 39.2). */
 export function isOnEdge(state: GameState, key: SystemKey) {
@@ -286,6 +385,11 @@ export function nonFighterShips(
   return totalUnits(group, (type) => isShip(type) && type !== "fighter");
 }
 
+/** Non-fighter ships a player may have in one system (Armada adds 2). */
+export const fleetLimit = (state: GameState, player: PlayerId) =>
+  state.players[player].pools.fleet +
+  (state.players[player].faction === "barony" ? 2 : 0);
+
 /**
  * Describes why a player's units in a system break fleet supply or capacity,
  * or returns undefined when the fleet is legal.
@@ -306,15 +410,18 @@ export function fleetProblem(
   // Upgraded fighters may fly without a carrier, counting against the fleet
   // pool instead (LRR Fighter II).
   let fleet = nonFighterShips(state, key, player);
-  if (excess > 0 && unitOf(state, player, "fighter")?.move) {
+  const fighter = unitOf(state, player, "fighter");
+  if (excess > 0 && fighter?.move) {
     const freeFighters = Math.min(excess, fighters - uncounted);
-    fleet += freeFighters;
+    // Hybrid Crystal Fighter II counts as half a ship.
+    fleet +=
+      fighter.id === "naalu_fighter2" ? Math.ceil(freeFighters / 2) : freeFighters;
     excess -= freeFighters;
   }
   if (excess > 0) {
     return `That leaves ${excess} more fighters and ground forces than your ships can carry.`;
   }
-  const limit = state.players[player].pools.fleet;
+  const limit = fleetLimit(state, player);
   if (fleet > limit) {
     return `That is ${fleet} ships in one system, but your fleet pool supports ${limit}.`;
   }
@@ -330,30 +437,61 @@ export type MoveRules = {
   ignoreBlockades: boolean;
   /** Ships may enter asteroid fields (Antimass Deflectors). */
   enterAsteroids: boolean;
+  /** Ships may move through and into supernovas (Gashlai Physiology, Magmus Reactor). */
+  enterSupernovas?: boolean;
+  /** Ships may move through nebulae (Shared Research). */
+  throughNebulae?: boolean;
 };
 
+/**
+ * How a player's ships may move this tactical action. `ships` and `origin`
+ * narrow it to one group: the Yssaril flagship and In the Silence of Space
+ * let only some ships pass through other fleets.
+ */
 export function moveRulesFor(
   state: GameState,
   player: PlayerId,
   destination: SystemKey,
+  group: { origin?: SystemKey; ships?: UnitType[] } = {},
 ): MoveRules {
+  const silenced =
+    group.origin !== undefined &&
+    !!state.tactical?.flags?.includes(`silence@${group.origin}:${player}`);
+  const yssarilFlagship =
+    !!group.ships?.length &&
+    group.ships.every(
+      (type) =>
+        type === "flagship" &&
+        unitOf(state, player, type)?.id === "yssaril_flagship",
+    );
   return {
     player,
     destination,
-    ignoreBlockades: hasTech(state, player, "lwd"),
+    ignoreBlockades: hasTech(state, player, "lwd") || silenced || yssarilFlagship,
     enterAsteroids: hasTech(state, player, "amd"),
+    enterSupernovas:
+      state.players[player]?.faction === "muaat" || hasTech(state, player, "mr"),
+    throughNebulae: state.laws.some(
+      (l) => l.id === "shared_research" && l.outcome !== "Against",
+    ),
   };
 }
 
 function canEnter(state: GameState, key: SystemKey, rules: MoveRules) {
   const system = state.systems[key];
   if (!system) return false;
-  if (hasAnomaly(system, "SUPERNOVA")) return false;
+  if (hasAnomaly(system, "SUPERNOVA") && !rules.enterSupernovas) return false;
   if (hasAnomaly(system, "ASTEROID_FIELD") && !rules.enterAsteroids) {
     return false;
   }
   // A nebula can only be entered as the active system.
-  if (hasAnomaly(system, "NEBULA") && key !== rules.destination) return false;
+  if (
+    hasAnomaly(system, "NEBULA") &&
+    key !== rules.destination &&
+    !rules.throughNebulae
+  ) {
+    return false;
+  }
   return true;
 }
 
@@ -391,7 +529,7 @@ export function routeProblem(
   if (path.length - 1 > allowance) return "That ship cannot move that far.";
 
   for (let i = 1; i < path.length; i++) {
-    if (!areAdjacent(state, path[i - 1], path[i])) {
+    if (!areAdjacent(state, path[i - 1], path[i], rules.player)) {
       return "That route passes between systems that are not adjacent.";
     }
     if (!canEnter(state, path[i], rules)) {
@@ -446,7 +584,7 @@ export function findRoute(
       if (rifts > maxRifts) continue;
       if (steps + 1 > baseMove + rifts) continue;
 
-      for (const neighbor of adjacentSystems(state, node.key)) {
+      for (const neighbor of adjacentSystems(state, node.key, rules.player)) {
         if (!canEnter(state, neighbor, rules)) continue;
         const stateKey = `${neighbor}:${rifts}`;
         const previous = seen.get(stateKey);
@@ -469,7 +607,12 @@ export function retreatOptions(
   return adjacentSystems(state, key).filter((other) => {
     const system = state.systems[other];
     if (otherShipOwners(system, player).length > 0) return false;
-    if (hasAnomaly(system, "SUPERNOVA")) return false;
+    if (
+      hasAnomaly(system, "SUPERNOVA") &&
+      !(state.players[player].faction === "muaat" || hasTech(state, player, "mr"))
+    ) {
+      return false;
+    }
     if (hasAnomaly(system, "ASTEROID_FIELD") && !hasTech(state, player, "amd")) {
       return false;
     }

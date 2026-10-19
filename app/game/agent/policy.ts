@@ -88,6 +88,8 @@ export type ChatPolicyOptions = {
   baseURL?: string;
   /** Model calls allowed per decision, counting lookups and nudges. */
   maxRequests?: number;
+  /** Lookups allowed per decision before the agent is told to choose. */
+  maxLookups?: number;
   /** How long one request may take, response included, before it is abandoned. */
   requestTimeoutMs?: number;
   /** Times a timed-out or failed request is sent again. */
@@ -102,6 +104,8 @@ type Message = OpenAI.Chat.Completions.ChatCompletionMessageParam;
 type CreateParams = OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming;
 
 const REQUEST_TIMEOUT_MS = 180_000;
+/** Enough to check a few facts; the menu and turn already hold most of them. */
+const MAX_LOOKUPS = 10;
 
 /**
  * Whether a failed request is worth sending again: timeouts, dropped
@@ -137,15 +141,33 @@ export class ChatPolicy implements Policy {
       { role: "user", content: request.game },
       { role: "user", content: turnMessage(request) },
     ];
-    const tools = TOOLS.map((tool) => ({ type: "function" as const, function: tool }));
+    const allTools = TOOLS.map((tool) => ({ type: "function" as const, function: tool }));
+    const chooseOnly = allTools.filter((tool) => tool.function.name === "choose");
     const usage = noUsage();
     const steps: ToolStep[] = [];
     const maxRequests = this.options.maxRequests ?? 8;
+    const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
+    let lookups = 0;
     let nudged = false;
+    let warned = false;
 
     for (let i = 0; i < maxRequests; i++) {
+      // The last request, or once lookups are spent, can only choose.
+      const last = i === maxRequests - 1 || lookups >= maxLookups;
+      if (last && i > 0 && !warned) {
+        warned = true;
+        messages.push({
+          role: "user",
+          content: "No more lookups for this decision. Call choose now with the label of your move.",
+        });
+      }
       const response = await this.complete(
-        { model: this.options.model, messages, tools, ...this.options.extraBody },
+        {
+          model: this.options.model,
+          messages,
+          tools: last ? chooseOnly : allTools,
+          ...this.options.extraBody,
+        },
         usage,
       );
       usage.requests++;
@@ -178,7 +200,12 @@ export class ChatPolicy implements Policy {
           result = "Unknown tool.";
         } else if (call.function.name === "lookup") {
           const args = parseLookup(call.function.arguments);
-          result = args.ok ? request.lookup(args.value) : `Error: ${args.error}`;
+          if (lookups >= maxLookups) {
+            result = "Lookup limit reached for this decision. Call choose now.";
+          } else {
+            lookups++;
+            result = args.ok ? request.lookup(args.value) : `Error: ${args.error}`;
+          }
         } else if (call.function.name === "choose") {
           const args = parseChoose(call.function.arguments, labels);
           if (args.ok && !chosen) {

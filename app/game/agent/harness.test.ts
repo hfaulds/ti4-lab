@@ -4,7 +4,7 @@ import { GameState } from "../types";
 import { objectivesById } from "../data";
 import { objectiveStatus } from "../engine/objectives";
 import { play, testGame } from "../engine/testing";
-import { describeTurn } from "./describe";
+import { describeGame, describeTurn } from "./describe";
 import {
   agentBoundaryProblem,
   agentToMove,
@@ -15,7 +15,7 @@ import {
 import { ChatPolicy, DecisionRequest, FirstCandidatePolicy } from "./policy";
 import { scriptedMove } from "./scriptedBot";
 import { setupFor } from "./setups";
-import { parseChoose } from "./tools";
+import { lookup, parseChoose } from "./tools";
 
 const newGame = (seed: number) => testGame({ seed, ...setupFor(seed) });
 
@@ -121,6 +121,23 @@ describe("agent harness", () => {
     for (const secret of state.players[seat].secretObjectives) {
       expect(text).toContain(objectivesById[secret].name);
     }
+  });
+});
+
+describe("lookup", () => {
+  test("finds every strategy card in the game, whichever set it comes from", () => {
+    const state = newGame(1);
+    for (const id of ["Diplomacy", "Construction (4)", "construction", "Leadership"]) {
+      expect(lookup(state, { kind: "strategy_card", id })).toMatch(/initiative \d\)\./);
+    }
+    expect(lookup(state, { kind: "strategy_card", id: "Bureaucracy" })).toMatch(
+      /Cards in this game: .*Diplomacy/,
+    );
+  });
+
+  test("the game block describes the strategy cards in play", () => {
+    const text = describeGame(newGame(1), 0);
+    expect(text).toMatch(/- Diplomacy \(initiative 2\)\. Primary: .+ Secondary: /);
   });
 });
 
@@ -269,5 +286,23 @@ describe("chat policy", () => {
     const policy = new ChatPolicy({ model: "m", apiKey: "k", client });
     await expect(policy.decide(request)).rejects.toThrow("bad request");
     expect(requests).toHaveLength(1);
+  });
+
+  test("stops lookups at the limit and leaves only choose on the last request", async () => {
+    const lookupCall = { calls: [{ name: "lookup", args: '{"kind":"planet","id":"Lodor"}' }] };
+    const { client, requests } = fakeClient([lookupCall, lookupCall, lookupCall, choose]);
+    const policy = new ChatPolicy({ model: "m", apiKey: "k", client, maxLookups: 2 });
+    const decision = await policy.decide(request);
+    expect(decision.label).toBe("A");
+    expect(decision.steps.map((s) => s.result)).toEqual([
+      "data for Lodor",
+      "data for Lodor",
+      "Lookup limit reached for this decision. Call choose now.",
+      "Move recorded.",
+    ]);
+    type Body = { tools: { function: { name: string } }[] };
+    const toolNames = (body: unknown) => (body as Body).tools.map((t) => t.function.name);
+    expect(toolNames(requests[0])).toEqual(["lookup", "choose"]);
+    expect(toolNames(requests[3])).toEqual(["choose"]);
   });
 });

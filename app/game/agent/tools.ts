@@ -9,7 +9,7 @@ import {
   abilitiesById,
   factionSetupFor,
   objectivesById,
-  strategyCards,
+  strategyCardsById,
   technologiesById,
   unitFor,
   UNIT_NAMES,
@@ -183,10 +183,16 @@ export function lookup(state: GameState, args: LookupArgs): string {
       return `${objective.name} (${objective.kind}, ${objective.points} VP, scored in the ${objective.phase} phase): ${objective.text}`;
     }
     case "strategy_card": {
-      const card = strategyCards.find(
-        (c) => c.source === "base" && normalise(c.name) === normalise(args.id),
-      );
-      if (!card) return `No strategy card matches "${args.id}".`;
+      // The printing in this game, which may come from any content set.
+      const wanted = normalise(args.id.replace(/\(.*\)\s*$/, ""));
+      const card = state.strategyCards
+        .map((id) => strategyCardsById[id])
+        .find((c) => c && (normalise(c.name) === wanted || normalise(c.id) === wanted));
+      if (!card) {
+        return `No strategy card matches "${args.id}". Cards in this game: ${state.strategyCards
+          .map((id) => strategyCardsById[id]?.name ?? id)
+          .join(", ")}.`;
+      }
       return [
         `${card.name} (initiative ${card.initiative}).`,
         `Primary: ${card.primary.join(" ")}`,

@@ -96,6 +96,15 @@ export function describeGame(state: GameState, seat: PlayerId) {
         `Abilities: ${abilities || "none"}.`,
     );
   }
+  lines.push("", "## Strategy cards");
+  for (const id of state.strategyCards) {
+    const card = strategyCardsById[id];
+    if (!card) continue;
+    lines.push(
+      `- ${card.name} (initiative ${card.initiative}). Primary: ${card.primary.join(" ")} ` +
+        `Secondary: ${card.secondary.join(" ")}`,
+    );
+  }
   lines.push("", "## Map", "Each system: planets (resources/influence, traits), features, adjacent systems.");
   const keys = Object.values(state.systems)
     .filter((s) => s.onBoard || s.homeOf !== undefined)

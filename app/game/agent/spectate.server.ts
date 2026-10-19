@@ -1,17 +1,22 @@
 /**
  * Mirrors a headless game into the web app so it can be watched live. The
  * game is saved to the app's database, then every move is sent through the
- * same endpoint human players use, which saves it and tells open browsers.
+ * same endpoint human players use, which saves it, with the agent's reasoning
+ * for its own moves, and tells open browsers.
  */
 import { PlayerId } from "~/types";
 import { createSavedGame } from "~/drizzle/game.server";
 import { GameAction } from "../actions";
+import { MoveNote } from "../history";
 import { GameState } from "../types";
 
 export type Spectating = {
   url: string;
   /** Sends a move to the server; stops mirroring if the copies disagree. */
-  onMove: (move: { player: PlayerId; action: GameAction }, state: GameState) => Promise<void>;
+  onMove: (
+    move: { player: PlayerId; action: GameAction; note?: MoveNote },
+    state: GameState,
+  ) => Promise<void>;
 };
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -36,12 +41,12 @@ export async function startSpectating(
   let mirroring = true;
   return {
     url: `${server}/game/${urlName}`,
-    async onMove({ player, action }, next) {
+    async onMove({ player, action, note }, next) {
       if (!mirroring) return;
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ player, action }),
+        body: JSON.stringify({ player, action, note }),
       });
       const body = (await response.json().catch(() => ({}))) as {
         success?: boolean;

@@ -5,6 +5,7 @@
 import { createHash } from "node:crypto";
 import { PlayerId } from "~/types";
 import { GameAction, GameActionType } from "../actions";
+import { MoveNote } from "../history";
 import { GameState, Prompt } from "../types";
 import { victoryPoints } from "../engine/control";
 import { openPrompts } from "../engine/helpers";
@@ -142,6 +143,23 @@ export type DecisionRecord = {
   ms: number;
 };
 
+/**
+ * What a decision tells a spectator about its move. Moves with only one
+ * legal option have nothing to explain.
+ */
+export function moveNote(record: DecisionRecord): MoveNote | undefined {
+  if (record.forced) return undefined;
+  const option = (label: string) =>
+    `${label}. ${record.menu.find((m) => m.label === label)?.text ?? ""}`;
+  return {
+    chosen: option(record.chosen),
+    rationale: record.rationale,
+    plan: record.planNote || undefined,
+    options: record.menu.map((m) => option(m.label)),
+    fallback: record.fallback ? (record.error ?? "No choice was made.") : undefined,
+  };
+}
+
 /** Player ids in order, so per-player arrays index by id (seating may differ). */
 const playerIds = (state: GameState) =>
   Object.keys(state.players).map(Number).sort((a, b) => a - b);
@@ -155,6 +173,8 @@ export type ReplayLog = {
   factions: string[];
   agentSeats: PlayerId[];
   startedAt: string;
+  /** The state the actions are played from; missing in older logs. */
+  initialState?: GameState;
   actions: { player: PlayerId; action: GameAction }[];
   decisions: DecisionRecord[];
   result: {
@@ -195,7 +215,10 @@ export type PlayOptions = {
    * Called after every move with the state it produced, and awaited before
    * the next move, e.g. to mirror the game into the web app.
    */
-  onMove?: (move: { player: PlayerId; action: GameAction }, state: GameState) => Promise<void>;
+  onMove?: (
+    move: { player: PlayerId; action: GameAction; note?: MoveNote },
+    state: GameState,
+  ) => Promise<void>;
 };
 
 /** Plays a game to the end (or the move budget) and returns its replay log. */
@@ -212,6 +235,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
     factions: playerIds(state).map((id) => state.players[id].faction),
     agentSeats,
     startedAt: new Date().toISOString(),
+    initialState: state,
     actions: [],
     decisions: [],
     result: { phase: state.phase, round: state.round, vp: [], moves: 0 },
@@ -221,6 +245,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
   for (let move = 0; move < maxMoves; move++) {
     let player: PlayerId;
     let action: GameAction;
+    let note: MoveNote | undefined;
 
     const seat = agentToMove(state, agentSeats);
     const menu = seat !== undefined ? buildMenu(state, seat) : [];
@@ -265,6 +290,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         ms: Date.now() - started,
       };
       log.decisions.push(record);
+      note = moveNote(record);
       options.onDecision?.(record, state);
     } else {
       const scripted = scriptedMove(state);
@@ -279,7 +305,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
     }
     state = result.state;
     log.actions.push({ player, action });
-    await options.onMove?.({ player, action }, state);
+    await options.onMove?.({ player, action, note }, state);
   }
 
   log.result = {

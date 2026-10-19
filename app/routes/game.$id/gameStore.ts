@@ -2,6 +2,7 @@ import { notifications } from "@mantine/notifications";
 import { create } from "zustand";
 import { GameAction } from "~/game/actions";
 import { openPrompts } from "~/game/engine/helpers";
+import { HistoryStep } from "~/game/history";
 import { SystemKey } from "~/game/types";
 import { asState, GameView } from "~/game/view";
 import { PlayerId } from "~/types";
@@ -24,6 +25,12 @@ type GameStore = {
   player?: PlayerId;
   selectedSystem?: SystemKey;
   busy: boolean;
+  /** Every point of the game so far, once history has been opened. */
+  steps?: HistoryStep[];
+  /** The earlier version on screen; undefined shows the game as it is now. */
+  viewing?: number;
+  /** The game at `viewing`, once it has arrived. */
+  pastView?: GameView;
   load: (urlName: string, view: GameView) => void;
   /** Picks how to join the game; undefined goes back to choosing. */
   chooseSeat: (seat?: Seat) => Promise<void>;
@@ -31,6 +38,10 @@ type GameStore = {
   refresh: () => Promise<void>;
   /** Sends an action as `as`, defaulting to the seat being played. */
   dispatch: (action: GameAction, as?: PlayerId) => Promise<boolean>;
+  openHistory: () => Promise<void>;
+  closeHistory: () => void;
+  /** Shows the game as it was at `version`; undefined returns to now. */
+  viewVersion: (version?: number) => Promise<void>;
 };
 
 const seatKey = (urlName: string) => `game:seat:${urlName}`;
@@ -67,7 +78,15 @@ export const useGame = create<GameStore>((set, get) => {
     urlName: "",
     busy: false,
 
-    load: (urlName, view) => set({ urlName, view, selectedSystem: undefined }),
+    load: (urlName, view) =>
+      set({
+        urlName,
+        view,
+        selectedSystem: undefined,
+        steps: undefined,
+        viewing: undefined,
+        pastView: undefined,
+      }),
 
     chooseSeat: async (seat) => {
       const { urlName, view } = get();
@@ -75,7 +94,15 @@ export const useGame = create<GameStore>((set, get) => {
       if (seat === undefined) localStorage.removeItem(seatKey(urlName));
       else localStorage.setItem(seatKey(urlName), JSON.stringify(seat));
       set({ seat, player: playerFor(seat, view) });
-      if (seat) await get().refresh();
+      if (!seat) return;
+      await get().refresh();
+      // What a seat may read in the past differs too.
+      const { steps, viewing } = get();
+      if (steps) {
+        set({ steps: undefined });
+        await get().openHistory();
+      }
+      if (viewing !== undefined) await get().viewVersion(viewing);
     },
 
     selectSystem: (selectedSystem) => set({ selectedSystem }),
@@ -90,11 +117,20 @@ export const useGame = create<GameStore>((set, get) => {
       const current = get().view;
       if (!current || view.version >= current.version) set({ view });
       await followTurn();
+      if (get().steps) await get().openHistory();
     },
 
     dispatch: async (action, as) => {
       const { urlName, player } = get();
       const actor = as ?? player;
+      if (get().viewing !== undefined) {
+        notifications.show({
+          color: "orange",
+          title: "Viewing history",
+          message: "Return to the current game before acting.",
+        });
+        return false;
+      }
       if (actor === undefined) {
         notifications.show({
           color: "orange",
@@ -141,6 +177,42 @@ export const useGame = create<GameStore>((set, get) => {
       } finally {
         set({ busy: false });
       }
+    },
+
+    openHistory: async () => {
+      const { urlName, player, steps } = get();
+      const params = new URLSearchParams();
+      if (player !== undefined) params.set("player", String(player));
+      // Only the moves since the timeline was last read.
+      const known = steps?.[steps.length - 1]?.version;
+      if (known !== undefined) params.set("after", String(known));
+      const response = await fetch(`/api/game/${urlName}/history?${params}`);
+      if (!response.ok) return;
+      const { steps: fresh } = (await response.json()) as {
+        steps: HistoryStep[];
+      };
+      const current = get().steps ?? [];
+      const last = current[current.length - 1]?.version ?? -1;
+      set({ steps: [...current, ...fresh.filter((s) => s.version > last)] });
+    },
+
+    closeHistory: () =>
+      set({ steps: undefined, viewing: undefined, pastView: undefined }),
+
+    viewVersion: async (version) => {
+      const { urlName, player, view } = get();
+      if (version === undefined || version === view?.version) {
+        set({ viewing: undefined, pastView: undefined });
+        return;
+      }
+      set({ viewing: version });
+      const params = new URLSearchParams({ version: String(version) });
+      if (player !== undefined) params.set("player", String(player));
+      const response = await fetch(`/api/game/${urlName}?${params}`);
+      if (!response.ok) return;
+      const { view: past } = (await response.json()) as { view: GameView };
+      // Stepping on quickly must not show an older answer.
+      if (get().viewing === version) set({ pastView: past });
     },
   };
 });

@@ -1,4 +1,4 @@
-import { PlayerId } from "~/types";
+import { FactionId, PlayerId } from "~/types";
 import { isGroundForce, isShip, UNIT_NAMES, UnitData } from "../data";
 import { HitAssignment } from "../actions";
 import {
@@ -65,9 +65,16 @@ export const shootersIn = (
     })
     .map((type) => ({ type, count: countOf(group, type) }));
 
+/** Faction modifiers to every combat roll (Unrelenting, Fragile). */
+export const FACTION_COMBAT_MODIFIERS: Partial<Record<FactionId, number>> = {
+  sardakk: 1,
+  jolnar: -1,
+};
+
 /**
- * Rolls an ability for a set of units. `modifier` is added to each die;
- * `bonusDice` extra dice go to the unit most likely to hit (Plasma Scoring).
+ * Rolls an ability for a set of units. `modifier` is added to each die, along
+ * with the faction's modifier on combat rolls; `bonusDice` extra dice go to
+ * the unit most likely to hit (Plasma Scoring).
  */
 export function rollAbility(
   state: GameState,
@@ -76,7 +83,11 @@ export function rollAbility(
   ability: Ability,
   options: { modifier?: number; bonusDice?: number } = {},
 ): { rolls: CombatRoll[]; hits: number } {
-  const modifier = options.modifier ?? 0;
+  const faction =
+    ability === "combat"
+      ? (FACTION_COMBAT_MODIFIERS[state.players[id].faction] ?? 0)
+      : 0;
+  const modifier = (options.modifier ?? 0) + faction;
   const plans = shooters
     .map(({ type, count }) => {
       const unit = unitOf(state, id, type)!;

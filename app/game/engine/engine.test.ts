@@ -8,6 +8,7 @@ import {
   MECATOL_REX,
   moveRulesFor,
 } from "./board";
+import { rollAbility } from "./combat";
 import { victoryPoints } from "./control";
 import { countOf, openPrompts, totalUnits } from "./helpers";
 import { applyAction } from "./index";
@@ -599,6 +600,33 @@ describe("combat", () => {
     expect(countOf(space, "carrier")).toBe(0);
     expect(countOf(space, "infantry")).toBe(0);
     expect(state.log.some((e) => /nothing left to carry them/.test(e.text))).toBe(true);
+  });
+
+  test("Sardakk N'orr add 1 and Jol-Nar subtract 1 from combat rolls", () => {
+    const state = testGame({ factions: ["sardakk", "jolnar", "sol"] });
+    const roll = (
+      id: number,
+      ability: "combat" | "spaceCannon",
+      type: "cruiser" | "pds",
+    ) => {
+      const shooters = [{ type, count: 20 }];
+      return rollAbility(structuredClone(state), id, shooters, ability).rolls[0];
+    };
+    const hitsWith = (r: { dice: number[]; target: number }, modifier: number) =>
+      r.dice.filter((d) => d + modifier >= r.target).length;
+
+    const sardakk = roll(0, "combat", "cruiser");
+    const jolnar = roll(1, "combat", "cruiser");
+    const sol = roll(2, "combat", "cruiser");
+    // Dice on the boundary make the modifier visible in the hit count.
+    expect(sardakk.dice).toContain(sardakk.target - 1);
+    expect(jolnar.dice).toContain(jolnar.target);
+    expect(sardakk.hits).toBe(hitsWith(sardakk, 1));
+    expect(jolnar.hits).toBe(hitsWith(jolnar, -1));
+    expect(sol.hits).toBe(hitsWith(sol, 0));
+    // Only combat rolls: SPACE CANNON is unmodified.
+    const cannon = roll(0, "spaceCannon", "pds");
+    expect(cannon.hits).toBe(hitsWith(cannon, 0));
   });
 
   test("is reproducible from the same seed", () => {

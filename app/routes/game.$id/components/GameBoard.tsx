@@ -1,10 +1,13 @@
 import { Box, Text } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { Hex } from "~/components/Hex";
 import { RawSystemTile } from "~/components/tiles/SystemTile";
-import { systemData } from "~/data/systemData";
 import { UNIT_NAMES } from "~/game/data";
-import { MALLICE, WORMHOLE_NEXUS_ID, wormholesOf } from "~/game/engine/board";
+import {
+  MALLICE,
+  systemInfo,
+  WORMHOLE_NEXUS_ID,
+  wormholesOf,
+} from "~/game/engine/board";
 import { openPrompts } from "~/game/engine/helpers";
 import { Forces, SystemState } from "~/game/types";
 import { asState, GameView } from "~/game/view";
@@ -228,7 +231,6 @@ function Tile({
   const selected = useGame((state) => state.selectedSystem === system.key);
   const selectSystem = useGame((state) => state.selectSystem);
   const active = view.tactical?.system === system.key;
-  const known = !!systemData[tile.systemId];
   // Points the player at the home system their starting units go in.
   const placing = useGame(
     (state) =>
@@ -262,20 +264,13 @@ function Tile({
         }
       }}
     >
-      {known ? (
-        <RawSystemTile
-          mapId="game"
-          tile={tile}
-          radius={radius}
-          disablePopover
-        />
-      ) : (
-        <Hex id={`game-${tile.systemId}`} radius={radius} color="#1b1f3a">
-          <Text size="xs" c="dimmed">
-            Creuss Gate
-          </Text>
-        </Hex>
-      )}
+      <RawSystemTile
+        mapId="game"
+        tile={tile}
+        radius={radius}
+        disablePopover
+        system={systemInfo(tile.systemId)}
+      />
       <SystemOverlay view={view} system={system} />
     </div>
   );

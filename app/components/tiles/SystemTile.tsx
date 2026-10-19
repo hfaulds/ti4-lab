@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Hex } from "../Hex";
 import { Planet } from "../Planet";
-import type { SystemTile } from "~/types";
+import type { System, SystemTile } from "~/types";
 import { Group } from "@mantine/core";
 import { calcScale } from "./calcScale";
 import { AnomalyImage } from "../features/AnomalyImage";
@@ -20,11 +20,20 @@ type RawProps = {
   hideValues?: boolean;
   radius: number;
   disablePopover?: boolean;
+  /** The system to draw, for tiles the draft data has no entry for. */
+  system?: System;
 };
 
-export function RawSystemTile({ mapId, tile, hideValues = false, radius, disablePopover = false }: RawProps) {
+export function RawSystemTile({
+  mapId,
+  tile,
+  hideValues = false,
+  radius,
+  disablePopover = false,
+  system: systemOverride,
+}: RawProps) {
   const scale = calcScale(radius);
-  const system = systemData[tile.systemId];
+  const system = systemOverride ?? systemData[tile.systemId];
 
   const image = (
     <>

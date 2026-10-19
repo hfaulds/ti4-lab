@@ -114,6 +114,15 @@ export function Wormhole({ wormhole, size = 60, fontSize = 18 }: Props) {
               transform="translate(24, 76)"
             />
           )}
+
+          {wormhole === "DELTA" && (
+            <path
+              fill="white"
+              fillRule="evenodd"
+              strokeWidth="0"
+              d="M91.4,107L112.4,147H70.4z M91.4,119.5L102.4,141.5H80.4z"
+            />
+          )}
         </g>
       </svg>
     </div>

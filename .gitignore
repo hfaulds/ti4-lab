@@ -17,3 +17,6 @@ knowledge/transcripts/
 knowledge/chunks/
 knowledge/knowledge.db
 knowledge/knowledge.db-*
+
+# Agent replay logs
+games/

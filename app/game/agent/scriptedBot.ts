@@ -111,8 +111,13 @@ const ACTIVATION_THRESHOLD = 2;
 /** Worth of a planet the fleet will be in reach of next turn. */
 const STAGING_WEIGHT = 0.4;
 
-/** The next move for whoever the game is waiting on, if anyone. */
-export function scriptedMove(state: GameState): ScriptedMove | undefined {
+/**
+ * The bot's ranked candidate actions for whoever the game is waiting on,
+ * before any legality check, or undefined if nobody is to move.
+ */
+export function scriptedCandidates(
+  state: GameState,
+): { player: PlayerId; actions: GameAction[] } | undefined {
   if (state.phase === "finished") return undefined;
   const [prompt] = openPrompts(state);
   const [offer] = state.transactions;
@@ -133,6 +138,14 @@ export function scriptedMove(state: GameState): ScriptedMove | undefined {
           { type: "ANSWER_TRANSACTION", transaction: offer.id, accept: false },
         ]
       : takeTurn(state, player);
+  return { player, actions: candidates };
+}
+
+/** The next move for whoever the game is waiting on, if anyone. */
+export function scriptedMove(state: GameState): ScriptedMove | undefined {
+  const ranked = scriptedCandidates(state);
+  if (!ranked) return undefined;
+  const { player, actions: candidates } = ranked;
   for (const action of candidates) {
     if (applyAction(state, player, action).ok) {
       return { player, action, fallback: false };
@@ -877,10 +890,10 @@ function onwardTargets(
     );
 }
 
-type Plan = { value: number; moves: ShipMove[]; cargo: CargoPickup[] };
+export type Plan = { value: number; moves: ShipMove[]; cargo: CargoPickup[] };
 
 /** The most valuable tactical action in `key`: an invasion or a position. */
-function bestPlan(
+export function bestPlan(
   state: GameState,
   id: PlayerId,
   key: SystemKey,

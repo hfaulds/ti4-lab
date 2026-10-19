@@ -360,15 +360,31 @@ function Tile({
   );
 }
 
-/** How tall an element can be without running past the bottom of the window. */
-function useHeightToWindowBottom(ref: React.RefObject<HTMLElement>) {
+/**
+ * How tall an element can be without running past the bottom of the window.
+ * While `hold` is set the height stays as it was, following only changes to
+ * the window's own height, so a taller bar opening above (like the history
+ * timeline) moves the element down instead of shrinking it.
+ */
+function useHeightToWindowBottom(
+  ref: React.RefObject<HTMLElement | null>,
+  hold: boolean,
+) {
   const [height, setHeight] = useState<number>();
+  const held = useRef<{ height: number; windowHeight: number }>(undefined);
   useEffect(() => {
     const measure = () => {
+      if (hold && held.current) {
+        const grown = window.innerHeight - held.current.windowHeight;
+        setHeight(Math.max(240, held.current.height + grown));
+        return;
+      }
       const element = ref.current;
       if (!element) return;
       const top = element.getBoundingClientRect().top + window.scrollY;
-      setHeight(Math.max(240, window.innerHeight - top - 16));
+      const fit = Math.max(240, window.innerHeight - top - 16);
+      held.current = { height: fit, windowHeight: window.innerHeight };
+      setHeight(fit);
     };
     measure();
     // Banners above the board, like the disconnection alert, move it down.
@@ -379,7 +395,7 @@ function useHeightToWindowBottom(ref: React.RefObject<HTMLElement>) {
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [ref]);
+  }, [ref, hold]);
   return height;
 }
 
@@ -398,7 +414,9 @@ export function GameBoard({
   baseWidth: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const fitHeight = useHeightToWindowBottom(ref);
+  // Opening the history timeline should not shrink the map.
+  const historyOpen = useGame((state) => state.steps !== undefined);
+  const fitHeight = useHeightToWindowBottom(ref, historyOpen);
   const tiles = view.map.flatMap((tile, idx) =>
     tile.type === "SYSTEM" ? [{ tile, idx }] : [],
   );

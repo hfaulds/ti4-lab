@@ -1,6 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { GameState } from "../types";
-import { controlledPlanets, planetResources } from "../engine/board";
+import {
+  controlledPlanets,
+  neighborsOf,
+  planetResources,
+} from "../engine/board";
 import { victoryPoints } from "../engine/control";
 import { play, testGame } from "../engine/testing";
 import { findPayment, readyPlanets } from "./payment";
@@ -81,5 +85,39 @@ describe("scripted bot", () => {
     const second = playOut(testGame({ seed: 4 }), (s) => s.round > 2).state;
     expect(second.version).toBe(first.version);
     expect(second.log.map((l) => l.text)).toEqual(first.log.map((l) => l.text));
+  });
+
+  test("turns down offers that take more than they give", () => {
+    const hasNeighbor = (s: GameState) =>
+      s.phase === "action" &&
+      s.prompts.length === 0 &&
+      s.transactions.length === 0 &&
+      s.activePlayer !== undefined &&
+      neighborsOf(s, s.activePlayer).length > 0;
+    let state = playOut(testGame(), hasNeighbor).state;
+    const id = state.activePlayer!;
+    const other = state.seating.find((p) => neighborsOf(state, id).includes(p))!;
+    for (const player of [id, other]) {
+      state = play(state, id, {
+        type: "ADJUST",
+        adjustment: { type: "tradeGoods", player, amount: 4 },
+      });
+    }
+    type Side = { tradeGoods?: number };
+    const answer = (give: Side, receive: Side) => {
+      const offered = play(state, id, {
+        type: "PROPOSE_TRANSACTION",
+        to: other,
+        give,
+        receive,
+      });
+      return scriptedMove(offered)!;
+    };
+
+    const greedy = answer({}, { tradeGoods: 4 });
+    expect(greedy.player).toBe(other);
+    expect(greedy.action).toMatchObject({ type: "ANSWER_TRANSACTION", accept: false });
+    const fair = answer({ tradeGoods: 2 }, { tradeGoods: 2 });
+    expect(fair.action).toMatchObject({ type: "ANSWER_TRANSACTION", accept: true });
   });
 });

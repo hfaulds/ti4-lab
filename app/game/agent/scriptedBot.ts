@@ -24,6 +24,7 @@ import {
   GameState,
   Prompt,
   SystemKey,
+  TransactionSide,
   UnitCounts,
   UnitType,
 } from "../types";
@@ -89,7 +90,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 1;
+export const SCRIPTED_BOT_VERSION = 2;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -126,7 +127,9 @@ export function scriptedMove(state: GameState): ScriptedMove | undefined {
     ? answerPrompt(state, prompt)
     : offer
       ? [
-          { type: "ANSWER_TRANSACTION", transaction: offer.id, accept: true },
+          ...(acceptsOffer(offer.give, offer.receive)
+            ? [{ type: "ANSWER_TRANSACTION", transaction: offer.id, accept: true } as const]
+            : []),
           { type: "ANSWER_TRANSACTION", transaction: offer.id, accept: false },
         ]
       : takeTurn(state, player);
@@ -535,22 +538,46 @@ function takeTurn(state: GameState, id: PlayerId): GameAction[] {
   return actions;
 }
 
+const onlyGoods = (side: TransactionSide) =>
+  !side.promissoryNotes?.length &&
+  !side.actionCards?.length &&
+  !side.relicFragments?.length;
+const worth = (side: TransactionSide) =>
+  (side.tradeGoods ?? 0) + (side.commodities ?? 0);
+
 /**
- * Offers each neighbor a swap of commodities, which both sides receive as
- * trade goods. Only offers the neighbor can accept are made, so an offer
- * never comes back round unanswered.
+ * Whether the bot, on the receiving end of an offer, takes it: trade goods
+ * and commodities only, and at least as much coming in as going out.
+ * `give` is what the proposer gives, so it is what the bot receives.
+ */
+function acceptsOffer(give: TransactionSide, receive: TransactionSide) {
+  return (
+    onlyGoods(give) &&
+    onlyGoods(receive) &&
+    worth(give) > 0 &&
+    worth(give) >= worth(receive)
+  );
+}
+
+/**
+ * Offers each neighbor an even swap of commodities, which both sides receive
+ * as trade goods. Only offers the neighbor will legally accept are made, so
+ * an offer never comes back round unanswered.
  */
 function commodityTrades(state: GameState, id: PlayerId): GameAction[] {
   const mine = state.players[id].commodities;
   if (mine === 0) return [];
   for (const other of neighborsOf(state, id)) {
-    const theirs = state.players[other].commodities;
-    if (theirs === 0 || state.tradedWith.includes(other)) continue;
+    const swap = Math.min(mine, state.players[other].commodities);
+    if (swap === 0 || state.tradedWith.includes(other)) continue;
+    const give = { commodities: swap };
+    const receive = { commodities: swap };
+    if (!acceptsOffer(give, receive)) continue;
     const action: GameAction = {
       type: "PROPOSE_TRANSACTION",
       to: other,
-      give: { commodities: mine },
-      receive: { commodities: theirs },
+      give,
+      receive,
     };
     const proposed = applyAction(state, id, action);
     if (!proposed.ok) continue;

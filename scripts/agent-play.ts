@@ -1,12 +1,14 @@
 /**
- * Plays one game with an agent seat against scripted bots and writes the
- * replay log to games/.
+ * Plays one game with an agent seat (or several) against scripted bots and
+ * writes the replay log to games/.
  *
- *   tsx scripts/agent-play.ts [--seed 1] [--seat 0] [--policy deepseek|first]
+ *   tsx scripts/agent-play.ts [--seed 1] [--seat 0|all] [--policy deepseek|first]
  *                             [--model deepseek-flash] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
- *                             [--no-knowledge]
+ *                             [--no-knowledge] [--stop-at action]
  *
+ * --seat all makes every player an agent. --stop-at ends the game when it
+ * first reaches that phase, e.g. to look at strategy card picks alone.
  * The deepseek policy reads DEEPSEEK_API_KEY from the environment or .env.
  * --spectate saves the game to the web app's database (TI4_LAB_DATABASE_PATH)
  * and plays every move through the running app, so it can be watched live.
@@ -26,6 +28,7 @@ import { playAgentGame } from "~/game/agent/harness";
 import { ChatPolicy, FirstCandidatePolicy, Policy } from "~/game/agent/policy";
 import { setupFor } from "~/game/agent/setups";
 import { testGame } from "~/game/engine/testing";
+import { PlayerId } from "~/types";
 import { KnowledgeBase, openKnowledgeBase } from "~/knowledge/search";
 import { SynonymList } from "~/knowledge/synonyms";
 
@@ -45,7 +48,7 @@ try {
 }
 
 const seed = Number(option("seed", "1"));
-const seat = Number(option("seat", "0"));
+const seatOption = option("seat", "0");
 const policyName = option("policy", "deepseek");
 const model = option("model", "deepseek-flash");
 
@@ -63,13 +66,16 @@ if (policyName === "first") {
 
 // Names show in the web app and in the game log.
 const state = structuredClone(testGame({ seed, ...setupFor(seed) }));
+const agentSeats = seatOption === "all" ? [...state.seating] : [Number(seatOption) as PlayerId];
+// The first agent seat names the files and the spectator's suggested seat.
+const seat = agentSeats[0];
 for (const player of Object.values(state.players)) {
-  player.name = player.id === seat ? `Agent (${policy.name})` : `Bot ${player.id}`;
+  player.name = agentSeats.includes(player.id) ? `Agent ${player.id} (${policy.name})` : `Bot ${player.id}`;
 }
-console.log(
-  `Seed ${seed}: agent is P${seat} (${state.players[seat].faction}); ` +
-    `others ${state.seating.filter((id) => id !== seat).map((id) => state.players[id].faction).join(", ")}.`,
-);
+const describe = (ids: PlayerId[]) => ids.map((id) => `P${id} ${state.players[id].faction}`).join(", ");
+const bots = state.seating.filter((id) => !agentSeats.includes(id));
+console.log(`Seed ${seed}: agents ${describe(agentSeats)}; bots ${bots.length > 0 ? describe(bots) : "none"}.`);
+const stopAt = option("stop-at", "");
 
 let onMove: Parameters<typeof playAgentGame>[0]["onMove"];
 if (flag("spectate")) {
@@ -95,7 +101,8 @@ if (!flag("no-knowledge") && policyName !== "first") {
 }
 
 mkdirSync("games", { recursive: true });
-const live = `games/${new Date().toISOString().replace(/[:.]/g, "-")}-seed${seed}-p${seat}.decisions.jsonl`;
+const seatTag = seatOption === "all" ? "all" : `p${seat}`;
+const live = `games/${new Date().toISOString().replace(/[:.]/g, "-")}-seed${seed}-${seatTag}.decisions.jsonl`;
 console.log(`Decisions: ${live}`);
 
 /** One line for a tool call: what was asked, and what came back in brief. */
@@ -109,16 +116,18 @@ function describeStep(step: { tool: string; arguments: string; result: string })
 const log = await playAgentGame({
   state,
   seed,
-  agentSeats: [seat],
+  agentSeats,
   policy,
   knowledge,
+  until: stopAt ? (s) => s.phase === stopAt : undefined,
   onMove,
   onDecision: (record) => {
     appendFileSync(live, `${JSON.stringify(record)}\n`);
     if (flag("quiet") || record.forced) return;
     const chosen = record.menu.find((m) => m.label === record.chosen);
     const tag = record.fallback ? ` [fallback: ${record.error ?? "no choice"}]` : "";
-    console.log(`r${record.round} ${record.phase} ${record.chosen}. ${chosen?.text}${tag}`);
+    const who = agentSeats.length > 1 ? `P${record.player} ` : "";
+    console.log(`${who}r${record.round} ${record.phase} ${record.chosen}. ${chosen?.text}${tag}`);
     for (const step of record.steps) {
       const line = describeStep(step);
       if (line) console.log(line);
@@ -146,12 +155,13 @@ const cost =
     total.output * PRICES.output) /
   1e6;
 
-const file = `games/${log.startedAt.replace(/[:.]/g, "-")}-seed${seed}-p${seat}.json`;
+const file = `games/${log.startedAt.replace(/[:.]/g, "-")}-seed${seed}-${seatTag}.json`;
 writeFileSync(file, JSON.stringify(log, null, 2));
 
 console.log(
   `\nGame ${log.result.phase} in round ${log.result.round}; winner ${log.result.winner !== undefined ? `P${log.result.winner}` : "none"}; ` +
-    `VP ${log.result.vp.join("/")} (agent P${seat}: ${log.result.vp[seat]}).`,
+    `VP ${log.result.vp.join("/")}` +
+    (agentSeats.length === 1 ? ` (agent P${seat}: ${log.result.vp[seat]}).` : "."),
 );
 console.log(
   `${decisions.length} agent decisions, ${decisions.filter((d) => d.fallback).length} fallbacks, ` +

@@ -256,6 +256,8 @@ export type PlayOptions = {
   knowledge?: KnowledgeBase;
   seed?: number;
   maxMoves?: number;
+  /** Stops the game early, before the first move made once this holds. */
+  until?: (state: GameState) => boolean;
   /** Called after each agent decision, e.g. to print progress. */
   onDecision?: (record: DecisionRecord, state: GameState) => void;
   /**
@@ -290,6 +292,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
 
   const maxMoves = options.maxMoves ?? 20000;
   for (let move = 0; move < maxMoves; move++) {
+    if (options.until?.(state)) break;
     let player: PlayerId;
     let action: GameAction;
     let note: MoveNote | undefined;

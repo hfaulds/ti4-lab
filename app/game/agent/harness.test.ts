@@ -146,7 +146,7 @@ describe("skipped secondaries", () => {
     // The bot never uses Politics' secondary, so its choice, Skip, stays first.
     expect(menu[0].text).toBe("Skip the secondary");
     expect(menu.map((c) => c.text)).toContain(
-      "Use the secondary: draw 2 action cards (they cannot be played in this engine) (costs 1 strategy token)",
+      "Use the secondary: draw 2 action cards (costs 1 strategy token)",
     );
   });
 

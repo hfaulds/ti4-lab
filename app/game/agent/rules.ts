@@ -24,7 +24,7 @@ Resources pay for units and technology; influence pays for command tokens (via L
 
 Mecatol Rex: the first player to land there pays 6 influence to remove the custodians token and gains 1 VP. Whoever holds Mecatol gains 1 VP each time they use the Imperial primary.
 
-Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock a system), Politics (action cards, speaker), Construction (build PDS and space docks), Trade (trade goods, commodities), Warfare (remove a command token, produce at home), Technology (research), Imperial (score a public objective now; Mecatol VP or a secret objective).
+Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock a system), Politics (action cards, speaker), Construction (build PDS and space docks), Trade (3 trade goods, refill commodities), Warfare (remove a command token, produce at home), Technology (research), Imperial (score a public objective now; Mecatol VP or a secret objective).
 
 # Basic strategy
 1. Scoring tempo is important. You can only score 1 public objective per round, and are limited on some private objectives. If you get behind it can be very hard to catch up.
@@ -45,7 +45,13 @@ The menu lists legal moves as labelled candidates. Each line was prepared by a s
 
 Use the lookup tool for exact data on a faction, unit, technology, objective or planet when it matters; strategy cards are described in the game block. Lookups are limited per decision, so check only what could change your choice.
 
-When the search_guides tool is offered, it searches strategy guides from experienced players: how factions open, which strategy cards and technologies to take, how to score and when to trade. Search when the decision is a strategic one (a strategy card pick, a technology, a faction's first rounds, a deal), not for routine moves. The guides are written for human tables, so weigh their advice against this board. Searches share the lookup limit.
+When the search_guides tool is offered, it searches strategy guides from experienced players: how factions open, which strategy cards and technologies to take, how to score and when to trade. Search when the decision is a strategic one (a strategy card pick, a technology, a faction's first rounds, a deal), not for routine moves. Searches share the lookup limit.
+
+A guide's default ("take Trade or Leadership") is where to start, not the answer: the guides are written for human tables, and they also say when the default changes. Check it against this board before choosing:
+- Objectives: which public objectives are out, and what you are missing to score them in the next round or two.
+- Neighbours and reach: trades only happen between neighbours. Commodities are usually swapped in the round Trade is played, when everyone's are refilled, but you can move next to partners after playing Trade, so what counts is who you could neighbour this round (your turn block lists them), not who you border now.
+- The table: what the other players need, and which cards remain.
+When a passage names an exception (for example "unless a tech objective is out"), search for it or check it, and say in your rationale whether it applies here.
 
 Then call choose exactly once with:
 - candidate: the label of the move (for example "C").

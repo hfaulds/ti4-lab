@@ -24,14 +24,19 @@ import { EffectTargets, GameState, Payment, SystemKey, UnitGroup } from "../type
 import {
   adjacentSystems,
   anomaliesOf,
+  findRoute,
   MECATOL_REX,
+  moveRulesFor,
+  neighborsOf,
+  presence,
   planetInfluence,
   planetInfo,
   planetResources,
   planetTechSpecialties,
   wormholesOf,
 } from "../engine/board";
-import { openPrompts, unitTypes } from "../engine/helpers";
+import { hasTech, openPrompts, unitOf, unitTypes } from "../engine/helpers";
+import { moveBonus } from "../engine/tactical";
 import { objectiveStatus } from "../engine/objectives";
 import { reactionName } from "../engine/reactions";
 import { viewFor } from "../view";
@@ -148,6 +153,47 @@ function objectiveLine(state: GameState, seat: PlayerId, id: string, scoredBy?: 
 }
 
 /** The current position as the seat sees it. */
+/**
+ * A system `mover` could move a ship to in one move that would make them
+ * neighbors of `other`: empty, and in or next to one of `other`'s systems.
+ */
+function neighborlyMove(state: GameState, mover: PlayerId, other: PlayerId) {
+  const ships = Object.values(state.systems)
+    .filter((system) => !system.commandTokens.includes(mover))
+    .flatMap((origin) =>
+      unitTypes(origin.space[mover]).flatMap((type) => {
+        const move = unitOf(state, mover, type)?.move;
+        if (!move) return [];
+        const bonus = moveBonus(state, mover, origin.key) + (hasTech(state, mover, "gd") ? 1 : 0);
+        return [{ from: origin.key, move: move + bonus }];
+      }),
+    );
+  // Systems with anyone else in them would mean a fight, not a neighbor.
+  const occupied = new Set(
+    state.seating.filter((id) => id !== mover).flatMap((id) => presence(state, id)),
+  );
+  const theirs = presence(state, other);
+  return [...new Set(theirs.flatMap((k) => adjacentSystems(state, k)))]
+    .filter((k) => !occupied.has(k))
+    .find((target) =>
+      ships.some(
+        ({ from, move }) =>
+          from === target || !!findRoute(state, from, move, moveRulesFor(state, mover, target)),
+      ),
+    );
+}
+
+/** Who could become your neighbor with one move, by you or by them. */
+function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[]) {
+  return state.seating.flatMap((id) => {
+    if (id === seat || neighbors.includes(id) || state.players[id].eliminated) return [];
+    const mine = neighborlyMove(state, seat, id);
+    if (mine !== undefined) return [`P${id} (you can move to #${mine})`];
+    const theirs = neighborlyMove(state, id, seat);
+    return theirs !== undefined ? [`P${id} (they can move to #${theirs})`] : [];
+  });
+}
+
 export function describeTurn(state: GameState, seat: PlayerId) {
   const view = viewFor(state, seat);
   const me = view.players[seat];
@@ -176,7 +222,7 @@ export function describeTurn(state: GameState, seat: PlayerId) {
   );
   lines.push(`Technologies: ${me.technologies.map(techName).join(", ") || "none"}.`);
   lines.push(
-    `Action cards in hand: ${me.actionCards.length} (they cannot be played in this engine).`,
+    `Action cards in hand: ${me.actionCards.length} (the planner offers them on your menu when one is worth playing).`,
   );
   const planets = Object.values(view.planets).filter((p) => p.controller === seat);
   const ready = planets.filter((p) => !p.exhausted);
@@ -203,6 +249,14 @@ export function describeTurn(state: GameState, seat: PlayerId) {
         ? "custodians token still on it (6 influence to remove, +1 VP)"
         : `controlled by ${view.planets[MECATOL_REX]?.controller !== undefined ? `P${view.planets[MECATOL_REX].controller}` : "nobody"}`
     }.`,
+  );
+
+  const neighbors = neighborsOf(state, seat);
+  const reach = neighborsInReach(state, seat, neighbors);
+  lines.push(
+    `Neighbors: ${neighbors.map((id) => `P${id}`).join(", ") || "none yet"}. ` +
+      `Could become neighbors with one move: ${reach.join(", ") || "nobody"}. ` +
+      "Only neighbors can trade; you become neighbors by having units or planets in or next to a system where they do.",
   );
 
   lines.push("", "## Other players");
@@ -317,7 +371,7 @@ function secondaryLabel(state: GameState, payload: StrategicPayload) {
         `pools become ${payload.pools.tactic}/${payload.pools.fleet}/${payload.pools.strategy} (tactic/fleet/strategy)`;
     }
     case "politics":
-      return "draw 2 action cards (they cannot be played in this engine)";
+      return "draw 2 action cards";
     case "construction": {
       const [structure] = payload.structures;
       if (!structure) return "build nothing";

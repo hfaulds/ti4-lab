@@ -1,13 +1,12 @@
 import { Box, Text, Tooltip } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { Hex } from "~/components/Hex";
 import { FactionIcon } from "~/components/icons/FactionIcon";
 import { calcScale } from "~/components/tiles/calcScale";
 import { RawSystemTile } from "~/components/tiles/SystemTile";
-import { systemData } from "~/data/systemData";
 import {
   MALLICE,
   MECATOL_REX,
+  systemInfo,
   WORMHOLE_NEXUS_ID,
   wormholesOf,
 } from "~/game/engine/board";
@@ -298,7 +297,6 @@ function Tile({
   const selected = useGame((state) => state.selectedSystem === system.key);
   const selectSystem = useGame((state) => state.selectSystem);
   const active = view.tactical?.system === system.key;
-  const known = !!systemData[tile.systemId];
   // Points the player at the home system their starting units go in.
   const placing = useGame(
     (state) =>
@@ -332,29 +330,22 @@ function Tile({
         }
       }}
     >
-      {known ? (
-        <RawSystemTile
-          mapId="game"
-          tile={tile}
-          radius={radius}
-          hideValues
-          disablePopover
-          planetOverlay={(planet) => (
-            <PlanetOverlay
-              view={view}
-              name={planet.name}
-              radius={radius}
-              shared={system.planets.length > 1}
-            />
-          )}
-        />
-      ) : (
-        <Hex id={`game-${tile.systemId}`} radius={radius} color="#1b1f3a">
-          <Text size="xs" c="dimmed">
-            Creuss Gate
-          </Text>
-        </Hex>
-      )}
+      <RawSystemTile
+        mapId="game"
+        tile={tile}
+        radius={radius}
+        hideValues
+        disablePopover
+        system={systemInfo(tile.systemId)}
+        planetOverlay={(planet) => (
+          <PlanetOverlay
+            view={view}
+            name={planet.name}
+            radius={radius}
+            shared={system.planets.length > 1}
+          />
+        )}
+      />
       <SystemOverlay view={view} system={system} />
     </div>
   );

@@ -1,9 +1,18 @@
 /** Checks and steps shared by many cards and abilities. */
 import { PlayerId } from "~/types";
-import { isShip, technologiesById, UNIT_NAMES, UnitType } from "../../data";
+import {
+  factionSetupFor,
+  isShip,
+  isStructure,
+  technologiesById,
+  UNIT_NAMES,
+  UnitType,
+} from "../../data";
+import { holdsUnit } from "../units";
 import { EffectTargets, GameState, PlanetState, SystemState } from "../../types";
 import { planetOf, systemOf } from "../board";
 import { removeExcessCargo, removeExcessShips } from "../combat";
+import { hasCommander } from "../leaders";
 import {
   addUnits,
   countOf,
@@ -63,11 +72,40 @@ export function targetTechnology(targets: EffectTargets): string {
   return targets.technology;
 }
 
-/** Spends a token from the strategy pool, as many abilities ask. */
+/** The Scepter of Emelpar can stand in for a strategy token. */
+const emelparReady = (state: GameState, id: PlayerId) => {
+  const player = state.players[id];
+  return (
+    player.relics.includes("emelpar") &&
+    !player.exhaustedRelics.includes("emelpar") &&
+    tokensInReinforcements(state, id) > 0
+  );
+};
+
+/** Whether a player could spend a token from their strategy pool. */
+export const canSpendStrategyToken = (state: GameState, id: PlayerId) =>
+  state.players[id].pools.strategy > 0 || emelparReady(state, id);
+
+/**
+ * Spends a token from the strategy pool, as many abilities ask. The Scepter
+ * of Emelpar is used in its place while it is ready.
+ */
 export function spendStrategyToken(state: GameState, id: PlayerId) {
   const player = playerOf(state, id);
+  if (emelparReady(state, id)) {
+    player.exhaustedRelics.push("emelpar");
+    log(state, `${player.name} spent a token from their reinforcements with the Scepter of Emelpar.`, {
+      player: id,
+    });
+    return;
+  }
   ensure(player.pools.strategy > 0, "Your strategy pool is empty.");
   player.pools.strategy--;
+  // Magmus
+  if (hasCommander(state, id, "muaatcommander")) {
+    player.tradeGoods++;
+    log(state, `Magmus: ${player.name} gained 1 trade good.`, { player: id });
+  }
 }
 
 export const isExhausted = (state: GameState, id: PlayerId, tech: string) =>
@@ -170,6 +208,37 @@ export function destroyUnits(
   if (by !== undefined && by !== owner && (type === "warsun" || type === "flagship")) {
     achieve(state, by, "dtgs");
   }
+  captureDestroyed(state, owner, where, type, destroyed, by);
+  // Ipswitch, Loose Cannon
+  const ipswitch = state.tactical?.spaceCombat?.flags
+    ?.filter((flag) => flag.startsWith("ipswitch:"))
+    .map((flag) => Number(flag.split(":")[1]))
+    .find((mentak) => mentak !== owner);
+  if (ipswitch !== undefined && isShip(type) && !where.planet) {
+    placeUnits(state, ipswitch, type, destroyed, { system: where.system });
+  }
+  if (type === "infantry" && unit?.id.startsWith("mahact_infantry")) {
+    // Crimson Legionnaire: a commodity, or one converted, per unit lost.
+    const player = playerOf(state, owner);
+    for (let i = 0; i < destroyed; i++) {
+      if (player.commodities > 0) {
+        player.commodities--;
+        player.tradeGoods++;
+      } else if (player.commodities < player.commodityLimit) {
+        player.commodities++;
+      }
+    }
+    if (unit.id === "mahact_infantry2") {
+      player.revivingLegionnaires = (player.revivingLegionnaires ?? 0) + destroyed;
+    }
+  }
+  // Self-Assembly Routines
+  if (type === "mech" && hasTech(state, owner, "sar")) {
+    playerOf(state, owner).tradeGoods += destroyed;
+    log(state, `Self-Assembly Routines: ${playerName(state, owner)} gained ${plural(destroyed, "trade good")}.`, {
+      player: owner,
+    });
+  }
   if (type === "flagship" && unit?.id === "yin_flagship" && !where.planet) {
     // Van Hauge takes every ship in the system with it.
     const system = systemOf(state, where.system);
@@ -182,6 +251,49 @@ export function destroyUnits(
   }
   return destroyed;
 }
+
+/**
+ * Vuil'raith captures: Devour takes what they destroy in combat, The Terror
+ * Between takes everything destroyed in its system, and Reanimator keeps
+ * their own infantry.
+ */
+function captureDestroyed(
+  state: GameState,
+  owner: PlayerId,
+  where: { system: number; planet?: string },
+  type: UnitType,
+  count: number,
+  by?: PlayerId,
+) {
+  if (isStructure(type)) return;
+  const inCombat = !!(state.tactical?.spaceCombat || state.tactical?.groundCombat);
+  const system = systemOf(state, where.system);
+  const captor = state.seating.find((id) => {
+    if (state.players[id].faction !== "vulraith") return false;
+    if (id !== owner && id === by && inCombat && ownsAbilityId(state, id, "devour")) return true;
+    if (holdsUnit(state, id, system.space[id], "flagship", "cabal_flagship") && !(id === owner && type === "flagship")) {
+      return true;
+    }
+    return (
+      id === owner &&
+      type === "infantry" &&
+      where.planet !== undefined &&
+      holdsUnit(state, id, state.planets[where.planet]?.units[id], "mech", "cabal_mech")
+    );
+  });
+  if (captor === undefined) return;
+  const player = playerOf(state, captor);
+  const captured = (player.captured ??= []);
+  const existing = captured.find((c) => c.owner === owner && c.type === type);
+  if (existing) existing.count += count;
+  else captured.push({ owner, type, count });
+  log(state, `${player.name} captured ${count} ${UNIT_NAMES[type]}.`, { player: captor });
+}
+
+const ownsAbilityId = (state: GameState, id: PlayerId, ability: string) =>
+  !!factionSetupFor(state.players[id].faction, state.players[id].factionVariant)?.abilities.includes(
+    ability,
+  );
 
 /** Records an event that an action-phase secret objective asks for. */
 export function achieve(state: GameState, id: PlayerId, objective: string) {

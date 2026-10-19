@@ -8,8 +8,11 @@ import {
   abilitiesById,
   actionCardsById,
   agendasById,
+  explorationsById,
   factionSetupFor,
+  leadersById,
   promissoryNotesById,
+  relicsById,
   technologiesById,
   UNIT_NAMES,
   unitsById,
@@ -26,9 +29,11 @@ import {
   WindowContext,
   WindowId,
 } from "../types";
+import { isLegendary } from "./board";
 import { effects } from "./effects";
 import { Effect } from "./effects/types";
 import {
+  ask,
   clockwiseFrom,
   ensure,
   fail,
@@ -36,9 +41,11 @@ import {
   openPrompts,
   playerName,
   playerOf,
+  takePrompt,
   unitOf,
 } from "./helpers";
-import { requireAction } from "./phases";
+import { spendLeader, unlockCommander, usableLeaders } from "./leaders";
+import { breakDuress, requireAction } from "./phases";
 
 const UNIT_TYPES = Object.keys(UNIT_NAMES) as UnitType[];
 
@@ -54,6 +61,16 @@ export function effectFor(reaction: Reaction): Effect | undefined {
       return effects().abilities[reaction.id];
     case "promissoryNote":
       return effects().notes[reaction.id];
+    case "leader":
+      return effects().leaders[reaction.id];
+    case "relic":
+      return effects().relics[reaction.id];
+    case "exploration": {
+      const card = explorationsById[reaction.id];
+      return card ? effects().explorations[card.name] : undefined;
+    }
+    case "planet":
+      return effects().planets[reaction.id];
   }
 }
 
@@ -65,6 +82,14 @@ export const reactionName = (reaction: Reaction) => {
       return promissoryNotesById[reaction.id]?.name ?? reaction.id;
     case "ability":
       return abilityName(reaction.id);
+    case "leader":
+      return leadersById[reaction.id]?.name ?? reaction.id;
+    case "relic":
+      return relicsById[reaction.id]?.name ?? reaction.id;
+    case "exploration":
+      return explorationsById[reaction.id]?.name ?? reaction.id;
+    case "planet":
+      return reaction.id;
   }
 };
 
@@ -81,6 +106,8 @@ export const isSilenced = (state: GameState, id: PlayerId) =>
 
 export function canPlayActionCards(state: GameState, id: PlayerId) {
   if (isSilenced(state, id)) return false;
+  // Political Censure
+  if (state.laws.some((law) => law.id === "censure" && law.owner === id)) return false;
   // Transparasteel Plating: passed players stay quiet on the Yssaril turn.
   const active = state.activePlayer;
   if (
@@ -115,11 +142,34 @@ export function ownedAbilities(state: GameState, id: PlayerId): string[] {
   owned.push(
     ...state.laws.filter((law) => law.owner === id).map((law) => law.id),
   );
+  // Thunder's Edge: the breakthrough, once gained, and expeditions.
+  if (player.breakthrough?.unlocked) owned.push(player.breakthrough.id);
+  if (state.expedition?.includes(null)) owned.push("expedition");
   return owned;
 }
 
 export const ownsAbility = (state: GameState, id: PlayerId, ability: string) =>
   ownedAbilities(state, id).includes(ability);
+
+/** Whether an ability is one printed on the player's faction sheet. */
+export const isFactionAbility = (state: GameState, id: PlayerId, ability: string) => {
+  const player = state.players[id];
+  return !!factionSetupFor(player.faction, player.factionVariant)?.abilities.includes(ability);
+};
+
+/** Legendary planets a player controls with their ability ready, by name. */
+const legendaryPlanets = (state: GameState, id: PlayerId) =>
+  Object.values(state.planets)
+    .filter(
+      (p) => p.controller === id && !p.legendaryExhausted && isLegendary(state, p.name),
+    )
+    .map((p) => p.name);
+
+/** Exploration cards a player holds that can be used: fragments and play-area cards. */
+const heldExplorations = (state: GameState, id: PlayerId) => {
+  const player = state.players[id];
+  return [...player.relicFragments, ...(player.explorationCards ?? [])];
+};
 
 function holds(state: GameState, id: PlayerId, reaction: Reaction) {
   const player = state.players[id];
@@ -138,6 +188,14 @@ function holds(state: GameState, id: PlayerId, reaction: Reaction) {
           (note) => note.id === reaction.id && note.owner === reaction.owner,
         )
       );
+    case "leader":
+      return usableLeaders(state, id).includes(reaction.id);
+    case "relic":
+      return player.relics.includes(reaction.id);
+    case "exploration":
+      return heldExplorations(state, id).includes(reaction.id);
+    case "planet":
+      return legendaryPlanets(state, id).includes(reaction.id);
   }
 }
 
@@ -160,6 +218,10 @@ function everythingHeld(state: GameState, id: PlayerId): Reaction[] {
         id: note.id,
         owner: note.owner,
       })),
+    ...usableLeaders(state, id).map((leader): Reaction => ({ kind: "leader", id: leader })),
+    ...player.relics.map((relic): Reaction => ({ kind: "relic", id: relic })),
+    ...heldExplorations(state, id).map((card): Reaction => ({ kind: "exploration", id: card })),
+    ...legendaryPlanets(state, id).map((planet): Reaction => ({ kind: "planet", id: planet })),
   ];
 }
 
@@ -180,11 +242,13 @@ function isUsable(
   }
 }
 
-/** Identifies a reaction; copies of an action card share one key. */
+/** Identifies a reaction; copies of an action card or exploration card share one key. */
 const reactionKey = (reaction: Reaction) =>
   reaction.kind === "actionCard"
     ? `card:${actionCardsById[reaction.id]?.name}`
-    : JSON.stringify(reaction);
+    : reaction.kind === "exploration"
+      ? `exploration:${explorationsById[reaction.id]?.name}`
+      : JSON.stringify(reaction);
 
 /** What a player could use in a window, one entry per distinct card name. */
 export function reactionsFor(
@@ -198,11 +262,8 @@ export function reactionsFor(
   return everythingHeld(state, id).filter((reaction) => {
     const effect = effectFor(reaction);
     if (!effect?.windows?.includes(window)) return false;
-    // Copies of the same action card are one option.
-    const key =
-      reaction.kind === "actionCard"
-        ? `card:${actionCardsById[reaction.id]?.name}`
-        : JSON.stringify(reaction);
+    // Copies of the same card are one option.
+    const key = reactionKey(reaction);
     if (seen.has(key)) return false;
     if (!isUsable(state, id, effect, contextFor(reaction, context))) return false;
     seen.add(key);
@@ -216,10 +277,7 @@ export function componentActions(state: GameState, id: PlayerId): Reaction[] {
   return everythingHeld(state, id).filter((reaction) => {
     const effect = effectFor(reaction);
     if (!effect?.action) return false;
-    const key =
-      reaction.kind === "actionCard"
-        ? `card:${actionCardsById[reaction.id]?.name}`
-        : JSON.stringify(reaction);
+    const key = reactionKey(reaction);
     if (seen.has(key)) return false;
     if (!isUsable(state, id, effect, contextFor(reaction, {}))) return false;
     seen.add(key);
@@ -246,6 +304,8 @@ export function reactionAction(
         targets,
         promptId,
       };
+    default:
+      return { type: "USE_ABILITY", ability: reaction.id, targets, promptId, source: reaction.kind };
   }
 }
 
@@ -379,7 +439,20 @@ export function playReaction(
       state.players[note.owner].promissoryNotes.push(note);
     }
   }
-  if (promptId === undefined) state.actionsThisTurn++;
+  if (promptId === undefined) {
+    state.actionsThisTurn++;
+    breakDuress(state, id);
+  }
+  if (reaction.kind === "leader" && !effect.keep) spendLeader(state, id, reaction.id);
+  if (reaction.kind === "planet") state.planets[reaction.id].legendaryExhausted = true;
+  // Brother Omar unlocks when the Yin use a faction ability.
+  if (
+    reaction.kind === "ability" &&
+    player.faction === "yin" &&
+    isFactionAbility(state, id, reaction.id)
+  ) {
+    unlockCommander(state, id);
+  }
 
   effect.play?.(state, id, targets, context);
   const card = reaction.kind === "actionCard" ? actionCardsById[reaction.id] : undefined;
@@ -410,6 +483,69 @@ export function playReaction(
       pending.group,
     );
   }
+}
+
+// --- Effects that resolve at once ------------------------------------------------
+
+/**
+ * Asks a player for the choices an effect needs before it resolves, such as
+ * an exploration card. Effects that need no choices resolve straight away.
+ */
+export function resolveOrAsk(
+  state: GameState,
+  id: PlayerId,
+  reaction: Reaction,
+  context: WindowContext,
+  options: { optional?: boolean } = {},
+) {
+  const effect = effectFor(reaction);
+  if (!effect) return;
+  if (!effect.targets?.length && !options.optional) {
+    effect.resolve(state, id, {}, context);
+    return;
+  }
+  ask(state, [{ kind: "effect", player: id, reaction, context, optional: options.optional }]);
+}
+
+/**
+ * Choices for an effect prompt that a bot can send, best first: the effect's
+ * own suggestion, then the defaults, then turning it down if allowed.
+ */
+export function effectAnswers(
+  state: GameState,
+  prompt: Extract<Prompt, { kind: "effect" }>,
+): GameAction[] {
+  const effect = effectFor(prompt.reaction);
+  let suggested: EffectTargets | undefined;
+  try {
+    suggested = effect?.bot?.(state, prompt.player, prompt.context);
+  } catch {
+    suggested = undefined;
+  }
+  const answers: EffectTargets[] = [];
+  if (suggested) answers.push(suggested);
+  if (!suggested && prompt.optional) answers.push({ decline: true });
+  answers.push({});
+  if (prompt.optional) answers.push({ decline: true });
+  return answers.map((targets) => ({ type: "RESOLVE_EFFECT", promptId: prompt.id, targets }));
+}
+
+/** Answers an effect prompt. */
+export function answerEffect(
+  state: GameState,
+  id: PlayerId,
+  promptId: number,
+  targets: EffectTargets = {},
+) {
+  const prompt = takePrompt(state, id, "effect", promptId);
+  const effect = effectFor(prompt.reaction);
+  ensure(effect, "That effect cannot be resolved.");
+  if (targets.decline) {
+    ensure(prompt.optional, "You must resolve this.");
+    return;
+  }
+  effect.play?.(state, id, targets, prompt.context);
+  effect.resolve(state, id, targets, prompt.context);
 }
 
 /** Cancels a played card that has not resolved yet. */

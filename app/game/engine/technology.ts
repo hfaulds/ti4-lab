@@ -4,9 +4,11 @@ import { Research } from "../actions";
 import { GameState } from "../types";
 import { planetTechSpecialties } from "./board";
 import { pay } from "./economy";
-import { ask, ensure, hasTech, log, playerOf } from "./helpers";
+import { ask, drawActionCards, ensure, hasTech, log, playerOf } from "./helpers";
 import { destroyUnits } from "./effects/helpers";
 import { openWindow } from "./reactions";
+import { hasCommander } from "./leaders";
+import { applySynergy, synergyColors } from "./thundersEdge";
 
 const AIDA = "aida";
 
@@ -55,11 +57,13 @@ export function missingPrerequisites(
   technology: string,
 ): TechColor[] {
   const owned = { ...ownedColors(state, id) };
+  if (hasCommander(state, id, "yincommander")) owned.BIOTIC = (owned.BIOTIC ?? 0) + 1;
   const missing: TechColor[] = [];
   for (const color of technologiesById[technology]?.prerequisites ?? []) {
     if ((owned[color] ?? 0) > 0) owned[color]!--;
     else missing.push(color);
   }
+  applySynergy(state, id, owned, missing);
   return missing;
 }
 
@@ -89,9 +93,17 @@ export function research(state: GameState, id: PlayerId, request: Research) {
     const planet = state.planets[name];
     ensure(planet?.controller === id, `You do not control ${name}.`);
     ensure(free || !planet.exhausted, `${name} is already exhausted.`);
-    const specialty = planetTechSpecialties(state, name).find((color) =>
-      missing.includes(color),
-    );
+    // Synergy lets a specialty stand in for the other color of its pair.
+    const flexible = synergyColors(state, id);
+    const covers = (color: TechColor) =>
+      missing.includes(color)
+        ? color
+        : flexible.includes(color)
+          ? missing.find((m) => m !== color && flexible.includes(m))
+          : undefined;
+    const specialty = planetTechSpecialties(state, name)
+      .map(covers)
+      .find((color) => color !== undefined);
     ensure(specialty, `${name} does not help with this technology.`);
     missing.splice(missing.indexOf(specialty), 1);
   }
@@ -124,6 +136,16 @@ export function research(state: GameState, id: PlayerId, request: Research) {
     }
   }
 
+  // The Prophet's Tears ignore 1 prerequisite, or else draw an action card.
+  let tears = false;
+  if (request.prophetsTears && missing.length > 0) {
+    ensure(player.relics.includes("prophetstears"), "You do not own The Prophet's Tears.");
+    ensure(!player.exhaustedRelics.includes("prophetstears"), "The Prophet's Tears is exhausted.");
+    player.exhaustedRelics.push("prophetstears");
+    missing.pop();
+    tears = true;
+  }
+
   if (request.useAida && missing.length > 0) {
     ensure(hasTech(state, id, AIDA), "You do not own AI Development Algorithm.");
     ensure(
@@ -146,6 +168,14 @@ export function research(state: GameState, id: PlayerId, request: Research) {
   if (!free) for (const name of skips) state.planets[name].exhausted = true;
   player.technologies.push(tech.id);
   log(state, `${player.name} researched ${tech.name}.`, { player: id });
+  if (
+    !tears &&
+    player.relics.includes("prophetstears") &&
+    !player.exhaustedRelics.includes("prophetstears")
+  ) {
+    player.exhaustedRelics.push("prophetstears");
+    drawActionCards(state, id, 1);
+  }
   openWindow(state, "afterResearch", { player: id, card: tech.id });
   // Anti-Intellectual Revolution
   if (state.laws.some((law) => law.id === "revolution" && law.outcome !== "Against")) {

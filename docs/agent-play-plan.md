@@ -32,7 +32,7 @@ hatches, and some of the game is missing:
 | `ADJUST`, `SET_*`, `COMPONENT_ACTION` bypass the rules | Never offered; rejected if emitted |
 | Reactions (window prompts) and agenda votes go to the scripted bot | The agent chooses turns, secondaries, scoring and retreats; the bot plays its cards in combat and votes |
 | The engine picks for players in a few agenda outcomes (which ships Arms Reduction destroys, which planets Anti-Intellectual Revolution exhausts) | Rarely matters; noted in the log |
-| Expansion content (leaders, exploration, relics, PoK cards) still resolves by hand | Base game only |
+| Thunder's Edge core systems the card data does not describe (The Fracture board, neutral units, coexistence, breaches, plots, galactic events, placing Thunder's Edge) | Not modelled; the agent plays the base game |
 
 Base-game faction abilities, technologies, unit abilities, action cards,
 promissory notes, agenda outcomes and laws are resolved by the engine
@@ -40,7 +40,24 @@ promissory notes, agenda outcomes and laws are resolved by the engine
 in **windows**: at each timing point the engine asks only the players
 holding something usable there, and an action card waits while others
 decide whether to cancel it with Sabotage. Action-phase secret objectives
-are checked against what happened in the current turn.
+are checked against what happened in the current turn, and scored for
+whoever holds them as soon as they are achieved.
+
+Prophecy of Kings is resolved too: exploration (`control.ts`,
+`effects/exploration.ts`), relics (`relics.ts`), leaders (`leaders.ts`,
+`effects/leaders.ts`), legendary planets, mechs, the PoK factions, action
+cards, agendas and objectives (`effects/pok.ts`). Choices an effect needs
+right away, such as an exploration card's, come as an **effect** prompt
+answered with `RESOLVE_EFFECT`; each effect's `bot` heuristic answers it for
+the scripted bot and pre-fills the form in the interface. A few leaders that
+reshape the board or the turn (Airo Shir Aur, Sh'val, Mathis Mathinus,
+Dannel of the Tenth, Xxekir Grom, the commanders that only reveal hidden
+cards) are still played by hand.
+
+Thunder's Edge (`thundersEdge.ts`, `effects/te.ts`) covers expeditions,
+breakthroughs and synergy, galvanize, the new legendary planets, and the
+action cards, relics, leaders, notes and technologies that do not depend on
+the systems listed in the table above.
 
 ## How a decision works
 

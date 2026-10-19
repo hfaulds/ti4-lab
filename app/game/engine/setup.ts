@@ -9,6 +9,7 @@ import {
   ExplorationDeck,
   factionSetupFor,
   isEnabled,
+  leaders,
   leadersById,
   objectives,
   promissoryNotes,
@@ -21,6 +22,7 @@ import {
 } from "../data";
 import {
   Deck,
+  Expansion,
   GameError,
   GameOptions,
   GameState,
@@ -48,6 +50,7 @@ import {
   takePrompt,
 } from "./helpers";
 import { STRUCTURE_LIMIT } from "./strategic";
+import { EXPEDITION_SLICES } from "./thundersEdge";
 
 export type GamePlayerSetup = {
   id: PlayerId;
@@ -96,9 +99,29 @@ const AGENDAS_REMOVED_BY_POK = [
   "Terraforming Initiative",
   "The Crown of Emphidia",
   "The Crown of Thalnos",
+  // Reprinted in Prophecy of Kings.
+  "Representative Government (Base Game)",
 ];
 
 const STARTING_POOLS = { tactic: 3, fleet: 3, strategy: 2 };
+
+/**
+ * The printing of a leader in use: a faction sheet may name a later printing
+ * (Thunder's Edge) whose content is switched off, so fall back to the
+ * enabled card of the same name.
+ */
+function leaderPrinting(id: string, expansions: Expansion[]) {
+  const leader = leadersById[id];
+  if (!leader) return undefined;
+  if (isEnabled(leader.source, expansions)) return leader;
+  return leaders.find(
+    (l) =>
+      l.faction === leader.faction &&
+      l.type === leader.type &&
+      l.name === leader.name &&
+      isEnabled(l.source, expansions),
+  );
+}
 /** Mahact purge their own Alliance during setup. */
 const ALLIANCE = "an";
 const KELERES_STARTING_TECH = 2;
@@ -303,6 +326,7 @@ export function createGame(setup: GameSetup): GameState {
     }
   }
   state.custodians = !!state.planets[MECATOL_REX];
+  if (expansions.includes("te")) state.expedition = Array(EXPEDITION_SLICES).fill(null);
 
   // --- Common decks ---
   const removedAgendas = usesPok ? AGENDAS_REMOVED_BY_POK : [];
@@ -386,8 +410,8 @@ export function createGame(setup: GameSetup): GameState {
       strategyCards: [],
       leaders: usesPok
         ? data.leaders
-            .map((id) => leadersById[id])
-            .filter((l) => l && isEnabled(l.source, expansions))
+            .map((id) => leaderPrinting(id, expansions))
+            .filter((l) => l !== undefined)
             .map((l) => ({
               id: l.id,
               type: l.type,

@@ -44,6 +44,10 @@ function promptFor(
     // What a player could play gives away their hand.
     return { ...prompt, options: [], used: undefined };
   }
+  if (prompt.kind === "effect" && prompt.context.cards) {
+    // Exploration cards drawn with Distant Suns.
+    return { ...prompt, context: { ...prompt.context, cards: hide(prompt.context.cards) } };
+  }
   return prompt;
 }
 
@@ -64,12 +68,13 @@ export function viewFor(
   const playerViews = Object.fromEntries(
     Object.values(players).map((player) => {
       const own = player.id === viewer || showHands;
+      // Search Warrant: its owner plays with their secret objectives revealed.
+      const warrant = state.laws.some((law) => law.id === "warrant" && law.owner === player.id);
       const view: PlayerView = {
         ...player,
         actionCards: own ? player.actionCards : hide(player.actionCards),
-        secretObjectives: own
-          ? player.secretObjectives
-          : hide(player.secretObjectives),
+        secretObjectives:
+          own || warrant ? player.secretObjectives : hide(player.secretObjectives),
         promissoryNotes: own
           ? player.promissoryNotes
           : player.promissoryNotes.map((note) => ({ ...note, id: HIDDEN })),

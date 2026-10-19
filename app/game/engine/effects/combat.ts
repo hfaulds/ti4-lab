@@ -58,6 +58,7 @@ import {
   targetTechnology,
 } from "./helpers";
 import type { EffectArea } from "./index";
+import { unitIs } from "../units";
 import { Effect } from "./types";
 
 // --- Reading the combat in progress ---------------------------------------------
@@ -134,13 +135,13 @@ function hitOpponent(
 }
 
 /** Replaces 1 of the opponent's infantry on the planet with 1 of your own. */
-function convertInfantry(state: GameState, id: PlayerId) {
+function convertInfantry(state: GameState, id: PlayerId, into: UnitType = "infantry") {
   const combat = groundCombatOf(state)!;
   const planet = planetOf(state, combat.planet);
   const opponent = opponentOf(state, id);
   if (countOf(planet.units[opponent], "infantry") === 0) return;
   destroyUnits(state, opponent, { system: planet.system, planet: planet.name }, "infantry", 1, id);
-  if (unitsAvailable(state, id, "infantry") > 0) addUnits(planet.units, id, "infantry", 1);
+  if (unitsAvailable(state, id, into) > 0) addUnits(planet.units, id, into, 1);
   log(state, `${playerName(state, id)} replaced 1 of ${playerName(state, opponent)}'s infantry on ${planet.name}.`, {
     player: id,
   });
@@ -417,14 +418,22 @@ const ABILITIES: Record<string, Effect> = {
   },
   indoctrination: {
     windows: ["groundCombatStart"],
-    targets: ["payment"],
+    targets: ["payment", "choice"],
     usable: (state, id) => {
       if (!inGroundCombat(state, id)) return false;
       const planet = state.planets[groundCombatOf(state)!.planet];
       return countOf(planet.units[opponentOf(state, id)], "infantry") > 0;
     },
-    play: (state, id, targets) => pay(state, id, targets.payment, "influence", 2),
-    resolve: (state, id) => convertInfantry(state, id),
+    play: (state, id, targets) => {
+      // Moyin's Ashes: 1 more influence for a mech instead.
+      const mech = targets.choice === "mech";
+      if (mech) {
+        ensure(unitIs(state, id, "mech", "yin_mech"), "You cannot deploy a mech this way.");
+        ensure(unitsAvailable(state, id, "mech") > 0, "You have no mechs in your reinforcements.");
+      }
+      pay(state, id, targets.payment, "influence", mech ? 3 : 2);
+    },
+    resolve: (state, id, targets) => convertInfantry(state, id, targets.choice === "mech" ? "mech" : "infantry"),
   },
   ic: {
     windows: ["combatStart"],

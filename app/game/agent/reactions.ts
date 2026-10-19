@@ -15,7 +15,7 @@ import {
 } from "../engine/board";
 import { victoryPoints } from "../engine/control";
 import { countOf, hasShips, unitTypes } from "../engine/helpers";
-import { componentActions, reactionAction } from "../engine/reactions";
+import { componentActions, effectFor, reactionAction } from "../engine/reactions";
 import { findPayment } from "./payment";
 import { poolsAfterGaining } from "./scriptedBot";
 
@@ -138,7 +138,7 @@ function choose(
       return payment ? { payment } : undefined;
     }
     default:
-      return undefined;
+      return suggestedTargets(state, id, reaction, prompt.context);
   }
 }
 
@@ -254,7 +254,26 @@ export function componentPlays(state: GameState, id: PlayerId): GameAction[] {
         if (other !== undefined && state.players[id].pools.strategy >= 2) play({ player: other });
         break;
       }
+      default: {
+        // Cards and abilities that carry their own heuristic.
+        const targets = suggestedTargets(state, id, reaction, {});
+        if (targets) play(targets);
+      }
     }
   }
   return actions;
+}
+
+/** What an effect's own heuristic would choose, if it has one. */
+function suggestedTargets(
+  state: GameState,
+  id: PlayerId,
+  reaction: Reaction,
+  context: Window["context"],
+): EffectTargets | undefined {
+  try {
+    return effectFor(reaction)?.bot?.(state, id, context);
+  } catch {
+    return undefined;
+  }
 }

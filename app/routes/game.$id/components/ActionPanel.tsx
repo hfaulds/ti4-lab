@@ -26,7 +26,7 @@ import {
   SpaceCannon,
   Vote,
 } from "./prompts";
-import { ResearchPrompt, WindowPrompt } from "./reactions";
+import { EffectPrompt, ResearchPrompt, WindowPrompt } from "./reactions";
 import { CardText, PlayerName } from "./shared";
 import { Secondary, StrategicActionForm } from "./strategic";
 import { TacticalStep, tacticalStepName } from "./tactical";
@@ -65,6 +65,8 @@ function PromptForm({ view, prompt }: { view: GameView; prompt: Prompt }) {
       return <Resolve view={view} prompt={prompt} />;
     case "window":
       return <WindowPrompt view={view} prompt={prompt} />;
+    case "effect":
+      return <EffectPrompt view={view} prompt={prompt} />;
     case "research":
       return <ResearchPrompt view={view} prompt={prompt} />;
   }

@@ -31,6 +31,20 @@ export type Effect = {
     targets: EffectTargets,
     context: WindowContext,
   ) => void;
+  /**
+   * Leaders only: the card is not exhausted or purged when used, because the
+   * effect says when that happens.
+   */
+  keep?: boolean;
+  /**
+   * The scripted bot's choices when it uses this, or undefined to leave it.
+   * Also offered to players as a starting point.
+   */
+  bot?: (
+    state: GameState,
+    id: PlayerId,
+    context: WindowContext,
+  ) => EffectTargets | undefined;
   /** Carries the effect out once nobody has cancelled it. */
   resolve: (
     state: GameState,

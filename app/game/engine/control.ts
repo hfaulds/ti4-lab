@@ -19,8 +19,10 @@ import {
 } from "./board";
 import {
   ask,
+  countOf,
   draw,
   hasShips,
+  hasTech,
   initiativeOrder,
   log,
   playerName,
@@ -28,6 +30,7 @@ import {
   totalUnits,
   unitTypes,
 } from "./helpers";
+import { effectFor, openWindow, ownsAbility, resolveOrAsk } from "./reactions";
 
 // --- Victory ----------------------------------------------------------------
 
@@ -90,52 +93,102 @@ export function unlockLeaders(state: GameState) {
 
 const RESEARCH_FACILITIES = ["biotic", "cybernetic", "propulsion", "warfare"];
 
+export type ExploreTarget = { planet?: string; system?: SystemKey };
+
 export function explore(
   state: GameState,
   id: PlayerId,
   deck: ExplorationDeck,
-  target: { planet?: string; system?: SystemKey },
+  target: ExploreTarget,
 ) {
-  const player = playerOf(state, id);
   const cardId = draw(state, state.decks[deck]);
   if (!cardId) return;
+  const planet = target.planet ? state.planets[target.planet] : undefined;
+  // Distant Suns: with a mech on the planet, the Naaz-Rokha draw 2 and choose 1.
+  if (planet && countOf(planet.units[id], "mech") > 0 && ownsAbility(state, id, "distant_suns")) {
+    const second = draw(state, state.decks[deck]);
+    if (second) {
+      log(state, `${playerName(state, id)} explored ${target.planet} with Distant Suns.`, {
+        player: id,
+      });
+      ask(state, [
+        {
+          kind: "effect",
+          player: id,
+          reaction: { kind: "ability", id: "distant_suns" },
+          context: { planet: target.planet, system: planet.system, cards: [cardId, second] },
+        },
+      ]);
+      return;
+    }
+  }
+  resolveExploration(state, id, cardId, target);
+}
+
+/** Resolves an exploration card that has been drawn. */
+export function resolveExploration(
+  state: GameState,
+  id: PlayerId,
+  cardId: string,
+  target: ExploreTarget,
+) {
+  const player = playerOf(state, id);
   const card = explorationsById[cardId];
   const where = target.planet ?? "the frontier";
   log(state, `${player.name} explored ${where}: ${card.name}.`, { player: id });
+  const system = target.system ?? (target.planet ? planetOf(state, target.planet).system : undefined);
+  const context = { planet: target.planet, system, card: cardId };
 
   if (card.resolution === "fragment") {
     player.relicFragments.push(card.id);
-    return;
-  }
-
-  if (card.resolution === "attach" && target.planet && card.attachmentId) {
-    const planet = planetOf(state, target.planet);
-    // A research facility on a planet that already has a specialty gives
-    // +1 resource and +1 influence instead.
-    const alreadySpecialised =
-      RESEARCH_FACILITIES.includes(card.attachmentId) &&
-      planetTechSpecialties(state, target.planet).length > 0;
-    const attachment = alreadySpecialised
-      ? `${card.attachmentId}stat`
-      : card.attachmentId;
-    if (attachmentsById[attachment]) planet.attachments.push(attachment);
-    // Attachments with further instructions still need the table's attention.
-    if (attachmentsById[attachment] && !/return|destroy|cannot/i.test(card.text)) {
-      return;
-    }
   } else {
-    state.decks[deck].discard.push(card.id);
+    if (card.resolution === "attach" && target.planet && card.attachmentId) {
+      const planet = planetOf(state, target.planet);
+      // A research facility on a planet that already has a specialty gives
+      // +1 resource and +1 influence instead.
+      const alreadySpecialised =
+        RESEARCH_FACILITIES.includes(card.attachmentId) &&
+        planetTechSpecialties(state, target.planet).length > 0;
+      const attachment = alreadySpecialised
+        ? `${card.attachmentId}stat`
+        : card.attachmentId;
+      if (attachmentsById[attachment]) planet.attachments.push(attachment);
+    } else if (KEPT_IN_PLAY.includes(card.name)) {
+      (player.explorationCards ??= []).push(card.id);
+    } else if (card.resolution === "instant") {
+      state.decks[card.deck].discard.push(card.id);
+    }
+    // Wormhole tokens and the Mirage are purged once placed.
+    const reaction = { kind: "exploration" as const, id: cardId };
+    if (KEPT_IN_PLAY.includes(card.name)) {
+      // Used later, from the play area.
+    } else if (effectFor(reaction)) {
+      resolveOrAsk(state, id, reaction, context);
+    } else if (card.resolution !== "attach") {
+      ask(state, [
+        {
+          kind: "resolve",
+          player: id,
+          title: `Exploration: ${card.name}`,
+          text: card.text,
+          card: card.id,
+        },
+      ]);
+    }
   }
+  if (target.planet) afterExploringPlanet(state, id, target.planet);
+}
 
-  ask(state, [
-    {
-      kind: "resolve",
-      player: id,
-      title: `Exploration: ${card.name}`,
-      text: card.text,
-      card: card.id,
-    },
-  ]);
+/** Exploration cards that stay in the player's play area. */
+const KEPT_IN_PLAY = ["Enigmatic Device"];
+
+function afterExploringPlanet(state: GameState, id: PlayerId, name: string) {
+  // Pre-Fab Arcologies
+  if (hasTech(state, id, "pfa") && state.planets[name]?.controller === id) {
+    state.planets[name].exhausted = false;
+  }
+  // Terragenesis
+  openWindow(state, "afterExplore", { planet: name, system: state.planets[name]?.system }, [id]);
 }
 
 export function explorePlanet(state: GameState, id: PlayerId, name: string) {

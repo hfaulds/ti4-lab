@@ -41,9 +41,18 @@ export type Research = {
   useAida?: boolean;
   /** Inheritance Systems: exhaust it and pay 2 resources to ignore every prerequisite. */
   inheritance?: Payment;
+  /** The Prophet's Tears: exhaust it to ignore 1 prerequisite. */
+  prophetsTears?: boolean;
+  /** Riftmeld: return a captured unit of the upgrade's type to ignore every prerequisite. */
+  riftmeld?: boolean;
 };
 
-export type StructurePlacement = { type: "pds" | "spacedock"; planet: string };
+export type StructurePlacement = {
+  type: "pds" | "spacedock";
+  planet: string;
+  /** Hecatoncheires: place 1 mech and 1 infantry instead of the PDS. */
+  asMech?: boolean;
+};
 
 export type ObjectivePayment = {
   resources?: Payment;
@@ -137,7 +146,12 @@ export type GameAction =
   // Strategy phase
   | { type: "PICK_STRATEGY_CARD"; card: string }
   // Action phase
-  | { type: "ACTIVATE_SYSTEM"; system: SystemKey }
+  | {
+      type: "ACTIVATE_SYSTEM";
+      system: SystemKey;
+      /** Artemiris: 2 influence to activate the Keleres flagship's system. */
+      influence?: Payment;
+    }
   | { type: "MOVE_SHIPS"; moves: ShipMove[]; cargo: CargoPickup[] }
   | {
       type: "FIRE_SPACE_CANNON";
@@ -154,10 +168,18 @@ export type GameAction =
       landings: { planet: string; units: UnitCounts }[];
       /** Influence spent to remove the custodians token. */
       custodians?: Payment;
+      /** Omniopiares: 1 influence per planet with a Keleres mech landed on. */
+      influence?: Payment;
     }
   | { type: "PRODUCE"; units: ProductionOrder[]; payment: Payment }
   | { type: "STRATEGIC_ACTION"; payload: StrategicPayload }
-  | { type: "RESOLVE_SECONDARY"; promptId: number; payload?: StrategicPayload }
+  | {
+      type: "RESOLVE_SECONDARY";
+      promptId: number;
+      payload?: StrategicPayload;
+      /** Jae Mir Kan: spend the active player's command token from this system instead. */
+      jaeMirKan?: SystemKey;
+    }
   | { type: "ORDER_AGENDAS"; top: string[]; bottom: string[] }
   /**
    * Plays an action card: as a component action on your turn, or in answer
@@ -168,7 +190,16 @@ export type GameAction =
    * Uses a faction ability, technology, unit ability or law the player owns:
    * as a component action on their turn, or in answer to a window prompt.
    */
-  | { type: "USE_ABILITY"; ability: string; targets?: EffectTargets; promptId?: number }
+  | {
+      type: "USE_ABILITY";
+      ability: string;
+      targets?: EffectTargets;
+      promptId?: number;
+      /** What the ability belongs to, when it is not a faction ability, technology, unit or law. */
+      source?: "leader" | "relic" | "exploration" | "planet";
+    }
+  /** Answers an effect prompt with the choices it needs. */
+  | { type: "RESOLVE_EFFECT"; promptId: number; targets?: EffectTargets }
   /** Uses nothing more in a window. */
   | { type: "PASS_WINDOW"; promptId: number }
   | { type: "COMPONENT_ACTION"; description: string }
@@ -186,7 +217,16 @@ export type GameAction =
   | { type: "DISCARD_ACTION_CARDS"; cards: string[] }
   | { type: "RETURN_SECRET"; objective: string }
   // Agenda phase
-  | { type: "CAST_VOTES"; outcome?: string; planets: string[]; extraVotes?: number }
+  | {
+      type: "CAST_VOTES";
+      outcome?: string;
+      planets: string[];
+      extraVotes?: number;
+      /** Predictive Intelligence: 3 more votes. */
+      predictive?: boolean;
+      /** Gila the Silvertongue: trade goods spent for 2 votes each. */
+      tradeGoods?: number;
+    }
   | { type: "BREAK_TIE"; outcome: string }
   /** Answers a research prompt; fewer than offered (or none) is fine. */
   | { type: "RESEARCH"; promptId: number; research: Research[] }

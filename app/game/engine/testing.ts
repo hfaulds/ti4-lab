@@ -29,6 +29,7 @@ import {
 import { applyAction, createGame, settle } from "./index";
 import { objectiveStatus, scorableObjectives } from "./objectives";
 import { availableStrategyCards } from "./phases";
+import { effectAnswers } from "./reactions";
 import { fleetPoolLimit, strategyKind } from "./strategic";
 
 const TEST_SYSTEMS = [
@@ -173,7 +174,7 @@ function answer(state: GameState, prompt: Prompt): GameAction {
         assignment: suggestAssignment(state, prompt),
       };
     case "announceRetreat":
-      return { type: "ANNOUNCE_RETREAT" };
+      return { type: "ANNOUNCE_RETREAT", to: prompt.required ? prompt.options[0] : undefined };
     case "scoreObjectives": {
       const free = scorableObjectives(state, id, "status").filter((o) => {
         const status = objectiveStatus(state, id, o);
@@ -208,6 +209,8 @@ function answer(state: GameState, prompt: Prompt): GameAction {
       return { type: "BREAK_TIE", outcome: prompt.outcomes[0] ?? "For" };
     case "resolve":
       return { type: "RESOLVE", promptId: prompt.id };
+    case "effect":
+      return { type: "RESOLVE_EFFECT", promptId: prompt.id, targets: prompt.optional ? { decline: true } : {} };
     case "window":
       return { type: "PASS_WINDOW", promptId: prompt.id };
     case "research":
@@ -319,6 +322,13 @@ function chooseTarget(state: GameState, id: PlayerId) {
 export function botMove(state: GameState): BotMove | undefined {
   if (state.phase === "finished") return undefined;
   const [prompt] = openPrompts(state);
+  if (prompt?.kind === "effect") {
+    // The effect's own suggestion, or the first answer the rules accept.
+    const action =
+      effectAnswers(state, prompt).find((a) => applyAction(state, prompt.player, a).ok) ??
+      answer(state, prompt);
+    return { player: prompt.player, action };
+  }
   if (prompt) return { player: prompt.player, action: answer(state, prompt) };
 
   const id = state.activePlayer;

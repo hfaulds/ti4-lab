@@ -15,6 +15,7 @@ import {
 import {
   capacityIn,
   dockFighterAllowance,
+  freeRiders,
   fleetLimit,
   fleetProblem,
   nonFighterShips,
@@ -22,6 +23,7 @@ import {
 } from "./board";
 import { achieve, destroyUnits } from "./effects/helpers";
 import {
+  ask,
   countOf,
   ensure,
   entries,
@@ -38,6 +40,8 @@ import {
   unitTypes,
 } from "./helpers";
 import { openWindow } from "./reactions";
+import { hasCommander } from "./leaders";
+import { holdsUnit, isGroundForceFor, unitIs } from "./units";
 
 type Ability = "combat" | "afb" | "bombardment" | "spaceCannon";
 
@@ -86,6 +90,8 @@ export type RollOptions = {
   unitModifier?: (type: UnitType) => number;
   /** Replaces the number of dice a unit type rolls per unit. */
   diceFor?: (type: UnitType) => number | undefined;
+  /** Dice added to a unit type's roll as a whole (Viscount Unlenn). */
+  extraDice?: (type: UnitType) => number;
 };
 
 /**
@@ -110,7 +116,7 @@ export function rollAbility(
       const unit = unitOf(state, id, type)!;
       const { target, dice } = abilityOf(unit, ability);
       const perUnit = options.diceFor?.(type) ?? dice;
-      return { type, target: target!, dice: perUnit * count };
+      return { type, target: target!, dice: perUnit * count + (options.extraDice?.(type) ?? 0) };
     })
     .filter((plan) => plan.dice > 0)
     .sort((a, b) => a.target - b.target);
@@ -131,6 +137,45 @@ export function rollAbility(
     return roll;
   });
   return { rolls, hits: rolls.reduce((sum, r) => sum + r.hits, 0) };
+}
+
+/**
+ * Extra dice for a roll for a unit ability (SPACE CANNON, ANTI-FIGHTER
+ * BARRAGE, BOMBARDMENT): Trrakan Aun Zulok, and Strike Wing Ambuscade, which
+ * goes back to the Argent once used.
+ */
+function unitAbilityBonusDice(state: GameState, id: PlayerId) {
+  let dice = hasCommander(state, id, "argentcommander") ? 1 : 0;
+  const player = state.players[id];
+  const note = player.promissoryNotes.find((n) => n.id === "ambuscade" && n.owner !== id);
+  if (note) {
+    player.promissoryNotes = player.promissoryNotes.filter((n) => n !== note);
+    state.players[note.owner].promissoryNotes.push(note);
+    log(state, `${player.name} used Strike Wing Ambuscade for an extra die.`, { player: id });
+    dice++;
+  }
+  return dice;
+}
+
+/** Rolls a unit ability, with the bonuses and rerolls that apply to them. */
+export function rollUnitAbility(
+  state: GameState,
+  id: PlayerId,
+  shooters: Shooters,
+  ability: Exclude<Ability, "combat">,
+  options: RollOptions = {},
+) {
+  const bonus = unitAbilityBonusDice(state, id);
+  const result = rollAbility(state, id, shooters, ability, {
+    ...options,
+    bonusDice: (options.bonusDice ?? 0) + bonus,
+  });
+  // Agnlan Oln rerolls the misses.
+  if (hasCommander(state, id, "jolnarcommander")) {
+    rerollMisses(state, result.rolls, () => true);
+    result.hits = result.rolls.reduce((sum, r) => sum + r.hits, 0);
+  }
+  return result;
 }
 
 /**
@@ -196,6 +241,7 @@ export const currentCombat = (state: GameState) =>
 const SPACE_SOURCES: HitSource[] = [
   "spaceCannonOffense",
   "antiFighterBarrage",
+  "barrageAllShips",
   "spaceCombat",
   "destroyShips",
   "destroyNonFighterShips",
@@ -204,6 +250,17 @@ const SPACE_SOURCES: HitSource[] = [
 /** Units the Nekro flagship lets fight as ships (ground forces in space). */
 const alastorFights = (state: GameState, id: PlayerId) =>
   combatFlag(state.tactical?.spaceCombat, "alastor", id);
+
+/** Z-Grav Eidolon: Naaz-Rokha mechs in the active system's space area are ships. */
+export const zgravFights = (state: GameState, id: PlayerId) =>
+  combatFlag(state.tactical?.spaceCombat, "zgrav", id);
+
+/** Quantum Manipulator: Nomad mechs in space may sustain hits meant for ships. */
+const shieldingMechs = (state: GameState, id: PlayerId, source: HitSource) =>
+  SPACE_SOURCES.includes(source) &&
+  source !== "antiFighterBarrage" &&
+  !!state.tactical?.spaceCombat &&
+  unitIs(state, id, "mech", "nomad_mech");
 
 /** Fighters the Naalu flagship lets fight on a planet. */
 export const naaluFightersLand = (state: GameState, id: PlayerId, system: SystemKey) =>
@@ -222,7 +279,9 @@ export function hitTargets(
     const ships =
       prompt.source === "spaceCombat" && alastorFights(state, prompt.player)
         ? (type: UnitType) => isShip(type) || isGroundForce(type)
-        : isShip;
+        : zgravFights(state, prompt.player)
+          ? (type: UnitType) => isShip(type) || type === "mech"
+          : isShip;
     return {
       forces: systemOf(state, prompt.system).space,
       eligible:
@@ -236,15 +295,14 @@ export function hitTargets(
   const forces = state.planets[prompt.planet!].units;
   // Naalu fighters committed to a planet fight there as ground forces.
   const fighters = countOf(forces[prompt.player], "fighter") > 0;
+  const ground = (type: UnitType) => isGroundForceFor(state, prompt.player, type);
   return {
     forces,
-    eligible: fighters
-      ? (type) => isGroundForce(type) || type === "fighter"
-      : isGroundForce,
+    eligible: fighters ? (type) => ground(type) || type === "fighter" : ground,
   };
 }
 
-/** Whether a source's hits can be cancelled with SUSTAIN DAMAGE at all. */
+/** Whether a source's hits can be cancelled with SUSTAIN DAMAGE at all (Waylay's can). */
 const sustainAllowed = (source: HitSource) =>
   source !== "antiFighterBarrage" &&
   source !== "destroyShips" &&
@@ -260,12 +318,23 @@ export function canSustain(
   type: UnitType,
   system?: SystemKey,
 ) {
-  if (!unitOf(state, id, type)?.sustainDamage) return false;
+  // The Cavalry lends a ship the Nomad flagship's SUSTAIN DAMAGE.
+  const cavalry = combatFlag(state.tactical?.spaceCombat, `cavalry@${type}`, id);
+  if (!unitOf(state, id, type)?.sustainDamage && !cavalry) return false;
   if (
     type === "warsun" &&
     state.laws.some((law) => law.id === "schematics" && law.outcome !== "Against")
   ) {
     return false;
+  }
+  // Moll Terminus: other players' ground forces on its planet cannot sustain.
+  const ground = state.tactical?.groundCombat;
+  if (system === undefined && ground && isGroundForce(type)) {
+    const units = state.planets[ground.planet].units;
+    const terminus = Object.keys(units)
+      .map(Number)
+      .some((other) => other !== id && holdsUnit(state, other, units[other], "mech", "mentak_mech"));
+    if (terminus) return false;
   }
   if (system !== undefined && isShip(type)) {
     const space = systemOf(state, system).space;
@@ -382,10 +451,14 @@ export function applyHits(
     assignment.sustain.length === 0 || allowSustain,
     "SUSTAIN DAMAGE cannot cancel these hits.",
   );
+  const mechShield = shieldingMechs(state, id, prompt.source);
   for (const [type, count] of entries(sustained)) {
-    ensure(eligible(type), `${UNIT_NAMES[type]} cannot take these hits.`);
     ensure(
-      canSustain(state, id, type, space),
+      eligible(type) || (mechShield && type === "mech"),
+      `${UNIT_NAMES[type]} cannot take these hits.`,
+    );
+    ensure(
+      canSustain(state, id, type, mechShield && type === "mech" ? undefined : space),
       `${UNIT_NAMES[type]} cannot sustain damage.`,
     );
     const stack = group?.[type];
@@ -506,6 +579,61 @@ function afterHits(
       [from],
     );
   }
+  if (entries(sustained).length > 0) {
+    // Rear Admiral Farran
+    if (hasCommander(state, id, "letnevcommander")) {
+      const units = assignment.sustain.length;
+      state.players[id].tradeGoods += units;
+      log(state, `Rear Admiral Farran: ${playerName(state, id)} gained ${plural(units, "trade good")}.`, {
+        player: id,
+      });
+    }
+    // Valkyrie Exoskeleton: Sardakk mechs strike back as they sustain damage.
+    const valkyries = sustained.mech ?? 0;
+    if (
+      prompt.source === "groundCombat" &&
+      prompt.planet &&
+      valkyries > 0 &&
+      unitIs(state, id, "mech", "sardakk_mech")
+    ) {
+      ask(state, [
+        {
+          kind: "assignHits",
+          player: from,
+          hits: valkyries,
+          source: "groundCombat",
+          system: prompt.system,
+          planet: prompt.planet,
+          from: id,
+        },
+      ]);
+    }
+    // Dynamo
+    for (const [type] of entries(sustained)) {
+      openWindow(
+        state,
+        "afterSustainAny",
+        { player: id, unit: type, system: prompt.system },
+        state.seating.filter((other) => other !== id),
+      );
+    }
+  }
+  if (combat && entries(assignment.destroy).length > 0) {
+    // Brother Milor
+    const [type] = entries(assignment.destroy)[0];
+    openWindow(
+      state,
+      "unitDestroyedInCombat",
+      {
+        player: id,
+        unit: type,
+        system: prompt.system,
+        planet: SPACE_SOURCES.includes(prompt.source) ? undefined : prompt.planet,
+      },
+      state.seating,
+    );
+  }
+
   const destroyedShips = entries(assignment.destroy).filter(([type]) => isShip(type));
   if (prompt.source === "spaceCombat" && destroyedShips.length > 0) {
     // Courageous to the End uses the best combat value among the losses.
@@ -552,10 +680,11 @@ export function removeExcessCargo(state: GameState, key: SystemKey, id: PlayerId
         0,
         countOf(group, "fighter") - dockFighterAllowance(state, key, id),
       );
+  const riders = capacity > 0 ? freeRiders(state, id, group) : 0;
   const limits: [UnitType, number][] = [
     ["fighter", carriedFighters],
     ["infantry", countOf(group, "infantry")],
-    ["mech", countOf(group, "mech")],
+    ["mech", countOf(group, "mech") - riders],
   ];
   let excess = limits.reduce((sum, [, count]) => sum + count, 0) - capacity;
   if (excess <= 0) return;

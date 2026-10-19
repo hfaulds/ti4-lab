@@ -16,8 +16,12 @@
  *
  * The agent can search the strategy guides in knowledge/knowledge.db when it
  * has been built (tsx scripts/kb.ts index); --no-knowledge plays without them.
+ *
+ * Each decision is printed with the tools the agent called, and appended to
+ * a .decisions.jsonl file in games/ as it is made, so a game stopped early
+ * still leaves its decisions behind.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { playAgentGame } from "~/game/agent/harness";
 import { ChatPolicy, FirstCandidatePolicy, Policy } from "~/game/agent/policy";
 import { setupFor } from "~/game/agent/setups";
@@ -90,6 +94,18 @@ if (!flag("no-knowledge") && policyName !== "first") {
   }
 }
 
+mkdirSync("games", { recursive: true });
+const live = `games/${new Date().toISOString().replace(/[:.]/g, "-")}-seed${seed}-p${seat}.decisions.jsonl`;
+console.log(`Decisions: ${live}`);
+
+/** One line for a tool call: what was asked, and what came back in brief. */
+function describeStep(step: { tool: string; arguments: string; result: string }) {
+  if (step.tool === "choose") return undefined;
+  const ids = [...step.result.matchAll(/^\[([^\]]+)\]/gm)].map((m) => m[1]);
+  const brief = ids.length > 0 ? ids.join(", ") : step.result.split("\n")[0].slice(0, 100);
+  return `   ${step.tool} ${step.arguments} -> ${brief}`;
+}
+
 const log = await playAgentGame({
   state,
   seed,
@@ -98,10 +114,15 @@ const log = await playAgentGame({
   knowledge,
   onMove,
   onDecision: (record) => {
+    appendFileSync(live, `${JSON.stringify(record)}\n`);
     if (flag("quiet") || record.forced) return;
     const chosen = record.menu.find((m) => m.label === record.chosen);
     const tag = record.fallback ? ` [fallback: ${record.error ?? "no choice"}]` : "";
     console.log(`r${record.round} ${record.phase} ${record.chosen}. ${chosen?.text}${tag}`);
+    for (const step of record.steps) {
+      const line = describeStep(step);
+      if (line) console.log(line);
+    }
     if (record.rationale) console.log(`   ${record.rationale}`);
     for (const citation of record.citations) console.log(`   cites ${citation}`);
   },
@@ -125,7 +146,6 @@ const cost =
     total.output * PRICES.output) /
   1e6;
 
-mkdirSync("games", { recursive: true });
 const file = `games/${log.startedAt.replace(/[:.]/g, "-")}-seed${seed}-p${seat}.json`;
 writeFileSync(file, JSON.stringify(log, null, 2));
 

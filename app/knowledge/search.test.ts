@@ -2,9 +2,8 @@ import { readFileSync } from "node:fs";
 import Database from "better-sqlite3";
 import { describe, expect, test } from "vitest";
 import { buildIndex } from "./indexer";
-import { openKnowledgeBase } from "./search";
+import { ftsQueries, openKnowledgeBase } from "./search";
 import { compileSynonyms, SynonymList } from "./synonyms";
-import { ftsQueries } from "./search";
 import { Chunk, Concept, EpisodeChunks } from "./types";
 
 const synonyms = JSON.parse(readFileSync("knowledge/synonyms.json", "utf8")) as SynonymList;

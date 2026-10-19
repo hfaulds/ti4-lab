@@ -52,12 +52,11 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 9% 14%;
+  padding: 6% 10%;
   pointer-events: none;
 }
 
-.top,
-.bottom {
+.top {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,29 +90,82 @@
   color: #111;
 }
 
-.planet {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.control {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  flex-shrink: 0;
-}
-
 .units {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1px 4px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: rgba(8, 10, 20, 0.72);
+  pointer-events: auto;
+}
+
+.unit {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.count {
   font-size: 9px;
   font-weight: 700;
   line-height: 1;
-  padding: 2px 3px;
-  border-radius: 3px;
-  white-space: nowrap;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
-  pointer-events: auto;
+  color: #fff;
+}
+
+/* Below the planet's name, which hangs off the bottom of its circle. */
+.planetUnits {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  display: flex;
+  gap: 2px;
+  z-index: 1;
+  transform-origin: center top;
+}
+
+.planetUnits .units {
+  flex-wrap: nowrap;
+}
+
+.belowTwoLines {
+  top: calc(100% + 15px);
+}
+
+/* Beside another planet, wrap rather than spill under the neighbour. */
+.narrow {
+  flex-wrap: wrap;
+  justify-content: center;
+  width: max-content;
+  max-width: 56px;
+}
+
+.narrow .units {
+  flex-wrap: wrap;
+}
+
+.planetFaction {
+  position: absolute;
+  left: calc(100% - 6px);
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  padding: 1px;
+  border: 1px solid;
+  border-radius: 50%;
+  background: rgba(8, 10, 20, 0.85);
+  box-sizing: border-box;
+  display: flex;
+  z-index: 1;
+}
+
+.custodians {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  font-size: 11px;
+  z-index: 1;
 }
 
 .offBoard {

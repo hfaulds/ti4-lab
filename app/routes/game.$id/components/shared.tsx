@@ -7,6 +7,7 @@ import {
   NumberInput,
   Stack,
   Text,
+  Tooltip,
 } from "@mantine/core";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { ReactNode } from "react";
@@ -21,7 +22,8 @@ import { unitTypes } from "~/game/engine/helpers";
 import { Payment, UnitCounts, UnitGroup, UnitType } from "~/game/types";
 import { asState, GameView } from "~/game/view";
 import { PlayerId } from "~/types";
-import { playerColor, playerTextColor } from "../colors";
+import { playerColor } from "../colors";
+import { UnitIcon } from "./UnitIcon";
 
 export const UNIT_SHORT: Record<UnitType, string> = {
   warsun: "WS",
@@ -72,7 +74,39 @@ export function PlayerName({
   );
 }
 
-/** One player's units in a location, as compact colored chips. */
+/** Hover text listing one player's units in a location. */
+export function UnitsTooltip({
+  view,
+  player,
+  group,
+}: {
+  view: GameView;
+  player: PlayerId;
+  group: UnitGroup | undefined;
+}) {
+  const color = playerColor(view.players[player]?.color ?? "black");
+  return (
+    <Stack gap={4}>
+      <Text size="xs" fw={700}>
+        {view.players[player]?.name ?? "Unknown player"}
+      </Text>
+      {sortedUnitTypes(group).map((type) => {
+        const stack = group![type]!;
+        return (
+          <Group key={type} gap={6} wrap="nowrap">
+            <UnitIcon type={type} color={color} size={14} />
+            <Text size="xs">
+              {stack.count} {UNIT_NAMES[type]}
+              {stack.damaged > 0 ? ` (${stack.damaged} damaged)` : ""}
+            </Text>
+          </Group>
+        );
+      })}
+    </Stack>
+  );
+}
+
+/** One player's units in a location, as icons with counts. */
 export function UnitChips({
   view,
   player,
@@ -84,30 +118,36 @@ export function UnitChips({
   group: UnitGroup | undefined;
   size?: "xs" | "sm";
 }) {
-  const color = view.players[player]?.color ?? "black";
+  const color = playerColor(view.players[player]?.color ?? "black");
   return (
     <Group gap={4}>
       {sortedUnitTypes(group).map((type) => {
         const stack = group![type]!;
         return (
-          <Badge
+          <Tooltip
             key={type}
-            size={size}
-            radius="sm"
-            title={`${stack.count} ${UNIT_NAMES[type]}${
+            withArrow
+            label={`${stack.count} ${UNIT_NAMES[type]}${
               stack.damaged > 0 ? ` (${stack.damaged} damaged)` : ""
             }`}
-            styles={{
-              root: {
-                background: playerColor(color),
-                color: playerTextColor(color),
-                textTransform: "none",
-              },
-            }}
           >
-            {stack.count} {UNIT_SHORT[type]}
-            {stack.damaged > 0 ? ` (${stack.damaged} dmg)` : ""}
-          </Badge>
+            <Badge
+              size={size}
+              radius="sm"
+              variant="default"
+              leftSection={
+                <UnitIcon
+                  type={type}
+                  color={color}
+                  size={size === "xs" ? 12 : 14}
+                />
+              }
+              styles={{ root: { textTransform: "none" } }}
+            >
+              {stack.count}
+              {stack.damaged > 0 ? ` (${stack.damaged} dmg)` : ""}
+            </Badge>
+          </Tooltip>
         );
       })}
     </Group>

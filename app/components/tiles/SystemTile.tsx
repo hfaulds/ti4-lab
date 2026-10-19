@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { ReactNode, useContext } from "react";
 import { Hex } from "../Hex";
 import { Planet } from "../Planet";
-import type { SystemTile } from "~/types";
+import type { Planet as PlanetType, SystemTile } from "~/types";
 import { Group } from "@mantine/core";
 import { calcScale } from "./calcScale";
 import { AnomalyImage } from "../features/AnomalyImage";
@@ -20,9 +20,17 @@ type RawProps = {
   hideValues?: boolean;
   radius: number;
   disablePopover?: boolean;
+  planetOverlay?: (planet: PlanetType) => ReactNode;
 };
 
-export function RawSystemTile({ mapId, tile, hideValues = false, radius, disablePopover = false }: RawProps) {
+export function RawSystemTile({
+  mapId,
+  tile,
+  hideValues = false,
+  radius,
+  disablePopover = false,
+  planetOverlay,
+}: RawProps) {
   const scale = calcScale(radius);
   const system = systemData[tile.systemId];
 
@@ -77,6 +85,7 @@ export function RawSystemTile({ mapId, tile, hideValues = false, radius, disable
               key={planet.name}
               hasLegendaryImage={hasLegendaryImage(system.id)}
               disablePopover={disablePopover}
+              overlay={planetOverlay?.(planet)}
             />
           ))}
           {system.anomalies.includes("GRAVITY_RIFT") && <GravityRift />}

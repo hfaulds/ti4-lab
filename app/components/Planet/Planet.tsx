@@ -1,4 +1,5 @@
 import { Box, Flex, useMantineTheme } from "@mantine/core";
+import { ReactNode } from "react";
 import { Planet as PlanetType, PlanetTrait } from "~/types";
 import { PlanetName } from "./PlanetName";
 import { PlanetStats } from "./PlanetStats";
@@ -21,6 +22,8 @@ type Props = {
   largeFonts?: boolean;
   hasLegendaryImage?: boolean;
   disablePopover?: boolean;
+  /** Drawn over the planet, positioned against its circle. */
+  overlay?: ReactNode;
 };
 
 const getBgColor = (
@@ -51,6 +54,7 @@ export function Planet({
   showName = true,
   largeFonts = false,
   disablePopover = false,
+  overlay,
 }: Props) {
   const { accessibleColors } = useSafeOutletContext();
   const theme = useMantineTheme();
@@ -122,6 +126,7 @@ export function Planet({
           <TechIcon techSpecialty={tech} />
         </Box>
       ))}
+      {overlay}
     </Flex>
   );
 

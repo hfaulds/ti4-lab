@@ -50,6 +50,19 @@ experiment.** Agents still draw action cards (they count toward hand limit and
 discards) but cannot play them. This is a known distortion of the game,
 applied equally to every condition.
 
+Two more gaps shape the experiment:
+
+- **Agenda effects are not resolved.** Voting works, but the outcome only
+  raises a `resolve` prompt for the table to apply by hand. Agendas never
+  award VP or change state, so agenda play is out of the experiment too.
+- **Manual objectives score unchecked.** Objectives the engine cannot verify
+  (several secrets, such as Destroy Their Greatest Ship) are accepted by
+  `SCORE_OBJECTIVE(S)` without any check. The harness rejects an agent's
+  claim to an objective whose status is `manual`.
+
+The VP left in play comes from public objectives, checkable secrets, the
+custodians token and Imperial with Mecatol Rex.
+
 ## Architecture
 
 ```
@@ -121,9 +134,21 @@ Minimum competence:
   status phase.
 - **Agenda:** vote for the outcome that helps it, or abstain.
 
-Acceptance: in 6-player scripted-vs-scripted games on fixed seeds, games end
-by VP (not move budget) and the median winner reaches 10 VP by round 6–7.
-Keep `botMove` untouched for the existing tests.
+Acceptance, measured with `tsx scripts/scripted-games.ts 20` (6-player
+scripted-vs-scripted games, seeds 1–20, base factions drawn per seed):
+
+- At least 90% of games end by a player reaching 10 VP, not by the public
+  objectives running out after round 9.
+- The median VP win comes by round 8.
+- Fewer than 0.1% of moves fall back to `botMove`, and none is illegal.
+
+The bar sits below a human table's pace (10 VP by round 6–7) because the
+reduced game has fewer VP sources: no agendas and no action cards. Track the
+mean leader VP by round alongside these numbers; it is the most sensitive
+signal when tuning. Keep `botMove` untouched for the existing tests.
+
+Status (scripted bot v1): 60–75% of games end by VP, median VP win in round
+9, leader averages 6.2 VP after round 6, no fallbacks. Not yet passing.
 
 ## Phase 2 — Agent harness
 

@@ -1,0 +1,25 @@
+.layout {
+  display: flex;
+  gap: var(--mantine-spacing-lg);
+  align-items: flex-start;
+}
+
+.board {
+  flex: none;
+}
+
+.panel {
+  position: relative;
+  flex: none;
+  width: calc((100% - var(--mantine-spacing-lg)) * 5 / 12);
+}
+
+@media (max-width: 75em) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .panel {
+    width: 100%;
+  }
+}

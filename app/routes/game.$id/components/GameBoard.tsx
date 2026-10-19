@@ -1,4 +1,5 @@
 import { Box, Text } from "@mantine/core";
+import { useEffect, useRef, useState } from "react";
 import { Hex } from "~/components/Hex";
 import { RawSystemTile } from "~/components/tiles/SystemTile";
 import { systemData } from "~/data/systemData";
@@ -7,7 +8,6 @@ import { MALLICE, WORMHOLE_NEXUS_ID, wormholesOf } from "~/game/engine/board";
 import { openPrompts } from "~/game/engine/helpers";
 import { Forces, SystemState } from "~/game/types";
 import { asState, GameView } from "~/game/view";
-import { useDimensions } from "~/hooks/useDimensions";
 import { SystemTile } from "~/types";
 import { getHexPosition } from "~/utils/positioning";
 import { playerColor, playerTextColor } from "../colors";
@@ -46,6 +46,26 @@ function inPlay(view: GameView, system: SystemState) {
 }
 
 type Point = { x: number; y: number };
+
+/**
+ * The size of a box that holds every tile with a tile's width spare on
+ * either side, for a board the given width.
+ */
+function wideBoardSize(cells: Point[], width: number) {
+  let across = 0;
+  let down = 0;
+  for (const { x: col, y: row } of cells) {
+    across = Math.max(across, Math.abs(col));
+    down = Math.max(down, Math.abs(row + col / 2));
+  }
+  // Tiles are drawn in boxes twice their radius wide; the map spans
+  // 3 * across + 2 radii, and the margins add two tiles more.
+  const radius = width / (3 * across + 6);
+  return {
+    width: radius * (3 * across + 2),
+    height: radius * (2 * Math.sqrt(3) * down + 2),
+  };
+}
 
 /**
  * The largest radius at which every tile, drawn in a box twice its radius
@@ -261,12 +281,55 @@ function Tile({
   );
 }
 
-export function GameBoard({ view }: { view: GameView }) {
-  const { ref, width, height } = useDimensions<HTMLDivElement>();
-  const gap = Math.min(width, height) * 0.006;
+/** How tall an element can be without running past the bottom of the window. */
+function useHeightToWindowBottom(ref: React.RefObject<HTMLElement>) {
+  const [height, setHeight] = useState<number>();
+  useEffect(() => {
+    const measure = () => {
+      const element = ref.current;
+      if (!element) return;
+      const top = element.getBoundingClientRect().top + window.scrollY;
+      setHeight(Math.max(240, window.innerHeight - top - 16));
+    };
+    measure();
+    // Banners above the board, like the disconnection alert, move it down.
+    const observer = new ResizeObserver(measure);
+    observer.observe(document.body);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [ref]);
+  return height;
+}
+
+/**
+ * A wide board fills its width at the map's own shape, leaving a tile's
+ * width either side, and the page scrolls to show the rest; otherwise it
+ * fits in the window.
+ */
+export function GameBoard({
+  view,
+  wide,
+  baseWidth,
+}: {
+  view: GameView;
+  wide?: boolean;
+  baseWidth: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const fitHeight = useHeightToWindowBottom(ref);
   const tiles = view.map.flatMap((tile, idx) =>
     tile.type === "SYSTEM" ? [{ tile, idx }] : [],
   );
+  const { width, height } = wide
+    ? wideBoardSize(
+        tiles.map(({ tile }) => tile.position),
+        baseWidth,
+      )
+    : { width: baseWidth, height: Math.min(baseWidth, fitHeight ?? baseWidth) };
+  const gap = Math.min(width, height) * 0.006;
   const radius = fitRadius(
     tiles.map(({ tile }) => tile.position),
     width,
@@ -301,8 +364,8 @@ export function GameBoard({ view }: { view: GameView }) {
     OFF_BOARD_NAMES[system.systemId] ?? "Off the board";
 
   return (
-    <Box>
-      <div ref={ref} className={classes.board}>
+    <Box w={baseWidth}>
+      <div ref={ref} className={classes.board} style={{ width, height }}>
         {radius > 0 &&
           tiles.map(({ tile, idx }, i) => {
             const { x, y } = centers[i];

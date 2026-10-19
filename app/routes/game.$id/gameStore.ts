@@ -34,6 +34,7 @@ type GameStore = {
 };
 
 const seatKey = (urlName: string) => `game:seat:${urlName}`;
+const sidebarKey = (urlName: string) => `game:sidebar:${urlName}`;
 /** Where the seat was kept before spectators and developers existed. */
 const legacyPlayerKey = (urlName: string) => `game:player:${urlName}`;
 
@@ -154,6 +155,23 @@ export function storedSeat(urlName: string): Seat | undefined {
     // Unreadable storage just means choosing again.
   }
   return undefined;
+}
+
+export function storedSidebarOpen(urlName: string): boolean {
+  try {
+    return localStorage.getItem(sidebarKey(urlName)) !== "closed";
+  } catch {
+    return true;
+  }
+}
+
+export function storeSidebarOpen(urlName: string, open: boolean) {
+  try {
+    if (open) localStorage.removeItem(sidebarKey(urlName));
+    else localStorage.setItem(sidebarKey(urlName), "closed");
+  } catch {
+    // Unwritable storage just means the panel reopens next visit.
+  }
 }
 
 /** The current view; only for components rendered once a game has loaded. */

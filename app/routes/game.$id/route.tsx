@@ -1,16 +1,22 @@
 import {
+  ActionIcon,
   Alert,
   Badge,
   Box,
   Button,
-  Grid,
   Group,
   LoadingOverlay,
   Stack,
   Tabs,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core";
+import {
+  IconLayoutSidebarRightCollapse,
+  IconLayoutSidebarRightExpand,
+} from "@tabler/icons-react";
+import { useMediaQuery } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import {
   data,
@@ -24,6 +30,7 @@ import { EXPANSIONS } from "~/game/data";
 import { openPrompts } from "~/game/engine/helpers";
 import { asState, GameView, viewFor } from "~/game/view";
 import { PlayerId } from "~/types";
+import { useDimensions } from "~/hooks/useDimensions";
 import { useSocketConnection } from "~/useSocketConnection";
 import { ActionPanel } from "./components/ActionPanel";
 import { AdjustPanel } from "./components/AdjustPanel";
@@ -36,7 +43,14 @@ import { SeatPicker } from "./components/SeatPicker";
 import { PlayerName } from "./components/shared";
 import { SystemPanel } from "./components/SystemPanel";
 import { TradePanel } from "./components/TradePanel";
-import { Seat, storedSeat, useGame } from "./gameStore";
+import classes from "./layout.module.css";
+import {
+  Seat,
+  storedSeat,
+  storedSidebarOpen,
+  storeSidebarOpen,
+  useGame,
+} from "./gameStore";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const game = await gameByUrlName(params.id!);
@@ -71,10 +85,18 @@ export default function Game() {
   // The seat lives in this browser's storage, so it is only known once the
   // page is running here.
   const [seatRead, setSeatRead] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [tab, setTab] = useState<string | null>("play");
+  const sideBySide = useMediaQuery("(min-width: 75em)") ?? true;
+  const toggleSidebar = (open: boolean) => {
+    setSidebarOpen(open);
+    storeSidebarOpen(loaded.urlName, open);
+  };
 
   useEffect(() => {
     load(loaded.urlName, loaded.view);
     void chooseSeat(storedSeat(loaded.urlName));
+    setSidebarOpen(storedSidebarOpen(loaded.urlName));
     setSeatRead(true);
     // Only a different game should reset what is on screen.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -202,51 +224,113 @@ export default function Game() {
           </Group>
         )}
 
-        <Grid gutter="lg">
-          <Grid.Col span={{ base: 12, lg: 7 }}>
-            <GameBoard view={view} />
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, lg: 5 }} pos="relative">
-            <LoadingOverlay visible={busy} overlayProps={{ blur: 1 }} />
-            <Tabs defaultValue="play" keepMounted={false}>
-              <Tabs.List mb="sm">
-                <Tabs.Tab value="play">Play</Tabs.Tab>
-                <Tabs.Tab value="hand">Hand</Tabs.Tab>
-                <Tabs.Tab value="players">Players</Tabs.Tab>
-                <Tabs.Tab value="objectives">Objectives</Tabs.Tab>
-                <Tabs.Tab value="trade">Trade</Tabs.Tab>
-                <Tabs.Tab value="adjust">Adjust</Tabs.Tab>
-                <Tabs.Tab value="log">Log</Tabs.Tab>
-              </Tabs.List>
-              <Tabs.Panel value="play">
-                <Stack gap="md">
-                  <ActionPanel view={view} player={player} />
-                  <SystemPanel view={view} />
-                </Stack>
-              </Tabs.Panel>
-              <Tabs.Panel value="hand">
-                <HandPanel view={view} player={player} />
-              </Tabs.Panel>
-              <Tabs.Panel value="players">
-                <PlayersPanel view={view} />
-              </Tabs.Panel>
-              <Tabs.Panel value="objectives">
-                <ObjectivesPanel view={view} player={player} />
-              </Tabs.Panel>
-              <Tabs.Panel value="trade">
-                <TradePanel view={view} player={player} />
-              </Tabs.Panel>
-              <Tabs.Panel value="adjust">
-                <AdjustPanel view={view} player={player} />
-              </Tabs.Panel>
-              <Tabs.Panel value="log">
-                <LogPanel view={view} />
-              </Tabs.Panel>
-            </Tabs>
-          </Grid.Col>
-        </Grid>
+        <MeasuredLayout>
+          {(layoutWidth) => (
+            <>
+              <div className={classes.board}>
+                <GameBoard
+                  view={view}
+                  wide={!sidebarOpen}
+                  baseWidth={boardWidth(layoutWidth, sidebarOpen, sideBySide)}
+                />
+              </div>
+              {!sidebarOpen && (
+                <div>
+                  <Tooltip label="Show panel" position="left">
+                    <ActionIcon
+                      variant="default"
+                      size="lg"
+                      aria-label="Show panel"
+                      onClick={() => toggleSidebar(true)}
+                    >
+                      <IconLayoutSidebarRightExpand size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                </div>
+              )}
+              {sidebarOpen && (
+                <div className={classes.panel}>
+                  <LoadingOverlay visible={busy} overlayProps={{ blur: 1 }} />
+                  <Tabs value={tab} onChange={setTab} keepMounted={false}>
+                    <Tabs.List mb="sm">
+                      <Tooltip label="Hide panel">
+                        <ActionIcon
+                          variant="subtle"
+                          color="gray"
+                          size="lg"
+                          aria-label="Hide panel"
+                          onClick={() => toggleSidebar(false)}
+                          style={{ alignSelf: "center" }}
+                        >
+                          <IconLayoutSidebarRightCollapse size={20} />
+                        </ActionIcon>
+                      </Tooltip>
+                      <Tabs.Tab value="play">Play</Tabs.Tab>
+                      <Tabs.Tab value="hand">Hand</Tabs.Tab>
+                      <Tabs.Tab value="players">Players</Tabs.Tab>
+                      <Tabs.Tab value="objectives">Objectives</Tabs.Tab>
+                      <Tabs.Tab value="trade">Trade</Tabs.Tab>
+                      <Tabs.Tab value="adjust">Adjust</Tabs.Tab>
+                      <Tabs.Tab value="log">Log</Tabs.Tab>
+                    </Tabs.List>
+                    <Tabs.Panel value="play">
+                      <Stack gap="md">
+                        <ActionPanel view={view} player={player} />
+                        <SystemPanel view={view} />
+                      </Stack>
+                    </Tabs.Panel>
+                    <Tabs.Panel value="hand">
+                      <HandPanel view={view} player={player} />
+                    </Tabs.Panel>
+                    <Tabs.Panel value="players">
+                      <PlayersPanel view={view} />
+                    </Tabs.Panel>
+                    <Tabs.Panel value="objectives">
+                      <ObjectivesPanel view={view} player={player} />
+                    </Tabs.Panel>
+                    <Tabs.Panel value="trade">
+                      <TradePanel view={view} player={player} />
+                    </Tabs.Panel>
+                    <Tabs.Panel value="adjust">
+                      <AdjustPanel view={view} player={player} />
+                    </Tabs.Panel>
+                    <Tabs.Panel value="log">
+                      <LogPanel view={view} />
+                    </Tabs.Panel>
+                  </Tabs>
+                </div>
+              )}
+            </>
+          )}
+        </MeasuredLayout>
       </Stack>
     </MainAppShell>
+  );
+}
+
+// Mantine's "lg" spacing, the gap between the board and what sits beside it.
+const LAYOUT_GAP = 20;
+// The "lg" ActionIcon that reopens the panel.
+const EXPAND_BUTTON = 34;
+
+/** The board's share of the layout's width. */
+function boardWidth(layout: number, sidebarOpen: boolean, sideBySide: boolean) {
+  if (!sideBySide) return layout;
+  if (!sidebarOpen) return layout - LAYOUT_GAP - EXPAND_BUTTON;
+  return ((layout - LAYOUT_GAP) * 7) / 12;
+}
+
+/** The board and panel row, which tells its contents how wide it is. */
+function MeasuredLayout({
+  children,
+}: {
+  children: (width: number) => React.ReactNode;
+}) {
+  const { ref, width } = useDimensions<HTMLDivElement>();
+  return (
+    <div ref={ref} className={classes.layout}>
+      {children(width)}
+    </div>
   );
 }
 

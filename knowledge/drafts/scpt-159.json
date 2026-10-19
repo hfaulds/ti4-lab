@@ -1,0 +1,1070 @@
+{
+  "episode": 159,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "This guide departs from the earlier Muaat guide: instead of Gravity Drive (\"blue\") Muaat it leans into red-yellow Muaat that rushes Prototype War Sun II. The argument is that blue Muaat has a slightly better mid game but no late game, while red Muaat fails more often but wins big when it survives to the late game. Muaat still sits on the lower rung of the tier list.",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro and Hunter's history with Muaat",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Embers of Muaat"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s32",
+          "title": "Muaat needs chaos across the table",
+          "kind": "strategy",
+          "summary": "Muaat often needs chaos on the other side of the table to make things happen, and should try to sow it.",
+          "advice": [
+            {
+              "point": "As Muaat, try to sow chaos on the other side of the table; Muaat often needs others to be fighting to get where it needs to go.",
+              "stance": "recommended",
+              "subjects": ["Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["any"],
+          "topics": ["general strategy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["gumming up the works", "table talk"]
+        },
+        {
+          "start": "s36",
+          "title": "Root tournament announcement",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s57",
+          "title": "Thesis: red Muaat over blue Muaat",
+          "kind": "strategy",
+          "summary": "The guide favours rushing Prototype War Sun II over the older Gravity Drive approach, citing Nine of Spades on how threatening a three-move War Sun is: opponents must always account for it and make mistakes elsewhere. Blue Muaat has a slightly better mid game but no late-game tools; red Muaat fails more often but has a very strong late game if it survives. Muaat remains a lower-tier faction.",
+          "advice": [
+            {
+              "point": "Lean into the red-yellow tech path toward Prototype War Sun II rather than going Gravity Drive first; the threat of a three-movement War Sun is worth the trouble of getting there.",
+              "stance": "recommended",
+              "subjects": ["Prototype War Sun II", "Gravity Drive", "Embers of Muaat"]
+            },
+            {
+              "point": "Blue (Gravity Drive) Muaat has a slightly better mid game but no tools for the late game; red Muaat fails more often but, if it survives the mid game, has a very good late game and is more likely to win.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat", "Prototype War Sun II", "Gravity Drive"]
+            },
+            {
+              "point": "A three-movement War Sun makes opponents play differently and usually causes them to make mistakes elsewhere (Nine of Spades, quoted approvingly).",
+              "stance": "rating",
+              "subjects": ["Prototype War Sun II"]
+            },
+            {
+              "point": "Muaat stays on the lower rung of the tier list, though, unlike Winnu and Arborec, it is viable.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat", "Winnu", "Arborec"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["any"],
+          "topics": ["technology", "general strategy"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "survive to the late game", "threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Starting units and tech",
+      "summary": "Muaat's start is bad in most ways: one War Sun acting as a single big carrier, no second carrier and no trade ships, so it is hard to expand round one and the War Sun is a target. Plasma Scoring is a great starting tech that makes the War Sun win any early fight it chooses, but moving it far away leaves the rest of the slice exposed.",
+      "chunks": [
+        {
+          "start": "s91",
+          "title": "Starting fleet: one big balloon",
+          "kind": "strategy",
+          "summary": "The starting War Sun does little in round one beyond carrying more than a normal carrier; Muaat effectively has one carrier and is a target. Against aggressive groups, Muaat must be willing to threaten to flip the table rather than simply giving in.",
+          "advice": [
+            {
+              "point": "The starting fleet is a bad start: effectively one carrier, so expansion in round one is limited and the War Sun does almost nothing for you in round one.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat", "War Sun"]
+            },
+            {
+              "point": "Against aggressive groups that want to pop your War Sun, don't be afraid to threaten to flip the table; be willing to take an attacker down with you.",
+              "stance": "situational",
+              "subjects": ["Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening", "expansion", "threats and matchups"],
+          "requires": ["faction abilities"],
+          "concepts": ["extortion", "plastic advantage"]
+        },
+        {
+          "start": "s116",
+          "title": "Plasma Scoring",
+          "kind": "strategy",
+          "summary": "Plasma Scoring is a great starting tech for Muaat: with the War Sun it makes Muaat win early fights for almost any planet. The problem is what happens to the rest of the slice when the War Sun leaves.",
+          "advice": [
+            {
+              "point": "Plasma Scoring is a great starting tech for Muaat; combined with the starting War Sun it lets you win early-game fights and take nearly any planet.",
+              "stance": "rating",
+              "subjects": ["Plasma Scoring", "War Sun"]
+            },
+            {
+              "point": "Using the War Sun for early aggression is strong in the fight itself, but sending it far out leaves the rest of your slice weak.",
+              "stance": "situational",
+              "subjects": ["War Sun"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1", "early"],
+          "topics": ["technology", "combat"],
+          "requires": [],
+          "concepts": ["pre-combat fire", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities, flagship and promissory note",
+      "summary": "Star Forge is a good late-game stall and reinforcement but too expensive in command tokens early, so avoid using it freely in the early game. Gashlai Physiology is situational and not worth building a game around; the Inferno is a decent flagship but has no place in this guide. Fires of the Gashlai is worth selling, usually once, at whatever price the game supports, especially to someone who will actually build War Suns and draw attention away.",
+      "chunks": [
+        {
+          "start": "s123",
+          "title": "Star Forge",
+          "kind": "strategy",
+          "summary": "Star Forge buys about one resource of ships for a command token, which is poor value, especially early when tokens are scarce. It is fine in the late game as a stall or to reinforce a War Sun with fighters, or with destroyers against things that chew through sustain damage. Strong players who can budget their tokens may use it earlier, but the hosts advise against early use.",
+          "advice": [
+            {
+              "point": "Star Forge is expensive by command token value (one resource of ships for a token), so avoid using it early when you need your tokens.",
+              "stance": "avoid",
+              "subjects": ["Star Forge"]
+            },
+            {
+              "point": "Star Forge is good in the late game as a stall action and for reinforcing: two fighters to screen a War Sun, or a destroyer to protect against units that skip fighters and strip sustain damage.",
+              "stance": "situational",
+              "subjects": ["Star Forge", "War Sun", "Destroyer"]
+            },
+            {
+              "point": "Experienced players who can budget their command token economy may plan for earlier Star Forge use, but the hosts' general advice is not to use it early.",
+              "stance": "situational",
+              "subjects": ["Star Forge"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["early", "late"],
+          "topics": ["faction abilities", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy", "stall action", "fighter screen", "plastic advantage"]
+        },
+        {
+          "start": "s152",
+          "title": "Gashlai Physiology",
+          "kind": "strategy",
+          "summary": "Moving through supernovas is useless early with a one-move War Sun and only sometimes relevant later with Flank Speed, Gravity Drive or three-move War Suns. It can produce great moments but do not plan your game around the supernova.",
+          "advice": [
+            {
+              "point": "Gashlai Physiology does nothing in the early game; it becomes occasionally useful with Flank Speed, Gravity Drive or Prototype War Sun II.",
+              "stance": "rating",
+              "subjects": ["Gashlai Physiology", "Flank Speed", "Gravity Drive", "Prototype War Sun II"]
+            },
+            {
+              "point": "Don't build your whole game around where the supernova is placed; use supernova plays only when they happen to work.",
+              "stance": "avoid",
+              "subjects": ["Gashlai Physiology"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["any"],
+          "topics": ["faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s163",
+          "title": "Flagship: the Inferno",
+          "kind": "strategy",
+          "summary": "The Inferno is one of the good flagships in combat, but this guide does not use it: Muaat already needs War Suns plus cheap supporting destroyers and fighters, and the flagship's ability is another drain on command tokens and an inefficient way to get cruisers.",
+          "advice": [
+            {
+              "point": "The Inferno is a decent combat flagship, one of the good ones, not useless.",
+              "stance": "rating",
+              "subjects": ["Inferno"]
+            },
+            {
+              "point": "Don't prioritise building the Inferno; spend on War Suns and cheap supporting destroyers and fighters instead of a third big ship.",
+              "stance": "avoid",
+              "subjects": ["Inferno", "War Sun", "Destroyer", "Fighter"]
+            },
+            {
+              "point": "Even with Cruiser II, the flagship's ability is a poor way to get cruisers and spends command tokens Muaat needs elsewhere.",
+              "stance": "avoid",
+              "subjects": ["Inferno", "Cruiser II"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["mid", "late"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy"]
+        },
+        {
+          "start": "s182",
+          "title": "Promissory note: Fires of the Gashlai",
+          "kind": "strategy",
+          "summary": "Fires of the Gashlai is a good note to sell and can fetch a high price, most often to someone who wants a second or third unit upgrade for a tech objective. It costs Muaat a command token, so sell it about once or twice, not repeatedly. Another player with War Suns can draw attention away from you, but weigh how much power you hand them; there is no set price.",
+          "advice": [
+            {
+              "point": "Don't be afraid to sell Fires of the Gashlai; it can fetch a high price depending on conditions, and selling it may fix one of Muaat's many problems.",
+              "stance": "recommended",
+              "subjects": ["Fires of the Gashlai"]
+            },
+            {
+              "point": "Its most common buyer is someone who needs a second or third unit upgrade for a technology objective point, even if they never build War Suns.",
+              "stance": "situational",
+              "subjects": ["Fires of the Gashlai"]
+            },
+            {
+              "point": "Each use costs you a command token, so sell it about once, hopefully not more than twice.",
+              "stance": "avoid",
+              "subjects": ["Fires of the Gashlai"]
+            },
+            {
+              "point": "Letting someone else get War Suns can divert attention from yours, but weigh that against how much power you give them.",
+              "stance": "situational",
+              "subjects": ["Fires of the Gashlai", "War Sun"]
+            },
+            {
+              "point": "Buyers are hard to find because they must still pay for the War Sun itself; don't fix a price, sell for what the game needs.",
+              "stance": "rating",
+              "subjects": ["Fires of the Gashlai"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["command token economy", "threat diversion", "free points"]
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies and commodities",
+      "summary": "Magmus Reactor is usually worth taking on the way to Prototype War Sun II, both for supernova production that can replace a forward dock and as a red tech for objectives, but skip it if a red or yellow skip lets you. Prototype War Sun II is the core of the guide for its movement and lower cost. Four commodities is a reliable strength all game.",
+      "chunks": [
+        {
+          "start": "s219",
+          "title": "Magmus Reactor",
+          "kind": "strategy",
+          "summary": "With Prototype War Sun II, parking War Suns in a supernova is safe and still leaves range. Supernova production can stand in for a forward dock, so Muaat can skip Construction, though it depends on supernova placement. It is usually a better third red tech than Duranium Armor, but skip it with a yellow skip or Sarween Tools; avoid using a red skip twice.",
+          "advice": [
+            {
+              "point": "Magmus Reactor's supernova production gives a dock-like production site, letting you avoid Construction and a forward dock entirely if the supernova is convenient to your slice.",
+              "stance": "situational",
+              "subjects": ["Magmus Reactor", "Construction"]
+            },
+            {
+              "point": "Parking upgraded War Suns in a supernova keeps them safe, since nobody else can enter, while their range still reaches the board.",
+              "stance": "recommended",
+              "subjects": ["Magmus Reactor", "Prototype War Sun II"]
+            },
+            {
+              "point": "Magmus Reactor is usually a fine pick on the way to Prototype War Sun II and counts toward tech objectives and tech secret objectives; it is better than Duranium Armor here because Muaat can rarely afford to exhaust its War Suns.",
+              "stance": "rating",
+              "subjects": ["Magmus Reactor", "Duranium Armor", "Prototype War Sun II"]
+            },
+            {
+              "point": "If you have a yellow skip or Sarween Tools, take Magen Defense Grid and skip past Magmus Reactor and Duranium Armor straight to Prototype War Sun II; avoid using a red skip twice in a game, since each costs a command token.",
+              "stance": "situational",
+              "subjects": ["Magmus Reactor", "Magen Defense Grid", "Sarween Tools", "Prototype War Sun II"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "faction abilities"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip", "tech path", "forward dock", "command token economy"]
+        },
+        {
+          "start": "s252",
+          "title": "Prototype War Sun II",
+          "kind": "strategy",
+          "summary": "The upgraded War Suns' three movement is the main benefit, and they are also cheaper (effectively nine with Sarween Tools). They define Muaat's late game, letting War Suns get all over the board and do a lot of damage.",
+          "advice": [
+            {
+              "point": "Prototype War Sun II is the key to Muaat's late game: three movement lets War Suns reach the whole board, and the lower cost helps.",
+              "stance": "rating",
+              "subjects": ["Prototype War Sun II", "Sarween Tools"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": []
+        },
+        {
+          "start": "s258",
+          "title": "Four commodities",
+          "kind": "strategy",
+          "summary": "Four commodities is a genuine, reliable strength that always helps, unlike the conditional supernova abilities.",
+          "advice": [
+            {
+              "point": "Muaat's four commodities are always useful and one of its few dependable strengths.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["any"],
+          "topics": ["economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Early-game problems",
+      "summary": "In round one Muaat wants both plastic (via the Warfare secondary) and a tech from its four-resource home, prioritising plastic if it cannot get both. Despite War Suns being good at taking Mecatol Rex, racing for the custodians token usually spreads Muaat too thin and hurts the mid game; always think about where the War Sun is not.",
+      "chunks": [
+        {
+          "start": "s267",
+          "title": "Round one goals: plastic and tech",
+          "kind": "strategy",
+          "summary": "Muaat is not very viable until it has Prototype War Sun II, so round one is greedy: get plastic through the Warfare secondary to expand beyond one system, and get a tech paid for by the four-resource home. If you cannot get both, take plastic; if you get neither, consider pivoting to blue Muaat for a mid game.",
+          "advice": [
+            {
+              "point": "In round one, aim to get plastic by using the Warfare secondary, so you can expand beyond the one system your War Sun reaches.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Embers of Muaat"]
+            },
+            {
+              "point": "Also aim for a tech in round one, paid for by the four-resource home system.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Embers of Muaat"]
+            },
+            {
+              "point": "If you cannot get both, prioritise plastic over tech.",
+              "stance": "situational",
+              "subjects": ["Embers of Muaat"]
+            },
+            {
+              "point": "If you get neither tech nor plastic in round one, consider switching to blue (Gravity Drive) Muaat to secure a viable mid game.",
+              "stance": "situational",
+              "subjects": ["Gravity Drive", "Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["opening", "strategy cards", "expansion"],
+          "requires": [],
+          "concepts": ["plastic advantage", "tech path", "secondary timing"]
+        },
+        {
+          "start": "s287",
+          "title": "The Mecatol Rex trap and the one-big-ship problem",
+          "kind": "strategy",
+          "summary": "War Suns take Mecatol Rex easily, but racing for the custodians token (Politics round one, Leadership round two) spends six influence Muaat lacks and spreads it too thin, and its undefended slice gets robbed. Take it only if things are going unusually well. Muaat has one big ship: wherever it is will be fine, so plan around where it is not, and remember it must leave home to take planets.",
+          "advice": [
+            {
+              "point": "Don't race for the custodians token early; Muaat usually spreads itself too thin, lacks the six influence in round two, and the mid game suffers.",
+              "stance": "avoid",
+              "subjects": ["Mecatol Rex", "Embers of Muaat"]
+            },
+            {
+              "point": "Take the custodians token early only if you luck into a situation where it is clearly affordable and safe.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Plan around where your War Sun isn't: it will win wherever it is, but everywhere else in your slice is vulnerable, especially in tournament play where opponents will gut you.",
+              "stance": "recommended",
+              "subjects": ["War Sun", "Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1", "early"],
+          "topics": ["mecatol", "general strategy"],
+          "requires": [],
+          "concepts": ["custodians rush", "single fleet vulnerability", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Trade is the top round-one pick, narrowly ahead of Technology, which may be better in metas that stall Warfare. Leadership, Diplomacy and Politics form a middle tier to choose between by reading the table. Construction and Warfare are low picks for Muaat.",
+      "chunks": [
+        {
+          "start": "s320",
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership addresses the command token problem but leaves the question of money; it is mid-tier, possibly mid-low. It is stronger if you bank tokens for later rounds than if you spend them all on Star Forge to avoid being stalled out of Warfare.",
+          "advice": [
+            {
+              "point": "Leadership is a middle-of-the-pack round-one pick for Muaat, perhaps mid-low, because it doesn't solve the money problem.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Leadership is stronger if you bank the command tokens for rounds two to five; if you will spend them all immediately, take something else.",
+              "stance": "situational",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Don't overspend command tokens on secondaries in round one; going into round two you can usually pull at least one token out of the fleet pool.",
+              "stance": "avoid",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Muaat is easily stalled out of the Warfare secondary; Star Forge can provide stalls but is expensive.",
+              "stance": "rating",
+              "subjects": ["Warfare", "Star Forge"]
+            },
+            {
+              "point": "Using Star Forge to make a destroyer just to trade costs two command tokens for three trade goods; prefer to find an easy trade partner.",
+              "stance": "avoid",
+              "subjects": ["Star Forge", "Destroyer"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy", "stall action", "secondary timing"]
+        },
+        {
+          "start": "s355",
+          "title": "Round one: Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is a good pick for Muaat, better than for Winnu or Arborec thanks to the four-resource home: refreshing home plus planets funds both tech and a second carrier, and only a die-hard Warfare stall hurts. Use it as leverage to negotiate Warfare and Technology secondary timing, threaten to waste stalls if others won't cooperate, and it protects a vulnerable home against round-one blockades.",
+          "advice": [
+            {
+              "point": "Diplomacy is a good round-one pick for Muaat: it funds both tech and plastic, and the four-resource home means you can always follow Technology.",
+              "stance": "rating",
+              "subjects": ["Diplomacy", "Embers of Muaat"]
+            },
+            {
+              "point": "Use Diplomacy as leverage to negotiate when Warfare and Technology are played so their secondaries land at the right time for you.",
+              "stance": "recommended",
+              "subjects": ["Diplomacy", "Warfare", "Technology"]
+            },
+            {
+              "point": "If the table won't cooperate on secondary timing, threaten to burn your stalls so nobody gets to use their cards comfortably.",
+              "stance": "situational",
+              "subjects": ["Diplomacy"]
+            },
+            {
+              "point": "Diplomacy protects Muaat's vulnerable home from cheesy round-one blockades in groups that do that.",
+              "stance": "situational",
+              "subjects": ["Diplomacy"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["secondary timing", "trade leverage", "extortion", "stall action", "home system defense"]
+        },
+        {
+          "start": "s380",
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Politics is mid-tier, alongside Diplomacy and Leadership. It defers tech to a double-tech round two that costs six resources, which Hunter dislikes, though without skips you will have to double tech at some point. Action cards can be valuable (an early Flank Speed, Sabotage, or a stall against Warfare pressure), and selling the speaker token can push it higher. Don't use it to set up a Mecatol Rex rush.",
+          "advice": [
+            {
+              "point": "Politics is middle tier with Leadership and Diplomacy; Hunter rates it slightly lower because it defers tech to an expensive double-tech round two.",
+              "stance": "rating",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Prefer a steady flow of a little plastic and one tech each round over double teching, unless you are ahead on many fronts; without skips you will eventually need to double tech to reach Prototype War Sun II.",
+              "stance": "situational",
+              "subjects": ["Technology", "Prototype War Sun II"]
+            },
+            {
+              "point": "An early Flank Speed is especially valuable for Muaat's War Sun; if Hacan is in the game, try to buy one from them.",
+              "stance": "recommended",
+              "subjects": ["Flank Speed", "Emirates of Hacan"]
+            },
+            {
+              "point": "Action cards drawn from Politics can provide a stall against someone using the Warfare secondary to pressure you, saving a Star Forge.",
+              "stance": "situational",
+              "subjects": ["Politics", "Warfare"]
+            },
+            {
+              "point": "Don't take Politics round one to set up Leadership and a Mecatol Rex rush.",
+              "stance": "avoid",
+              "subjects": ["Politics", "Mecatol Rex"]
+            },
+            {
+              "point": "Selling the speaker token for a lot of money, for example to a Hacan with Trade to your right, can push Politics above Diplomacy or Leadership.",
+              "stance": "situational",
+              "subjects": ["Politics", "Emirates of Hacan"]
+            }
+          ],
+          "factions": ["Embers of Muaat", "Emirates of Hacan"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening", "action cards"],
+          "requires": ["action cards"],
+          "concepts": ["speaker token sale", "stall action", "custodians rush", "tech path"]
+        },
+        {
+          "start": "s419",
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Construction is very low for Muaat. A forward dock is not bad but is low priority, becomes irrelevant once War Suns move three, and is another target Muaat lacks plastic to defend. Taking it also means moving the War Sun first, which hands others their picks; PDS-heavy Muaat is untested.",
+          "advice": [
+            {
+              "point": "Construction is a very low pick for Muaat; take Diplomacy instead.",
+              "stance": "avoid",
+              "subjects": ["Construction"]
+            },
+            {
+              "point": "An early forward dock is just another territory Muaat lacks the plastic to defend, and becomes irrelevant once War Suns move three.",
+              "stance": "rating",
+              "subjects": ["Construction", "Prototype War Sun II"]
+            },
+            {
+              "point": "Avoid making moving the War Sun your first action, which Construction tends to force.",
+              "stance": "avoid",
+              "subjects": ["War Sun", "Construction"]
+            },
+            {
+              "point": "A PDS-heavy Muaat in a killer slice might work, but the hosts haven't tested it.",
+              "stance": "situational",
+              "subjects": ["PDS"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["forward dock", "single fleet vulnerability"]
+        },
+        {
+          "start": "s443",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is usually the top pick, narrowly ahead of Technology, because it makes the money for both plastic and tech. The problem is having no ship to reach trade partners; an opening using Star Forge to build a trading destroyer just moves money around unless your meta stalls Warfare hard. Better to negotiate a favourable trade, such as an even four-for-four, with a neighbour who moves to you.",
+          "advice": [
+            {
+              "point": "Trade is usually the best round-one pick for Muaat, narrowly ahead of Technology, because it funds both plastic and tech.",
+              "stance": "rating",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Spending Trade's trade goods on a command token to Star Forge a destroyer for trading mostly moves money around; do it only in cutthroat Warfare-stalling metas.",
+              "stance": "situational",
+              "subjects": ["Trade", "Star Forge", "Destroyer"]
+            },
+            {
+              "point": "Instead, negotiate a favourable deal with a neighbour willing to bring their ship to you, such as a straight four-for-four rather than an X-1 trade.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Trade does not protect you from being stalled out of the Warfare secondary.",
+              "stance": "rating",
+              "subjects": ["Trade", "Warfare"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "economy", "trade and diplomacy"],
+          "requires": ["faction abilities"],
+          "concepts": ["X-1 trade", "table meta"]
+        },
+        {
+          "start": "s463",
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is nearly as good as Trade for the same reasons, and makes it harder to be stalled out of Warfare, so in some metas it may be the better pick.",
+          "advice": [
+            {
+              "point": "Technology is a top round-one pick for Muaat, nearly equal to Trade.",
+              "stance": "rating",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "In metas that stall Warfare, Technology may beat Trade, since holding it makes you harder to stall out.",
+              "stance": "situational",
+              "subjects": ["Technology", "Warfare"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "technology"],
+          "requires": [],
+          "concepts": ["table meta", "stall action"]
+        },
+        {
+          "start": "s467",
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is not good for Muaat: moving the War Sun out, playing Warfare and moving again overextends it while the rest of your plastic is spread thin. Muaat can't stall well to time it, and building at home before moving gives everyone else units while only solving the plastic half of the round-one goal.",
+          "advice": [
+            {
+              "point": "Warfare is a poor pick for Muaat; it tempts you to move the War Sun too far away, leaving the rest of your thin plastic vulnerable.",
+              "stance": "avoid",
+              "subjects": ["Warfare", "War Sun"]
+            },
+            {
+              "point": "An activate-at-home, build-at-home Warfare play is worse: everyone gets lots of units from the secondary and you only accomplish plastic, not tech.",
+              "stance": "avoid",
+              "subjects": ["Warfare"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["single fleet vulnerability", "custodians rush"]
+        }
+      ]
+    },
+    {
+      "title": "Tech path",
+      "summary": "Pick Muaat only when the slice offers a red or yellow skip; the yellow skip is better, but a single red skip is worth spending on Prototype War Sun II. The path is Sarween Tools (skip if possible), Magen Defense Grid, Destroyer II, Magmus Reactor or Duranium Armor, then Prototype War Sun II, then whatever fits, delaying tech objectives. Blue Muaat was dropped because it has no payoff.",
+      "chunks": [
+        {
+          "start": "s482",
+          "title": "Red and yellow skips",
+          "kind": "strategy",
+          "summary": "In most games you can find a red or yellow skip, and Patience as a Virtue's approach is not to pick Muaat unless the slice has one. The yellow skip is better if you only get one, since red skips burn influence, but Prototype War Sun II justifies a single red skip, ideally used outside the action phase.",
+          "advice": [
+            {
+              "point": "Consider picking Muaat only when the slice offers a red or yellow skip and some influence.",
+              "stance": "recommended",
+              "subjects": ["Embers of Muaat"]
+            },
+            {
+              "point": "The yellow skip is the better one if you can only get one, because red-skip planets are usually your influence.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat"]
+            },
+            {
+              "point": "Prototype War Sun II is worth spending a single red skip on; ideally research it outside the action phase so it costs you no tempo.",
+              "stance": "recommended",
+              "subjects": ["Prototype War Sun II"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["setup", "early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip", "slice value"]
+        },
+        {
+          "start": "s503",
+          "title": "The red tech path to Prototype War Sun II",
+          "kind": "strategy",
+          "summary": "Skip Sarween Tools if you can, then Magen Defense Grid, Destroyer II, Magmus Reactor (usually, since three-move War Suns may use a distant supernova) or Duranium Armor (only if you have built dreadnoughts or feel safe with sustain), then Prototype War Sun II, then whatever your game needs. Delay the two-and-two tech objectives, scoring control objectives with the single War Sun, and finish tech later while War Suns guard home. Muaat should aim for a big tech game, double teching at some point.",
+          "advice": [
+            {
+              "point": "Path: Sarween Tools (skip it if you can), Magen Defense Grid, Destroyer II, Magmus Reactor or Duranium Armor, then Prototype War Sun II as quickly as possible.",
+              "stance": "recommended",
+              "subjects": ["Sarween Tools", "Magen Defense Grid", "Destroyer II", "Magmus Reactor", "Duranium Armor", "Prototype War Sun II"]
+            },
+            {
+              "point": "Take Magmus Reactor most of the time, even if the supernova seems far away, since three-move War Suns may use it; Matt adds to take it only if the supernova is relevant.",
+              "stance": "situational",
+              "subjects": ["Magmus Reactor"]
+            },
+            {
+              "point": "Take Duranium Armor instead only if your build warrants it, e.g. you have been building dreadnoughts or hold Sabotages and feel safe using sustain damage.",
+              "stance": "situational",
+              "subjects": ["Duranium Armor"]
+            },
+            {
+              "point": "After Prototype War Sun II, supplement with whatever fits your game, such as Antimass Deflectors if asteroid fields are in the way.",
+              "stance": "situational",
+              "subjects": ["Antimass Deflectors"]
+            },
+            {
+              "point": "Put off the two-in-two-colours tech objectives; score control objectives with the single War Sun in the mid game, and spend objectives where possible.",
+              "stance": "recommended",
+              "subjects": ["Prototype War Sun II"]
+            },
+            {
+              "point": "In the late game, with control objectives done, keep a War Sun home to defend while you redirect energy into finishing tech objectives.",
+              "stance": "situational",
+              "subjects": ["War Sun"]
+            },
+            {
+              "point": "Muaat is not good at secret objectives until Prototype War Sun II arrives, when action-phase secrets become reachable; Make an Example of Their World is a natural fit.",
+              "stance": "rating",
+              "subjects": ["Make an Example of Their World"]
+            },
+            {
+              "point": "Aim for a big tech game as Muaat, taking Technology and double teching at some point.",
+              "stance": "recommended",
+              "subjects": ["Technology"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["technology", "objectives"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "tech skip", "early control scoring", "economy before control"]
+        },
+        {
+          "start": "s540",
+          "title": "Why blue Muaat was dropped",
+          "kind": "strategy",
+          "summary": "Hunter never won with blue Muaat and now prefers slow starts into big payoffs. Blue Muaat feels better in the mid game but leaves faction upgrade secret objectives dead and struggles with four techs of one colour. If you do go blue: Antimass Deflectors, Gravity Drive, Neural Motivator, maybe Fighter II for flexible gumming fighters, skip Dacxive Animators for Hyper Metabolism, which suits the token problem; Carrier II and Infantry II add little.",
+          "advice": [
+            {
+              "point": "Blue Muaat feels better in the mid game but has no payoff; it makes faction-upgrade secret objectives dead and four-of-one-colour objectives hard.",
+              "stance": "rating",
+              "subjects": ["Gravity Drive", "Embers of Muaat"]
+            },
+            {
+              "point": "If going blue, the path is Antimass Deflectors, Gravity Drive and Neural Motivator, skipping Dacxive Animators to reach Hyper Metabolism, which suits Muaat's command token problem.",
+              "stance": "situational",
+              "subjects": ["Antimass Deflectors", "Gravity Drive", "Neural Motivator", "Dacxive Animators", "Hyper Metabolism"]
+            },
+            {
+              "point": "Fighter II is a fun, flexible upgrade for Muaat, letting fighters cluster with the War Sun and then spread out to gum up the board, but probably not better than Prototype War Sun II.",
+              "stance": "rating",
+              "subjects": ["Fighter II", "Prototype War Sun II"]
+            },
+            {
+              "point": "Carrier II is unnecessary because the War Sun is already a good carrier, and Infantry II mostly cleans up after bombardment.",
+              "stance": "rating",
+              "subjects": ["Carrier II", "Infantry II"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "survive to the late game", "gumming up the works"]
+        }
+      ]
+    },
+    {
+      "title": "Trading and table meta",
+      "summary": "Muaat is brittle but holds the scariest unit on the board, so it must be willing to let the table know it will play dirty or throw the game if pushed. Sell Fires of the Gashlai when desperate, ideally to someone who will build War Suns and draw heat. Four commodities make trades reliable, and Muaat's Ceasefire is unusually valuable, so don't swap it cheaply.",
+      "chunks": [
+        {
+          "start": "s573",
+          "title": "The egg in the basket is a gun",
+          "kind": "strategy",
+          "summary": "All of Muaat's eggs are in one basket, and the egg is a gun, so negotiations get tilty. If someone tests you, let them know you might throw the game; for the first three rounds this threat is your one nasty trick. Hunter dislikes this extortion style, which is why he dislikes Muaat.",
+          "advice": [
+            {
+              "point": "When someone tests you as Muaat, make clear you are willing to play dirty and even throw the game; it is your main deterrent in the first three rounds.",
+              "stance": "recommended",
+              "subjects": ["Embers of Muaat", "War Sun"]
+            },
+            {
+              "point": "Expect Muaat games to get tilty and slide into fights easily; Hunter personally dislikes the extortion style the faction requires.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["early", "mid"],
+          "topics": ["trade and diplomacy", "threats and matchups"],
+          "requires": [],
+          "concepts": ["extortion", "threat perception"]
+        },
+        {
+          "start": "s588",
+          "title": "Selling Fires of the Gashlai",
+          "kind": "strategy",
+          "summary": "Selling Fires of the Gashlai across the table for decent money or a point can divert attention, ideally to someone who can actually build War Suns, since your Prototype War Sun II will still be scariest in the end game. This is not a routine strategy. Let your desperation guide you: if you feel bad in round two, sell it rather than refusing at all costs.",
+          "advice": [
+            {
+              "point": "Sell Fires of the Gashlai ideally to someone who can afford to build War Suns, so they draw mid-game attention away from you; your upgraded War Suns will still be scarier by the end.",
+              "stance": "situational",
+              "subjects": ["Fires of the Gashlai", "Prototype War Sun II"]
+            },
+            {
+              "point": "Diverting attention this way rarely happens and is not a strategy to attempt every game, but it helps when you can't get heat off your back.",
+              "stance": "situational",
+              "subjects": ["Fires of the Gashlai"]
+            },
+            {
+              "point": "If you are not feeling good by round two, sell the note; never treat it as something to keep at all costs, though an enemy with War Suns can bite you.",
+              "stance": "recommended",
+              "subjects": ["Fires of the Gashlai"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["threat diversion", "threat perception"]
+        },
+        {
+          "start": "s608",
+          "title": "Commodities as a steady income",
+          "kind": "strategy",
+          "summary": "Unlike Sardakk N'orr, Muaat has tools when it is in early trouble: four commodities draw trade partners from round one and give income every round once units are on the board.",
+          "advice": [
+            {
+              "point": "Use the four commodities to get in on trades every round; neighbours will often bring ships to you to trade, guaranteeing income all game.",
+              "stance": "recommended",
+              "subjects": ["Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat", "Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s614",
+          "title": "Muaat's Ceasefire is valuable",
+          "kind": "strategy",
+          "summary": "Muaat at full strength is just two fast War Suns, two activations, so its Ceasefire neutralises most of its threat and is worth more than most. Don't sell it to someone you'll regret, but sell it high if the game forces you, and don't swap ceasefires unless you get a high-value one back. Matt suggests the Nekro Ceasefire; Hunter disagrees because Nekro activates you constantly and doesn't care about tokens.",
+          "advice": [
+            {
+              "point": "Muaat's Ceasefire is on the high end of ceasefire value because Muaat's late-game threat is only two War Sun activations.",
+              "stance": "rating",
+              "subjects": ["Ceasefire", "Embers of Muaat"]
+            },
+            {
+              "point": "Be careful not to sell your Ceasefire to someone you'll regret, but if you must, sell it for a high price.",
+              "stance": "situational",
+              "subjects": ["Ceasefire"]
+            },
+            {
+              "point": "Don't do a ceasefire swap unless the one you get back is also high value; Matt suggested Nekro's to block their War Sun plans, but Hunter thinks Nekro's Ceasefire is worth little.",
+              "stance": "avoid",
+              "subjects": ["Ceasefire", "Nekro Virus"]
+            }
+          ],
+          "factions": ["Embers of Muaat", "Nekro Virus"],
+          "phases": ["mid", "late"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["ceasefire value", "trade leverage"]
+        }
+      ]
+    },
+    {
+      "title": "Mid and late game",
+      "summary": "Muaat gets through the mid game by fixing its economy and command tokens, playing nice and trading points with neighbours, and threatening with the War Sun only when others won't deal. With Prototype War Sun II, take the point you need this round rather than investing in multi-round control, and plan to take Mecatol Rex for an Imperial swing round. Expect some games to flounder; the strategy relies on surviving to the late game.",
+      "chunks": [
+        {
+          "start": "s632",
+          "title": "Surviving the mid game: economy and point trading",
+          "kind": "strategy",
+          "summary": "Fix the economy and command tokens: take Leadership if the slice is poor, or risk a move on Mecatol Rex just for its influence. Play nice with neighbours and accept point-trading deals, since that may be your only mid-game scoring; trade away equidistant systems you can't hold. If neighbours won't deal, remind them you have a War Sun.",
+          "advice": [
+            {
+              "point": "In the mid game, focus on fixing your economy and command tokens; with a weak slice take Leadership, or risk taking Mecatol Rex just for its influence.",
+              "stance": "situational",
+              "subjects": ["Leadership", "Mecatol Rex"]
+            },
+            {
+              "point": "Accept point-trading deals with neighbours as Muaat; it may be your only way to score in the mid game while waiting for fast War Suns.",
+              "stance": "recommended",
+              "subjects": ["Embers of Muaat"]
+            },
+            {
+              "point": "You can't station a War Sun on Mecatol Rex, home and the equidistant system at once, so trade away equidistant systems you can't hold for something.",
+              "stance": "recommended",
+              "subjects": ["War Sun"]
+            },
+            {
+              "point": "If neighbours play nice, play nice back; only if they refuse to deal should you remind them you have a War Sun.",
+              "stance": "situational",
+              "subjects": ["War Sun"]
+            },
+            {
+              "point": "Once you have Prototype War Sun II there is always somewhere on the board it can win a fight, even if others out-built you on plastic.",
+              "stance": "rating",
+              "subjects": ["Prototype War Sun II"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["mid"],
+          "topics": ["trade and diplomacy", "economy", "general strategy"],
+          "requires": [],
+          "concepts": ["point trading", "command token economy", "survive to the late game", "extortion", "non-binding deals"]
+        },
+        {
+          "start": "s665",
+          "title": "Taking and holding with War Suns",
+          "kind": "strategy",
+          "summary": "The War Sun defends well too: after taking a system, reinforce with Star Forge so retaliation becomes too costly and you usually keep it for the round. Attack to score exactly the point you need this round, then leave next round; don't invest in multi-round control plans.",
+          "advice": [
+            {
+              "point": "After taking a system with a War Sun, use your next action to Star Forge a destroyer or fighters as reinforcement; opponents often won't commit their whole fleet to retake it.",
+              "stance": "recommended",
+              "subjects": ["Star Forge", "War Sun"]
+            },
+            {
+              "point": "Make attacks that score exactly the point you need this round, then probably leave next round.",
+              "stance": "recommended",
+              "subjects": ["War Sun"]
+            },
+            {
+              "point": "Don't over-invest in two-round control plans that send War Suns far away; Muaat can't afford to overextend.",
+              "stance": "avoid",
+              "subjects": ["War Sun"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "objectives"],
+          "requires": ["faction abilities"],
+          "concepts": ["controlled aggression", "early control scoring"]
+        },
+        {
+          "start": "s679",
+          "title": "Late Mecatol Rex and the Imperial swing round",
+          "kind": "strategy",
+          "summary": "Most of the time Muaat should plan to take Mecatol Rex from whoever holds it in the late game. A good final or second-to-last round is an Imperial swing round: while people dismiss you at four points, take Imperial and jump to eight or nine, becoming a threat they can't deal with.",
+          "advice": [
+            {
+              "point": "In the late game, if you don't hold Mecatol Rex, take it from whoever has it.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Use a late round as an Imperial swing round: while the table dismisses you as behind, take Imperial with Mecatol Rex and jump from about four to eight or nine points.",
+              "stance": "recommended",
+              "subjects": ["Imperial", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["late"],
+          "topics": ["mecatol", "strategy cards", "objectives"],
+          "requires": [],
+          "concepts": ["swing round", "threat perception"]
+        },
+        {
+          "start": "s691",
+          "title": "Late-game fleet",
+          "kind": "strategy",
+          "summary": "The late-game picture is Mecatol Rex plus two upgraded War Suns supported by Destroyer IIs to strip fighter screens. Once you have them you don't need advice on how to use them.",
+          "advice": [
+            {
+              "point": "In the late game, support two Prototype War Sun IIs with upgraded destroyers to peel down opponents' fighter screens.",
+              "stance": "recommended",
+              "subjects": ["Prototype War Sun II", "Destroyer II"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["late"],
+          "topics": ["combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["fighter screen"]
+        },
+        {
+          "start": "s700",
+          "title": "Expectations: games will flounder",
+          "kind": "strategy",
+          "summary": "The strategy depends on barely surviving the early and mid game, so some games will end at five points from bad objectives and a low-influence slice, with no reliable escape. With the right slice and decent objectives Muaat can be terrifying in the late game.",
+          "advice": [
+            {
+              "point": "Expect some games to flounder with bad early objectives and an influence-poor slice; with the right slice and decent objectives, Muaat becomes terrifying in the late game.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["survive to the late game", "slice value"]
+        }
+      ]
+    },
+    {
+      "title": "Outro and Prophecy of Kings spoilers",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s721",
+          "title": "Patron thanks, stream schedule and show business",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s773",
+          "title": "Spoiler: Umbat, the Muaat agent",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Embers of Muaat"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s810",
+          "title": "Spoiler: AI Development Algorithm and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Embers of Muaat", "Emirates of Hacan"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Muah": "Muaat",
+    "Muad": "Muaat",
+    "Mua": "Muaat",
+    "Moat": "Muaat",
+    "Muatt": "Muaat",
+    "Muat": "Muaat",
+    "Muott": "Muaat",
+    "MooWatt": "Muaat",
+    "Moo op": "Muaat",
+    "Blue Ott": "Blue Muaat",
+    "Blue Aught": "Blue Muaat",
+    "war son": "War Sun",
+    "Warsawn": "War Sun",
+    "Warsaw": "War Sun",
+    "Prototype Warsen 2": "Prototype War Sun II",
+    "prototype Warsan 2": "Prototype War Sun II",
+    "plasma scoring": "Plasma Scoring",
+    "Gash Life Physiology": "Gashlai Physiology",
+    "Fires of the Gash Lie": "Fires of the Gashlai",
+    "Fires of the Gashli": "Fires of the Gashlai",
+    "Majin": "Magen Defense Grid",
+    "Magen": "Magen Defense Grid",
+    "Uranium": "Duranium Armor",
+    "grab drive": "Gravity Drive",
+    "Daxive": "Dacxive Animators",
+    "Hyper": "Hyper Metabolism",
+    "neural": "Neural Motivator",
+    "AMD": "Antimass Deflectors",
+    "Star sarween tools": "Sarween Tools",
+    "Arbor Eck": "Arborec",
+    "Arborack": "Arborec",
+    "Arborc": "Arborec",
+    "X cha": "Xxcha",
+    "Necros": "Nekro",
+    "Mechitall Rex": "Mecatol Rex",
+    "Mexicol Rex": "Mecatol Rex"
+  }
+}

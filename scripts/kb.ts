@@ -236,22 +236,40 @@ const readEpisodes = () =>
     .sort()
     .map((f) => JSON.parse(readFileSync(`knowledge/chunks/${f}`, "utf8")) as EpisodeChunks);
 
+/** Up to `limit` items, taken evenly through the list so all episodes show. */
+function spread<T>(items: T[], limit: number): T[] {
+  const step = items.length / limit;
+  return Array.from({ length: limit }, (_, i) => items[Math.floor(i * step)]);
+}
+
 /** Every concept name chunks used, with the chunks that used it. */
 function mentions() {
   const byName = new Map<string, Chunk[]>();
   for (const chunk of readEpisodes().flatMap((e) => e.chunks)) {
     for (const name of chunk.concepts) byName.set(name, [...(byName.get(name) ?? []), chunk]);
   }
-  const lines = [...byName]
-    .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
-    .flatMap(([name, chunks]) => [
-      `## ${name} (${chunks.length} chunks)`,
-      ...chunks.map((c) => `- [${c.id}] ${c.title}: ${c.summary}`),
-      "",
-    ]);
+  const sorted = [...byName].sort(
+    (a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]),
+  );
+  /** Every mention, or at most `limit` per concept spread across episodes. */
+  const render = (limit = Infinity) =>
+    sorted
+      .flatMap(([name, chunks]) => {
+        const shown = limit < chunks.length ? spread(chunks, limit) : chunks;
+        return [
+          `## ${name} (${chunks.length} chunks${shown.length < chunks.length ? `, ${shown.length} shown` : ""})`,
+          ...shown.map((c) => `- [${c.id}] ${c.title}: ${c.summary}`),
+          "",
+        ];
+      })
+      .join("\n");
   mkdirSync("knowledge/work", { recursive: true });
-  writeFileSync("knowledge/work/concept-mentions.md", lines.join("\n"));
-  console.log(`${byName.size} concept names; written to knowledge/work/concept-mentions.md`);
+  writeFileSync("knowledge/work/concept-mentions.md", render());
+  writeFileSync("knowledge/work/concept-mentions-brief.md", render(10));
+  console.log(
+    `${byName.size} concept names; written to knowledge/work/concept-mentions.md ` +
+      "(and concept-mentions-brief.md, at most 10 per concept)",
+  );
 }
 
 function concepts() {

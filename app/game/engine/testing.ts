@@ -29,7 +29,7 @@ import {
 import { applyAction, createGame, settle } from "./index";
 import { objectiveStatus, scorableObjectives } from "./objectives";
 import { availableStrategyCards } from "./phases";
-import { strategyKind } from "./strategic";
+import { fleetPoolLimit, strategyKind } from "./strategic";
 
 const TEST_SYSTEMS = [
   "19", "20", "21", "22", "23", "24", "25", "26", "27", "28",
@@ -137,7 +137,14 @@ function poolsAfterGaining(state: GameState, id: PlayerId, gained: number) {
   const room =
     COMMAND_TOKEN_LIMIT - totalTokens(player) - tokensOnBoard(state, id);
   const received = Math.max(0, Math.min(gained, room));
-  return { ...player.pools, tactic: player.pools.tactic + received };
+  const pools = { ...player.pools, tactic: player.pools.tactic + received };
+  // Fleet Regulations
+  const limit = fleetPoolLimit(state);
+  if (pools.fleet > limit) {
+    pools.tactic += pools.fleet - limit;
+    pools.fleet = limit;
+  }
+  return pools;
 }
 
 function answer(state: GameState, prompt: Prompt): GameAction {
@@ -201,6 +208,10 @@ function answer(state: GameState, prompt: Prompt): GameAction {
       return { type: "BREAK_TIE", outcome: prompt.outcomes[0] ?? "For" };
     case "resolve":
       return { type: "RESOLVE", promptId: prompt.id };
+    case "window":
+      return { type: "PASS_WINDOW", promptId: prompt.id };
+    case "research":
+      return { type: "RESEARCH", promptId: prompt.id, research: [] };
   }
 }
 

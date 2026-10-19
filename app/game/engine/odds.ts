@@ -9,6 +9,7 @@ import {
   UnitType,
   unitFor,
 } from "../data";
+import { FACTION_COMBAT_MODIFIERS } from "./combat";
 
 /**
  * Exact combat odds, computed as a Markov chain rather than by simulation.
@@ -77,10 +78,6 @@ type Side = {
   support: UnitCounts;
 };
 
-const COMBAT_MODIFIERS: Partial<Record<FactionId, number>> = {
-  sardakk: 1,
-  jolnar: -1,
-};
 
 function sideOf(input: OddsSide, expansions: Expansion[]): Side {
   const technologies = input.technologies ?? [];
@@ -97,7 +94,7 @@ function sideOf(input: OddsSide, expansions: Expansion[]): Side {
   return {
     stats,
     technologies,
-    combatModifier: COMBAT_MODIFIERS[input.faction] ?? 0,
+    combatModifier: FACTION_COMBAT_MODIFIERS[input.faction] ?? 0,
     fleet: { units: { ...input.units }, damaged: { ...input.damaged } },
     support: input.support ?? {},
   };

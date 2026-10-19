@@ -1,16 +1,20 @@
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 import { generatePrettyUrlName } from "~/data/urlWords.server";
 import { victoryPoints } from "~/game/engine/control";
+import { GameAction } from "~/game/actions";
+import { MoveNote } from "~/game/history";
 import { GameState, Phase } from "~/game/types";
-import { FactionId } from "~/types";
+import { FactionId, PlayerId } from "~/types";
 import { db } from "./config.server";
-import { games } from "./schema.server";
+import { gameMoves, games } from "./schema.server";
 
 export type SavedGame = {
   id: string;
   urlName: string;
   draftId: string | null;
+  /** Every seat is an agent or bot, so their reasoning may be shown to all. */
+  botOnly: boolean;
   state: GameState;
 };
 
@@ -19,6 +23,7 @@ function toSavedGame(row: typeof games.$inferSelect): SavedGame {
     id: row.id,
     urlName: row.urlName,
     draftId: row.draftId,
+    botOnly: row.botOnly,
     state: JSON.parse(row.data as string) as GameState,
   };
 }
@@ -99,40 +104,126 @@ async function uniqueUrlName() {
   }
 }
 
-export async function createSavedGame(state: GameState, draftId?: string) {
+export type GameMove = {
+  /** The game's version once the move was applied. */
+  version: number;
+  player: PlayerId;
+  action: GameAction;
+  note?: MoveNote;
+};
+
+/**
+ * Saves a new game that begins at `initial`. A game imported from elsewhere
+ * passes the moves already played and the state they led to.
+ */
+export async function createSavedGame(
+  initial: GameState,
+  draftId?: string,
+  played?: { moves: GameMove[]; state: GameState },
+  options: { botOnly?: boolean } = {},
+) {
   const id = uuidv4().toString();
   const urlName = await uniqueUrlName();
-  db.insert(games)
-    .values({
-      id,
-      urlName,
-      draftId: draftId ?? null,
-      data: JSON.stringify(state),
-      version: state.version,
-      isComplete: state.phase === "finished",
-    })
-    .run();
+  const state = played?.state ?? initial;
+  db.transaction((tx) => {
+    tx.insert(games)
+      .values({
+        id,
+        urlName,
+        draftId: draftId ?? null,
+        data: JSON.stringify(state),
+        initialData: JSON.stringify(initial),
+        version: state.version,
+        isComplete: state.phase === "finished",
+        botOnly: options.botOnly ?? false,
+      })
+      .run();
+    for (const move of played?.moves ?? []) {
+      tx.insert(gameMoves)
+        .values({
+          gameId: id,
+          version: move.version,
+          player: move.player,
+          action: JSON.stringify(move.action),
+          note: move.note ? JSON.stringify(move.note) : null,
+        })
+        .run();
+    }
+  });
   return { id, urlName };
 }
 
 /**
- * Saves a game only if nobody else has saved since `previousVersion` was
- * read. Returns false when the write lost that race.
+ * Saves a game and the move that produced it, only if nobody else has saved
+ * since `previousVersion` was read. Returns false when the write lost that
+ * race.
  */
 export function saveGame(
   id: string,
   state: GameState,
   previousVersion: number,
+  move: { player: PlayerId; action: GameAction; note?: MoveNote },
 ): boolean {
-  const result = db
-    .update(games)
-    .set({
-      data: JSON.stringify(state),
-      version: state.version,
-      isComplete: state.phase === "finished",
-      updatedAt: sql`CURRENT_TIMESTAMP`,
-    })
-    .where(and(eq(games.id, id), eq(games.version, previousVersion)))
-    .run();
-  return result.changes > 0;
+  return db.transaction((tx) => {
+    const result = tx
+      .update(games)
+      .set({
+        data: JSON.stringify(state),
+        version: state.version,
+        isComplete: state.phase === "finished",
+        updatedAt: sql`CURRENT_TIMESTAMP`,
+      })
+      .where(and(eq(games.id, id), eq(games.version, previousVersion)))
+      .run();
+    if (result.changes === 0) return false;
+    tx.insert(gameMoves)
+      .values({
+        gameId: id,
+        version: state.version,
+        player: move.player,
+        action: JSON.stringify(move.action),
+        note: move.note ? JSON.stringify(move.note) : null,
+      })
+      .run();
+    return true;
+  });
+}
+
+/** The moves applied to a game after `afterVersion`, oldest first. */
+export function gameMovesSince(id: string, afterVersion: number) {
+  return db
+    .select()
+    .from(gameMoves)
+    .where(
+      and(
+        eq(gameMoves.gameId, id),
+        sql`${gameMoves.version} > ${afterVersion}`,
+      ),
+    )
+    .orderBy(asc(gameMoves.version))
+    .all()
+    .map(
+      (row): GameMove => ({
+        version: row.version,
+        player: row.player,
+        action: JSON.parse(row.action) as GameAction,
+        note: row.note ? (JSON.parse(row.note) as MoveNote) : undefined,
+      }),
+    );
+}
+
+/**
+ * The state a game began from, or undefined for a game saved before moves
+ * were recorded.
+ */
+export function initialGameState(id: string): GameState | undefined {
+  const [row] = db
+    .select({ initialData: games.initialData })
+    .from(games)
+    .where(eq(games.id, id))
+    .limit(1)
+    .all();
+  return row?.initialData
+    ? (JSON.parse(row.initialData as string) as GameState)
+    : undefined;
 }

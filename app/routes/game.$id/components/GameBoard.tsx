@@ -1,21 +1,24 @@
-import { Box, Text } from "@mantine/core";
+import { Box, Text, Tooltip } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
+import { FactionIcon } from "~/components/icons/FactionIcon";
+import { calcScale } from "~/components/tiles/calcScale";
 import { RawSystemTile } from "~/components/tiles/SystemTile";
-import { UNIT_NAMES } from "~/game/data";
 import {
   MALLICE,
+  MECATOL_REX,
   systemInfo,
   WORMHOLE_NEXUS_ID,
   wormholesOf,
 } from "~/game/engine/board";
 import { openPrompts } from "~/game/engine/helpers";
-import { Forces, SystemState } from "~/game/types";
+import { Forces, SystemState, UnitGroup, UnitType } from "~/game/types";
 import { asState, GameView } from "~/game/view";
-import { SystemTile } from "~/types";
+import { PlayerId, SystemTile } from "~/types";
 import { getHexPosition } from "~/utils/positioning";
-import { playerColor, playerTextColor } from "../colors";
+import { playerColor } from "../colors";
 import { useGame } from "../gameStore";
-import { sortedUnitTypes, UNIT_SHORT } from "./shared";
+import { sortedUnitTypes, UnitsTooltip } from "./shared";
+import { UnitIcon } from "./UnitIcon";
 
 import classes from "./GameBoard.module.css";
 
@@ -120,34 +123,123 @@ function cornerSpots(
   return taken.length === count ? taken : undefined;
 }
 
-function Units({ view, forces }: { view: GameView; forces: Forces }) {
-  const owners = Object.keys(forces)
+const owners = (forces: Forces) =>
+  Object.keys(forces)
     .map(Number)
     .filter((id) => sortedUnitTypes(forces[id]).length > 0);
-  if (owners.length === 0) return null;
+
+/** One player's units of the given types, as icons with counts. */
+function UnitPill({
+  view,
+  player,
+  group,
+  types,
+  className = "",
+}: {
+  view: GameView;
+  player: PlayerId;
+  group: UnitGroup;
+  types: UnitType[];
+  className?: string;
+}) {
+  if (types.length === 0) return null;
+  const color = playerColor(view.players[player]?.color ?? "black");
+  return (
+    <Tooltip
+      withArrow
+      label={<UnitsTooltip view={view} player={player} group={group} />}
+    >
+      <span className={`${classes.units} ${className}`}>
+        {types.map((type) => (
+          <span key={type} className={classes.unit}>
+            <UnitIcon type={type} color={color} />
+            <span className={classes.count}>{group[type]!.count}</span>
+          </span>
+        ))}
+      </span>
+    </Tooltip>
+  );
+}
+
+/**
+ * Drawn against a planet's circle: its units in a row underneath, the
+ * controller's faction symbol at its bottom right.
+ */
+function PlanetOverlay({
+  view,
+  name,
+  radius,
+  shared,
+}: {
+  view: GameView;
+  name: string;
+  radius: number;
+  /** Whether another planet sits beside this one on the tile. */
+  shared: boolean;
+}) {
+  const planet = view.planets[name];
+  if (!planet) return null;
+  const controller =
+    planet.controller !== undefined
+      ? view.players[planet.controller]
+      : undefined;
+  const custodians = name === MECATOL_REX && view.custodians;
+  const present = owners(planet.units);
+  // Roughly where the tile's name label wraps onto a second line.
+  const twoLineName = name.includes(" ") && name.length > 8;
   return (
     <>
-      {owners.map((id) => {
-        const color = view.players[id]?.color ?? "black";
-        const group = forces[id];
-        return (
+      {custodians && (
+        <span
+          className={`${classes.frontier} ${classes.custodians}`}
+          title="Custodians token"
+        >
+          C
+        </span>
+      )}
+      {present.length > 0 && (
+        <div
+          className={[
+            classes.planetUnits,
+            twoLineName ? classes.belowTwoLines : "",
+            shared ? classes.narrow : "",
+          ].join(" ")}
+          // Planets are scaled with the tile; undo that so these units come
+          // out the same size as the ones in space.
+          style={{
+            transform: `translateX(-50%) scale(${1 / calcScale(radius)})`,
+          }}
+        >
+          {present.map((id) => (
+            <UnitPill
+              key={id}
+              view={view}
+              player={id}
+              group={planet.units[id]}
+              types={sortedUnitTypes(planet.units[id])}
+            />
+          ))}
+        </div>
+      )}
+      {controller && (
+        <Tooltip
+          withArrow
+          label={`${name}: ${controller.name}${planet.exhausted ? " (exhausted)" : ""}`}
+        >
           <span
-            key={id}
-            className={classes.units}
+            className={classes.planetFaction}
             style={{
-              background: playerColor(color),
-              color: playerTextColor(color),
+              borderColor: playerColor(controller.color),
+              opacity: planet.exhausted ? 0.5 : 1,
             }}
-            title={sortedUnitTypes(group)
-              .map((type) => `${group[type]!.count} ${UNIT_NAMES[type]}`)
-              .join(", ")}
           >
-            {sortedUnitTypes(group)
-              .map((type) => `${group[type]!.count}${UNIT_SHORT[type]}`)
-              .join(" ")}
+            <FactionIcon
+              faction={controller.faction}
+              style={{ width: "100%", height: "100%" }}
+            />
           </span>
-        );
-      })}
+        </Tooltip>
+      )}
     </>
   );
 }
@@ -177,41 +269,15 @@ function SystemOverlay({
             </span>
           )}
         </div>
-        <Units view={view} forces={system.space} />
-      </div>
-      <div className={classes.bottom}>
-        {system.planets.map((name) => {
-          const planet = view.planets[name];
-          const controller =
-            planet.controller !== undefined
-              ? view.players[planet.controller]
-              : undefined;
-          const custodians = name === "Mecatol Rex" && view.custodians;
-          return (
-            <div key={name} className={classes.planet}>
-              <span
-                className={classes.control}
-                style={{
-                  background: controller
-                    ? playerColor(controller.color)
-                    : "transparent",
-                  opacity: planet.exhausted ? 0.45 : 1,
-                }}
-                title={
-                  controller
-                    ? `${name}: ${controller.name}${planet.exhausted ? " (exhausted)" : ""}`
-                    : `${name}: uncontrolled`
-                }
-              />
-              {custodians && (
-                <span className={classes.frontier} title="Custodians token">
-                  C
-                </span>
-              )}
-              <Units view={view} forces={planet.units} />
-            </div>
-          );
-        })}
+        {owners(system.space).map((id) => (
+          <UnitPill
+            key={id}
+            view={view}
+            player={id}
+            group={system.space[id]}
+            types={sortedUnitTypes(system.space[id])}
+          />
+        ))}
       </div>
     </div>
   );
@@ -268,23 +334,48 @@ function Tile({
         mapId="game"
         tile={tile}
         radius={radius}
+        hideValues
         disablePopover
         system={systemInfo(tile.systemId)}
+        planetOverlay={(planet) => (
+          <PlanetOverlay
+            view={view}
+            name={planet.name}
+            radius={radius}
+            shared={system.planets.length > 1}
+          />
+        )}
       />
       <SystemOverlay view={view} system={system} />
     </div>
   );
 }
 
-/** How tall an element can be without running past the bottom of the window. */
-function useHeightToWindowBottom(ref: React.RefObject<HTMLElement>) {
+/**
+ * How tall an element can be without running past the bottom of the window.
+ * While `hold` is set the height stays as it was, following only changes to
+ * the window's own height, so a taller bar opening above (like the history
+ * timeline) moves the element down instead of shrinking it.
+ */
+function useHeightToWindowBottom(
+  ref: React.RefObject<HTMLElement | null>,
+  hold: boolean,
+) {
   const [height, setHeight] = useState<number>();
+  const held = useRef<{ height: number; windowHeight: number }>(undefined);
   useEffect(() => {
     const measure = () => {
+      if (hold && held.current) {
+        const grown = window.innerHeight - held.current.windowHeight;
+        setHeight(Math.max(240, held.current.height + grown));
+        return;
+      }
       const element = ref.current;
       if (!element) return;
       const top = element.getBoundingClientRect().top + window.scrollY;
-      setHeight(Math.max(240, window.innerHeight - top - 16));
+      const fit = Math.max(240, window.innerHeight - top - 16);
+      held.current = { height: fit, windowHeight: window.innerHeight };
+      setHeight(fit);
     };
     measure();
     // Banners above the board, like the disconnection alert, move it down.
@@ -295,7 +386,7 @@ function useHeightToWindowBottom(ref: React.RefObject<HTMLElement>) {
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [ref]);
+  }, [ref, hold]);
   return height;
 }
 
@@ -314,7 +405,9 @@ export function GameBoard({
   baseWidth: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const fitHeight = useHeightToWindowBottom(ref);
+  // Opening the history timeline should not shrink the map.
+  const historyOpen = useGame((state) => state.steps !== undefined);
+  const fitHeight = useHeightToWindowBottom(ref, historyOpen);
   const tiles = view.map.flatMap((tile, idx) =>
     tile.type === "SYSTEM" ? [{ tile, idx }] : [],
   );
@@ -383,7 +476,12 @@ export function GameBoard({
                   />
                 ) : (
                   // Hyperlanes are scenery: nothing can be placed on them.
-                  <RawSystemTile mapId="game" tile={tile} radius={radius} />
+                  <RawSystemTile
+                    mapId="game"
+                    tile={tile}
+                    radius={radius}
+                    hideValues
+                  />
                 )}
               </div>
             );

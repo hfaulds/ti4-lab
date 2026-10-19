@@ -2,10 +2,18 @@ import { PlayerId } from "~/types";
 import { promissoryNotesById } from "../data";
 import { GameState, PromissoryNote, TransactionSide } from "../types";
 import { areNeighbors } from "./board";
+import { checkVictory } from "./control";
+import { afterGainingTradeGoods } from "./events";
+import { ownsAbility } from "./reactions";
 import { ensure, log, playerName, playerOf, plural } from "./helpers";
 
 const sameNote = (a: PromissoryNote, b: PromissoryNote) =>
   a.id === b.id && a.owner === b.owner;
+
+/** Guild Ships, or Trade Convoys in the player's play area. */
+const tradesAnywhere = (state: GameState, id: PlayerId) =>
+  ownsAbility(state, id, "guild_ships") ||
+  state.players[id].promissoryNotesInPlay.some((note) => note.id === "convoys");
 
 function requireSide(state: GameState, id: PlayerId, side: TransactionSide) {
   const player = playerOf(state, id);
@@ -69,7 +77,7 @@ function transfer(
     giver.promissoryNotes = giver.promissoryNotes.filter(
       (held) => !sameNote(held, note),
     );
-    receiver.promissoryNotes.push(note);
+    receiveNote(state, to, note);
   }
   for (const fragment of side.relicFragments ?? []) {
     giver.relicFragments.splice(giver.relicFragments.indexOf(fragment), 1);
@@ -79,6 +87,24 @@ function transfer(
     giver.actionCards.splice(giver.actionCards.indexOf(card), 1);
     receiver.actionCards.push(card);
   }
+}
+
+/**
+ * Hands a note to a player. Support for the Throne goes straight into the
+ * receiver's play area for a victory point.
+ */
+export function receiveNote(state: GameState, to: PlayerId, note: PromissoryNote) {
+  const receiver = playerOf(state, to);
+  if (note.id === "sftt" && note.owner !== to) {
+    receiver.promissoryNotesInPlay.push(note);
+    receiver.bonusVictoryPoints += 1;
+    log(state, `${receiver.name} gained 1 victory point from Support for the Throne.`, {
+      player: to,
+    });
+    checkVictory(state);
+    return;
+  }
+  receiver.promissoryNotes.push(note);
 }
 
 const describe = (side: TransactionSide) => {
@@ -119,7 +145,7 @@ export function proposeTransaction(
     );
     const other = state.activePlayer === from ? to : from;
     ensure(
-      areNeighbors(state, from, to),
+      areNeighbors(state, from, to) || tradesAnywhere(state, from) || tradesAnywhere(state, to),
       `${playerName(state, from)} and ${playerName(state, to)} are not neighbors.`,
     );
     ensure(
@@ -177,6 +203,8 @@ export function answerTransaction(
     state,
     `${playerName(state, from)} gave ${describe(give)} to ${playerName(state, to)} for ${describe(receive)}.`,
   );
+  afterGainingTradeGoods(state, from);
+  afterGainingTradeGoods(state, to);
 }
 
 export function playPromissoryNote(

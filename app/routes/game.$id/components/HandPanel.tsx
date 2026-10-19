@@ -10,9 +10,11 @@ import {
   technologiesById,
 } from "~/game/data";
 import { LeaderState } from "~/game/types";
-import { GameView, isHidden } from "~/game/view";
+import { componentActions, effectFor } from "~/game/engine/reactions";
+import { asState, GameView, isHidden } from "~/game/view";
 import { PlayerId } from "~/types";
 import { useGame } from "../gameStore";
+import { ReactionForm } from "./reactions";
 import { CardText } from "./shared";
 
 const NEXT_LEADER_STATUS: Record<
@@ -46,6 +48,10 @@ export function HandPanel({
   const me = view.players[player];
   const cards = me.actionCards.filter((id) => !isHidden(id));
   const notes = me.promissoryNotes.filter((note) => !isHidden(note.id));
+  // Abilities and notes usable as actions; action cards are listed above.
+  const abilities = componentActions(asState(view), player).filter(
+    (reaction) => reaction.kind !== "actionCard",
+  );
 
   return (
     <Stack gap="md">
@@ -59,30 +65,46 @@ export function HandPanel({
           )}
           {cards.map((id, idx) => {
             const card = actionCardsById[id];
+            const reaction = { kind: "actionCard" as const, id };
+            if (effectFor(reaction)?.action) {
+              return (
+                <ReactionForm
+                  key={`${id}-${idx}`}
+                  view={view}
+                  player={player}
+                  reaction={reaction}
+                  label="Play"
+                />
+              );
+            }
             return (
-              <CardText
-                key={`${id}-${idx}`}
-                title={card.name}
-                subtitle={card.window}
-                right={
-                  <Button
-                    size="compact-xs"
-                    onClick={() => dispatch({ type: "PLAY_ACTION_CARD", card: id })}
-                  >
-                    Play
-                  </Button>
-                }
-              >
+              <CardText key={`${id}-${idx}`} title={card.name} subtitle={card.window}>
                 {card.text}
               </CardText>
             );
           })}
           <Text size="xs" c="dimmed" px="sm">
-            Playing a card announces it and discards it. Apply what it does
-            from the Adjust tab.
+            Cards marked ACTION are played on your turn. The rest are offered
+            when their moment comes.
           </Text>
         </Stack>
       </Section>
+
+      {abilities.length > 0 && (
+        <Section>
+          <SectionTitle title="Component actions" />
+          <Stack gap="xs">
+            {abilities.map((reaction) => (
+              <ReactionForm
+                key={JSON.stringify(reaction)}
+                view={view}
+                player={player}
+                reaction={reaction}
+              />
+            ))}
+          </Stack>
+        </Section>
+      )}
 
       <Section>
         <SectionTitle title="Technologies" />

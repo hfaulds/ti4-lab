@@ -8,6 +8,7 @@ import {
   MECATOL_REX,
   moveRulesFor,
 } from "./board";
+import { rollAbility } from "./combat";
 import { victoryPoints } from "./control";
 import { countOf, openPrompts, totalUnits } from "./helpers";
 import { applyAction } from "./index";
@@ -515,6 +516,119 @@ describe("combat", () => {
     ).toMatch(/Assign all/);
   });
 
+  test("a retreat into a full system removes ships over the fleet pool", () => {
+    const { state: start, id, enemy, home, target } = battle(1);
+    const refuge = adjacentSystems(start, target).find(
+      (key) =>
+        key !== home &&
+        start.systems[key].onBoard &&
+        Object.keys(start.systems[key].space).length === 0,
+    )!;
+    // The defender's fleet pool is already full in the refuge.
+    let state = play(start, id, {
+      type: "ADJUST",
+      adjustment: {
+        type: "units",
+        player: enemy,
+        system: refuge,
+        unit: "destroyer",
+        amount: start.players[enemy].pools.fleet,
+      },
+    });
+    state = play(state, id, { type: "ACTIVATE_SYSTEM", system: target });
+    state = play(state, id, { type: "MOVE_SHIPS", moves: [], cargo: [] });
+
+    let guard = 0;
+    while (state.tactical && guard++ < 100) {
+      const [prompt] = openPrompts(state);
+      if (prompt?.kind === "announceRetreat" && prompt.player === enemy) {
+        state = play(state, enemy, { type: "ANNOUNCE_RETREAT", to: refuge });
+        continue;
+      }
+      const move = botMove(state)!;
+      state = play(state, move.player, move.action);
+    }
+
+    expect(state.log.some((e) => /retreated/.test(e.text))).toBe(true);
+    expect(
+      totalUnits(state.systems[refuge].space[enemy], (t) => t !== "fighter"),
+    ).toBeLessThanOrEqual(state.players[enemy].pools.fleet);
+    expect(state.log.some((e) => /over their fleet pool/.test(e.text))).toBe(true);
+    // The cheapest ships go first, so the cruisers that fought survive.
+    expect(countOf(state.systems[refuge].space[enemy], "cruiser")).toBeGreaterThan(0);
+  });
+
+  test("ground forces are lost with the carrier space cannon destroys", () => {
+    let state = toActionPhase(testGame({ seed: 2 }));
+    const id = state.activePlayer!;
+    const enemy = state.seating.find((other) => other !== id)!;
+    const home = state.players[id].home;
+    const target = adjacentSystems(state, home).find(
+      (key) => state.systems[key].planets.length > 0,
+    )!;
+    const planet = state.systems[target].planets[0];
+    state = play(state, id, {
+      type: "ADJUST",
+      adjustment: { type: "planetControl", planet, player: enemy },
+    });
+    state = play(state, id, {
+      type: "ADJUST",
+      adjustment: {
+        type: "units",
+        player: enemy,
+        system: target,
+        planet,
+        unit: "pds",
+        amount: 2,
+      },
+    });
+    const homePlanet = state.systems[home].planets.find(
+      (p) => countOf(state.planets[p].units[id], "infantry") >= 2,
+    )!;
+    state = play(state, id, { type: "ACTIVATE_SYSTEM", system: target });
+    state = play(state, id, {
+      type: "MOVE_SHIPS",
+      moves: [{ from: home, ships: { carrier: 1 } }],
+      cargo: [{ system: home, planet: homePlanet, units: { infantry: 2 } }],
+    });
+    let guard = 0;
+    while (openPrompts(state).length > 0 && guard++ < 20) {
+      const move = botMove(state)!;
+      state = play(state, move.player, move.action);
+    }
+    const space = state.systems[target].space[id];
+    expect(countOf(space, "carrier")).toBe(0);
+    expect(countOf(space, "infantry")).toBe(0);
+    expect(state.log.some((e) => /nothing left to carry them/.test(e.text))).toBe(true);
+  });
+
+  test("Sardakk N'orr add 1 and Jol-Nar subtract 1 from combat rolls", () => {
+    const state = testGame({ factions: ["sardakk", "jolnar", "sol"] });
+    const roll = (
+      id: number,
+      ability: "combat" | "spaceCannon",
+      type: "cruiser" | "pds",
+    ) => {
+      const shooters = [{ type, count: 20 }];
+      return rollAbility(structuredClone(state), id, shooters, ability).rolls[0];
+    };
+    const hitsWith = (r: { dice: number[]; target: number }, modifier: number) =>
+      r.dice.filter((d) => d + modifier >= r.target).length;
+
+    const sardakk = roll(0, "combat", "cruiser");
+    const jolnar = roll(1, "combat", "cruiser");
+    const sol = roll(2, "combat", "cruiser");
+    // Dice on the boundary make the modifier visible in the hit count.
+    expect(sardakk.dice).toContain(sardakk.target - 1);
+    expect(jolnar.dice).toContain(jolnar.target);
+    expect(sardakk.hits).toBe(hitsWith(sardakk, 1));
+    expect(jolnar.hits).toBe(hitsWith(jolnar, -1));
+    expect(sol.hits).toBe(hitsWith(sol, 0));
+    // Only combat rolls: SPACE CANNON is unmodified.
+    const cannon = roll(0, "spaceCannon", "pds");
+    expect(cannon.hits).toBe(hitsWith(cannon, 0));
+  });
+
   test("is reproducible from the same seed", () => {
     const run = (seed: number) => {
       const { state: start, id, target } = battle(seed);
@@ -607,7 +721,8 @@ describe("objectives", () => {
       resources: 8,
     });
     expect(objectiveStatus(state, SOL, "develop").met).toBe(false);
-    expect(objectiveStatus(state, SOL, "dtgs").met).toBe("manual");
+    // Action-phase secrets are checked against what happened this turn.
+    expect(objectiveStatus(state, SOL, "dtgs").met).toBe(false);
   });
 
   test("neighbors are found across adjacent systems", () => {
@@ -814,6 +929,11 @@ describe("status and agenda phases", () => {
     });
     state = until(state, "agenda");
     expect(state.agenda?.number).toBe(1);
+    // Players holding agenda-phase cards are asked first; they pass here.
+    while (openPrompts(state)[0]?.kind === "window") {
+      const [prompt] = openPrompts(state);
+      state = play(state, prompt.player, { type: "PASS_WINDOW", promptId: prompt.id });
+    }
 
     // The player left of the speaker votes first, the speaker last.
     const order = openPrompts(state).map((p) => p.player);

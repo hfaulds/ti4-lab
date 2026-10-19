@@ -1,6 +1,7 @@
 import { PlayerId } from "~/types";
 import {
   CommandPools,
+  EffectTargets,
   Payment,
   SystemKey,
   TransactionSide,
@@ -38,6 +39,8 @@ export type Research = {
   skips?: string[];
   /** Exhaust AI Development Algorithm to ignore a prerequisite. */
   useAida?: boolean;
+  /** Inheritance Systems: exhaust it and pay 2 resources to ignore every prerequisite. */
+  inheritance?: Payment;
 };
 
 export type StructurePlacement = { type: "pds" | "spacedock"; planet: string };
@@ -136,7 +139,13 @@ export type GameAction =
   // Action phase
   | { type: "ACTIVATE_SYSTEM"; system: SystemKey }
   | { type: "MOVE_SHIPS"; moves: ShipMove[]; cargo: CargoPickup[] }
-  | { type: "FIRE_SPACE_CANNON"; promptId: number; fire: boolean }
+  | {
+      type: "FIRE_SPACE_CANNON";
+      promptId: number;
+      fire: boolean;
+      /** Exhaust Graviton Laser System: hits must go to non-fighter ships. */
+      gravitonLaser?: boolean;
+    }
   | { type: "ASSIGN_HITS"; promptId: number; assignment: HitAssignment }
   | { type: "ANNOUNCE_RETREAT"; to?: SystemKey }
   | { type: "BOMBARD"; targets: { unit: UnitType; planet: string; count: number }[] }
@@ -150,7 +159,18 @@ export type GameAction =
   | { type: "STRATEGIC_ACTION"; payload: StrategicPayload }
   | { type: "RESOLVE_SECONDARY"; promptId: number; payload?: StrategicPayload }
   | { type: "ORDER_AGENDAS"; top: string[]; bottom: string[] }
-  | { type: "PLAY_ACTION_CARD"; card: string }
+  /**
+   * Plays an action card: as a component action on your turn, or in answer
+   * to a window prompt (`promptId`).
+   */
+  | { type: "PLAY_ACTION_CARD"; card: string; targets?: EffectTargets; promptId?: number }
+  /**
+   * Uses a faction ability, technology, unit ability or law the player owns:
+   * as a component action on their turn, or in answer to a window prompt.
+   */
+  | { type: "USE_ABILITY"; ability: string; targets?: EffectTargets; promptId?: number }
+  /** Uses nothing more in a window. */
+  | { type: "PASS_WINDOW"; promptId: number }
   | { type: "COMPONENT_ACTION"; description: string }
   | { type: "PASS" }
   | { type: "END_TURN" }
@@ -168,11 +188,19 @@ export type GameAction =
   // Agenda phase
   | { type: "CAST_VOTES"; outcome?: string; planets: string[]; extraVotes?: number }
   | { type: "BREAK_TIE"; outcome: string }
+  /** Answers a research prompt; fewer than offered (or none) is fine. */
+  | { type: "RESEARCH"; promptId: number; research: Research[] }
   // Any time
   | { type: "RESOLVE"; promptId: number }
   | { type: "PROPOSE_TRANSACTION"; to: PlayerId; give: TransactionSide; receive: TransactionSide }
   | { type: "ANSWER_TRANSACTION"; transaction: number; accept: boolean }
-  | { type: "PLAY_PROMISSORY_NOTE"; note: string; owner: PlayerId }
+  | {
+      type: "PLAY_PROMISSORY_NOTE";
+      note: string;
+      owner: PlayerId;
+      targets?: EffectTargets;
+      promptId?: number;
+    }
   | { type: "RETURN_PROMISSORY_NOTE"; note: string; owner: PlayerId }
   | { type: "SET_LEADER"; leader: string; status: "locked" | "ready" | "exhausted" | "purged" }
   | { type: "SET_EXHAUSTED"; kind: "technology" | "relic" | "breakthrough"; id: string; exhausted: boolean }

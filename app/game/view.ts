@@ -28,26 +28,42 @@ export type GameView = Omit<GameState, "players" | "decks" | "rng"> & {
 const HIDDEN = "hidden";
 const hide = (cards: unknown[]) => cards.map(() => HIDDEN);
 
-function promptFor(prompt: Prompt, viewer?: PlayerId): Prompt {
-  if (prompt.player === viewer) return prompt;
+function promptFor(
+  prompt: Prompt,
+  viewer: PlayerId | undefined,
+  revealAll: boolean,
+): Prompt {
+  if (revealAll || prompt.player === viewer) return prompt;
   if (prompt.kind === "chooseSecret") {
     return { ...prompt, options: hide(prompt.options) };
   }
   if (prompt.kind === "politicsAgenda") {
     return { ...prompt, cards: hide(prompt.cards) };
   }
+  if (prompt.kind === "window") {
+    // What a player could play gives away their hand.
+    return { ...prompt, options: [], used: undefined };
+  }
   return prompt;
 }
 
-export function viewFor(state: GameState, viewer?: PlayerId): GameView {
+/**
+ * `revealAll` shows every hand and private log entry, as when looking back
+ * through a game that has finished.
+ */
+export function viewFor(
+  state: GameState,
+  viewer?: PlayerId,
+  revealAll = false,
+): GameView {
   const { decks, players, ...rest } = state;
   const visible: Omit<typeof rest, "rng"> & { rng?: number } = { ...rest };
   delete visible.rng;
-  const finished = state.phase === "finished";
+  const showHands = state.phase === "finished" || revealAll;
 
   const playerViews = Object.fromEntries(
     Object.values(players).map((player) => {
-      const own = player.id === viewer || finished;
+      const own = player.id === viewer || showHands;
       const view: PlayerView = {
         ...player,
         actionCards: own ? player.actionCards : hide(player.actionCards),
@@ -86,9 +102,12 @@ export function viewFor(state: GameState, viewer?: PlayerId): GameView {
     publicObjectives: state.publicObjectives.map((objective) =>
       objective.revealed ? objective : { ...objective, id: HIDDEN },
     ),
-    prompts: state.prompts.map((prompt) => promptFor(prompt, viewer)),
+    prompts: state.prompts.map((prompt) =>
+      promptFor(prompt, viewer, revealAll),
+    ),
     log: state.log.filter(
       (entry) =>
+        revealAll ||
         !entry.visibleTo ||
         (viewer !== undefined && entry.visibleTo.includes(viewer)),
     ),

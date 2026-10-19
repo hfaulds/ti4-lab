@@ -437,10 +437,12 @@ function Production({ view, player, tactical }: StepProps) {
 
 const STEP_NAMES: Record<TacticalAction["step"], string> = {
   movement: "Movement",
+  moved: "After movement",
   spaceCannonOffense: "Space cannon offense",
   spaceCombat: "Space combat",
   bombardment: "Bombardment",
   commit: "Commit ground forces",
+  committed: "Ground forces committed",
   spaceCannonDefense: "Space cannon defense",
   groundCombat: "Ground combat",
   production: "Production",

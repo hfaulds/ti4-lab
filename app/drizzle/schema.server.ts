@@ -191,11 +191,17 @@ export const games = sqliteTable(
     draftId: text("draftId").references(() => drafts.id),
     // JSON-serialised GameState
     data: blob("data").notNull(),
+    // The GameState the game began from; with gameMoves it rebuilds any
+    // earlier point. Absent for games saved before moves were recorded.
+    initialData: blob("initialData"),
     // Incremented with every action; guards against concurrent writes.
     version: integer("version").notNull().default(0),
     isComplete: integer("isComplete", { mode: "boolean" })
       .notNull()
       .default(false),
+    // Every seat is played by an agent or bot, so nothing at the table
+    // needs hiding from spectators for the sake of a human player.
+    botOnly: integer("botOnly", { mode: "boolean" }).notNull().default(false),
     createdAt: text("createdAt")
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
@@ -205,5 +211,31 @@ export const games = sqliteTable(
   },
   (table) => ({
     draftIdIdx: index("games_draftId_index").on(table.draftId),
+  }),
+);
+
+/** Every action applied to a game, in order, so it can be replayed. */
+export const gameMoves = sqliteTable(
+  "gameMoves",
+  {
+    gameId: text("gameId")
+      .notNull()
+      .references(() => games.id),
+    // The game's version once this move was applied.
+    version: integer("version").notNull(),
+    player: integer("player").notNull(),
+    // JSON-serialised GameAction
+    action: text("action").notNull(),
+    // JSON-serialised MoveNote: why an agent chose the move, if one did.
+    note: text("note"),
+    createdAt: text("createdAt")
+      .notNull()
+      .default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => ({
+    gameVersionUnique: unique("gameMoves_gameId_version_unique").on(
+      table.gameId,
+      table.version,
+    ),
   }),
 );

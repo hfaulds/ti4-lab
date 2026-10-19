@@ -17,7 +17,7 @@ import {
   IconLayoutSidebarRightExpand,
 } from "@tabler/icons-react";
 import { useMediaQuery } from "@mantine/hooks";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   data,
   LoaderFunctionArgs,
@@ -36,7 +36,9 @@ import { ActionPanel } from "./components/ActionPanel";
 import { AdjustPanel } from "./components/AdjustPanel";
 import { GameBoard } from "./components/GameBoard";
 import { HandPanel } from "./components/HandPanel";
+import { HistoryBar } from "./components/HistoryBar";
 import { LogPanel } from "./components/LogPanel";
+import { ReasoningPanel } from "./components/ReasoningPanel";
 import { ObjectivesPanel } from "./components/ObjectivesPanel";
 import { PlayersPanel } from "./components/PlayersPanel";
 import { SeatPicker } from "./components/SeatPicker";
@@ -77,7 +79,9 @@ const PHASE_NAMES = {
 
 export default function Game() {
   const loaded = useLoaderData<typeof loader>();
-  const view = useGame((state) => state.view);
+  const liveView = useGame((state) => state.view);
+  const viewing = useGame((state) => state.viewing);
+  const pastView = useGame((state) => state.pastView);
   const seat = useGame((state) => state.seat);
   const player = useGame((state) => state.player);
   const busy = useGame((state) => state.busy);
@@ -122,7 +126,11 @@ export default function Game() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, loaded.id]);
 
-  if (!view || !seatRead) {
+  // While looking back, everything below shows the game as it was then.
+  const inPast = viewing !== undefined;
+  const view = inPast && pastView ? pastView : liveView;
+
+  if (!view || !liveView || !seatRead) {
     return (
       <MainAppShell>
         <LoadingOverlay visible />
@@ -174,12 +182,14 @@ export default function Game() {
             </Group>
           </Box>
           <SeatSummary
-            view={view}
+            view={liveView}
             seat={seat}
             player={player}
             onChange={() => void chooseSeat(undefined)}
           />
         </Group>
+
+        <HistoryBar view={liveView} />
 
         {isDisconnected && (
           <Alert color="orange" title="Disconnected">
@@ -272,30 +282,38 @@ export default function Game() {
                       <Tabs.Tab value="trade">Trade</Tabs.Tab>
                       <Tabs.Tab value="adjust">Adjust</Tabs.Tab>
                       <Tabs.Tab value="log">Log</Tabs.Tab>
+                      <Tabs.Tab value="reasoning">Reasoning</Tabs.Tab>
                     </Tabs.List>
-                    <Tabs.Panel value="play">
-                      <Stack gap="md">
-                        <ActionPanel view={view} player={player} />
-                        <SystemPanel view={view} />
-                      </Stack>
-                    </Tabs.Panel>
-                    <Tabs.Panel value="hand">
-                      <HandPanel view={view} player={player} />
-                    </Tabs.Panel>
-                    <Tabs.Panel value="players">
-                      <PlayersPanel view={view} />
-                    </Tabs.Panel>
-                    <Tabs.Panel value="objectives">
-                      <ObjectivesPanel view={view} player={player} />
-                    </Tabs.Panel>
-                    <Tabs.Panel value="trade">
-                      <TradePanel view={view} player={player} />
-                    </Tabs.Panel>
-                    <Tabs.Panel value="adjust">
-                      <AdjustPanel view={view} player={player} />
-                    </Tabs.Panel>
-                    <Tabs.Panel value="log">
-                      <LogPanel view={view} />
+                    {/* The tabs and panel toggle stay usable while looking back. */}
+                    <ReadOnly when={inPast}>
+                      <Tabs.Panel value="play">
+                        <Stack gap="md">
+                          <ActionPanel view={view} player={player} />
+                          <SystemPanel view={view} />
+                        </Stack>
+                      </Tabs.Panel>
+                      <Tabs.Panel value="hand">
+                        <HandPanel view={view} player={player} />
+                      </Tabs.Panel>
+                      <Tabs.Panel value="players">
+                        <PlayersPanel view={view} />
+                      </Tabs.Panel>
+                      <Tabs.Panel value="objectives">
+                        <ObjectivesPanel view={view} player={player} />
+                      </Tabs.Panel>
+                      <Tabs.Panel value="trade">
+                        <TradePanel view={view} player={player} />
+                      </Tabs.Panel>
+                      <Tabs.Panel value="adjust">
+                        <AdjustPanel view={view} player={player} />
+                      </Tabs.Panel>
+                      <Tabs.Panel value="log">
+                        <LogPanel view={view} />
+                      </Tabs.Panel>
+                    </ReadOnly>
+                    {/* Reading reasoning is not playing, so it stays usable. */}
+                    <Tabs.Panel value="reasoning">
+                      <ReasoningPanel view={liveView} player={player} />
                     </Tabs.Panel>
                   </Tabs>
                 </div>
@@ -331,6 +349,19 @@ function MeasuredLayout({
     <div ref={ref} className={classes.layout}>
       {children(width)}
     </div>
+  );
+}
+
+/** Disables every control inside while viewing the past. */
+function ReadOnly({ when, children }: { when: boolean; children: ReactNode }) {
+  return (
+    <Box
+      component="fieldset"
+      disabled={when}
+      style={{ border: 0, padding: 0, margin: 0, minWidth: 0 }}
+    >
+      {children}
+    </Box>
   );
 }
 

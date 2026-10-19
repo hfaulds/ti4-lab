@@ -88,5 +88,12 @@ describe("game history", () => {
     expect(history.timeline(undefined, true)[11].note?.rationale).toBe(
       "Nothing better.",
     );
+    // With no human players, notes are shown to everyone while hidden log
+    // entries stay hidden.
+    const notesOnly = history.timeline(undefined, false, true);
+    expect(notesOnly[11].note?.rationale).toBe("Nothing better.");
+    expect(notesOnly.map((s) => s.events)).toEqual(
+      history.timeline(undefined, false).map((s) => s.events),
+    );
   });
 });

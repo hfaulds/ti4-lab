@@ -85,9 +85,14 @@ export class GameHistory {
   /**
    * Every point of the game, from the start to the latest move. A move's
    * note can mention its player's hidden cards, so only they read it until
-   * everything is revealed.
+   * everything is revealed, or notes are revealed on their own (in games
+   * with no human players).
    */
-  timeline(viewer: PlayerId | undefined, revealAll: boolean): HistoryStep[] {
+  timeline(
+    viewer: PlayerId | undefined,
+    revealAll: boolean,
+    revealNotes = revealAll,
+  ): HistoryStep[] {
     const readable = (entry: LogEntry) =>
       revealAll ||
       !entry.visibleTo ||
@@ -103,7 +108,7 @@ export class GameHistory {
         player: move?.player,
         action: move?.action.type,
         note:
-          move?.note && (revealAll || move.player === viewer)
+          move?.note && (revealNotes || move.player === viewer)
             ? move.note
             : undefined,
         events: state.log

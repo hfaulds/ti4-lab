@@ -13,6 +13,8 @@ export type SavedGame = {
   id: string;
   urlName: string;
   draftId: string | null;
+  /** Every seat is an agent or bot, so their reasoning may be shown to all. */
+  botOnly: boolean;
   state: GameState;
 };
 
@@ -21,6 +23,7 @@ function toSavedGame(row: typeof games.$inferSelect): SavedGame {
     id: row.id,
     urlName: row.urlName,
     draftId: row.draftId,
+    botOnly: row.botOnly,
     state: JSON.parse(row.data as string) as GameState,
   };
 }
@@ -117,6 +120,7 @@ export async function createSavedGame(
   initial: GameState,
   draftId?: string,
   played?: { moves: GameMove[]; state: GameState },
+  options: { botOnly?: boolean } = {},
 ) {
   const id = uuidv4().toString();
   const urlName = await uniqueUrlName();
@@ -131,6 +135,7 @@ export async function createSavedGame(
         initialData: JSON.stringify(initial),
         version: state.version,
         isComplete: state.phase === "finished",
+        botOnly: options.botOnly ?? false,
       })
       .run();
     for (const move of played?.moves ?? []) {

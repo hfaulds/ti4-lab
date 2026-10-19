@@ -12,7 +12,8 @@ const PAGE = 20;
 /**
  * Why agents chose their moves, newest first, kept up to date as the game is
  * played. A note can mention its player's hidden cards, so the server only
- * sends it to that player's seat until the game is over. While looking back
+ * sends it to that player's seat until the game is over, except in games
+ * with no human players, where everyone reads it. While looking back
  * through history, the panel shows the reasoning behind the move on screen.
  */
 export function ReasoningPanel({
@@ -57,7 +58,7 @@ export function ReasoningPanel({
       <Text size="sm" c="dimmed">
         {finished
           ? "No agent explained its moves in this game."
-          : "No reasoning to show yet. An agent's reasoning can mention its hidden cards, so it is shown to the agent's own seat until the game is over: choose that seat to read it as the game goes on."}
+          : "No reasoning to show yet. In games with human players, an agent's reasoning can mention its hidden cards, so it is shown only to the agent's own seat until the game is over."}
       </Text>
     );
   }

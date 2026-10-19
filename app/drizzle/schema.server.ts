@@ -199,6 +199,9 @@ export const games = sqliteTable(
     isComplete: integer("isComplete", { mode: "boolean" })
       .notNull()
       .default(false),
+    // Every seat is played by an agent or bot, so nothing at the table
+    // needs hiding from spectators for the sake of a human player.
+    botOnly: integer("botOnly", { mode: "boolean" }).notNull().default(false),
     createdAt: text("createdAt")
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),

@@ -65,10 +65,13 @@ try {
 
 // Imported late: the database module needs the environment.
 const { createSavedGame } = await import("~/drizzle/game.server");
-const { urlName } = await createSavedGame(initial, undefined, {
-  moves: history.moves,
-  state: history.latest,
-});
+// Replay logs come from agent games, with no human players.
+const { urlName } = await createSavedGame(
+  initial,
+  undefined,
+  { moves: history.moves, state: history.latest },
+  { botOnly: true },
+);
 const server = option("server", "http://localhost:3000").replace(/\/$/, "");
 console.log(
   `Imported ${history.moves.length} moves (round ${history.latest.round}, ${history.latest.phase}).`,

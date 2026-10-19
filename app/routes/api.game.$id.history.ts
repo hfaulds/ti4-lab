@@ -19,7 +19,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const history = historyOf(game.id, game.state.version);
   return data({
     steps: (
-      history?.timeline(viewer, game.state.phase === "finished") ?? []
+      history?.timeline(
+        viewer,
+        game.state.phase === "finished",
+        game.state.phase === "finished" || game.botOnly,
+      ) ?? []
     ).filter((step) => step.version > after),
   });
 }

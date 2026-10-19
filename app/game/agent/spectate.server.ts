@@ -26,7 +26,10 @@ export async function startSpectating(
   options: { server: string; paceMs: number },
 ): Promise<Spectating> {
   const server = options.server.replace(/\/$/, "");
-  const { urlName } = await createSavedGame(state);
+  // Only agents and bots play these games.
+  const { urlName } = await createSavedGame(state, undefined, undefined, {
+    botOnly: true,
+  });
   const endpoint = `${server}/api/game/${urlName}`;
   try {
     const response = await fetch(endpoint);

@@ -28,6 +28,7 @@ import {
 import {
   plasmaScoring,
   removeExcessCargo,
+  removeExcessShips,
   rollAbility,
   Shooters,
   shootersIn,
@@ -405,6 +406,8 @@ function startSpaceCombat(state: GameState) {
 
   const opponents = otherShipOwners(system, attacker);
   if (!hasShips(system.space[attacker]) || opponents.length === 0) {
+    // Space cannon fire may have destroyed ships that were carrying units.
+    removeExcessCargo(state, tactical.system, attacker);
     startInvasion(state);
     return;
   }
@@ -646,6 +649,9 @@ function executeRetreat(state: GameState, id: PlayerId, to: SystemKey) {
     `${playerName(state, id)} retreated to ${describeSystem(state, to)}.`,
     { player: id },
   );
+  // Joining ships already there, or losing a fleet token to the command
+  // token, can leave more ships than the fleet pool supports.
+  removeExcessShips(state, to, id);
 }
 
 // --- Invasion ---------------------------------------------------------------

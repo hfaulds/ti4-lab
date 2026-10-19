@@ -11,7 +11,13 @@ import {
   UnitGroup,
   UnitType,
 } from "../types";
-import { capacityIn, dockFighterAllowance, systemOf } from "./board";
+import {
+  capacityIn,
+  dockFighterAllowance,
+  fleetProblem,
+  nonFighterShips,
+  systemOf,
+} from "./board";
 import {
   countOf,
   ensure,
@@ -298,6 +304,56 @@ export function removeExcessCargo(state: GameState, key: SystemKey, id: PlayerId
     log(
       state,
       `${playerName(state, id)} lost ${removed.join(", ")} with nothing left to carry them.`,
+      { player: id },
+    );
+  }
+}
+
+/**
+ * Removes ships beyond what the fleet pool supports, cheapest first, then the
+ * cargo the remaining ships can no longer carry (LRR 37.3). Players would
+ * choose which ships to lose; the engine picks the cheapest for them.
+ */
+export function removeExcessShips(state: GameState, key: SystemKey, id: PlayerId) {
+  const system = systemOf(state, key);
+  const removed: string[] = [];
+  const lose = (type: UnitType, count: number) => {
+    if (count <= 0) return;
+    removeUnits(system.space, id, type, count);
+    removed.push(`${count} ${UNIT_NAMES[type]}`);
+  };
+
+  let excess = nonFighterShips(state, key, id) - state.players[id].pools.fleet;
+  if (excess > 0) {
+    const byCost = unitTypes(system.space[id])
+      .filter((type) => isShip(type) && type !== "fighter")
+      .sort(
+        (a, b) => (unitOf(state, id, a)?.cost ?? 0) - (unitOf(state, id, b)?.cost ?? 0),
+      );
+    for (const type of byCost) {
+      const lost = Math.min(excess, countOf(system.space[id], type));
+      lose(type, lost);
+      excess -= lost;
+    }
+  }
+  if (removed.length > 0) {
+    log(
+      state,
+      `${playerName(state, id)} removed ${removed.join(", ")} over their fleet pool.`,
+      { player: id },
+    );
+  }
+  removeExcessCargo(state, key, id);
+  // Fighters that fly on their own count against the fleet pool too.
+  let fighters = 0;
+  while (fleetProblem(state, key, id) && countOf(system.space[id], "fighter") > 0) {
+    removeUnits(system.space, id, "fighter", 1);
+    fighters++;
+  }
+  if (fighters > 0) {
+    log(
+      state,
+      `${playerName(state, id)} removed ${fighters} ${UNIT_NAMES.fighter} over their fleet pool.`,
       { player: id },
     );
   }

@@ -32,7 +32,7 @@ import {
   wormholesOf,
   WORMHOLE_NEXUS_ID,
 } from "../board";
-import { currentCombat, removeExcessShips, setCombatFlag } from "../combat";
+import { currentCombat, enforceFleetSupply, removeExcessShips, setCombatFlag } from "../combat";
 import { checkElimination, explorePlanet, exploreFrontier } from "../control";
 import { replenishCommodities } from "../economy";
 import {
@@ -345,6 +345,7 @@ const AGENTS: Record<string, Effect> = {
         ensure(player.pools.tactic + player.pools.strategy + player.pools.fleet > 0, "You have no command tokens.");
         const pool = (["tactic", "strategy", "fleet"] as const).find((p) => player.pools[p] > 0)!;
         player.pools[pool]--;
+        if (pool === "fleet") enforceFleetSupply(state, id);
       } else {
         const index = player.actionCards.indexOf(targets.card ?? "");
         ensure(index >= 0, "Choose an action card to discard.");

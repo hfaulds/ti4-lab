@@ -32,6 +32,7 @@ import { activateSystem, describeSystem } from "./tactical";
 import { research } from "./technology";
 import { afterAction } from "./events";
 import { spendStrategyToken } from "./effects/helpers";
+import { enforceFleetSupply } from "./combat";
 import { breakDuress } from "./phases";
 import { unitIs } from "./units";
 import { spendLeader, usableLeaders } from "./leaders";
@@ -245,6 +246,7 @@ export function strategicAction(
             );
             if (!pool) continue;
             target.pools[pool]--;
+            if (pool === "fleet") enforceFleetSupply(state, other);
           }
           system.commandTokens.push(other);
         }

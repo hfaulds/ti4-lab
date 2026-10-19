@@ -1,0 +1,1325 @@
+{
+  "episode": 160,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro and ghost jokes",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s20",
+          "title": "Root tournament finals and where to watch a Ghosts game",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Ghosts of Creuss"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview, abilities and technologies",
+      "summary": "The Ghosts of Creuss have unmatched mobility through the wormholes but weak early plastic, a home system one step off the board, and a constant need for command tokens to exploit their positional strengths. They are a strong round-one trading faction with four commodities. Dimensional Splicer is a very good faction tech; the Omega Wormhole Generator matters mainly where the table will not cooperate with the Creuss IFF. Expect a slow start into a meticulous, positional mid-game.",
+      "chunks": [
+        {
+          "start": "s48",
+          "title": "Know the strengths and the weaknesses",
+          "kind": "strategy",
+          "summary": "The Ghosts are a good, popular faction with real weaknesses; playing them well means leaning on their strengths while staying aware of what they are bad at.",
+          "advice": [
+            {
+              "point": "The Ghosts are a good faction if you can get past some odd weaknesses; be deliberate about what they do well and what they do badly.",
+              "stance": "rating",
+              "subjects": ["Ghosts of Creuss"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s55",
+          "title": "Starting Gravity Drive, Quantum Entanglement and Slipstream",
+          "kind": "strategy",
+          "summary": "Starting with Gravity Drive gives the Ghosts the tech everyone else wants in round one. With enough alpha and beta wormholes almost always on a base-game map, Quantum Entanglement and Slipstream give them near-free rein over the board.",
+          "advice": [
+            {
+              "point": "Starting with Gravity Drive is a big advantage: the Ghosts already have the movement tech most factions try to get in round one.",
+              "stance": "rating",
+              "subjects": ["Gravity Drive", "Ghosts of Creuss"]
+            },
+            {
+              "point": "In the base game there are almost always enough alpha and beta wormholes on the map for Quantum Entanglement to matter; Slipstream is the bigger deal for extending movement.",
+              "stance": "rating",
+              "subjects": ["Quantum Entanglement", "Slipstream"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["setup", "any"],
+          "topics": ["faction abilities", "technology"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s65",
+          "title": "The Creuss Gate gives no bonus movement",
+          "kind": "strategy",
+          "summary": "Ships starting in the Creuss Gate do not get Slipstream's bonus, and the gate does not count as the home system. To threaten enemies that reach the home system you must be in the home system itself.",
+          "advice": [
+            {
+              "point": "Do not plan on Slipstream bonus movement for ships starting in the Creuss Gate; it is not your home system and has no wormhole that grants the bonus.",
+              "stance": "avoid",
+              "subjects": ["Creuss Gate", "Slipstream"]
+            },
+            {
+              "point": "Ships in the Creuss Gate do not defend or threaten the home system; to contest enemies there you need ships in the home system itself.",
+              "stance": "situational",
+              "subjects": ["Creuss Gate"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["any"],
+          "topics": ["faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s93",
+          "title": "Delta wormholes, the flagship, and keeping a ship in the Creuss Gate",
+          "kind": "strategy",
+          "summary": "Delta wormholes do not grant Slipstream's bonus, which keeps the Hil Colish in check. Moving fast out of the Creuss Gate is the most common new-player mistake. Even so, keep a ship in the Creuss Gate at nearly all times.",
+          "advice": [
+            {
+              "point": "The most common mistake new Ghosts players make is moving ships out of the Creuss Gate as if they had bonus movement; they do not.",
+              "stance": "avoid",
+              "subjects": ["Creuss Gate", "Slipstream"]
+            },
+            {
+              "point": "It is worth having a ship in the Creuss Gate more or less at all times; the hosts call this pretty critical.",
+              "stance": "recommended",
+              "subjects": ["Creuss Gate"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["any"],
+          "topics": ["faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s107",
+          "title": "Four commodities and round one trading",
+          "kind": "strategy",
+          "summary": "Four commodities and the ability to become neighbours with almost anyone make the Ghosts a very good trading faction, especially in round one.",
+          "advice": [
+            {
+              "point": "The Ghosts are a very good trade faction, especially in round one: their movement lets them become neighbours with many players and set up lots of trades.",
+              "stance": "rating",
+              "subjects": ["Ghosts of Creuss"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1", "early"],
+          "topics": ["trade and diplomacy", "economy"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s112",
+          "title": "Creuss IFF: the note that helps the Ghosts",
+          "kind": "strategy",
+          "summary": "The Creuss IFF is the goofiest promissory note in the game and almost the only one whose use can actively help its owner. A common play is to give it away (sometimes with a couple of trade goods) and ask the recipient to place a wormhole where the Ghosts want it.",
+          "advice": [
+            {
+              "point": "Use the Creuss IFF to help yourself: give it to another player, sometimes with a couple of trade goods, and ask them to place a wormhole where it serves your own plans.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["early", "any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals"]
+        },
+        {
+          "start": "s127",
+          "title": "Wormhole Generator",
+          "kind": "strategy",
+          "summary": "The old Wormhole Generator was rarely taken because Fleet Logistics and other blue techs were better. The Omega version is good as a stall and is the answer for tables that will not let the Creuss IFF move wormholes around freely; where the table cooperates with the IFF it may be unnecessary.",
+          "advice": [
+            {
+              "point": "Wormhole Generator may be completely unnecessary if your group happily cooperates with the Creuss IFF.",
+              "stance": "situational",
+              "subjects": ["Wormhole Generator", "Creuss IFF"]
+            },
+            {
+              "point": "The Omega Wormhole Generator is good: it gives you a stall action and lets you move wormholes yourself when the table will not play along with the IFF.",
+              "stance": "rating",
+              "subjects": ["Wormhole Generator"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "any"],
+          "topics": ["technology"],
+          "requires": ["faction technologies", "promissory notes"],
+          "concepts": ["stall action", "table meta"]
+        },
+        {
+          "start": "s143",
+          "title": "Dimensional Splicer and Magen Defense Grid",
+          "kind": "strategy",
+          "summary": "Dimensional Splicer is a very good tech, easy to trigger because the Ghosts can put ships in wormholes almost at will, and it sits behind a single red prerequisite. Magen Defense Grid improved and matters for a PDS-focused Ghosts, but Splicer is the more important red tech.",
+          "advice": [
+            {
+              "point": "Dimensional Splicer is very, very good; it is easy to meet its condition because the Ghosts control so many wormholes.",
+              "stance": "rating",
+              "subjects": ["Dimensional Splicer"]
+            },
+            {
+              "point": "Magen Defense Grid improved and is notably better for a PDS-focused Ghosts, though the hosts are unsure it is good in general.",
+              "stance": "rating",
+              "subjects": ["Magen Defense Grid"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["pre-combat fire", "PDS network"]
+        },
+        {
+          "start": "s161",
+          "title": "Home planet, slow start and command token strain",
+          "kind": "strategy",
+          "summary": "The single 4/2 home planet affords a round-one tech or a carrier with extra infantry; the missing second carrier makes round one difficult, so expect a slow start into a meticulous, sneaky mid-game. The starting fleet is weak and the remote home makes deploying ships slow without a forward dock. Resist swinging for early control objectives at the expense of plastic and command tokens, since exploiting your movement costs a lot of tokens.",
+          "advice": [
+            {
+              "point": "The main thing missing in round one is a second carrier to move the four infantry; expect a slow start.",
+              "stance": "rating",
+              "subjects": ["Ghosts of Creuss"]
+            },
+            {
+              "point": "The starting plastic is poor (two fighters and only destroyers alongside the carrier), and the remote home system makes getting ships onto the board slow unless you build a forward dock.",
+              "stance": "rating",
+              "subjects": ["Ghosts of Creuss"]
+            },
+            {
+              "point": "Do not chase an early control objective in a strange place at the expense of your plastic and command tokens.",
+              "stance": "avoid",
+              "subjects": []
+            },
+            {
+              "point": "Budget command tokens for movement: the Ghosts' strength is putting ships in unusual places, and that costs tokens.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1", "early"],
+          "topics": ["opening", "economy", "general strategy"],
+          "requires": [],
+          "concepts": ["command token economy", "forward dock", "plastic advantage", "early control scoring", "positional play"]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Trade and Leadership are the Ghosts' default picks all game, with Technology close behind; plastic and command tokens come before tech. Construction is a fine last pick, especially for a forward dock or a PDS-based Ghosts. Diplomacy is a poor pick, Politics for an early Mecatol Rex run is risky and not recommended for most players, Warfare sits mid-pack, and Imperial should not be taken.",
+      "chunks": [
+        {
+          "start": "s189",
+          "title": "Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is a top pick round one and throughout the game. Going first lets a destroyer be placed early in a useful spot. Do not spend all the extra tokens at once; save some for round two, and keep it as insurance against a Warfare stall.",
+          "advice": [
+            {
+              "point": "Leadership is at or tied for the top round-one pick, and a top pick all game because the Ghosts always need command tokens.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Use early initiative to park a destroyer where it will be useful in round two, such as in the path of a faction racing for Mecatol Rex, if the wormhole layout makes it worthwhile.",
+              "stance": "situational",
+              "subjects": ["Leadership", "destroyer"]
+            },
+            {
+              "point": "Plastic is the round-one priority; tech is very skippable round one unless a tech objective comes out among the first two.",
+              "stance": "recommended",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Leadership is even better if your slice has an obvious spot for a PDS, space dock and wormhole staging hex.",
+              "stance": "situational",
+              "subjects": ["Leadership", "PDS"]
+            },
+            {
+              "point": "Do not spend all the extra tokens in round one; saving some can make round two stronger, depending on speaker position. It is fine if Warfare is the only secondary you follow.",
+              "stance": "recommended",
+              "subjects": ["Leadership", "Warfare"]
+            },
+            {
+              "point": "If Warfare is going to stall you out, extra tokens let you follow it and get the second carrier out; otherwise follow Politics hoping for a stall card or buy one.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Politics"]
+            },
+            {
+              "point": "Hyper Metabolism is often too far out of reach, so Leadership is often important; holding high-influence planets lowers the need for it.",
+              "stance": "situational",
+              "subjects": ["Hyper Metabolism", "Leadership"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1", "any"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["command token economy", "initiative zero", "secondary timing", "stall action", "tech skip"]
+        },
+        {
+          "start": "s237",
+          "title": "Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is a poor round-one pick: it lets rivals get tech-skip movement early and erodes the Ghosts' head start. Even picking last, Construction is usually better. The only case is a bad-slice scenario where eight resources comes out and Warfare and Technology timing is awkward.",
+          "advice": [
+            {
+              "point": "Avoid Diplomacy in round one: letting others get their tech skips and Gravity Drive early wipes out your mobility head start.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy"]
+            },
+            {
+              "point": "Even picking last, Construction is generally better than Diplomacy.",
+              "stance": "rating",
+              "subjects": ["Construction", "Diplomacy"]
+            },
+            {
+              "point": "Take Diplomacy only if Construction has no useful placement and you fear being stalled out, using it as a bargaining chip; Matt adds a case where the spend-8-resources objective is out and you can score it with home planet, trade goods and a refreshed planet. Hunter would still rather build plastic.",
+              "stance": "situational",
+              "subjects": ["Diplomacy", "Erect a Monument"]
+            },
+            {
+              "point": "There are easy ways to defend the Ghosts' home system without placing early PDS there.",
+              "stance": "rating",
+              "subjects": ["PDS"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["magic christmas land", "commodity wash", "home system defense"]
+        },
+        {
+          "start": "s267",
+          "title": "Politics and the round-two Mecatol Rex run",
+          "kind": "strategy",
+          "summary": "The hosts do not recommend taking Politics to go for the custodians in round two: it costs early command tokens and risks losing a carrier, which can make the Ghosts spiral. The Ghosts are not good fighters and should avoid early heat. Strong players such as Duke Luke (and some pre-errata feedback) argue Mecatol Ghosts works, so check the table before trying it. If Politics falls to you late, sell the speaker token.",
+          "advice": [
+            {
+              "point": "Do not take Politics to rush the custodians in round two unless the situation is unusual; the command token cost and the risk of losing a carrier can make the Ghosts spiral.",
+              "stance": "avoid",
+              "subjects": ["Politics", "Mecatol Rex"]
+            },
+            {
+              "point": "The Ghosts are not good at fighting; their combat strength comes late when scattered ships converge with the flagship, or in specific PDS-covered systems. Avoid drawing heat early.",
+              "stance": "rating",
+              "subjects": ["Ghosts of Creuss"]
+            },
+            {
+              "point": "Hosts disagree with some strong players (Duke Luke) who say Mecatol Rex Ghosts is good; only try it if you know the table will let you or are very confident.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "If Politics reaches you as fifth or sixth pick, take it and sell the speaker token for extra money in round one.",
+              "stance": "situational",
+              "subjects": ["Politics"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss", "Emirates of Hacan"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol"],
+          "requires": [],
+          "concepts": ["custodians rush", "acceptable losses", "speaker token sale", "table meta", "threat perception"]
+        },
+        {
+          "start": "s303",
+          "title": "Default picks: Trade and Leadership",
+          "kind": "strategy",
+          "summary": "With no other information, take Trade and Leadership whenever possible: money and command tokens let the Ghosts build plastic and reposition. Plastic and tokens come first, tech third, though tech objectives and key unit upgrades (Fighter II, Carrier II) shift that. Double-teching in round two is not a default.",
+          "advice": [
+            {
+              "point": "Default to Trade and Leadership every round you can; money and command tokens are what the Ghosts need.",
+              "stance": "recommended",
+              "subjects": ["Trade", "Leadership"]
+            },
+            {
+              "point": "Play positionally: shift ships around the board, make big fleets go through destroyers in awkward places, and send carriers through wormholes to take undefended planets.",
+              "stance": "recommended",
+              "subjects": ["destroyer"]
+            },
+            {
+              "point": "Out-plastic the bruiser factions; prioritise plastic and command tokens, with tech as a third priority adjusted for tech objectives.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Still aim for unit upgrades like Fighter II (if going blue-green) and Carrier II reasonably soon, but always double-teching in round two would be odd.",
+              "stance": "situational",
+              "subjects": ["Fighter II", "Carrier II", "Technology"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["early", "mid", "any"],
+          "topics": ["strategy cards", "general strategy"],
+          "requires": [],
+          "concepts": ["command token economy", "plastic advantage", "positional play"]
+        },
+        {
+          "start": "s331",
+          "title": "Construction",
+          "kind": "strategy",
+          "summary": "Construction is roughly the sixth pick: use it for a forward dock or two PDS on a strong forward system, ideally one where you can get a wormhole placed above it via the IFF or Wormhole Generator. If you are picking last anyway, getting ahead on this is good since you rarely want Construction again.",
+          "advice": [
+            {
+              "point": "Use Construction for a forward dock or two PDS on a good forward system such as Abyz and Fria, especially if you can get a wormhole placed there through the Creuss IFF or Wormhole Generator.",
+              "stance": "situational",
+              "subjects": ["Construction", "PDS", "Creuss IFF", "Wormhole Generator"]
+            },
+            {
+              "point": "If picking last, Construction round one is a good way to get ahead on your staging system, as you rarely want it later.",
+              "stance": "situational",
+              "subjects": ["Construction"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": ["promissory notes"],
+          "concepts": ["forward dock", "PDS network"]
+        },
+        {
+          "start": "s340",
+          "title": "PDS Ghosts: Impson's case",
+          "kind": "strategy",
+          "summary": "Community player Impson argues the Ghosts are the best PDS faction because wormholes extend PDS range; Hunter is biased against it and admits he plays PDS poorly. PDS Ghosts work best for players comfortable with PDS play, and Impson relies on Wormhole Generator rather than the table's goodwill with the IFF.",
+          "advice": [
+            {
+              "point": "The Ghosts are the best PDS faction because wormholes, including ones you place, extend PDS range; Impson rates PDS Ghosts highly while Hunter is biased against it.",
+              "stance": "rating",
+              "subjects": ["PDS", "Ghosts of Creuss"]
+            },
+            {
+              "point": "Go PDS Ghosts only if you are comfortable with PDS-heavy play; players who are not will struggle.",
+              "stance": "situational",
+              "subjects": ["PDS"]
+            },
+            {
+              "point": "For a PDS network, take Wormhole Generator so you can place the wormhole yourself rather than depending on others with the IFF.",
+              "stance": "situational",
+              "subjects": ["Wormhole Generator", "PDS"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "combat", "general strategy"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["PDS network"]
+        },
+        {
+          "start": "s363",
+          "title": "Claiming an equidistant with round-one Construction",
+          "kind": "strategy",
+          "summary": "With round-one Construction, moving to a juicy equidistant and dropping a PDS there stakes a defended claim. The first carrier's three-hex reach lets it reach equidistants or Mecatol-adjacent systems, so the Ghosts have more options than most factions; Construction rises if you plan this.",
+          "advice": [
+            {
+              "point": "With Construction round one, take a juicy equidistant and immediately place a PDS there to dare neighbours to contest it.",
+              "stance": "situational",
+              "subjects": ["Construction", "PDS"]
+            },
+            {
+              "point": "The first carrier can reach an equidistant or a system adjacent to Mecatol Rex, so the Ghosts can usually find a good system; Construction rises in value if you plan to do this.",
+              "stance": "rating",
+              "subjects": ["Construction", "Slipstream", "Gravity Drive"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": ["faction abilities"],
+          "concepts": ["forward dock", "slice value"]
+        },
+        {
+          "start": "s375",
+          "title": "Trade",
+          "kind": "strategy",
+          "summary": "Trade is great for the Ghosts. With a well-placed destroyer they can often arrange an X-1 trade with three partners for around ten trade goods, plus debt meta with others, possibly turning money into a command token. Trade also gives leverage to pay off the Warfare holder for better timing.",
+          "advice": [
+            {
+              "point": "Trade is excellent; plan the destroyer placement so you can do an X-1 trade with three neighbours and make about ten trade goods.",
+              "stance": "recommended",
+              "subjects": ["Trade", "destroyer"]
+            },
+            {
+              "point": "Check that every partner in the X-1 can actually reach you before committing.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Use debt meta with the other partners to collect their trade goods later.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Use trade goods from Trade to pay the Warfare holder not to stall, getting better Warfare timing.",
+              "stance": "situational",
+              "subjects": ["Trade", "Warfare"]
+            },
+            {
+              "point": "With Trade, you can afford a bit of everything: plastic and tech.",
+              "stance": "rating",
+              "subjects": ["Trade"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["X-1 trade", "debt meta", "trade leverage", "stall action"]
+        },
+        {
+          "start": "s405",
+          "title": "Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is mid-pack, better than Construction, Diplomacy and maybe Politics, slightly below Technology. Its value is the security of building and then moving without being stalled; double-moving a carrier is too flimsy. Removing a fleet-pool token is slice-dependent. The remote home system is effectively safe in rounds one and two, so you can empty it.",
+          "advice": [
+            {
+              "point": "Warfare is middle of the pack: preferable to Construction, Diplomacy and possibly Politics, slightly behind Technology.",
+              "stance": "rating",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Do not plan to move a carrier, Warfare it back and move it again; that is too flimsy.",
+              "stance": "avoid",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Warfare's value is the security to move out, place a destroyer, build and then Warfare and move without being stalled.",
+              "stance": "recommended",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Moving a command token out of the fleet pool in round one is slice-dependent; never do it with a low-influence slice.",
+              "stance": "avoid",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "In rounds one and two almost no one can reach the Ghosts' home system, so you can empty it to deploy everything and rebuild next round.",
+              "stance": "situational",
+              "subjects": ["Warfare"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["command token economy", "home system defense", "stall action"]
+        },
+        {
+          "start": "s437",
+          "title": "Technology",
+          "kind": "strategy",
+          "summary": "Matt revised his ranking: Technology sits just below Trade and Leadership. Do not double-tech round one; take Neural Motivator or Plasma Scoring depending on path and spend the rest on plastic. Being the Technology holder also protects against a Warfare stall. Trade is still better unless Warfare timing is a problem.",
+          "advice": [
+            {
+              "point": "Technology ranks just below Trade and Leadership, possibly near Leadership; Matt moved it above Warfare.",
+              "stance": "rating",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Do not double-tech in round one; research Neural Motivator (blue-green path) or Plasma Scoring (red path) and spend the rest on plastic.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Neural Motivator", "Plasma Scoring"]
+            },
+            {
+              "point": "Let your available skips and the map guide your tech path; the Ghosts have many viable options.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Ghosts of Creuss", "Embers of Muaat"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology"],
+          "requires": [],
+          "concepts": ["tech path", "tech skip"]
+        },
+        {
+          "start": "s459",
+          "title": "Imperial",
+          "kind": "strategy",
+          "summary": "Do not take Imperial in round one.",
+          "advice": [
+            {
+              "point": "Do not take Imperial in round one; do not get cute.",
+              "stance": "avoid",
+              "subjects": ["Imperial"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Early game problems",
+      "summary": "The Ghosts' early plastic is dire and the temptation is to overreach for points. Unless you can calculate risk like a top player, slow-roll it: fill your slice strategically, avoid fights until your plastic has grown, and use trade and the promissory note to keep the table friendly.",
+      "chunks": [
+        {
+          "start": "s461",
+          "title": "Plastic shortage and the danger of hubris",
+          "kind": "strategy",
+          "summary": "The Ghosts have speed but no muscle early, tempting risky early point grabs. Strong players do it because they calculate exactly how they can be stopped; others should expand strategically, not overextend into both equidistants or a Mecatol play. Avoid fights until plastic catches up, and use trade and the IFF to stay liked.",
+          "advice": [
+            {
+              "point": "Unless you can calculate exactly who can stop you, do not risk your game early for points such as taking both equidistants or a custodians play.",
+              "stance": "avoid",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Fill your slice in a strategic way and slow-roll expansion; stretching thin leads to an impossible mid and late game.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Avoid fighting in the early game until your plastic has grown; use trade value and the Creuss IFF to keep the table liking you.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["early"],
+          "topics": ["general strategy", "expansion", "threats and matchups"],
+          "requires": [],
+          "concepts": ["plastic advantage", "threat perception", "controlled aggression", "survive to the late game"]
+        }
+      ]
+    },
+    {
+      "title": "Tech paths",
+      "summary": "Choose the tech path early from your slice's skips and PDS spots. Blue-green is the reliable autopilot, built around Hyper Metabolism, Fighter II gumming and Fleet Logistics; any blue, green or yellow skip helps. Blue-red with a yellow skip is the strongest combat setup (Dimensional Splicer, Destroyer II, PDS II, Dreadnought II) but takes so much setup that you can fall behind on points. Red-yellow is the fallback with no skips and a good PDS slice. Antimass Deflectors is often still needed.",
+      "chunks": [
+        {
+          "start": "s488",
+          "title": "Choose the path from the slice",
+          "kind": "strategy",
+          "summary": "Assess your slice right away (available skips, PDS spots) and commit to a path early.",
+          "advice": [
+            {
+              "point": "Analyse your slice's tech skips and PDS-worthy planets at the start and pick your tech path from that.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["setup", "early"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": ["tech path commitment", "tech skip"]
+        },
+        {
+          "start": "s495",
+          "title": "Blue-green: the reliable path",
+          "kind": "strategy",
+          "summary": "Hunter's choice: blue-green reliably performs. A blue or green skip speeds up Hyper Metabolism (ideally round two). Fighter II supports efficient gumming, Dreadnought II fits with a yellow skip, and Carrier II with fighter swarms works too. Fleet Logistics is excellent for late-game tricks; any skip except red helps.",
+          "advice": [
+            {
+              "point": "Blue-green is the most reliable path for the Ghosts; you will perform okay most of the time.",
+              "stance": "rating",
+              "subjects": []
+            },
+            {
+              "point": "Get Hyper Metabolism fast, ideally in round two, with a blue or green skip.",
+              "stance": "recommended",
+              "subjects": ["Hyper Metabolism"]
+            },
+            {
+              "point": "Fighter II is great for the Ghosts: use fighters to gum up approaches so opponents have no good path to attack you.",
+              "stance": "recommended",
+              "subjects": ["Fighter II"]
+            },
+            {
+              "point": "Add Dreadnought II with a yellow skip; Carrier II with fighter swarms and infantry is also viable.",
+              "stance": "situational",
+              "subjects": ["Dreadnought II", "Carrier II"]
+            },
+            {
+              "point": "Take Wormhole Generator if your group will not cooperate with the IFF; otherwise do not sleep on Fleet Logistics, which enables strange late-game plays.",
+              "stance": "situational",
+              "subjects": ["Wormhole Generator", "Fleet Logistics"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "tech skip", "gumming up the works", "fighter screen"]
+        },
+        {
+          "start": "s522",
+          "title": "Antimass Deflectors is often needed",
+          "kind": "strategy",
+          "summary": "Despite having Gravity Drive, the Ghosts often need Antimass Deflectors so asteroid fields do not eat their movement advantage, and so they can block an asteroid-field approach with a couple of fighters.",
+          "advice": [
+            {
+              "point": "Do not sleep on Antimass Deflectors; depending on asteroid field placement it is often a required get so your bonus movement is not wasted going around them.",
+              "stance": "situational",
+              "subjects": ["Antimass Deflectors"]
+            },
+            {
+              "point": "If a neighbour with Antimass Deflectors can strike you across an asteroid field, get it yourself and park a fighter or two there so attacking costs them two tokens instead of one.",
+              "stance": "situational",
+              "subjects": ["Antimass Deflectors"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "threats and matchups"],
+          "requires": [],
+          "concepts": ["gumming up the works", "command token economy"]
+        },
+        {
+          "start": "s536",
+          "title": "Blue-red and red-yellow overlap",
+          "kind": "strategy",
+          "summary": "Blue-red and red-yellow are similar for the Ghosts depending on skips: blue, green and yellow skips are all great, red skips mainly give influence. Red-yellow means committing to PDS II and possibly War Suns, which are very fast and better than Prototype War Sun II, though the hosts do not recommend War Suns.",
+          "advice": [
+            {
+              "point": "Blue, green and yellow skips are all great for the Ghosts; red skips are mainly good for their influence, though late in blue-red they can reach Assault Cannon.",
+              "stance": "rating",
+              "subjects": ["Assault Cannon"]
+            },
+            {
+              "point": "Ghosts War Suns are very fast and strong, but the hosts are not recommending a War Sun path.",
+              "stance": "rating",
+              "subjects": ["War Sun"]
+            },
+            {
+              "point": "Blue-red with a yellow skip reaches PDS II; red-yellow with a blue skip reaches Wormhole Generator; both support a PDS plan.",
+              "stance": "situational",
+              "subjects": ["PDS II", "Wormhole Generator"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["technology"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["tech path", "tech skip", "PDS network"]
+        },
+        {
+          "start": "s553",
+          "title": "Blue-red: Dimensional Splicer combat",
+          "kind": "strategy",
+          "summary": "Blue-red is built on Dimensional Splicer plus Destroyer II, PDS fire into wormhole systems and late Assault Cannon, which makes the Ghosts nearly unbeatable in chosen hexes. With a yellow skip Matt prefers it over blue-green. The danger is the heavy setup: if you are not scoring meanwhile, you fall behind. Blue-green is easier on autopilot. Matt frames round-one tech as Neural Motivator for blue-green or Plasma Scoring for the red paths.",
+          "advice": [
+            {
+              "point": "With an easily reached yellow skip, Matt prefers blue-red to blue-green; a green or blue skip pushes toward blue-green.",
+              "stance": "situational",
+              "subjects": ["Dimensional Splicer", "Dreadnought II", "PDS II"]
+            },
+            {
+              "point": "Park a Destroyer II in a wormhole system your PDS cover: anti-fighter barrage, a Dimensional Splicer hit and PDS shots (plus Assault Cannon late) mean you rarely lose space combat there.",
+              "stance": "recommended",
+              "subjects": ["Destroyer II", "Dimensional Splicer", "PDS", "Assault Cannon"]
+            },
+            {
+              "point": "Blue-red takes heavy early and mid-game setup; if you are not scoring points while building the combo, you fall too far behind to catch up.",
+              "stance": "avoid",
+              "subjects": []
+            },
+            {
+              "point": "Blue-green is easier on autopilot and less prone to a stalled PDS network; Hunter gives blue-red a slight edge for its Wormhole Generator and PDS potential.",
+              "stance": "rating",
+              "subjects": ["Wormhole Generator"]
+            },
+            {
+              "point": "If teching round one, Neural Motivator points to blue-green; Plasma Scoring keeps blue-red or red-yellow open.",
+              "stance": "recommended",
+              "subjects": ["Neural Motivator", "Plasma Scoring"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "pre-combat fire", "PDS network", "win more"]
+        },
+        {
+          "start": "s585",
+          "title": "Flagship worth building only with Dimensional Splicer",
+          "kind": "strategy",
+          "summary": "Matt rarely builds the Hil Colish: a flagship is a point on the table for someone else's dramatic final score. Dimensional Splicer makes it worth considering.",
+          "advice": [
+            {
+              "point": "The Hil Colish is not that good unless you have Dimensional Splicer; otherwise avoid building it.",
+              "stance": "rating",
+              "subjects": ["Hil Colish", "Dimensional Splicer"]
+            },
+            {
+              "point": "Building a flagship puts a point on the table for whoever destroys it, often as a final point; only build it when it really opens up your game.",
+              "stance": "avoid",
+              "subjects": ["Hil Colish"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["tenth point problem", "flagship pressure"]
+        },
+        {
+          "start": "s592",
+          "title": "Red-yellow and Graviton Laser System",
+          "kind": "strategy",
+          "summary": "Hard red-yellow is less good than blue-red; Impson suggests it when you have no skips and a slice suited to placing PDS. It is lots of work for less reward, misses Carrier II, mobility and Dreadnought II, and yellow tech is weak. Graviton Laser System is occasionally game-saving but usually not game-changing; Transit Diodes is not especially useful.",
+          "advice": [
+            {
+              "point": "Hard red-yellow is weaker than blue-red; consider it only with no skips and a slice suited to PDS placement.",
+              "stance": "situational",
+              "subjects": []
+            },
+            {
+              "point": "Yellow tech is generally weak for the Ghosts; Transit Diodes is not especially useful, and Graviton Laser System is usually not game-changing though occasionally decisive.",
+              "stance": "rating",
+              "subjects": ["Transit Diodes", "Graviton Laser System"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": ["tech path", "PDS network"]
+        }
+      ]
+    },
+    {
+      "title": "Trade, agendas and the Creuss IFF",
+      "summary": "The agenda deck is hostile to the Ghosts: Wormhole Research, Wormhole Reconstruction and Enforced Travel Ban can wreck a game, and the Politics holder will put them on top when you are doing well. Keep political secrets and Support for the Throne as ammunition to buy votes, and consider buying others' political secrets. The Creuss IFF should be sold actively, but almost all IFF deals are non-binding; it is most useful in rounds one to three, and a wormhole on Mecatol Rex can be sold to the whole table.",
+      "chunks": [
+        {
+          "start": "s608",
+          "title": "The agenda deck is not your friend",
+          "kind": "strategy",
+          "summary": "As a four-commodity faction the Ghosts make friends easily, but the agenda deck repeatedly targets them; account for it.",
+          "advice": [
+            {
+              "point": "The agenda deck is hostile to the Ghosts; account for it in your plans even though that is hard for newer players.",
+              "stance": "rating",
+              "subjects": []
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["agendas"],
+          "requires": ["agendas"],
+          "concepts": []
+        },
+        {
+          "start": "s616",
+          "title": "Wormhole Research",
+          "kind": "strategy",
+          "summary": "Wormhole Research is one of three agendas that hurt the Ghosts; they usually have ships gumming wormholes and a base under a wormhole, so it can destroy many ships. It is survivable if you see it coming.",
+          "advice": [
+            {
+              "point": "Watch for Wormhole Research: with ships gumming wormholes and a forward base under a placed wormhole, it can destroy loads of your ships; if you get wind of it, clear out or secure votes.",
+              "stance": "situational",
+              "subjects": ["Wormhole Research"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["agendas", "threats and matchups"],
+          "requires": ["agendas"],
+          "concepts": []
+        },
+        {
+          "start": "s626",
+          "title": "Wormhole Reconstruction",
+          "kind": "strategy",
+          "summary": "Wormhole Reconstruction's against outcome hits every wormhole including the home system and effectively kills the next round. It wrecked a strong Ghosts player in the tournament semifinals, and the Politics holder will put it on top when you are doing well.",
+          "advice": [
+            {
+              "point": "Wormhole Reconstruction is the most dangerous agenda for the Ghosts: passing against effectively costs you the whole following round.",
+              "stance": "rating",
+              "subjects": ["Wormhole Reconstruction"]
+            },
+            {
+              "point": "Expect the Politics holder to put it on top when you are having a great game; you cannot negotiate the draw away.",
+              "stance": "rating",
+              "subjects": ["Wormhole Reconstruction", "Politics"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["agendas", "threats and matchups"],
+          "requires": ["agendas"],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s639",
+          "title": "Enforced Travel Ban",
+          "kind": "strategy",
+          "summary": "Enforced Travel Ban's for outcome is great for the Ghosts, who keep wormhole access while everyone else loses it. The against outcome destroys PDS around wormholes including the home system, ruining a PDS Ghosts plan.",
+          "advice": [
+            {
+              "point": "Vote for Enforced Travel Ban when possible: only the Ghosts keep using wormholes.",
+              "stance": "recommended",
+              "subjects": ["Enforced Travel Ban", "Quantum Entanglement"]
+            },
+            {
+              "point": "Enforced Travel Ban passing against ruins a PDS Ghosts plan; this risk is part of why Hunter avoids PDS Ghosts.",
+              "stance": "rating",
+              "subjects": ["Enforced Travel Ban", "PDS"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["agendas", "threats and matchups"],
+          "requires": ["agendas", "faction abilities"],
+          "concepts": ["PDS network"]
+        },
+        {
+          "start": "s649",
+          "title": "Buying votes: political secrets and Support for the Throne",
+          "kind": "strategy",
+          "summary": "Other players will vote against the Ghosts on these agendas even at their own cost. Work political secrets into deals (for example instead of a toll fee), never sell your own, and avoid early Support for the Throne swaps so you keep promissory notes to hand out for votes. Avoid leading on points when these agendas could come up.",
+          "advice": [
+            {
+              "point": "Buy other players' political secrets cheaply as part of deals, for example asking for one instead of a trade-good toll, to protect against these agendas.",
+              "stance": "recommended",
+              "subjects": ["Political Secret"]
+            },
+            {
+              "point": "Never sell your own Political Secret as the Ghosts; you may need your votes.",
+              "stance": "avoid",
+              "subjects": ["Political Secret"]
+            },
+            {
+              "point": "Avoid early Support for the Throne swaps; keep it, your Trade Agreement and Ceasefire to hand out for votes when a wormhole agenda appears.",
+              "stance": "avoid",
+              "subjects": ["Support for the Throne", "Trade Agreement", "Ceasefire"]
+            },
+            {
+              "point": "Do not sit in the point lead when these agendas could appear; you will get hit harder.",
+              "stance": "avoid",
+              "subjects": []
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid", "late"],
+          "topics": ["agendas", "promissory notes", "trade and diplomacy"],
+          "requires": ["agendas", "promissory notes"],
+          "concepts": ["agenda vote trading", "support for the throne swap", "extortion", "threat perception"]
+        },
+        {
+          "start": "s673",
+          "title": "Creuss IFF deals are non-binding",
+          "kind": "strategy",
+          "summary": "Sell the IFF often, but how the buyer uses it cannot be made binding; only the transfer can. Unless the table plays it freely, a buyer may hold it for the late game, where it is powerful for kingslaying or opening action-phase objectives. Decide whether you trust the buyer.",
+          "advice": [
+            {
+              "point": "Sell the Creuss IFF actively; it is one of the few notes the hosts always want to get out on the table.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF"]
+            },
+            {
+              "point": "Only the sale of the IFF can be binding, not where the buyer puts the wormhole; with unfamiliar players, expect they may keep it for the late game.",
+              "stance": "situational",
+              "subjects": ["Creuss IFF"]
+            },
+            {
+              "point": "The IFF is powerful late for kingslaying or opening an action-phase objective such as Make an Example; only give it to players you trust.",
+              "stance": "rating",
+              "subjects": ["Creuss IFF"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals", "table meta", "kingslaying"]
+        },
+        {
+          "start": "s696",
+          "title": "Early IFF shenanigans",
+          "kind": "strategy",
+          "summary": "In rounds one and two, IFF wormholes can go almost anywhere because the board is empty, opening access for you or others. The classic play: give the note free, then make a binding deal paying one or two trade goods to place the wormhole over your target, such as Abyz and Fria before you move in. It gets harder to use as the board fills; it is most useful in rounds one to three.",
+          "advice": [
+            {
+              "point": "Give the IFF away and pay one or two trade goods in a binding deal for the recipient to place the wormhole exactly where you want, such as over a planet you are about to take.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF"]
+            },
+            {
+              "point": "Use the IFF in rounds one to three when the board is empty and wormholes can go almost anywhere; later it becomes much harder to place usefully.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF"]
+            },
+            {
+              "point": "Selling it to Xxcha to extend their PDS network is a known play, but Matt finds it dangerous.",
+              "stance": "situational",
+              "subjects": ["Creuss IFF", "Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss", "Xxcha Kingdom", "Arborec"],
+          "phases": ["round 1", "early"],
+          "topics": ["promissory notes", "trade and diplomacy", "expansion"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals", "above-the-table play"]
+        },
+        {
+          "start": "s714",
+          "title": "Wormhole on Mecatol Rex",
+          "kind": "strategy",
+          "summary": "Getting an IFF wormhole onto Mecatol Rex makes every wormhole adjacent to it, which is especially valuable when an objective for systems adjacent to Mecatol Rex is out. The table may chip in a trade good each for the convenience; make sure you get paid.",
+          "advice": [
+            {
+              "point": "When an objective for systems adjacent to Mecatol Rex is out, sell the table a wormhole on Mecatol Rex, collecting a trade good from several players, and make sure you are paid.",
+              "stance": "situational",
+              "subjects": ["Creuss IFF", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "mecatol", "objectives", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["sell access to points"]
+        }
+      ]
+    },
+    {
+      "title": "Mid game",
+      "summary": "The mid-game is about gumming: positioning cheap ships (fighters or destroyers, backed by Dimensional Splicer) to block attacks on your vulnerable systems, and using Leadership and Trade to keep enough tokens to out-manoeuvre. Avoid fights, steal Mecatol Rex or control objectives when opponents cannot respond, and use the IFF to set other players against each other while you sneak in behind.",
+      "chunks": [
+        {
+          "start": "s723",
+          "title": "Gum, you gummy",
+          "kind": "strategy",
+          "summary": "Move ships positionally to block attacks on systems that matter. A destroyer on the far side of a wormhole with Dimensional Splicer forces attackers to commit a real fleet and a token. PDS Ghosts can use destroyers as gum instead of fighters. Take Leadership and Trade often for the tokens to stall and manoeuvre.",
+          "advice": [
+            {
+              "point": "Block approaches to your vulnerable systems by positioning cheap ships; a destroyer through a wormhole with Dimensional Splicer forces enemies to spend a token and send a real fleet.",
+              "stance": "recommended",
+              "subjects": ["Dimensional Splicer", "destroyer"]
+            },
+            {
+              "point": "If you lack Fighter II (as PDS Ghosts), build destroyers as your gum.",
+              "stance": "situational",
+              "subjects": ["destroyer", "Fighter II"]
+            },
+            {
+              "point": "Take Leadership and Trade often so you always have tokens to stall or manoeuvre ahead of enemies.",
+              "stance": "recommended",
+              "subjects": ["Leadership", "Trade"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["mid"],
+          "topics": ["general strategy", "combat", "strategy cards"],
+          "requires": ["faction technologies"],
+          "concepts": ["gumming up the works", "positional play", "command token economy", "stall action"]
+        },
+        {
+          "start": "s734",
+          "title": "Sneaking onto Mecatol Rex and stealing points",
+          "kind": "strategy",
+          "summary": "The Ghosts are not a Mecatol Rex faction, but if an opening appears, sneak in for a round and possibly use Imperial in the mid-game. Block the big fleet with a destroyer first, then go. Avoid fighting; steal control objectives through wormholes when opponents have passed.",
+          "advice": [
+            {
+              "point": "If the opportunity appears, steal Mecatol Rex for a round and take Imperial in the mid-game, even if you have few points.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex", "Imperial"]
+            },
+            {
+              "point": "Park a destroyer between a strong rival and Mecatol Rex, then go for Mecatol yourself.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "destroyer"]
+            },
+            {
+              "point": "Avoid fighting in the mid-game; sneak through wormholes to take control objectives when opponents have passed and cannot respond.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Ghosts of Creuss", "Emirates of Hacan"],
+          "phases": ["mid"],
+          "topics": ["mecatol", "objectives", "general strategy"],
+          "requires": [],
+          "concepts": ["positional play", "early control scoring", "imperial block"]
+        },
+        {
+          "start": "s750",
+          "title": "Using the IFF to make conflict elsewhere",
+          "kind": "strategy",
+          "summary": "Keep the IFF on the table for others to buy, but know exactly how the buyer will use it and get paid accordingly. Sell access that sets other players against each other, such as giving a rival's enemy across the table a wormhole into their slice, then sneak in to clean up. Look at what points or tech skips another player could reach if only they had a wormhole and sell them that.",
+          "advice": [
+            {
+              "point": "Before selling the IFF, know exactly how the buyer plans to use it and make sure there is no reason for them to hold it; get paid the right amount.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF"]
+            },
+            {
+              "point": "Sell wormhole access to a player across the table, such as the Barony, so they can attack the neighbour giving you trouble; then sneak in to clean up.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF", "Barony of Letnev"]
+            },
+            {
+              "point": "Look for points or tech skips another player could reach with a wormhole and sell them that access.",
+              "stance": "recommended",
+              "subjects": ["Creuss IFF"]
+            },
+            {
+              "point": "The Ghosts are a one-trick pony early: fast movement without layered advantages, so the trick does not always pay off.",
+              "stance": "rating",
+              "subjects": ["Ghosts of Creuss"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss", "Barony of Letnev", "Emirates of Hacan"],
+          "phases": ["mid"],
+          "topics": ["promissory notes", "trade and diplomacy", "threats and matchups"],
+          "requires": ["promissory notes"],
+          "concepts": ["metagame manipulation", "sell access to points", "friend of the table enemy"]
+        }
+      ]
+    },
+    {
+      "title": "Late game",
+      "summary": "In the late game the IFF makes the Ghosts a kingslaying broker: never give it away for free, know the buyer's plan, and get paid. The Ghosts are strong at secret objectives but weak at stage II objectives, so stay in the pack, aim for specific stage IIs early, and make up points through Support for the Throne and other trades for IFF access. Played simply, the faction is fairly vanilla blue-green.",
+      "chunks": [
+        {
+          "start": "s782",
+          "title": "Kingslaying with the IFF: get paid",
+          "kind": "strategy",
+          "summary": "Do not hand out the IFF on the argument that you lose too if you do not; a buyer may use it to win rather than stop the leader. Know their plan and get paid. Magi-style gambits, trading the IFF for a shot at winning, are legitimate in the base game even if they annoy people.",
+          "advice": [
+            {
+              "point": "Never give the IFF away for kingslaying on the 'you lose too' argument; demand payment and know exactly where they will place the wormhole, or they may use it to win.",
+              "stance": "avoid",
+              "subjects": ["Creuss IFF"]
+            },
+            {
+              "point": "Trading the IFF for a shot at winning yourself (a Magi-style gambit) is a legitimate base-game play, though it makes some players mad.",
+              "stance": "situational",
+              "subjects": ["Creuss IFF"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["late"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["kingslaying", "kingmaking", "non-binding deals", "tenth point problem"]
+        },
+        {
+          "start": "s805",
+          "title": "Secret objectives, stage IIs and making up points",
+          "kind": "strategy",
+          "summary": "The Ghosts are very good at secret objectives and can stay in the pack before a flashy finish; they crumble if the table turns on them. They are weak at stage II objectives, so target specific ones from the mid-game. Five stage Is and three secrets leave you short, so gain Support for the Throne points (in exchange for IFF access) as long as the territory you give up is not needed.",
+          "advice": [
+            {
+              "point": "The Ghosts are very good at secret objectives; hang in the pack on points and finish suddenly with the right secrets.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "The Ghosts crumble if the table turns on them; do not draw the table's ire.",
+              "stance": "rating",
+              "subjects": ["Ghosts of Creuss"]
+            },
+            {
+              "point": "The Ghosts are weak at stage II objectives; pick specific achievable ones in the mid-game and work toward them.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Trade IFF access for Support for the Throne where the group allows point trades, as long as the territory you give up is not needed for future points.",
+              "stance": "situational",
+              "subjects": ["Support for the Throne", "Creuss IFF"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss", "L1Z1X Mindnet"],
+          "phases": ["mid", "late"],
+          "topics": ["objectives", "promissory notes"],
+          "requires": ["promissory notes"],
+          "concepts": ["survive to the late game", "threat perception", "sell access to points", "support for the throne swap"]
+        },
+        {
+          "start": "s831",
+          "title": "The Ghosts are simpler than they look",
+          "kind": "strategy",
+          "summary": "Despite their unique trick, the Ghosts can be played as a fairly vanilla blue-green faction: get where you need to and score. Top players make them flashy; on a bad day they stall.",
+          "advice": [
+            {
+              "point": "Playing blue-green on autopilot and staying safe will usually leave the Ghosts in a good late-game position; they need not be complicated.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Ghosts of Creuss"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["tech path"]
+        }
+      ]
+    },
+    {
+      "title": "Errata zone",
+      "summary": "Community feedback on the Muaat guide argued Politics is Muaat's third pick: it guarantees Technology in round two, lets them skip round-one tech for plastic, and saves command tokens. The hosts agree with the reasoning, especially the token saving, and attribute the disagreement to small ranking differences that depend on round-two pick order.",
+      "chunks": [
+        {
+          "start": "s843",
+          "title": "Errata Zone intro",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s849",
+          "title": "Muaat: the case for round-one Politics",
+          "kind": "strategy",
+          "summary": "A listener argues Politics is Muaat's third pick behind Technology and Trade: skip tech round one for plastic, take Technology round two and double-tech, saving resources and two command tokens (usable for a Star Forge stall). The hosts agree, especially on token saving, but note round-two pick order affects whether middling picks pay off.",
+          "advice": [
+            {
+              "point": "Listener view: for Muaat, Politics is the third round-one pick behind Technology and Trade; the hosts agree with the reasoning but ranked Leadership and Diplomacy slightly higher.",
+              "stance": "rating",
+              "subjects": ["Politics", "Embers of Muaat"]
+            },
+            {
+              "point": "Take Politics round one, skip tech for plastic, then take Technology round two and double-tech; this saves resources and two command tokens, which can carry over or fund a Star Forge stall.",
+              "stance": "situational",
+              "subjects": ["Politics", "Technology", "Star Forge"]
+            },
+            {
+              "point": "Among middling picks (Leadership, Diplomacy, Politics), consider where you will pick in round two; taking Leadership third behind Technology and Trade may leave you picking last.",
+              "stance": "situational",
+              "subjects": ["Leadership", "Diplomacy", "Politics"]
+            }
+          ],
+          "factions": ["Embers of Muaat"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy", "speaker order control", "stall action"]
+        },
+        {
+          "start": "s890",
+          "title": "Mango coils",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s906",
+          "title": "Patreon thanks, polls, Twitch schedule and community links",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1027",
+          "title": "Prophecy of Kings spoilers: Nexus Sovereignty and the Vuil'Raith agent",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1094",
+          "title": "Sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Ghost of Chris": "Ghosts of Creuss",
+    "Ghost Acreus": "Ghosts of Creuss",
+    "ghosts Acrets": "Ghosts of Creuss",
+    "Kriesca": "Creuss Gate",
+    "Kriuskate": "Creuss Gate",
+    "Kree Skate": "Creuss Gate",
+    "Krius gate": "Creuss Gate",
+    "Hill Kalish": "Hil Colish",
+    "Phil Collins": "Hil Colish",
+    "Majin": "Magen Defense Grid",
+    "Krius IFS": "Creuss IFF",
+    "Biz Fria": "Abyz and Fria",
+    "Abyss Fria": "Abyz and Fria",
+    "grab drive": "Gravity Drive",
+    "Mechatar X": "Mecatol Rex",
+    "mechanical Rex": "Mecatol Rex",
+    "salt cannon": "Assault Cannon",
+    "XCHA": "Xxcha",
+    "Priyarata": "pre-errata",
+    "Erata Zone": "Errata Zone",
+    "Goz": "Ghosts",
+    "PDF ghosts": "PDS ghosts",
+    "PDFs": "PDS",
+    "Mua": "Muaat",
+    "Muad": "Muaat",
+    "Imson": "Impson",
+    "wind slaying": "kingslaying",
+    "Captain Kingsley": "Captain Kingslayer",
+    "Lettus from Whitechapel": "Letters from Whitechapel"
+  }
+}

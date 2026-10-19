@@ -1,0 +1,2289 @@
+{
+  "episode": 145,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "The hosts frame Winnu as one of the weakest factions: wins with them usually need both excellent play and an inattentive table. The whole guide assumes a five- or six-player game; Winnu plays very differently at three or four players.",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro and Winnu jokes",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s45",
+          "title": "Few people play Winnu; guide assumes five or six players",
+          "kind": "strategy",
+          "summary": "Almost nobody plays Winnu by choice, and community advice usually comes from a single game. The guide is written from the five- and six-player perspective; in three- and four-player games everything about Winnu changes.",
+          "advice": [
+            {
+              "point": "Winnu is a bottom-tier faction: a Winnu win usually needs a skilled player pulling off clever plays while the rest of the table is not paying attention.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "This advice applies to five- and six-player games; in three- and four-player games Winnu's situation is different and largely the opposite.",
+              "stance": "situational",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Starting units, tech and home system",
+      "summary": "The starting fleet is poor: one carrier and one cruiser means a weak one-carrier, two-infantry opening. Winnu may choose any starting technology, but only Antimass Deflectors and Sarween Tools are serious choices. The single-planet 3/4 home system is easy to defend but cannot buy a technology on its own in round one.",
+      "chunks": [
+        {
+          "start": "s74",
+          "title": "Starting fleet",
+          "kind": "strategy",
+          "summary": "One carrier and two infantry is the dreaded 1C2I start, and with only one cruiser Winnu lacks even three capital ships. The PDS is a small saving grace and the two fighters are minimally acceptable.",
+          "advice": [
+            {
+              "point": "The starting fleet is very bad: a single carrier with two infantry limits round-one expansion, and a lone cruiser leaves the fleet thin.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "The starting PDS is a small help and the two fighters are minimally okay.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu",
+                "PDS"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "expansion"
+          ],
+          "requires": [],
+          "concepts": [
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s91",
+          "title": "Choice of starting technology",
+          "kind": "strategy",
+          "summary": "Of the four unit-free starting technologies, Plasma Scoring is never worth taking and Neural Motivator rarely is, though it is a good tech in general. The real choice is between Antimass Deflectors and Sarween Tools, covered later.",
+          "advice": [
+            {
+              "point": "There is no reason for Winnu to start with Plasma Scoring.",
+              "stance": "avoid",
+              "subjects": [
+                "Plasma Scoring"
+              ]
+            },
+            {
+              "point": "Neural Motivator is a good tech in general but there is little reason for Winnu to start with it.",
+              "stance": "rating",
+              "subjects": [
+                "Neural Motivator"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "setup"
+          ],
+          "topics": [
+            "technology",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s120",
+          "title": "The 3/4 home planet",
+          "kind": "strategy",
+          "summary": "A single home planet is a blessing for a faction that must send everything to Mecatol Rex. The 3/4 split is good but awkward: three resources cannot buy a technology in round one, and the four influence mainly helps in the agenda phase if the game goes well.",
+          "advice": [
+            {
+              "point": "The single-planet home system is a relief, since Winnu sends its forces to Mecatol Rex and would struggle to defend two home planets.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "The 3/4 home planet is good but annoying: three resources is not enough to research a technology in round one off the home system alone, and the four influence is mostly useful for agendas.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "The whole Winnu plan depends on things going well early; if they do not, the faction has little to fall back on.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "economy",
+            "agendas"
+          ],
+          "requires": [],
+          "concepts": [
+            "home system defense"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities",
+      "summary": "Both abilities revolve around Mecatol Rex, and Blood Ties is the one that matters, but only if Winnu takes the custodians token before anyone else. Reclamation's free space dock arrives after production, so it cannot be built from on the turn Mecatol Rex is taken.",
+      "chunks": [
+        {
+          "start": "s140",
+          "title": "Blood Ties and Reclamation",
+          "kind": "strategy",
+          "summary": "Blood Ties is the important ability, but it is worthless if someone else removes the custodians token first, so Winnu must rush Mecatol Rex for its abilities to matter at all. Reclamation's dock and PDS arrive at the end of the tactical action, so plan on producing from that dock only on a later turn.",
+          "advice": [
+            {
+              "point": "Blood Ties is Winnu's key ability, but it does nothing if another player takes the custodians token first; Winnu has to race for Mecatol Rex or its abilities never activate.",
+              "stance": "recommended",
+              "subjects": [
+                "Blood Ties",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Do not plan to produce from the Reclamation space dock on the turn you take Mecatol Rex; it is placed after the production step, so it only becomes useful on a later action.",
+              "stance": "situational",
+              "subjects": [
+                "Reclamation"
+              ]
+            },
+            {
+              "point": "There is dissonance in the kit: the abilities all point at Mecatol Rex, yet the faction can start with techs like Plasma Scoring that do nothing for that plan.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "faction abilities",
+            "mecatol"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "custodians rush"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Flagship and commodities",
+      "summary": "The flagship is mediocre at best and easily countered, so build it only for Unveil Flagship. Three commodities is middling; the hosts think Winnu deserved four.",
+      "chunks": [
+        {
+          "start": "s161",
+          "title": "Salai Sai Corian",
+          "kind": "strategy",
+          "summary": "The flagship is mediocre at best: its many dice hit only 40% of the time, and opponents can blunt it by fielding fighters instead of non-fighter ships. It is useless against fighter-heavy fleets like Naalu or Sol, and it is only worth building to score Unveil Flagship.",
+          "advice": [
+            {
+              "point": "The flagship is mediocre at best and does not save Winnu's game.",
+              "stance": "rating",
+              "subjects": [
+                "Salai Sai Corian"
+              ]
+            },
+            {
+              "point": "Against fighter-heavy opponents such as the Naalu Collective or a fighter-spam Federation of Sol the flagship is nearly useless; opponents who know it can also avoid bringing extra destroyers or other non-fighter ships.",
+              "stance": "avoid",
+              "subjects": [
+                "Salai Sai Corian",
+                "Naalu Collective",
+                "Federation of Sol"
+              ]
+            },
+            {
+              "point": "Only build the flagship when you have Unveil Flagship to score.",
+              "stance": "situational",
+              "subjects": [
+                "Salai Sai Corian",
+                "Unveil Flagship"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Naalu Collective",
+            "Federation of Sol"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "combat",
+            "faction abilities",
+            "objectives"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s188",
+          "title": "Commodities",
+          "kind": "strategy",
+          "summary": "Three commodities is average. Winnu was the only faction whose trade value was cut moving from TI3 to TI4, and the hosts feel four commodities would help balance them.",
+          "advice": [
+            {
+              "point": "Three commodities is middling; the hosts think Winnu should have had four.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "economy",
+            "trade and diplomacy"
+          ],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies",
+      "summary": "Lazax Gate Folding is nearly useless, and the hosts have never seen it matter; get it only with a clear opening. Hegemonic Trade Policy is the best thing Winnu has: with a dock on Mecatol Rex it turns Mecatol into a real forward dock, and it is the main reason to keep holding Mecatol after the custodians point.",
+      "chunks": [
+        {
+          "start": "s194",
+          "title": "Lazax Gate Folding",
+          "kind": "strategy",
+          "summary": "Lazax Gate Folding is close to useless. Its wormhole access is redundant once you have Gravity Drive, it does nothing without a wormhole in your slice, and the single infantry is really just a stall action. Skip it unless you see a clear opening.",
+          "advice": [
+            {
+              "point": "Lazax Gate Folding is mostly useless: its two abilities are both mediocre, and the hosts have never seen it make a difference.",
+              "stance": "rating",
+              "subjects": [
+                "Lazax Gate Folding"
+              ]
+            },
+            {
+              "point": "Its wormhole ability does nothing unless your slice has a wormhole, so it depends entirely on the map.",
+              "stance": "situational",
+              "subjects": [
+                "Lazax Gate Folding"
+              ]
+            },
+            {
+              "point": "Use the infantry ability mainly as a stall action.",
+              "stance": "situational",
+              "subjects": [
+                "Lazax Gate Folding"
+              ]
+            },
+            {
+              "point": "Do not research Lazax Gate Folding unless you see a specific opening for it; you will not usually want both it and Hegemonic Trade Policy.",
+              "stance": "avoid",
+              "subjects": [
+                "Lazax Gate Folding",
+                "Hegemonic Trade Policy"
+              ]
+            },
+            {
+              "point": "Apart from Hegemonic Trade Policy, Winnu has no strong reason to hold Mecatol Rex all game; without it you would usually take Mecatol for the custodians point and then abandon it rather than absorb the heat.",
+              "stance": "rating",
+              "subjects": [
+                "Mecatol Rex",
+                "Hegemonic Trade Policy"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology",
+            "mecatol"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "stall action",
+            "slice value",
+            "custodians rush"
+          ]
+        },
+        {
+          "start": "s230",
+          "title": "Hegemonic Trade Policy",
+          "kind": "strategy",
+          "summary": "Hegemonic Trade Policy is the best thing Winnu has. With a dock on Mecatol Rex it lets Winnu spend Mecatol as six resources and build eight units there, finally making Mecatol a usable forward dock. Spend Mecatol for influence and still use the swap for production capacity alone. Away from Mecatol it is much weaker.",
+          "advice": [
+            {
+              "point": "Hegemonic Trade Policy is Winnu's best asset: with the Reclamation dock on Mecatol Rex, swapping Mecatol gives six resources and production capacity for eight units (ten with Space Dock II).",
+              "stance": "rating",
+              "subjects": [
+                "Hegemonic Trade Policy",
+                "Mecatol Rex",
+                "Reclamation"
+              ]
+            },
+            {
+              "point": "The more efficient use is to exhaust Mecatol Rex for its influence and still use the swap just to raise production capacity, for example to spam fighters or infantry.",
+              "stance": "recommended",
+              "subjects": [
+                "Hegemonic Trade Policy",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Using Hegemonic Trade Policy on another planet with a dock or on the home system is possible but much weaker; without Mecatol Rex it loses most of its value.",
+              "stance": "rating",
+              "subjects": [
+                "Hegemonic Trade Policy"
+              ]
+            },
+            {
+              "point": "Go blue first, then research yellow towards Hegemonic Trade Policy only if you secure Mecatol Rex; otherwise go green.",
+              "stance": "recommended",
+              "subjects": [
+                "Hegemonic Trade Policy",
+                "Antimass Deflectors",
+                "Gravity Drive"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "mecatol",
+            "economy"
+          ],
+          "requires": [
+            "faction technologies",
+            "faction abilities"
+          ],
+          "concepts": [
+            "forward dock",
+            "production capacity",
+            "tech path"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Promissory note",
+      "summary": "Acquiescence is in the neighbourhood of Gift of Prescience, but Winnu cannot afford to never trade it. Keep it while your game is going well; sell it freely when you missed Mecatol Rex or need it to secure the custodians point. Prefer trading it to someone who will use it right away rather than hold it to the last round.",
+      "chunks": [
+        {
+          "start": "s259",
+          "title": "When to give out Acquiescence",
+          "kind": "strategy",
+          "summary": "On a stronger faction Acquiescence would never leave your hand, but Winnu is do-or-die. Hold it while your game is going well; if you have no early route to Mecatol Rex, put everything on the table, including Acquiescence. The danger is a player holding it all game to deny your win in the last round.",
+          "advice": [
+            {
+              "point": "Acquiescence is close to Gift of Prescience in strength, though not quite on that level.",
+              "stance": "rating",
+              "subjects": [
+                "Acquiescence",
+                "Gift of Prescience"
+              ]
+            },
+            {
+              "point": "Keep Acquiescence when your game is going in the right direction.",
+              "stance": "situational",
+              "subjects": [
+                "Acquiescence"
+              ]
+            },
+            {
+              "point": "If you have no early route to Mecatol Rex, sell Acquiescence and anything else you have.",
+              "stance": "situational",
+              "subjects": [
+                "Acquiescence",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Trade it to someone who will use it in the next strategy phase; the risk is a player holding it all game and using it in the final round to stop you winning.",
+              "stance": "recommended",
+              "subjects": [
+                "Acquiescence"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Naalu Collective"
+          ],
+          "phases": [
+            "early",
+            "late"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "trade leverage",
+            "non-binding deals"
+          ]
+        },
+        {
+          "start": "s281",
+          "title": "What Acquiescence can buy",
+          "kind": "strategy",
+          "summary": "Because other players want Acquiescence, it is Winnu's get-out-of-jail card: it can buy votes against a dangerous agenda or even a Support for the Throne. Losing a strategy card to it is a setback rather than a game-ending blow, much milder than Stymie is for Arborec.",
+          "advice": [
+            {
+              "point": "Use Acquiescence as a bargaining chip: it can be worth votes on an agenda that threatens you, or even a Support for the Throne in the right situation.",
+              "stance": "situational",
+              "subjects": [
+                "Acquiescence",
+                "Support for the Throne"
+              ]
+            },
+            {
+              "point": "A community suggestion is to use Acquiescence in a trade triangle with two other players; the hosts find it clever but a little crazy.",
+              "stance": "situational",
+              "subjects": [
+                "Acquiescence"
+              ]
+            },
+            {
+              "point": "Giving Acquiescence out is a smaller risk than giving out Stymie as Arborec: usually it just costs you your preferred strategy card for a round.",
+              "stance": "rating",
+              "subjects": [
+                "Acquiescence",
+                "Stymie",
+                "Arborec"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Arborec"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy",
+            "agendas"
+          ],
+          "requires": [
+            "promissory notes",
+            "agendas"
+          ],
+          "concepts": [
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s301",
+          "title": "Acquiescence for the custodians point",
+          "kind": "strategy",
+          "summary": "If giving away Acquiescence helps you get the custodians point, it is almost always worth it. Hunter rates his confidence in this, and in the guide as a whole, at about seven out of ten.",
+          "advice": [
+            {
+              "point": "Trading Acquiescence is almost always worth it if it helps you take the custodians token (Hunter's confidence: seven out of ten).",
+              "stance": "recommended",
+              "subjects": [
+                "Acquiescence",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "promissory notes",
+            "mecatol"
+          ],
+          "requires": [
+            "promissory notes",
+            "faction abilities"
+          ],
+          "concepts": [
+            "custodians rush"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Choosing the starting technology",
+      "summary": "Winnu picks its starting tech knowing the speaker order, which decides whether a Mecatol Rex rush is realistic in round one or two. Antimass Deflectors, leading to an early Gravity Drive, is the pick almost every time; Sarween Tools or Neural Motivator are for when you see no route to Mecatol.",
+      "chunks": [
+        {
+          "start": "s306",
+          "title": "When the starting tech is chosen",
+          "kind": "strategy",
+          "summary": "By the rulebook the starting tech is chosen when gathering starting components, after speaker order and factions are known but before objectives are revealed. Speaker order is the key information for the choice.",
+          "advice": [
+            {
+              "point": "Choose the starting tech based on speaker order, which is known when you choose it.",
+              "stance": "recommended",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "setup"
+          ],
+          "topics": [
+            "technology",
+            "opening"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "speaker order control"
+          ]
+        },
+        {
+          "start": "s319",
+          "title": "Antimass Deflectors over Sarween Tools",
+          "kind": "strategy",
+          "summary": "Winnu's opening plan is to take Mecatol Rex, which needs Gravity Drive as soon as possible, so Antimass Deflectors is the default. Mecatol falls either in round one, which happens more than you'd think, or in round two from a good speaker position, and either can happen from any seat. Take Sarween Tools only when you have no realistic plan for Mecatol; it only helps in round one.",
+          "advice": [
+            {
+              "point": "Start with Antimass Deflectors almost every game so you can get Gravity Drive quickly and race to Mecatol Rex.",
+              "stance": "recommended",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Expect to take Mecatol Rex either in round one, if you are high in speaker order and get Warfare, or in round two from a good speaker position after being low in round one.",
+              "stance": "situational",
+              "subjects": [
+                "Mecatol Rex",
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Take Sarween Tools only if you see no route to Mecatol Rex, for example sixth in speaker order or a seat where you will not get Warfare; its extra resource mostly helps in round one, such as for a second carrier and two infantry.",
+              "stance": "situational",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "technology",
+            "opening",
+            "mecatol"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "custodians rush",
+            "speaker order control",
+            "tech skip"
+          ]
+        },
+        {
+          "start": "s342",
+          "title": "Neural Motivator as a no-Mecatol hedge",
+          "kind": "strategy",
+          "summary": "If you are not going for Mecatol Rex, Hegemonic Trade Policy loses its value and blue-green becomes the path, so Neural Motivator is as reasonable as Sarween Tools when you feel lost. Antimass Deflectors is still the only choice with a coherent plan, and the hosts take it nearly every time; Matt notes the plan still needs at least one trade good from trading without the Trade card.",
+          "advice": [
+            {
+              "point": "Without Mecatol Rex, skip Hegemonic Trade Policy and go blue-green; in that case Neural Motivator is about as reasonable a start as Sarween Tools.",
+              "stance": "situational",
+              "subjects": [
+                "Neural Motivator",
+                "Sarween Tools",
+                "Hegemonic Trade Policy"
+              ]
+            },
+            {
+              "point": "Antimass Deflectors is the only starting choice with a clear plan; both hosts would take it nearly every game.",
+              "stance": "recommended",
+              "subjects": [
+                "Antimass Deflectors"
+              ]
+            },
+            {
+              "point": "Matt cautions that the Antimass Deflectors plan relies on getting at least one trade good through trading without holding the Trade card.",
+              "stance": "situational",
+              "subjects": [
+                "Antimass Deflectors",
+                "Trade"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "technology",
+            "opening"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech path commitment"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Round one is about setting up a Mecatol Rex capture in round one or two, which depends on speaker order. Matt's preferred gamble is Trade to get Gravity Drive and buy the speaker token when Politics is the next pick; Hunter prefers Warfare to play the odds. Politics and Construction are solid, Technology is good but behind Trade, Imperial is a last-pick gamble, and Leadership and Diplomacy offer nothing special.",
+      "chunks": [
+        {
+          "start": "s373",
+          "title": "Leadership",
+          "kind": "strategy",
+          "summary": "Leadership has no Winnu-specific tricks. Its main use is enabling secondaries like Politics to fish for Flank Speed, but Winnu rarely has the money for many secondaries. It is a consolation prize for a fifth or sixth pick.",
+          "advice": [
+            {
+              "point": "Leadership offers nothing special for Winnu; take it only as a consolation prize when picking fifth or sixth.",
+              "stance": "rating",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "The extra tokens let you follow secondaries, especially Politics for action cards in the hope of an early Flank Speed, but Winnu often lacks the money to follow many.",
+              "stance": "situational",
+              "subjects": [
+                "Leadership",
+                "Politics",
+                "Flank Speed"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s388",
+          "title": "Diplomacy",
+          "kind": "strategy",
+          "summary": "The hosts have nothing for Diplomacy: it helps the table more than the player. The only idea is starting with Neural Motivator and using Diplomacy's secondary to skip into Gravity Drive in round one.",
+          "advice": [
+            {
+              "point": "Diplomacy is inefficient for Winnu and better for the table than for you.",
+              "stance": "avoid",
+              "subjects": [
+                "Diplomacy"
+              ]
+            },
+            {
+              "point": "One improvised idea: start with Neural Motivator, take Diplomacy, and use its readied planets to research Gravity Drive with a skip in round one.",
+              "stance": "situational",
+              "subjects": [
+                "Diplomacy",
+                "Neural Motivator",
+                "Gravity Drive"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech skip"
+          ]
+        },
+        {
+          "start": "s399",
+          "title": "Politics",
+          "kind": "strategy",
+          "summary": "Politics checks several boxes: a chance at Flank Speed and the speaker token, which lets Winnu pick first in round two and take the custodians token before better Mecatol factions. Keep first pick in round two; selling the token while keeping that pick is acceptable only if the next player is not a Mecatol threat.",
+          "advice": [
+            {
+              "point": "Politics is a good round-one pick: draw for Flank Speed and keep the speaker token so you pick first in round two and can take the custodians token before anyone else.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics",
+                "Flank Speed",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Keep the speaker token unless you are desperate for money; you can sell it for two trade goods only if the player who would gain from it is not a Mecatol Rex threat, such as the Yssaril Tribes in some games, and you must still have first pick.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol"
+          ],
+          "requires": [
+            "action cards",
+            "faction abilities"
+          ],
+          "concepts": [
+            "speaker order control",
+            "speaker token sale",
+            "custodians rush"
+          ]
+        },
+        {
+          "start": "s414",
+          "title": "Construction",
+          "kind": "strategy",
+          "summary": "Construction plugs Winnu's lack of plastic and gives an early PDS to protect a vulnerable planet. It is the pick when you have lost your shot at Mecatol Rex in round two, for example sixth pick after Politics went third. Hunter likes it slightly more than Leadership, but prefers Leadership if he will be second pick in round two.",
+          "advice": [
+            {
+              "point": "Take Construction when you no longer have a realistic shot at Mecatol Rex in round two, then reset into a vanilla blue-green plan with Carrier II, Fighter II and Infantry II.",
+              "stance": "situational",
+              "subjects": [
+                "Construction"
+              ]
+            },
+            {
+              "point": "An early forward PDS protects Winnu, who is very vulnerable to early attacks, and a forward dock is useful.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "PDS"
+              ]
+            },
+            {
+              "point": "Hunter rates Construction slightly above Leadership, but prefers Leadership when he is likely to be second pick in round two and wants to follow many secondaries.",
+              "stance": "situational",
+              "subjects": [
+                "Construction",
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "expansion"
+          ],
+          "requires": [],
+          "concepts": [
+            "forward dock",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s432",
+          "title": "Trade and buying the speaker token",
+          "kind": "strategy",
+          "summary": "Trade fixes Winnu's money problem, guarantees Gravity Drive, and leaves money to follow Warfare, though not Politics. Matt's preferred gamble is to take Trade and buy the speaker token from the Politics player, offering them free trade goods; it only works if Politics is the next pick.",
+          "advice": [
+            {
+              "point": "Trade is a strong pick: it pays for Gravity Drive and leaves money for the Warfare secondary, at the cost of skipping the Politics secondary.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade",
+                "Gravity Drive",
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Matt's preferred gamble: take Trade and offer the next player free trade goods in exchange for the speaker token from Politics, setting up Mecatol Rex in round two.",
+              "stance": "situational",
+              "subjects": [
+                "Trade",
+                "Politics"
+              ]
+            },
+            {
+              "point": "Do not take Trade for this plan unless Politics is likely to be the next pick; otherwise the plan falls apart.",
+              "stance": "avoid",
+              "subjects": [
+                "Trade",
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "trade and diplomacy",
+            "mecatol"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "magic christmas land",
+            "speaker token sale",
+            "speaker order control",
+            "custodians rush"
+          ]
+        },
+        {
+          "start": "s457",
+          "title": "Warfare",
+          "kind": "strategy",
+          "summary": "Hunter prefers Warfare as the odds play: with even one trade good from trading you can buy Gravity Drive and take Mecatol Rex in round one, and otherwise you are set up for round two depending on speaker position. The sequence is to trade, build at home, use Warfare, then move to Mecatol on your third or fourth action.",
+          "advice": [
+            {
+              "point": "Hunter's preferred pick is Warfare: with one trade good from trading, research Gravity Drive and take Mecatol Rex in round one; without it, aim for round two.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Gravity Drive",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Sequence it as trade, build at home, play Warfare, then move onto Mecatol Rex around your third or fourth action.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Watch speaker position closely in round one; much of the plan depends on whether you will realistically get a shot at the custodians token.",
+              "stance": "situational",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "The plan only needs the table not to actively work against you.",
+              "stance": "situational",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol",
+            "opening"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "custodians rush",
+            "speaker order control"
+          ]
+        },
+        {
+          "start": "s476",
+          "title": "Selling Acquiescence in round one",
+          "kind": "strategy",
+          "summary": "If it does not look like you will get the one trade good you need for Gravity Drive in round one, offer Acquiescence, though ideally not for just one trade good. At a table holding you over a barrel you might trade it to keep Technology from being played early. Early Technology is less common now that everyone trades in round one.",
+          "advice": [
+            {
+              "point": "If you cannot get the trade good you need for Gravity Drive in round one, put Acquiescence up for sale even in round one, though preferably for more than one trade good.",
+              "stance": "situational",
+              "subjects": [
+                "Acquiescence",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "At a hostile table, Acquiescence can buy a promise not to play Technology on the first turn.",
+              "stance": "situational",
+              "subjects": [
+                "Acquiescence",
+                "Technology"
+              ]
+            },
+            {
+              "point": "Winnu is vulnerable to Technology being played early, before it can afford to follow; this happens less now that tables trade in round one, unless several factions can afford technology immediately.",
+              "stance": "rating",
+              "subjects": [
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy",
+            "technology"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "non-binding deals",
+            "trade leverage",
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s492",
+          "title": "Technology and first-pick problems",
+          "kind": "strategy",
+          "summary": "Technology gets Gravity Drive for free, but the hosts would take Trade first. First pick is awkward for Winnu because it almost guarantees bad speaker order next round, leaving Warfare as the only good choice; second pick is more flexible and lets you steer the third player into Politics and sell you the speaker token.",
+          "advice": [
+            {
+              "point": "Technology is good because it gets Gravity Drive, but Trade is the better pick.",
+              "stance": "rating",
+              "subjects": [
+                "Technology",
+                "Trade",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "As first pick in round one, Warfare is essentially the only good choice, since you will be low in speaker order in round two.",
+              "stance": "situational",
+              "subjects": [
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Second pick is a better seat: you can encourage the third player to take Politics and sell you the speaker token.",
+              "stance": "situational",
+              "subjects": [
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": [
+            "speaker order control",
+            "speaker token sale"
+          ]
+        },
+        {
+          "start": "s501",
+          "title": "Technology, trade and Flank Speed line",
+          "kind": "strategy",
+          "summary": "A theoretical line: play Technology first for Gravity Drive, possibly stalling three-resource factions that cannot follow, trade on your second action, and hope Politics has been played by your third so you can draw Flank Speed and reach Mecatol Rex in round one. It needs the stars to align; the hosts joke that you would need to cheat to draw Flank Speed reliably.",
+          "advice": [
+            {
+              "point": "A theoretical round-one line: open with Technology for Gravity Drive (which may stall factions that cannot afford the secondary), trade as a stall on your second action, then use Flank Speed drawn from the Politics secondary to reach Mecatol Rex in round one.",
+              "stance": "situational",
+              "subjects": [
+                "Technology",
+                "Gravity Drive",
+                "Flank Speed",
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol",
+            "action cards"
+          ],
+          "requires": [
+            "action cards",
+            "faction abilities"
+          ],
+          "concepts": [
+            "magic christmas land",
+            "stall action",
+            "custodians rush"
+          ]
+        },
+        {
+          "start": "s525",
+          "title": "Imperial",
+          "kind": "strategy",
+          "summary": "Imperial is a last pick, not a high one, but there is a case: if a Hail Mary of Flank Speed and a trade good gets you Gravity Drive, you score two points from Mecatol Rex. Otherwise you get a secret objective, which Winnu otherwise misses when it scores Mecatol points. The hosts prefer it to Diplomacy because Winnu has little to lose.",
+          "advice": [
+            {
+              "point": "Take Imperial only as a late pick when you have some plan, however unlikely, to land on Mecatol Rex in round one; that turns it into two points.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial",
+                "Mecatol Rex",
+                "Flank Speed"
+              ]
+            },
+            {
+              "point": "Even if the Mecatol plan fails, Imperial's secret objective is valuable for Winnu, which loses secret draws whenever it scores Imperial on Mecatol Rex; this is worth it even though Leadership's holder also gets a secret.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial"
+              ]
+            },
+            {
+              "point": "The hosts would take Imperial over Diplomacy as Winnu.",
+              "stance": "rating",
+              "subjects": [
+                "Imperial",
+                "Diplomacy"
+              ]
+            },
+            {
+              "point": "Winnu has nothing to lose, so take gambles: if you build or pick your slice, place a gravity rift on the way to Mecatol Rex.",
+              "stance": "recommended",
+              "subjects": [
+                "Winnu",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives",
+            "mecatol"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "magic christmas land",
+            "slice value",
+            "nothing to lose"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Weaknesses",
+      "summary": "Even when Winnu succeeds it is fragile: Reactor Meltdown and PDS-removal action cards wreck its Mecatol Rex position, and holding Mecatol draws heat that Winnu cannot withstand. A successful Winnu can still be knocked back.",
+      "chunks": [
+        {
+          "start": "s553",
+          "title": "Action cards that wreck Winnu",
+          "kind": "strategy",
+          "summary": "Reactor Meltdown, Disable and a PDS-destroying action card will be in opponents' hands, and if Winnu is doing well it will be their first target. The hosts' first Winnu game saw the Mecatol Rex dock destroyed immediately.",
+          "advice": [
+            {
+              "point": "If you are winning on Mecatol Rex, expect to be the first target for Reactor Meltdown and cards that destroy or disable a PDS; any of them can ruin your game, so a Sabotage is valuable.",
+              "stance": "rating",
+              "subjects": [
+                "Reactor Meltdown",
+                "Disable",
+                "Sabotage"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "action cards",
+            "threats and matchups",
+            "mecatol"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s575",
+          "title": "Mecatol draws heat",
+          "kind": "strategy",
+          "summary": "Every Winnu ability points at Mecatol Rex, the most contested spot on the board, so even success brings heat that Winnu is not strong enough to withstand. Unlike Sardakk N'orr, a Winnu that gets going is not secure; things can turn back around.",
+          "advice": [
+            {
+              "point": "Expect heavy pressure once you hold Mecatol Rex; Winnu cannot stand up to heat well, and its position can collapse even after a good start.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "threats and matchups",
+            "mecatol"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "threat perception"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tech paths",
+      "summary": "Go blue first, Antimass Deflectors into Gravity Drive, while racing for Mecatol Rex. If you get Mecatol, go yellow for Hegemonic Trade Policy with Carrier II, then Dreadnought II; if not, play vanilla blue-green with Carrier II, Fighter II and Infantry II. Blue-red with a yellow skip is a niche option against fighter-heavy neighbours.",
+      "chunks": [
+        {
+          "start": "s586",
+          "title": "Without Mecatol Rex",
+          "kind": "strategy",
+          "summary": "If you did not get Mecatol Rex early you are playing vanilla TI with no faction upside, guided by objectives and action cards. Stealing Mecatol back is possible but gives you no custodians point, so it also needs speaker order planned for Imperial; the end goal is only to sit on Mecatol with Hegemonic Trade Policy.",
+          "advice": [
+            {
+              "point": "Without an early Mecatol Rex, Winnu has no faction-specific strategy; play to the objectives and action cards you have.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "Stealing Mecatol Rex from another player gains you little unless you also plan speaker order to take Imperial for the point; the custodians point is the main reason to take Mecatol.",
+              "stance": "situational",
+              "subjects": [
+                "Mecatol Rex",
+                "Imperial"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "mecatol",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "speaker order control"
+          ]
+        },
+        {
+          "start": "s602",
+          "title": "Blue first, then yellow or green",
+          "kind": "strategy",
+          "summary": "Start with Antimass Deflectors and Gravity Drive while going for Mecatol Rex. If you get it, go blue-yellow toward Hegemonic Trade Policy; if not, go blue-green, which the hosts still think is objectively the best generic path. Do not chase Hegemonic Trade Policy hoping to take Mecatol later.",
+          "advice": [
+            {
+              "point": "Go blue first (Antimass Deflectors then Gravity Drive) and commit to the Mecatol Rex attempt.",
+              "stance": "recommended",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "If you take Mecatol Rex, go blue-yellow toward Hegemonic Trade Policy; if you fail, go blue-green.",
+              "stance": "situational",
+              "subjects": [
+                "Hegemonic Trade Policy",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Do not research Hegemonic Trade Policy on the hope of later taking Mecatol Rex; even then it may not save your game.",
+              "stance": "avoid",
+              "subjects": [
+                "Hegemonic Trade Policy"
+              ]
+            },
+            {
+              "point": "The hosts doubt there is any undiscovered winning strategy for Winnu.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path",
+            "tech path commitment"
+          ]
+        },
+        {
+          "start": "s622",
+          "title": "The Mecatol tech path",
+          "kind": "strategy",
+          "summary": "Antimass Deflectors, Gravity Drive, Sarween Tools, then skip Graviton Laser System straight to Hegemonic Trade Policy if you can. For unit upgrades take Carrier II first, then Dreadnought II, and Space Dock II only if you need a third upgrade.",
+          "advice": [
+            {
+              "point": "With Mecatol Rex: Antimass Deflectors, Gravity Drive, Sarween Tools, then skip Graviton Laser System to reach Hegemonic Trade Policy if possible.",
+              "stance": "recommended",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive",
+                "Sarween Tools",
+                "Graviton Laser System",
+                "Hegemonic Trade Policy"
+              ]
+            },
+            {
+              "point": "Upgrade Carrier II first, then Dreadnought II; Space Dock II is usually overkill since Hegemonic Trade Policy already makes Mecatol Rex an eight-unit dock.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier II",
+                "Dreadnought II",
+                "Space Dock II"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "mecatol"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path",
+            "tech skip",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s631",
+          "title": "The vanilla blue-green path",
+          "kind": "strategy",
+          "summary": "Without Mecatol Rex, take Antimass Deflectors, Gravity Drive, Neural Motivator and Dacxive Animators, or skip to Hyper Metabolism, with Carrier II, Fighter II and Infantry II. The path is shallow, so if tech objectives do not demand otherwise, continue down blue rather than yellow.",
+          "advice": [
+            {
+              "point": "Without Mecatol Rex: Antimass Deflectors, Gravity Drive, Neural Motivator, Dacxive Animators (or skip to Hyper Metabolism), with Carrier II, Fighter II and Infantry II as the most efficient fleet.",
+              "stance": "recommended",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive",
+                "Neural Motivator",
+                "Dacxive Animators",
+                "Hyper Metabolism",
+                "Carrier II",
+                "Fighter II",
+                "Infantry II"
+              ]
+            },
+            {
+              "point": "Afterwards, continue down blue toward Fleet Logistics and Light/Wave Deflector rather than yellow, if tech objectives are not pushing you elsewhere.",
+              "stance": "situational",
+              "subjects": [
+                "Fleet Logistics",
+                "Light/Wave Deflector"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech path"
+          ]
+        },
+        {
+          "start": "s641",
+          "title": "Fleet Logistics and a late Lazax Gate Folding",
+          "kind": "strategy",
+          "summary": "Fleet Logistics allows sneaking onto Mecatol Rex and immediately playing Imperial, though any faction can do that; Winnu's free PDS makes the retaken Mecatol harder to take back. A late Lazax Gate Folding with a wormhole in your slice can give access to Mecatol at any time and helps with the four-blue-tech secret, but the hosts would usually rather have Light/Wave Deflector.",
+          "advice": [
+            {
+              "point": "With Fleet Logistics, you can take Mecatol Rex and play Imperial in the same turn; Reclamation's free PDS makes it harder for others to retake.",
+              "stance": "situational",
+              "subjects": [
+                "Fleet Logistics",
+                "Imperial",
+                "Reclamation"
+              ]
+            },
+            {
+              "point": "Late in the game, with Fleet Logistics and a wormhole in your slice, Lazax Gate Folding can give ready access to Mecatol Rex and count toward a four-blue-tech secret objective, but Light/Wave Deflector is usually better.",
+              "stance": "situational",
+              "subjects": [
+                "Lazax Gate Folding",
+                "Fleet Logistics",
+                "Light/Wave Deflector"
+              ]
+            },
+            {
+              "point": "Research Lazax Gate Folding mainly when an objective requires a faction technology; going blue-yellow avoids being stuck by such a secret.",
+              "stance": "situational",
+              "subjects": [
+                "Lazax Gate Folding"
+              ]
+            },
+            {
+              "point": "Even in blue-green, a yellow skip into Dreadnought II can help you take Mecatol Rex from someone else, though it is hard if things went badly.",
+              "stance": "situational",
+              "subjects": [
+                "Dreadnought II"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "mecatol",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies",
+            "faction abilities"
+          ],
+          "concepts": [
+            "slice value"
+          ]
+        },
+        {
+          "start": "s663",
+          "title": "Blue-red option and summary",
+          "kind": "strategy",
+          "summary": "Blue-red with a yellow skip (Carrier II, Plasma Scoring, Magen Defense Grid, Dreadnought II, Destroyer II) is a conditional option, worth considering next to fighter-heavy neighbours like the Naalu Collective, Sardakk N'orr or Sol. Hunter doubts it suits Winnu otherwise. The firm takeaway is blue first; what follows matters less.",
+          "advice": [
+            {
+              "point": "Blue-red with a yellow skip is conditional: consider it if your neighbours are fighter-heavy factions such as the Naalu Collective, Sardakk N'orr or the Federation of Sol, where Destroyer II helps; otherwise Hunter prefers Infantry II and Carrier II.",
+              "stance": "situational",
+              "subjects": [
+                "Destroyer II",
+                "Plasma Scoring",
+                "Magen Defense Grid",
+                "Naalu Collective",
+                "Sardakk N'orr",
+                "Federation of Sol"
+              ]
+            },
+            {
+              "point": "Winnu gets a PDS on Mecatol Rex instantly, without needing Construction.",
+              "stance": "rating",
+              "subjects": [
+                "Reclamation",
+                "Construction"
+              ]
+            },
+            {
+              "point": "The main tech takeaway: go blue first with Antimass Deflectors and Gravity Drive, then adapt to the game.",
+              "stance": "recommended",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Naalu Collective",
+            "Sardakk N'orr",
+            "Federation of Sol"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "threats and matchups"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech path",
+            "tech skip"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trading and the metagame",
+      "summary": "Winnu begs, borrows and makes whatever deals it can. With Mecatol Rex it has around ten influence and can do reasonably in agendas, which are a key source of points outside the public objectives. Acquiescence can be pitched as a way to trade speaker order, and the hosts argue other players gain little by hoarding it. Winnu is always either winning from ahead or from behind.",
+      "chunks": [
+        {
+          "start": "s683",
+          "title": "Agenda phase and desperate deals",
+          "kind": "strategy",
+          "summary": "With Mecatol Rex and the home planet Winnu has about ten influence, which is decent but not dominant, especially if spread thin. Agendas are a major source of points outside the public objectives, so work them hard with gambits and improvised deals; play fast and loose because one action card can turn your fortune.",
+          "advice": [
+            {
+              "point": "With Mecatol Rex, Winnu has about ten influence and usually does okay in the agenda phase, but not if it is spread thin.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Pursue points outside the public-objective race, especially in the agenda phase, with desperate gambits and improvised deals.",
+              "stance": "recommended",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "Play fast and loose: Winnu is brittle and one action card can change your fortune, so you have little to lose.",
+              "stance": "recommended",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "agendas",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "agendas"
+          ],
+          "concepts": [
+            "points outside the horse race",
+            "nothing to lose",
+            "table talk"
+          ]
+        },
+        {
+          "start": "s706",
+          "title": "Acquiescence as a speaker order trade",
+          "kind": "strategy",
+          "summary": "Pitch Acquiescence as a way to swap strategy-card position, trading it at the end of the agenda phase on the non-binding understanding that it is used in the coming strategy phase. Holding it to stop Winnu is a weak plan: it only gives the holder whatever card Winnu took, and a first-pick Winnu can take a useless card.",
+          "advice": [
+            {
+              "point": "Present Acquiescence as a trade of speaker position and sell it at the end of the agenda phase, on the non-binding understanding it will be used in the next strategy phase.",
+              "stance": "recommended",
+              "subjects": [
+                "Acquiescence"
+              ]
+            },
+            {
+              "point": "If an opponent holds Acquiescence to deny you in the last round, you can blunt it by taking an unhelpful card such as Construction when you pick first.",
+              "stance": "situational",
+              "subjects": [
+                "Acquiescence",
+                "Construction"
+              ]
+            },
+            {
+              "point": "Opponents gain little by holding Acquiescence just to stop Winnu; letting Winnu use it as a trade good benefits them more.",
+              "stance": "rating",
+              "subjects": [
+                "Acquiescence"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes",
+            "agendas"
+          ],
+          "concepts": [
+            "non-binding deals",
+            "speaker order control",
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s725",
+          "title": "Nobody is a Winnu main",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s739",
+          "title": "Winning from ahead or behind",
+          "kind": "strategy",
+          "summary": "Winnu is only ever in two situations: ahead and a threat because it holds Mecatol Rex, or behind as a weak faction without it. The hosts point to their episodes on winning from ahead and winning from behind.",
+          "advice": [
+            {
+              "point": "With Mecatol Rex you are a threat and must manage the table as a leader; without it, play the winning-from-behind game.",
+              "stance": "situational",
+              "subjects": [
+                "Winnu",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "general strategy",
+            "trade and diplomacy"
+          ],
+          "requires": [],
+          "concepts": [
+            "win from ahead",
+            "win from behind",
+            "threat perception"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mid game",
+      "summary": "Assuming Winnu holds Mecatol Rex with Hegemonic Trade Policy: protect home with infantry, refill the neglected slice, and use Mecatol as a staging dock that can reach rings one and two for control objectives. Balance space defence and ground forces on Mecatol depending on whether you hold a Sabotage. Spending objectives are workable, and Support for the Throne swaps are encouraged.",
+      "chunks": [
+        {
+          "start": "s751",
+          "title": "Home defence and refilling the slice",
+          "kind": "strategy",
+          "summary": "Without Mecatol Rex, the mid game is generic. With it, protect the home system by building infantry there, since you no longer stage from home, then go back and fill out the slice you skipped in the sprint to Mecatol in rounds three and four.",
+          "advice": [
+            {
+              "point": "Once on Mecatol Rex with Hegemonic Trade Policy, it is fine to just build infantry at home to keep the home system safe.",
+              "stance": "recommended",
+              "subjects": [
+                "Hegemonic Trade Policy",
+                "Infantry"
+              ]
+            },
+            {
+              "point": "In rounds three and four, go back and claim the planets of your own slice you skipped while rushing Mecatol Rex.",
+              "stance": "recommended",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "expansion",
+            "mecatol"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s766",
+          "title": "Holding Mecatol and staging from it",
+          "kind": "strategy",
+          "summary": "Keep Mecatol Rex secure but also use it to score. Split production between a fleet that can win the space battle above Mecatol and infantry on the planet; with a Sabotage in hand you can lean on infantry and send the fleet out, without one prioritise winning the space fight.",
+          "advice": [
+            {
+              "point": "Stage from Mecatol Rex rather than just stacking infantry there; split your builds between winning the space battle and ground defence.",
+              "stance": "recommended",
+              "subjects": [
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Holding a Sabotage lets you lean on infantry on Mecatol Rex and send your fleet out; without one, prioritise winning the space battle above Mecatol.",
+              "stance": "situational",
+              "subjects": [
+                "Sabotage",
+                "Reactor Meltdown",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "mecatol",
+            "combat",
+            "action cards"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "forward dock"
+          ]
+        },
+        {
+          "start": "s778",
+          "title": "Control objectives from Mecatol",
+          "kind": "strategy",
+          "summary": "With Hegemonic Trade Policy and Mecatol Rex, Winnu can make huge builds in rounds four and five and strike anywhere in rings one and two, making it decent at control objectives. This is why Carrier II comes first: Carrier II with Gravity Drive can deliver ground forces wherever needed.",
+          "advice": [
+            {
+              "point": "Use big Hegemonic Trade Policy builds on Mecatol Rex to strike into rings one and two for control and secret objectives.",
+              "stance": "recommended",
+              "subjects": [
+                "Hegemonic Trade Policy",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Carrier II with Gravity Drive is why Carrier II is the first unit upgrade: it lets your carriers reach every target from Mecatol Rex.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier II",
+                "Gravity Drive"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "objectives",
+            "mecatol",
+            "expansion"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "forward dock",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s790",
+          "title": "Spending objectives and trade goods",
+          "kind": "strategy",
+          "summary": "Spending objectives are workable with Mecatol Rex. Hegemonic Trade Policy cannot be used to score a resource objective, but it lets Mecatol pay for plastic while influence covers objectives such as spending eight or sixteen influence. Winnu has no innate trade strength but can leverage its central position.",
+          "advice": [
+            {
+              "point": "Use Hegemonic Trade Policy to pay for plastic from Mecatol Rex while saving your other resources or trade goods for spending objectives; it cannot score a resource objective directly.",
+              "stance": "recommended",
+              "subjects": [
+                "Hegemonic Trade Policy",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Mecatol Rex plus the home planet makes influence spending objectives reachable.",
+              "stance": "rating",
+              "subjects": [
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Winnu is not a natural trader but can use its central position as trade leverage.",
+              "stance": "situational",
+              "subjects": [
+                "Winnu"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "objectives",
+            "economy",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s803",
+          "title": "Playing up Winnu's weakness",
+          "kind": "strategy",
+          "summary": "Players who win with Winnu work the whole table with clever deals. Play up how weak and harmless you are; some opponents would rather a bad faction keep Mecatol Rex than a stronger one take it.",
+          "advice": [
+            {
+              "point": "Work the table with clever deals and play up how weak Winnu is; others may let you get away with more.",
+              "stance": "recommended",
+              "subjects": [
+                "Winnu"
+              ]
+            },
+            {
+              "point": "Encourage the belief that it is better for Winnu, a weak faction, to keep Mecatol Rex than for someone else to take it.",
+              "stance": "recommended",
+              "subjects": [
+                "Winnu",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "mecatol"
+          ],
+          "requires": [],
+          "concepts": [
+            "table talk",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s812",
+          "title": "Support for the Throne swaps",
+          "kind": "strategy",
+          "summary": "Winnu has nothing to lose by swapping Support for the Throne, especially when holding Mecatol Rex, because it needs the game to effectively be nine points. Matt usually dislikes table-wide swaps but does it as Winnu, and he would trade Acquiescence for a Support if possible.",
+          "advice": [
+            {
+              "point": "As Winnu, always do a Support for the Throne swap if you can; you need the game to be effectively nine points.",
+              "stance": "recommended",
+              "subjects": [
+                "Support for the Throne"
+              ]
+            },
+            {
+              "point": "Trade Acquiescence for someone's Support for the Throne when the chance comes.",
+              "stance": "recommended",
+              "subjects": [
+                "Acquiescence",
+                "Support for the Throne"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy",
+            "objectives"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "support for the throne swap",
+            "points outside the horse race"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Late game and matchups",
+      "summary": "The late-game plan is a Sol-style Mecatol strategy with fewer tools: Winnu is worse than Sol at everything except building on Mecatol, and the Clan of Saar as a neighbour is miserable. With Mecatol Rex and Hegemonic Trade Policy, pick Politics and Imperial repeatedly; scoring Mecatol points early lets Winnu keep pace despite being bad at public objectives.",
+      "chunks": [
+        {
+          "start": "s821",
+          "title": "A weaker Sol",
+          "kind": "strategy",
+          "summary": "Winnu's plan amounts to a Sol-style Mecatol Rex strategy without Sol's tools: less tech, fewer commodities and fewer command tokens. Its only edge is building more on Mecatol, and factions like Arborec and the Clan of Saar do the Mecatol job better.",
+          "advice": [
+            {
+              "point": "Winnu is worse than the Federation of Sol at a Mecatol-centred game in every respect except production on Mecatol Rex.",
+              "stance": "rating",
+              "subjects": [
+                "Winnu",
+                "Federation of Sol",
+                "Arborec",
+                "Clan of Saar"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Federation of Sol",
+            "Arborec",
+            "Clan of Saar"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "general strategy",
+            "mecatol"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s836",
+          "title": "Clan of Saar matchup",
+          "kind": "strategy",
+          "summary": "The Clan of Saar matchup is miserable, especially when Saar is ahead of Winnu in speaker order in round one or two. Saar can take Mecatol Rex easily and abandon its own slice to overrun Winnu's weakly defended one; as a neighbour Saar spells doom.",
+          "advice": [
+            {
+              "point": "A Clan of Saar neighbour is close to hopeless: Saar beats you to Mecatol Rex, especially from a better speaker position, and can overrun your weakly defended slice.",
+              "stance": "rating",
+              "subjects": [
+                "Clan of Saar"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu",
+            "Clan of Saar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "threats and matchups",
+            "mecatol"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s845",
+          "title": "Late game relies on luck",
+          "kind": "strategy",
+          "summary": "Beyond this the late-game advice is to get lucky: draw Imperial Rider, or see Shard of the Throne come up and win it. You cannot plan on that.",
+          "advice": [
+            {
+              "point": "Late game, Winnu needs luck such as drawing Imperial Rider or winning Shard of the Throne; try for these but do not count on them.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial Rider",
+                "Shard of the Throne"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "action cards",
+            "agendas",
+            "objectives"
+          ],
+          "requires": [
+            "action cards",
+            "agendas"
+          ],
+          "concepts": [
+            "points outside the horse race"
+          ]
+        },
+        {
+          "start": "s854",
+          "title": "Politics and Imperial repeatedly",
+          "kind": "strategy",
+          "summary": "With Mecatol Rex and Hegemonic Trade Policy, Winnu's strategy card picks become Politics and Imperial, over and over. Others will say it adds to the target on your back, which is true, but you can honestly argue you are scoring Mecatol points instead of publics; an early Mecatol point lets you keep pace despite being bad at public objectives.",
+          "advice": [
+            {
+              "point": "In the mid to late game with Mecatol Rex and Hegemonic Trade Policy, pick Politics and Imperial repeatedly.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics",
+                "Imperial",
+                "Hegemonic Trade Policy"
+              ]
+            },
+            {
+              "point": "This adds to the target on your back; counter it by honestly pointing out that you are taking the Mecatol Rex point instead of scoring a public objective.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial"
+              ]
+            },
+            {
+              "point": "Scoring Imperial points in rounds three or four lets Winnu keep pace with the table despite leaving many public objectives unscored, which suits a faction that is bad at public objectives.",
+              "stance": "recommended",
+              "subjects": [
+                "Imperial"
+              ]
+            }
+          ],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives",
+            "mecatol"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "threat perception",
+            "table talk",
+            "points outside the horse race"
+          ]
+        },
+        {
+          "start": "s870",
+          "title": "Wrapping up the Winnu guide",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Winnu"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Root errata",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s891",
+          "title": "Eyrie Dynasties errata from listeners",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s938",
+          "title": "Root combat odds",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s972",
+          "title": "Patron thanks, polls and schedule",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1008",
+          "title": "Ratings, socials and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "winno": "Winnu",
+    "Winnie": "Winnu",
+    "Winu": "Winnu",
+    "Winne": "Winnu",
+    "Winneu": "Winnu",
+    "binu": "Winnu",
+    "Extra": "Xxcha",
+    "Mechatarax": "Mecatol Rex",
+    "Mechdall Rex": "Mecatol Rex",
+    "Meckettal": "Mecatol Rex",
+    "Mecca Tol Rex": "Mecatol Rex",
+    "MechaSol Rex": "Mecatol Rex",
+    "Mechital Rex": "Mecatol Rex",
+    "Mechtol Rex": "Mecatol Rex",
+    "McAllrex": "Mecatol Rex",
+    "Mecca Rex": "Mecatol Rex",
+    "Back to Tall Rex": "Mecatol Rex",
+    "Mechitaur X": "Mecatol Rex",
+    "Mekatal": "Mecatol Rex",
+    "MechTolrex": "Mecatol Rex",
+    "Mecatol Raps": "Mecatol Rex",
+    "Muaat": "Embers of Muaat",
+    "Isaral": "Yssaril Tribes",
+    "Sar": "Clan of Saar",
+    "Sardax": "Sardakk N'orr",
+    "anti-mass": "Antimass Deflectors",
+    "Anti-Mask": "Antimass Deflectors",
+    "Annie Mas": "Antimass Deflectors",
+    "sarwan": "Sarween Tools",
+    "Sarwen": "Sarween Tools",
+    "Starwing": "Sarween Tools",
+    "plasma scoring": "Plasma Scoring",
+    "grabb drive": "Gravity Drive",
+    "grab drive": "Gravity Drive",
+    "grab draw": "Gravity Drive",
+    "galaxy drive": "Gravity Drive",
+    "Lazix gate folding": "Lazax Gate Folding",
+    "LASIK skatefolding": "Lazax Gate Folding",
+    "Lazak's gatefolding": "Lazax Gate Folding",
+    "Lazicate": "Lazax Gate Folding",
+    "Salai Sai Korion": "Salai Sai Corian",
+    "majin": "Magen Defense Grid",
+    "daxive": "Dacxive Animators",
+    "hyper": "Hyper Metabolism",
+    "flank speech": "Flank Speed",
+    "crippled defenses": "Crippling Defenses (uncertain; a PDS-destroying action card)",
+    "Priyarada": "pre-errata",
+    "Gift of the Prescience": "Gift of Prescience",
+    "Styme": "Stymie",
+    "quantum data hub node": "Quantum Datahub Node",
+    "shard": "Shard of the Throne",
+    "eerie": "Eyrie"
+  }
+}

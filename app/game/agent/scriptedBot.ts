@@ -56,6 +56,7 @@ import { productionCapacity, productionCost } from "../engine/economy";
 import {
   COMMAND_TOKEN_LIMIT,
   countOf,
+  hasTech,
   openPrompts,
   sumCounts,
   tokensOnBoard,
@@ -73,6 +74,7 @@ import { availableStrategyCards } from "../engine/phases";
 import { fleetPoolLimit, StrategyKind, strategyKind } from "../engine/strategic";
 import {
   bombardmentTargets,
+  moveBonus,
   spaceCannonOffenseShooters,
 } from "../engine/tactical";
 import {
@@ -80,6 +82,8 @@ import {
   researchableTechnologies,
 } from "../engine/technology";
 import { botMove } from "../engine/testing";
+import { owedRefresh, TableMemory, worth } from "./conventions";
+import { tradePartners } from "./reach";
 import { componentPlays, reactions } from "./reactions";
 import {
   chasesPosition,
@@ -98,7 +102,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 3;
+export const SCRIPTED_BOT_VERSION = 4;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -125,6 +129,7 @@ const STAGING_WEIGHT = 0.4;
  */
 export function scriptedCandidates(
   state: GameState,
+  memory?: TableMemory,
 ): { player: PlayerId; actions: GameAction[] } | undefined {
   if (state.phase === "finished") return undefined;
   const [prompt] = openPrompts(state);
@@ -140,18 +145,21 @@ export function scriptedCandidates(
     ? answerPrompt(state, prompt)
     : offer
       ? [
-          ...(acceptsOffer(offer.give, offer.receive)
+          ...(acceptsOffer(offer.give, offer.receive, !!owedRefresh(memory, state, offer.to, offer.from))
             ? [{ type: "ANSWER_TRANSACTION", transaction: offer.id, accept: true } as const]
             : []),
           { type: "ANSWER_TRANSACTION", transaction: offer.id, accept: false },
         ]
-      : takeTurn(state, player);
+      : takeTurn(state, player, memory);
   return { player, actions: candidates };
 }
 
 /** The next move for whoever the game is waiting on, if anyone. */
-export function scriptedMove(state: GameState): ScriptedMove | undefined {
-  const ranked = scriptedCandidates(state);
+export function scriptedMove(
+  state: GameState,
+  memory?: TableMemory,
+): ScriptedMove | undefined {
+  const ranked = scriptedCandidates(state, memory);
   if (!ranked) return undefined;
   const { player, actions: candidates } = ranked;
   for (const action of candidates) {
@@ -560,7 +568,7 @@ const PLAY_EARLY: StrategyKind[] = [
   "diplomacy",
 ];
 
-function takeTurn(state: GameState, id: PlayerId): GameAction[] {
+function takeTurn(state: GameState, id: PlayerId, memory?: TableMemory): GameAction[] {
   if (state.phase === "strategy") return pickStrategyCard(state, id);
   if (state.phase !== "action") return [];
   if (state.tactical) return tacticalStep(state, id);
@@ -576,7 +584,7 @@ function takeTurn(state: GameState, id: PlayerId): GameAction[] {
         }))
       : [];
 
-  const actions: GameAction[] = [...commodityTrades(state, id)];
+  const actions: GameAction[] = [...commodityTrades(state, id, memory)];
   if (card && PLAY_EARLY.includes(strategyKind(card.id))) {
     actions.push(...strategic());
   }
@@ -591,37 +599,54 @@ const onlyGoods = (side: TransactionSide) =>
   !side.promissoryNotes?.length &&
   !side.actionCards?.length &&
   !side.relicFragments?.length;
-const worth = (side: TransactionSide) =>
-  (side.tradeGoods ?? 0) + (side.commodities ?? 0);
-
 /**
  * Whether the bot, on the receiving end of an offer, takes it: trade goods
- * and commodities only, and at least as much coming in as going out.
+ * and commodities only, and at least as much coming in as going out, or
+ * one short when it owes the proposer for a refresh (see conventions.ts).
  * `give` is what the proposer gives, so it is what the bot receives.
  */
-function acceptsOffer(give: TransactionSide, receive: TransactionSide) {
+function acceptsOffer(give: TransactionSide, receive: TransactionSide, owesOne = false) {
+  const short = worth(receive) - worth(give);
   return (
     onlyGoods(give) &&
     onlyGoods(receive) &&
-    worth(give) > 0 &&
-    worth(give) >= worth(receive)
+    (worth(give) > 0 || (owesOne && worth(receive) > 0)) &&
+    short <= (owesOne ? 1 : 0)
   );
 }
 
 /**
  * Offers each neighbor an even swap of commodities, which both sides receive
- * as trade goods. Only offers the neighbor will legally accept are made, so
- * an offer never comes back round unanswered.
+ * as trade goods. When one side owes the other for a refresh, the debtor
+ * gives X commodities for X-1 (see conventions.ts). Only offers the
+ * neighbor will legally accept are made, so an offer never comes back
+ * round unanswered.
  */
-function commodityTrades(state: GameState, id: PlayerId): GameAction[] {
+function commodityTrades(state: GameState, id: PlayerId, memory?: TableMemory): GameAction[] {
   const mine = state.players[id].commodities;
-  if (mine === 0) return [];
   for (const other of neighborsOf(state, id)) {
-    const swap = Math.min(mine, state.players[other].commodities);
-    if (swap === 0 || state.tradedWith.includes(other)) continue;
-    const give = { commodities: swap };
-    const receive = { commodities: swap };
-    if (!acceptsOffer(give, receive)) continue;
+    if (state.tradedWith.includes(other)) continue;
+    const theirs = state.players[other].commodities;
+    const owedToMe = !!owedRefresh(memory, state, other, id) && theirs > 0;
+    const iOwe = !owedToMe && !!owedRefresh(memory, state, id, other) && mine > 0;
+    let give: TransactionSide;
+    let receive: TransactionSide;
+    if (owedToMe) {
+      const swap = Math.min(theirs, mine + 1);
+      give = swap > 1 ? { commodities: swap - 1 } : {};
+      receive = { commodities: swap };
+    } else if (iOwe) {
+      const swap = Math.min(mine, theirs + 1);
+      give = { commodities: swap };
+      receive = swap > 1 ? { commodities: swap - 1 } : {};
+    } else {
+      const swap = Math.min(mine, theirs);
+      if (swap === 0) continue;
+      give = { commodities: swap };
+      receive = { commodities: swap };
+    }
+    // An offer the bot pays more into is its own debt, so it takes it.
+    if (!iOwe && !acceptsOffer(give, receive, owedToMe)) continue;
     const action: GameAction = {
       type: "PROPOSE_TRANSACTION",
       to: other,
@@ -714,6 +739,28 @@ const shipStrength = (state: GameState, id: PlayerId, type: UnitType) => {
  * capacity and the ground forces they can lift; an attack brings every
  * warship that can reach, up to the fleet pool.
  */
+/**
+ * How a ship gets from `origin` to the active system: on its own move
+ * (with bonuses such as Slipstream), only with Gravity Drive's +1, or not
+ * at all.
+ */
+function reachBy(
+  state: GameState,
+  id: PlayerId,
+  origin: SystemKey,
+  type: UnitType,
+  rules: ReturnType<typeof moveRulesFor>,
+): "move" | "gravityDrive" | undefined {
+  const move = unitOf(state, id, type)?.move;
+  if (!move) return undefined;
+  const reach = move + moveBonus(state, id, origin);
+  if (findRoute(state, origin, reach, rules)) return "move";
+  if (hasTech(state, id, "gd") && findRoute(state, origin, reach + 1, rules)) {
+    return "gravityDrive";
+  }
+  return undefined;
+}
+
 function planMovement(
   state: GameState,
   id: PlayerId,
@@ -736,18 +783,20 @@ function planMovement(
     .sort((a, b) => a.distance - b.distance || a.system.key - b.system.key)
     .map((o) => o.system);
 
+  // Gravity Drive lifts one ship per tactical action.
+  let gravityUsed = false;
   for (const origin of origins) {
     if (room === 0) break;
     if (!intent.attack && wanted <= 0) break;
     const group = origin.space[id];
+    const reach = new Map(
+      unitTypes(group)
+        .filter((type) => isShip(type) && type !== "fighter")
+        .map((type) => [type, reachBy(state, id, origin.key, type, rules)]),
+    );
     const types = unitTypes(group).filter((type) => {
-      const unit = unitOf(state, id, type);
-      return (
-        isShip(type) &&
-        type !== "fighter" &&
-        !!unit?.move &&
-        !!findRoute(state, origin.key, unit.move, rules)
-      );
+      const how = reach.get(type);
+      return how === "move" || (how === "gravityDrive" && !gravityUsed);
     });
     const capacityOf = (type: UnitType) => unitOf(state, id, type)?.capacity ?? 0;
     types.sort((a, b) =>
@@ -766,9 +815,15 @@ function planMovement(
           )[0]
         : undefined;
     const ships: UnitCounts = {};
+    const boosted: UnitCounts = {};
     let capacity = 0;
     for (const type of types) {
-      const free = countOf(group, type) - (type === guard ? 1 : 0);
+      const lifted = reach.get(type) === "gravityDrive";
+      if (lifted && gravityUsed) continue;
+      const free = Math.min(
+        countOf(group, type) - (type === guard ? 1 : 0),
+        lifted ? 1 : Infinity,
+      );
       const unitCapacity = capacityOf(type);
       if (!intent.attack && unitCapacity === 0) continue;
       let count = 0;
@@ -778,12 +833,22 @@ function planMovement(
         room--;
         capacity += unitCapacity;
       }
-      if (count > 0) ships[type] = count;
+      if (count === 0) continue;
+      if (lifted) {
+        boosted[type] = count;
+        gravityUsed = true;
+      } else {
+        ships[type] = count;
+      }
     }
-    if (Object.keys(ships).length === 0) continue;
+    const moving = addCounts(ships, boosted);
+    if (Object.keys(moving).length === 0) continue;
 
-    plan.moves.push({ from: origin.key, ships });
-    plan.ships = addCounts(plan.ships, ships);
+    if (Object.keys(ships).length > 0) plan.moves.push({ from: origin.key, ships });
+    if (Object.keys(boosted).length > 0) {
+      plan.moves.push({ from: origin.key, ships: boosted, gravityDrive: true });
+    }
+    plan.ships = addCounts(plan.ships, moving);
 
     // Cargo: ground forces in space, then from planets, then fighters.
     let lift = capacity;
@@ -965,7 +1030,7 @@ function positionPlan(
   const fleets = systemsWithShips(state, id).map((s) => s.key);
   const before = positionScore(state, id, fleets);
   const rules = moveRulesFor(state, id, key);
-  let best: { gain: number; cost: number; from: SystemKey; type: UnitType } | undefined;
+  let best: { gain: number; cost: number; from: SystemKey; type: UnitType; gravityDrive: boolean } | undefined;
 
   for (const origin of systemsWithShips(state, id)) {
     if (origin.key === key || origin.commandTokens.includes(id)) continue;
@@ -988,21 +1053,28 @@ function positionPlan(
         dockFighterAllowance(state, origin.key, id) -
         capacity;
       if (capacity > 0 && cargo > spare) continue;
-      if (!findRoute(state, origin.key, unit.move, rules)) continue;
+      const how = reachBy(state, id, origin.key, type, rules);
+      if (!how) continue;
       const cost = unit.cost ?? 0;
       if (
         !best ||
         gain > best.gain ||
         (gain === best.gain && cost < best.cost)
       ) {
-        best = { gain, cost, from: origin.key, type };
+        best = { gain, cost, from: origin.key, type, gravityDrive: how === "gravityDrive" };
       }
     }
   }
   if (!best) return undefined;
   return {
     value: best.gain,
-    moves: [{ from: best.from, ships: { [best.type]: 1 } }],
+    moves: [
+      {
+        from: best.from,
+        ships: { [best.type]: 1 },
+        ...(best.gravityDrive ? { gravityDrive: true } : {}),
+      },
+    ],
     cargo: [],
   };
 }
@@ -1396,8 +1468,11 @@ function primaryPayloads(
         })),
         { card: kind, structures: [] },
       ];
-    case "trade":
-      return [{ card: kind }];
+    case "trade": {
+      // Partners refreshed for free owe one back (see conventions.ts).
+      const partners = tradePartners(state, id);
+      return partners.length > 0 ? [{ card: kind, allow: partners }, { card: kind }] : [{ card: kind }];
+    }
     case "warfare": {
       const withShips = Object.values(state.systems)
         .filter((s) => s.commandTokens.includes(id))

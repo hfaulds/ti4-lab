@@ -5,10 +5,11 @@
  *   tsx scripts/agent-play.ts [--seed 1] [--seat 0|all] [--policy deepseek|first]
  *                             [--model deepseek-flash] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
- *                             [--no-knowledge] [--stop-at action]
+ *                             [--no-knowledge] [--stop-at action] [--rounds 1]
  *
  * --seat all makes every player an agent. --stop-at ends the game when it
  * first reaches that phase, e.g. to look at strategy card picks alone.
+ * --rounds ends it once that many rounds are over.
  * The deepseek policy reads DEEPSEEK_API_KEY from the environment or .env.
  * --spectate saves the game to the web app's database (TI4_LAB_DATABASE_PATH)
  * and plays every move through the running app, so it can be watched live.
@@ -119,7 +120,8 @@ const log = await playAgentGame({
   agentSeats,
   policy,
   knowledge,
-  until: stopAt ? (s) => s.phase === stopAt : undefined,
+  until: (s) =>
+    (!!stopAt && s.phase === stopAt) || (option("rounds", "") !== "" && s.round > Number(option("rounds", ""))),
   onMove,
   onDecision: (record) => {
     appendFileSync(live, `${JSON.stringify(record)}\n`);

@@ -23,6 +23,7 @@ import {
 } from "./scriptedBot";
 import { lookup, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
 import { guideSearch } from "./guides";
+import { newTableMemory, remember, TableMemory } from "./conventions";
 import type { KnowledgeBase } from "~/knowledge/search";
 
 /** Actions an agent may never take: they bypass the rules. */
@@ -104,8 +105,12 @@ export type Candidate = MenuEntry & { action: GameAction };
  * The legal moves on offer, in the scripted bot's order (its favourite
  * first), without duplicates or blocked actions.
  */
-export function buildMenu(state: GameState, player: PlayerId): Candidate[] {
-  const ranked = scriptedCandidates(state);
+export function buildMenu(
+  state: GameState,
+  player: PlayerId,
+  memory?: TableMemory,
+): Candidate[] {
+  const ranked = scriptedCandidates(state, memory);
   if (!ranked || ranked.player !== player) return [];
   const seen = new Set<string>();
   const legal: GameAction[] = [];
@@ -275,6 +280,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
   const { agentSeats, policy } = options;
   let state = options.state;
   const planNotes = new Map<PlayerId, string>();
+  const memory = newTableMemory();
   const games = new Map<PlayerId, string>();
   const log: ReplayLog = {
     agentVersion: agentVersion(policy, options.knowledge),
@@ -298,7 +304,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
     let note: MoveNote | undefined;
 
     const seat = agentToMove(state, agentSeats);
-    const menu = seat !== undefined ? buildMenu(state, seat) : [];
+    const menu = seat !== undefined ? buildMenu(state, seat, memory) : [];
     if (seat !== undefined && menu.length > 0) {
       player = seat;
       const started = Date.now();
@@ -346,12 +352,13 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       note = moveNote(record);
       options.onDecision?.(record, state);
     } else {
-      const scripted = scriptedMove(state);
+      const scripted = scriptedMove(state, memory);
       if (!scripted) break;
       player = scripted.player;
       action = scripted.action;
     }
 
+    remember(memory, state, player, action);
     const result = applyAction(state, player, action);
     if (!result.ok) {
       throw new Error(`${action.type} by P${player} was rejected: ${result.error}`);

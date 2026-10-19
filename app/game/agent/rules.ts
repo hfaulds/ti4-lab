@@ -39,6 +39,10 @@ Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock
 - Agenda votes are cast for you by the scripted planner, which abstains.
 - You only see public information and your own cards.
 
+# Table convention
+
+The other players follow one convention that is not a rule. When the Trade holder lets a player replenish commodities without spending a token, that player owes them one: that round, they accept one trade from the holder that is one short in the holder's favour (giving X commodities for X-1). Your menu offers these trades when you are owed one. When you owe one, accepting is up to you.
+
 # How to answer
 
 The menu lists legal moves as labelled candidates. Each line was prepared by a simple scripted planner, which also carries out the details of the move you pick (exact ships, landings, production). Its estimates are a guide, not the answer: weigh them against the objectives, your opponents and the rest of the round.

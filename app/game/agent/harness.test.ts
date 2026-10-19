@@ -13,6 +13,7 @@ import {
   moveNote,
   playAgentGame,
 } from "./harness";
+import { newTableMemory, remember } from "./conventions";
 import { ChatPolicy, DecisionRequest, FirstCandidatePolicy } from "./policy";
 import { scriptedMove, secondarySkipReason } from "./scriptedBot";
 import { setupFor } from "./setups";
@@ -45,9 +46,12 @@ describe("agent harness", () => {
     });
     let state = newGame(3);
     const scripted = [];
+    // The bots remember table conventions as the harness's do.
+    const memory = newTableMemory();
     for (let i = 0; i < moves; i++) {
-      const move = scriptedMove(state)!;
+      const move = scriptedMove(state, memory)!;
       scripted.push({ player: move.player, action: move.action });
+      remember(memory, state, move.player, move.action);
       state = play(state, move.player, move.action);
     }
     expect(log.actions).toEqual(scripted);

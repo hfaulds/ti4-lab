@@ -24,22 +24,19 @@ import { EffectTargets, GameState, Payment, SystemKey, UnitGroup } from "../type
 import {
   adjacentSystems,
   anomaliesOf,
-  findRoute,
   MECATOL_REX,
-  moveRulesFor,
   neighborsOf,
-  presence,
   planetInfluence,
   planetInfo,
   planetResources,
   planetTechSpecialties,
   wormholesOf,
 } from "../engine/board";
-import { hasTech, openPrompts, unitOf, unitTypes } from "../engine/helpers";
-import { moveBonus } from "../engine/tactical";
+import { openPrompts, unitTypes } from "../engine/helpers";
 import { objectiveStatus } from "../engine/objectives";
 import { reactionName } from "../engine/reactions";
 import { viewFor } from "../view";
+import { neighborlyMove } from "./reach";
 import { bestPlan } from "./scriptedBot";
 
 const factionName = (state: GameState, id: PlayerId) =>
@@ -153,36 +150,6 @@ function objectiveLine(state: GameState, seat: PlayerId, id: string, scoredBy?: 
 }
 
 /** The current position as the seat sees it. */
-/**
- * A system `mover` could move a ship to in one move that would make them
- * neighbors of `other`: empty, and in or next to one of `other`'s systems.
- */
-function neighborlyMove(state: GameState, mover: PlayerId, other: PlayerId) {
-  const ships = Object.values(state.systems)
-    .filter((system) => !system.commandTokens.includes(mover))
-    .flatMap((origin) =>
-      unitTypes(origin.space[mover]).flatMap((type) => {
-        const move = unitOf(state, mover, type)?.move;
-        if (!move) return [];
-        const bonus = moveBonus(state, mover, origin.key) + (hasTech(state, mover, "gd") ? 1 : 0);
-        return [{ from: origin.key, move: move + bonus }];
-      }),
-    );
-  // Systems with anyone else in them would mean a fight, not a neighbor.
-  const occupied = new Set(
-    state.seating.filter((id) => id !== mover).flatMap((id) => presence(state, id)),
-  );
-  const theirs = presence(state, other);
-  return [...new Set(theirs.flatMap((k) => adjacentSystems(state, k)))]
-    .filter((k) => !occupied.has(k))
-    .find((target) =>
-      ships.some(
-        ({ from, move }) =>
-          from === target || !!findRoute(state, from, move, moveRulesFor(state, mover, target)),
-      ),
-    );
-}
-
 /** Who could become your neighbor with one move, by you or by them. */
 function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[]) {
   return state.seating.flatMap((id) => {
@@ -337,7 +304,9 @@ function payloadLabel(payload: StrategicPayload) {
         ? `build ${payload.structures.map((s) => `${s.type === "pds" ? "PDS" : "space dock"} on ${s.planet}`).join(" and ")}`
         : "build nothing";
     case "trade":
-      return "gain 3 trade goods and replenish commodities";
+      return payload.allow?.length
+        ? `gain 3 trade goods and replenish commodities; ${payload.allow.map((id) => `P${id}`).join(", ")} may replenish theirs without spending a token`
+        : "gain 3 trade goods and replenish commodities";
     case "warfare":
       return payload.production
         ? `produce ${payload.production.units.map((u) => `${u.count} ${u.type}`).join(", ")} at home, paying ${paymentLabel(payload.production.payment)}`

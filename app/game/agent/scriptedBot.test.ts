@@ -7,6 +7,7 @@ import {
 } from "../engine/board";
 import { victoryPoints } from "../engine/control";
 import { play, testGame } from "../engine/testing";
+import { newTableMemory, remember } from "./conventions";
 import { findPayment, readyPlanets } from "./payment";
 import { scriptedMove } from "./scriptedBot";
 
@@ -119,5 +120,40 @@ describe("scripted bot", () => {
     expect(greedy.action).toMatchObject({ type: "ANSWER_TRANSACTION", accept: false });
     const fair = answer({ tradeGoods: 2 }, { tradeGoods: 2 });
     expect(fair.action).toMatchObject({ type: "ANSWER_TRANSACTION", accept: true });
+  });
+
+  test("give one back to the Trade holder who refreshed them, once", () => {
+    const hasNeighbor = (s: GameState) =>
+      s.phase === "action" &&
+      s.prompts.length === 0 &&
+      s.transactions.length === 0 &&
+      s.activePlayer !== undefined &&
+      neighborsOf(s, s.activePlayer).length > 0;
+    let state = playOut(testGame(), hasNeighbor).state;
+    const id = state.activePlayer!;
+    const other = state.seating.find((p) => neighborsOf(state, id).includes(p))!;
+    for (const player of [id, other]) {
+      state = play(state, id, {
+        type: "ADJUST",
+        adjustment: { type: "tradeGoods", player, amount: 4 },
+      });
+    }
+    const memory = newTableMemory();
+    memory.refreshes.push({ player: other, by: id, round: state.round });
+    type Side = { tradeGoods?: number };
+    const offer = (give: Side, receive: Side) =>
+      play(state, id, { type: "PROPOSE_TRANSACTION", to: other, give, receive });
+    const accepts = (offered: GameState) =>
+      (scriptedMove(offered, memory)!.action as { accept?: boolean }).accept;
+
+    const oneShort = offer({ tradeGoods: 2 }, { tradeGoods: 3 });
+    expect(accepts(oneShort)).toBe(true);
+    expect(accepts(offer({ tradeGoods: 1 }, { tradeGoods: 3 }))).toBe(false);
+    // Without the refresh, one short is too much.
+    expect(scriptedMove(oneShort)!.action).toMatchObject({ accept: false });
+
+    // Accepting repays the debt, so the next one-short offer is refused.
+    remember(memory, oneShort, other, scriptedMove(oneShort, memory)!.action);
+    expect(accepts(oneShort)).toBe(false);
   });
 });

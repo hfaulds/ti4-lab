@@ -344,6 +344,46 @@ describe("chat policy", () => {
     expect(stuck.requests).toHaveLength(2);
   });
 
+  test("searches the guides and keeps only citations it was shown", async () => {
+    const { client, requests } = fakeClient([
+      { calls: [{ name: "search_guides", args: '{"query":"diplo round one","faction":"P1"}' }] },
+      {
+        calls: [
+          {
+            name: "choose",
+            args: '{"candidate":"B","rationale":"Guide says so.","plan_note":"","citations":["[7-2]","9-9"]}',
+          },
+        ],
+      },
+    ]);
+    const searches: unknown[] = [];
+    const policy = new ChatPolicy({ model: "m", apiKey: "k", client });
+    const decision = await policy.decide({
+      ...request,
+      searchGuides: (args) => {
+        searches.push(args);
+        return { text: "[7-2] Take Diplomacy.", ids: ["7-2"] };
+      },
+    });
+    expect(searches).toEqual([{ query: "diplo round one", faction: "P1" }]);
+    expect(decision.steps[0].result).toBe("[7-2] Take Diplomacy.");
+    // "9-9" was never shown, so it is not a citation.
+    expect(decision.citations).toEqual(["7-2"]);
+    type Body = { tools: { function: { name: string } }[] };
+    expect((requests[0] as Body).tools.map((t) => t.function.name)).toEqual([
+      "lookup",
+      "search_guides",
+      "choose",
+    ]);
+  });
+
+  test("offers no guide search without a knowledge base", async () => {
+    const { client, requests } = fakeClient([choose]);
+    await new ChatPolicy({ model: "m", apiKey: "k", client }).decide(request);
+    type Body = { tools: { function: { name: string } }[] };
+    expect((requests[0] as Body).tools.map((t) => t.function.name)).toEqual(["lookup", "choose"]);
+  });
+
   test("does not resend a request the API rejected", async () => {
     const rejected = new OpenAI.BadRequestError(400, undefined, "bad request", new Headers());
     const { client, requests } = fakeClient([{ fail: rejected }, choose]);

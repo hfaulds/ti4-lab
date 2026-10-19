@@ -122,6 +122,8 @@ function reRank<T extends Record<string, string | number>>(
 }
 
 export type KnowledgeBase = {
+  /** Identifies the index build, for agent versions in replay logs. */
+  version: string;
   searchGuides(options: { query: string; faction?: string; limit?: number }): GuideHit[];
   searchConcepts(query: string, limit?: number): ConceptHit[];
   close(): void;
@@ -175,7 +177,14 @@ export function openKnowledgeBase(
     explained: row.explained === 1,
   });
 
+  const meta = Object.fromEntries(
+    (db.prepare("SELECT key, value FROM meta").all() as { key: string; value: string }[]).map(
+      (row) => [row.key, row.value],
+    ),
+  );
+
   return {
+    version: `${meta.builtAt ?? "unknown"} synonyms ${meta.synonymsVersion ?? "?"}`,
     searchGuides({ query, faction, limit = 5 }) {
       const queries = ftsQueries(query, synonyms);
       if (!queries) return [];

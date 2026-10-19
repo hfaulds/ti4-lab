@@ -59,6 +59,11 @@ export const TOOLS: ToolSchema[] = [
         candidate: { type: "string", description: "Label of a menu candidate, e.g. 'C'." },
         rationale: { type: "string" },
         plan_note: { type: "string" },
+        citations: {
+          type: "array",
+          items: { type: "string" },
+          description: "Ids of guide passages that informed the choice, e.g. ['118-21'].",
+        },
       },
       required: ["candidate", "rationale", "plan_note"],
       additionalProperties: false,
@@ -66,7 +71,32 @@ export const TOOLS: ToolSchema[] = [
   },
 ];
 
-export type ChooseArgs = { candidate: string; rationale: string; plan_note: string };
+/** Offered only when a knowledge base is available. */
+export const SEARCH_GUIDES_TOOL: ToolSchema = {
+  name: "search_guides",
+  description:
+    "Search the Space Cats Peace Turtles podcast's strategy guides (one episode per base-game faction) " +
+    "for advice. Returns short passages with ids like [118-21] you can cite. query: what you want " +
+    "advice on, e.g. 'round one Politics' or 'defending the home system'. faction (optional): prefer " +
+    "advice about one faction, by name or player label like P2.",
+  parameters: {
+    type: "object",
+    properties: {
+      query: { type: "string" },
+      faction: { type: "string" },
+    },
+    required: ["query"],
+    additionalProperties: false,
+  },
+};
+
+export type ChooseArgs = {
+  candidate: string;
+  rationale: string;
+  plan_note: string;
+  citations: string[];
+};
+export type SearchArgs = { query: string; faction?: string };
 export type LookupArgs = { kind: LookupKind; id: string };
 
 type Parsed<T> = { ok: true; value: T } | { ok: false; error: string };
@@ -89,7 +119,7 @@ const isString = (value: unknown): value is string =>
 export function parseChoose(raw: string, labels: string[]): Parsed<ChooseArgs> {
   const parsed = parseObject(raw);
   if (!parsed.ok) return parsed;
-  const { candidate, rationale, plan_note } = parsed.value;
+  const { candidate, rationale, plan_note, citations } = parsed.value;
   if (!isString(candidate)) return { ok: false, error: "candidate is required." };
   const label = candidate.trim().toUpperCase();
   if (!labels.includes(label)) {
@@ -102,7 +132,21 @@ export function parseChoose(raw: string, labels: string[]): Parsed<ChooseArgs> {
       candidate: label,
       rationale: rationale.trim(),
       plan_note: typeof plan_note === "string" ? plan_note.trim() : "",
+      citations: Array.isArray(citations)
+        ? [...new Set(citations.filter(isString).map((c) => c.trim().replace(/^\[|\]$/g, "")))]
+        : [],
     },
+  };
+}
+
+export function parseSearch(raw: string): Parsed<SearchArgs> {
+  const parsed = parseObject(raw);
+  if (!parsed.ok) return parsed;
+  const { query, faction } = parsed.value;
+  if (!isString(query)) return { ok: false, error: "query is required." };
+  return {
+    ok: true,
+    value: { query: query.trim(), faction: isString(faction) ? faction.trim() : undefined },
   };
 }
 

@@ -4,7 +4,15 @@
  */
 import OpenAI from "openai";
 import { SYSTEM_PROMPT } from "./rules";
-import { LookupArgs, parseChoose, parseLookup, TOOLS } from "./tools";
+import {
+  LookupArgs,
+  parseChoose,
+  parseLookup,
+  parseSearch,
+  SEARCH_GUIDES_TOOL,
+  SearchArgs,
+  TOOLS,
+} from "./tools";
 
 export type MenuEntry = { label: string; text: string };
 
@@ -17,6 +25,12 @@ export type DecisionRequest = {
   planNote: string;
   menu: MenuEntry[];
   lookup: (args: LookupArgs) => string;
+  /**
+   * Searches the strategy guides, returning text for the model and the
+   * passage ids in it. Absent when there is no knowledge base, in which
+   * case the tool is not offered.
+   */
+  searchGuides?: (args: SearchArgs) => { text: string; ids: string[] };
 };
 
 export type ToolStep = { tool: string; arguments: string; result: string };
@@ -35,6 +49,8 @@ export type Decision = {
   label?: string;
   rationale: string;
   planNote: string;
+  /** Guide passage ids the agent cited; only ones it was shown. */
+  citations: string[];
   steps: ToolStep[];
   usage: Usage;
   error?: string;
@@ -63,6 +79,7 @@ export class FirstCandidatePolicy implements Policy {
       label: request.menu[0]?.label,
       rationale: "The scripted bot's top candidate.",
       planNote: request.planNote,
+      citations: [],
       steps: [],
       usage: noUsage(),
     };
@@ -141,7 +158,12 @@ export class ChatPolicy implements Policy {
       { role: "user", content: request.game },
       { role: "user", content: turnMessage(request) },
     ];
-    const allTools = TOOLS.map((tool) => ({ type: "function" as const, function: tool }));
+    // Searching is offered only with a knowledge base, before choose.
+    const offered = request.searchGuides
+      ? [TOOLS[0], SEARCH_GUIDES_TOOL, ...TOOLS.slice(1)]
+      : TOOLS;
+    const allTools = offered.map((tool) => ({ type: "function" as const, function: tool }));
+    const shown = new Set<string>();
     const chooseOnly = allTools.filter((tool) => tool.function.name === "choose");
     const usage = noUsage();
     const steps: ToolStep[] = [];
@@ -206,6 +228,18 @@ export class ChatPolicy implements Policy {
             lookups++;
             result = args.ok ? request.lookup(args.value) : `Error: ${args.error}`;
           }
+        } else if (call.function.name === "search_guides" && request.searchGuides) {
+          const args = parseSearch(call.function.arguments);
+          if (lookups >= maxLookups) {
+            result = "Lookup limit reached for this decision. Call choose now.";
+          } else if (!args.ok) {
+            result = `Error: ${args.error}`;
+          } else {
+            lookups++;
+            const found = request.searchGuides(args.value);
+            for (const id of found.ids) shown.add(id);
+            result = found.text;
+          }
         } else if (call.function.name === "choose") {
           const args = parseChoose(call.function.arguments, labels);
           if (args.ok && !chosen) {
@@ -213,6 +247,7 @@ export class ChatPolicy implements Policy {
               label: args.value.candidate,
               rationale: args.value.rationale,
               planNote: args.value.plan_note,
+              citations: args.value.citations.filter((id) => shown.has(id)),
               steps,
               usage,
             };
@@ -233,6 +268,7 @@ export class ChatPolicy implements Policy {
     return {
       rationale: "",
       planNote: request.planNote,
+      citations: [],
       steps,
       usage,
       error: `No valid choice after ${usage.requests} requests.`,

@@ -21,7 +21,9 @@ import {
   secondaryChoices,
   secondarySkipReason,
 } from "./scriptedBot";
-import { lookup, TOOLS } from "./tools";
+import { lookup, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
+import { guideSearch } from "./guides";
+import type { KnowledgeBase } from "~/knowledge/search";
 
 /** Actions an agent may never take: they bypass the rules. */
 export const BLOCKED: ReadonlySet<GameActionType> = new Set<GameActionType>([
@@ -159,6 +161,8 @@ export type DecisionRecord = {
   forced: boolean;
   rationale: string;
   planNote: string;
+  /** Guide passages the agent cited, as readable labels. */
+  citations: string[];
   steps: Decision["steps"];
   usage: Usage;
   error?: string;
@@ -182,6 +186,7 @@ export function moveNote(record: DecisionRecord): MoveNote | undefined {
     options: record.menu.map((m) => option(m.label)),
     fallback: record.fallback ? (record.error ?? "No choice was made.") : undefined,
     forced: record.forced || undefined,
+    citations: record.citations.length > 0 ? record.citations : undefined,
   };
 }
 
@@ -227,13 +232,14 @@ export type ReplayLog = {
 };
 
 /** A hash of everything that changes how the agent plays. */
-export function agentVersion(policy: Policy) {
+export function agentVersion(policy: Policy, knowledge?: KnowledgeBase) {
   const hash = createHash("sha256");
   hash.update(
     JSON.stringify({
       policy: policy.name,
       prompt: SYSTEM_PROMPT,
-      tools: TOOLS,
+      tools: knowledge ? [...TOOLS, SEARCH_GUIDES_TOOL] : TOOLS,
+      knowledge: knowledge?.version ?? null,
       routing: ROUTING_VERSION,
       bot: SCRIPTED_BOT_VERSION,
       menu: [MAX_ACTIVATIONS, MAX_CANDIDATES],
@@ -246,6 +252,8 @@ export type PlayOptions = {
   state: GameState;
   agentSeats: PlayerId[];
   policy: Policy;
+  /** The strategy guides, searchable by the agent; without it, no search tool. */
+  knowledge?: KnowledgeBase;
   seed?: number;
   maxMoves?: number;
   /** Called after each agent decision, e.g. to print progress. */
@@ -267,7 +275,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
   const planNotes = new Map<PlayerId, string>();
   const games = new Map<PlayerId, string>();
   const log: ReplayLog = {
-    agentVersion: agentVersion(policy),
+    agentVersion: agentVersion(policy, options.knowledge),
     policy: policy.name,
     botVersion: SCRIPTED_BOT_VERSION,
     seed: options.seed,
@@ -293,6 +301,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       const started = Date.now();
       let decision: Decision | undefined;
       let error: string | undefined;
+      const guides = options.knowledge && guideSearch(options.knowledge, state);
       if (menu.length > 1) {
         if (!games.has(seat)) games.set(seat, describeGame(state, seat));
         try {
@@ -302,6 +311,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
             planNote: planNotes.get(seat) ?? "",
             menu: menu.map(({ label, text }) => ({ label, text })),
             lookup: (args) => lookup(state, args),
+            searchGuides: guides?.search,
           });
           error = decision.error;
         } catch (thrown) {
@@ -323,6 +333,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         forced: menu.length === 1,
         rationale: decision?.rationale ?? forcedReason(state, seat, menu),
         planNote: planNotes.get(seat) ?? "",
+        citations: (decision?.citations ?? []).map((id) => guides?.label(id) ?? id),
         steps: decision?.steps ?? [],
         usage: decision?.usage ?? noUsage(),
         error,

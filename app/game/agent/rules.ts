@@ -43,10 +43,15 @@ Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock
 
 The menu lists legal moves as labelled candidates. Each line was prepared by a simple scripted planner, which also carries out the details of the move you pick (exact ships, landings, production). Its estimates are a guide, not the answer: weigh them against the objectives, your opponents and the rest of the round.
 
-Use the lookup tool for exact data on a faction, unit, technology, objective or planet when it matters; strategy cards are described in the game block. Lookups are limited per decision, so check only what could change your choice. Then call choose exactly once with:
+Use the lookup tool for exact data on a faction, unit, technology, objective or planet when it matters; strategy cards are described in the game block. Lookups are limited per decision, so check only what could change your choice.
+
+When the search_guides tool is offered, it searches strategy guides from experienced players: how factions open, which strategy cards and technologies to take, how to score and when to trade. Search when the decision is a strategic one (a strategy card pick, a technology, a faction's first rounds, a deal), not for routine moves. The guides are written for human tables, so weigh their advice against this board. Searches share the lookup limit.
+
+Then call choose exactly once with:
 - candidate: the label of the move (for example "C").
 - rationale: two or three sentences in terms of this board: what the move gains, and why it beats the next best option.
 - plan_note: a short plan for your next few turns. It is shown to you at your next decision, so use it to stay consistent.
+- citations: the ids of any guide passages that shaped the choice, or an empty list.
 
 Every decision must end with a call to choose.
 `;

@@ -5,6 +5,7 @@
  *   tsx scripts/agent-play.ts [--seed 1] [--seat 0] [--policy deepseek|first]
  *                             [--model deepseek-flash] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
+ *                             [--no-knowledge]
  *
  * The deepseek policy reads DEEPSEEK_API_KEY from the environment or .env.
  * --spectate saves the game to the web app's database (TI4_LAB_DATABASE_PATH)
@@ -12,12 +13,17 @@
  * The app's copy counts: each move waits until the app accepts it, the game
  * pauses while the app is down, and it stops if the app disagrees. --pace
  * waits that many milliseconds between moves.
+ *
+ * The agent can search the strategy guides in knowledge/knowledge.db when it
+ * has been built (tsx scripts/kb.ts index); --no-knowledge plays without them.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { playAgentGame } from "~/game/agent/harness";
 import { ChatPolicy, FirstCandidatePolicy, Policy } from "~/game/agent/policy";
 import { setupFor } from "~/game/agent/setups";
 import { testGame } from "~/game/engine/testing";
+import { KnowledgeBase, openKnowledgeBase } from "~/knowledge/search";
+import { SynonymList } from "~/knowledge/synonyms";
 
 /** deepseek-flash prices per million tokens at peak; off-peak is half. */
 const PRICES = { cacheMiss: 0.3, cacheHit: 0.006, output: 1.2 };
@@ -73,11 +79,23 @@ if (flag("spectate")) {
   console.log(`Watch: ${spectating.url} (pick seat P${seat} in the page to see the agent's hand)`);
 }
 
+const KNOWLEDGE = "knowledge/knowledge.db";
+let knowledge: KnowledgeBase | undefined;
+if (!flag("no-knowledge") && policyName !== "first") {
+  if (existsSync(KNOWLEDGE)) {
+    const synonyms = JSON.parse(readFileSync("knowledge/synonyms.json", "utf8")) as SynonymList;
+    knowledge = openKnowledgeBase(KNOWLEDGE, synonyms);
+  } else {
+    console.log(`No ${KNOWLEDGE}, so the agent plays without the strategy guides.`);
+  }
+}
+
 const log = await playAgentGame({
   state,
   seed,
   agentSeats: [seat],
   policy,
+  knowledge,
   onMove,
   onDecision: (record) => {
     if (flag("quiet") || record.forced) return;
@@ -85,8 +103,10 @@ const log = await playAgentGame({
     const tag = record.fallback ? ` [fallback: ${record.error ?? "no choice"}]` : "";
     console.log(`r${record.round} ${record.phase} ${record.chosen}. ${chosen?.text}${tag}`);
     if (record.rationale) console.log(`   ${record.rationale}`);
+    for (const citation of record.citations) console.log(`   cites ${citation}`);
   },
 });
+knowledge?.close();
 
 const decisions = log.decisions.filter((d) => !d.forced);
 const total = decisions.reduce(

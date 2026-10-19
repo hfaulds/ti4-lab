@@ -479,6 +479,18 @@ export function Reasoning({ note }: { note: MoveNote }) {
             Plan: {note.plan}
           </Text>
         )}
+        {note.citations && note.citations.length > 0 && (
+          <Stack gap={2}>
+            <Text size="xs" c="dimmed" fw={600}>
+              Guides cited
+            </Text>
+            {note.citations.map((citation) => (
+              <Text key={citation} size="xs" c="dimmed">
+                {citation}
+              </Text>
+            ))}
+          </Stack>
+        )}
         <Group>
           <Button
             size="compact-xs"

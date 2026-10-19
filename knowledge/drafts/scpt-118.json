@@ -1,0 +1,2438 @@
+{
+  "episode": 118,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro, tournament and Oath stream news",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s81",
+          "title": "Returning to Hacan and the earlier trading episode",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Starting units, tech and home system",
+      "summary": "Hacan's starting technologies are strong, with Sarween Tools the better of the two and Antimass Deflectors valuable mainly as a step to an early Gravity Drive. The three-planet home system is a liability: it gives the worst starting production capacity in the game and is hard to defend. The starting fleet supports a standard two-carrier, four-infantry opening.",
+      "chunks": [
+        {
+          "start": "s113",
+          "title": "Starting technologies",
+          "kind": "strategy",
+          "summary": "Antimass Deflectors is the lesser starting tech; its value is that it lets Hacan go straight into Gravity Drive. Sarween Tools is especially good for a production- and money-focused faction whose home system is weak.",
+          "advice": [
+            {
+              "point": "Antimass Deflectors is the weaker of Hacan's two starting techs; its real benefit is an early Gravity Drive.",
+              "stance": "rating",
+              "subjects": [
+                "Antimass Deflectors",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "Sarween Tools is great for Hacan, giving needed extra resources from round one when the home system produces poorly.",
+              "stance": "rating",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech skip"
+          ]
+        },
+        {
+          "start": "s125",
+          "title": "Home system and starting fleet",
+          "kind": "strategy",
+          "summary": "The 1/1, 2/0, 0/1 home system gives Hacan the lowest production capacity in the game (tied for worst), so expect to build only four units in round one and maybe round two. The starting units allow a two-carrier, four-infantry opening to take two systems in round one, sending one fighter with each carrier.",
+          "advice": [
+            {
+              "point": "Hacan's home system is a nuisance early: with one space dock you can build at most four units in round one and possibly round two, so plan around low production.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            },
+            {
+              "point": "Open by sending both carriers with two infantry each to take two extra systems in round one, sending one of the two fighters with each carrier for a little protection.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier",
+                "Fighter"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "expansion"
+          ],
+          "requires": [],
+          "concepts": [
+            "2C4I opening",
+            "production capacity"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities",
+      "summary": "The hosts rate Hacan's three trading abilities as some of the best design in the game. Masters of Trade and six commodities mean Hacan always trades every round, Guild Ships matters most in rounds one and two, and Arbiters lets Hacan buy, sell and bribe with action cards, which makes Hacan a powerful kingmaker and a frequent tournament ban.",
+      "chunks": [
+        {
+          "start": "s143",
+          "title": "Masters of Trade",
+          "kind": "strategy",
+          "summary": "Because Hacan never needs permission or a command token to take the Trade secondary, it gets its six commodities every time Trade is played; the only limit is whether others will trade with it.",
+          "advice": [
+            {
+              "point": "Always take your commodities when Trade is played; nobody can deny or tax your refresh, so the only obstacle is players refusing to trade with you.",
+              "stance": "recommended",
+              "subjects": [
+                "Masters of Trade",
+                "Trade"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "economy",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s158",
+          "title": "Guild Ships",
+          "kind": "strategy",
+          "summary": "Trading with non-neighbours matters most in rounds one and two, before everyone becomes neighbours. It means Hacan can trade with whoever took Trade anywhere on the table, so a round-one Hacan always makes money.",
+          "advice": [
+            {
+              "point": "In rounds one and two, trade with whoever took Trade even if they sit across the table; a round-one Hacan should always make money.",
+              "stance": "recommended",
+              "subjects": [
+                "Guild Ships",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Guild Ships becomes less important later in the game, when most players are neighbours anyway.",
+              "stance": "rating",
+              "subjects": [
+                "Guild Ships"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "faction abilities",
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s167",
+          "title": "Arbiters",
+          "kind": "strategy",
+          "summary": "Matt loves Arbiters: sell valuable action cards, buy them from others, and use them to pay off players who threaten you when you have nothing else to offer. In the late game it lets Hacan route action cards to the right player to stop a leader, which is why Hacan is a frequent tournament ban and the biggest nuisance among second-tier ban targets.",
+          "advice": [
+            {
+              "point": "Sell valuable action cards and buy others' action cards; when someone threatens you, offer action cards to make them leave you alone.",
+              "stance": "recommended",
+              "subjects": [
+                "Arbiters"
+              ]
+            },
+            {
+              "point": "In the late game, use action-card trades to get the right card to the right player and stop whoever is closest to winning.",
+              "stance": "recommended",
+              "subjects": [
+                "Arbiters"
+              ]
+            },
+            {
+              "point": "Hacan is a top kingmaker and kingslayer and is commonly banned in tournaments alongside Ghosts of Creuss, Yssaril Tribes and Mentak Coalition as a nuisance faction.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan",
+                "Arbiters"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Ghosts of Creuss",
+            "Yssaril Tribes",
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any",
+            "late"
+          ],
+          "topics": [
+            "faction abilities",
+            "action cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "kingmaking"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Flagship",
+      "summary": "The Wrath of Kenara is often called the worst flagship in the game: it is the Sardakk N'orr flagship's effect but costs a trade good per use and has a weak combat value. Build it only for Unveil Flagship, and even then consider swapping that secret; two dreadnoughts are a better use of the resources.",
+      "chunks": [
+        {
+          "start": "s188",
+          "title": "Wrath of Kenara rating",
+          "kind": "strategy",
+          "summary": "The flagship is weak and rarely worth building; the only reason is the Unveil Flagship secret, and even then another secret may be better. Eight resources is affordable for Hacan, but two Dreadnought IIs are better every time, and a weak flagship may just be destroyed.",
+          "advice": [
+            {
+              "point": "The Wrath of Kenara is arguably the worst flagship in the game: the same bonus as the Sardakk N'orr flagship but you pay a trade good for it, and it hits on a 7.",
+              "stance": "rating",
+              "subjects": [
+                "Wrath of Kenara"
+              ]
+            },
+            {
+              "point": "Build the flagship only for the Unveil Flagship secret objective, and even then consider trying for a different secret instead.",
+              "stance": "situational",
+              "subjects": [
+                "Wrath of Kenara",
+                "Unveil Flagship"
+              ]
+            },
+            {
+              "point": "Spend the eight resources on two dreadnoughts instead, especially as Hacan will almost always have Dreadnought II.",
+              "stance": "avoid",
+              "subjects": [
+                "Wrath of Kenara",
+                "Dreadnought II"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s216",
+          "title": "Flagship timing rules and rules lawyers",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Promissory note",
+      "summary": "Trade Convoys ranks low in Hacan's strategy: Hacan has so many other things to trade that the note is rarely worth pursuing. Give it to three-commodity factions for a good price, never to Jol-Nar or other four-commodity factions, and prefer trading it for a permanent benefit. The classic round-one Trade Convoys for Promise of Protection deal with Mentak favours Hacan.",
+      "chunks": [
+        {
+          "start": "s239",
+          "title": "Trade Convoys: value and who to give it to",
+          "kind": "strategy",
+          "summary": "Hunter used to like Trade Convoys but now does not care much about it. Do not give it to Jol-Nar or other four-commodity factions, which gain too much; two-commodity factions will not pay enough, so three-commodity factions are the natural buyers. It is not something to seek out; take a big offer if one comes.",
+          "advice": [
+            {
+              "point": "Trade Convoys is contentious; Hunter now rates it low and rarely builds plans around it.",
+              "stance": "rating",
+              "subjects": [
+                "Trade Convoys"
+              ]
+            },
+            {
+              "point": "Do not give Trade Convoys to the Universities of Jol-Nar or other four-commodity factions; they can do too much with it.",
+              "stance": "avoid",
+              "subjects": [
+                "Trade Convoys",
+                "Universities of Jol-Nar"
+              ]
+            },
+            {
+              "point": "Three-commodity factions are the best buyers; two-commodity factions will not pay enough to make it worthwhile.",
+              "stance": "situational",
+              "subjects": [
+                "Trade Convoys"
+              ]
+            },
+            {
+              "point": "Do not chase deals with Trade Convoys the way you would with Research Agreement or Military Support; accept a really big offer if one comes.",
+              "stance": "situational",
+              "subjects": [
+                "Trade Convoys"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Universities of Jol-Nar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s264",
+          "title": "Trade Convoys for Promise of Protection and other swaps",
+          "kind": "strategy",
+          "summary": "Most players agree the round-one Trade Convoys for Promise of Protection swap with Mentak is better for Hacan than for Mentak; Matt still generally does it but says it depends on the table. Prefer swapping it for a permanent bonus such as Cybernetic Enhancements or a well-timed Research Agreement over a one-time note. Giving it away late is safer than early, though a late buyer may have a plan against you.",
+          "advice": [
+            {
+              "point": "The round-one swap of Trade Convoys for Mentak's Promise of Protection is generally better for Hacan than Mentak, since Mentak cannot trade much; Matt is still usually willing to do it, depending on the table.",
+              "stance": "situational",
+              "subjects": [
+                "Trade Convoys",
+                "Promise of Protection",
+                "Mentak Coalition"
+              ]
+            },
+            {
+              "point": "Trade Trade Convoys for something permanent, such as Cybernetic Enhancements or a well-timed Research Agreement; Hunter is wary of swapping it for one-time notes like Military Support.",
+              "stance": "situational",
+              "subjects": [
+                "Trade Convoys",
+                "Cybernetic Enhancements",
+                "Research Agreement",
+                "Military Support"
+              ]
+            },
+            {
+              "point": "Avoid giving Trade Convoys out in round one, where the receiver gets free trading all game; late-game sales are usually better as long as you are paid enough, but watch for a buyer planning to use it against you.",
+              "stance": "situational",
+              "subjects": [
+                "Trade Convoys"
+              ]
+            },
+            {
+              "point": "Overall the promissory note is not a big factor; your action cards, money and other micro-deals matter much more.",
+              "stance": "rating",
+              "subjects": [
+                "Trade Convoys"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Mentak Coalition",
+            "L1Z1X Mindnet",
+            "Universities of Jol-Nar",
+            "Federation of Sol"
+          ],
+          "phases": [
+            "round 1",
+            "late"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies",
+      "summary": "Both faction techs are strong late-game insurance for when the table stops trading with Hacan. Production Biomes is a good money engine, especially with a green skip, but competes with the significantly better Quantum Datahub Node, and you rarely have time for both. Quantum Datahub Node can decide games, often just by threatening it, as long as you bank three trade goods for it.",
+      "chunks": [
+        {
+          "start": "s292",
+          "title": "Production Biomes",
+          "kind": "strategy",
+          "summary": "A pretty good faction tech: a steady trade-good income and a useful stall action, at the cost of a command token. Getting it fast with a green skip makes a lot of money over the game, but it competes with Quantum Datahub Node and you usually cannot get both.",
+          "advice": [
+            {
+              "point": "Production Biomes is a good faction tech; with a green skip and an early pickup it generates a lot of money over the game.",
+              "stance": "rating",
+              "subjects": [
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "Its action doubles as a stall, which is useful in the late game.",
+              "stance": "recommended",
+              "subjects": [
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "It competes with the generally better Quantum Datahub Node and there is rarely time to get both.",
+              "stance": "rating",
+              "subjects": [
+                "Production Biomes",
+                "Quantum Datahub Node"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "economy"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "stall action",
+            "tech skip"
+          ]
+        },
+        {
+          "start": "s307",
+          "title": "Production Biomes: negotiating a five-one split",
+          "kind": "strategy",
+          "summary": "Some tables let Hacan charge the recipient one trade good for Production Biomes' gift, turning four-two into five-one; others will refuse to let Hacan gain that. It depends entirely on the group, and in rounds five and six people stop trading with Hacan anyway.",
+          "advice": [
+            {
+              "point": "Offer the Production Biomes gift only to a player who pays you a trade good for it, turning the split into five for you and one for them, if your table tolerates it.",
+              "stance": "situational",
+              "subjects": [
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "Watch whether the table bands together to refuse such deals; Hacan's success depends on finding a weak link.",
+              "stance": "situational",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            },
+            {
+              "point": "Expect people to stop trading with Hacan altogether in rounds five and six; rounds one to four depend on the group.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "table meta",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s330",
+          "title": "Quantum Datahub Node",
+          "kind": "strategy",
+          "summary": "The more reliable faction tech and one of the few things that can win a game outright, close to the Naalu 0 token; it acts like the Imperial Arbiter every round. It breaks Hunter's Law: you may use it only once, in the final round, or never, because the threat alone stops players taking Imperial, letting you take it yourself.",
+          "advice": [
+            {
+              "point": "Quantum Datahub Node is one of the few game-deciding techs; many games have been won by it.",
+              "stance": "rating",
+              "subjects": [
+                "Quantum Datahub Node"
+              ]
+            },
+            {
+              "point": "Its value often comes from the threat: players avoid taking Imperial knowing you will swap for it, so you can take Imperial yourself without spending anything.",
+              "stance": "recommended",
+              "subjects": [
+                "Quantum Datahub Node",
+                "Imperial"
+              ]
+            },
+            {
+              "point": "Get it timed for the last round, where it wins the game, rather than expecting repeated use.",
+              "stance": "situational",
+              "subjects": [
+                "Quantum Datahub Node"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Naalu Collective"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "strategy cards",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "Hunter's Law",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s360",
+          "title": "Quantum Datahub Node against Public Disgrace",
+          "kind": "strategy",
+          "summary": "Public Disgrace does not stop the Quantum Datahub Node swap. The counter is for the table to Public Disgrace you off Imperial and then have nobody take it, which needs a level of coordination that only happens if Hacan is the sole player about to win.",
+          "advice": [
+            {
+              "point": "If someone else takes Imperial you can still swap into it after being Public Disgraced; the only counter is the whole table refusing to pick Imperial.",
+              "stance": "rating",
+              "subjects": [
+                "Quantum Datahub Node",
+                "Public Disgrace",
+                "Imperial"
+              ]
+            },
+            {
+              "point": "Expect someone to take Imperial anyway unless Hacan is the only player who can win, since others want it for their own points.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial",
+                "Quantum Datahub Node"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "action cards",
+            "strategy cards"
+          ],
+          "requires": [
+            "action cards",
+            "faction technologies"
+          ],
+          "concepts": [
+            "blocker pick"
+          ]
+        },
+        {
+          "start": "s377",
+          "title": "Strong but flimsy: abilities depend on the table",
+          "kind": "strategy",
+          "summary": "Hacan is strong but flimsy: if nobody trades with you, all three abilities vanish and you are a vanilla faction. The faction techs are late-game insurance for that case but need trade goods; if you plan on Quantum Datahub Node, bank three trade goods and never spend them.",
+          "advice": [
+            {
+              "point": "Recognise that the table can remove all three Hacan abilities simply by refusing to trade, leaving you a vanilla faction.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan",
+                "Masters of Trade",
+                "Guild Ships",
+                "Arbiters"
+              ]
+            },
+            {
+              "point": "If you intend to get Quantum Datahub Node, set aside three trade goods early and hold them so you can always use it.",
+              "stance": "recommended",
+              "subjects": [
+                "Quantum Datahub Node"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "faction abilities",
+            "general strategy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "table meta",
+            "trade good banking"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Defending the home system",
+      "summary": "Hacan's three-planet home system cannot be held with infantry stacks, so defend the space instead: a second space dock, lots of fighters, and carriers or dreadnoughts. Losing even one home planet takes Hacan out of scoring contention, and a crushed home system is the most common downfall of a Hacan player.",
+      "chunks": [
+        {
+          "start": "s396",
+          "title": "Protect the space, not the planets",
+          "kind": "strategy",
+          "summary": "Following Unaligned Magi's pre-errata, defend Hacan's home system in space: a second space dock with lots of fighters plus carriers or dreadnoughts. Infantry spread across three planets is thin and uneven, and losing any one planet stops you scoring public objectives, so being impregnable in the space battle matters more than for other factions.",
+          "advice": [
+            {
+              "point": "Defend the home system by winning the space: build a second home space dock, lots of fighters and some carriers or dreadnoughts.",
+              "stance": "recommended",
+              "subjects": [
+                "Space Dock",
+                "Fighter",
+                "Dreadnought",
+                "Carrier"
+              ]
+            },
+            {
+              "point": "Do not rely on infantry stacks on the home planets; with three planets they stay thin and one weak planet is enough to knock you out of scoring.",
+              "stance": "avoid",
+              "subjects": [
+                "Infantry"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "combat",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "home system defense",
+            "double dock home"
+          ]
+        },
+        {
+          "start": "s428",
+          "title": "Infantry placement in a three-planet home",
+          "kind": "strategy",
+          "summary": "Infantry built at a space dock land on that dock's planet, so spreading defenders across Hacan's other home planets takes extra moves. An easily crushed home system is the most common reason Hacan players lose, especially in early games.",
+          "advice": [
+            {
+              "point": "Plan to move infantry from the space dock planet to your other home planets, since production only places them on the dock's planet.",
+              "stance": "recommended",
+              "subjects": [
+                "Infantry",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "A weakly defended home system is the most common downfall of Hacan players; the table finds it the easiest target.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "combat",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "home system defense"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Leadership turns out to be a top pick for Hacan because it lets them take the Construction secondary and double-dock at home in round one; Politics and Trade are also excellent, with Hunter rating Politics almost above Trade. Construction is valued more than usual, Warfare and Technology are good and both enable a round-one Custodians point, and Diplomacy and Imperial are the only bad picks.",
+      "chunks": [
+        {
+          "start": "s439",
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is upper tier for Hacan. The extra command tokens let you do the Construction secondary, and the timing works cleanly: move both carriers out on your first two actions, then build the second home space dock when Construction is played. Spending trade goods plus the 0/1 planet for one more token is an option.",
+          "advice": [
+            {
+              "point": "Leadership is an upper-tier round-one pick for Hacan, often wanted almost every time.",
+              "stance": "rating",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Use Leadership's command tokens to follow the Construction secondary and place a second space dock at home in round one.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership",
+                "Construction",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "Move your carriers out of the home system on your first two actions, before Construction is played, so leaving a command token at home costs you nothing.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "Carrier"
+              ]
+            },
+            {
+              "point": "Optionally spend two trade goods plus the 0/1 home planet on an extra command token from Leadership, if that token is worth more than two trade goods to your round two.",
+              "stance": "situational",
+              "subjects": [
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "double dock home",
+            "secondary timing",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s474",
+          "title": "Leadership and the Technology and Warfare secondaries",
+          "kind": "strategy",
+          "summary": "With only three home resources, Hacan must finish trades before Technology is played, and Leadership gives no leverage over the Technology player, so watch who has it and whether they will play it immediately. If you can manage the Construction, Warfare and Technology secondaries all in round one, you go into round two in great shape.",
+          "advice": [
+            {
+              "point": "Watch who took Technology and whether they will play it right away; if Technology pops before your trades, Leadership loses some value.",
+              "stance": "situational",
+              "subjects": [
+                "Leadership",
+                "Technology"
+              ]
+            },
+            {
+              "point": "Hacan's trade income means it can usually afford both the Technology and Warfare secondaries; aim to do Construction, Warfare and Technology secondaries in round one.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Warfare",
+                "Construction"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Barony of Letnev"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s496",
+          "title": "Round one: Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is especially bad for Hacan: it has no tech skips worth refreshing for round-one techs, it already has money, and refreshing something like Abyz and Fria makes Hacan look too rich, so players refuse to trade with it. An average Hacan without Trade should aim for about six trade goods, without frightening the table.",
+          "advice": [
+            {
+              "point": "Do not take Diplomacy in round one as Hacan: there are no useful skips to refresh and the extra money mainly scares other players off trading with you.",
+              "stance": "avoid",
+              "subjects": [
+                "Diplomacy"
+              ]
+            },
+            {
+              "point": "Without Trade, aim to turn your commodities into about six trade goods in round one.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Take only as much gain per round as the table will tolerate; getting too rich makes others freeze you out.",
+              "stance": "recommended",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "economy",
+            "trade and diplomacy"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception",
+            "tech skip"
+          ]
+        },
+        {
+          "start": "s529",
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Matt puts Politics in the upper-mid tier and Hunter likes it almost more than Trade. The action cards can be sold or used early, and the speaker token is another item to sell, especially to the Trade holder, who has the money. Combined with Neural Motivator, Hunter enters round two with speaker and a nearly full hand.",
+          "advice": [
+            {
+              "point": "Politics is a strong round-one pick for Hacan; Matt rates it upper-mid, Hunter likes it almost better than Trade.",
+              "stance": "rating",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "If someone else took Trade, take Politics and sell the speaker token to the Trade holder, who will have the money.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Pair Politics with an early Neural Motivator to enter round two with the speaker token and a nearly full hand of action cards to trade.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics",
+                "Neural Motivator"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "action cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "speaker token sale"
+          ]
+        },
+        {
+          "start": "s561",
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Hacan values Construction more than most factions because it fixes the home-system production problem. If you pick last and Construction is left, take it over Diplomacy.",
+          "advice": [
+            {
+              "point": "Construction is more valuable to Hacan than to most factions because it puts a second space dock at home.",
+              "stance": "rating",
+              "subjects": [
+                "Construction"
+              ]
+            },
+            {
+              "point": "As last pick, take Construction rather than Diplomacy.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "Diplomacy"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "double dock home",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s568",
+          "title": "Construction: where to put the PDS",
+          "kind": "strategy",
+          "summary": "Hacan rarely gets PDS II, so a forward PDS has little reach; put the Construction PDS in the home system. Both hosts prefer the planet with the space dock (Arretze), so attackers who win the space battle go for an empty planet instead; a PDS on the 0/1 planet usually fires once and is lost.",
+          "advice": [
+            {
+              "point": "Place the Construction PDS at home rather than forward, since Hacan is not expected to get PDS II.",
+              "stance": "recommended",
+              "subjects": [
+                "PDS",
+                "Construction",
+                "PDS II"
+              ]
+            },
+            {
+              "point": "Put the home PDS on the planet that has your space dock, such as Arretze, to make that planet the one attackers will not get.",
+              "stance": "recommended",
+              "subjects": [
+                "PDS",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "Avoid putting the first PDS on the 0/1 planet; without ground forces there it fires once and is lost.",
+              "stance": "avoid",
+              "subjects": [
+                "PDS"
+              ]
+            },
+            {
+              "point": "Hunter has sometimes taken Construction fourth or fifth pick over Leadership, though after thinking about Leadership he leans away from that now.",
+              "stance": "situational",
+              "subjects": [
+                "Construction",
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "combat"
+          ],
+          "requires": [],
+          "concepts": [
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s597",
+          "title": "Construction: secondary timing and first-action play",
+          "kind": "strategy",
+          "summary": "Hacan wants the Construction secondary as early as possible, so if a likely Construction holder would play it on turn one, consider taking it yourself. Hacan loses little by playing Construction as its first action, and doing so denies most other factions an early forward dock.",
+          "advice": [
+            {
+              "point": "If whoever will hold Construction would play it on their first turn, before your carriers leave home, consider taking Construction yourself.",
+              "stance": "situational",
+              "subjects": [
+                "Construction"
+              ]
+            },
+            {
+              "point": "Hacan can play Construction as its very first action at little cost, which shuts most other players out of an early forward dock.",
+              "stance": "situational",
+              "subjects": [
+                "Construction"
+              ]
+            },
+            {
+              "point": "A forward dock is not bad for Hacan, but fix the home system first unless you are planning a Mecatol play.",
+              "stance": "situational",
+              "subjects": [
+                "Space Dock",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing",
+            "forward dock",
+            "denial pick"
+          ]
+        },
+        {
+          "start": "s613",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is a safe, obviously good pick that makes a lot of money. But a Hacan that piles up something like 15 trade goods in round one can be shut out of all future negotiations, so play a reserved, benevolent Trade: refresh everyone and make deals only slightly in your favour.",
+          "advice": [
+            {
+              "point": "Trade is a very good, safe round-one pick for Hacan.",
+              "stance": "rating",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Do not extract too much from Trade in round one; a huge pile of trade goods makes the table cut you out of deals for the rest of the game.",
+              "stance": "avoid",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Play a benevolent trade czar: refresh everyone and make trades only slightly in your favour.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "economy",
+            "trade and diplomacy"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s629",
+          "title": "Trade versus Leadership and Politics",
+          "kind": "strategy",
+          "summary": "Trade gives money but does not fix Hacan's production problem, and scoring in round one often overextends you. Leadership and Politics fix real problems (the space dock, speaker order) without visibly enriching Hacan, so Hunter weighs all three. Any of the six cards other than Diplomacy and Imperial is a fine pick.",
+          "advice": [
+            {
+              "point": "Prefer Leadership or Politics over Trade when you want invisible long-term advantages: Leadership fixes the home space dock, Politics gives speaker order, and neither piles up threatening trade goods.",
+              "stance": "situational",
+              "subjects": [
+                "Leadership",
+                "Politics",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Do not spend your round-one bankroll forcing a round-one objective; it is the least important round to score and often leaves you spread thin.",
+              "stance": "avoid",
+              "subjects": []
+            },
+            {
+              "point": "Trade is still a great pick worth taking when it comes to you; just do not go overboard with it.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Round one is Hacan's best round; any card except Diplomacy and Imperial is a reasonable pick.",
+              "stance": "rating",
+              "subjects": [
+                "Diplomacy",
+                "Imperial"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s665",
+          "title": "Round one: Warfare and the Custodians play",
+          "kind": "strategy",
+          "summary": "Warfare is generally good, and for Hacan it enables a fairly reliable round-one Mecatol Rex: move a carrier forward, play Warfare to free it, research Gravity Drive off the Technology secondary, then move onto Mecatol and buy the Custodians point. Converting all six commodities to trade goods covers it, but leaves nothing for units, so it is not usually smart. If you take the Custodians, leave Mecatol in round two.",
+          "advice": [
+            {
+              "point": "Warfare is good for Hacan in the usual ways, and can enable a round-one Custodians point.",
+              "stance": "rating",
+              "subjects": [
+                "Warfare",
+                "Custodians token"
+              ]
+            },
+            {
+              "point": "Round-one Mecatol line: move a carrier one step forward, play Warfare to recover the token, take Gravity Drive from the Technology secondary, then move onto Mecatol Rex and pay for the Custodians point; all six commodities must become trade goods.",
+              "stance": "situational",
+              "subjects": [
+                "Warfare",
+                "Gravity Drive",
+                "Mecatol Rex",
+                "Custodians token"
+              ]
+            },
+            {
+              "point": "The round-one Mecatol play leaves no money for units, so it is usually not the smart line, though it is a point on the board.",
+              "stance": "rating",
+              "subjects": [
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Hunter does not like holding Mecatol Rex as Hacan; take the Custodians point, then leave Mecatol in round two and reinforce your slice.",
+              "stance": "recommended",
+              "subjects": [
+                "Mecatol Rex",
+                "Custodians token"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "custodians rush",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s698",
+          "title": "When to go for the round-one Mecatol play",
+          "kind": "strategy",
+          "summary": "Hunter would try the round-one Mecatol play when an early Politics pick means Hacan will pick early in round two and can take Leadership to get the carrier back out. It also works as a block: if Sol takes Politics planning to take Mecatol, beat them there and tell the table you denied Sol a point.",
+          "advice": [
+            {
+              "point": "Consider the round-one Mecatol play when someone took Politics early, so you will pick second or third in round two and can take Leadership to pull the carrier out.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Warfare",
+                "Mecatol Rex",
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Use it to block a player such as Sol who took Politics to go for Mecatol, and pitch it to the table as holding Sol back.",
+              "stance": "situational",
+              "subjects": [
+                "Mecatol Rex",
+                "Federation of Sol",
+                "Custodians token"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Federation of Sol",
+            "Ghosts of Creuss"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol",
+            "threats and matchups"
+          ],
+          "requires": [],
+          "concepts": [
+            "custodians rush",
+            "table talk"
+          ]
+        },
+        {
+          "start": "s722",
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is always good but not especially good for Hacan. Gravity Drive or Neural Motivator are the round-one gets, Gravity Drive if only one; the hosts would not buy two techs. Hunter likes playing Technology as the first action to block resource-poor factions, if they actually lack resources, and early Gravity Drive opens expansion to juicier systems two away.",
+          "advice": [
+            {
+              "point": "Technology is always good, but no better for Hacan than for other factions.",
+              "stance": "rating",
+              "subjects": [
+                "Technology"
+              ]
+            },
+            {
+              "point": "Research Gravity Drive (or Neural Motivator) and do not spend on a second tech.",
+              "stance": "recommended",
+              "subjects": [
+                "Gravity Drive",
+                "Neural Motivator",
+                "Technology"
+              ]
+            },
+            {
+              "point": "Hunter likes playing Technology as the first action to deny others the secondary before they have money, but it does nothing if everyone has four home resources.",
+              "stance": "situational",
+              "subjects": [
+                "Technology"
+              ]
+            },
+            {
+              "point": "Tech first for Gravity Drive when the best systems in your slice are two away rather than adjacent.",
+              "stance": "situational",
+              "subjects": [
+                "Gravity Drive",
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "technology",
+            "expansion"
+          ],
+          "requires": [],
+          "concepts": [
+            "denial pick",
+            "slice value"
+          ]
+        },
+        {
+          "start": "s743",
+          "title": "Technology: the round-one Mecatol line",
+          "kind": "strategy",
+          "summary": "Technology also allows a round-one Mecatol: wait until Trade pops, then buy Gravity Drive and Carrier II and move a three-movement carrier to Mecatol. It costs six on tech plus the Custodians influence, so it is less reliable than the Warfare line and more of a dream scenario.",
+          "advice": [
+            {
+              "point": "With Technology, wait for Trade, buy Gravity Drive and Carrier II and send a carrier to Mecatol Rex for the Custodians point; it is less reliable than the Warfare line.",
+              "stance": "situational",
+              "subjects": [
+                "Technology",
+                "Gravity Drive",
+                "Carrier II",
+                "Mecatol Rex",
+                "Custodians token"
+              ]
+            },
+            {
+              "point": "You may be able to charge players for when you play Technology to help fund this.",
+              "stance": "situational",
+              "subjects": [
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol",
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "custodians rush",
+            "magic christmas land"
+          ]
+        },
+        {
+          "start": "s757",
+          "title": "Round one: Imperial",
+          "kind": "strategy",
+          "summary": "Imperial is worse than Construction and probably worse than Diplomacy; the only reason is wanting an extra secret objective. In four-player games, pairing Warfare or Technology with Imperial gives a round-one Custodians plus Imperial point, but makes Hacan so threatening that nobody trades with it again.",
+          "advice": [
+            {
+              "point": "Imperial is a bad round-one pick for Hacan; take it only if you badly want another secret objective.",
+              "stance": "avoid",
+              "subjects": [
+                "Imperial"
+              ]
+            },
+            {
+              "point": "In a four-player game, Warfare or Technology plus Imperial can score Custodians and an Imperial point in round one, but it makes you look so dangerous that the table stops trading with you.",
+              "stance": "avoid",
+              "subjects": [
+                "Imperial",
+                "Warfare",
+                "Technology",
+                "Custodians token"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives",
+            "mecatol"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s767",
+          "title": "Secret objectives: Adapt New Strategies and Form a Spy Network",
+          "kind": "strategy",
+          "summary": "The two-faction-tech secret is very hard for Hacan; only consider it with two yellow skips and a green skip, since chasing both deep trees means no unit upgrades. Form a Spy Network, the discard-five-action-cards secret, is less painful for Hacan: sell good action cards, buy bad ones, and discard those.",
+          "advice": [
+            {
+              "point": "Get rid of Adapt New Strategies unless you have two yellow skips and a green skip; going deep in both trees costs you all unit upgrades.",
+              "stance": "avoid",
+              "subjects": [
+                "Adapt New Strategies",
+                "Production Biomes",
+                "Quantum Datahub Node"
+              ]
+            },
+            {
+              "point": "For Form a Spy Network, sell your good action cards, buy cheap bad ones, and discard those to score it painlessly.",
+              "stance": "recommended",
+              "subjects": [
+                "Form a Spy Network"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "objectives",
+            "action cards",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "tech skip"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Production and the second space dock",
+      "summary": "Hacan's core early problem is production capacity, best solved with a second space dock in the home system rather than forward. Park a carrier at home to shuffle infantry between home planets and hold fighters, and avoid forward docks that invite Reactor Meltdown extortion.",
+      "chunks": [
+        {
+          "start": "s789",
+          "title": "Second dock at home versus forward",
+          "kind": "strategy",
+          "summary": "The second space dock should usually go in the home system. A forward dock on a juicy planet such as Bereg fixes production but leaves the home system producing only four units and hard to defend.",
+          "advice": [
+            {
+              "point": "Put your second space dock in the home system; a forward dock on a good planet solves production but not the home-defence problem.",
+              "stance": "recommended",
+              "subjects": [
+                "Space Dock"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "early"
+          ],
+          "topics": [
+            "general strategy",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "double dock home",
+            "forward dock",
+            "production capacity",
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s799",
+          "title": "Park a carrier at home",
+          "kind": "strategy",
+          "summary": "Always leave one carrier parked at home. With Dreadnought II from early Gravity Drive you do not need all four carriers forward; the home carrier shuffles infantry from dock planets to the empty planet whenever you build, and with two docks lets you hold about ten fighters at home.",
+          "advice": [
+            {
+              "point": "Keep one carrier parked in the home system and use it each time you build to move infantry from dock planets to undefended home planets.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier",
+                "Infantry"
+              ]
+            },
+            {
+              "point": "A home carrier plus two space docks holds about ten fighters, a strong defence for the home space; add more ships if you have fleet supply.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier",
+                "Fighter",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "Dreadnought II's capacity lets the forward fleet manage without all four carriers.",
+              "stance": "situational",
+              "subjects": [
+                "Dreadnought II",
+                "Carrier"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "combat",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "home system defense",
+            "double dock home"
+          ]
+        },
+        {
+          "start": "s832",
+          "title": "Forward docks and Reactor Meltdown extortion",
+          "kind": "strategy",
+          "summary": "Patreon backer RJ King avoids forward docks as Hacan because rich Hacan is easily extorted over Reactor Meltdown; Hunter agrees, adding that spending a Sabotage on it is a waste. The second dock belongs at home.",
+          "advice": [
+            {
+              "point": "Avoid a forward space dock as Hacan: everyone knows you can pay, so players will extort you with Reactor Meltdown.",
+              "stance": "avoid",
+              "subjects": [
+                "Space Dock",
+                "Reactor Meltdown"
+              ]
+            },
+            {
+              "point": "Holding Sabotage removes the risk, but spending Sabotage on Reactor Meltdown is a poor use of it.",
+              "stance": "situational",
+              "subjects": [
+                "Sabotage",
+                "Reactor Meltdown"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Winnu"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "action cards",
+            "threats and matchups"
+          ],
+          "requires": [
+            "action cards"
+          ],
+          "concepts": [
+            "forward dock",
+            "double dock home"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tech paths",
+      "summary": "Hacan's tech is simple: almost always get Gravity Drive first, which puts Dreadnought II within reach whenever needed. From there choose blue-green (Neural Motivator, Fighter II, Production Biomes; the friendlier, safer path) or blue-yellow (Carrier II, Transit Diodes, Quantum Datahub Node; stronger with a yellow skip but it scares the table). Matt favours blue-yellow and Quantum Datahub Node; Hunter favours blue-green.",
+      "chunks": [
+        {
+          "start": "s849",
+          "title": "Gravity Drive first",
+          "kind": "strategy",
+          "summary": "Get Gravity Drive first almost always; with the starting blue and yellow it unlocks Dreadnought II, arguably the best upgrade. No need to rush Dreadnought II, but it is there whenever you need it. Neural Motivator is the fine second option.",
+          "advice": [
+            {
+              "point": "Research Gravity Drive as your first tech almost every game.",
+              "stance": "recommended",
+              "subjects": [
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "Do not rush Dreadnought II, but buy it as soon as you need a second or third upgrade.",
+              "stance": "situational",
+              "subjects": [
+                "Dreadnought II"
+              ]
+            },
+            {
+              "point": "Neural Motivator is a fine second choice.",
+              "stance": "rating",
+              "subjects": [
+                "Neural Motivator"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Barony of Letnev",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s867",
+          "title": "Blue-green path",
+          "kind": "strategy",
+          "summary": "Hunter's favourite, the slower path: Neural Motivator before or after Gravity Drive, then an early Fighter II to spread fighters and protect home, then down green to Production Biomes (skipping Dacxive Animators if a green skip allows). Finish with Infantry II, Carrier II and Fighter II in whatever order the game needs.",
+          "advice": [
+            {
+              "point": "Blue-green is worth going even without a green skip; a green skip makes it much better.",
+              "stance": "rating",
+              "subjects": [
+                "Neural Motivator",
+                "Fighter II",
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "Get Fighter II early and spread fighters to protect the home system by slowing attackers.",
+              "stance": "recommended",
+              "subjects": [
+                "Fighter II"
+              ]
+            },
+            {
+              "point": "Head down green to Production Biomes, using a green skip to bypass Dacxive Animators if possible, and get Infantry II after it.",
+              "stance": "recommended",
+              "subjects": [
+                "Production Biomes",
+                "Dacxive Animators",
+                "Infantry II"
+              ]
+            },
+            {
+              "point": "The typical upgrades on this path are Infantry II, Carrier II and Fighter II in whatever order suits the game; take Carrier II earlier if you need mobility.",
+              "stance": "recommended",
+              "subjects": [
+                "Infantry II",
+                "Carrier II",
+                "Fighter II"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech skip",
+            "fighter screen",
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s890",
+          "title": "Blue-yellow path",
+          "kind": "strategy",
+          "summary": "Blue-yellow is riskier because Graviton Laser System is nearly useless for Hacan; Matt loves it with a yellow skip. Players fear Quantum Datahub Node, so a yellow-teching Hacan becomes the bad guy, while blue-green is the friendly Hacan that some players prefer. Matt's line is Gravity Drive, Carrier II, then skip to Transit Diodes, which solves the home-defence problem and makes Mecatol slightly more viable.",
+          "advice": [
+            {
+              "point": "Go blue-yellow if you have a yellow skip; Matt takes it over blue-green every time in that case.",
+              "stance": "situational",
+              "subjects": [
+                "Quantum Datahub Node",
+                "Transit Diodes"
+              ]
+            },
+            {
+              "point": "Graviton Laser System is of little use to Hacan, which makes blue-yellow riskier without a skip.",
+              "stance": "rating",
+              "subjects": [
+                "Graviton Laser System"
+              ]
+            },
+            {
+              "point": "Taking yellow tech makes the table see you as a threat because they fear Quantum Datahub Node; blue-green players stay friendlier and get more trades.",
+              "stance": "situational",
+              "subjects": [
+                "Quantum Datahub Node",
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "After Gravity Drive, get Carrier II, then use a yellow skip to reach Transit Diodes, which lets you move infantry onto weak home planets each round.",
+              "stance": "recommended",
+              "subjects": [
+                "Gravity Drive",
+                "Carrier II",
+                "Transit Diodes"
+              ]
+            },
+            {
+              "point": "Transit Diodes moves Mecatol Rex from a doubtful option to a possible one for Hacan.",
+              "stance": "rating",
+              "subjects": [
+                "Transit Diodes",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "mecatol"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech skip",
+            "threat perception",
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s930",
+          "title": "Blue-yellow endgame: stop or go to Quantum Datahub Node",
+          "kind": "strategy",
+          "summary": "Blue-yellow gives Carrier II, Space Dock II and Dreadnought II in any order, with Carrier II early best. You can stop after one more blue and one more yellow, qualifying for tech objectives without scaring anyone, but Matt finds it hard not to finish with Quantum Datahub Node and prefers taking advantages over relying on a final swing round.",
+          "advice": [
+            {
+              "point": "On blue-yellow, take Carrier II early, with Space Dock II and Dreadnought II in whatever order makes sense.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier II",
+                "Space Dock II",
+                "Dreadnought II"
+              ]
+            },
+            {
+              "point": "You can stop at one more blue and yellow with three upgrades to meet the tech objectives without alarming the table.",
+              "stance": "situational",
+              "subjects": []
+            },
+            {
+              "point": "Matt argues you should usually finish with Quantum Datahub Node since it wins games, rather than avoiding any lead.",
+              "stance": "recommended",
+              "subjects": [
+                "Quantum Datahub Node"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "objectives"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception",
+            "swing round"
+          ]
+        },
+        {
+          "start": "s950",
+          "title": "Hyper Metabolism and Neural Motivator",
+          "kind": "strategy",
+          "summary": "Hunter finds Hyper Metabolism as good for Hacan as Production Biomes, but both fill the same green slot and both want to be early, so the second rarely pays off unless you get both in one round. Neural Motivator is especially good for Hacan because more action cards mean more trading; add it early to blue-yellow if teching a lot, since late Neural is pointless.",
+          "advice": [
+            {
+              "point": "Hyper Metabolism is as strong for Hacan as Production Biomes; consider it instead.",
+              "stance": "rating",
+              "subjects": [
+                "Hyper Metabolism",
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "Avoid getting the second of Hyper Metabolism and Production Biomes in a later round; it adds little. Getting both in one round with a skip is fine.",
+              "stance": "avoid",
+              "subjects": [
+                "Hyper Metabolism",
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "Neural Motivator is great for Hacan because action cards are trade currency; add it early even on blue-yellow if you are teching a lot, but not late.",
+              "stance": "situational",
+              "subjects": [
+                "Neural Motivator"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "action cards"
+          ],
+          "requires": [],
+          "concepts": [
+            "tech skip"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trading and the metagame",
+      "summary": "The episode's thesis: every Hacan ability depends on other players' willingness to deal, so read your table's limits and keep reinventing your approach, because predictable Hacan gets shut out. The hosts offer two experimental plays, Unaligned Magi's trade-agreement lockdown and Matt's Politics-every-round speaker control, both high-risk ways to break expectations.",
+      "chunks": [
+        {
+          "start": "s970",
+          "title": "Thesis: read the table and keep changing tactics",
+          "kind": "strategy",
+          "summary": "Because all of Hacan's abilities rely on other players, the first job is to learn what each player will tolerate. Hacan's real tool is manipulating the shifting metagame, so try a new negotiating tactic each game; tactics that won last time will be refused next time.",
+          "advice": [
+            {
+              "point": "Work out each player's limits and type early; the right Hacan plan differs completely between tables that refuse to deal and tables that happily deal.",
+              "stance": "recommended",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            },
+            {
+              "point": "Use a different negotiating approach each game; repeating last game's tactics gets you cut out of deals.",
+              "stance": "recommended",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "general strategy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "table meta",
+            "metagame manipulation"
+          ]
+        },
+        {
+          "start": "s992",
+          "title": "Unaligned Magi's trade-agreement lockdown",
+          "kind": "strategy",
+          "summary": "Unaligned Magi won a tournament game by buying up every Trade Agreement, locking down the table's trading while banking value he can release by taking Trade. The better version returns one four-commodity player's agreement so they want Trade, then pays them to redeem the others, unlocking one each round. Doing it round one by breaking non-binding promises cost him goodwill; it works because it surprises everyone and probably works only once.",
+          "advice": [
+            {
+              "point": "Consider buying up the table's Trade Agreements to lock down trading and bank value, best around rounds three or four rather than round one.",
+              "stance": "situational",
+              "subjects": [
+                "Trade Agreement",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Rather than locking agreements all game, return one to a four-commodity player so they want Trade, then pay them generously to redeem another agreement, repeating each round.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade Agreement",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Breaking non-binding promises to collect agreements creates ill will that limits later deals.",
+              "stance": "avoid",
+              "subjects": [
+                "Trade Agreement"
+              ]
+            },
+            {
+              "point": "The play's strength is surprise, so it likely works only once per group.",
+              "stance": "rating",
+              "subjects": []
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "round 1",
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "promissory notes",
+            "economy"
+          ],
+          "requires": [
+            "promissory notes",
+            "faction abilities"
+          ],
+          "concepts": [
+            "trade agreement lockdown",
+            "non-binding deals",
+            "metagame manipulation"
+          ]
+        },
+        {
+          "start": "s1031",
+          "title": "Politics every round: controlling speaker order",
+          "kind": "strategy",
+          "summary": "Matt's untested plan: take Politics every round, giving speaker to the player on your right, so you keep picking second and grab Politics again. It needs enough influence in your slice to buy command tokens and gives up other cards' primaries, but floods you with sellable action cards and lets you control the table's power dynamics. Trade only with the players across the table who suffer from the pick order, not your left neighbour who already benefits.",
+          "advice": [
+            {
+              "point": "Try taking Politics every round and passing speaker to your right so you always pick second, only if your slice has enough influence to buy command tokens.",
+              "stance": "situational",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "Sell the stream of action cards for trade goods and convert them to command tokens for secondaries.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "Trade with the players picking fourth and fifth, who are hurt by the order; avoid enriching your left neighbour, who already picks early.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "strategy cards",
+            "trade and diplomacy",
+            "action cards"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "speaker order control",
+            "metagame manipulation"
+          ]
+        },
+        {
+          "start": "s1065",
+          "title": "Politics every round: managing neighbours",
+          "kind": "strategy",
+          "summary": "Your relationships with both neighbours decide this plan. In rounds you need Technology or Imperial, pay your left neighbour to take Politics and give you speaker. Hunter worries the left neighbour gets too cushy a deal; charge them a trade good or two each round to keep the order. You lose the usual sale of speaker to your right.",
+          "advice": [
+            {
+              "point": "When you must take Technology or Imperial instead, pay the player on your left to take Politics and pass you the speaker token to keep control.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Technology",
+                "Imperial"
+              ]
+            },
+            {
+              "point": "Hunter's worry is the left neighbour benefits too much; threaten to skip Politics and charge them one or two trade goods each round to keep the order.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "This plan gives up the normal sale of the speaker token to your right-hand neighbour.",
+              "stance": "rating",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "Predictable Hacan play gets shut down because it relies on others trading with you; untested tricks are your remaining edge.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "strategy cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "speaker order control",
+            "speaker token sale",
+            "metagame manipulation"
+          ]
+        },
+        {
+          "start": "s1099",
+          "title": "Politics every round: payoff and risks",
+          "kind": "strategy",
+          "summary": "Hacan finds resource, influence, trade-good and tech objectives easy, so it can hold speaker and sell action cards until the objectives allow a swing round, then take Imperial. Holding speaker makes Quantum Datahub Node unnecessary and raises the value of the goodwill-friendly blue-green path. Sabotage is near essential against Public Disgrace, and the whole table will be looking to break the plan.",
+          "advice": [
+            {
+              "point": "Hold the speaker token and sell action cards until revealed objectives give you a winning swing round, then take Imperial.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Imperial"
+              ]
+            },
+            {
+              "point": "With permanent speaker control Quantum Datahub Node loses value; prefer the blue-green path and Production Biomes for goodwill.",
+              "stance": "situational",
+              "subjects": [
+                "Quantum Datahub Node",
+                "Production Biomes"
+              ]
+            },
+            {
+              "point": "Hold a Sabotage for when you finally take Imperial, or Public Disgrace will ruin the plan.",
+              "stance": "recommended",
+              "subjects": [
+                "Sabotage",
+                "Public Disgrace",
+                "Imperial"
+              ]
+            },
+            {
+              "point": "Expect everyone to try to break this plan; it is a negative-meta play that may not pay off.",
+              "stance": "rating",
+              "subjects": [
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives",
+            "action cards"
+          ],
+          "requires": [
+            "action cards",
+            "faction abilities"
+          ],
+          "concepts": [
+            "speaker order control",
+            "swing round",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s1129",
+          "title": "Schroeder's tip and Hacan's reputation",
+          "kind": "strategy",
+          "summary": "Schroeder, a noted negotiator, avoids Hacan: its advantages are easy to see and easy to shut down. Hacan's reputation precedes it, so confuse the table, look as if you give away more than you get, and convert that into late-game gains, as with banking Trade Agreements for a 16-resource objective.",
+          "advice": [
+            {
+              "point": "Hacan's advantages are visible and easy to shut down, especially for a player known as a strong negotiator.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            },
+            {
+              "point": "Make it look like you give more than you take early, then convert that into late-game gains.",
+              "stance": "recommended",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            },
+            {
+              "point": "Bank collected Trade Agreements until an objective like Found a Golden Age appears, then take Trade and redeem them to score it when others cannot.",
+              "stance": "situational",
+              "subjects": [
+                "Trade Agreement",
+                "Trade",
+                "Found a Golden Age"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "any",
+            "late"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "objectives"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "threat perception",
+            "trade agreement lockdown"
+          ]
+        },
+        {
+          "start": "s1161",
+          "title": "The safe, predictable Hacan",
+          "kind": "strategy",
+          "summary": "Safely dealing with everyone and washing commodities at one less is fine, but that Hacan gets cut off around round four and suffers in the last rounds.",
+          "advice": [
+            {
+              "point": "Steady trading of commodities at one less than face value works, but expect the table to stop dealing with you around round four.",
+              "stance": "situational",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "X-1 trade",
+            "threat perception"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mid and late game",
+      "summary": "Mecatol Rex matters little beyond a quick Custodians point. Play nice in rounds one to three, make smart deals in rounds four and five, and bank trade goods, tech and plastic for stage two objectives, where Hacan is uniquely set up. Hacan is poor at fighting, so it needs its economy to give it an unstoppable finish.",
+      "chunks": [
+        {
+          "start": "s1166",
+          "title": "Mid game: Mecatol and stage two objectives",
+          "kind": "strategy",
+          "summary": "Take the Custodians point and get out; do not hold Mecatol Rex. Instead build the economic engine for stage two public objectives in rounds five and six, where Hacan is set up for about half of them.",
+          "advice": [
+            {
+              "point": "Do not hold Mecatol Rex; at most take the Custodians point and leave.",
+              "stance": "avoid",
+              "subjects": [
+                "Mecatol Rex",
+                "Custodians token"
+              ]
+            },
+            {
+              "point": "Invest in trade goods, the right planets and tech for stage two public objectives in rounds five and six.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "mecatol",
+            "objectives",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s1178",
+          "title": "Flow of a Hacan game",
+          "kind": "strategy",
+          "summary": "Rounds one to three are setup: play nice and avoid exorbitant deals so you can still deal in rounds four and five. Smart deals then build a bank of trade goods for stage two. Either keep the table guessing or be easy to work with early, then convert to late-game strength in money, tech or plastic; fall behind and you will be crushed with no abilities left.",
+          "advice": [
+            {
+              "point": "In rounds one to three play nice and avoid exorbitant deals, so the table still deals with you in rounds four and five.",
+              "stance": "recommended",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            },
+            {
+              "point": "Use rounds four and five to bank trade goods for stage two objectives.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Do not play too scrappy and fall behind; a Hacan without a built economy is decimated late when nobody deals with it.",
+              "stance": "avoid",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan"
+          ],
+          "phases": [
+            "early",
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "general strategy",
+            "economy",
+            "objectives"
+          ],
+          "requires": [],
+          "concepts": [
+            "table meta",
+            "trade good banking",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s1192",
+          "title": "Two late-game scenarios",
+          "kind": "strategy",
+          "summary": "Either Hacan's economy, plastic, tech and command tokens are fully established by mid-game and nobody can stop it, or the game becomes a territorial brawl, which Hacan is bad at. Aim for the first: an economy so established the table realises too late.",
+          "advice": [
+            {
+              "point": "Aim to have money, plastic, tech and a healthy command-token economy established by mid-game so your finish cannot be stopped.",
+              "stance": "recommended",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            },
+            {
+              "point": "Hacan is not good at fighting; a late game that becomes a territorial brawl to stop the leader suits it poorly.",
+              "stance": "rating",
+              "subjects": [
+                "Emirates of Hacan"
+              ]
+            }
+          ],
+          "factions": [
+            "Emirates of Hacan",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "general strategy",
+            "combat"
+          ],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1206",
+          "title": "Wrap-up and schedule",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1223",
+          "title": "Rules quiz: L1Z1X Assimilate and space dock limits",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1280",
+          "title": "Patreon, streams and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Emirates of Akhan": "Emirates of Hacan",
+    "Akan": "Hacan",
+    "HookCon": "Hacan",
+    "Hakon": "Hacan",
+    "Khan": "Hacan",
+    "honk": "Hacan",
+    "Twilight Empirium": "Twilight Imperium",
+    "Twilight Ethereum": "Twilight Imperium",
+    "Wrath of Kinara": "Wrath of Kenara",
+    "Wrath of Kanara": "Wrath of Kenara",
+    "Rock of Kanara": "Wrath of Kenara",
+    "Sardakk Noor": "Sardakk N'orr",
+    "Sardakk Nora's": "Sardakk N'orr's",
+    "Assaral": "Yssaril",
+    "Assaro": "Yssaril",
+    "Mentek": "Mentak",
+    "Joel Narr's": "Jol-Nar's",
+    "Barony Aletnev": "Barony of Letnev",
+    "Lizux MindNet": "L1Z1X Mindnet",
+    "Lizzix MindNet": "L1Z1X Mindnet",
+    "L1": "L1Z1X",
+    "Quantum Data HubNet": "Quantum Datahub Node",
+    "quantum beta have node": "Quantum Datahub Node",
+    "Quantum Data Hub Node": "Quantum Datahub Node",
+    "Daxive": "Dacxive Animators",
+    "Grab Drive": "Gravity Drive",
+    "Grav Drive": "Gravity Drive",
+    "hypermetabolism": "Hyper Metabolism",
+    "Mechital Rex": "Mecatol Rex",
+    "Mechitaur Rex": "Mecatol Rex",
+    "Mechatolrex": "Mecatol Rex",
+    "Mechatarx": "Mecatol Rex",
+    "Mechitaw Rex": "Mecatol Rex",
+    "Biz Fria": "Abyz and Fria",
+    "Barrig": "Bereg",
+    "Aretz": "Arretze",
+    "space talk": "space dock",
+    "space lock": "space dock",
+    "space dog": "space dock",
+    "baselock": "space dock",
+    "PBS": "PDS",
+    "priorata": "pre-errata",
+    "Priyarada": "pre-errata",
+    "pre-arrata": "pre-errata",
+    "patrioner": "Patreoner",
+    "trade guard": "Trade strategy card",
+    "command candidate": "command token",
+    "roundwood": "round one",
+    "fades": "trades",
+    "Hundred Awesome fan club": "Hunter Donaldson fan club",
+    "Mage": "Magi"
+  }
+}

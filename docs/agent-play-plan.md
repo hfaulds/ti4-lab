@@ -43,6 +43,7 @@ exist for human tables to fix up state by hand:
 | `SET_EXHAUSTED`, `SET_LEADER`, `SET_BREAKTHROUGH` | Toggle card state without paying for it |
 | `COMPONENT_ACTION { description }` | Free text; no effect is applied |
 | `PLAY_ACTION_CARD { card }` | Discards the card; its effect is not resolved |
+| `PLAY_PROMISSORY_NOTE` | Logs the note; its effect (including Support for the Throne's VP) is not applied |
 
 Agents never see these in their candidate menu, and the harness rejects them
 if emitted. Consequence: **action cards and component actions are out of the
@@ -50,8 +51,18 @@ experiment.** Agents still draw action cards (they count toward hand limit and
 discards) but cannot play them. This is a known distortion of the game,
 applied equally to every condition.
 
-Two more gaps shape the experiment:
+More gaps shape the experiment:
 
+- **Faction abilities are not implemented.** Pillage, Mitosis, Assimilate,
+  Star Forge, Orbital Drop, Telepathic, Peace Accords and the rest reach the
+  board only through `ADJUST`. Factions differ in unit stats, starting
+  position, faction technologies and the two combat modifiers (Unrelenting,
+  Fragile), and nothing else. Each corpus episode is about one faction and
+  mostly about these abilities, so most faction-specific advice cannot be
+  played. **Open decision:** implement the abilities the guides lean on, or
+  narrow the hypothesis to general strategy (expansion, objectives, tech,
+  fleet use) and tag ability advice `unplayable`. Until it is decided, expect
+  the knowledge-base effect to be small by construction.
 - **Agenda effects are not resolved.** Voting works, but the outcome only
   raises a `resolve` prompt for the table to apply by hand. Agendas never
   award VP or change state, so agenda play is out of the experiment too.
@@ -62,6 +73,15 @@ Two more gaps shape the experiment:
 
 The VP left in play comes from public objectives, checkable secrets, the
 custodians token and Imperial with Mecatol Rex.
+
+### Transactions
+
+Transactions are legal between neighbors and validated for legality only, so
+an opponent that accepts anything can be drained by one-sided offers. The
+scripted bot accepts only trade goods and commodities, and only when it
+receives at least as much as it gives. Agents may propose and answer
+transactions of trade goods and commodities only; promissory notes and
+action cards are left out of their menu, since note effects are not applied.
 
 ## Architecture
 
@@ -132,10 +152,14 @@ Minimum competence:
 - **Tech:** follow one colour toward a faction-appropriate unit upgrade.
 - **Scoring:** score the cheapest eligible public and any met secret every
   status phase.
-- **Agenda:** vote for the outcome that helps it, or abstain.
+- **Agenda:** abstain. Agenda effects are not resolved, so votes change
+  nothing.
+- **Transactions:** swap commodities evenly with neighbors; accept only
+  offers of trade goods and commodities worth at least what it gives.
 
 Acceptance, measured with `tsx scripts/scripted-games.ts 20` (6-player
-scripted-vs-scripted games, seeds 1–20, base factions drawn per seed):
+scripted-vs-scripted games, seeds 1–20; each seed draws 6 of the 17 base
+factions into random seats and shuffles the systems on the map):
 
 - At least 90% of games end by a player reaching 10 VP, not by the public
   objectives running out after round 9.
@@ -147,8 +171,15 @@ reduced game has fewer VP sources: no agendas and no action cards. Track the
 mean leader VP by round alongside these numbers; it is the most sensitive
 signal when tuning. Keep `botMove` untouched for the existing tests.
 
-Status (scripted bot v1): 60–75% of games end by VP, median VP win in round
-9, leader averages 6.2 VP after round 6, no fallbacks. Not yet passing.
+Status (scripted bot v2, 40 games): 73% of games end by VP, median VP win in
+round 9, leader averages 6.4 VP after round 6, no fallbacks, wins by seat
+6/8/8/8/5/5. Not yet passing.
+
+Known weaknesses that make it a soft opponent: few space combats (about two
+per game), it never retakes lost planets, and it abstains on every agenda.
+Gains against it partly measure exploiting these gaps, and every LLM
+condition gets them equally, which hides differences between conditions.
+Compare LLM conditions with each other, not only with the bot.
 
 ## Phase 2 — Agent harness
 
@@ -166,7 +197,8 @@ for (;;) {
   const context = retrieve(decision, view);           // empty until Phase 4
   const candidates = enumerateLegal(state, seat)       // applyAction probes
     .filter((a) => !BLOCKED.has(a.type));              // see "does not enforce"
-  const rollouts = rollout(state, seat, candidates);   // scripted bot forward
+  const sampled = determinize(view, rng);              // never the real state
+  const rollouts = rollout(sampled, seat, candidates); // scripted bot forward
   const choice = await policy.choose(decision, context, candidates, rollouts);
 
   const result = applyAction(state, seat, choice.action);
@@ -204,6 +236,40 @@ what make Phase 3 possible.
 3. **Rollout.** For each of the top few candidates, let the scripted bot play
    forward to the end of the round on several seeds and report the mean VP
    and resource deltas next to the retrieved advice.
+
+### Hidden information
+
+`viewFor` strips the RNG and turns decks into counts, so the engine cannot
+run on a view. Two rules keep the agent honest:
+
+- **Legality probes may use the real state.** `enumerateLegal` reads only
+  `ok`/`error`, and the agent's own legal moves do not depend on hidden
+  cards. Nothing else from a probe reaches the agent.
+- **Rollouts run on a determinized state.** `determinize(view, rng)` rebuilds
+  a full `GameState` from the view: unseen cards (deck contents, other
+  players' action cards and secrets) are reshuffled from what remains, and
+  the RNG is fresh. Without this, a rollout through the status phase
+  reveals the next public objective and Politics or Imperial reveal draws.
+  Opponent bots in a rollout plan from their sampled secrets, so rollouts
+  show what a plausible opponent does, not what the real one will do.
+
+### Paired comparisons
+
+The engine draws every die from one sequential stream (`helpers.ts`), so two
+runs from the same seed share dice only until their first different roll;
+after that every later roll differs and pairing by seed removes little
+variance. For seat-swap comparisons, key dice to the situation instead
+(round, system, combat round, player, roll index) so the same fight rolls
+the same dice in both runs.
+
+### Role of the scripted bot
+
+The bot plays three roles in an LLM seat: reflex tier, rollout policy and,
+in other seats, opponent. That pulls results toward its style: reflex
+decisions spend the seat's resources by the bot's priorities, and rollouts
+score a candidate by how well the bot follows it up. Report the share of
+each seat's decisions made by the reflex tier, keep reflex routing
+identical across conditions, and run one condition without rollouts.
 
 ### Replay
 
@@ -255,7 +321,31 @@ strategy opinion presented as a rule. The failure category is required when
 the reviewer disagrees; Phase 6 uses it to choose what to change next.
 
 Reviews are stored next to the replay as `{gameId, decisionIndex, verdict,
-preferred?, rationaleVerdict, failure?, note}`.
+preferred?, rationaleVerdict, failure?, note, reviewer}`.
+
+### Blind review
+
+A reviewer who sees the agent's rationale and citations before choosing is
+anchored by them, and a reviewer steeped in SCPT will favour SCPT-shaped
+moves. Either way a condition can score well by matching the reviewer rather
+than by playing better. So review in two steps:
+
+1. **Choose blind.** The card shows the board, the seat and the candidate
+   menu in a shuffled order. The agent's choice, rationale, citations,
+   rollout numbers and condition are hidden. The reviewer picks the move
+   they would play, plus any acceptable alternatives.
+2. **Rate after.** The agent's choice and rationale are revealed for the
+   rationale and failure ratings. The condition stays hidden.
+
+Triage (Phase 6) uses rollout regret to pick decisions, so the queue leans
+toward positions where the scripted bot disagrees with the agent. Mix in a
+share of decisions sampled at random so the puzzle set is not only made of
+those.
+
+A second reviewer independently answers a sample of at least 50 positions.
+Report agreement between reviewers (Cohen's kappa on the chosen move). A
+puzzle only counts toward the held-out score when its answer is not
+contested, or when both reviewers accept the same set of moves.
 
 ### Puzzle set
 
@@ -272,7 +362,15 @@ Each puzzle is assigned to one of two splits when it is created:
   here, assigned by hash of the puzzle id so the split is stable.
 
 Held-out puzzles are rotated into dev periodically as new ones arrive, so the
-held-out set stays unseen without becoming stale.
+held-out set stays unseen without becoming stale. A rotated puzzle never
+returns to held-out.
+
+Size matters. Agreement on 33 held-out puzzles has a 95% confidence interval
+of about ±17 points, wide enough that almost any change passes a "no drop
+beyond noise" gate. Treat held-out scores as indicative until there are at
+least 300 held-out puzzles (about ±5 points), and record how many agent
+versions have been scored against the current held-out set, since every
+look at it spends some of its independence.
 
 Every agent version is scored against both splits: agreement rate, plus
 rationale ratings where a reviewer has rated that version. This is cheap,
@@ -415,6 +513,11 @@ Run every condition on identical seeds.
 The lessons conditions only become meaningful once the active lessons set is
 non-trivial; until then they are skipped.
 
+**Pre-register the primary comparison:** LLM with no knowledge base against
+LLM with retrieved chunks, on held-out puzzles and seat-swap VP. The other
+conditions are exploratory and reported as such; with eight conditions and
+two metrics, some difference will look significant by chance.
+
 The full-transcript condition loads one faction's episode (roughly 20–30k
 tokens), not the whole corpus.
 
@@ -428,14 +531,32 @@ and save full games for the conditions that survive.
    change.
 2. **Seat swap** — one LLM seat against five scripted bots, same seed and
    factions, swapping only the condition in that seat. Compare VP at the end
-   of round 4 and final VP against the scripted bot in the same seat.
+   of round 4 and final VP against the scripted bot in the same seat. Rotate
+   the LLM seat across all six seats, since seat strongly affects outcomes.
 3. **Full games** — multiple LLM seats, for the final comparison only.
+
+### Power and cost
+
+From scripted-bot games, final VP per seat has a standard deviation of about
+2. Detecting a difference of 0.5 VP between two conditions (α = 0.05,
+power 0.8) takes about 250 games per condition; dice keyed to the situation
+(Phase 2) should cut that. About a third of games end on objective
+exhaustion in round 9, so win rate is mostly a VP comparison anyway: use VP
+share (seat VP / total VP) as the headline game metric.
+
+An LLM seat makes roughly 50–80 non-reflex decisions per game at 10–30k
+tokens each, about 1M tokens per game. 250 games for each of two conditions
+is about 500M tokens. Budget for the primary comparison first and run the
+exploratory conditions on puzzles only, unless the primary result justifies
+more games.
 
 ### Metrics
 
 - Puzzle agreement rate (held-out is the headline number); rationale rating
   distribution.
-- VP at round N, final VP, win rate (vs. scripted bot in the same seat).
+- VP share, VP at round N, final VP, win rate (vs. scripted bot in the same
+  seat).
+- Share of the seat's decisions made by the reflex tier.
 - Objectives scored, VP per round.
 - Illegal-action retry rate (speaks to action-space fluency).
 - Tokens and cost per game, wall-clock per game.
@@ -523,7 +644,8 @@ The index build enforces two checks and fails if either is violated:
 A change ships only if:
 
 1. Held-out puzzle agreement does not drop beyond noise (bootstrap the
-   confidence interval over puzzles).
+   confidence interval over puzzles). With fewer than 300 held-out puzzles
+   this gate is weak; lean on gate 2 until the set is larger.
 2. A seat-swap run on **fresh** seeds shows no regression in VP against the
    previous version in the same seat.
 
@@ -556,7 +678,9 @@ activate lessons on its own.
 
 - **The knowledge base may not help.** A frontier model has probably read TI4
   material. The marginal value is likely SCPT-specific heuristics and
-  faction-specific openings. The no-knowledge-base condition measures this.
+  faction-specific openings, and most faction-specific advice concerns
+  abilities the engine does not implement. The no-knowledge-base condition
+  measures this.
 - **The scripted bot may be the real bottleneck.** If it is weak, the
   baseline, reflex tier and rollouts all mislead. Phase 1 acceptance criteria
   exist for this reason; revisit them if LLM agents beat it trivially.
@@ -578,21 +702,33 @@ activate lessons on its own.
 - **Latency.** The reflex tier is not an optimization, it is what makes the
   experiment finish.
 - **Hidden information.** The agent boundary is `viewFor`, never the raw
-  `GameState`. Rollouts run on the real state and would leak hidden
-  information; run them on a determinized state sampled from `viewFor`.
+  `GameState`. Legality probes may use the real state; rollouts must run on a
+  determinized state (Phase 2, "Hidden information").
+- **Engine-chosen losses.** When ships exceed the fleet pool after a retreat,
+  the engine removes the cheapest; the rules let the player choose. A
+  retreat with no tokens left in reinforcements also takes the command token
+  from the tactic, then strategy, then fleet pool without asking. Agents lose
+  these small decisions.
 
 ## Milestones
 
 - [x] Download the 17 base-game Strategy Guide episodes and record a manifest.
+- [ ] Decide on faction abilities: implement the ones the guides rely on, or
+  narrow the hypothesis to general strategy.
 - [ ] Block bypass actions (`ADJUST`, `SET_*`, `COMPONENT_ACTION`,
-  `PLAY_ACTION_CARD`) at the agent boundary.
-- [ ] Write the scripted bot and meet the Phase 1 acceptance criteria.
+  `PLAY_ACTION_CARD`, `PLAY_PROMISSORY_NOTE`, manual objectives, non-goods
+  transactions) at the agent boundary.
+- [x] Write the scripted bot (v2: fair-trade acceptance).
+- [ ] Meet the Phase 1 acceptance criteria.
+- [ ] Write `determinize(view, rng)` for rollouts.
+- [ ] Key dice to the situation for paired seat-swap comparisons.
 - [ ] Write `scripts/agent-play.ts` with two-tier policy, structured decisions
   and replay logs; run LLM-no-knowledge-base vs. scripted bot.
 - [ ] Build the decision review UI (with failure categories) and `--approve`
   live mode.
-- [ ] Review enough decisions to seed a puzzle set of ~100 positions, split
-  dev / held-out.
+- [ ] Review enough decisions blind to seed a puzzle set of ~100 positions,
+  split dev / held-out, with a second reviewer on a sample; grow toward 300
+  held-out.
 - [ ] Write `scripts/triage.ts` and `docs/agent-changelog.md`; run the first
   improvement iterations on the no-knowledge-base agent.
 - [ ] Transcribe with Parakeet; store word timings as gzipped JSON.

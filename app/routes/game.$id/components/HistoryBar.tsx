@@ -460,7 +460,8 @@ export function Reasoning({ note }: { note: MoveNote }) {
     <Blockquote p="sm" mt={4} color="violet">
       <Stack gap={6}>
         <Text size="sm" fw={600}>
-          Chose {note.chosen}
+          {note.forced ? "No choice: " : "Chose "}
+          {note.chosen}
         </Text>
         {note.fallback && (
           <Text size="sm" c="orange">

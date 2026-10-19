@@ -19,6 +19,8 @@ export type MoveNote = {
   options: string[];
   /** Why the agent's choice was not used, if the bot's top option was played instead. */
   fallback?: string;
+  /** Only one move was on offer; the rationale says why. */
+  forced?: boolean;
 };
 
 export type RecordedMove = {

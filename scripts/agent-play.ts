@@ -8,8 +8,10 @@
  *
  * The deepseek policy reads DEEPSEEK_API_KEY from the environment or .env.
  * --spectate saves the game to the web app's database (TI4_LAB_DATABASE_PATH)
- * and plays every move through the running app, so it can be watched live;
- * --pace waits that many milliseconds between moves.
+ * and plays every move through the running app, so it can be watched live.
+ * The app's copy counts: each move waits until the app accepts it, the game
+ * pauses while the app is down, and it stops if the app disagrees. --pace
+ * waits that many milliseconds between moves.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { playAgentGame } from "~/game/agent/harness";

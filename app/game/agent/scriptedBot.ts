@@ -9,7 +9,13 @@
  * test bot's move is played instead and counted as a fallback.
  */
 import { PlayerId } from "~/types";
-import { isGroundForce, isShip, objectivesById, technologiesById } from "../data";
+import {
+  isGroundForce,
+  isShip,
+  objectivesById,
+  strategyCardsById,
+  technologiesById,
+} from "../data";
 import {
   CargoPickup,
   GameAction,
@@ -83,6 +89,7 @@ import {
 import {
   findPayment,
   objectivePayment,
+  plannedObjective,
   readyPlanets,
   Reservation,
   reservationFor,
@@ -1419,6 +1426,83 @@ function primaryPayloads(
       payloads.push({ card: kind });
       return payloads;
     }
+  }
+}
+
+/**
+ * Why the bot offers nothing but skipping a secondary, in the player's own
+ * terms. Mirrors the rules in `secondaryPayloads`, and says so plainly when
+ * the planner simply does not use that card's secondary.
+ */
+export function secondarySkipReason(
+  state: GameState,
+  id: PlayerId,
+  prompt: Extract<Prompt, { kind: "secondary" }>,
+): string {
+  const player = state.players[id];
+  const kind = strategyKind(prompt.card);
+  const name = strategyCardsById[prompt.card]?.name ?? prompt.card;
+  const reserved = reservationOf(state, id);
+  const hasToken = player.pools.strategy > 0 || prompt.free;
+  const noToken = `You have no strategy token to pay for the ${name} secondary.`;
+  /** Ready value of a currency after what is held back, and a note on it. */
+  const ready = (currency: "resources" | "influence") => {
+    const free = spendable(state, id, currency, reserved);
+    const all = spendable(state, id, currency);
+    const objective = plannedObjective(state, id)?.objective;
+    const what = objective
+      ? `scoring ${objectivesById[objective]?.name ?? objective}`
+      : "the custodians token";
+    return {
+      amount: free,
+      note: all > free ? ` (another ${all - free} is held back for ${what})` : "",
+    };
+  };
+  if (secondaryPayloads(state, id, prompt).length > 0) {
+    return `The planner's options for the ${name} secondary were not legal here.`;
+  }
+
+  switch (kind) {
+    case "leadership": {
+      if (tokenRoom(state, id) === 0) {
+        return "All your command tokens are already in use, so Leadership's secondary would gain nothing.";
+      }
+      const { amount, note } = ready("influence");
+      return `Leadership's secondary costs 3 influence per command token; you have ${amount} to spare${note}.`;
+    }
+    case "technology": {
+      if (!hasToken) return noToken;
+      const { amount, note } = ready("resources");
+      if (amount < SECONDARY_TECHNOLOGY_COST + 1) {
+        return `Technology's secondary costs ${SECONDARY_TECHNOLOGY_COST} resources and the planner keeps 1 spare; you have ${amount} ready${note}.`;
+      }
+      return "No technology can be researched with the prerequisites and planets you have.";
+    }
+    case "warfare": {
+      if (!hasToken) return noToken;
+      const { amount, note } = ready("resources");
+      if (amount < 3) {
+        return `The planner only builds with Warfare's secondary when it has 3 resources to spend; you have ${amount} ready${note}.`;
+      }
+      return "Nothing can be built at your home space dock: production, fleet pool or reinforcements are used up.";
+    }
+    case "trade": {
+      if (!hasToken) return noToken;
+      const missing = player.commodityLimit - player.commodities;
+      if (missing < 2) {
+        return `Your commodities are already ${player.commodities}/${player.commodityLimit}, so replenishing gains little.`;
+      }
+      return "The planner keeps its last strategy token rather than spend it replenishing commodities.";
+    }
+    case "imperial": {
+      if (!hasToken) return noToken;
+      const secrets = player.secretObjectives.length + player.scoredSecrets.length;
+      return `You already have ${secrets} secret objectives, the most allowed.`;
+    }
+    default:
+      return hasToken
+        ? `Not offered: the scripted planner never uses the ${name} secondary, so only Skip was on the menu.`
+        : noToken;
   }
 }
 

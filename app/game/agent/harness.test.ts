@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import OpenAI from "openai";
-import { GameState } from "../types";
-import { objectivesById } from "../data";
+import { GameState, Prompt } from "../types";
+import { objectivesById, strategyCardsById } from "../data";
 import { objectiveStatus } from "../engine/objectives";
 import { play, testGame } from "../engine/testing";
 import { describeGame, describeTurn } from "./describe";
@@ -10,10 +10,11 @@ import {
   agentToMove,
   BLOCKED,
   buildMenu,
+  moveNote,
   playAgentGame,
 } from "./harness";
 import { ChatPolicy, DecisionRequest, FirstCandidatePolicy } from "./policy";
-import { scriptedMove } from "./scriptedBot";
+import { scriptedMove, secondarySkipReason } from "./scriptedBot";
 import { setupFor } from "./setups";
 import { lookup, parseChoose } from "./tools";
 
@@ -120,6 +121,58 @@ describe("agent harness", () => {
     }
     for (const secret of state.players[seat].secretObjectives) {
       expect(text).toContain(objectivesById[secret].name);
+    }
+  });
+});
+
+describe("skipped secondaries", () => {
+  type SecondaryPrompt = Extract<Prompt, { kind: "secondary" }>;
+  const secondary = (state: GameState, player: number, card: string): SecondaryPrompt => ({
+    id: 999,
+    group: 999,
+    kind: "secondary",
+    player,
+    card,
+    from: (player + 1) % 6,
+  });
+
+  test("say what the player lacked, or that the planner does not use the card", () => {
+    const state = structuredClone(advance(newGame(2), (s) => s.phase === "action"));
+    const seat = state.activePlayer!;
+    const card = (name: string) =>
+      state.strategyCards.find((id) => strategyCardsById[id]?.name === name)!;
+
+    expect(secondarySkipReason(state, seat, secondary(state, seat, card("Politics")))).toMatch(
+      /never uses the Politics secondary/,
+    );
+    state.players[seat].pools.strategy = 0;
+    expect(secondarySkipReason(state, seat, secondary(state, seat, card("Technology")))).toBe(
+      "You have no strategy token to pay for the Technology secondary.",
+    );
+    state.players[seat].pools.strategy = 2;
+    for (const planet of Object.values(state.planets)) {
+      if (planet.controller === seat) planet.exhausted = true;
+    }
+    state.players[seat].tradeGoods = 0;
+    expect(secondarySkipReason(state, seat, secondary(state, seat, card("Technology")))).toMatch(
+      /costs 4 resources .* you have 0 ready/,
+    );
+  });
+
+  test("a game's skip-only secondaries all carry their reason", async () => {
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: new FirstCandidatePolicy(),
+      maxMoves: 600,
+    });
+    const skipOnly = log.decisions.filter(
+      (d) => d.forced && d.menu[0].text === "Skip the secondary",
+    );
+    expect(skipOnly.length).toBeGreaterThan(0);
+    for (const decision of skipOnly) {
+      expect(decision.rationale.length).toBeGreaterThan(0);
+      expect(moveNote(decision)).toMatchObject({ forced: true, rationale: decision.rationale });
     }
   });
 });

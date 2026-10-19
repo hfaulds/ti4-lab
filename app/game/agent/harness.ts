@@ -14,7 +14,12 @@ import { objectiveStatus } from "../engine/objectives";
 import { describeAction, describeGame, describeTurn } from "./describe";
 import { Decision, MenuEntry, noUsage, Policy, Usage } from "./policy";
 import { SYSTEM_PROMPT } from "./rules";
-import { SCRIPTED_BOT_VERSION, scriptedCandidates, scriptedMove } from "./scriptedBot";
+import {
+  SCRIPTED_BOT_VERSION,
+  scriptedCandidates,
+  scriptedMove,
+  secondarySkipReason,
+} from "./scriptedBot";
 import { lookup, TOOLS } from "./tools";
 
 /** Actions an agent may never take: they bypass the rules. */
@@ -148,7 +153,9 @@ export type DecisionRecord = {
  * legal option have nothing to explain.
  */
 export function moveNote(record: DecisionRecord): MoveNote | undefined {
-  if (record.forced) return undefined;
+  // A move with one option has nothing to explain, unless the harness said
+  // why there was only one.
+  if (record.forced && !record.rationale) return undefined;
   const option = (label: string) =>
     `${label}. ${record.menu.find((m) => m.label === label)?.text ?? ""}`;
   return {
@@ -157,7 +164,22 @@ export function moveNote(record: DecisionRecord): MoveNote | undefined {
     plan: record.planNote || undefined,
     options: record.menu.map((m) => option(m.label)),
     fallback: record.fallback ? (record.error ?? "No choice was made.") : undefined,
+    forced: record.forced || undefined,
   };
+}
+
+/**
+ * Why a decision had only one option, where that is worth saying: skipping
+ * a secondary the player could not, or the planner would not, use.
+ */
+function forcedReason(state: GameState, seat: PlayerId, menu: Candidate[]) {
+  const [prompt] = openPrompts(state);
+  const onlySkip =
+    menu.length === 1 &&
+    menu[0].action.type === "RESOLVE_SECONDARY" &&
+    !menu[0].action.payload;
+  if (!onlySkip || prompt?.kind !== "secondary" || prompt.player !== seat) return "";
+  return secondarySkipReason(state, seat, prompt);
 }
 
 /** Player ids in order, so per-player arrays index by id (seating may differ). */
@@ -282,7 +304,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         chosen: chosen.label,
         fallback: menu.length > 1 && !picked,
         forced: menu.length === 1,
-        rationale: decision?.rationale ?? "",
+        rationale: decision?.rationale ?? forcedReason(state, seat, menu),
         planNote: planNotes.get(seat) ?? "",
         steps: decision?.steps ?? [],
         usage: decision?.usage ?? noUsage(),

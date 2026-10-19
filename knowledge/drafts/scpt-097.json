@@ -1,0 +1,1084 @@
+{
+  "episode": 97,
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro and restarting the strategy guides",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s47",
+          "title": "Updated guide format and pre-errata disclaimer",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Federation of Sol"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview",
+      "summary": "Sol has one of the best starts in the game: a strong starting fleet, blue-green starting tech, and a four-resource home planet that always affords round-one tech. Orbital Drop and Versatile give Sol more actions and more infantry anywhere than any faction, the upgraded carriers and infantry are excellent, and Military Support should be sold often. The Genesis is strong but usually win-more because Sol already has plenty of capacity. Sol is so tightly designed and obvious that experienced tables put heavy pressure on it.",
+      "chunks": [
+        {
+          "start": "s73",
+          "title": "Starting technologies and fleet",
+          "kind": "strategy",
+          "summary": "Sol's blue-green starting technology and fleet are among the best in the game. The fleet supports the standard two-carrier, four-infantry opening with an extra infantry and fighters left over for defence.",
+          "advice": [
+            {"point": "Neural Motivator plus Antimass Deflectors is a great blue-green start for Sol.", "stance": "rating", "subjects": ["Neural Motivator", "Antimass Deflectors"]},
+            {"point": "The starting fleet comfortably runs the two-carrier, four-infantry opening to take two systems next to home, with a spare infantry and fighters to defend.", "stance": "recommended", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening", "technology", "expansion"],
+          "requires": [],
+          "concepts": ["2C4I opening"]
+        },
+        {
+          "start": "s92",
+          "title": "Home planet: four resources",
+          "kind": "strategy",
+          "summary": "Jord's influence is rarely used, but its four resources mean Sol can always afford a technology in round one, even off the Technology secondary, which only a little over half the factions can do.",
+          "advice": [
+            {"point": "The home planet's four resources guarantee a round-one tech even from the Technology secondary; treat its influence as almost unused.", "stance": "rating", "subjects": ["Jord", "Technology"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["setup", "round 1"],
+          "topics": ["economy", "technology"],
+          "requires": [],
+          "concepts": ["production capacity"]
+        },
+        {
+          "start": "s99",
+          "title": "Orbital Drop",
+          "kind": "strategy",
+          "summary": "Orbital Drop is a great ability to use often. A command token for two infantry looks expensive, but the value is placing them anywhere without building and carrying them, getting infantry to any part of the board faster than anyone else.",
+          "advice": [
+            {"point": "Use Orbital Drop often; it is central to Sol's defensive strength.", "stance": "recommended", "subjects": ["Orbital Drop"]},
+            {"point": "Judge Orbital Drop by placement, not price: two infantry for a token is poor value as raw units, but dropping them where needed and then carrying them further saves building and transport.", "stance": "rating", "subjects": ["Orbital Drop"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s114",
+          "title": "Versatile and the command-token economy",
+          "kind": "strategy",
+          "summary": "Versatile effectively gives Sol an extra action each round, which can be thought of as a free Orbital Drop. Sol's token economy rivals Nekro and Jol-Nar, and with Hyper Metabolism it reaches four tokens per round; the plan is to lean into doing more per round than anyone else.",
+          "advice": [
+            {"point": "Think of the extra token from Versatile as a free Orbital Drop each round on top of a normal number of actions.", "stance": "recommended", "subjects": ["Versatile", "Orbital Drop"]},
+            {"point": "Sol's command-token economy rivals Nekro and Jol-Nar; build the game plan around taking more actions per round than anyone, amplified by Hyper Metabolism.", "stance": "rating", "subjects": ["Versatile", "Hyper Metabolism"]}
+          ],
+          "factions": ["Federation of Sol", "Nekro Virus", "Universities of Jol-Nar"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["stall action", "command token economy"]
+        },
+        {
+          "start": "s128",
+          "title": "Faction carriers and infantry",
+          "kind": "strategy",
+          "summary": "Advanced Carrier II's eight capacity is huge, double what others get, worth two to four extra fighters to soak hits or more infantry for invasions. Spec Ops II gives the best ground combat in the game, matched only by upgraded Sardakk N'orr infantry, and its improved revival keeps sending dead infantry home to defend.",
+          "advice": [
+            {"point": "Advanced Carrier II is a very valuable upgrade; the extra capacity means more fighters to soak hits or more infantry to invade.", "stance": "rating", "subjects": ["Advanced Carrier II"]},
+            {"point": "Spec Ops II is the best ground force in the game (tied with upgraded Sardakk N'orr infantry), and its revival chance strengthens home defence.", "stance": "rating", "subjects": ["Spec Ops II", "Sardakk N'orr"]}
+          ],
+          "factions": ["Federation of Sol", "Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s143",
+          "title": "Four commodities",
+          "kind": "strategy",
+          "summary": "Four commodities is the second-best commodity value, but Sol is probably the least traded-with of the four-commodity factions. Try to use it, but do not be surprised when trades do not happen.",
+          "advice": [
+            {"point": "Try to trade on your four commodities, but expect other players to be reluctant to trade with Sol.", "stance": "situational", "subjects": ["Federation of Sol"]},
+            {"point": "Hunter feels the commodity advantage least of Sol's strengths, though many players make good use of it.", "stance": "rating", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["trade and diplomacy", "economy"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s149",
+          "title": "Genesis flagship",
+          "kind": "strategy",
+          "summary": "The Genesis is a strong flagship, but because Sol already has so much capacity it is mostly win-more and the eight resources usually do more elsewhere. Remember its end-of-status-phase infantry, which players often forget.",
+          "advice": [
+            {"point": "The Genesis would be a must-build for another faction, but for Sol it is win-more; you usually do fine without spending eight resources on it.", "stance": "rating", "subjects": ["Genesis"]},
+            {"point": "If the Genesis is out, do not forget its status-phase infantry.", "stance": "recommended", "subjects": ["Genesis"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["win more"]
+        },
+        {
+          "start": "s169",
+          "title": "Military Support promissory note",
+          "kind": "strategy",
+          "summary": "Military Support is far more valuable than the hosts first thought: once Sol's strategy pool is empty it costs nothing to give away, so selling it even for one trade good is a good deal and often it fetches more. Target factions that start without four infantry.",
+          "advice": [
+            {"point": "Sell Military Support after your strategy pool is empty so it costs you nothing; even one trade good is a good price.", "stance": "recommended", "subjects": ["Military Support"]},
+            {"point": "Look for factions with fewer than four starting infantry; they will pay more for Military Support.", "stance": "recommended", "subjects": ["Military Support"]},
+            {"point": "The hosts' original guide underrated Military Support; it is now commonly sold in the TTS community.", "stance": "rating", "subjects": ["Military Support"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1", "early"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["2C4I opening", "table meta"]
+        },
+        {
+          "start": "s185",
+          "title": "Tight design and the anti-Sol meta",
+          "kind": "strategy",
+          "summary": "Sol is tightly designed and easy for new players, but its plan is so obvious and narrow that experienced tables work against it from the start. The guide follows the traditional Sol formula, because the hosts found nothing more solid, and stresses executing it cleanly while watching opponents.",
+          "advice": [
+            {"point": "Expect experienced tables to pressure Sol from the start; the faction's plan is obvious and easy to disrupt.", "stance": "rating", "subjects": ["Federation of Sol"]},
+            {"point": "Stick to the traditional Sol formula and execute it tightly; the hosts never found a deviation as solid.", "stance": "recommended", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["general strategy", "threats and matchups"],
+          "requires": [],
+          "concepts": ["threat perception", "table meta"]
+        }
+      ]
+    },
+    {
+      "title": "Early game goals",
+      "summary": "Round one exists to set up round two, when Sol wants to be first onto Mecatol Rex for the custodians point. Research Gravity Drive in round one; spare money builds a defensive fleet, and Military Support should be sold in rounds one and two while people will still trade with you.",
+      "chunks": [
+        {
+          "start": "s208",
+          "title": "Round-two Mecatol and the custodians point",
+          "kind": "strategy",
+          "summary": "Sol's most important early goal is to take Mecatol Rex first in round two to claim the custodians point. Free points from custodians and Imperial reduce the objectives Sol must score and cannot be blocked the way public objectives can.",
+          "advice": [
+            {"point": "Plan all of round one so that you take Mecatol Rex first in round two and claim the custodians point.", "stance": "recommended", "subjects": ["Mecatol Rex"]},
+            {"point": "Value custodians and Imperial-on-Mecatol as free points: each is one less objective point to find and one less point opponents can see coming and block.", "stance": "rating", "subjects": ["Mecatol Rex", "Imperial"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1", "early"],
+          "topics": ["mecatol", "objectives", "opening"],
+          "requires": [],
+          "concepts": ["custodians rush", "free points"]
+        },
+        {
+          "start": "s235",
+          "title": "Gravity Drive first, then a defensive build",
+          "kind": "strategy",
+          "summary": "Research Gravity Drive in round one, through primary or secondary Technology, using the home planet's four resources. If extra money appears, aim for a six-unit home build (carrier, destroyer, two infantry, two fighters), cutting the destroyer first and keeping the carrier, to make round two safer.",
+          "advice": [
+            {"point": "Research Gravity Drive in round one; it is how Sol reaches Mecatol Rex fast.", "stance": "recommended", "subjects": ["Gravity Drive", "Technology"]},
+            {"point": "With spare money, build one carrier, one destroyer, two infantry and two fighters at home; with less, drop the destroyer first and keep the carrier.", "stance": "recommended", "subjects": ["Federation of Sol"]},
+            {"point": "Do not count on having extra money in round one.", "stance": "avoid", "subjects": []}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["technology", "opening", "economy"],
+          "requires": [],
+          "concepts": ["production capacity", "home system defense"]
+        },
+        {
+          "start": "s258",
+          "title": "Sell Military Support in rounds one and two",
+          "kind": "strategy",
+          "summary": "Rounds one and two are the time to sell Military Support once your strategy tokens are spent. Trading early builds goodwill before Sol becomes the table's target, and later people stop trading with Sol entirely.",
+          "advice": [
+            {"point": "Sell Military Support in rounds one and two after spending your strategy tokens.", "stance": "recommended", "subjects": ["Military Support"]},
+            {"point": "Do your trades early; by rounds three and four people see Sol as the threat and stop trading with you.", "stance": "recommended", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1", "early"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["threat perception", "table talk"]
+        },
+        {
+          "start": "s269",
+          "title": "How the round-one card guide works",
+          "kind": "strategy",
+          "summary": "The guide covers what to do with each round-one strategy card, because Sol has little control over which it gets. Diplomacy and Imperial are skipped because the hosts found no good reason to take either with Sol in round one.",
+          "advice": [
+            {"point": "There is no good reason to take Diplomacy or Imperial in round one as Sol.", "stance": "avoid", "subjects": ["Diplomacy", "Imperial"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Strategy cards in round one",
+      "summary": "Politics is Matt's favourite round-one pick because it leads into a guaranteed round-two Leadership and Mecatol take; Technology is the safest pick; Leadership and Warfare give Sol strong stalls; Trade secures the home slice more than Mecatol; Construction is the weakest, favouring a forward dock on the path to Mecatol. With any card, research Gravity Drive, send one carrier towards Mecatol, Orbital Drop at least once, and keep six influence for the custodians token.",
+      "chunks": [
+        {
+          "start": "s282",
+          "title": "Leadership: stalling and the expansion plan",
+          "kind": "strategy",
+          "summary": "Leadership gives Sol great stalling, since every token is also a possible Orbital Drop. Expand with one carrier next to home, and hold the second until Gravity Drive from the Technology secondary, then park it next to Mecatol Rex or two moves from it, possibly via an equidistant system.",
+          "advice": [
+            {"point": "With Leadership, use the spare tokens to stall, helping you get Technology in time and delaying others; early on Sol stalls even better than Yssaril.", "stance": "recommended", "subjects": ["Leadership", "Orbital Drop"]},
+            {"point": "Send one carrier to a system next to home; hold the second until you have Gravity Drive, then park it adjacent to Mecatol Rex, or at least within two moves of it (an equidistant system works).", "stance": "recommended", "subjects": ["Gravity Drive", "Mecatol Rex"]}
+          ],
+          "factions": ["Federation of Sol", "Yssaril Tribes"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "expansion", "mecatol"],
+          "requires": ["faction abilities"],
+          "concepts": ["stall action", "secondary timing", "custodians rush"]
+        },
+        {
+          "start": "s298",
+          "title": "Leadership: following Politics for action cards",
+          "kind": "strategy",
+          "summary": "With Leadership's extra tokens, follow the Politics secondary to get ahead on action cards. Later, with Neural Motivator, Sol can draw four a round; most players keep cycling and discarding to the hand limit, unless the hand is already excellent.",
+          "advice": [
+            {"point": "With Leadership in round one, follow Politics to get ahead on action cards; Sol will need them against later attacks.", "stance": "recommended", "subjects": ["Leadership", "Politics"]},
+            {"point": "Later in the game, keep drawing action cards even past the hand limit unless your hand is already killer.", "stance": "situational", "subjects": ["Politics", "Neural Motivator"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1", "any"],
+          "topics": ["strategy cards", "action cards"],
+          "requires": ["action cards"],
+          "concepts": ["secondary timing"]
+        },
+        {
+          "start": "s314",
+          "title": "Leadership: trading and the Warfare secondary",
+          "kind": "strategy",
+          "summary": "If a neighbour picked Trade, send the starting destroyer to sit next to them and start a trading relationship. If the trade nets a good amount, around four trade goods, save a Leadership token for the Warfare secondary to build; with only one trade good it is not worth it.",
+          "advice": [
+            {"point": "If a neighbour has Trade, move your destroyer next to their systems to set up a commodity trade, for example a four-for-four swap with the Ghosts of Creuss.", "stance": "situational", "subjects": ["Trade", "Ghosts of Creuss"]},
+            {"point": "Save a token for the Warfare secondary only if trading earned you a meaningful sum, around four trade goods.", "stance": "situational", "subjects": ["Warfare", "Leadership"]}
+          ],
+          "factions": ["Federation of Sol", "Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["secondary timing", "X-1 trade"]
+        },
+        {
+          "start": "s325",
+          "title": "Orbital Drop with a plan for the infantry",
+          "kind": "strategy",
+          "summary": "Do not drop more infantry than you can move; over-dropping strands infantry on one planet without capacity. Orbital Drop at least once in round one, onto a planet under the carrier bound for Mecatol, so the carrier takes infantry to Mecatol while leaving one on each planet behind.",
+          "advice": [
+            {"point": "Have a plan to move orbital-dropped infantry out; over-dropping leaves them stranded with no capacity.", "stance": "avoid", "subjects": ["Orbital Drop"]},
+            {"point": "Orbital Drop at least once in round one, under the carrier you will send to Mecatol Rex, so you can take infantry to Mecatol without leaving planets empty.", "stance": "recommended", "subjects": ["Orbital Drop", "Mecatol Rex"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["faction abilities", "mecatol", "expansion"],
+          "requires": ["faction abilities"],
+          "concepts": ["custodians rush"]
+        },
+        {
+          "start": "s336",
+          "title": "Politics: watch the Warfare player",
+          "kind": "strategy",
+          "summary": "Politics is Matt's favourite round-one pick for Sol. Watch the Warfare player, who can stage next to Mecatol and contest it in round two; if a strong contester such as the Clan of Saar or Arborec is coming, take Mecatol with minimal forces and expect the ships there to die. Politics into round-two Leadership means only the Naalu can beat you to Mecatol.",
+          "advice": [
+            {"point": "Politics is Matt's favourite round-one card for Sol because it is the most reliable route to Mecatol Rex.", "stance": "rating", "subjects": ["Politics"]},
+            {"point": "With Politics, watch the Warfare player: they can expand next to Mecatol Rex and contest it in round two.", "stance": "recommended", "subjects": ["Warfare", "Mecatol Rex"]},
+            {"point": "If the Clan of Saar or Arborec with Warfare will come for Mecatol, send a lone carrier and hold the planet underneath, accepting the ships will die, instead of committing four infantry.", "stance": "situational", "subjects": ["Clan of Saar", "Arborec", "Mecatol Rex"]},
+            {"point": "Politics into round-two Leadership guarantees first pick; only the Naalu can still beat you to Mecatol.", "stance": "rating", "subjects": ["Politics", "Leadership", "Naalu Collective"]}
+          ],
+          "factions": ["Federation of Sol", "Clan of Saar", "Arborec", "Naalu Collective"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol", "threats and matchups"],
+          "requires": [],
+          "concepts": ["custodians rush", "speaker order control", "threat perception"]
+        },
+        {
+          "start": "s358",
+          "title": "Politics: the plan and keeping the speaker token",
+          "kind": "strategy",
+          "summary": "With Politics, expand towards Mecatol, save four resources and a token for the Technology secondary, and Orbital Drop for the Mecatol force; plan on round-two Leadership. Do not sell the speaker token unless the next player has no interest in Mecatol, and even then only for something very valuable. Against a careless table, Politics into round-two Imperial could score two points, but experienced tables will not allow it.",
+          "advice": [
+            {"point": "Save four resources and a token for the Technology secondary and use the other token to Orbital Drop for the Mecatol force.", "stance": "recommended", "subjects": ["Politics", "Technology", "Orbital Drop"]},
+            {"point": "Keep the speaker token for round two; sell it only if the next player clearly will not contest Mecatol and pays a lot, such as Jol-Nar's Research Agreement with Hyper Metabolism.", "stance": "avoid", "subjects": ["Politics", "Research Agreement", "Universities of Jol-Nar"]},
+            {"point": "If nobody at the table cares about Mecatol, you can gamble on Politics into round-two Imperial to score custodians plus Imperial; good players will not let this happen.", "stance": "situational", "subjects": ["Imperial", "Mecatol Rex"]}
+          ],
+          "factions": ["Federation of Sol", "Universities of Jol-Nar"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol", "trade and diplomacy"],
+          "requires": ["faction abilities"],
+          "concepts": ["speaker token sale", "speaker order control", "custodians rush", "secondary timing"]
+        },
+        {
+          "start": "s378",
+          "title": "Six influence for the custodians token",
+          "kind": "strategy",
+          "summary": "The custodians token needs six influence and Sol's home system has only two, so plan for it: send the second carrier to the highest-influence system, or save trade goods. Push Military Support sales to cover the gap; Jol-Nar is a favourite buyer.",
+          "advice": [
+            {"point": "Make sure you have six influence ready when you reach Mecatol; send a carrier to the best influence system or bank trade goods.", "stance": "recommended", "subjects": ["Mecatol Rex"]},
+            {"point": "If influence looks short, push Military Support sales for trade goods; Jol-Nar is a particularly good buyer.", "stance": "situational", "subjects": ["Military Support", "Universities of Jol-Nar"]}
+          ],
+          "factions": ["Federation of Sol", "Universities of Jol-Nar"],
+          "phases": ["round 1", "early"],
+          "topics": ["mecatol", "economy", "promissory notes"],
+          "requires": ["promissory notes"],
+          "concepts": ["custodians rush", "trade good banking"]
+        },
+        {
+          "start": "s390",
+          "title": "Construction",
+          "kind": "strategy",
+          "summary": "Construction is the weakest round-one pick, usually taken only when forced; some argue it is good for Sol, but other cards feel better. Build on the path to Mecatol, not on the wings. Hunter favours a forward dock; Matt prefers two PDS when the slice is low on resources, since a bad dock is no better than a PDS. Sol will often take Construction mid-game anyway to put a PDS on Mecatol.",
+          "advice": [
+            {"point": "Construction is the least attractive round-one card for Sol, though not terrible.", "stance": "rating", "subjects": ["Construction"]},
+            {"point": "Place Construction structures on the path to Mecatol Rex, not on either side of your home system.", "stance": "recommended", "subjects": ["Construction"]},
+            {"point": "Hunter leans to a forward dock; Matt takes two PDS if the slice's resources are low, because a dock is only as good as its planet.", "stance": "situational", "subjects": ["Construction", "Space Dock", "PDS"]},
+            {"point": "Keep one token for the Technology secondary and Orbital Drop once.", "stance": "recommended", "subjects": ["Technology", "Orbital Drop"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "expansion"],
+          "requires": ["faction abilities"],
+          "concepts": ["forward dock", "slice value", "home system defense"]
+        },
+        {
+          "start": "s424",
+          "title": "Trade",
+          "kind": "strategy",
+          "summary": "Trade is fine but can make Sol look scary. Court a neighbour to bring a ship to you and aim for at least seven trade goods, more by selling Military Support, and use the relationship to set up an early Support for the Throne swap. Follow Technology and Warfare; the downside is no Orbital Drop, so Mecatol gets a thin force and Trade secures the home slice more than Mecatol.",
+          "advice": [
+            {"point": "With Trade, get a neighbour to bring a destroyer or cruiser to you and aim for at least seven trade goods, more with Military Support.", "stance": "recommended", "subjects": ["Trade", "Military Support"]},
+            {"point": "Use the round-one trading partner as a candidate for a later Support for the Throne swap.", "stance": "recommended", "subjects": ["Support for the Throne"]},
+            {"point": "Follow Technology and Warfare with the extra money to get more units out.", "stance": "recommended", "subjects": ["Technology", "Warfare"]},
+            {"point": "Trade leaves no token for Orbital Drop, so your Mecatol force is thin; some players take Trade every round one, but the hosts find it slow for Sol.", "stance": "rating", "subjects": ["Trade"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy", "economy"],
+          "requires": ["promissory notes"],
+          "concepts": ["support for the throne swap", "threat perception", "secondary timing"]
+        },
+        {
+          "start": "s454",
+          "title": "Warfare: three systems and a long stall",
+          "kind": "strategy",
+          "summary": "Warfare is the one card where Gravity Drive is not strictly needed. Take three systems in your slice, ideally two on the path to Mecatol, rather than building at home, and still research a tech. Sol can make four actions before playing Warfare, so stall it to hurt one-carrier factions who need the Warfare timing, unless paid well to play it early.",
+          "advice": [
+            {"point": "With Warfare, take three systems in your slice, two of them towards Mecatol, and spend the four resources on tech rather than building at home.", "stance": "recommended", "subjects": ["Warfare"]},
+            {"point": "Stall Warfare with expansion, a destroyer trade move and Orbital Drop; activate it early only if someone pays well.", "stance": "recommended", "subjects": ["Warfare", "Orbital Drop"]}
+          ],
+          "factions": ["Federation of Sol", "Yssaril Tribes"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "expansion"],
+          "requires": ["faction abilities"],
+          "concepts": ["stall action", "denial pick"]
+        },
+        {
+          "start": "s477",
+          "title": "Warfare: Fighter II instead of Gravity Drive",
+          "kind": "strategy",
+          "summary": "With Warfare you can research Fighter II (or Dacxive Animators) instead of Gravity Drive. Fighter II round one is worth it to score the two-systems-adjacent-to-Mecatol objective or to block a rival's Mecatol play, because Sol wins by getting to Mecatol first and holding it, not by retaking it.",
+          "advice": [
+            {"point": "Take Fighter II in round one when you need it for the Mecatol-adjacency objective or to block someone else's Mecatol play.", "stance": "situational", "subjects": ["Fighter II", "Intimidate Council", "Warfare"]},
+            {"point": "Sol is a holder, not an uprooter: get to Mecatol first and hold it rather than plan to take it from someone else.", "stance": "rating", "subjects": ["Federation of Sol", "Mecatol Rex"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["technology", "mecatol", "strategy cards"],
+          "requires": [],
+          "concepts": ["fighter screen", "custodians rush"]
+        },
+        {
+          "start": "s493",
+          "title": "Technology: leverage and trading",
+          "kind": "strategy",
+          "summary": "Technology is the safest round-one pick and guarantees your round-one plan. Check which opponents cannot afford tech and use the card as gentle leverage for trades, Military Support sales or an early support swap, staying the nice guy because Sol attracts hostility.",
+          "advice": [
+            {"point": "Technology is the safest round-one pick for Sol.", "stance": "rating", "subjects": ["Technology"]},
+            {"point": "Use Technology as friendly leverage, for example stalling it in exchange for a trade, rather than extortion.", "stance": "recommended", "subjects": ["Technology", "Military Support"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["stall action", "table talk", "threat perception"]
+        },
+        {
+          "start": "s507",
+          "title": "Technology: double tech or Warfare secondary",
+          "kind": "strategy",
+          "summary": "Getting a second tech means netting two trade goods from a trade partner and is usually win-more; it is worth considering only if an early public objective wants two techs in two colours. The hosts prefer the free tech plus the Warfare secondary for the six-unit build and one Orbital Drop; if you do double tech, Orbital Drop twice instead of building.",
+          "advice": [
+            {"point": "Usually skip the second tech in round one; it is win-more and the money is better saved for Mecatol or units.", "stance": "avoid", "subjects": ["Technology"]},
+            {"point": "A second tech is worth considering if an early public is two techs in two colours.", "stance": "situational", "subjects": ["Technology", "Diversify Research"]},
+            {"point": "Prefer the free tech plus the Warfare secondary to build carrier, destroyer, two fighters and two infantry, and Orbital Drop once.", "stance": "recommended", "subjects": ["Technology", "Warfare", "Orbital Drop"]},
+            {"point": "If you do double tech, Orbital Drop twice to defend since you build nothing.", "stance": "situational", "subjects": ["Orbital Drop"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology", "objectives"],
+          "requires": ["faction abilities"],
+          "concepts": ["win more", "secondary timing", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Round two: taking Mecatol Rex",
+      "summary": "Take Mecatol Rex in round two, and take it from whoever got there first if you can, since holding it matters more than the custodians token. Holding Mecatol gives Sol extra command tokens from Leadership and keeps others taking Imperial, which cycles Sol's secret objectives. If Mecatol fails, build towards Fleet Logistics for a later Imperial strike or fall back to an economic, low-threat game.",
+      "chunks": [
+        {
+          "start": "s542",
+          "title": "When someone beats you to Mecatol",
+          "kind": "strategy",
+          "summary": "If someone else reaches Mecatol first, take it from them if you can; holding Mecatol into the mid-game is worth more than the custodians point. Give up against a Clan of Saar holding it; Barony of Letnev with Warfare is a threat; Hacan and Ghosts of Creuss arrivals are usually beatable. Many players send a token force just to steal custodians, which costs them a carrier and leaves you on Mecatol with less heat.",
+          "advice": [
+            {"point": "Take Mecatol Rex in round two even if someone else took the custodians point first, if you can win the fight.", "stance": "recommended", "subjects": ["Mecatol Rex"]},
+            {"point": "If the Clan of Saar takes Mecatol Rex, give it up for now.", "stance": "avoid", "subjects": ["Clan of Saar", "Mecatol Rex"]},
+            {"point": "Barony of Letnev with Warfare can bring a scary force; Hacan and the Ghosts of Creuss can beat you there with fast Gravity Drive but are usually easy to dislodge.", "stance": "rating", "subjects": ["Barony of Letnev", "Emirates of Hacan", "Ghosts of Creuss"]},
+            {"point": "Players who send one carrier and one infantry just to steal custodians are easy to remove; taking Mecatol from them gives you Mecatol with little early heat.", "stance": "recommended", "subjects": ["Mecatol Rex"]}
+          ],
+          "factions": ["Federation of Sol", "Clan of Saar", "Barony of Letnev", "Emirates of Hacan", "Ghosts of Creuss"],
+          "phases": ["early"],
+          "topics": ["mecatol", "threats and matchups", "combat"],
+          "requires": [],
+          "concepts": ["custodians rush", "threat perception", "swing round"]
+        },
+        {
+          "start": "s575",
+          "title": "Why Mecatol: extra command tokens",
+          "kind": "strategy",
+          "summary": "The hosts tried many alternatives and found nothing as solid as holding Mecatol. Its six influence means every Leadership yields two extra tokens, giving Sol three extra actions per round on top of Versatile, which means more Orbital Drops, activations and objectives than opponents can keep up with.",
+          "advice": [
+            {"point": "Hold Mecatol mainly for its influence: it turns every Leadership into extra command tokens, so Sol out-acts everyone each round.", "stance": "rating", "subjects": ["Mecatol Rex", "Leadership", "Versatile"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early", "mid"],
+          "topics": ["mecatol", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy", "free points"]
+        },
+        {
+          "start": "s595",
+          "title": "Being Imperial-blocked to cycle secrets",
+          "kind": "strategy",
+          "summary": "Sitting on Mecatol makes others take Imperial to block you, which lets Sol follow the secondary and draw new secret objectives until it holds three scorable ones. Sol can score most stage one publics, so with secrets and one or two extra points it can win without any stage two. The goal is to be Imperial-blocked, not to look scary by taking Imperial immediately.",
+          "advice": [
+            {"point": "Want opponents to block you by taking Imperial; follow the secondary each time to cycle secret objectives until you hold three you can score.", "stance": "recommended", "subjects": ["Imperial", "Mecatol Rex"]},
+            {"point": "Do not grab Imperial right after taking Mecatol; looking scary early is not the goal.", "stance": "avoid", "subjects": ["Imperial"]},
+            {"point": "Plan to win on stage one publics, secrets and free points without scoring stage twos; avoid secrets needing four planets of one trait unless your slice provides them.", "stance": "recommended", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early", "mid"],
+          "topics": ["objectives", "mecatol", "strategy cards"],
+          "requires": [],
+          "concepts": ["imperial block", "secret objective cycling", "threat perception"]
+        },
+        {
+          "start": "s622",
+          "title": "No Mecatol: Fleet Logistics for a later Imperial strike",
+          "kind": "strategy",
+          "summary": "If you could not take Mecatol early, the hosts' favourite fix is to research Fleet Logistics, take Politics then Imperial the next round, build a fleet large enough, take Mecatol and immediately play Imperial for the point. Fleet Logistics is Sol's secret weapon generally, because one of the two actions can be an Orbital Drop onto what you just took.",
+          "advice": [
+            {"point": "Without Mecatol, prepare Politics then Imperial and a strong fleet, take Mecatol and play Imperial immediately using Fleet Logistics.", "stance": "situational", "subjects": ["Fleet Logistics", "Politics", "Imperial", "Mecatol Rex"]},
+            {"point": "Fleet Logistics is Sol's secret weapon: invade then Orbital Drop onto the planet in the same turn.", "stance": "rating", "subjects": ["Fleet Logistics", "Orbital Drop"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid"],
+          "topics": ["technology", "mecatol", "strategy cards"],
+          "requires": ["faction abilities"],
+          "concepts": ["swing round", "speaker order control"]
+        },
+        {
+          "start": "s640",
+          "title": "No Mecatol: economy and selling low threat",
+          "kind": "strategy",
+          "summary": "If Mecatol is truly out of reach, do not build a fleet to sneak in. Take Trade, sell Military Support and make everyone your friend, using trade goods to Orbital Drop about three infantry onto planets you must hold and taking high-influence planets. Tell the table you are no longer a threat, since Sol off Mecatol is much less scary, though some will not believe it.",
+          "advice": [
+            {"point": "If Mecatol is unreachable, pivot to Trade, Military Support sales and influence, keeping about three infantry on key planets with Orbital Drop.", "stance": "situational", "subjects": ["Trade", "Military Support", "Orbital Drop"]},
+            {"point": "Off Mecatol, actively sell the table on the idea that you are not the biggest threat.", "stance": "recommended", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early", "mid"],
+          "topics": ["trade and diplomacy", "economy", "general strategy"],
+          "requires": ["faction abilities", "promissory notes"],
+          "concepts": ["threat perception", "table talk", "economic fallback"]
+        }
+      ]
+    },
+    {
+      "title": "Technology paths",
+      "summary": "Sol's tech path is simple and strong: Gravity Drive, then Fighter II, Advanced Carrier II, Dacxive Animators and Spec Ops II, scoring two-in-two, the upgrade objectives and the two-faction-tech secret. The order of upgrades depends on threats; Carrier II first is aggressive, Fighter II first suits Warfare. Spec Ops II is now seen as late-game rather than a rush. Skips matter little except a green skip to early Hyper Metabolism and a yellow skip for Transit Diodes or Space Dock II. After the core, stop teching and spend on units, except Fleet Logistics and Light-Wave Deflector.",
+      "chunks": [
+        {
+          "start": "s657",
+          "title": "Tech goals and objectives",
+          "kind": "strategy",
+          "summary": "Aim the tech path at easy tech objectives: two techs in two colours, two then three unit upgrades, and the secret for owning both faction techs, skipping two-in-four-colours. Sol's tech game is the strongest after Jol-Nar despite having no tech abilities.",
+          "advice": [
+            {"point": "Every game, aim for two techs in two colours and three unit upgrades, folding in both faction techs for the secret objective.", "stance": "recommended", "subjects": ["Diversify Research", "Develop Weaponry", "Revolutionize Warfare", "Adapt New Strategies"]},
+            {"point": "Do not pursue two techs in four colours.", "stance": "avoid", "subjects": ["Master the Sciences"]},
+            {"point": "Sol's tech game is second only to Jol-Nar, with Nekro able to match it in the right circumstances.", "stance": "rating", "subjects": ["Federation of Sol", "Universities of Jol-Nar", "Nekro Virus"]}
+          ],
+          "factions": ["Federation of Sol", "Universities of Jol-Nar", "Nekro Virus"],
+          "phases": ["any"],
+          "topics": ["technology", "objectives"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path"]
+        },
+        {
+          "start": "s668",
+          "title": "Standard path and the role of Spec Ops II",
+          "kind": "strategy",
+          "summary": "The safest path is Gravity Drive, Fighter II, Advanced Carrier II, then green through Dacxive Animators to Spec Ops II. Early Fighter II lets Sol scatter fighters into systems to block attacks on its key systems. Spec Ops II is now considered win-more until the late game, when big ground forces, Plague or heavy bombardment threaten.",
+          "advice": [
+            {"point": "Default path: Gravity Drive, Fighter II, Advanced Carrier II, Dacxive Animators, Spec Ops II.", "stance": "recommended", "subjects": ["Gravity Drive", "Fighter II", "Advanced Carrier II", "Dacxive Animators", "Spec Ops II"]},
+            {"point": "Get Fighter II early so you can start blocking with fighters in systems around your important ones.", "stance": "recommended", "subjects": ["Fighter II"]},
+            {"point": "Do not rush Spec Ops II; it becomes essential only late, against large ground forces, Plague or heavy bombardment. This reverses the hosts' original guide.", "stance": "avoid", "subjects": ["Spec Ops II", "Plague"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["fighter screen", "win more", "tech path"]
+        },
+        {
+          "start": "s682",
+          "title": "Aggressive path: Carrier II first",
+          "kind": "strategy",
+          "summary": "Gravity Drive straight into Advanced Carrier II, then Fighter II, Dacxive and Spec Ops II, gives precision strikes: one carrier with fighters and infantry can take almost any planet early, useful for early traits or tech specialties. It draws even more ire, and combined with a Mecatol play the table will try to squash you. It is best when Mecatol will not work out; Matt found it led him to overextend.",
+          "advice": [
+            {"point": "Carrier II first is a good choice when Mecatol is not going to work out and you want to root down on planets early.", "stance": "situational", "subjects": ["Advanced Carrier II", "Gravity Drive"]},
+            {"point": "Avoid combining an early Mecatol take with aggressive early control objectives; the whole table will punish it.", "stance": "avoid", "subjects": ["Advanced Carrier II", "Mecatol Rex"]},
+            {"point": "Matt once preferred Carrier II first for the extra fighters, but it led him to overextend carriers he could not defend.", "stance": "rating", "subjects": ["Advanced Carrier II", "Fighter II"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early"],
+          "topics": ["technology", "expansion"],
+          "requires": ["faction technologies"],
+          "concepts": ["threat perception", "tech path"]
+        },
+        {
+          "start": "s706",
+          "title": "Spec Ops rush and the Warfare Fighter II path",
+          "kind": "strategy",
+          "summary": "Rushing Gravity Drive, Dacxive and Spec Ops II is a called shot, only when you hold Mecatol and can see a specific ground assault coming that Spec Ops II would beat. With round-one Warfare, opening Fighter II then Gravity Drive, Carrier II, Dacxive and Spec Ops II is sound. Every path ends at the same five techs; Dacxive is the weakest but still good.",
+          "advice": [
+            {"point": "Rush Spec Ops II only as a called shot against a specific ground assault you can see coming at Mecatol.", "stance": "situational", "subjects": ["Spec Ops II", "Dacxive Animators"]},
+            {"point": "After a round-one Warfare, open with Fighter II before Gravity Drive.", "stance": "situational", "subjects": ["Fighter II", "Gravity Drive", "Warfare"]},
+            {"point": "Dacxive Animators is the weakest of Sol's five core techs but still good.", "stance": "rating", "subjects": ["Dacxive Animators"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "fighter screen"]
+        },
+        {
+          "start": "s726",
+          "title": "Yellow skip: Dreadnought II, Space Dock II and the Genesis",
+          "kind": "strategy",
+          "summary": "With a yellow skip, Dreadnought II can stand in as an upgrade for the objectives if green is not done. Sol's carrier-fighter-destroyer fleets will not match the big fleet factions (L1Z1X, Barony, a fleet-focused Hacan) in space; keep destroyers to soak Graviton Laser hits. With a yellow skip and Sarween Tools, Space Dock II plus the Genesis full of fighters is a strong line, especially with Unveil Flagship.",
+          "advice": [
+            {"point": "With a yellow skip, Dreadnought II is a fine substitute upgrade if you need a third upgrade fast without going green.", "stance": "situational", "subjects": ["Dreadnought II"]},
+            {"point": "Bring destroyers in fleets to soak hits from Graviton Laser System.", "stance": "recommended", "subjects": ["Destroyer", "Graviton Laser System"]},
+            {"point": "Sol's fleets will not out-fight the big fleet factions in space.", "stance": "rating", "subjects": ["L1Z1X Mindnet", "Barony of Letnev", "Emirates of Hacan"]},
+            {"point": "With Sarween Tools and a yellow skip, consider Space Dock II and the Genesis to pump out fighters, especially holding Unveil Flagship. Sol does not strictly need a forward dock.", "stance": "situational", "subjects": ["Space Dock II", "Genesis", "Sarween Tools", "Unveil Flagship"]}
+          ],
+          "factions": ["Federation of Sol", "L1Z1X Mindnet", "Barony of Letnev", "Emirates of Hacan"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech skip", "forward dock", "production capacity"]
+        },
+        {
+          "start": "s747",
+          "title": "Transit Diodes with a yellow skip",
+          "kind": "strategy",
+          "summary": "Never tech through Graviton Laser System just for Transit Diodes, but with a yellow skip after Sarween Tools, Transit Diodes makes Sol extremely strong and fun, reducing reliance on Orbital Drop and freeing command tokens.",
+          "advice": [
+            {"point": "With a yellow skip, Transit Diodes is excellent for Sol and saves the tokens you would spend on Orbital Drop.", "stance": "situational", "subjects": ["Transit Diodes", "Orbital Drop"]},
+            {"point": "Do not research Graviton Laser System just to reach Transit Diodes.", "stance": "avoid", "subjects": ["Transit Diodes", "Graviton Laser System"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid"],
+          "topics": ["technology"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s755",
+          "title": "Green skip: early Hyper Metabolism",
+          "kind": "strategy",
+          "summary": "The one green skip recommendation is to go Dacxive Animators into an early Hyper Metabolism. With a green skip next to home, Gravity Drive into Hyper in round two gives two-and-two and four extra tokens per round with Mecatol; a distant green skip is not worth chasing.",
+          "advice": [
+            {"point": "With a green skip adjacent to home, go Gravity Drive then Hyper Metabolism in round two, then pick upgrades.", "stance": "situational", "subjects": ["Hyper Metabolism", "Gravity Drive", "Dacxive Animators"]},
+            {"point": "Do not chase a green skip on the far side of the board.", "stance": "avoid", "subjects": ["Hyper Metabolism"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early"],
+          "topics": ["technology", "economy"],
+          "requires": [],
+          "concepts": ["tech skip", "command token economy"]
+        },
+        {
+          "start": "s768",
+          "title": "Red and blue skips",
+          "kind": "strategy",
+          "summary": "Red skips do little for Sol: no bombardment units for Plasma Scoring, Duranium Armor takes too long, and destroyers exist only to soak Graviton hits. Magen Defense Grid with PDS was floated and dismissed. A blue skip is useless because Sol wants every blue tech anyway, with Fleet Logistics unusually strong for Sol.",
+          "advice": [
+            {"point": "Red skips are not worth building around; skip Plasma Scoring, Duranium Armor and Destroyer II.", "stance": "avoid", "subjects": ["Plasma Scoring", "Duranium Armor", "Destroyer II", "Magen Defense Grid"]},
+            {"point": "Blue skips are effectively useless for Sol because it researches all the blue tech anyway.", "stance": "rating", "subjects": ["Gravity Drive", "Fleet Logistics", "Light-Wave Deflector"]},
+            {"point": "Fleet Logistics is very good for Sol even though it is situational for most factions.", "stance": "rating", "subjects": ["Fleet Logistics"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s791",
+          "title": "Stop teching after the core, except blue",
+          "kind": "strategy",
+          "summary": "Matt stops researching once he has Carrier II, Fighter II and Spec Ops II, spending on units and saving trade goods for stage twos. Hunter thinks good reasons to keep teching often arise, and both agree Fleet Logistics and Light-Wave Deflector are the best extra techs; Matt even likes four blue for them, though others disagree.",
+          "advice": [
+            {"point": "After the core upgrades, stop researching and spend on units; save trade goods for stage two objectives.", "stance": "recommended", "subjects": ["Advanced Carrier II", "Fighter II", "Spec Ops II"]},
+            {"point": "If you tech beyond the core, get Fleet Logistics and Light-Wave Deflector; from Mecatol with Advanced Carrier II and Gravity Drive, Light-Wave reaches any home system.", "stance": "recommended", "subjects": ["Fleet Logistics", "Light-Wave Deflector"]},
+            {"point": "Hunter says reasons to keep teching come up often; Matt says four blue is a fine late-game plan, though he expects disagreement.", "stance": "situational", "subjects": ["Fleet Logistics", "Light-Wave Deflector"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "economy"],
+          "requires": [],
+          "concepts": ["trade good banking", "tech path"]
+        }
+      ]
+    },
+    {
+      "title": "Trading and diplomacy",
+      "summary": "Sol is not an ideal trade partner once its Mecatol play is under way, so trade early, especially Military Support, and ask buyers to wait until your tokens are spent. If the Mecatol plan fails, lean on four commodities and Trade like a beefier Ghosts. Make a very early Support for the Throne swap, ideally with factions that could unseat you late.",
+      "chunks": [
+        {
+          "start": "s817",
+          "title": "Trade early and Military Support etiquette",
+          "kind": "strategy",
+          "summary": "Make as many Military Support deals as possible early without losing command tokens. Trustworthy buyers will usually wait until your strategy pool is empty if you ask; anyone who refuses gives you table talk to paint them as hostile.",
+          "advice": [
+            {"point": "Make Military Support deals early, but do not lose command tokens to it.", "stance": "recommended", "subjects": ["Military Support"]},
+            {"point": "You can sell Military Support before your strategy pool is empty to trustworthy players if you ask them to wait; a refusal lets you paint them as brutal to the table.", "stance": "situational", "subjects": ["Military Support"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["table talk", "non-binding deals"]
+        },
+        {
+          "start": "s831",
+          "title": "Trading fallback when Mecatol fails",
+          "kind": "strategy",
+          "summary": "If the Mecatol plan is failing, emphasize four commodities: take Trade, make money and pump out fighters while spreading out. Without Mecatol, Sol plays like a Ghosts of Creuss with beefy ground forces.",
+          "advice": [
+            {"point": "When the Mecatol plan fails, switch to a trade-focused game: take Trade, earn money and build lots of fighters.", "stance": "situational", "subjects": ["Trade", "Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol", "Ghosts of Creuss"],
+          "phases": ["mid"],
+          "topics": ["trade and diplomacy", "economy"],
+          "requires": [],
+          "concepts": ["economic fallback"]
+        },
+        {
+          "start": "s839",
+          "title": "Preferred partners and early Support for the Throne",
+          "kind": "strategy",
+          "summary": "Military Support for Jol-Nar's Research Agreement is a great trade. Seek a very early Support for the Throne swap, ideally in round two, with a faction able to unseat you late: Muaat, Barony, L1Z1X (bombardment and PDS bypass) or the Yin Brotherhood; after round three nobody will swap with a leader. Alternatively swap just before a mid-game Mecatol move.",
+          "advice": [
+            {"point": "Trade Military Support for Jol-Nar's Research Agreement when possible.", "stance": "recommended", "subjects": ["Military Support", "Research Agreement", "Universities of Jol-Nar"]},
+            {"point": "Offer a Support for the Throne swap in round two, before round three when you will be too far ahead for anyone to accept.", "stance": "recommended", "subjects": ["Support for the Throne"]},
+            {"point": "Prefer swap partners who could unseat you late: Embers of Muaat, Barony of Letnev, L1Z1X Mindnet or Yin Brotherhood.", "stance": "recommended", "subjects": ["Support for the Throne", "Embers of Muaat", "Barony of Letnev", "L1Z1X Mindnet", "Yin Brotherhood"]},
+            {"point": "If you missed Mecatol early, secure a support swap before making a mid-game Mecatol move.", "stance": "situational", "subjects": ["Support for the Throne", "Mecatol Rex"]}
+          ],
+          "factions": ["Federation of Sol", "Universities of Jol-Nar", "Embers of Muaat", "Barony of Letnev", "L1Z1X Mindnet", "Yin Brotherhood"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "trade and diplomacy", "threats and matchups"],
+          "requires": ["promissory notes"],
+          "concepts": ["support for the throne swap", "threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Mid game",
+      "summary": "The mid game builds towards a round four or five Imperial swing round, while being Imperial-blocked to collect three scorable secrets. Get a PDS on Mecatol with a Spec Ops stack, bring destroyers against PDS fire, screen with fighters and expect to be attacked from round three on. Build an action card hand and hold a Sabotage all game to protect the final Imperial from Public Disgrace.",
+      "chunks": [
+        {
+          "start": "s866",
+          "title": "Planning the Imperial swing round",
+          "kind": "strategy",
+          "summary": "Gear the mid game towards a round four or five Imperial swing: for example Politics round one, Leadership round two, a solid card round three, Politics round four to secure Imperial in round five. Meanwhile provoke others into taking Imperial, follow its secondary, lock down three scorable secrets and score easy publics, aiming to stay only slightly ahead.",
+          "advice": [
+            {"point": "Plan a round four or five Imperial swing round, taking Politics the round before to guarantee Imperial.", "stance": "recommended", "subjects": ["Imperial", "Politics"]},
+            {"point": "Until then, follow every Imperial secondary to cycle secrets and score easy publics, staying only about a point ahead.", "stance": "recommended", "subjects": ["Imperial"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid"],
+          "topics": ["strategy cards", "objectives", "mecatol"],
+          "requires": [],
+          "concepts": ["swing round", "imperial block", "secret objective cycling", "speaker order control"]
+        },
+        {
+          "start": "s888",
+          "title": "PDS on Mecatol and destroyers against PDS",
+          "kind": "strategy",
+          "summary": "Get a PDS on Mecatol over a stack of Spec Ops to stop bombardment, Sol's biggest weakness. Sol's carrier-and-fighter fleets are vulnerable to PDS networks with Graviton Laser System (for example Xxcha or Mentak), so build destroyers to soak hits. The mid game is defensive: hold the slice, screen, Orbital Drop and build units.",
+          "advice": [
+            {"point": "Get a PDS on Mecatol Rex over a stack of Spec Ops to protect against bombardment.", "stance": "recommended", "subjects": ["PDS", "Mecatol Rex", "Spec Ops II"]},
+            {"point": "Against PDS networks with Graviton Laser System (Xxcha, Mentak), build destroyers to soak hits.", "stance": "recommended", "subjects": ["Destroyer", "Graviton Laser System", "Xxcha Kingdom", "Mentak Coalition"]},
+            {"point": "Play the mid game defensively rather than expanding further.", "stance": "recommended", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol", "Xxcha Kingdom", "Mentak Coalition"],
+          "phases": ["mid"],
+          "topics": ["combat", "mecatol", "threats and matchups"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense", "fighter screen"]
+        },
+        {
+          "start": "s901",
+          "title": "Being the target",
+          "kind": "strategy",
+          "summary": "From round three on Sol will be attacked; as a leader Sol is seen as more dangerous than an equal-points rival, and equivalent trade offers go to others. Plan to get hurt and defend through it, using table talk to point out you are only tied for the lead.",
+          "advice": [
+            {"point": "Expect to be attacked at least once from round three on; build and Orbital Drop to absorb it.", "stance": "recommended", "subjects": ["Orbital Drop"]},
+            {"point": "Players will prefer anyone else's equal trade offer over Sol's in the mid game.", "stance": "rating", "subjects": ["Federation of Sol"]},
+            {"point": "When attacked, argue to the table that you are only tied for the lead.", "stance": "situational", "subjects": []}
+          ],
+          "factions": ["Federation of Sol", "Mentak Coalition"],
+          "phases": ["mid", "late"],
+          "topics": ["threats and matchups", "trade and diplomacy", "general strategy"],
+          "requires": ["faction abilities"],
+          "concepts": ["threat perception", "table talk", "home system defense"]
+        },
+        {
+          "start": "s919",
+          "title": "Screening with fighters",
+          "kind": "strategy",
+          "summary": "Hunter stresses using Fighter II fighters to clog systems so opponents struggle to reach you, because Sol rarely wins big space battles; instead it holds planets underneath enemy ships with infantry stacks no one can match.",
+          "advice": [
+            {"point": "Spread fighters to block paths into your systems; accept losing space battles while holding planets with infantry.", "stance": "recommended", "subjects": ["Fighter II"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid", "late"],
+          "topics": ["combat"],
+          "requires": [],
+          "concepts": ["fighter screen", "home system defense"]
+        },
+        {
+          "start": "s928",
+          "title": "Action card threats and holding Sabotage",
+          "kind": "strategy",
+          "summary": "Expect Plague, Reactor Meltdown on a forward or Mecatol dock, Cripple Defenses on a Mecatol PDS and Unstable Planet on hazardous stacks. Build a strong action card hand, buy Sabotage if anyone will sell it, and hold one Sabotage all game to protect the final Imperial swing from Public Disgrace.",
+          "advice": [
+            {"point": "Expect Plague, Reactor Meltdown, Cripple Defenses and Unstable Planet aimed at your stacks and structures.", "stance": "rating", "subjects": ["Plague", "Reactor Meltdown", "Cripple Defenses", "Unstable Planet"]},
+            {"point": "Fish for a Sabotage and keep it all game to protect your final-round Imperial from Public Disgrace.", "stance": "recommended", "subjects": ["Sabotage", "Public Disgrace", "Imperial"]},
+            {"point": "Your plan only needs your home system and Mecatol Rex to hold through the final round.", "stance": "rating", "subjects": ["Mecatol Rex"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid", "late"],
+          "topics": ["action cards", "threats and matchups"],
+          "requires": ["action cards"],
+          "concepts": ["swing round", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Late game",
+      "summary": "Sol wins from ahead and must accept being ahead. Light-Wave Deflector is the late-game escape and strike tech, the Genesis becomes a strong home defender and Unveil Flagship scorer, and the target win windows are a round five Imperial or a swing that makes round six unstoppable. The Naalu are the main late-game rival; above all play safe, controlled points.",
+      "chunks": [
+        {
+          "start": "s953",
+          "title": "Light-Wave Deflector as the escape hatch",
+          "kind": "strategy",
+          "summary": "Sol wins from ahead and must be comfortable there. Light-Wave Deflector lets a surrounded fleet on Mecatol escape to find points elsewhere; Matt suggests planning for it around rounds three or four depending on how the table treats you, though he stops short of a blanket recommendation.",
+          "advice": [
+            {"point": "Consider Light-Wave Deflector around rounds three or four as a way out when you are surrounded on Mecatol.", "stance": "situational", "subjects": ["Light-Wave Deflector", "Mecatol Rex"]},
+            {"point": "Accept being in the lead; Sol wins from ahead.", "stance": "recommended", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "general strategy"],
+          "requires": [],
+          "concepts": ["win from ahead"]
+        },
+        {
+          "start": "s970",
+          "title": "Win windows and crushing a rival",
+          "kind": "strategy",
+          "summary": "Aim to win with round five Imperial (after round four Politics), or to swing in round five so you cannot be stopped in round six, where you take Diplomacy, Leadership or Imperial. Make your home system effectively untakeable. If a rival racing you is ahead in initiative, use Light-Wave Deflector and Fleet Logistics to hit them.",
+          "advice": [
+            {"point": "Target winning in round five with Imperial, or swinging in round five so round six is unstoppable.", "stance": "recommended", "subjects": ["Imperial", "Politics"]},
+            {"point": "Make your home system effectively impossible to take so it is the only way to stop you.", "stance": "recommended", "subjects": []},
+            {"point": "If a rival ahead in initiative is racing you, use Light-Wave Deflector and Fleet Logistics to attack them.", "stance": "situational", "subjects": ["Light-Wave Deflector", "Fleet Logistics"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["late"],
+          "topics": ["objectives", "strategy cards", "combat"],
+          "requires": [],
+          "concepts": ["swing round", "home system defense", "speaker order control"]
+        },
+        {
+          "start": "s988",
+          "title": "The Genesis late and Unveil Flagship",
+          "kind": "strategy",
+          "summary": "Late in the game a Genesis full of fighters makes the home system very hard to touch. Sol tends to have enemy fleets nearby, so Unveil Flagship is easy to score with the Genesis; the hosts like holding it back as a surprise action-phase win after the flagship has sat at home defending.",
+          "advice": [
+            {"point": "Late game, build the Genesis and fill it with fighters to make your home system untouchable.", "stance": "recommended", "subjects": ["Genesis"]},
+            {"point": "Do not fear Unveil Flagship as Sol; consider saving it for a surprise action-phase win.", "stance": "recommended", "subjects": ["Unveil Flagship", "Genesis"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["late"],
+          "topics": ["objectives", "combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense", "win more"]
+        },
+        {
+          "start": "s1011",
+          "title": "The Naalu threat",
+          "kind": "strategy",
+          "summary": "The Naalu win faster than anyone through initiative, and Neuroglaive makes them hard to attack, which is another reason to get Light-Wave Deflector. Keep spare fleet supply and strike their home system from Mecatol; if the Naalu stay level with you all game, prepare that late attack.",
+          "advice": [
+            {"point": "Against the Naalu, keep Light-Wave Deflector and spare fleet supply to hit their home system from Mecatol despite Neuroglaive.", "stance": "recommended", "subjects": ["Naalu Collective", "Light-Wave Deflector", "Neuroglaive"]},
+            {"point": "Track who is keeping pace with you in the mid game and prepare a late-game plan against them.", "stance": "recommended", "subjects": []}
+          ],
+          "factions": ["Federation of Sol", "Naalu Collective"],
+          "phases": ["late"],
+          "topics": ["threats and matchups", "technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s1030",
+          "title": "Take safe, controlled points",
+          "kind": "strategy",
+          "summary": "Sol's late game is hard because the meta now treats it as the scariest faction. Execute efficiently, avoid risky manoeuvres and take safe points; unlike the Ghosts, Sol cannot swing out wildly for points.",
+          "advice": [
+            {"point": "Avoid risky manoeuvres; prefer safe, controlled points from a defensive slice.", "stance": "avoid", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol", "Ghosts of Creuss"],
+          "phases": ["late"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["threat perception", "win from ahead"]
+        }
+      ]
+    },
+    {
+      "title": "Community feedback",
+      "summary": "Community members pushed back on the hosts' plan. Eating a neighbour's home system with round-one Warfare is possible but risky. Three infantry on a planet are nearly untakeable early, so Orbital Drop a few times rather than excessively. RJ King argues Sol should stay second or third and swing late; the hosts treat that as the backup plan because it relies on lucky secrets. Schroeder's economic Sol is a meta-dependent fallback. Sol may be overrated while the Naalu go unchecked.",
+      "chunks": [
+        {
+          "start": "s1044",
+          "title": "Introducing the pre-errata",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1055",
+          "title": "Brian: eat a home system with Warfare",
+          "kind": "strategy",
+          "summary": "Brian suggests Sol with round-one Warfare can take a neighbour's home system, since Sol is attacked anyway. The hosts think it is possible but risks being backdoored by the other neighbour and makes that player your enemy; they agree it is fine to lean into actions that draw attacks since you will be attacked regardless.",
+          "advice": [
+            {"point": "Taking a neighbour's home system with round-one Warfare is possible (Brian), but the hosts warn it invites a backdoor from your other neighbour and makes a permanent enemy.", "stance": "situational", "subjects": ["Warfare"]},
+            {"point": "Since Sol is attacked regardless, it is acceptable to take actions that draw attacks.", "stance": "situational", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["round 1", "early"],
+          "topics": ["threats and matchups", "combat"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s1067",
+          "title": "Three infantry is enough early",
+          "kind": "strategy",
+          "summary": "Brian's math: a dreadnought with Plasma Scoring and two infantry beats three basic Spec Ops less than 25% of the time, so until about round three, three infantry on a planet is more than anyone can deal with and deters attacks. The hosts stress Orbital Drop a couple of times per round at most, keeping actions for other things.",
+          "advice": [
+            {"point": "Keep about three infantry on planets you need to hold; early that deters almost any invasion.", "stance": "recommended", "subjects": ["Orbital Drop"]},
+            {"point": "Do not over-use Orbital Drop; a couple of times per round at most, in service of stalling while defending.", "stance": "avoid", "subjects": ["Orbital Drop"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early", "mid"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense", "stall action"]
+        },
+        {
+          "start": "s1087",
+          "title": "RJ King: stay second and swing",
+          "kind": "strategy",
+          "summary": "RJ King argues an early-leading Sol gets gutted by the table, and Sol does better staying tied for second or third and swinging into the win with its objective flexibility. The hosts treat this as the backup plan: it relies on lucky secrets and stage twos, whereas free points plus defence is more reliable, and five players rarely coordinate against you. They also doubt Sol can deliberately stay behind when it scores so easily.",
+          "advice": [
+            {"point": "RJ King's alternative: stay tied for second or third and swing into the win; the hosts treat this as the backup plan when Mecatol is unavailable.", "stance": "situational", "subjects": ["Federation of Sol"]},
+            {"point": "The hosts prefer the Mecatol free-points plan because the low-profile plan depends on lucky secret and stage two draws.", "stance": "rating", "subjects": ["Mecatol Rex"]},
+            {"point": "Expect two persistent attackers and occasional raids, not all five players; a Support for the Throne swap and fighter screens shrink the list.", "stance": "rating", "subjects": ["Support for the Throne"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["mid", "late"],
+          "topics": ["general strategy", "objectives", "threats and matchups"],
+          "requires": ["promissory notes"],
+          "concepts": ["swing round", "threat perception", "free points", "fighter screen"]
+        },
+        {
+          "start": "s1142",
+          "title": "Is Sol overrated? The Naalu comparison",
+          "kind": "strategy",
+          "summary": "Sol does not fare well in very experienced games, which may be the meta or may mean Sol is overestimated. Hunter thinks people have swapped Sol and the Naalu in their heads: the Naalu win more often but face far less heat, and tables should push more meta against them.",
+          "advice": [
+            {"point": "Sol may be overrated in experienced play; the hosts encourage tables to keep applying meta against it.", "stance": "rating", "subjects": ["Federation of Sol"]},
+            {"point": "The Naalu win more often than Sol yet get little heat; apply more pressure to the Naalu.", "stance": "recommended", "subjects": ["Naalu Collective"]}
+          ],
+          "factions": ["Federation of Sol", "Naalu Collective"],
+          "phases": ["any"],
+          "topics": ["threats and matchups"],
+          "requires": [],
+          "concepts": ["threat perception", "table meta"]
+        },
+        {
+          "start": "s1154",
+          "title": "Schroeder: the economic Sol",
+          "kind": "strategy",
+          "summary": "Schroeder describes two Sols: the take-the-lead version and an economic one that sells Military Support constantly. The economic version needs a meta that will trade with you and so requires not being far ahead; it is a good fallback without a secure Mecatol path, possibly taking Mecatol in round three or four. The hosts lean to the active version and find this one very meta-dependent.",
+          "advice": [
+            {"point": "As a fallback without a secure Mecatol path, play economic Sol: sell Military Support constantly and take Trade.", "stance": "situational", "subjects": ["Military Support", "Trade"]},
+            {"point": "Economic Sol only works where the table will trade with you and another economic player is not dominating trades.", "stance": "situational", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["early", "mid"],
+          "topics": ["trade and diplomacy", "economy", "promissory notes"],
+          "requires": ["promissory notes"],
+          "concepts": ["economic fallback", "table meta"]
+        },
+        {
+          "start": "s1192",
+          "title": "Blark Knob: obvious signposts",
+          "kind": "strategy",
+          "summary": "Blark Knob sums Sol up as raw power, no disadvantages and the most straightforward tech path, so beginners can win by following the faction sheet. At top-level play opponents read those signposts and thwart the plan, but below that the guide gives a fair shot.",
+          "advice": [
+            {"point": "Sol is powerful with no disadvantages and an obvious plan; at top-level play the obviousness lets opponents thwart it.", "stance": "rating", "subjects": ["Federation of Sol"]}
+          ],
+          "factions": ["Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["table meta"]
+        },
+        {
+          "start": "s1214",
+          "title": "Thanks to contributors",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1229",
+          "title": "Ratings, social links and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Federation of Souls": "Federation of Sol",
+    "Federation Assault": "Federation of Sol",
+    "Salt": "Sol",
+    "Saul": "Sol",
+    "Mechital Rex": "Mecatol Rex",
+    "Mechatorex": "Mecatol Rex",
+    "Mechitaw Rex": "Mecatol Rex",
+    "Mechatella Rex": "Mecatol Rex",
+    "Mikatol Rex": "Mecatol Rex",
+    "make a tall Rex": "Mecatol Rex",
+    "Mecca Rex": "Mecatol Rex",
+    "McAtoll": "Mecatol",
+    "Dax of Animators": "Dacxive Animators",
+    "Daxive": "Dacxive Animators",
+    "grab drive": "Gravity Drive",
+    "Kyrio Shoe": "Carrier II",
+    "Space Talk 2": "Space Dock II",
+    "geranium armor": "Duranium Armor",
+    "Majin": "Magen Defense Grid",
+    "Neuroglave": "Neuroglaive",
+    "Asaril": "Yssaril",
+    "Isarl": "Yssaril",
+    "a Sorl": "Yssaril",
+    "Klanisar": "Clan of Saar",
+    "SARS": "Saar",
+    "Julnar": "Jol-Nar",
+    "Jolnar": "Jol-Nar",
+    "Joel Narn": "Jol-Nar",
+    "L1Z ones": "L1Z1X",
+    "L1s": "L1Z1X",
+    "Hakons": "Hacan",
+    "Ghost of Creuss": "Ghosts of Creuss",
+    "Extra": "Xxcha",
+    "Muats": "Muaat",
+    "Unveiled Flagship": "Unveil Flagship",
+    "Fortech in one color": "four tech in one color",
+    "flea supply": "fleet supply",
+    "sew kits": "soak hits",
+    "doorblot to drop": "orbital drop",
+    "Shorta": "Schroeder",
+    "RJ Queen": "RJ King",
+    "RJ Kink": "RJ King",
+    "Space Cat Speech Turtles": "Space Cats Peace Turtles",
+    "tri 3": "TI3"
+  }
+}

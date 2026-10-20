@@ -145,6 +145,16 @@
   flex-wrap: wrap;
 }
 
+/* Covers the planet's circle so hovering it shows the planet's name. */
+.planetHover {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* Above the planet's resource and influence figures; the badges and
+     marks drawn after it stay on top. */
+  z-index: 1;
+}
+
 .planetExhausted {
   position: absolute;
   right: calc(100% - 8px);

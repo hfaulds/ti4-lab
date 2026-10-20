@@ -2,11 +2,15 @@
  * Plays one game with an agent seat (or several) against scripted bots and
  * writes the replay log to games/.
  *
- *   tsx scripts/agent-play.ts [--seed 1] [--seat 0|all] [--policy deepseek|first]
- *                             [--model deepseek-flash] [--quiet]
+ *   tsx scripts/agent-play.ts [--seed 1] [--seat 0|all] [--policy deepseek|claude|first]
+ *                             [--model deepseek-flash|haiku] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
  *                             [--no-knowledge] [--stop-at action] [--rounds 1]
  *                             [--setup milty|random]
+ *
+ * --policy claude plays through the Claude Agent SDK, signed in as Claude
+ * Code is: a Claude subscription login, or ANTHROPIC_API_KEY when set. Its
+ * model defaults to haiku. Subscription login is for your own runs only.
  *
  * --setup milty (the default) plays on a seeded Milty draft of the base-game
  * systems, with balanced slices dealt to the seats; random lays the systems
@@ -30,6 +34,7 @@
  */
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { playAgentGame } from "~/game/agent/harness";
+import { ClaudePolicy } from "~/game/agent/claudePolicy";
 import { ChatPolicy, FirstCandidatePolicy, Policy } from "~/game/agent/policy";
 import { draftedSetupFor, setupFor } from "~/game/agent/setups";
 import { testGame } from "~/game/engine/testing";
@@ -55,11 +60,13 @@ try {
 const seed = Number(option("seed", "1"));
 const seatOption = option("seat", "0");
 const policyName = option("policy", "deepseek");
-const model = option("model", "deepseek-flash");
+const model = option("model", policyName === "claude" ? "haiku" : "deepseek-flash");
 
 let policy: Policy;
 if (policyName === "first") {
   policy = new FirstCandidatePolicy();
+} else if (policyName === "claude") {
+  policy = new ClaudePolicy({ model });
 } else {
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
@@ -153,14 +160,17 @@ const total = decisions.reduce(
     output: sum.output + d.usage.outputTokens,
     requests: sum.requests + d.usage.requests,
     retries: sum.retries + (d.usage.retries ?? 0),
+    reported: sum.reported + (d.usage.costUsd ?? 0),
   }),
-  { input: 0, cached: 0, output: 0, requests: 0, retries: 0 },
+  { input: 0, cached: 0, output: 0, requests: 0, retries: 0, reported: 0 },
 );
+// Claude reports its own estimate at list prices; DeepSeek's is worked out here.
 const cost =
+  total.reported ||
   ((total.input - total.cached) * PRICES.cacheMiss +
     total.cached * PRICES.cacheHit +
     total.output * PRICES.output) /
-  1e6;
+    1e6;
 
 const file = `games/${log.startedAt.replace(/[:.]/g, "-")}-seed${seed}-${seatTag}.json`;
 writeFileSync(file, JSON.stringify(log, null, 2));
@@ -173,6 +183,6 @@ console.log(
 console.log(
   `${decisions.length} agent decisions, ${decisions.filter((d) => d.fallback).length} fallbacks, ` +
     `${total.requests} requests (${total.retries} retried). Tokens: ${total.input} in (${total.cached} cached), ${total.output} out; ` +
-    `about $${cost.toFixed(3)} at peak prices.`,
+    `about $${cost.toFixed(3)} ${total.reported ? "as Claude reports it (list prices; a subscription is not billed this)" : "at peak prices"}.`,
 );
 console.log(`Replay log: ${file}`);

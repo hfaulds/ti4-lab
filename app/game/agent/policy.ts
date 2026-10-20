@@ -42,6 +42,8 @@ export type Usage = {
   requests: number;
   /** Requests sent again after a timeout or a dropped connection. */
   retries: number;
+  /** Cost the provider reports, where it does; otherwise worked out from tokens. */
+  costUsd?: number;
 };
 
 export type Decision = {

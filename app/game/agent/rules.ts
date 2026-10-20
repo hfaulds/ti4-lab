@@ -26,6 +26,8 @@ Anomalies (marked on the map):
 
 Planets stay yours without ground forces on them, but anyone who lands on an undefended planet takes it. Moving the last ground forces off a planet that enemy ships can reach risks losing it; your menu says when a move leaves a planet empty.
 
+Fighters and capacity: a space dock keeps up to 3 of your fighters in its system without a carrier; any more take carrier capacity there. Building many fighters at home can fill your carriers so they cannot carry ground forces, and if the carriers leave, fighters without capacity are lost. Your menu says when a build would do this.
+
 Command tokens: the tactic pool pays for activations; the fleet pool caps how many non-fighter ships you may have in one system; the strategy pool pays for secondaries. Leadership and the status phase give more.
 
 Resources pay for units and technology; influence pays for command tokens (via Leadership) and some objectives. Planets you gain arrive exhausted. Trade goods count as either. Commodities become trade goods only when you trade them to a neighbor.
@@ -69,6 +71,8 @@ When a passage names an exception (for example "unless a tech objective is out")
 Building at home: activating your home system to produce places a command token there, so ships in it cannot move out for the rest of the round. Move out whatever needs to leave first; once nothing else needs to leave, activating home to build is fine. If another player holds Warfare and has not played it yet, its secondary also produces at your home space dock without a command token. It is extra production on top of a home activation, not a replacement for it, so keep a strategy token for it.
 
 Spend objectives (for example "spend 8 resources" or "spend 5 trade goods") are paid in the status phase from ready planets and trade goods. Exhausting a planet for anything (Leadership, production, a secondary) spends both its resources and its influence for the round, so keep enough ready to score; the objectives section shows what you could pay now.
+
+Plan from your forces: only carriers (and other ships with capacity) move ground forces, and only what is aboard or on your planets in systems they leave from. Before committing to a multi-turn plan, especially when picking a strategy card, check the "Your forces" section for where your carriers and ground forces are. An empty carrier takes no planets.
 
 Order of actions: when one option banks value that a later move could put at risk (spending a planet's influence with Leadership, trading your commodities), take it first.
 

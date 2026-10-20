@@ -33,6 +33,8 @@ import {
 import {
   adjacentSystems,
   anomaliesOf,
+  capacityIn,
+  dockFighterAllowance,
   findRoute,
   hasAnomaly,
   MECATOL_REX,
@@ -45,7 +47,7 @@ import {
   riftsExited,
   wormholesOf,
 } from "../engine/board";
-import { openPrompts, totalUnits, unitOf, unitTypes } from "../engine/helpers";
+import { countOf, openPrompts, totalUnits, unitOf, unitTypes } from "../engine/helpers";
 import { objectiveStatus } from "../engine/objectives";
 import { reactionName } from "../engine/reactions";
 import { moveBonus } from "../engine/tactical";
@@ -199,6 +201,33 @@ function spendable(state: GameState, seat: PlayerId, cost: { resources?: number;
     : "";
 }
 
+/**
+ * Where the seat's ships and ground forces are, so plans start from what
+ * can actually move: carriers with what they hold aboard, ground forces on
+ * planets, and systems already holding the seat's command token.
+ */
+function forcesSummary(state: GameState, seat: PlayerId): string[] {
+  const lines: string[] = [];
+  for (const system of Object.values(state.systems)) {
+    const ships = unitTypes(system.space[seat]).filter((t) => t !== "fighter" && unitOf(state, seat, t)?.move);
+    const aboard = totalUnits(system.space[seat], isGroundForce);
+    const onPlanets = system.planets
+      .filter((p) => totalUnits(state.planets[p].units[seat], isGroundForce) > 0)
+      .map((p) => `${totalUnits(state.planets[p].units[seat], isGroundForce)} on ${p}`);
+    if (ships.length === 0 && onPlanets.length === 0) continue;
+    const capacity = capacityIn(state, system.key, seat);
+    const fighters = countOf(system.space[seat], "fighter");
+    const parts = [
+      ships.length ? unitsLabel(Object.fromEntries(ships.map((t) => [t, system.space[seat]![t]!]))) : "no ships",
+      capacity ? `${aboard} ground forces and ${fighters} fighters aboard, capacity ${capacity}` : "",
+      onPlanets.length ? `ground forces ${onPlanets.join(", ")}` : "",
+      system.commandTokens.includes(seat) ? "your command token is here, so these ships cannot move this round" : "",
+    ].filter(Boolean);
+    lines.push(`- ${systemLabel(state, system.key)}: ${parts.join("; ")}`);
+  }
+  return lines.length ? lines : ["- none"];
+}
+
 /** Who could become your neighbor with one move, by you or by them. */
 function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[]) {
   return state.seating.flatMap((id) => {
@@ -289,6 +318,8 @@ export function describeTurn(state: GameState, seat: PlayerId) {
     );
   }
 
+  lines.push("", "## Your forces", ...forcesSummary(state, seat));
+
   lines.push("", "## Board", "Systems with units or controlled planets:");
   const keys = Object.values(view.systems)
     .filter(
@@ -340,7 +371,7 @@ function objectivePaymentLabel(payment: ObjectivePayment | undefined) {
   return parts.length ? ` paying ${parts.join("; ")}` : "";
 }
 
-function payloadLabel(state: GameState, payload: StrategicPayload) {
+function payloadLabel(state: GameState, payload: StrategicPayload, seat: PlayerId) {
   switch (payload.card) {
     case "leadership":
       return `pools become ${payload.pools.tactic}/${payload.pools.fleet}/${payload.pools.strategy} (tactic/fleet/strategy)` +
@@ -359,7 +390,8 @@ function payloadLabel(state: GameState, payload: StrategicPayload) {
         : "gain 3 trade goods and replenish commodities";
     case "warfare":
       return payload.production
-        ? `produce ${payload.production.units.map((u) => `${u.count} ${u.type}`).join(", ")} at home, paying ${paymentLabel(payload.production.payment)}`
+        ? `produce ${payload.production.units.map((u) => `${u.count} ${u.type}`).join(", ")} at home, paying ${paymentLabel(payload.production.payment)}` +
+            fighterNote(state, seat, payload.production.units)
         : payload.removeFrom !== undefined
           ? `remove your command token from ${systemRef(state, payload.removeFrom)}`
           : "gain a tactic token";
@@ -376,7 +408,7 @@ function payloadLabel(state: GameState, payload: StrategicPayload) {
 }
 
 /** What a secondary does, which differs from the card's primary. */
-function secondaryLabel(state: GameState, payload: StrategicPayload) {
+function secondaryLabel(state: GameState, payload: StrategicPayload, seat: PlayerId) {
   switch (payload.card) {
     case "leadership": {
       const spent = payload.influence
@@ -403,8 +435,26 @@ function secondaryLabel(state: GameState, payload: StrategicPayload) {
     case "imperial":
       return "draw a secret objective";
     default:
-      return payloadLabel(state, payload);
+      return payloadLabel(state, payload, seat);
   }
+}
+
+/**
+ * What fighters produced at home do to carrier space there: a space dock
+ * keeps 3 fighters without a carrier, and the rest fill carrier capacity,
+ * leaving less for ground forces (and stranding them if the carriers go).
+ */
+function fighterNote(state: GameState, seat: PlayerId, units: { type: string; count: number }[]) {
+  const built = units.filter((u) => u.type === "fighter").reduce((sum, u) => sum + u.count, 0);
+  if (built === 0) return "";
+  const home = state.players[seat].home;
+  const fighters = countOf(state.systems[home].space[seat], "fighter") + built;
+  const free = dockFighterAllowance(state, home, seat);
+  const over = fighters - free;
+  if (over <= 0) return "";
+  const capacity = capacityIn(state, home, seat);
+  return `; afterwards ${fighters} fighters at home, where the space dock keeps ${free} without a carrier, so ${over} fill carrier space ` +
+    `(${Math.max(0, capacity - over)} of ${capacity} left for ground forces there)`;
 }
 
 /**
@@ -474,23 +524,30 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
         moves ? `move ${moves}` : "move nothing",
         cargo ? `carrying ${cargo} ground forces (from ${sources.join(", ")})` : "",
         emptied.length ? `leaves ${emptied.join(" and ")} with no ground forces` : "",
+        plan?.moves.some((m) => m.ships.spacedock) && action.system !== state.players[seat].home
+          ? `your Floating Factory arrives and can produce here (production ${unitOf(state, seat, "spacedock")?.production ?? 0}) in this same action`
+          : "",
         ...rifts,
         enemies.length ? `fight ${enemies.map((e) => `P${e} (${unitsLabel(system.space[e])})`).join(", ")}` : "",
-        targets.length && !landings.length ? `planets not yours: ${targets.join(", ")}` : "",
+        targets.length && !landings.length
+          ? cargo
+            ? `planets not yours: ${targets.join(", ")}`
+            : `carries no ground forces, so takes none of ${targets.join(", ")}`
+          : "",
         ...landing,
       ].filter(Boolean);
       return `Tactical action in ${systemLabel(state, action.system)}: ${parts.join("; ")}. ` +
         `Bot's estimate of the gain: ${(plan?.value ?? 0).toFixed(1)}. The bot plays out movement, landing and production.`;
     }
     case "STRATEGIC_ACTION":
-      return `Play ${payloadName(action.payload)} (primary): ${payloadLabel(state, action.payload)}`;
+      return `Play ${payloadName(action.payload)} (primary): ${payloadLabel(state, action.payload, seat)}`;
     case "RESOLVE_SECONDARY": {
       if (!action.payload) return "Skip the secondary";
       const [prompt] = openPrompts(state);
       const free =
         action.payload.card === "leadership" ||
         (prompt?.kind === "secondary" && prompt.free);
-      return `Use the secondary: ${secondaryLabel(state, action.payload)}` +
+      return `Use the secondary: ${secondaryLabel(state, action.payload, seat)}` +
         (free ? "" : " (costs 1 strategy token)");
     }
     case "SCORE_OBJECTIVES": {

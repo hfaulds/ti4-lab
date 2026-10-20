@@ -58,6 +58,7 @@ import {
   COMMAND_TOKEN_LIMIT,
   countOf,
   hasTech,
+  movesAsShip,
   openPrompts,
   sumCounts,
   tokensOnBoard,
@@ -104,7 +105,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 6;
+export const SCRIPTED_BOT_VERSION = 7;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -187,24 +188,28 @@ export function scriptedMove(
  * influence for the custodians token while its ships are near Mecatol Rex.
  */
 /**
- * While set, the bot holds nothing back. Its reservations are its own plan,
- * not rules, so an agent's menu also offers what they would hide.
+ * While set, the bot holds nothing back and considers every activation
+ * worth anything. Its reservations and threshold are its own plan, not
+ * rules, so an agent's menu also offers what they would hide.
  */
-let ignoreReservations = false;
+let widened = false;
 
-/** Runs `plan` as if the bot held nothing back for objectives or custodians. */
-export function withoutReservations<T>(plan: () => T): T {
-  const was = ignoreReservations;
-  ignoreReservations = true;
+/**
+ * Runs `plan` as if the bot held nothing back for objectives or custodians
+ * and would take any activation that gains something.
+ */
+export function withWiderChoices<T>(plan: () => T): T {
+  const was = widened;
+  widened = true;
   try {
     return plan();
   } finally {
-    ignoreReservations = was;
+    widened = was;
   }
 }
 
 function reservationOf(state: GameState, id: PlayerId): Reservation {
-  if (ignoreReservations) return NO_RESERVATION;
+  if (widened) return NO_RESERVATION;
   const base = reservationFor(state, id);
   const mecatol = state.planets[MECATOL_REX]?.system;
   if (!state.custodians || mecatol === undefined) return base;
@@ -699,7 +704,7 @@ function activations(state: GameState, id: PlayerId): GameAction[] {
       key: system.key,
       value: bestPlan(state, id, system.key)?.value ?? 0,
     }))
-    .filter((t) => t.value >= ACTIVATION_THRESHOLD)
+    .filter((t) => t.value >= (widened ? Number.MIN_VALUE : ACTIVATION_THRESHOLD))
     .sort((a, b) => b.value - a.value || a.key - b.key);
 
   const build = productionTargets(state, id, reserved);
@@ -781,6 +786,23 @@ function reachBy(
   return undefined;
 }
 
+/** A move for a mobile dock (Floating Factory) that can reach `key`, if any. */
+function mobileDockFor(state: GameState, id: PlayerId, key: SystemKey): ShipMove | undefined {
+  const rules = moveRulesFor(state, id, key);
+  for (const origin of systemsWithShips(state, id).concat(
+    Object.values(state.systems).filter((s) => countOf(s.space[id], "spacedock") > 0),
+  )) {
+    if (origin.key === key || origin.commandTokens.includes(id)) continue;
+    if (countOf(origin.space[id], "spacedock") === 0 || !movesAsShip(state, id, "spacedock")) continue;
+    const how = reachBy(state, id, origin.key, "spacedock", rules);
+    if (how === "move") return { from: origin.key, ships: { spacedock: 1 } };
+  }
+  return undefined;
+}
+
+/** Worth of bringing a mobile dock forward, to produce where it arrives. */
+const FACTORY_VALUE = 2;
+
 /** Infantry kept at a home space dock for the next carrier built there. */
 const HOME_INFANTRY = 2;
 
@@ -813,9 +835,14 @@ function planMovement(
     if (room === 0) break;
     if (!intent.attack && wanted <= 0) break;
     const group = origin.space[id];
+    // Mobile docks (Floating Factories) travel with invasions, not attacks:
+    // they cannot fight, and are lost if blockaded.
+    const moves = (type: UnitType) =>
+      type !== "fighter" &&
+      (isShip(type) || (!intent.attack && movesAsShip(state, id, type)));
     const reach = new Map(
       unitTypes(group)
-        .filter((type) => isShip(type) && type !== "fighter")
+        .filter(moves)
         .map((type) => [type, reachBy(state, id, origin.key, type, rules)]),
     );
     const types = unitTypes(group).filter((type) => {
@@ -888,31 +915,38 @@ function planMovement(
       wanted -= count;
     }
     const guarded = origin.key === player.home && homeThreatened;
-    // Spare infantry stay at a home dock to fill the next carrier built there.
-    const keepHome =
-      origin.key === player.home && productionCapacity(state, origin.key, id) > 0
-        ? HOME_INFANTRY
-        : 0;
     // Planets enemy ships could reach keep one infantry, so a neighbor
     // cannot just land and take them.
     const exposed = origin.key !== player.home && enemyShipsNear(state, id, origin.key, 2);
-    for (const name of origin.planets) {
-      if (state.planets[name].controller !== id) continue;
+    const mine = origin.planets.filter((name) => state.planets[name].controller === id);
+    const garrisonOf = (type: UnitType) => ((guarded || exposed) && type === "infantry" ? 1 : 0);
+    // Spare infantry stay at a home dock, HOME_INFANTRY across the system
+    // (garrisons included), to fill the next carrier built there.
+    let spareHome =
+      origin.key === player.home && productionCapacity(state, origin.key, id) > 0
+        ? Math.max(
+            0,
+            mine.reduce((sum, name) => sum + countOf(state.planets[name].units[id], "infantry"), 0) -
+              HOME_INFANTRY,
+          )
+        : Infinity;
+    for (const name of mine) {
       for (const type of ["infantry", "mech"] as UnitType[]) {
         const present = countOf(state.planets[name].units[id], type);
-        const garrison = (guarded || exposed) && type === "infantry" ? 1 : 0;
+        const garrison = garrisonOf(type);
         const needed = Math.max(0, wanted - (intent.spare ?? 0));
-        const keep = type === "infantry" ? keepHome : 0;
+        const spare = type === "infantry" ? spareHome : Infinity;
         const count = Math.min(
           lift,
           Math.max(0, wanted),
           present - garrison,
-          Math.max(needed, present - garrison - keep),
+          Math.max(needed, Math.min(spare, present - garrison)),
         );
         if (count <= 0) continue;
         take({ system: origin.key, planet: name, units: { [type]: count } }, count);
         plan.groundForces += count;
         wanted -= count;
+        if (type === "infantry") spareHome -= count;
       }
     }
     const fighters = countOf(group, "fighter");
@@ -960,6 +994,17 @@ function targetValue(
   });
   const arriving = sumCounts(plan.ships);
   if (arriving === 0 && plan.groundForces === 0) return undefined;
+  // A mobile dock brought along can produce here in this same tactical
+  // action; it stays out of reach of enemy ships, since a blockade sinks it.
+  if (!attack && key !== state.players[id].home && !plan.ships.spacedock && !enemyShipsNear(state, id, key, 1)) {
+    const dock = mobileDockFor(state, id, key);
+    if (dock) {
+      plan.moves.push(dock);
+      plan.ships = addCounts(plan.ships, { spacedock: 1 });
+    }
+  }
+  const factory =
+    key !== state.players[id].home && (plan.ships.spacedock ?? 0) > 0 ? FACTORY_VALUE : 0;
 
   let value = 0;
   if (attack) {
@@ -985,6 +1030,7 @@ function targetValue(
       STAGING_WEIGHT *
       onward.slice(0, available).reduce((sum, planet) => sum + planetValue(state, id, planet), 0);
   }
+  value += factory;
   if (value === 0) return undefined;
   return { value, plan, landings };
 }

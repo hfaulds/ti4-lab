@@ -18,7 +18,7 @@ import {
   SCRIPTED_BOT_VERSION,
   scriptedCandidates,
   scriptedMove,
-  withoutReservations,
+  withWiderChoices,
   secondaryChoices,
   secondarySkipReason,
 } from "./scriptedBot";
@@ -132,9 +132,9 @@ export function buildMenu(
   offer(withEverySecondary(state, player, ranked.actions));
   // With nothing of its own legal, the bot's fallback plays the move.
   if (legal.length === 0) return [];
-  // What the bot's reservations hide comes after its own picks.
-  const unreserved = withoutReservations(() => scriptedCandidates(state, memory));
-  offer(unreserved?.actions ?? []);
+  // What the bot's reservations and threshold hide comes after its own picks.
+  const wider = withWiderChoices(() => scriptedCandidates(state, memory));
+  offer(wider?.actions ?? []);
   return legal.map((action, i) => ({
     label: LABELS[i],
     text: describeAction(state, player, action),

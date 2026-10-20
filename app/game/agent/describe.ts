@@ -13,28 +13,42 @@ import {
   abilitiesById,
   actionCardsById,
   factionSetupFor,
+  isGroundForce,
   objectivesById,
   promissoryNotesById,
   strategyCardsById,
   technologiesById,
   UNIT_NAMES,
 } from "../data";
-import { GameAction, ObjectivePayment, StrategicPayload } from "../actions";
-import { EffectTargets, GameState, Payment, SystemKey, UnitGroup } from "../types";
+import { GameAction, ObjectivePayment, ShipMove, StrategicPayload } from "../actions";
+import {
+  EffectTargets,
+  GameState,
+  Payment,
+  SystemKey,
+  UnitCounts,
+  UnitGroup,
+  UnitType,
+} from "../types";
 import {
   adjacentSystems,
   anomaliesOf,
+  findRoute,
+  hasAnomaly,
   MECATOL_REX,
+  moveRulesFor,
   neighborsOf,
   planetInfluence,
   planetInfo,
   planetResources,
   planetTechSpecialties,
+  riftsExited,
   wormholesOf,
 } from "../engine/board";
-import { openPrompts, unitTypes } from "../engine/helpers";
+import { openPrompts, totalUnits, unitOf, unitTypes } from "../engine/helpers";
 import { objectiveStatus } from "../engine/objectives";
 import { reactionName } from "../engine/reactions";
+import { moveBonus } from "../engine/tactical";
 import { viewFor } from "../view";
 import { neighborlyMove } from "./reach";
 import { bestPlan } from "./scriptedBot";
@@ -357,6 +371,29 @@ function secondaryLabel(state: GameState, payload: StrategicPayload) {
   }
 }
 
+/**
+ * Warnings for moves whose route leaves or passes through a gravity rift,
+ * where each ship is lost on a roll of 1-3, with what it carries.
+ */
+function riftWarnings(state: GameState, seat: PlayerId, target: SystemKey, moves: ShipMove[]) {
+  return moves.flatMap((m) => {
+    const speeds = Object.keys(m.ships).map((t) => unitOf(state, seat, t as UnitType)?.move ?? 0);
+    const move = Math.min(...speeds) + moveBonus(state, seat, m.from) + (m.gravityDrive ? 1 : 0);
+    const route = m.path
+      ? { path: m.path, rifts: riftsExited(state, m.path) }
+      : findRoute(state, m.from, move, moveRulesFor(state, seat, target));
+    if (!route || route.rifts === 0) return [];
+    const via = route.path
+      .slice(0, -1)
+      .filter((k) => hasAnomaly(state.systems[k], "GRAVITY_RIFT"))
+      .map((k) => `#${k}`);
+    const loss = Math.round((1 - 0.7 ** route.rifts) * 100);
+    return [
+      `ships from #${m.from} go via the gravity rift at ${via.join(" and ")}: each has a ${loss}% chance to be lost, with its cargo`,
+    ];
+  });
+}
+
 /** A short, readable description of an action the agent could take. */
 export function describeAction(state: GameState, seat: PlayerId, action: GameAction): string {
   switch (action.type) {
@@ -372,14 +409,23 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
       const moves = plan?.moves
         .map((m) => `${Object.entries(m.ships).map(([t, n]) => `${n} ${t}`).join(", ")} from #${m.from}`)
         .join("; ");
-      const cargo = plan?.cargo.reduce(
-        (sum, c) => sum + (c.units.infantry ?? 0) + (c.units.mech ?? 0),
-        0,
-      );
+      const groundForces = (units: UnitCounts) => (units.infantry ?? 0) + (units.mech ?? 0);
+      const cargo = plan?.cargo.reduce((sum, c) => sum + groundForces(c.units), 0);
+      const sources = [
+        ...new Set(plan?.cargo.filter((c) => groundForces(c.units) > 0).map((c) => c.planet ?? "space")),
+      ];
+      // Planets whose last ground forces leave can be taken by anyone who lands.
+      const emptied = (plan?.cargo ?? [])
+        .filter((c) => c.planet !== undefined && groundForces(c.units) > 0)
+        .filter((c) => totalUnits(state.planets[c.planet!].units[seat], isGroundForce) <= groundForces(c.units))
+        .map((c) => c.planet!);
+      const rifts = plan ? [...new Set(riftWarnings(state, seat, action.system, plan.moves))] : [];
       const targets = system.planets.filter((p) => state.planets[p].controller !== seat);
       const parts = [
         moves ? `move ${moves}` : "move nothing",
-        cargo ? `carrying ${cargo} ground forces` : "",
+        cargo ? `carrying ${cargo} ground forces (from ${sources.join(", ")})` : "",
+        emptied.length ? `leaves ${emptied.join(" and ")} with no ground forces` : "",
+        ...rifts,
         enemies.length ? `fight ${enemies.map((e) => `P${e} (${unitsLabel(system.space[e])})`).join(", ")}` : "",
         targets.length ? `planets not yours: ${targets.join(", ")}` : "",
       ].filter(Boolean);

@@ -18,6 +18,14 @@ A round has four phases:
 
 Tactical action: place a command token from your tactic pool in a system to activate it. Move ships into it from systems without your command token, within their move value, carrying ground forces and fighters up to capacity. Then: space cannon, space combat, bombardment, landing ground forces to take planets, ground combat, and production if you have a space dock there. A system with your command token cannot be activated again this round, and your ships there cannot move out.
 
+Anomalies (marked on the map):
+- Asteroid field: ships cannot move into or through it without Antimass Deflectors.
+- Supernova: ships cannot move into or through it.
+- Nebula: ships can only enter it as the active system, and ships starting in it have move 1. A defender in a nebula gets +1 to its combat rolls.
+- Gravity rift: a ship that moves out of or through it gets +1 move, then rolls a die and is destroyed on 1-3, with the units it carries. Your menu warns when a route goes through one.
+
+Planets stay yours without ground forces on them, but anyone who lands on an undefended planet takes it. Moving the last ground forces off a planet that enemy ships can reach risks losing it; your menu says when a move leaves a planet empty.
+
 Command tokens: the tactic pool pays for activations; the fleet pool caps how many non-fighter ships you may have in one system; the strategy pool pays for secondaries. Leadership and the status phase give more.
 
 Resources pay for units and technology; influence pays for command tokens (via Leadership) and some objectives. Planets you gain arrive exhausted. Trade goods count as either. Commodities become trade goods only when you trade them to a neighbor.
@@ -59,6 +67,8 @@ A guide's default ("take Trade or Leadership") is where to start, not the answer
 When a passage names an exception (for example "unless a tech objective is out"), search for it or check it, and say in your rationale whether it applies here.
 
 Building at home: activating your home system to produce places a command token there, so ships in it cannot move out for the rest of the round. Move out whatever needs to leave first; once nothing else needs to leave, activating home to build is fine. If another player holds Warfare and has not played it yet, its secondary also produces at your home space dock without a command token. It is extra production on top of a home activation, not a replacement for it, so keep a strategy token for it.
+
+Order of actions: when one option banks value that a later move could put at risk (spending a planet's influence with Leadership, trading your commodities), take it first.
 
 Commodities and neighbours: a lone ship such as a destroyer can make you neighbours with a player, so you can trade, without taking planets. Other players expand during the round too, so a player who is not your neighbour now may become one when they move next to you.
 

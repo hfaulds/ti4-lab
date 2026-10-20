@@ -103,7 +103,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 5;
+export const SCRIPTED_BOT_VERSION = 6;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -874,11 +874,14 @@ function planMovement(
       origin.key === player.home && productionCapacity(state, origin.key, id) > 0
         ? HOME_INFANTRY
         : 0;
+    // Planets enemy ships could reach keep one infantry, so a neighbor
+    // cannot just land and take them.
+    const exposed = origin.key !== player.home && enemyShipsNear(state, id, origin.key, 2);
     for (const name of origin.planets) {
       if (state.planets[name].controller !== id) continue;
       for (const type of ["infantry", "mech"] as UnitType[]) {
         const present = countOf(state.planets[name].units[id], type);
-        const garrison = guarded && type === "infantry" ? 1 : 0;
+        const garrison = (guarded || exposed) && type === "infantry" ? 1 : 0;
         const needed = Math.max(0, wanted - (intent.spare ?? 0));
         const keep = type === "infantry" ? keepHome : 0;
         const count = Math.min(

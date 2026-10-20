@@ -330,6 +330,21 @@ These are for steering, not proof; a batch of 20 games is noisy.
      many.
    - Done when the agent can strike a refresh-for-a-trade-good deal in
      one round, collect it in a later one, and the history shows both.
+8. **Drafting.** An agent that drafts like a competitive player: in a
+   Milty draft it picks a faction, a slice and a speaker position in turn,
+   weighing each faction against the slices left (does the slice suit
+   what the faction needs: plastic for Ghosts, influence for Barony),
+   neighbours, and what others have already taken.
+   - Today `draftedSetupFor` deals balanced Milty slices and factions at
+     random; drafting replaces the dealing, so the seat, slice and
+     faction come from picks.
+   - The SCPT guides already rate factions and say what each wants from a
+     slice, so the drafter can search them like the player does.
+   - Bots draft by simple rules (best slice value left, then a faction
+     that fits it) so a table of bots and one agent can draft together.
+   - Done when the agent's picks come with a rationale a reviewer agrees
+     with, and games on drafted setups show seat-to-seat balance close to
+     the dealt ones.
 
 ## Measuring it, later
 

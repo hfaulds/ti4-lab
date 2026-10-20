@@ -6,7 +6,11 @@
  *                             [--model deepseek-flash] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
  *                             [--no-knowledge] [--stop-at action] [--rounds 1]
+ *                             [--setup milty|random]
  *
+ * --setup milty (the default) plays on a seeded Milty draft of the base-game
+ * systems, with balanced slices dealt to the seats; random lays the systems
+ * out at random.
  * --seat all makes every player an agent. --stop-at ends the game when it
  * first reaches that phase, e.g. to look at strategy card picks alone.
  * --rounds ends it once that many rounds are over.
@@ -27,7 +31,7 @@
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { playAgentGame } from "~/game/agent/harness";
 import { ChatPolicy, FirstCandidatePolicy, Policy } from "~/game/agent/policy";
-import { setupFor } from "~/game/agent/setups";
+import { draftedSetupFor, setupFor } from "~/game/agent/setups";
 import { testGame } from "~/game/engine/testing";
 import { PlayerId } from "~/types";
 import { KnowledgeBase, openKnowledgeBase } from "~/knowledge/search";
@@ -66,7 +70,8 @@ if (policyName === "first") {
 }
 
 // Names show in the web app and in the game log.
-const state = structuredClone(testGame({ seed, ...setupFor(seed) }));
+const setup = option("setup", "milty") === "random" ? setupFor(seed) : draftedSetupFor(seed);
+const state = structuredClone(testGame({ seed, ...setup }));
 const agentSeats = seatOption === "all" ? [...state.seating] : [Number(seatOption) as PlayerId];
 // The first agent seat names the files and the spectator's suggested seat.
 const seat = agentSeats[0];

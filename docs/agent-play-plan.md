@@ -314,6 +314,22 @@ These are for steering, not proof; a batch of 20 games is noisy.
    Mecatol and Imperial, and spending idle tactic tokens. A stronger
    opponent makes the agent's wins mean more and gives it better menu
    candidates.
+7. **Table talk.** Public and private chat between players, so they can
+   make and remember non-binding deals, such as a free commodity refresh
+   for a trade good later, or staying out of each other's slice.
+   - Messages and a deal log live with the game (not in the engine's
+     rules), shown in the web app and in each player's turn block.
+   - The agent gets tools to post a message and to propose, accept or
+     drop a deal, and sees its open deals and who has kept or broken
+     theirs.
+   - Bots answer from simple rules: accept deals that pay, keep them
+     unless keeping them costs more than they are worth, and remember
+     who broke one.
+   - Replaces the hard-coded "owe one for a free refresh" convention in
+     `app/game/agent/conventions.ts`, which then becomes one deal among
+     many.
+   - Done when the agent can strike a refresh-for-a-trade-good deal in
+     one round, collect it in a later one, and the history shows both.
 
 ## Measuring it, later
 

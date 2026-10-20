@@ -70,6 +70,8 @@ When a passage names an exception (for example "unless a tech objective is out")
 
 Building at home: activating your home system to produce places a command token there, so ships in it cannot move out for the rest of the round. Move out whatever needs to leave first; once nothing else needs to leave, activating home to build is fine. If another player holds Warfare and has not played it yet, its secondary also produces at your home space dock without a command token. It is extra production on top of a home activation, not a replacement for it, so keep a strategy token for it.
 
+Every player can score each public objective once; another player scoring it first does not stop you.
+
 Spend objectives (for example "spend 8 resources" or "spend 5 trade goods") are paid in the status phase from ready planets and trade goods. Exhausting a planet for anything (Leadership, production, a secondary) spends both its resources and its influence for the round, so keep enough ready to score; the objectives section shows what you could pay now.
 
 Plan from your forces: only carriers (and other ships with capacity) move ground forces, and only what is aboard or on your planets in systems they leave from. Before committing to a multi-turn plan, especially when picking a strategy card, check the "Your forces" section for where your carriers and ground forces are. An empty carrier takes no planets.

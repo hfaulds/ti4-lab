@@ -168,10 +168,37 @@ function objectiveLine(state: GameState, seat: PlayerId, id: string, scoredBy?: 
   const scored = scoredBy?.length
     ? `; scored by ${scoredBy.map((p) => `P${p}`).join(", ")}`
     : "";
-  return `- ${data?.name ?? id} [${data?.points ?? "?"} VP]: ${data?.text ?? ""} — ${yours}${cost}${scored}`;
+  const ready = status.cost && !scoredBy?.includes(seat) ? spendable(state, seat, status.cost) : "";
+  return `- ${data?.name ?? id} [${data?.points ?? "?"} VP]: ${data?.text ?? ""} — ${yours}${cost}${scored}${ready}`;
 }
 
-/** The current position as the seat sees it. */
+/**
+ * What the seat could pay towards a spend objective right now, from ready
+ * planets and trade goods, since exhausting a planet for anything else
+ * before the status phase takes it out of the total.
+ */
+function spendable(state: GameState, seat: PlayerId, cost: { resources?: number; influence?: number; tradeGoods?: number }) {
+  const ready = Object.values(state.planets).filter((p) => p.controller === seat && !p.exhausted);
+  const tradeGoods = state.players[seat].tradeGoods;
+  const parts: string[] = [];
+  for (const [currency, value] of [
+    ["resources", planetResources],
+    ["influence", planetInfluence],
+  ] as const) {
+    if (!cost[currency]) continue;
+    const planets = ready.map((p) => ({ name: p.name, amount: value(state, p.name) })).filter((p) => p.amount > 0);
+    const onPlanets = planets.reduce((sum, p) => sum + p.amount, 0);
+    const list = planets.length ? ` (${planets.map((p) => `${p.name} ${p.amount}`).join(", ")})` : "";
+    parts.push(
+      `${onPlanets} ${currency} on ready planets${list} + ${tradeGoods} trade goods = ${onPlanets + tradeGoods} of ${cost[currency]}`,
+    );
+  }
+  if (cost.tradeGoods) parts.push(`${tradeGoods} of ${cost.tradeGoods} trade goods`);
+  return parts.length
+    ? `. Ready now: ${parts.join("; ")}. Paid in the status phase, so exhausting these planets or spending trade goods first lowers it`
+    : "";
+}
+
 /** Who could become your neighbor with one move, by you or by them. */
 function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[]) {
   return state.seating.flatMap((id) => {
@@ -183,6 +210,7 @@ function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[
   });
 }
 
+/** The current position as the seat sees it. */
 export function describeTurn(state: GameState, seat: PlayerId) {
   const view = viewFor(state, seat);
   const me = view.players[seat];
@@ -429,13 +457,27 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
         .map((c) => c.planet!);
       const rifts = plan ? [...new Set(riftWarnings(state, seat, action.system, plan.moves))] : [];
       const targets = system.planets.filter((p) => state.planets[p].controller !== seat);
+      const defenders = (planet: string) =>
+        Object.entries(state.planets[planet].units)
+          .filter(([owner]) => Number(owner) !== seat)
+          .reduce((sum, [, units]) => sum + totalUnits(units, isGroundForce), 0);
+      const against = (planet: string) => (defenders(planet) ? ` against ${defenders(planet)} defending` : "");
+      const landings = plan?.landings ?? [];
+      const left = targets.filter((p) => !landings.some((l) => l.planet === p));
+      const landing = [
+        ...landings.map((l) => `lands ${l.need} on ${l.planet}${against(l.planet)}`),
+        ...(left.length && landings.length
+          ? [`does not take ${left.map((p) => `${p}${against(p)}`).join(", ")}: not enough ground forces`]
+          : []),
+      ];
       const parts = [
         moves ? `move ${moves}` : "move nothing",
         cargo ? `carrying ${cargo} ground forces (from ${sources.join(", ")})` : "",
         emptied.length ? `leaves ${emptied.join(" and ")} with no ground forces` : "",
         ...rifts,
         enemies.length ? `fight ${enemies.map((e) => `P${e} (${unitsLabel(system.space[e])})`).join(", ")}` : "",
-        targets.length ? `planets not yours: ${targets.join(", ")}` : "",
+        targets.length && !landings.length ? `planets not yours: ${targets.join(", ")}` : "",
+        ...landing,
       ].filter(Boolean);
       return `Tactical action in ${systemLabel(state, action.system)}: ${parts.join("; ")}. ` +
         `Bot's estimate of the gain: ${(plan?.value ?? 0).toFixed(1)}. The bot plays out movement, landing and production.`;

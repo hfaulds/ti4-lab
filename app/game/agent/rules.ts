@@ -68,6 +68,8 @@ When a passage names an exception (for example "unless a tech objective is out")
 
 Building at home: activating your home system to produce places a command token there, so ships in it cannot move out for the rest of the round. Move out whatever needs to leave first; once nothing else needs to leave, activating home to build is fine. If another player holds Warfare and has not played it yet, its secondary also produces at your home space dock without a command token. It is extra production on top of a home activation, not a replacement for it, so keep a strategy token for it.
 
+Spend objectives (for example "spend 8 resources" or "spend 5 trade goods") are paid in the status phase from ready planets and trade goods. Exhausting a planet for anything (Leadership, production, a secondary) spends both its resources and its influence for the round, so keep enough ready to score; the objectives section shows what you could pay now.
+
 Order of actions: when one option banks value that a later move could put at risk (spending a planet's influence with Leadership, trading your commodities), take it first.
 
 Commodities and neighbours: a lone ship such as a destroyer can make you neighbours with a player, so you can trade, without taking planets. Other players expand during the round too, so a player who is not your neighbour now may become one when they move next to you.

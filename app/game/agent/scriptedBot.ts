@@ -1032,7 +1032,13 @@ function onwardTargets(
     );
 }
 
-export type Plan = { value: number; moves: ShipMove[]; cargo: CargoPickup[] };
+export type Plan = {
+  value: number;
+  moves: ShipMove[];
+  cargo: CargoPickup[];
+  /** Planets an invasion means to take, with the ground forces each gets. */
+  landings?: { planet: string; need: number }[];
+};
 
 /** The most valuable tactical action in `key`: an invasion or a position. */
 export function bestPlan(
@@ -1048,6 +1054,7 @@ export function bestPlan(
       value: invasion.value,
       moves: invasion.plan.moves,
       cargo: invasion.plan.cargo,
+      landings: invasion.landings,
     });
   }
   if (position) options.push(position);

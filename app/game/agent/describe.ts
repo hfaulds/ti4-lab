@@ -74,10 +74,17 @@ function planetLabel(state: GameState, name: string) {
   return `${name} ${values}${extras.length ? ` (${extras.join(", ")})` : ""}`;
 }
 
+/**
+ * A system by its tile number, as the web app's board and game log name
+ * it, rather than by its position on the map.
+ */
+export const systemRef = (state: GameState, key: SystemKey) =>
+  `#${state.systems[key]?.systemId ?? key}`;
+
 export function systemLabel(state: GameState, key: SystemKey) {
   const system = state.systems[key];
   const planets = system.planets.length ? system.planets.join(" / ") : "no planets";
-  return `#${key} ${planets}`;
+  return `${systemRef(state, key)} ${planets}`;
 }
 
 function unitsLabel(group: UnitGroup | undefined) {
@@ -121,10 +128,11 @@ export function describeGame(state: GameState, seat: PlayerId) {
     );
   }
   lines.push("", "## Map", "Each system: planets (resources/influence, traits), features, adjacent systems.");
+  const tile = (key: SystemKey) => Number(state.systems[key].systemId) || 0;
   const keys = Object.values(state.systems)
     .filter((s) => s.onBoard || s.homeOf !== undefined)
     .map((s) => s.key)
-    .sort((a, b) => a - b);
+    .sort((a, b) => tile(a) - tile(b));
   for (const key of keys) {
     const system = state.systems[key];
     const features = [
@@ -134,8 +142,8 @@ export function describeGame(state: GameState, seat: PlayerId) {
     ];
     const planets = system.planets.map((p) => planetLabel(state, p)).join("; ");
     lines.push(
-      `- #${key}: ${planets || "no planets"}${features.length ? ` [${features.join(", ")}]` : ""}` +
-        ` → ${adjacentSystems(state, key).sort((a, b) => a - b).join(", ")}`,
+      `- ${systemRef(state, key)}: ${planets || "no planets"}${features.length ? ` [${features.join(", ")}]` : ""}` +
+        ` → ${adjacentSystems(state, key).sort((a, b) => tile(a) - tile(b)).map((k) => systemRef(state, k)).join(", ")}`,
     );
   }
   return lines.join("\n");
@@ -169,9 +177,9 @@ function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[
   return state.seating.flatMap((id) => {
     if (id === seat || neighbors.includes(id) || state.players[id].eliminated) return [];
     const mine = neighborlyMove(state, seat, id);
-    if (mine !== undefined) return [`${playerLabel(state, id)}, you can move to #${mine}`];
+    if (mine !== undefined) return [`${playerLabel(state, id)}, you can move to ${systemRef(state, mine)}`];
     const theirs = neighborlyMove(state, id, seat);
-    return theirs !== undefined ? [`${playerLabel(state, id)}, they can move to #${theirs}`] : [];
+    return theirs !== undefined ? [`${playerLabel(state, id)}, they can move to ${systemRef(state, theirs)}`] : [];
   });
 }
 
@@ -280,7 +288,7 @@ export function describeTurn(state: GameState, seat: PlayerId) {
     const tokens = system.commandTokens.length
       ? ` | command tokens: ${system.commandTokens.map((t) => `P${t}`).join(", ")}`
       : "";
-    lines.push(`- #${key}: ${parts.join(" | ")}${tokens}`);
+    lines.push(`- ${systemRef(state, key)}: ${parts.join(" | ")}${tokens}`);
   }
   return lines.join("\n");
 }
@@ -304,7 +312,7 @@ function objectivePaymentLabel(payment: ObjectivePayment | undefined) {
   return parts.length ? ` paying ${parts.join("; ")}` : "";
 }
 
-function payloadLabel(payload: StrategicPayload) {
+function payloadLabel(state: GameState, payload: StrategicPayload) {
   switch (payload.card) {
     case "leadership":
       return `pools become ${payload.pools.tactic}/${payload.pools.fleet}/${payload.pools.strategy} (tactic/fleet/strategy)` +
@@ -325,7 +333,7 @@ function payloadLabel(payload: StrategicPayload) {
       return payload.production
         ? `produce ${payload.production.units.map((u) => `${u.count} ${u.type}`).join(", ")} at home, paying ${paymentLabel(payload.production.payment)}`
         : payload.removeFrom !== undefined
-          ? `remove your command token from #${payload.removeFrom}`
+          ? `remove your command token from ${systemRef(state, payload.removeFrom)}`
           : "gain a tactic token";
     case "technology": {
       const research = [payload.research, payload.second].filter(Boolean).map((r) => techName(r!.technology));
@@ -360,14 +368,14 @@ function secondaryLabel(state: GameState, payload: StrategicPayload) {
       if (!structure) return "build nothing";
       const system = state.planets[structure.planet]?.system;
       return `build a ${structure.type === "pds" ? "PDS" : "space dock"} on ${structure.planet}; ` +
-        `your command token goes into #${system}, so you cannot activate it this round`;
+        `your command token goes into ${systemRef(state, system)}, so you cannot activate it this round`;
     }
     case "trade":
       return "replenish your commodities (no trade goods)";
     case "imperial":
       return "draw a secret objective";
     default:
-      return payloadLabel(payload);
+      return payloadLabel(state, payload);
   }
 }
 
@@ -386,10 +394,10 @@ function riftWarnings(state: GameState, seat: PlayerId, target: SystemKey, moves
     const via = route.path
       .slice(0, -1)
       .filter((k) => hasAnomaly(state.systems[k], "GRAVITY_RIFT"))
-      .map((k) => `#${k}`);
+      .map((k) => systemRef(state, k));
     const loss = Math.round((1 - 0.7 ** route.rifts) * 100);
     return [
-      `ships from #${m.from} go via the gravity rift at ${via.join(" and ")}: each has a ${loss}% chance to be lost, with its cargo`,
+      `ships from ${systemRef(state, m.from)} go via the gravity rift at ${via.join(" and ")}: each has a ${loss}% chance to be lost, with its cargo`,
     ];
   });
 }
@@ -407,7 +415,7 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
       const system = state.systems[action.system];
       const enemies = Object.keys(system.space).map(Number).filter((p) => p !== seat);
       const moves = plan?.moves
-        .map((m) => `${Object.entries(m.ships).map(([t, n]) => `${n} ${t}`).join(", ")} from #${m.from}`)
+        .map((m) => `${Object.entries(m.ships).map(([t, n]) => `${n} ${t}`).join(", ")} from ${systemRef(state, m.from)}`)
         .join("; ");
       const groundForces = (units: UnitCounts) => (units.infantry ?? 0) + (units.mech ?? 0);
       const cargo = plan?.cargo.reduce((sum, c) => sum + groundForces(c.units), 0);
@@ -433,7 +441,7 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
         `Bot's estimate of the gain: ${(plan?.value ?? 0).toFixed(1)}. The bot plays out movement, landing and production.`;
     }
     case "STRATEGIC_ACTION":
-      return `Play ${payloadName(action.payload)} (primary): ${payloadLabel(action.payload)}`;
+      return `Play ${payloadName(action.payload)} (primary): ${payloadLabel(state, action.payload)}`;
     case "RESOLVE_SECONDARY": {
       if (!action.payload) return "Skip the secondary";
       const [prompt] = openPrompts(state);

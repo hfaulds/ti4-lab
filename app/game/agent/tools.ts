@@ -16,6 +16,7 @@ import {
 } from "../data";
 import { GameState, UnitType } from "../types";
 import { planetInfo } from "../engine/board";
+import { systemRef } from "./describe";
 
 export type ToolSchema = {
   name: string;
@@ -248,7 +249,7 @@ export function lookup(state: GameState, args: LookupArgs): string {
       const info = name && planetInfo(state, name);
       if (!name || !info) return `No planet matches "${args.id}".`;
       return `${name}: ${info.resources} resources, ${info.influence} influence, traits ${info.trait?.join(", ") || "none"}, ` +
-        `tech specialty ${info.tech?.join(", ") || "none"}${info.legendary ? ", legendary" : ""}. In system #${state.planets[name].system}.`;
+        `tech specialty ${info.tech?.join(", ") || "none"}${info.legendary ? ", legendary" : ""}. In system ${systemRef(state, state.planets[name].system)}.`;
     }
   }
 }

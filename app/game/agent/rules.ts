@@ -61,6 +61,11 @@ Use the lookup tool for exact data on a faction, unit, technology, objective or 
 
 When the search_guides tool is offered, it searches strategy guides from experienced players: how factions open, which strategy cards and technologies to take, how to score and when to trade. Search when the decision is a strategic one (a strategy card pick, a technology, a faction's first rounds, a deal), not for routine moves. Searches share the lookup limit.
 
+Before choosing, look up what bears on the decision:
+- In round 1, search the guides for the first-round strategy of every faction at the table, yours and the others' (which strategy card each wants, where each will expand, what each will build), before your first picks and moves, so you can anticipate their picks and moves as well as plan your own.
+- Look up your own faction and the factions at the table, especially your neighbours and anyone you could fight or trade with: their abilities, faction technologies and promissory notes change what is safe and what is worth doing. Search the guides for how to play against them.
+- Look up and search for what the board in front of you raises: an objective you could score, a system or planet you might take, a technology you might research, an anomaly or wormhole on your route.
+
 A guide's default ("take Trade or Leadership") is where to start, not the answer: the guides are written for human tables, and they also say when the default changes. Check it against this board before choosing:
 - Objectives: which public objectives are out, and what you are missing to score them in the next round or two.
 - Neighbours and reach: trades only happen between neighbours. Commodities are usually swapped in the round Trade is played, when everyone's are refilled, but you can move next to partners after playing Trade, so what counts is who you could neighbour this round (your turn block lists them), not who you border now.

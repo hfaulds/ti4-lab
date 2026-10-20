@@ -9,9 +9,11 @@ import {
   abilitiesById,
   factionSetupFor,
   objectivesById,
+  promissoryNotesById,
   strategyCardsById,
   technologiesById,
   unitFor,
+  unitsById,
   UNIT_NAMES,
 } from "../data";
 import { GameState, UnitType } from "../types";
@@ -197,9 +199,23 @@ export function lookup(state: GameState, args: LookupArgs): string {
       return [
         `${factions[faction].name} (${faction}). Commodities ${setup.commodities}.`,
         `Starting technologies: ${setup.startingTech.map((t) => technologiesById[t]?.name ?? t).join(", ") || "none"}.`,
-        `Faction technologies: ${setup.factionTech.map((t) => technologiesById[t]?.name ?? t).join(", ")}.`,
         `Abilities:`,
         ...abilities.map((a) => `- ${a}`),
+        `Faction technologies:`,
+        ...setup.factionTech.map((t) => `- ${technologiesById[t]?.name ?? t}: ${technologiesById[t]?.text ?? ""}`),
+        `Promissory notes:`,
+        ...setup.promissoryNotes.map((n) => `- ${promissoryNotesById[n]?.name ?? n}: ${promissoryNotesById[n]?.text ?? ""}`),
+        `Faction units:`,
+        ...setup.units
+          .map((u) => unitsById[u])
+          // The faction's own units, in this game's content, before upgrades.
+          .filter(
+            (u) =>
+              u?.faction &&
+              !u.requiredTechId &&
+              (u.source === "base" || state.options.expansions.some((e) => e === u.source)),
+          )
+          .map((u) => `- ${u!.name} (${u!.type})${u!.ability ? `: ${u!.ability.replace(/\n/g, " ")}` : ""}`),
       ].join("\n");
     }
     case "unit": {

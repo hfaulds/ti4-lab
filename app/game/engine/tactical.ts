@@ -85,6 +85,7 @@ import {
   sumCounts,
   tokensInReinforcements,
   totalUnits,
+  movesAsShip,
   unitOf,
   unitsAvailable,
   unitTypes,
@@ -210,7 +211,7 @@ export function moveShips(
     let slowest = Infinity;
     let capacity = 0;
     for (const [type, count] of ships) {
-      ensure(isShip(type), `${UNIT_NAMES[type]} cannot move on its own.`);
+      ensure(movesAsShip(state, id, type), `${UNIT_NAMES[type]} cannot move on its own.`);
       const unit = unitOf(state, id, type);
       ensure(
         unit?.move,
@@ -983,7 +984,7 @@ export function executeRetreat(
   let capacity = 0;
   for (const type of unitTypes(from.space[id])) {
     const unit = unitOf(state, id, type);
-    if (!isShip(type) || !unit?.move) continue;
+    if (!movesAsShip(state, id, type) || !unit?.move) continue;
     const stack = from.space[id][type]!;
     capacity += (unit.capacity ?? 0) * stack.count;
     addUnits(target.space, id, type, stack.count, stack.damaged);

@@ -197,6 +197,17 @@ export function unitOf(
   );
 }
 
+/**
+ * Whether a unit moves on its own: ships, and space-only units with a move
+ * value, such as the Saar Floating Factory, which "can move and retreat as
+ * if it were a ship".
+ */
+export function movesAsShip(state: GameState, id: PlayerId, type: UnitType) {
+  if (isShip(type)) return true;
+  const unit = unitOf(state, id, type);
+  return !!unit?.spaceOnly && !!unit.move;
+}
+
 export function requireUnit(state: GameState, id: PlayerId, type: UnitType) {
   const unit = unitOf(state, id, type);
   if (!unit) fail(`${playerName(state, id)} cannot field that unit.`);

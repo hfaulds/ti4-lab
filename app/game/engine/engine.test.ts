@@ -47,6 +47,11 @@ function toActionPhase(state: GameState) {
   return current;
 }
 
+/** A system with nothing in it, so a move there involves no combat or landing. */
+const isEmptySystem = (state: GameState, key: number) =>
+  state.systems[key].planets.length === 0 &&
+  Object.values(state.systems[key].space).every((units) => totalUnits(units) === 0);
+
 const leadershipHolder = (state: GameState) =>
   state.seating.find((id) =>
     state.players[id].strategyCards.some((c) => c.id === "pok1leadership"),
@@ -263,6 +268,24 @@ describe("strategy phase", () => {
 });
 
 describe("tactical action", () => {
+  test("a Floating Factory moves like a ship and produces where it arrives", () => {
+    const start = toActionPhase(testGame({ factions: ["saar", "hacan", "jolnar", "xxcha", "barony", "yin"] }));
+    const id = start.activePlayer!;
+    const home = start.players[id].home;
+    const target = adjacentSystems(start, home).find(
+      (key) => isEmptySystem(start, key),
+    )!;
+    let state = play(start, id, { type: "ACTIVATE_SYSTEM", system: target });
+    state = play(state, id, {
+      type: "MOVE_SHIPS",
+      moves: [{ from: home, ships: { spacedock: 1 } }],
+      cargo: [],
+    });
+    expect(countOf(state.systems[target].space[id], "spacedock")).toBe(1);
+    expect(countOf(state.systems[home].space[id], "spacedock")).toBe(0);
+    expect(state.tactical?.step).toBe("production");
+  });
+
   function solReady() {
     const state = toActionPhase(testGame());
     const id = state.activePlayer!;

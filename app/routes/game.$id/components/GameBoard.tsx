@@ -1,4 +1,5 @@
 import { Box, Text, Tooltip } from "@mantine/core";
+import { IconZzz } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
 import { FactionIcon } from "~/components/icons/FactionIcon";
 import { calcScale } from "~/components/tiles/calcScale";
@@ -163,7 +164,8 @@ function UnitPill({
 
 /**
  * Drawn against a planet's circle: its units in a row underneath, the
- * controller's faction symbol at its bottom right.
+ * controller's faction symbol at its bottom right, and a mark at its
+ * bottom left while it is exhausted.
  */
 function PlanetOverlay({
   view,
@@ -220,6 +222,13 @@ function PlanetOverlay({
             />
           ))}
         </div>
+      )}
+      {controller && planet.exhausted && (
+        <Tooltip withArrow label={`${name} is exhausted`}>
+          <span className={classes.planetExhausted}>
+            <IconZzz size="100%" stroke={2.5} />
+          </span>
+        </Tooltip>
       )}
       {controller && (
         <Tooltip

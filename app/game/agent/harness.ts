@@ -18,6 +18,7 @@ import {
   SCRIPTED_BOT_VERSION,
   scriptedCandidates,
   scriptedMove,
+  withoutReservations,
   secondaryChoices,
   secondarySkipReason,
 } from "./scriptedBot";
@@ -115,17 +116,25 @@ export function buildMenu(
   const seen = new Set<string>();
   const legal: GameAction[] = [];
   let activations = 0;
-  for (const action of withEverySecondary(state, player, ranked.actions)) {
-    const key = JSON.stringify(action);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    if (agentBoundaryProblem(state, player, action)) continue;
-    if (action.type === "ACTIVATE_SYSTEM" && activations >= MAX_ACTIVATIONS) continue;
-    if (!applyAction(state, player, action).ok) continue;
-    if (action.type === "ACTIVATE_SYSTEM") activations++;
-    legal.push(action);
-    if (legal.length >= MAX_CANDIDATES) break;
-  }
+  const offer = (candidates: GameAction[]) => {
+    for (const action of candidates) {
+      if (legal.length >= MAX_CANDIDATES) return;
+      const key = JSON.stringify(action);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      if (agentBoundaryProblem(state, player, action)) continue;
+      if (action.type === "ACTIVATE_SYSTEM" && activations >= MAX_ACTIVATIONS) continue;
+      if (!applyAction(state, player, action).ok) continue;
+      if (action.type === "ACTIVATE_SYSTEM") activations++;
+      legal.push(action);
+    }
+  };
+  offer(withEverySecondary(state, player, ranked.actions));
+  // With nothing of its own legal, the bot's fallback plays the move.
+  if (legal.length === 0) return [];
+  // What the bot's reservations hide comes after its own picks.
+  const unreserved = withoutReservations(() => scriptedCandidates(state, memory));
+  offer(unreserved?.actions ?? []);
   return legal.map((action, i) => ({
     label: LABELS[i],
     text: describeAction(state, player, action),

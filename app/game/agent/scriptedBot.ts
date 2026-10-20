@@ -95,6 +95,7 @@ import {
 } from "./goals";
 import {
   findPayment,
+  NO_RESERVATION,
   objectivePayment,
   readyPlanets,
   Reservation,
@@ -185,7 +186,25 @@ export function scriptedMove(
  * What the bot holds back from spending: its planned objective, plus 6
  * influence for the custodians token while its ships are near Mecatol Rex.
  */
+/**
+ * While set, the bot holds nothing back. Its reservations are its own plan,
+ * not rules, so an agent's menu also offers what they would hide.
+ */
+let ignoreReservations = false;
+
+/** Runs `plan` as if the bot held nothing back for objectives or custodians. */
+export function withoutReservations<T>(plan: () => T): T {
+  const was = ignoreReservations;
+  ignoreReservations = true;
+  try {
+    return plan();
+  } finally {
+    ignoreReservations = was;
+  }
+}
+
 function reservationOf(state: GameState, id: PlayerId): Reservation {
+  if (ignoreReservations) return NO_RESERVATION;
   const base = reservationFor(state, id);
   const mecatol = state.planets[MECATOL_REX]?.system;
   if (!state.custodians || mecatol === undefined) return base;

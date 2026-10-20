@@ -43,6 +43,7 @@ import {
   MECATOL_REX,
   moveRulesFor,
   neighborsOf,
+  presence,
   nonFighterShips,
   otherShipOwners,
   planetInfluence,
@@ -102,7 +103,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 4;
+export const SCRIPTED_BOT_VERSION = 5;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -761,11 +762,15 @@ function reachBy(
   return undefined;
 }
 
+/** Infantry kept at a home space dock for the next carrier built there. */
+const HOME_INFANTRY = 2;
+
 function planMovement(
   state: GameState,
   id: PlayerId,
   target: SystemKey,
-  intent: { attack: boolean; groundForces: number },
+  /** `spare` is how many of `groundForces` are extra, for onward expansion. */
+  intent: { attack: boolean; groundForces: number; spare?: number },
 ): MovementPlan {
   const player = state.players[id];
   const rules = moveRulesFor(state, id, target);
@@ -864,12 +869,24 @@ function planMovement(
       wanted -= count;
     }
     const guarded = origin.key === player.home && homeThreatened;
+    // Spare infantry stay at a home dock to fill the next carrier built there.
+    const keepHome =
+      origin.key === player.home && productionCapacity(state, origin.key, id) > 0
+        ? HOME_INFANTRY
+        : 0;
     for (const name of origin.planets) {
       if (state.planets[name].controller !== id) continue;
       for (const type of ["infantry", "mech"] as UnitType[]) {
         const present = countOf(state.planets[name].units[id], type);
         const garrison = guarded && type === "infantry" ? 1 : 0;
-        const count = Math.min(lift, Math.max(0, wanted), present - garrison);
+        const needed = Math.max(0, wanted - (intent.spare ?? 0));
+        const keep = type === "infantry" ? keepHome : 0;
+        const count = Math.min(
+          lift,
+          Math.max(0, wanted),
+          present - garrison,
+          Math.max(needed, present - garrison - keep),
+        );
         if (count <= 0) continue;
         take({ system: origin.key, planet: name, units: { [type]: count } }, count);
         plan.groundForces += count;
@@ -913,9 +930,11 @@ function targetValue(
   const onward = enemies.length === 0 ? onwardTargets(state, id, key, custodians) : [];
   if (!attack && groundNeeded === 0 && onward.length === 0) return undefined;
 
+  const spare = Math.min(3, Math.max(1, onward.length));
   const plan = planMovement(state, id, key, {
     attack,
-    groundForces: groundNeeded + Math.min(3, Math.max(1, onward.length)),
+    groundForces: groundNeeded + spare,
+    spare,
   });
   const arriving = sumCounts(plan.ships);
   if (arriving === 0 && plan.groundForces === 0) return undefined;
@@ -1010,6 +1029,8 @@ export function bestPlan(
     });
   }
   if (position) options.push(position);
+  const trade = tradeShipPlan(state, id, key);
+  if (trade) options.push(trade);
   return options.sort((a, b) => b.value - a.value)[0];
 }
 
@@ -1029,8 +1050,54 @@ function positionPlan(
 
   const fleets = systemsWithShips(state, id).map((s) => s.key);
   const before = positionScore(state, id, fleets);
+  return oneShipMove(state, id, key, (origin, leaves) => {
+    const after = [...fleets.filter((k) => k !== origin || !leaves), key];
+    return positionScore(state, id, after) - before;
+  });
+}
+
+/**
+ * Moves one cheap ship into an empty system next to a player who is not
+ * yet a neighbor, so the two can trade, when the bot has commodities or
+ * an unplayed Trade card.
+ */
+function tradeShipPlan(state: GameState, id: PlayerId, key: SystemKey): Plan | undefined {
+  const player = state.players[id];
+  const holdsTrade = player.strategyCards.some(
+    (c) => !c.exhausted && strategyKind(c.id) === "trade",
+  );
+  if (player.commodities === 0 && !holdsTrade) return undefined;
+  if (presence(state, id).includes(key)) return undefined;
+  const others = state.seating.filter((other) => other !== id);
+  if (others.some((other) => presence(state, other).includes(key))) return undefined;
+  const neighbors = neighborsOf(state, id);
+  const near = new Set([key, ...adjacentSystems(state, key)]);
+  const partners = others.filter(
+    (other) =>
+      !neighbors.includes(other) &&
+      !state.players[other].eliminated &&
+      presence(state, other).some((k) => near.has(k)),
+  );
+  if (partners.length === 0) return undefined;
+  // Worth about the commodities it turns into trade goods.
+  const commodities = holdsTrade ? player.commodityLimit : player.commodities;
+  return oneShipMove(state, id, key, () => 0.6 * commodities + 0.5 * (partners.length - 1));
+}
+
+/**
+ * The cheapest single ship that can move to `key` without stranding cargo,
+ * among the origins where `gainOf` is positive, and the best gain.
+ */
+function oneShipMove(
+  state: GameState,
+  id: PlayerId,
+  key: SystemKey,
+  gainOf: (origin: SystemKey, leaves: boolean) => number,
+): Plan | undefined {
   const rules = moveRulesFor(state, id, key);
-  let best: { gain: number; cost: number; from: SystemKey; type: UnitType; gravityDrive: boolean } | undefined;
+  let best:
+    | { gain: number; cost: number; from: SystemKey; type: UnitType; gravityDrive: boolean }
+    | undefined;
 
   for (const origin of systemsWithShips(state, id)) {
     if (origin.key === key || origin.commandTokens.includes(id)) continue;
@@ -1040,8 +1107,7 @@ function positionPlan(
     const leaves = nonFighterShips(state, origin.key, id) === 1;
     // A lone ship leaving would strand its fighters and ground forces.
     if (leaves && cargo > 0) continue;
-    const after = [...fleets.filter((k) => k !== origin.key || !leaves), key];
-    const gain = positionScore(state, id, after) - before;
+    const gain = gainOf(origin.key, leaves);
     if (gain <= 0) continue;
 
     for (const type of unitTypes(group)) {

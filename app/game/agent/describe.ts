@@ -155,9 +155,9 @@ function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[
   return state.seating.flatMap((id) => {
     if (id === seat || neighbors.includes(id) || state.players[id].eliminated) return [];
     const mine = neighborlyMove(state, seat, id);
-    if (mine !== undefined) return [`P${id} (you can move to #${mine})`];
+    if (mine !== undefined) return [`${playerLabel(state, id)}, you can move to #${mine}`];
     const theirs = neighborlyMove(state, id, seat);
-    return theirs !== undefined ? [`P${id} (they can move to #${theirs})`] : [];
+    return theirs !== undefined ? [`${playerLabel(state, id)}, they can move to #${theirs}`] : [];
   });
 }
 
@@ -221,8 +221,8 @@ export function describeTurn(state: GameState, seat: PlayerId) {
   const neighbors = neighborsOf(state, seat);
   const reach = neighborsInReach(state, seat, neighbors);
   lines.push(
-    `Neighbors: ${neighbors.map((id) => `P${id}`).join(", ") || "none yet"}. ` +
-      `Could become neighbors with one move: ${reach.join(", ") || "nobody"}. ` +
+    `Neighbors: ${neighbors.map((id) => playerLabel(state, id)).join("; ") || "none yet"}. ` +
+      `Could become neighbors with one move: ${reach.join("; ") || "nobody"}. ` +
       "Only neighbors can trade; you become neighbors by having units or planets in or next to a system where they do.",
   );
 

@@ -55,7 +55,12 @@ A guide's default ("take Trade or Leadership") is where to start, not the answer
 - Objectives: which public objectives are out, and what you are missing to score them in the next round or two.
 - Neighbours and reach: trades only happen between neighbours. Commodities are usually swapped in the round Trade is played, when everyone's are refilled, but you can move next to partners after playing Trade, so what counts is who you could neighbour this round (your turn block lists them), not who you border now.
 - The table: what the other players need, and which cards remain.
+- Neighbours' abilities: some faction abilities cost their neighbours (Mentak's Pillage takes a trade good or commodity from a neighbour with 3 or more trade goods after they gain trade goods or trade). Look up the factions you would border before planning trades or expansion next to them.
 When a passage names an exception (for example "unless a tech objective is out"), search for it or check it, and say in your rationale whether it applies here.
+
+Building at home: activating your home system to produce places a command token there, so ships in it cannot move out for the rest of the round. Move out whatever needs to leave first; once nothing else needs to leave, activating home to build is fine. If another player holds Warfare and has not played it yet, its secondary also produces at your home space dock without a command token. It is extra production on top of a home activation, not a replacement for it, so keep a strategy token for it.
+
+Commodities and neighbours: a lone ship such as a destroyer can make you neighbours with a player, so you can trade, without taking planets. Other players expand during the round too, so a player who is not your neighbour now may become one when they move next to you.
 
 Then call choose exactly once with:
 - candidate: the label of the move (for example "C").

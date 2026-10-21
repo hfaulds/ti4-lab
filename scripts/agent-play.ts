@@ -6,7 +6,11 @@
  *                             [--model deepseek-flash|haiku] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
  *                             [--no-knowledge] [--stop-at action] [--rounds 1]
- *                             [--setup milty|random]
+ *                             [--setup milty|random] [--no-planning]
+ *
+ * The agent plans before each of its own turns (the strategy pick and each
+ * action-phase turn) in a separate call, then chooses its move with that
+ * plan in front of it; --no-planning skips the planning call.
  *
  * Guide briefings (passages searched before the strategy pick and the first
  * action of each round) are on for --policy claude and off otherwise;
@@ -125,6 +129,7 @@ console.log(`Decisions: ${live}`);
 /** One line for a tool call: what was asked, and what came back in brief. */
 function describeStep(step: { tool: string; arguments: string; result: string }) {
   if (step.tool === "choose") return undefined;
+  if (step.tool === "plan") return `   plan: ${step.result.replace(/\s+/g, " ").slice(0, 400)}`;
   const ids = [...step.result.matchAll(/^\[([^\]]+)\]/gm)].map((m) => m[1]);
   const brief = ids.length > 0 ? ids.join(", ") : step.result.split("\n")[0].slice(0, 100);
   return `   ${step.tool} ${step.arguments} -> ${brief}`;
@@ -138,6 +143,7 @@ const log = await playAgentGame({
   knowledge,
   // Claude models seldom search for themselves, so they get briefings.
   briefing: knowledge !== undefined && (policyName === "claude" ? !flag("no-briefing") : flag("briefing")),
+  planning: !flag("no-planning"),
   until: (s) =>
     (!!stopAt && s.phase === stopAt) || (option("rounds", "") !== "" && s.round > Number(option("rounds", ""))),
   onMove,

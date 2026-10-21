@@ -17,9 +17,13 @@ import {
   DecisionRequest,
   MAX_LOOKUPS,
   noUsage,
+  Plan,
+  planFrom,
+  PLANNING_REQUEST,
   Policy,
   ToolStep,
   turnMessage,
+  Usage,
 } from "./policy";
 import { LOOKUP_KINDS, parseChoose, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
 
@@ -47,6 +51,12 @@ const BUILT_IN_TOOLS = [
 const describe = (name: string) => TOOLS.find((t) => t.name === name)!.description;
 const text = (value: string) => ({ content: [{ type: "text" as const, text: value }] });
 
+/** A tool as the SDK's in-process server takes it, whatever its arguments. */
+type GameTool = NonNullable<Parameters<typeof createSdkMcpServer>[0]["tools"]>[number];
+
+/** What one call to Claude did: its usage, final text and any error. */
+type Run = { usage: Usage; result: string; error?: string };
+
 export class ClaudePolicy implements Policy {
   readonly name: string;
 
@@ -56,48 +66,13 @@ export class ClaudePolicy implements Policy {
 
   async decide(request: DecisionRequest): Promise<Decision> {
     const labels = request.menu.map((entry) => entry.label);
-    const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
     const steps: ToolStep[] = [];
     const shown = new Set<string>(request.briefing?.ids);
-    let lookups = 0;
     let chosen: Decision | undefined;
     const usage = noUsage();
 
-    const record = (name: string, args: unknown, result: string) => {
-      steps.push({ tool: name, arguments: JSON.stringify(args), result });
-      return text(result);
-    };
-    const limited = () => lookups >= maxLookups;
-
     const tools = [
-      tool(
-        "lookup",
-        describe("lookup"),
-        { kind: z.enum(LOOKUP_KINDS), id: z.string() },
-        async (args) => {
-          if (limited()) return record("lookup", args, "Lookup limit reached for this decision. Call choose now.");
-          lookups++;
-          return record("lookup", args, request.lookup(args));
-        },
-      ),
-      ...(request.searchGuides
-        ? [
-            tool(
-              "search_guides",
-              SEARCH_GUIDES_TOOL.description,
-              { query: z.string(), faction: z.string().optional() },
-              async (args) => {
-                if (limited()) {
-                  return record("search_guides", args, "Lookup limit reached for this decision. Call choose now.");
-                }
-                lookups++;
-                const found = request.searchGuides!(args);
-                for (const id of found.ids) shown.add(id);
-                return record("search_guides", args, found.text);
-              },
-            ),
-          ]
-        : []),
+      ...this.lookupTools(request, steps, shown, "Call choose now."),
       tool(
         "choose",
         describe("choose"),
@@ -108,9 +83,13 @@ export class ClaudePolicy implements Policy {
           citations: z.array(z.string()).optional(),
         },
         async (args) => {
-          if (chosen) return record("choose", args, "Only one choice per decision.");
+          const record = (result: string) => {
+            steps.push({ tool: "choose", arguments: JSON.stringify(args), result });
+            return text(result);
+          };
+          if (chosen) return record("Only one choice per decision.");
           const parsed = parseChoose(JSON.stringify(args), labels);
-          if (!parsed.ok) return record("choose", args, `Error: ${parsed.error}`);
+          if (!parsed.ok) return record(`Error: ${parsed.error}`);
           chosen = {
             label: parsed.value.candidate,
             rationale: parsed.value.rationale,
@@ -119,11 +98,10 @@ export class ClaudePolicy implements Policy {
             steps,
             usage,
           };
-          return record("choose", args, "Move recorded. The decision is over; reply with nothing more.");
+          return record("Move recorded. The decision is over; reply with nothing more.");
         },
       ),
     ];
-    const offered = tools.map((t) => toolName(t.name));
 
     // The game block leads the prompt so it caches across decisions.
     const prompt = [
@@ -131,13 +109,98 @@ export class ClaudePolicy implements Policy {
       "",
       turnMessage(request),
       "",
-      // The rules name the tools plainly; the SDK serves them under longer names.
-      `The tools the rules call ${tools.map((t) => t.name).join(", ")} are ${offered.join(", ")} here. ` +
-        `Use them as the rules describe, then end the decision by calling ${toolName("choose")} once.`,
+      this.toolNames(tools),
+      `End the decision by calling ${toolName("choose")} once.`,
     ].join("\n");
 
+    const run = await this.run(prompt, tools, () => chosen !== undefined);
+    Object.assign(usage, run.usage);
+    if (chosen) return chosen;
+    return {
+      rationale: "",
+      planNote: request.planNote,
+      citations: [],
+      steps,
+      usage,
+      error: run.error ?? "Claude did not choose a move.",
+    };
+  }
+
+  async plan(request: DecisionRequest): Promise<Plan> {
+    const steps: ToolStep[] = [];
+    const shown = new Set<string>(request.briefing?.ids);
+    const tools = this.lookupTools(request, steps, shown, "Write your plan now.");
+    const prompt = [
+      request.game,
+      "",
+      turnMessage(request),
+      "",
+      PLANNING_REQUEST,
+      "",
+      this.toolNames(tools),
+    ].join("\n");
+    const run = await this.run(prompt, tools, () => false);
+    if (!run.result.trim()) {
+      return { text: "", citations: [], steps, usage: run.usage, error: run.error ?? "No plan was written." };
+    }
+    return { ...planFrom(run.result, shown), steps, usage: run.usage };
+  }
+
+  /** The lookup and search tools, recording their calls and the passages shown. */
+  private lookupTools(
+    request: DecisionRequest,
+    steps: ToolStep[],
+    shown: Set<string>,
+    whenSpent: string,
+  ): GameTool[] {
+    const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
+    let lookups = 0;
+    const record = (name: string, args: unknown, result: string) => {
+      steps.push({ tool: name, arguments: JSON.stringify(args), result });
+      return text(result);
+    };
+    const spent = `Lookup limit reached for this decision. ${whenSpent}`;
+    return [
+      tool("lookup", describe("lookup"), { kind: z.enum(LOOKUP_KINDS), id: z.string() }, async (args) => {
+        if (lookups >= maxLookups) return record("lookup", args, spent);
+        lookups++;
+        return record("lookup", args, request.lookup(args));
+      }),
+      ...(request.searchGuides
+        ? [
+            tool(
+              "search_guides",
+              SEARCH_GUIDES_TOOL.description,
+              { query: z.string(), faction: z.string().optional() },
+              async (args) => {
+                if (lookups >= maxLookups) return record("search_guides", args, spent);
+                lookups++;
+                const found = request.searchGuides!(args);
+                for (const id of found.ids) shown.add(id);
+                return record("search_guides", args, found.text);
+              },
+            ),
+          ]
+        : []),
+    ];
+  }
+
+  /** The rules name the tools plainly; the SDK serves them under longer names. */
+  private toolNames(tools: GameTool[]) {
+    return (
+      `The tools the rules call ${tools.map((t) => t.name).join(", ")} are ` +
+      `${tools.map((t) => toolName(t.name)).join(", ")} here. Use them as the rules describe.`
+    );
+  }
+
+  /** One Claude call with only the given tools, stopped by the timeout. */
+  private async run(prompt: string, tools: GameTool[], done: () => boolean): Promise<Run> {
+    const usage = noUsage();
+    const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
+    const offered = tools.map((t) => toolName(t.name));
     const abort = new AbortController();
     const timer = setTimeout(() => abort.abort(), this.options.timeoutMs ?? TIMEOUT_MS);
+    let result = "";
     let error: string | undefined;
     try {
       for await (const message of query({
@@ -171,21 +234,14 @@ export class ClaudePolicy implements Policy {
         }
         usage.requests += message.num_turns;
         usage.costUsd = (usage.costUsd ?? 0) + message.total_cost_usd;
-        if (message.subtype !== "success" && !chosen) error = `Claude stopped: ${message.subtype}.`;
+        if (message.subtype === "success") result = message.result;
+        else if (!done()) error = `Claude stopped: ${message.subtype}.`;
       }
     } catch (thrown) {
-      if (!chosen) error = abort.signal.aborted ? "The decision timed out." : String(thrown);
+      if (!done()) error = abort.signal.aborted ? "The decision timed out." : String(thrown);
     } finally {
       clearTimeout(timer);
     }
-    if (chosen) return chosen;
-    return {
-      rationale: "",
-      planNote: request.planNote,
-      citations: [],
-      steps,
-      usage,
-      error: error ?? "Claude did not choose a move.",
-    };
+    return { usage, result, error };
   }
 }

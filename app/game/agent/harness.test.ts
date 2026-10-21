@@ -149,6 +149,38 @@ describe("building", () => {
   });
 });
 
+describe("planning", () => {
+  test("happens before each of the agent's own turns, and its plan is the note", async () => {
+    const planned: string[] = [];
+    let plans = 0;
+    const planner: Policy = {
+      name: "planner",
+      async plan(req) {
+        plans++;
+        planned.push(req.menu[0].text);
+        return { text: `Plan ${plans}.`, citations: [], steps: [], usage: noUsage() };
+      },
+      async decide(req) {
+        return { label: req.menu[0].label, rationale: "First.", planNote: "ignored", citations: [], steps: [], usage: noUsage() };
+      },
+    };
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: planner,
+      planning: true,
+      until: (s) => s.round > 1,
+    });
+    const own = log.decisions.filter((d) => !d.forced && (d.phase === "strategy" || d.steps.some((s) => s.tool === "plan")));
+    expect(plans).toBeGreaterThan(1);
+    // Secondaries and builds are not own turns, so they are not planned.
+    expect(planned.every((text) => !text.startsWith("Use the secondary") && !text.startsWith("Build"))).toBe(true);
+    for (const decision of own.filter((d) => d.steps.some((s) => s.tool === "plan"))) {
+      expect(decision.planNote).toMatch(/^Plan \d+\.$/);
+    }
+  });
+});
+
 describe("stalling", () => {
   test("is one menu option, then a choice of where", async () => {
     let asked = 0;
@@ -467,6 +499,22 @@ describe("chat policy", () => {
       briefing: { text: "[7-2] Take Diplomacy.", ids: ["7-2"] },
     });
     expect(decision.citations).toEqual(["7-2"]);
+  });
+
+  test("plans in plain text after looking things up, citing what it was shown", async () => {
+    const { client, requests } = fakeClient([
+      { calls: [{ name: "search_guides", args: '{"query":"opening"}' }] },
+      { content: "Score Sway the Council this round, per [7-2]; ignore [9-9]." },
+    ]);
+    const plan = await new ChatPolicy({ model: "m", apiKey: "k", client }).plan({
+      ...request,
+      searchGuides: () => ({ text: "[7-2] Take Diplomacy.", ids: ["7-2"] }),
+    });
+    expect(plan.text).toBe("Score Sway the Council this round, per [7-2]; ignore [9-9].");
+    expect(plan.citations).toEqual(["7-2"]);
+    type Body = { tools?: { function: { name: string } }[] };
+    // Planning offers lookups and searches, never choose.
+    expect((requests[0] as Body).tools!.map((t) => t.function.name)).toEqual(["lookup", "search_guides"]);
   });
 
   test("offers no guide search without a knowledge base", async () => {

@@ -20,7 +20,7 @@ import {
   stallChoice,
   stallLabel,
 } from "./describe";
-import { Decision, MenuEntry, noUsage, Policy, Usage } from "./policy";
+import { Decision, MenuEntry, noUsage, Plan, Policy, Usage } from "./policy";
 import { SYSTEM_PROMPT } from "./rules";
 import {
   SCRIPTED_BOT_VERSION,
@@ -77,12 +77,13 @@ export function agentBoundaryProblem(
 
 /** Prompts with real choices in them; the rest go to the scripted bot. */
 const AGENT_PROMPTS: ReadonlySet<Prompt["kind"]> = new Set<Prompt["kind"]>([
+  "chooseSecret",
   "secondary",
   "scoreObjectives",
   "announceRetreat",
 ]);
 
-export const ROUTING_VERSION = 2;
+export const ROUTING_VERSION = 3;
 
 /** The agent seat that must decide now, or undefined if the bot plays. */
 export function agentToMove(state: GameState, seats: PlayerId[]): PlayerId | undefined {
@@ -350,7 +351,12 @@ export type ReplayLog = {
 };
 
 /** A hash of everything that changes how the agent plays. */
-export function agentVersion(policy: Policy, knowledge?: KnowledgeBase, briefing = false) {
+export function agentVersion(
+  policy: Policy,
+  knowledge?: KnowledgeBase,
+  briefing = false,
+  planning = false,
+) {
   const hash = createHash("sha256");
   hash.update(
     JSON.stringify({
@@ -359,6 +365,7 @@ export function agentVersion(policy: Policy, knowledge?: KnowledgeBase, briefing
       tools: knowledge ? [...TOOLS, SEARCH_GUIDES_TOOL] : TOOLS,
       knowledge: knowledge?.version ?? null,
       briefing,
+      planning,
       routing: ROUTING_VERSION,
       bot: SCRIPTED_BOT_VERSION,
       menu: [MAX_ACTIVATIONS, MAX_CANDIDATES],
@@ -379,6 +386,12 @@ export type PlayOptions = {
    * for models that seldom search for themselves.
    */
   briefing?: boolean;
+  /**
+   * Before each of its own turns (the strategy pick and each action-phase
+   * turn), the agent plans in a separate call, then chooses its move with
+   * that plan in front of it. Needs a policy that can plan.
+   */
+  planning?: boolean;
   seed?: number;
   maxMoves?: number;
   /** Stops the game early, before the first move made once this holds. */
@@ -405,7 +418,12 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
   // Seat, round and phase of each briefing given, so each is given once.
   const briefed = new Set<string>();
   const log: ReplayLog = {
-    agentVersion: agentVersion(policy, options.knowledge, !!options.briefing),
+    agentVersion: agentVersion(
+      policy,
+      options.knowledge,
+      !!options.briefing,
+      !!options.planning && !!policy.plan,
+    ),
     policy: policy.name,
     botVersion: SCRIPTED_BOT_VERSION,
     seed: options.seed,
@@ -431,6 +449,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       player = seat;
       const started = Date.now();
       let decision: Decision | undefined;
+      let planning: Plan | undefined;
       let error: string | undefined;
       const guides = options.knowledge && guideSearch(options.knowledge, state);
       if (menu.length > 1) {
@@ -442,17 +461,36 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
             ? guides.briefing(seat, step)
             : undefined;
         if (briefing) briefed.add(key);
+        const request = {
+          game: games.get(seat)!,
+          turn: describeTurn(state, seat),
+          planNote: planNotes.get(seat) ?? "",
+          menu: menu.map(({ label, text }) => ({ label, text })),
+          lookup: (args: Parameters<typeof lookup>[1]) => lookup(state, args),
+          searchGuides: guides?.search,
+          briefing,
+        };
+        // The agent plans before each of its own turns, then moves.
+        const ownTurn =
+          openPrompts(state).length === 0 &&
+          (state.phase === "strategy" || (state.phase === "action" && !state.tactical));
+        if (options.planning && policy.plan && ownTurn) {
+          try {
+            planning = await policy.plan(request);
+          } catch (thrown) {
+            planning = undefined;
+            error = `Planning failed: ${thrown instanceof Error ? thrown.message : String(thrown)}`;
+          }
+          if (planning?.text) {
+            planNotes.set(seat, planning.text);
+            request.planNote = planning.text;
+            // The planner had the briefing; the plan carries what mattered.
+            request.briefing = undefined;
+          }
+        }
         try {
-          decision = await policy.decide({
-            game: games.get(seat)!,
-            turn: describeTurn(state, seat),
-            planNote: planNotes.get(seat) ?? "",
-            menu: menu.map(({ label, text }) => ({ label, text })),
-            lookup: (args) => lookup(state, args),
-            searchGuides: guides?.search,
-            briefing,
-          });
-          error = decision.error;
+          decision = await policy.decide(request);
+          error = decision.error ?? error;
         } catch (thrown) {
           error = thrown instanceof Error ? thrown.message : String(thrown);
         }
@@ -491,7 +529,21 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
           if (where.usage.costUsd) decision.usage.costUsd = (decision.usage.costUsd ?? 0) + where.usage.costUsd;
         }
       }
-      if (decision?.planNote) planNotes.set(seat, decision.planNote);
+      // A plan written this turn stands; otherwise the move's note updates it.
+      if (decision?.planNote && !planning?.text) planNotes.set(seat, decision.planNote);
+      const steps = [
+        ...(planning?.steps ?? []),
+        ...(planning?.text ? [{ tool: "plan", arguments: "", result: planning.text }] : []),
+        ...(decision?.steps ?? []),
+      ];
+      const usage = decision?.usage ?? noUsage();
+      if (planning) {
+        for (const k of ["inputTokens", "cachedInputTokens", "outputTokens", "requests", "retries"] as const) {
+          usage[k] += planning.usage[k];
+        }
+        if (planning.usage.costUsd) usage.costUsd = (usage.costUsd ?? 0) + planning.usage.costUsd;
+      }
+      const cited = [...new Set([...(planning?.citations ?? []), ...(decision?.citations ?? [])])];
       const record: DecisionRecord = {
         move,
         round: state.round,
@@ -503,10 +555,10 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         forced: menu.length === 1,
         rationale: decision?.rationale ?? forcedReason(state, seat, menu),
         planNote: planNotes.get(seat) ?? "",
-        citations: (decision?.citations ?? []).map((id) => guides?.label(id) ?? id),
+        citations: cited.map((id) => guides?.label(id) ?? id),
         stall,
-        steps: decision?.steps ?? [],
-        usage: decision?.usage ?? noUsage(),
+        steps,
+        usage,
         error,
         ms: Date.now() - started,
       };

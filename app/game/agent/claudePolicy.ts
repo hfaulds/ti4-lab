@@ -12,7 +12,15 @@
 import { createSdkMcpServer, query, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import { SYSTEM_PROMPT } from "./rules";
-import { Decision, DecisionRequest, noUsage, Policy, ToolStep, turnMessage } from "./policy";
+import {
+  Decision,
+  DecisionRequest,
+  MAX_LOOKUPS,
+  noUsage,
+  Policy,
+  ToolStep,
+  turnMessage,
+} from "./policy";
 import { LOOKUP_KINDS, parseChoose, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
 
 export type ClaudePolicyOptions = {
@@ -28,8 +36,8 @@ export type ClaudePolicyOptions = {
 
 const SERVER = "game";
 const toolName = (name: string) => `mcp__${SERVER}__${name}`;
-const MAX_LOOKUPS = 10;
-const TIMEOUT_MS = 300_000;
+/** A decision may take many lookups; past this it is abandoned. */
+const TIMEOUT_MS = 600_000;
 /** Claude Code's own tools, none of which a game decision needs. */
 const BUILT_IN_TOOLS = [
   "Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch",

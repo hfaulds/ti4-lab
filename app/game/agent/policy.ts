@@ -123,8 +123,11 @@ type Message = OpenAI.Chat.Completions.ChatCompletionMessageParam;
 type CreateParams = OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming;
 
 const REQUEST_TIMEOUT_MS = 180_000;
-/** Enough to check a few facts; the menu and turn already hold most of them. */
-const MAX_LOOKUPS = 10;
+/**
+ * Lookups and guide searches per decision: enough to read up on every
+ * faction at the table in round one as well as the board.
+ */
+export const MAX_LOOKUPS = 50;
 
 /**
  * Whether a failed request is worth sending again: timeouts, dropped
@@ -169,8 +172,9 @@ export class ChatPolicy implements Policy {
     const chooseOnly = allTools.filter((tool) => tool.function.name === "choose");
     const usage = noUsage();
     const steps: ToolStep[] = [];
-    const maxRequests = this.options.maxRequests ?? 8;
     const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
+    // Room for one lookup per request, then choose, and a nudge if needed.
+    const maxRequests = this.options.maxRequests ?? maxLookups + 3;
     let lookups = 0;
     let nudged = false;
     let warned = false;

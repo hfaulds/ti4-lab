@@ -55,7 +55,7 @@ The other players follow one convention that is not a rule. When the Trade holde
 
 # How to answer
 
-The menu lists legal moves as labelled candidates. Each line was prepared by a simple scripted planner, which also carries out the details of the move you pick (exact ships, landings, production). Its estimates are a guide, not the answer: weigh them against the objectives, your opponents and the rest of the round.
+The menu lists legal moves as labelled candidates. Each line was prepared by a simple scripted planner, which also carries out the details of the move you pick (exact ships and landings). When a tactical action reaches production, or you take Warfare's secondary, you choose what to build from a list of builds and payments; the planner's own build comes first. Build what your plan needs: carriers are no use without ground forces to fill them, and ground forces need carriers to move. Its estimates are a guide, not the answer: weigh them against the objectives, your opponents and the rest of the round.
 
 Use the lookup tool for exact data on a faction, unit, technology, objective or planet when it matters; strategy cards are described in the game block. Lookups are limited per decision, so check only what could change your choice.
 

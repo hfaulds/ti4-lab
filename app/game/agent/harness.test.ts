@@ -130,6 +130,25 @@ describe("agent harness", () => {
   });
 });
 
+describe("building", () => {
+  test("the agent chooses what to build, the bot's build first", async () => {
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: new FirstCandidatePolicy(),
+      until: (s) => s.round > 2,
+    });
+    const builds = log.decisions.filter(
+      (d) => !d.forced && d.menu.some((m) => m.text.startsWith("Build ")),
+    );
+    expect(builds.length).toBeGreaterThan(0);
+    for (const decision of builds) {
+      expect(decision.menu.every((m) => m.text.startsWith("Build"))).toBe(true);
+      expect(decision.menu.length).toBeGreaterThan(1);
+    }
+  });
+});
+
 describe("stalling", () => {
   test("is one menu option, then a choice of where", async () => {
     let asked = 0;

@@ -11,6 +11,7 @@ import { victoryPoints } from "../engine/control";
 import { openPrompts, totalUnits } from "../engine/helpers";
 import { applyAction } from "../engine/index";
 import { objectiveStatus } from "../engine/objectives";
+import { strategyKind } from "../engine/strategic";
 import {
   describeAction,
   describeGame,
@@ -28,6 +29,7 @@ import {
   withWiderChoices,
   secondaryChoices,
   secondarySkipReason,
+  productionChoices,
 } from "./scriptedBot";
 import { lookup, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
 import { guideSearch } from "./guides";
@@ -80,7 +82,7 @@ const AGENT_PROMPTS: ReadonlySet<Prompt["kind"]> = new Set<Prompt["kind"]>([
   "announceRetreat",
 ]);
 
-export const ROUTING_VERSION = 1;
+export const ROUTING_VERSION = 2;
 
 /** The agent seat that must decide now, or undefined if the bot plays. */
 export function agentToMove(state: GameState, seats: PlayerId[]): PlayerId | undefined {
@@ -95,6 +97,10 @@ export function agentToMove(state: GameState, seats: PlayerId[]): PlayerId | und
   const active = state.activePlayer;
   if (active === undefined || !seats.includes(active)) return undefined;
   if (state.phase === "strategy") return active;
+  // The agent decides its own builds once its ships have moved.
+  if (state.phase === "action" && state.tactical?.player === active && state.tactical.step === "production") {
+    return active;
+  }
   if (state.phase === "action" && !state.tactical && state.actionsThisTurn === 0) {
     return active;
   }
@@ -207,6 +213,13 @@ export function buildMenu(
   // What the bot's reservations and threshold hide comes after its own picks.
   const wider = withWiderChoices(() => scriptedCandidates(state, memory));
   offer(wider?.actions ?? []);
+  if (state.tactical?.step === "production" && state.tactical.player === player) {
+    offer(
+      productionChoices(state, player, state.tactical.system).map(
+        (build): GameAction => ({ type: "PRODUCE", ...build }),
+      ),
+    );
+  }
   legal.push(...stallsFor(state, player, legal));
   // Activations that do nothing are one "Stall" option, where the first was.
   const stalls = legal.filter(
@@ -231,7 +244,15 @@ function withEverySecondary(state: GameState, player: PlayerId, actions: GameAct
   const [prompt] = openPrompts(state);
   if (prompt?.kind !== "secondary" || prompt.player !== player) return actions;
   const isSkip = (a: GameAction) => a.type === "RESOLVE_SECONDARY" && !a.payload;
-  const others = secondaryChoices(state, player, prompt).map(
+  const payloads = secondaryChoices(state, player, prompt);
+  // Warfare's secondary builds at home: offer the same builds as a tactical action.
+  if (strategyKind(prompt.card) === "warfare" && payloads.length > 0) {
+    const home = state.players[player].home;
+    for (const production of productionChoices(state, player, home, { docksOnly: true })) {
+      payloads.push({ card: "warfare", production });
+    }
+  }
+  const others = payloads.map(
     (payload): GameAction => ({ type: "RESOLVE_SECONDARY", promptId: prompt.id, payload }),
   );
   const picks = actions.filter((a) => !isSkip(a));

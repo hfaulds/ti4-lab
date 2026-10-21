@@ -28,6 +28,7 @@ import {
 import {
   CommandPools,
   GameState,
+  Payment,
   Prompt,
   SystemKey,
   TransactionSide,
@@ -1335,12 +1336,48 @@ const unitCost = (state: GameState, id: PlayerId, type: UnitType) => {
  * Units to build in a system: carriers until there are enough to expand
  * with, infantry to fill them, then warships, then fighters.
  */
+/** What a recipe can do: add units, within the system's limits and budget. */
+type OrderBuilder = {
+  add: (type: UnitType, count: number, planet?: string) => boolean;
+  /** The planet with the space dock, where ground forces are placed. */
+  dockPlanet?: string;
+};
+
+/** Build recipes the agent chooses between, besides the bot's own build. */
+export const BUILD_RECIPES: { name: string; build: (b: OrderBuilder) => void }[] = [
+  {
+    name: "a carrier filled with infantry",
+    build: (b) => {
+      if (!b.add("carrier", 1)) return;
+      for (let i = 0; i < 2 && b.add("infantry", 2, b.dockPlanet); i++);
+    },
+  },
+  {
+    name: "ground forces",
+    build: (b) => {
+      for (let i = 0; i < 5 && b.add("infantry", 2, b.dockPlanet); i++);
+    },
+  },
+  {
+    name: "warships",
+    build: (b) => {
+      for (let i = 0; i < 5 && ["cruiser", "destroyer"].some((t) => b.add(t as UnitType, 1)); i++);
+    },
+  },
+  {
+    name: "fighters",
+    build: (b) => {
+      for (let i = 0; i < 5 && b.add("fighter", 2); i++);
+    },
+  },
+];
+
 function productionOrders(
   state: GameState,
   id: PlayerId,
   key: SystemKey,
   budget: number,
-  options: { docksOnly?: boolean } = {},
+  options: { docksOnly?: boolean; recipe?: (b: OrderBuilder) => void } = {},
 ): ProductionOrder[] {
   const system = state.systems[key];
   let slots = productionCapacity(state, key, id, options);
@@ -1391,6 +1428,11 @@ function productionOrders(
     return true;
   };
 
+  if (options.recipe) {
+    options.recipe({ add, dockPlanet });
+    return orders;
+  }
+
   let infantryBuilt = 0;
   for (let guard = 0; guard < 20 && slots > 0 && remaining > 0; guard++) {
     const carriers = unitsOnBoard(state, id, "carrier") + (counts.carrier ?? 0);
@@ -1415,6 +1457,34 @@ function productionOrders(
     break;
   }
   return orders;
+}
+
+/**
+ * Builds to choose from in `key`: each recipe, paid with planets first and,
+ * where trade goods alone cover it, with trade goods (so planets stay ready
+ * for an objective). For the Warfare secondary, only docks produce.
+ */
+export function productionChoices(
+  state: GameState,
+  id: PlayerId,
+  key: SystemKey,
+  options: { docksOnly?: boolean } = {},
+): { units: ProductionOrder[]; payment: Payment }[] {
+  const budget = spendable(state, id, "resources");
+  const choices: { units: ProductionOrder[]; payment: Payment }[] = [];
+  const keepPlanets: Reservation = { ...NO_RESERVATION, planets: readyPlanets(state, id) };
+  for (const recipe of BUILD_RECIPES) {
+    const units = productionOrders(state, id, key, budget, { ...options, recipe: recipe.build });
+    if (units.length === 0) continue;
+    const cost = productionCost(state, id, units);
+    for (const reserved of [NO_RESERVATION, keepPlanets]) {
+      const payment = findPayment(state, id, cost, "resources", reserved);
+      if (!payment) continue;
+      if (choices.some((c) => JSON.stringify(c) === JSON.stringify({ units, payment }))) continue;
+      choices.push({ units, payment });
+    }
+  }
+  return choices;
 }
 
 function productionActions(

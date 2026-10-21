@@ -631,14 +631,22 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
       const built = buildPreview(state, seat, action.system);
       if (built?.units.length) {
         parts.push(
-          `builds ${built.units.map((u) => `${u.count} ${u.type}`).join(", ")}, paying ${paymentLabel(built.payment)}`,
+          `then you choose what to build here (the planner would build ${built.units.map((u) => `${u.count} ${u.type}`).join(", ")}, paying ${paymentLabel(built.payment)})`,
         );
       }
       return `Tactical action in ${systemLabel(state, action.system)}: ${parts.join("; ")}. ` +
-        `Bot's estimate of the gain: ${(plan?.value ?? 0).toFixed(1)}. The bot plays out movement, landing and production.`;
+        `Bot's estimate of the gain: ${(plan?.value ?? 0).toFixed(1)}. The bot plays out movement and landing.`;
     }
     case "STRATEGIC_ACTION":
       return `Play ${payloadName(action.payload)} (primary): ${payloadLabel(state, action.payload, seat)}`;
+    case "PRODUCE": {
+      if (action.units.length === 0) return "Build nothing";
+      const units = action.units
+        .map((u) => `${u.count} ${u.type}${u.planet ? ` on ${u.planet}` : ""}`)
+        .join(", ");
+      const atHome = state.tactical?.system === state.players[seat].home;
+      return `Build ${units}, paying ${paymentLabel(action.payment)}` + (atHome ? fighterNote(state, seat, action.units) : "");
+    }
     case "RESOLVE_SECONDARY": {
       const [prompt] = openPrompts(state);
       // Which card, and whose: secondaries come from other players' cards.

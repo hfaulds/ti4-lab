@@ -48,11 +48,11 @@ import {
   wormholesOf,
 } from "../engine/board";
 import { countOf, openPrompts, totalUnits, unitOf, unitTypes } from "../engine/helpers";
-import { objectiveStatus } from "../engine/objectives";
+import { objectiveProgress, objectiveStatus } from "../engine/objectives";
 import { reactionName } from "../engine/reactions";
 import { moveBonus } from "../engine/tactical";
 import { viewFor } from "../view";
-import { neighborlyMove } from "./reach";
+import { neighborlyMove, shipsReaching } from "./reach";
 import { bestPlan, scriptedMove } from "./scriptedBot";
 import { applyAction } from "../engine/index";
 import { productionCapacity } from "../engine/economy";
@@ -158,12 +158,24 @@ export function describeGame(state: GameState, seat: PlayerId) {
 function objectiveLine(state: GameState, seat: PlayerId, id: string, scoredBy?: PlayerId[]) {
   const data = objectivesById[id];
   const status = objectiveStatus(state, seat, id);
-  const yours =
-    status.met === "manual"
+  const progress = objectiveProgress(state, seat, id);
+  const yours = scoredBy?.includes(seat)
+    ? "you scored this; it cannot be scored again"
+    : status.met === "manual"
       ? "cannot be scored here"
       : status.met
         ? "you meet it"
-        : "not met";
+        : progress
+          ? `not met: ${progress.have} of ${progress.need}`
+          : "not met";
+  // Secrets say when they are scored: action-phase ones as soon as they
+  // happen, without using the status phase's one public objective.
+  const when =
+    data?.kind === "secret"
+      ? data.phase === "action"
+        ? " [secret, scored in the action phase as soon as you meet it]"
+        : ` [secret, scored in the ${data.phase} phase]`
+      : "";
   const cost = status.cost
     ? ` (costs ${Object.entries(status.cost)
         .map(([k, v]) => `${v} ${k}`)
@@ -173,7 +185,7 @@ function objectiveLine(state: GameState, seat: PlayerId, id: string, scoredBy?: 
     ? `; scored by ${scoredBy.map((p) => `P${p}`).join(", ")}`
     : "";
   const ready = status.cost && !scoredBy?.includes(seat) ? spendable(state, seat, status.cost) : "";
-  return `- ${data?.name ?? id} [${data?.points ?? "?"} VP]: ${data?.text ?? ""} — ${yours}${cost}${scored}${ready}`;
+  return `- ${data?.name ?? id} [${data?.points ?? "?"} VP]${when}: ${data?.text ?? ""} — ${yours}${cost}${scored}${ready}`;
 }
 
 /**
@@ -216,18 +228,54 @@ function forcesSummary(state: GameState, seat: PlayerId): string[] {
     const onPlanets = system.planets
       .filter((p) => totalUnits(state.planets[p].units[seat], isGroundForce) > 0)
       .map((p) => `${totalUnits(state.planets[p].units[seat], isGroundForce)} on ${p}`);
-    if (ships.length === 0 && onPlanets.length === 0) continue;
+    const empty = system.planets.filter(
+      (p) => state.planets[p].controller === seat && totalUnits(state.planets[p].units[seat], isGroundForce) === 0,
+    );
+    if (ships.length === 0 && onPlanets.length === 0 && empty.length === 0) continue;
     const capacity = capacityIn(state, system.key, seat);
     const fighters = countOf(system.space[seat], "fighter");
     const parts = [
       ships.length ? unitsLabel(Object.fromEntries(ships.map((t) => [t, system.space[seat]![t]!]))) : "no ships",
       capacity ? `${aboard} ground forces and ${fighters} fighters aboard, capacity ${capacity}` : "",
       onPlanets.length ? `ground forces ${onPlanets.join(", ")}` : "",
+      empty.length ? `no ground forces on ${empty.join(", ")}` : "",
       system.commandTokens.includes(seat) ? "your command token is here, so these ships cannot move this round" : "",
+      threatsTo(state, seat, system.key),
     ].filter(Boolean);
     lines.push(`- ${systemLabel(state, system.key)}: ${parts.join("; ")}`);
   }
   return lines.length ? lines : ["- none"];
+}
+
+/** Other players' ships that could reach `key` with one tactical action. */
+function threatsTo(state: GameState, seat: PlayerId, key: SystemKey) {
+  const threats = state.seating.flatMap((other) => {
+    if (other === seat || state.players[other].eliminated) return [];
+    const ships = Object.entries(shipsReaching(state, other, key)).filter(([, n]) => n);
+    if (ships.length === 0) return [];
+    return [`P${other} with ${ships.map(([t, n]) => `${n} ${t}`).join(", ")}`];
+  });
+  return threats.length ? `within one move of ${threats.join("; ")}` : "";
+}
+
+/**
+ * Ground forces in `key` after building `units`, and how many of them
+ * the seat's ships there could carry.
+ */
+function liftNote(state: GameState, seat: PlayerId, key: SystemKey, units: { type: string; count: number }[]) {
+  const system = state.systems[key];
+  const built = (type: string) => units.filter((u) => u.type === type).reduce((n, u) => n + u.count, 0);
+  const ground =
+    totalUnits(system.space[seat], isGroundForce) +
+    system.planets.reduce((n, p) => n + totalUnits(state.planets[p].units[seat], isGroundForce), 0) +
+    built("infantry") +
+    built("mech");
+  const capacity =
+    capacityIn(state, key, seat) +
+    units.reduce((n, u) => n + (unitOf(state, seat, u.type as UnitType)?.capacity ?? 0) * u.count, 0);
+  const fighters = countOf(system.space[seat], "fighter") + built("fighter");
+  const room = Math.max(0, capacity - Math.max(0, fighters - dockFighterAllowance(state, key, seat)));
+  return `; afterwards ${ground} ground forces here and room for ${room} aboard your ships here`;
 }
 
 /** Who could become your neighbor with one move, by you or by them. */
@@ -393,6 +441,7 @@ function payloadLabel(state: GameState, payload: StrategicPayload, seat: PlayerI
     case "warfare":
       return payload.production
         ? `produce ${payload.production.units.map((u) => `${u.count} ${u.type}`).join(", ")} at home, paying ${paymentLabel(payload.production.payment)}` +
+            liftNote(state, seat, state.players[seat].home, payload.production.units) +
             fighterNote(state, seat, payload.production.units)
         : payload.removeFrom !== undefined
           ? `remove your command token from ${systemRef(state, payload.removeFrom)}${freedShips(state, seat, payload.removeFrom)}`
@@ -654,8 +703,11 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
       const units = action.units
         .map((u) => `${u.count} ${u.type}${u.planet ? ` on ${u.planet}` : ""}`)
         .join(", ");
-      const atHome = state.tactical?.system === state.players[seat].home;
-      return `Build ${units}, paying ${paymentLabel(action.payment)}` + (atHome ? fighterNote(state, seat, action.units) : "");
+      const key = state.tactical?.system ?? state.players[seat].home;
+      const atHome = key === state.players[seat].home;
+      return `Build ${units}, paying ${paymentLabel(action.payment)}` +
+        liftNote(state, seat, key, action.units) +
+        (atHome ? fighterNote(state, seat, action.units) : "");
     }
     case "RESOLVE_SECONDARY": {
       const [prompt] = openPrompts(state);
@@ -687,6 +739,8 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
       return `Use ${reactionName({ kind: "ability", id: action.ability })}${targetsLabel(state, action.targets)}`;
     case "PLAY_PROMISSORY_NOTE":
       return `Play ${promissoryNotesById[action.note]?.name ?? action.note} (P${action.owner}'s note)${targetsLabel(state, action.targets)}`;
+    case "CHOOSE_SECRET":
+      return `Keep the secret objective ${objectiveLine(state, seat, action.keep).slice(2)}`;
     case "PASS":
       return "Pass for the rest of the round";
     case "END_TURN":

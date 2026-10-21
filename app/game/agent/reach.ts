@@ -3,7 +3,7 @@
  * one ship move away from becoming neighbors, by either side.
  */
 import { PlayerId } from "~/types";
-import { GameState } from "../types";
+import { GameState, SystemKey } from "../types";
 import {
   adjacentSystems,
   findRoute,
@@ -42,6 +42,26 @@ export function neighborlyMove(state: GameState, mover: PlayerId, other: PlayerI
           from === target || !!findRoute(state, from, move, moveRulesFor(state, mover, target)),
       ),
     );
+}
+
+/**
+ * The ships `mover` could bring into `target` with one tactical action,
+ * from systems without its command token, by type.
+ */
+export function shipsReaching(state: GameState, mover: PlayerId, target: SystemKey) {
+  const rules = moveRulesFor(state, mover, target);
+  const ships: Partial<Record<string, number>> = {};
+  for (const origin of Object.values(state.systems)) {
+    if (origin.key === target || origin.commandTokens.includes(mover)) continue;
+    for (const type of unitTypes(origin.space[mover])) {
+      const move = unitOf(state, mover, type)?.move;
+      if (!move || type === "fighter") continue;
+      const reach = move + moveBonus(state, mover, origin.key) + (hasTech(state, mover, "gd") ? 1 : 0);
+      if (!findRoute(state, origin.key, reach, rules)) continue;
+      ships[type] = (ships[type] ?? 0) + (origin.space[mover]![type]?.count ?? 0);
+    }
+  }
+  return ships;
 }
 
 /** Neighbors, then players either side could neighbor with one move. */

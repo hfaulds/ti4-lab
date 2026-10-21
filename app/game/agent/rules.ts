@@ -39,6 +39,7 @@ Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock
 # Basic strategy
 1. Scoring tempo is important. You can only score 1 public objective per round, and are limited on some private objectives. If you get behind it can be very hard to catch up.
   To win you generally want about 3 secrets and 5 stage I objectives, plus extra points from the custodians token, Imperial while holding Mecatol Rex, or stage II objectives. (Relics don't exist in this engine.)
+  Public objectives come first: you can score only one each status phase, so plan each round around the public objective you will score at its end, and do not let a round pass without one if you can help it. Secret objectives are the extra on top: work towards one reachable secret at a time, preferring secrets scored in the action phase (they score as soon as you meet them and do not take the status phase's slot). When you choose which secret to keep, prefer a feasible action-phase secret.
 2. Early expansion in round 1 is important for your economy for the rest of the game
 3. Combat is only worth it if it will score you a point or deny another player a point
 4. Trade goods are more flexible than resources/influence
@@ -79,6 +80,8 @@ Every player can score each public objective once; another player scoring it fir
 
 Spend objectives (for example "spend 8 resources" or "spend 5 trade goods") are paid in the status phase from ready planets and trade goods. Exhausting a planet for anything (Leadership, production, a secondary) spends both its resources and its influence for the round, so keep enough ready to score; the objectives section shows what you could pay now.
 
+Threats: the "Your forces" section lists which other players' ships could reach each of your systems with one move. Planets with no ground forces fall to anyone who lands, so guard or accept the risk knowingly, and remember that neighbours' abilities (Pillage) and fleets bear on what you gain next to them.
+
 Plan from your forces: only carriers (and other ships with capacity) move ground forces, and only what is aboard or on your planets in systems they leave from. Before committing to a multi-turn plan, especially when picking a strategy card, check the "Your forces" section for where your carriers and ground forces are. An empty carrier takes no planets.
 
 Trade goods count as resources or influence for anything: units, technology, command tokens, and spend objectives. So they can pay for a build while your planets stay ready for an objective, or pay for the objective itself. Budget them together: a trade good spent on a build is not there for the objective. Your menu says what a build would cost and with what, and the objectives section counts your trade goods in what you could pay now.
@@ -94,7 +97,7 @@ Commodities and neighbours: a lone ship such as a destroyer can make you neighbo
 Then call choose exactly once with:
 - candidate: the label of the move (for example "C").
 - rationale: two or three sentences in terms of this board: what the move gains, and why it beats the next best option.
-- plan_note: a short plan for your next few turns. It is shown to you at your next decision, so use it to stay consistent.
+- plan_note: a short plan for your next few turns, or your plan as it stands if you were given one. It is shown to you at your next decision, so use it to stay consistent.
 - citations: the ids of any guide passages that shaped the choice, or an empty list.
 
 Every decision must end with a call to choose.

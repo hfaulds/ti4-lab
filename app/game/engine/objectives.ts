@@ -384,6 +384,48 @@ export type ObjectiveStatus = {
   cost?: Cost;
 };
 
+/**
+ * Count-based objectives as [what the player has, what is needed], for
+ * showing progress. Only objectives checked by a single count are here.
+ */
+const PROGRESS: Record<string, (s: GameState, id: PlayerId) => [number, number]> = {
+  corner: (s, id) => [mostOfOneTrait(s, id), 4],
+  develop: (s, id) => [unitUpgrades(s, id), 2],
+  diversify: (s, id) => [colorsWithAtLeast(s, id, 2), 2],
+  expand_borders: (s, id) => [nonHomePlanets(s, id), 6],
+  research_outposts: (s, id) => [techSpecialtyPlanets(s, id), 3],
+  build_defenses: (s, id) => [structures(s, id), 4],
+  lost_outposts: (s, id) => [attachedPlanets(s, id), 2],
+  deep_space: (s, id) => [systemsWhere(s, id, (sys) => sys.planets.length === 0), 3],
+  infrastructure: (s, id) => [planetsWithStructuresAway(s, id), 3],
+  raise_fleet: (s, id) => [largestFleet(s, id), 5],
+  brain_trust: (s, id) => [techSpecialtyPlanets(s, id), 5],
+  master_science: (s, id) => [colorsWithAtLeast(s, id, 2), 4],
+  revolutionize: (s, id) => [unitUpgrades(s, id), 3],
+  subdue: (s, id) => [nonHomePlanets(s, id), 11],
+  unify_colonies: (s, id) => [mostOfOneTrait(s, id), 6],
+  command_armada: (s, id) => [largestFleet(s, id), 8],
+  massive_cities: (s, id) => [structures(s, id), 7],
+  vast_territories: (s, id) => [systemsWhere(s, id, (sys) => sys.planets.length === 0), 5],
+  protect_border: (s, id) => [planetsWithStructuresAway(s, id), 5],
+  ancient_monuments: (s, id) => [attachedPlanets(s, id), 3],
+  ctr: (s, id) => [systemsWithShips(s, id).length, 6],
+  eap: (s, id) => [unitsOnBoard(s, id, "pds"), 4],
+  faa: (s, id) => [planetsWithTrait(s, id, "CULTURAL"), 4],
+  fwm: (s, id) => [unitsOnBoard(s, id, "spacedock"), 3],
+  gamf: (s, id) => [unitsOnBoard(s, id, "dreadnought"), 5],
+  mrm: (s, id) => [planetsWithTrait(s, id, "HAZARDOUS"), 4],
+  mp: (s, id) => [planetsWithTrait(s, id, "INDUSTRIAL"), 4],
+};
+
+/** How far a player is towards a count-based objective, if it is one. */
+export function objectiveProgress(state: GameState, id: PlayerId, objective: string) {
+  const progress = PROGRESS[objective];
+  if (!progress) return undefined;
+  const [have, need] = progress(state, id);
+  return { have, need };
+}
+
 export function objectiveStatus(
   state: GameState,
   id: PlayerId,

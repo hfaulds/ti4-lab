@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { unitFor } from "../data";
+import { objectivesById, unitFor } from "../data";
 import { GameState } from "../types";
 import {
   adjacentSystems,
@@ -12,7 +12,7 @@ import { rollAbility } from "./combat";
 import { victoryPoints } from "./control";
 import { countOf, openPrompts, totalUnits } from "./helpers";
 import { applyAction } from "./index";
-import { objectiveStatus } from "./objectives";
+import { objectiveProgress, objectiveStatus } from "./objectives";
 import { missingPrerequisites } from "./technology";
 import {
   autoplay,
@@ -738,6 +738,27 @@ describe("technology", () => {
 });
 
 describe("objectives", () => {
+  test("progress agrees with whether a count objective is met", () => {
+    let state = testGame({ seed: 7 });
+    for (let i = 0; i < 3000 && state.round < 4; i++) {
+      const move = botMove(state);
+      if (!move) break;
+      state = play(state, move.player, move.action);
+    }
+    let checked = 0;
+    for (const objective of Object.keys(objectivesById)) {
+      for (const id of state.seating) {
+        const progress = objectiveProgress(state, id, objective);
+        if (!progress) continue;
+        checked++;
+        expect(progress.have >= progress.need, objective).toBe(
+          objectiveStatus(state, id, objective).met === true,
+        );
+      }
+    }
+    expect(checked).toBeGreaterThan(50);
+  });
+
   test("spend objectives report what they cost", () => {
     const state = testGame();
     expect(objectiveStatus(state, SOL, "monument").cost).toEqual({

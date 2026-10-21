@@ -8,10 +8,17 @@ import { GameAction, GameActionType } from "../actions";
 import { MoveNote } from "../history";
 import { GameState, Prompt } from "../types";
 import { victoryPoints } from "../engine/control";
-import { openPrompts } from "../engine/helpers";
+import { openPrompts, totalUnits } from "../engine/helpers";
 import { applyAction } from "../engine/index";
 import { objectiveStatus } from "../engine/objectives";
-import { describeAction, describeGame, describeTurn } from "./describe";
+import {
+  describeAction,
+  describeGame,
+  describeTurn,
+  isStall,
+  stallChoice,
+  stallLabel,
+} from "./describe";
 import { Decision, MenuEntry, noUsage, Policy, Usage } from "./policy";
 import { SYSTEM_PROMPT } from "./rules";
 import {
@@ -100,7 +107,72 @@ const MAX_ACTIVATIONS = 6;
 const MAX_CANDIDATES = 12;
 const LABELS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-export type Candidate = MenuEntry & { action: GameAction };
+export type Candidate = MenuEntry & {
+  action: GameAction;
+  /** For the one "Stall" option: every stall on offer, the first played by default. */
+  stalls?: GameAction[];
+};
+
+/**
+ * On the seat's own turn, systems it could activate to stall, which the
+ * planner never proposes: empty ones first, so nothing gets locked down.
+ */
+function stallsFor(state: GameState, seat: PlayerId, offered: GameAction[]): GameAction[] {
+  const player = state.players[seat];
+  if (
+    state.phase !== "action" ||
+    state.tactical ||
+    state.activePlayer !== seat ||
+    openPrompts(state).length > 0 ||
+    player.pools.tactic === 0
+  ) {
+    return [];
+  }
+  const taken = new Set(
+    offered.flatMap((a) => (a.type === "ACTIVATE_SYSTEM" ? [a.system] : [])),
+  );
+  // Nobody's units first: activating those costs nothing beyond the token.
+  const anyone = (s: GameState["systems"][number]) =>
+    state.seating.reduce(
+      (sum, id) => sum + totalUnits(s.space[id]) + s.planets.reduce((n, p) => n + totalUnits(state.planets[p].units[id]), 0),
+      0,
+    );
+  const systems = Object.values(state.systems)
+    .filter((s) => s.onBoard && !s.commandTokens.includes(seat) && !taken.has(s.key))
+    .sort(
+      (a, b) =>
+        totalUnits(a.space[seat]) - totalUnits(b.space[seat]) || anyone(a) - anyone(b) || a.key - b.key,
+    );
+  const stalls: GameAction[] = [];
+  for (const system of systems) {
+    if (stalls.length >= MAX_STALLS) break;
+    const action: GameAction = { type: "ACTIVATE_SYSTEM", system: system.key };
+    if (agentBoundaryProblem(state, seat, action)) continue;
+    if (!applyAction(state, seat, action).ok || !isStall(state, seat, system.key)) continue;
+    stalls.push(action);
+  }
+  return stalls;
+}
+
+/** Places offered when the agent chooses to stall. */
+const MAX_STALLS = 4;
+
+/**
+ * Where to stall, the first stall on the menu first (so taking the first
+ * option plays the bot's game), then systems holding nothing of the
+ * seat's, whose activation locks nothing down.
+ */
+function stallMenu(state: GameState, seat: PlayerId, stalls: GameAction[]): Candidate[] {
+  const system = (a: GameAction) => (a.type === "ACTIVATE_SYSTEM" ? a.system : 0);
+  const [first, ...rest] = stalls;
+  const empty = (a: GameAction) => totalUnits(state.systems[system(a)].space[seat]) === 0;
+  const ordered = [first, ...rest.filter(empty), ...rest.filter((a) => !empty(a))];
+  return ordered.slice(0, MAX_STALLS).map((action, i) => ({
+    label: LABELS[i],
+    text: stallLabel(state, seat, system(action)),
+    action,
+  }));
+}
 
 /**
  * The legal moves on offer, in the scripted bot's order (its favourite
@@ -135,9 +207,17 @@ export function buildMenu(
   // What the bot's reservations and threshold hide comes after its own picks.
   const wider = withWiderChoices(() => scriptedCandidates(state, memory));
   offer(wider?.actions ?? []);
-  return legal.map((action, i) => ({
+  legal.push(...stallsFor(state, player, legal));
+  // Activations that do nothing are one "Stall" option, where the first was.
+  const stalls = legal.filter(
+    (a) => a.type === "ACTIVATE_SYSTEM" && isStall(state, player, a.system),
+  );
+  const entries = legal.filter((a) => !stalls.includes(a) || a === stalls[0]);
+  return entries.map((action, i) => ({
     label: LABELS[i],
-    text: describeAction(state, player, action),
+    ...(action === stalls[0]
+      ? { text: stallChoice(stalls.length), stalls }
+      : { text: describeAction(state, player, action) }),
     action,
   }));
 }
@@ -177,6 +257,8 @@ export type DecisionRecord = {
   planNote: string;
   /** Guide passages the agent cited, as readable labels. */
   citations: string[];
+  /** Where the agent stalled, when it chose the Stall option. */
+  stall?: { menu: MenuEntry[]; chosen: string; rationale: string };
   steps: Decision["steps"];
   usage: Usage;
   error?: string;
@@ -193,9 +275,10 @@ export function moveNote(record: DecisionRecord): MoveNote | undefined {
   if (record.forced && !record.rationale) return undefined;
   const option = (label: string) =>
     `${label}. ${record.menu.find((m) => m.label === label)?.text ?? ""}`;
+  const where = record.stall?.menu.find((m) => m.label === record.stall?.chosen);
   return {
-    chosen: option(record.chosen),
-    rationale: record.rationale,
+    chosen: option(record.chosen) + (where ? ` Chose: ${where.text}.` : ""),
+    rationale: [record.rationale, record.stall?.rationale].filter(Boolean).join(" "),
     plan: record.planNote || undefined,
     options: record.menu.map((m) => option(m.label)),
     fallback: record.fallback ? (record.error ?? "No choice was made.") : undefined,
@@ -356,6 +439,37 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       const picked = menu.find((c) => c.label === decision?.label);
       const chosen = picked ?? menu[0];
       action = chosen.action;
+      // Choosing to stall leads to choosing where.
+      let stall: DecisionRecord["stall"];
+      if (decision && picked?.stalls && picked.stalls.length > 1) {
+        const options = stallMenu(state, seat, picked.stalls);
+        let where: Decision | undefined;
+        try {
+          where = await policy.decide({
+            game: games.get(seat)!,
+            turn: `${describeTurn(state, seat)}\n\nYou chose to stall: ${decision.rationale}\nNow choose where.`,
+            planNote: decision.planNote || (planNotes.get(seat) ?? ""),
+            menu: options.map(({ label, text }) => ({ label, text })),
+            lookup: (args) => lookup(state, args),
+          });
+        } catch {
+          where = undefined;
+        }
+        const spot = options.find((o) => o.label === where?.label) ?? options[0];
+        action = spot.action;
+        stall = {
+          menu: options.map(({ label, text }) => ({ label, text })),
+          chosen: spot.label,
+          rationale: where?.rationale ?? "",
+        };
+        if (where) {
+          decision.steps.push(...where.steps);
+          for (const k of ["inputTokens", "cachedInputTokens", "outputTokens", "requests", "retries"] as const) {
+            decision.usage[k] += where.usage[k];
+          }
+          if (where.usage.costUsd) decision.usage.costUsd = (decision.usage.costUsd ?? 0) + where.usage.costUsd;
+        }
+      }
       if (decision?.planNote) planNotes.set(seat, decision.planNote);
       const record: DecisionRecord = {
         move,
@@ -369,6 +483,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         rationale: decision?.rationale ?? forcedReason(state, seat, menu),
         planNote: planNotes.get(seat) ?? "",
         citations: (decision?.citations ?? []).map((id) => guides?.label(id) ?? id),
+        stall,
         steps: decision?.steps ?? [],
         usage: decision?.usage ?? noUsage(),
         error,

@@ -81,6 +81,10 @@ Spend objectives (for example "spend 8 resources" or "spend 5 trade goods") are 
 
 Plan from your forces: only carriers (and other ships with capacity) move ground forces, and only what is aboard or on your planets in systems they leave from. Before committing to a multi-turn plan, especially when picking a strategy card, check the "Your forces" section for where your carriers and ground forces are. An empty carrier takes no planets.
 
+Trade goods count as resources or influence for anything: units, technology, command tokens, and spend objectives. So they can pay for a build while your planets stay ready for an objective, or pay for the objective itself. Budget them together: a trade good spent on a build is not there for the objective. Your menu says what a build would cost and with what, and the objectives section counts your trade goods in what you could pay now.
+
+Stalling: a tactical action that does nothing (your menu calls it a stall) only spends a tactic token to make others act first. Late in the game, with tokens to spare, that can be worth it, to wait until others have passed before you commit. Early in the game it wastes a token you need for expansion and production; pass instead if there is nothing worth doing.
+
 Order of actions: when one option banks value that a later move could put at risk (spending a planet's influence with Leadership, trading your commodities), take it first.
 
 Commodities and neighbours: a lone ship such as a destroyer can make you neighbours with a player, so you can trade, without taking planets. Other players expand during the round too, so a player who is not your neighbour now may become one when they move next to you.

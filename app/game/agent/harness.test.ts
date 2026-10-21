@@ -2,9 +2,10 @@ import { describe, expect, test } from "vitest";
 import OpenAI from "openai";
 import { GameState, Prompt } from "../types";
 import { objectivesById, strategyCardsById } from "../data";
+import { totalUnits } from "../engine/helpers";
 import { objectiveStatus } from "../engine/objectives";
 import { play, testGame } from "../engine/testing";
-import { describeGame, describeTurn } from "./describe";
+import { activationCosts, describeGame, describeTurn } from "./describe";
 import {
   agentBoundaryProblem,
   agentToMove,
@@ -14,7 +15,7 @@ import {
   playAgentGame,
 } from "./harness";
 import { newTableMemory, remember } from "./conventions";
-import { ChatPolicy, DecisionRequest, FirstCandidatePolicy } from "./policy";
+import { ChatPolicy, DecisionRequest, FirstCandidatePolicy, noUsage, Policy } from "./policy";
 import { scriptedMove, secondarySkipReason } from "./scriptedBot";
 import { setupFor } from "./setups";
 import { lookup, parseChoose } from "./tools";
@@ -126,6 +127,58 @@ describe("agent harness", () => {
     for (const secret of state.players[seat].secretObjectives) {
       expect(text).toContain(objectivesById[secret].name);
     }
+  });
+});
+
+describe("stalling", () => {
+  test("is one menu option, then a choice of where", async () => {
+    let asked = 0;
+    // Stalls whenever it can, in the last place offered.
+    const staller: Policy = {
+      name: "staller",
+      async decide(request) {
+        const stall = request.menu.find((m) => m.text.startsWith("Stall:"));
+        const where = request.menu.at(-1)!;
+        if (request.menu.every((m) => m.text.startsWith("Stall in"))) asked++;
+        return {
+          label: stall?.label ?? (asked ? where.label : request.menu[0].label),
+          rationale: "Stalling.",
+          planNote: "",
+          citations: [],
+          steps: [],
+          usage: noUsage(),
+        };
+      },
+    };
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: staller,
+      until: (s) => s.round > 1,
+    });
+    const stalled = log.decisions.filter((d) => d.stall);
+    expect(stalled.length).toBeGreaterThan(0);
+    for (const decision of stalled) {
+      expect(decision.menu.filter((m) => m.text.startsWith("Stall:"))).toHaveLength(1);
+      expect(decision.stall!.menu.length).toBeGreaterThan(1);
+      expect(decision.stall!.chosen).toBe(decision.stall!.menu.at(-1)!.label);
+    }
+    expect(asked).toBe(stalled.length);
+  });
+});
+
+describe("activation costs", () => {
+  test("say when activating returns Support for the Throne", () => {
+    const state = structuredClone(advance(newGame(3), (s) => s.phase === "action" && s.activePlayer === 0 && s.prompts.length === 0));
+    const giver = state.seating.find((id) => id !== 0)!;
+    state.players[0].promissoryNotesInPlay.push({ id: "sftt", owner: giver });
+    const costs = activationCosts(state, 0, state.players[giver].home);
+    expect(costs).toContain(`returns Support for the Throne to P${giver}, losing its victory point`);
+    // A system holding no one's units costs nothing.
+    const empty = Object.values(state.systems).find(
+      (s) => s.onBoard && s.planets.length === 0 && state.seating.every((id) => totalUnits(s.space[id]) === 0),
+    )!;
+    expect(activationCosts(state, 0, empty.key)).toEqual([]);
   });
 });
 

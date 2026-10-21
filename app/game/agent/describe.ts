@@ -53,7 +53,9 @@ import { reactionName } from "../engine/reactions";
 import { moveBonus } from "../engine/tactical";
 import { viewFor } from "../view";
 import { neighborlyMove } from "./reach";
-import { bestPlan } from "./scriptedBot";
+import { bestPlan, scriptedMove } from "./scriptedBot";
+import { applyAction } from "../engine/index";
+import { productionCapacity } from "../engine/economy";
 
 const factionName = (state: GameState, id: PlayerId) =>
   factions[state.players[id].faction]?.name ?? state.players[id].faction;
@@ -480,6 +482,95 @@ function riftWarnings(state: GameState, seat: PlayerId, target: SystemKey, moves
   });
 }
 
+/** What activating `key` would build, if the seat can produce there. */
+function buildPreview(state: GameState, seat: PlayerId, key: SystemKey) {
+  const dockArrives = bestPlan(state, seat, key)?.moves.some((m) => m.ships.spacedock);
+  return productionCapacity(state, key, seat) > 0 || dockArrives
+    ? productionPreview(state, seat, key)
+    : undefined;
+}
+
+/**
+ * Whether activating `key` would move nothing and build nothing: a stall,
+ * which only spends a tactic token so that others act first.
+ */
+export function isStall(state: GameState, seat: PlayerId, key: SystemKey) {
+  if (bestPlan(state, seat, key)?.moves.length) return false;
+  return !buildPreview(state, seat, key)?.units.length;
+}
+
+/**
+ * What activating `key` costs the seat beyond its tactic token, from what
+ * happens the moment it is activated: promissory notes in its play area
+ * going back to their owners (Support for the Throne with its point),
+ * other players' technologies (Neuroglaive, E-Res Siphons), and the seat's
+ * own notes another player could now play, such as Ceasefire. Only what
+ * the seat can know is reported: no one's hidden action cards.
+ */
+export function activationCosts(state: GameState, seat: PlayerId, key: SystemKey): string[] {
+  const activated = applyAction(state, seat, { type: "ACTIVATE_SYSTEM", system: key });
+  if (!activated.ok) return [];
+  const after = activated.state;
+  const costs: string[] = [];
+  const kept = after.players[seat].promissoryNotesInPlay;
+  for (const note of state.players[seat].promissoryNotesInPlay) {
+    if (kept.some((n) => n.id === note.id && n.owner === note.owner)) continue;
+    const name = promissoryNotesById[note.id]?.name ?? note.id;
+    costs.push(`returns ${name} to P${note.owner}${note.id === "sftt" ? ", losing its victory point" : ""}`);
+  }
+  const fleet = state.players[seat].pools.fleet - after.players[seat].pools.fleet;
+  if (fleet > 0) costs.push(`loses ${fleet} fleet pool token${fleet === 1 ? "" : "s"}`);
+  for (const other of state.seating) {
+    if (other === seat) continue;
+    const gained = after.players[other].tradeGoods - state.players[other].tradeGoods;
+    if (gained > 0) costs.push(`P${other} gains ${gained} trade goods`);
+  }
+  for (const prompt of openPrompts(after)) {
+    if (prompt.kind !== "window" || prompt.player === seat) continue;
+    for (const option of prompt.options) {
+      if (option.kind === "promissoryNote" && option.owner === seat) {
+        costs.push(`P${prompt.player} may play your ${reactionName(option)}`);
+      }
+    }
+  }
+  return costs;
+}
+
+/** The menu line for choosing where to stall. */
+export function stallLabel(state: GameState, seat: PlayerId, key: SystemKey) {
+  const ships = totalUnits(state.systems[key].space[seat]) > 0;
+  const costs = activationCosts(state, seat, key);
+  return `Stall in ${systemLabel(state, key)}: ` +
+    (ships ? "your ships there cannot move for the rest of the round" : "nothing of yours is there") +
+    (costs.length ? `; ${costs.join("; ")}` : "");
+}
+
+/** The menu line that stands for every stall on offer. */
+export const stallChoice = (count: number) =>
+  `Stall: take a tactical action that does nothing but spend a tactic token, so others act first ` +
+  `(you then choose where, from ${count} system${count === 1 ? "" : "s"}). Worth it late in the game with tokens to spare; ` +
+  "early on the token is worth more to expansion and production.";
+
+/**
+ * What the planner would build in an activated system, found by playing the
+ * activation forward with its choices up to the production step.
+ */
+function productionPreview(state: GameState, seat: PlayerId, key: SystemKey) {
+  const activated = applyAction(state, seat, { type: "ACTIVATE_SYSTEM", system: key });
+  if (!activated.ok) return undefined;
+  let current = activated.state;
+  for (let step = 0; step < 50; step++) {
+    if (current.tactical?.system !== key) return undefined;
+    const move = scriptedMove(current);
+    if (!move) return undefined;
+    if (move.player === seat && move.action.type === "PRODUCE") return move.action;
+    const next = applyAction(current, move.player, move.action);
+    if (!next.ok) return undefined;
+    current = next.state;
+  }
+  return undefined;
+}
+
 /** A short, readable description of an action the agent could take. */
 export function describeAction(state: GameState, seat: PlayerId, action: GameAction): string {
   switch (action.type) {
@@ -536,6 +627,13 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
           : "",
         ...landing,
       ].filter(Boolean);
+      parts.push(...activationCosts(state, seat, action.system));
+      const built = buildPreview(state, seat, action.system);
+      if (built?.units.length) {
+        parts.push(
+          `builds ${built.units.map((u) => `${u.count} ${u.type}`).join(", ")}, paying ${paymentLabel(built.payment)}`,
+        );
+      }
       return `Tactical action in ${systemLabel(state, action.system)}: ${parts.join("; ")}. ` +
         `Bot's estimate of the gain: ${(plan?.value ?? 0).toFixed(1)}. The bot plays out movement, landing and production.`;
     }

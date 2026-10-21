@@ -88,7 +88,7 @@ Before you choose your next move, write your plan for the rest of this round and
 - what you will build, and which other players' strategy cards are worth a strategy token this round;
 - threats you will guard against or accept.
 
-Look up and search the guides as you need. Then reply with the plan as plain text, citing guide passages by id like [118-21] where they shaped it. Do not choose a move yet: you will choose next, with this plan in front of you.`;
+Name moves by what they are (the card, the system, the units), not by their menu letters: the letters change from one decision to the next. Look up and search the guides as you need. Then reply with the plan as plain text, citing guide passages by id like [118-21] where they shaped it. Do not choose a move yet: you will choose next, with this plan in front of you.`;
 
 /** The plan a planning reply gives, and the guide ids it cites among those shown. */
 export function planFrom(text: string, shown: Set<string>): Pick<Plan, "text" | "citations"> {

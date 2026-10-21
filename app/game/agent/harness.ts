@@ -161,6 +161,9 @@ function stallsFor(state: GameState, seat: PlayerId, offered: GameAction[]): Gam
   return stalls;
 }
 
+/** Shorter planning replies are not plans, so the previous plan stands. */
+const MIN_PLAN_LENGTH = 200;
+
 /** Places offered when the agent chooses to stall. */
 const MAX_STALLS = 4;
 
@@ -480,6 +483,10 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
           } catch (thrown) {
             planning = undefined;
             error = `Planning failed: ${thrown instanceof Error ? thrown.message : String(thrown)}`;
+          }
+          // A reply too short to be a plan ("see above") keeps the last one.
+          if (planning?.text && planning.text.length < MIN_PLAN_LENGTH) {
+            planning = { ...planning, text: "", error: `Plan too short to use: "${planning.text}"` };
           }
           if (planning?.text) {
             planNotes.set(seat, planning.text);

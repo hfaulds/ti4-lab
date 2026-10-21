@@ -181,8 +181,10 @@ function objectiveLine(state: GameState, seat: PlayerId, id: string, scoredBy?: 
         .map(([k, v]) => `${v} ${k}`)
         .join(", ")})`
     : "";
-  const scored = scoredBy?.length
-    ? `; scored by ${scoredBy.map((p) => `P${p}`).join(", ")}`
+  const others = (scoredBy ?? []).filter((p) => p !== seat);
+  const scored = others.length
+    ? `; scored by ${others.map((p) => `P${p}`).join(", ")}` +
+      (scoredBy?.includes(seat) ? "" : ", which does not stop you scoring it too")
     : "";
   const ready = status.cost && !scoredBy?.includes(seat) ? spendable(state, seat, status.cost) : "";
   return `- ${data?.name ?? id} [${data?.points ?? "?"} VP]${when}: ${data?.text ?? ""} — ${yours}${cost}${scored}${ready}`;

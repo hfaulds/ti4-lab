@@ -158,7 +158,9 @@ describe("planning", () => {
       async plan(req) {
         plans++;
         planned.push(req.menu[0].text);
-        return { text: `Plan ${plans}.`, citations: [], steps: [], usage: noUsage() };
+        // Every third plan is a non-answer, which must not replace the last plan.
+        const text = plans % 3 === 0 ? "See the plan above." : `Plan ${plans}: ${"keep influence ready for Sway the Council. ".repeat(6)}`;
+        return { text, citations: [], steps: [], usage: noUsage() };
       },
       async decide(req) {
         return { label: req.menu[0].label, rationale: "First.", planNote: "ignored", citations: [], steps: [], usage: noUsage() };
@@ -172,11 +174,13 @@ describe("planning", () => {
       until: (s) => s.round > 1,
     });
     const own = log.decisions.filter((d) => !d.forced && (d.phase === "strategy" || d.steps.some((s) => s.tool === "plan")));
-    expect(plans).toBeGreaterThan(1);
+    expect(plans).toBeGreaterThan(3);
+    // Every note in force is a real plan, never the non-answer.
+    expect(log.decisions.every((d) => !d.planNote.startsWith("See the plan above"))).toBe(true);
     // Secondaries and builds are not own turns, so they are not planned.
     expect(planned.every((text) => !text.startsWith("Use the secondary") && !text.startsWith("Build"))).toBe(true);
     for (const decision of own.filter((d) => d.steps.some((s) => s.tool === "plan"))) {
-      expect(decision.planNote).toMatch(/^Plan \d+\.$/);
+      expect(decision.planNote).toMatch(/^Plan \d+: /);
     }
   });
 });

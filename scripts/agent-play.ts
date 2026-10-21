@@ -8,6 +8,10 @@
  *                             [--no-knowledge] [--stop-at action] [--rounds 1]
  *                             [--setup milty|random]
  *
+ * Guide briefings (passages searched before the strategy pick and the first
+ * action of each round) are on for --policy claude and off otherwise;
+ * --briefing and --no-briefing override.
+ *
  * --policy claude plays through the Claude Agent SDK, signed in as Claude
  * Code is: a Claude subscription login, or ANTHROPIC_API_KEY when set. Its
  * model defaults to haiku. Subscription login is for your own runs only.
@@ -132,6 +136,8 @@ const log = await playAgentGame({
   agentSeats,
   policy,
   knowledge,
+  // Claude models seldom search for themselves, so they get briefings.
+  briefing: knowledge !== undefined && (policyName === "claude" ? !flag("no-briefing") : flag("briefing")),
   until: (s) =>
     (!!stopAt && s.phase === stopAt) || (option("rounds", "") !== "" && s.round > Number(option("rounds", ""))),
   onMove,

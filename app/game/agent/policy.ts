@@ -31,6 +31,8 @@ export type DecisionRequest = {
    * case the tool is not offered.
    */
   searchGuides?: (args: SearchArgs) => { text: string; ids: string[] };
+  /** Guide passages searched before asking, with their ids for citing. */
+  briefing?: { text: string; ids: string[] };
 };
 
 export type ToolStep = { tool: string; arguments: string; result: string };
@@ -96,6 +98,9 @@ export function turnMessage(request: DecisionRequest) {
     "## Your plan note from last time",
     request.planNote || "(none yet)",
     "",
+    ...(request.briefing
+      ? ["## From the strategy guides, searched for this decision", request.briefing.text, ""]
+      : []),
     "## Candidates",
     ...request.menu.map((entry) => `${entry.label}. ${entry.text}`),
   ].join("\n");
@@ -168,7 +173,7 @@ export class ChatPolicy implements Policy {
       ? [TOOLS[0], SEARCH_GUIDES_TOOL, ...TOOLS.slice(1)]
       : TOOLS;
     const allTools = offered.map((tool) => ({ type: "function" as const, function: tool }));
-    const shown = new Set<string>();
+    const shown = new Set<string>(request.briefing?.ids);
     const chooseOnly = allTools.filter((tool) => tool.function.name === "choose");
     const usage = noUsage();
     const steps: ToolStep[] = [];

@@ -542,12 +542,15 @@ export function describeAction(state: GameState, seat: PlayerId, action: GameAct
     case "STRATEGIC_ACTION":
       return `Play ${payloadName(action.payload)} (primary): ${payloadLabel(state, action.payload, seat)}`;
     case "RESOLVE_SECONDARY": {
-      if (!action.payload) return "Skip the secondary";
       const [prompt] = openPrompts(state);
+      // Which card, and whose: secondaries come from other players' cards.
+      const whose =
+        prompt?.kind === "secondary" ? ` of ${cardName(prompt.card)} (P${prompt.from} played it)` : "";
+      if (!action.payload) return `Skip the secondary${whose}`;
       const free =
         action.payload.card === "leadership" ||
         (prompt?.kind === "secondary" && prompt.free);
-      return `Use the secondary: ${secondaryLabel(state, action.payload, seat)}` +
+      return `Use the secondary${whose}: ${secondaryLabel(state, action.payload, seat)}` +
         (free ? "" : " (costs 1 strategy token)");
     }
     case "SCORE_OBJECTIVES": {

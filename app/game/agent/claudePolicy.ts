@@ -58,7 +58,7 @@ export class ClaudePolicy implements Policy {
     const labels = request.menu.map((entry) => entry.label);
     const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
     const steps: ToolStep[] = [];
-    const shown = new Set<string>();
+    const shown = new Set<string>(request.briefing?.ids);
     let lookups = 0;
     let chosen: Decision | undefined;
     const usage = noUsage();

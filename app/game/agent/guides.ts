@@ -57,16 +57,52 @@ export function formatGuideHits(
  */
 export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
   const shown = new Map<string, GuideHit>();
+  const find = (args: SearchArgs, limit = RESULTS) => {
+    const hits = knowledge.searchGuides({
+      query: args.query,
+      faction: args.faction ? factionName(state, args.faction) : undefined,
+      limit,
+    });
+    for (const hit of hits) shown.set(hit.id, hit);
+    return hits;
+  };
   return {
     search(args: SearchArgs) {
-      const hits = knowledge.searchGuides({
-        query: args.query,
-        faction: args.faction ? factionName(state, args.faction) : undefined,
-        limit: RESULTS,
-      });
-      for (const hit of hits) shown.set(hit.id, hit);
+      const hits = find(args);
       const [concept] = knowledge.searchConcepts(args.query, 1);
       return { text: formatGuideHits(hits, concept), ids: hits.map((h) => h.id) };
+    },
+    /**
+     * Guide passages for a decision, searched before the agent is asked:
+     * every faction's opening for the round one strategy pick, otherwise
+     * the seat's own faction on strategy cards or on the action phase.
+     */
+    briefing(seat: PlayerId, step: "strategy" | "action") {
+      const own = factionName(state, `P${seat}`);
+      const searches =
+        step === "strategy" && state.round === 1
+          ? state.seating.map((id) => ({
+              heading: `${factionName(state, `P${id}`)} (P${id}${id === seat ? ", you" : ""})`,
+              args: { query: "round one strategy card pick and opening expansion", faction: `P${id}` },
+              limit: 2,
+            }))
+          : [
+              {
+                heading: `${own} (you)`,
+                args:
+                  step === "strategy"
+                    ? { query: `round ${state.round} strategy card pick`, faction: `P${seat}` }
+                    : { query: `round ${state.round} expansion building and scoring`, faction: `P${seat}` },
+                limit: 3,
+              },
+            ];
+      const ids: string[] = [];
+      const sections = searches.map(({ heading, args, limit }) => {
+        const hits = find(args, limit);
+        ids.push(...hits.map((h) => h.id));
+        return [`### ${heading}`, formatGuideHits(hits)].join("\n");
+      });
+      return { text: sections.join("\n\n"), ids };
     },
     label: (id: string) => {
       const hit = shown.get(id);

@@ -58,4 +58,18 @@ describe("guide search", () => {
     expect(guides.label("118-3")).toBe("SCPT ep 118 at 0:43:12: Trade first");
     expect(guides.label("unseen")).toBe("unseen");
   });
+
+  test("brief a round one strategy pick on every faction's opening", () => {
+    const state = testGame({ seed: 1, ...setupFor(1) });
+    const { knowledge, searches } = stubKnowledge([hit("118-3", "Trade first")]);
+    const guides = guideSearch(knowledge, state);
+    const briefing = guides.briefing(0, "strategy");
+    expect(searches.map((s) => s.faction)).toEqual(
+      state.seating.map((id) => factions[state.players[id].faction].name),
+    );
+    expect(briefing.text.match(/^### /gm)).toHaveLength(state.seating.length);
+    expect(briefing.text).toContain("(P0, you)");
+    // What a briefing shows can be cited.
+    expect(guides.label("118-3")).toBe("SCPT ep 118 at 0:43:12: Trade first");
+  });
 });

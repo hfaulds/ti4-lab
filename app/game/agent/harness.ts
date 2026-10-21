@@ -246,7 +246,7 @@ export type ReplayLog = {
 };
 
 /** A hash of everything that changes how the agent plays. */
-export function agentVersion(policy: Policy, knowledge?: KnowledgeBase) {
+export function agentVersion(policy: Policy, knowledge?: KnowledgeBase, briefing = false) {
   const hash = createHash("sha256");
   hash.update(
     JSON.stringify({
@@ -254,6 +254,7 @@ export function agentVersion(policy: Policy, knowledge?: KnowledgeBase) {
       prompt: SYSTEM_PROMPT,
       tools: knowledge ? [...TOOLS, SEARCH_GUIDES_TOOL] : TOOLS,
       knowledge: knowledge?.version ?? null,
+      briefing,
       routing: ROUTING_VERSION,
       bot: SCRIPTED_BOT_VERSION,
       menu: [MAX_ACTIVATIONS, MAX_CANDIDATES],
@@ -268,6 +269,12 @@ export type PlayOptions = {
   policy: Policy;
   /** The strategy guides, searchable by the agent; without it, no search tool. */
   knowledge?: KnowledgeBase;
+  /**
+   * Search the guides before the agent's strategy pick and its first
+   * action-phase decision each round, and put the passages in its prompt,
+   * for models that seldom search for themselves.
+   */
+  briefing?: boolean;
   seed?: number;
   maxMoves?: number;
   /** Stops the game early, before the first move made once this holds. */
@@ -291,8 +298,10 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
   const planNotes = new Map<PlayerId, string>();
   const memory = newTableMemory();
   const games = new Map<PlayerId, string>();
+  // Seat, round and phase of each briefing given, so each is given once.
+  const briefed = new Set<string>();
   const log: ReplayLog = {
-    agentVersion: agentVersion(policy, options.knowledge),
+    agentVersion: agentVersion(policy, options.knowledge, !!options.briefing),
     policy: policy.name,
     botVersion: SCRIPTED_BOT_VERSION,
     seed: options.seed,
@@ -322,6 +331,13 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       const guides = options.knowledge && guideSearch(options.knowledge, state);
       if (menu.length > 1) {
         if (!games.has(seat)) games.set(seat, describeGame(state, seat));
+        const step = state.phase === "strategy" || state.phase === "action" ? state.phase : undefined;
+        const key = `${seat}:${state.round}:${step}`;
+        const briefing =
+          options.briefing && guides && step && !briefed.has(key)
+            ? guides.briefing(seat, step)
+            : undefined;
+        if (briefing) briefed.add(key);
         try {
           decision = await policy.decide({
             game: games.get(seat)!,
@@ -330,6 +346,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
             menu: menu.map(({ label, text }) => ({ label, text })),
             lookup: (args) => lookup(state, args),
             searchGuides: guides?.search,
+            briefing,
           });
           error = decision.error;
         } catch (thrown) {

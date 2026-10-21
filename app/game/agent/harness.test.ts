@@ -148,9 +148,10 @@ describe("skipped secondaries", () => {
     const withPrompt = { ...state, prompts: [prompt] };
     const menu = buildMenu(withPrompt, seat);
     // The bot never uses Politics' secondary, so its choice, Skip, stays first.
-    expect(menu[0].text).toBe("Skip the secondary");
+    const whose = `of Politics (P${prompt.from} played it)`;
+    expect(menu[0].text).toBe(`Skip the secondary ${whose}`);
     expect(menu.map((c) => c.text)).toContain(
-      "Use the secondary: draw 2 action cards (costs 1 strategy token)",
+      `Use the secondary ${whose}: draw 2 action cards (costs 1 strategy token)`,
     );
   });
 
@@ -182,7 +183,7 @@ describe("skipped secondaries", () => {
       maxMoves: 600,
     });
     const skipOnly = log.decisions.filter(
-      (d) => d.forced && d.menu[0].text === "Skip the secondary",
+      (d) => d.forced && d.menu[0].text.startsWith("Skip the secondary"),
     );
     expect(skipOnly.length).toBeGreaterThan(0);
     for (const decision of skipOnly) {
@@ -379,6 +380,21 @@ describe("chat policy", () => {
       "search_guides",
       "choose",
     ]);
+  });
+
+  test("lets the agent cite passages from a briefing", async () => {
+    const { client } = fakeClient([
+      {
+        calls: [
+          { name: "choose", args: '{"candidate":"B","rationale":"Per the guide.","plan_note":"","citations":["7-2"]}' },
+        ],
+      },
+    ]);
+    const decision = await new ChatPolicy({ model: "m", apiKey: "k", client }).decide({
+      ...request,
+      briefing: { text: "[7-2] Take Diplomacy.", ids: ["7-2"] },
+    });
+    expect(decision.citations).toEqual(["7-2"]);
   });
 
   test("offers no guide search without a knowledge base", async () => {

@@ -34,14 +34,12 @@ export type ClaudePolicyOptions = {
   maxTurns?: number;
   /** Lookups and searches allowed per decision before only choose works. */
   maxLookups?: number;
-  /** How long one decision may take before it is abandoned. */
+  /** How long one call may take before it is abandoned; by default, no limit. */
   timeoutMs?: number;
 };
 
 const SERVER = "game";
 const toolName = (name: string) => `mcp__${SERVER}__${name}`;
-/** A decision may take many lookups; past this it is abandoned. */
-const TIMEOUT_MS = 600_000;
 /** Claude Code's own tools, none of which a game decision needs. */
 const BUILT_IN_TOOLS = [
   "Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch",
@@ -199,7 +197,11 @@ export class ClaudePolicy implements Policy {
     const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
     const offered = tools.map((t) => toolName(t.name));
     const abort = new AbortController();
-    const timer = setTimeout(() => abort.abort(), this.options.timeoutMs ?? TIMEOUT_MS);
+    // No limit unless asked for: the harness waits out sleeps and outages.
+    const timer =
+      this.options.timeoutMs === undefined
+        ? undefined
+        : setTimeout(() => abort.abort(), this.options.timeoutMs);
     let result = "";
     let error: string | undefined;
     try {

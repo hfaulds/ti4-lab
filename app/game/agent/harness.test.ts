@@ -185,6 +185,38 @@ describe("planning", () => {
   });
 });
 
+describe("outages", () => {
+  test("are waited out, and a model that never chooses falls back after a few tries", async () => {
+    let calls = 0;
+    let waits = 0;
+    // Fails twice like a sleeping laptop, then answers; on its next turns
+    // it answers with no usable label.
+    const flaky: Policy = {
+      name: "flaky",
+      async decide(req) {
+        calls++;
+        if (calls <= 2) throw new TypeError("fetch failed");
+        const label = calls === 3 ? req.menu[0].label : "Z";
+        return { label, rationale: "", planNote: "", citations: [], steps: [], usage: noUsage() };
+      },
+    };
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: flaky,
+      firstWaitMs: 1,
+      onWait: () => waits++,
+      until: (s) => s.phase === "action",
+    });
+    const [first, ...rest] = log.decisions.filter((d) => !d.forced);
+    expect(waits).toBe(2);
+    expect(first.fallback).toBe(false);
+    // Three unusable answers, then the bot plays.
+    expect(rest[0].fallback).toBe(true);
+    expect(calls).toBe(3 + 3 * rest.length);
+  });
+});
+
 describe("stalling", () => {
   test("is one menu option, then a choice of where", async () => {
     let asked = 0;

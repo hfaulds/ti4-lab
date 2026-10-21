@@ -144,6 +144,7 @@ const log = await playAgentGame({
   // Claude models seldom search for themselves, so they get briefings.
   briefing: knowledge !== undefined && (policyName === "claude" ? !flag("no-briefing") : flag("briefing")),
   planning: !flag("no-planning"),
+  onWait: (ms, why) => console.log(`   waiting ${Math.round(ms / 1000)}s to ask again (${why.slice(0, 120)})`),
   until: (s) =>
     (!!stopAt && s.phase === stopAt) || (option("rounds", "") !== "" && s.round > Number(option("rounds", ""))),
   onMove,

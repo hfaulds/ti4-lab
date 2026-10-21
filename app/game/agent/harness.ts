@@ -161,6 +161,58 @@ function stallsFor(state: GameState, seat: PlayerId, offered: GameAction[]): Gam
   return stalls;
 }
 
+/** Times a model may answer without a usable choice before the bot plays. */
+const MODEL_ATTEMPTS = 3;
+const FIRST_WAIT_MS = 5_000;
+const LONGEST_WAIT_MS = 300_000;
+
+const errorText = (thrown: unknown) => (thrown instanceof Error ? thrown.message : String(thrown));
+
+/**
+ * Whether a failure is the world rather than the model: the laptop slept,
+ * the network dropped, the provider is overloaded. Those are waited out.
+ * An API that rejected the request (a 4xx other than timeouts and limits)
+ * would only reject it again.
+ */
+function outage(failure: unknown) {
+  const status = (failure as { status?: unknown } | undefined)?.status;
+  if (typeof status === "number") return status >= 500 || [408, 409, 429].includes(status);
+  if (failure instanceof Error) return true;
+  return /timed out|stopped: error|fetch failed|ECONN|socket|terminated|network|overloaded/i.test(String(failure));
+}
+
+/**
+ * Asks the policy until it answers. Outages are waited out however long
+ * they last, with growing pauses, so a game resumes after the laptop
+ * wakes; a model that answers without a usable choice gets a few tries.
+ */
+async function untilAnswered<T extends { error?: string }>(
+  ask: () => Promise<T>,
+  usable: (answer: T) => boolean,
+  onWait?: (ms: number, why: string) => void,
+  firstWait = FIRST_WAIT_MS,
+): Promise<{ answer?: T; error?: string }> {
+  let wait = firstWait;
+  let tries = 0;
+  for (;;) {
+    let answer: T | undefined;
+    let why: string;
+    try {
+      answer = await ask();
+      if (usable(answer)) return { answer };
+      why = answer.error ?? "No usable answer.";
+      if (!outage(why) && ++tries >= MODEL_ATTEMPTS) return { answer, error: why };
+      if (!outage(why)) continue;
+    } catch (thrown) {
+      why = errorText(thrown);
+      if (!outage(thrown)) return { error: why };
+    }
+    onWait?.(wait, why);
+    await new Promise((resolve) => setTimeout(resolve, wait));
+    wait = Math.min(wait * 2, LONGEST_WAIT_MS);
+  }
+}
+
 /** Shorter planning replies are not plans, so the previous plan stands. */
 const MIN_PLAN_LENGTH = 200;
 
@@ -395,6 +447,10 @@ export type PlayOptions = {
    * that plan in front of it. Needs a policy that can plan.
    */
   planning?: boolean;
+  /** Told when a policy call failed for reasons outside the model and is retried. */
+  onWait?: (ms: number, why: string) => void;
+  /** The first pause before asking again after an outage, doubling after. */
+  firstWaitMs?: number;
   seed?: number;
   maxMoves?: number;
   /** Stops the game early, before the first move made once this holds. */
@@ -478,12 +534,14 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
           openPrompts(state).length === 0 &&
           (state.phase === "strategy" || (state.phase === "action" && !state.tactical));
         if (options.planning && policy.plan && ownTurn) {
-          try {
-            planning = await policy.plan(request);
-          } catch (thrown) {
-            planning = undefined;
-            error = `Planning failed: ${thrown instanceof Error ? thrown.message : String(thrown)}`;
-          }
+          const planned = await untilAnswered(
+            () => policy.plan!(request),
+            (plan) => plan.text.length >= MIN_PLAN_LENGTH,
+            options.onWait,
+            options.firstWaitMs,
+          );
+          planning = planned.answer;
+          if (planned.error) error = `Planning failed: ${planned.error}`;
           // A reply too short to be a plan ("see above") keeps the last one.
           if (planning?.text && planning.text.length < MIN_PLAN_LENGTH) {
             planning = { ...planning, text: "", error: `Plan too short to use: "${planning.text}"` };
@@ -495,12 +553,14 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
             request.briefing = undefined;
           }
         }
-        try {
-          decision = await policy.decide(request);
-          error = decision.error ?? error;
-        } catch (thrown) {
-          error = thrown instanceof Error ? thrown.message : String(thrown);
-        }
+        const decided = await untilAnswered(
+          () => policy.decide(request),
+          (answer) => menu.some((c) => c.label === answer.label),
+          options.onWait,
+          options.firstWaitMs,
+        );
+        decision = decided.answer;
+        error = decided.error ?? decision?.error ?? error;
       }
       const picked = menu.find((c) => c.label === decision?.label);
       const chosen = picked ?? menu[0];
@@ -508,23 +568,26 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       // Choosing to stall leads to choosing where.
       let stall: DecisionRecord["stall"];
       if (decision && picked?.stalls && picked.stalls.length > 1) {
-        const options = stallMenu(state, seat, picked.stalls);
-        let where: Decision | undefined;
-        try {
-          where = await policy.decide({
-            game: games.get(seat)!,
-            turn: `${describeTurn(state, seat)}\n\nYou chose to stall: ${decision.rationale}\nNow choose where.`,
-            planNote: decision.planNote || (planNotes.get(seat) ?? ""),
-            menu: options.map(({ label, text }) => ({ label, text })),
-            lookup: (args) => lookup(state, args),
-          });
-        } catch {
-          where = undefined;
-        }
-        const spot = options.find((o) => o.label === where?.label) ?? options[0];
+        const spots = stallMenu(state, seat, picked.stalls);
+        const where = (
+          await untilAnswered(
+            () =>
+              policy.decide({
+                game: games.get(seat)!,
+                turn: `${describeTurn(state, seat)}\n\nYou chose to stall: ${decision!.rationale}\nNow choose where.`,
+                planNote: decision!.planNote || (planNotes.get(seat) ?? ""),
+                menu: spots.map(({ label, text }) => ({ label, text })),
+                lookup: (args) => lookup(state, args),
+              }),
+            (answer) => spots.some((o) => o.label === answer.label),
+            options.onWait,
+            options.firstWaitMs,
+          )
+        ).answer;
+        const spot = spots.find((o) => o.label === where?.label) ?? spots[0];
         action = spot.action;
         stall = {
-          menu: options.map(({ label, text }) => ({ label, text })),
+          menu: spots.map(({ label, text }) => ({ label, text })),
           chosen: spot.label,
           rationale: where?.rationale ?? "",
         };

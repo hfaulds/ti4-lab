@@ -395,7 +395,7 @@ function payloadLabel(state: GameState, payload: StrategicPayload, seat: PlayerI
         ? `produce ${payload.production.units.map((u) => `${u.count} ${u.type}`).join(", ")} at home, paying ${paymentLabel(payload.production.payment)}` +
             fighterNote(state, seat, payload.production.units)
         : payload.removeFrom !== undefined
-          ? `remove your command token from ${systemRef(state, payload.removeFrom)}`
+          ? `remove your command token from ${systemRef(state, payload.removeFrom)}${freedShips(state, seat, payload.removeFrom)}`
           : "gain a tactic token";
     case "technology": {
       const research = [payload.research, payload.second].filter(Boolean).map((r) => techName(r!.technology));
@@ -439,6 +439,16 @@ function secondaryLabel(state: GameState, payload: StrategicPayload, seat: Playe
     default:
       return payloadLabel(state, payload, seat);
   }
+}
+
+/** What taking a command token back from `key` frees to move again this round. */
+function freedShips(state: GameState, seat: PlayerId, key: SystemKey) {
+  const space = state.systems[key].space[seat];
+  const ships = unitTypes(space).filter((t) => t !== "fighter" && unitOf(state, seat, t)?.move);
+  if (ships.length === 0) return "";
+  const aboard = totalUnits(space, isGroundForce);
+  return `, so ${unitsLabel(Object.fromEntries(ships.map((t) => [t, space![t]!])))} there can move again this round` +
+    (aboard ? ` with ${aboard} ground forces aboard` : " (with no ground forces aboard)");
 }
 
 /**

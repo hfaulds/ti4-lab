@@ -106,7 +106,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 7;
+export const SCRIPTED_BOT_VERSION = 8;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -922,9 +922,13 @@ function planMovement(
     const mine = origin.planets.filter((name) => state.planets[name].controller === id);
     const garrisonOf = (type: UnitType) => ((guarded || exposed) && type === "infantry" ? 1 : 0);
     // Spare infantry stay at a home dock, HOME_INFANTRY across the system
-    // (garrisons included), to fill the next carrier built there.
+    // (garrisons included), to fill the next carrier built there; unless
+    // an unplayed Warfare can free this carrier to take a second system now.
+    const warfareToCome = player.strategyCards.some(
+      (c) => !c.exhausted && strategyKind(c.id) === "warfare",
+    );
     let spareHome =
-      origin.key === player.home && productionCapacity(state, origin.key, id) > 0
+      origin.key === player.home && productionCapacity(state, origin.key, id) > 0 && !warfareToCome
         ? Math.max(
             0,
             mine.reduce((sum, name) => sum + countOf(state.planets[name].units[id], "infantry"), 0) -

@@ -85,6 +85,8 @@ Trade goods count as resources or influence for anything: units, technology, com
 
 Stalling: a tactical action that does nothing (your menu calls it a stall) only spends a tactic token to make others act first. Late in the game, with tokens to spare, that can be worth it, to wait until others have passed before you commit. Early in the game it wastes a token you need for expansion and production; pass instead if there is nothing worth doing.
 
+Warfare's primary takes a command token back off the board. Taken from a system you activated this round, it frees the ships there to move again: expand with a carrier, play Warfare to take that token back, then move the same carrier on to a second system (an equidistant, say). Bring enough ground forces aboard for both systems.
+
 Order of actions: when one option banks value that a later move could put at risk (spending a planet's influence with Leadership, trading your commodities), take it first.
 
 Commodities and neighbours: a lone ship such as a destroyer can make you neighbours with a player, so you can trade, without taking planets. Other players expand during the round too, so a player who is not your neighbour now may become one when they move next to you.

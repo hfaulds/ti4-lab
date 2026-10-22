@@ -1,5 +1,6 @@
 {
   "episode": 135,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -533,6 +534,7 @@
       "chunks": [
         {
           "start": "s404",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one goals: second carrier and a tech",
           "kind": "strategy",
           "summary": "As a one-carrier faction Mentak should always do the Warfare secondary to get a second carrier moving in round one. Mentak wants both faction techs (two and three yellow prerequisites) almost every game, so it also wants to research in round one.",
@@ -583,6 +585,7 @@
         },
         {
           "start": "s423",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership is a middle pick, rated higher than usual because Mentak needs command tokens for the Warfare and Technology secondaries. Put at least one token in tactics so both cruisers can move into positions adjacent to many players before Trade resolves, while the carriers take planets.",
@@ -703,6 +706,7 @@
         },
         {
           "start": "s496",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Politics",
           "kind": "strategy",
           "summary": "Politics is a fourth or fifth pick: a slow, safe backup. With it you can skip researching in round one, save command tokens, do the Warfare secondary, and then take Technology first action in round two for Neural Motivator and Cruiser II. Do not sell the speaker token; Mentak does not need the money.",
@@ -758,6 +762,7 @@
         },
         {
           "start": "s522",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Construction is about a sixth pick and an acceptable last pick. Mentak often has money it cannot spend for lack of production, so a forward dock (Hunter likes an aggressive one next to Mecatol Rex) or Space Dock II helps. Matt prefers two PDS round one, spread onto important planets such as tech-specialty planets, since Mentak's planets are thinly held by infantry.",
@@ -887,6 +892,7 @@
         },
         {
           "start": "s594",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is the near-tied second pick. Use it slowly: move the first carrier and a cruiser out, activate home to build a carrier, then play Warfare as the fourth action to remove the token and move the new carrier. Do the Politics secondary if a stall card would hurt the table.",
@@ -932,6 +938,7 @@
         },
         {
           "start": "s610",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Technology",
           "kind": "strategy",
           "summary": "Technology is the top round one pick for Mentak, but single-tech only: positioning and Pillage income are too thin to justify six resources for a double research. Research once and do the Warfare secondary, which you cannot be stalled out of, and take the Politics secondary.",
@@ -988,6 +995,7 @@
         },
         {
           "start": "s636",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Imperial",
           "kind": "strategy",
           "summary": "Imperial is not recommended in round one, although Mentak is a strong secret-objective faction and would not mind it as a last pick in a four-player game. Construction is still better in almost every case.",
@@ -1255,6 +1263,7 @@
         },
         {
           "start": "s751",
+          "scope": {"needs": ["codex1"], "voidedBy": [], "note": "about Magen Defense Grid Ω (Codex I), which works from any structure; the base card needs units with PLANETARY SHIELD"},
           "title": "Magen Defense Grid and Destroyer II",
           "kind": "strategy",
           "summary": "Magen Defense Grid and Destroyer II are the new way to round out red-yellow Mentak and help with two-techs-in-two-colours style objectives. Magen makes thinly held docks, PDS planets and the home system sturdier; Destroyer II plus the Fourth Moon makes Mentak as deadly in space as Barony or L1Z1X. Dacxive Animators and Infantry II rarely pay off.",

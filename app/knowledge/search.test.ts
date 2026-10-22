@@ -23,6 +23,7 @@ const chunk = (id: string, episode: number, fields: Partial<Chunk>): Chunk => ({
   topics: ["strategy cards"],
   requires: [],
   concepts: [],
+  scope: { needs: [], voidedBy: [] },
   text: "",
   ...fields,
 });
@@ -31,6 +32,7 @@ const episode = (number: number, factionId: string, chunks: Chunk[]): EpisodeChu
   episode: number,
   title: `Ep ${number}`,
   factionId,
+  recordedWith: [],
   glossaryVersion: 2,
   chunkerVersion: 1,
   model: "test",
@@ -57,6 +59,16 @@ function knowledgeBase() {
       ]),
       episode(132, "xxcha", [
         chunk("132-01", 132, { title: "Round one: Diplomacy", summary: "Diplomacy is the Xxcha pick round one.", factions: ["Xxcha Kingdom", "Emirates of Hacan"] }),
+        chunk("132-02", 132, {
+          title: "Magen Defense Grid Omega",
+          summary: "The Omega Magen Defense Grid makes a PDS fortress.",
+          scope: { needs: ["codex1"], voidedBy: [], note: "about Magen Defense Grid Ω" },
+        }),
+        chunk("132-03", 132, {
+          title: "Round one: Warfare",
+          summary: "Warfare frees a carrier to expand twice.",
+          scope: { needs: [], voidedBy: ["te"] },
+        }),
       ]),
     ],
     concepts,
@@ -76,6 +88,27 @@ describe("knowledge base search", () => {
     const hits = knowledgeBase().searchGuides({ query: "Diplo round one", faction: "hacan" });
     expect(hits.map((h) => h.id)).toEqual(["118-01", "118-02", "132-01"]);
     expect(hits[0].section).toEqual({ title: "Round one", summary: "Round one picks." });
+  });
+
+  test("only passages that hold for the content in play are found", () => {
+    const kb = knowledgeBase();
+    const ids = (expansions?: ("codex1" | "pok" | "te")[]) =>
+      ["Magen Defense Grid", "Warfare expand"].flatMap((query) => kb.searchGuides({ query, expansions }).map((h) => h.id));
+    expect(ids()).toEqual(["132-02", "132-03"]);
+    expect(ids([])).toEqual(["132-03"]);
+    expect(ids(["pok", "codex1"])).toEqual(["132-02", "132-03"]);
+    expect(ids(["pok", "te"])).toEqual([]);
+    const [omega] = kb.searchGuides({ query: "Magen Defense Grid" });
+    expect(omega.scope).toEqual({ needs: ["codex1"], voidedBy: [], note: "about Magen Defense Grid Ω" });
+    expect(omega.recordedWith).toEqual([]);
+  });
+
+  test("an index built before scopes were recorded holds everything", () => {
+    const db = new Database(":memory:");
+    buildIndex(db, [episode(118, "hacan", [chunk("118-01", 118, { title: "Round one: Diplomacy" })])], [], synonyms);
+    db.exec("ALTER TABLE chunks DROP COLUMN scope; ALTER TABLE episodes DROP COLUMN recorded_with");
+    const [hit] = openKnowledgeBase(db, synonyms).searchGuides({ query: "Diplomacy", expansions: ["te"] });
+    expect(hit).toMatchObject({ id: "118-01", scope: { needs: [], voidedBy: [] }, recordedWith: [] });
   });
 
   test("a concept named outright comes first", () => {

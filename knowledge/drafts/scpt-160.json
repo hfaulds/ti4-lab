@@ -1,5 +1,6 @@
 {
   "episode": 160,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -160,6 +161,7 @@
         },
         {
           "start": "s127",
+          "scope": {"needs": [], "voidedBy": [], "note": "about the Ω printing of Wormhole Generator; look up the tech to check this game's text"},
           "title": "Wormhole Generator",
           "kind": "strategy",
           "summary": "The old Wormhole Generator was rarely taken because Fleet Logistics and other blue techs were better. The Omega version is good as a stall and is the answer for tables that will not let the Creuss IFF move wormholes around freely; where the table cooperates with the IFF it may be unnecessary.",
@@ -183,6 +185,7 @@
         },
         {
           "start": "s143",
+          "scope": {"needs": [], "voidedBy": [], "note": "the improved Magen Defense Grid it mentions is the Ω version (Codex I)"},
           "title": "Dimensional Splicer and Magen Defense Grid",
           "kind": "strategy",
           "summary": "Dimensional Splicer is a very good tech, easy to trigger because the Ghosts can put ships in wormholes almost at will, and it sits behind a single red prerequisite. Magen Defense Grid improved and matters for a PDS-focused Ghosts, but Splicer is the more important red tech.",
@@ -245,6 +248,7 @@
       "chunks": [
         {
           "start": "s189",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Leadership",
           "kind": "strategy",
           "summary": "Leadership is a top pick round one and throughout the game. Going first lets a destroyer be placed early in a useful spot. Do not spend all the extra tokens at once; save some for round two, and keep it as insurance against a Warfare stall.",
@@ -293,6 +297,7 @@
         },
         {
           "start": "s237",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Diplomacy",
           "kind": "strategy",
           "summary": "Diplomacy is a poor round-one pick: it lets rivals get tech-skip movement early and erodes the Ghosts' head start. Even picking last, Construction is usually better. The only case is a bad-slice scenario where eight resources comes out and Warfare and Technology timing is awkward.",
@@ -392,6 +397,7 @@
         },
         {
           "start": "s331",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction",
           "kind": "strategy",
           "summary": "Construction is roughly the sixth pick: use it for a forward dock or two PDS on a strong forward system, ideally one where you can get a wormhole placed above it via the IFF or Wormhole Generator. If you are picking last anyway, getting ahead on this is good since you rarely want Construction again.",
@@ -443,6 +449,7 @@
         },
         {
           "start": "s363",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Claiming an equidistant with round-one Construction",
           "kind": "strategy",
           "summary": "With round-one Construction, moving to a juicy equidistant and dropping a PDS there stakes a defended claim. The first carrier's three-hex reach lets it reach equidistants or Mecatol-adjacent systems, so the Ghosts have more options than most factions; Construction rises if you plan this.",
@@ -466,6 +473,7 @@
         },
         {
           "start": "s375",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Trade",
           "kind": "strategy",
           "summary": "Trade is great for the Ghosts. With a well-placed destroyer they can often arrange an X-1 trade with three partners for around ten trade goods, plus debt meta with others, possibly turning money into a command token. Trade also gives leverage to pay off the Warfare holder for better timing.",
@@ -504,6 +512,7 @@
         },
         {
           "start": "s405",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Warfare",
           "kind": "strategy",
           "summary": "Warfare is mid-pack, better than Construction, Diplomacy and maybe Politics, slightly below Technology. Its value is the security of building and then moving without being stalled; double-moving a carrier is too flimsy. Removing a fleet-pool token is slice-dependent. The remote home system is effectively safe in rounds one and two, so you can empty it.",
@@ -542,6 +551,7 @@
         },
         {
           "start": "s437",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Technology",
           "kind": "strategy",
           "summary": "Matt revised his ranking: Technology sits just below Trade and Leadership. Do not double-tech round one; take Neural Motivator or Plasma Scoring depending on path and spend the rest on plastic. Being the Technology holder also protects against a Warfare stall. Trade is still better unless Warfare timing is a problem.",

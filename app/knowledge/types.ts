@@ -3,6 +3,8 @@
  * into sections and single-topic chunks, distilled into advice, plus the
  * strategic concepts the chunks rely on.
  */
+import type { Expansion } from "~/game/data/types";
+import type { Scope } from "./scope";
 
 /** When in a game a piece of advice applies. */
 export const PHASES = ["setup", "round 1", "early", "mid", "late", "any"] as const;
@@ -73,6 +75,8 @@ export type Chunk = {
   requires: Mechanic[];
   /** Strategic concepts the chunk refers to, by short canonical name. */
   concepts: string[];
+  /** The content the advice holds for; most hold whatever is in play. */
+  scope: Scope;
   /** The corrected transcript for the span. */
   text: string;
 };
@@ -90,6 +94,8 @@ export type EpisodeChunks = {
   episode: number;
   title: string;
   factionId: string;
+  /** The content the hosts played with when they recorded it; [] is the base game alone. */
+  recordedWith: Expansion[];
   glossaryVersion: number;
   chunkerVersion: number;
   model: string;
@@ -114,13 +120,16 @@ export type Concept = {
 // Agents write drafts that point at sentence ids; `tsx scripts/kb.ts assemble`
 // checks them and fills in ids, times and transcript text.
 
-export type ChunkDraft = Omit<Chunk, "id" | "episode" | "section" | "start" | "end" | "text"> & {
+export type ChunkDraft = Omit<Chunk, "id" | "episode" | "section" | "start" | "end" | "text" | "scope"> & {
   /** Id of the chunk's first sentence, e.g. "s412". */
   start: string;
+  /** Left out for advice that holds whatever content is in play. */
+  scope?: Scope;
 };
 
 export type EpisodeDraft = {
   episode: number;
+  recordedWith: Expansion[];
   sections: { title: string; summary: string; chunks: ChunkDraft[] }[];
   nameFixes: Record<string, string>;
 };

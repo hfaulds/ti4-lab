@@ -1,5 +1,6 @@
 {
   "episode": 109,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -391,6 +392,7 @@
         },
         {
           "start": "s313",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership is a middle-to-top pick (third or fourth). Take the command tokens, do nothing fancy, and bank them for a much better round two. With Leadership, prefer the Technology secondary, then Warfare for fighters, but do not try to also trade and follow everything.",
@@ -503,6 +505,7 @@
         },
         {
           "start": "s406",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Construction is middle of the road and not bad if you are stuck with it. A forward dock on a good three-resource planet lets you reinforce your slice from round two; a double dock at home also works, and the PDS deters early aggression. The hosts reject the all-in early plastic approach because it sacrifices tech and position.",
@@ -574,6 +577,7 @@
         },
         {
           "start": "s466",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is usually great but poor for Sardakk N'orr in round one: there is not enough plastic, a lone carrier is easy prey even at +1, and an early Mecatol Rex is out of the question. If you do get Warfare, play close to home and take only systems adjacent to your home system.",
@@ -607,6 +611,7 @@
         },
         {
           "start": "s508",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Warfare to build at home first",
           "kind": "strategy",
           "summary": "Using Warfare to build fighters at home on the first action and then move out wastes a resource because of production limits, kills any chance of tech in rounds one and two, and gives everyone else more value from the secondary unless you can stall it out.",
@@ -635,6 +640,7 @@
         },
         {
           "start": "s532",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Technology",
           "kind": "strategy",
           "summary": "Technology is the top pick along with Politics: it gets a tech and leaves money to follow Warfare for a carrier or fighters. Spending everything on two techs in round one is risky because it does not fix the plastic problem.",

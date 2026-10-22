@@ -1,5 +1,6 @@
 {
   "episode": 122,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -355,6 +356,7 @@
         },
         {
           "start": "s376",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Transit Diodes backup and the Warfare stall",
           "kind": "strategy",
           "summary": "Community member Brian suggests Transit Diodes in round one as a fallback: take a planet, use Transit Diodes to bring the infantry home and take another. It is only worth it when you expect the Warfare holder to stall their card and leave you unable to move newly built infantry.",
@@ -378,6 +380,7 @@
         },
         {
           "start": "s398",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership avoids no Warfare timing problem directly and its tokens are hard to use well with two infantry; waiting for Warfare can mean burning one or two tokens on wasted activations. Pairing it with Hyper Metabolism roughly evens it out. Ranked mid to low.",
@@ -406,6 +409,7 @@
         },
         {
           "start": "s426",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Diplomacy",
           "kind": "strategy",
           "summary": "Diplomacy is especially bad for Jol-Nar: the usual reasons to take it (affording tech plus units or reaching a key tech skip) do not apply since tech is free, the home PDS mean you do not need emergency plastic, and its initiative is too low to avoid a Warfare stall.",
@@ -452,6 +456,7 @@
         },
         {
           "start": "s467",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Politics: selling the speaker token for Warfare timing",
           "kind": "strategy",
           "summary": "If the Warfare holder is your likely speaker-token buyer, sell the token in exchange for using Warfare as their second action so you can build infantry and move them out. With Research Agreement and commodities as well, the Warfare player has every reason to cooperate.",
@@ -475,6 +480,7 @@
         },
         {
           "start": "s476",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Matt ranks Construction lower for Jol-Nar than for most factions: the home system already has a dock and two PDS. It is worth it with a strong forward dock planet, or with round-one PDS II against a hyper-aggressive table, but its low initiative risks a Warfare stall; as last pick Matt weighs Imperial instead.",
@@ -503,6 +509,7 @@
         },
         {
           "start": "s499",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Construction counterpoint: deal with the Warfare neighbour",
           "kind": "strategy",
           "summary": "Hunter argues that as sixth pick your neighbour likely has Warfare, and with Research Agreement (for example a round-one Gravity Drive) you can buy a good secondary timing and set up a forward dock and PDS next to Mecatol. Matt agrees the deal is possible but costly, and the Warfare player will not let you take their equidistant system, so build away from them.",
@@ -554,6 +561,7 @@
         },
         {
           "start": "s570",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Second pick behind Warfare: Politics or Trade",
           "kind": "strategy",
           "summary": "If your neighbour took Warfare first, the choice depends on the map: with something useful on the path to Mecatol for a round-two take, Politics; with a poor path to Mecatol, Trade, expanding toward the Warfare player and trading with them. Matt leans towards Trade after reflection, since you cannot sell the speaker token to someone who already picked.",
@@ -577,6 +585,7 @@
         },
         {
           "start": "s594",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is the best round-one pick and should always be taken if available. Expand with one carrier first, build four infantry at home with the 1/2 planet and Sarween Tools, then use Warfare to recover the home token and send out the other carrier and the dreadnought. Command tokens get tight, so choose between a third expansion and building more at home.",
@@ -605,6 +614,7 @@
         },
         {
           "start": "s632",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Round one: Technology",
           "kind": "strategy",
           "summary": "Technology is weird for Jol-Nar, who only need someone to take it, and someone will. Its late initiative avoids most Warfare stalls, but you may still burn a token waiting; a good place for the dreadnought, which becomes a trade ship, helps. Ranked as a fourth pick, with Hunter putting it below Construction on a good slice.",
@@ -628,6 +638,7 @@
         },
         {
           "start": "s661",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Imperial as a last pick",
           "kind": "strategy",
           "summary": "Matt tentatively argues that on a weak slice Imperial could beat Construction as sixth pick, to draw a second secret early and plan the game, but admits others may take the secondary and it is almost never seen. The hosts disagree on the Leadership player's choice: Hunter prefers Imperial's secret, Matt two action cards from Politics. Construction is almost always better than Diplomacy or Imperial.",

@@ -6,6 +6,8 @@
  */
 import Database from "better-sqlite3";
 import { factions } from "~/data/factionData";
+import type { Expansion } from "~/game/data/types";
+import { ALL_CONTENT, holdsIn, Scope } from "./scope";
 import { Advice, Concept, Mechanic } from "./types";
 import type { Lesson } from "./lessons";
 import { compileSynonyms, SynonymList } from "./synonyms";
@@ -24,12 +26,15 @@ export type GuideHit = {
   advice: Advice[];
   factions: string[];
   requires: Mechanic[];
+  scope: Scope;
+  /** The content the episode was recorded with; [] is the base game alone. */
+  recordedWith: Expansion[];
   section: { title: string; summary: string };
 };
 
 export type ConceptHit = Pick<Concept, "name" | "aliases" | "definition" | "explained">;
 
-export type LessonHit = Pick<Lesson, "id" | "text" | "why" | "topics" | "source">;
+export type LessonHit = Pick<Lesson, "id" | "text" | "why" | "topics" | "source" | "scope" | "learnedWith">;
 
 /** Common words that would only add noise to a full-text query. */
 const STOPWORDS = new Set(
@@ -127,10 +132,11 @@ function reRank<T extends Record<string, string | number>>(
 export type KnowledgeBase = {
   /** Identifies the index build, for agent versions in replay logs. */
   version: string;
-  searchGuides(options: { query: string; faction?: string; limit?: number }): GuideHit[];
+  /** Passages that hold for `expansions`, the content in play; all of them without it. */
+  searchGuides(options: { query: string; faction?: string; limit?: number; expansions?: Expansion[] }): GuideHit[];
   searchConcepts(query: string, limit?: number): ConceptHit[];
-  /** Active lessons only; none in an index built before lessons existed. */
-  searchLessons(query: string, limit?: number): LessonHit[];
+  /** Active lessons that hold for `expansions`; none in an index built before lessons existed. */
+  searchLessons(query: string, limit?: number, expansions?: Expansion[]): LessonHit[];
   /** How many lessons are active, so the agent is offered no empty search. */
   activeLessons: number;
   close(): void;
@@ -148,8 +154,11 @@ export function openKnowledgeBase(
   const synonyms = compileSynonyms(synonymList);
   const weights = FIELD_WEIGHTS.join(", ");
 
+  const recordedWith = (db.prepare("PRAGMA table_info(episodes)").all() as { name: string }[]).some(
+    (column) => column.name === "recorded_with",
+  );
   const chunkQuery = db.prepare(`
-    SELECT c.*, e.title AS episode_title, e.faction_key, s.title AS section_title, s.summary AS section_summary
+    SELECT c.*, e.title AS episode_title, e.faction_key,${recordedWith ? " e.recorded_with," : ""} s.title AS section_title, s.summary AS section_summary
     FROM chunks_fts f
     JOIN chunks c ON c.rowid = f.rowid
     JOIN episodes e ON e.episode = c.episode
@@ -176,6 +185,9 @@ export function openKnowledgeBase(
     : 0;
 
   type Row = Record<string, string | number>;
+  // Indexes built before scopes were recorded hold no scope: everything holds.
+  const json = <T>(value: string | number | undefined, fallback: T) =>
+    value === undefined ? fallback : (JSON.parse(String(value)) as T);
   const toHit = (row: Row): GuideHit => ({
     id: String(row.id),
     episode: Number(row.episode),
@@ -186,6 +198,8 @@ export function openKnowledgeBase(
     advice: JSON.parse(String(row.advice)) as Advice[],
     factions: JSON.parse(String(row.factions)) as string[],
     requires: JSON.parse(String(row.requires)) as Mechanic[],
+    scope: json(row.scope, ALL_CONTENT),
+    recordedWith: json(row.recorded_with, []),
     section: { title: String(row.section_title), summary: String(row.section_summary) },
   });
   const toConcept = (row: Row): ConceptHit => ({
@@ -206,7 +220,7 @@ export function openKnowledgeBase(
       `${meta.builtAt ?? "unknown"} synonyms ${meta.synonymsVersion ?? "?"}` +
       (meta.lessonsVersion ? ` lessons ${meta.lessonsVersion}` : ""),
     activeLessons,
-    searchGuides({ query, faction, limit = 5 }) {
+    searchGuides({ query, faction, limit = 5, expansions }) {
       const queries = ftsQueries(query, synonyms);
       if (!queries) return [];
       const factionKey = faction ? factionKeyOf(faction) : null;
@@ -214,7 +228,9 @@ export function openKnowledgeBase(
       const seen = new Set<string>();
       for (const match of [queries.all, queries.any]) {
         // A few spare rows, so re-ranking by title has something to choose from.
-        const rows = chunkQuery.all({ match, faction: factionKey, limit: limit * 3 }) as Row[];
+        const rows = (chunkQuery.all({ match, faction: factionKey, limit: limit * 3 }) as Row[]).filter(
+          (row) => !expansions || holdsIn(json(row.scope, ALL_CONTENT), expansions),
+        );
         for (const row of reRank(rows, queries.groups, factionKey)) {
           if (seen.has(String(row.id)) || hits.length >= limit) continue;
           seen.add(String(row.id));
@@ -237,7 +253,7 @@ export function openKnowledgeBase(
       const rows = [...exact, ...ranked.filter((r) => !exact.some((e) => e.name === r.name))];
       return rows.slice(0, limit).map(toConcept);
     },
-    searchLessons(query, limit = 3) {
+    searchLessons(query, limit = 3, expansions) {
       const queries = ftsQueries(query, synonyms);
       if (!queries || !lessonQuery) return [];
       const found = new Map<string, Lesson>();
@@ -245,10 +261,13 @@ export function openKnowledgeBase(
       for (const match of [queries.all, queries.any]) {
         for (const row of lessonQuery.all(match, limit) as { data: string }[]) {
           const lesson = JSON.parse(row.data) as Lesson;
+          if (expansions && !holdsIn(lesson.scope, expansions)) continue;
           if (found.size < limit) found.set(lesson.id, lesson);
         }
       }
-      return [...found.values()].map(({ id, text, why, topics, source }) => ({ id, text, why, topics, source }));
+      return [...found.values()].map(({ id, text, why, topics, source, scope, learnedWith }) => ({
+        id, text, why, topics, source, scope, learnedWith,
+      }));
     },
     close: () => db.close(),
   };

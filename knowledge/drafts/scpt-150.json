@@ -1,5 +1,6 @@
 {
   "episode": 150,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -251,6 +252,7 @@
         },
         {
           "start": "s225",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Second space dock and the Warfare secondary",
           "kind": "strategy",
           "summary": "A second space dock in round one is not required but smart: it nets nothing that round but protects you in rounds one and two. The Warfare secondary only builds at a dock in your home system, so if you want it, move the dock out last; usually you would rather have the fleet further forward, so it is optional.",
@@ -284,6 +286,7 @@
         },
         {
           "start": "s246",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Diplomacy and Imperial",
           "kind": "strategy",
           "summary": "Diplomacy and Imperial are the only cards not to take. Even the Codex Diplomacy only refreshes two planets, and Saar's home planets are poor, so it returns about six resources at best, while you already make enough money and Construction's second dock is worth more.",
@@ -307,6 +310,7 @@
         },
         {
           "start": "s263",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership is very good: going first, expand to gain the trade good for tech, then play Leadership, and you can do everything this round. Take the Technology and Construction secondaries, probably Warfare too, and take a lot of planets.",
@@ -368,6 +372,7 @@
         },
         {
           "start": "s301",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Round one: Construction and the hated faction",
           "kind": "strategy",
           "summary": "Construction is a great pick from fourth to sixth, sometimes even over Technology. The second space dock matters because Saar is good, everyone knows it, and the table will use cards such as Reactor Meltdown or plays against your only dock to set you back. Prioritise the Construction secondary over the Warfare secondary, since you want to build on the front lines.",
@@ -429,6 +434,7 @@
         },
         {
           "start": "s363",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is the best round-one card for Saar and the one opponents fear most. Move everything out, build at the dock, reclaim the token and move it all out again, ending round one holding both equidistants and adjacent to Mecatol Rex. Warfare even makes a round-one Mecatol Rex possible, but the hosts advise against spending everything on it.",
@@ -615,6 +621,7 @@
         },
         {
           "start": "s478",
+          "scope": {"needs": [], "voidedBy": [], "note": "its last point is about Magen Defense Grid Ω (Codex I)"},
           "title": "Yellow skip, tech objectives and Transit Diodes",
           "kind": "strategy",
           "summary": "Matt would still take Sarween Tools before Dreadnought II with a yellow skip, then Floating Factory. With a two-techs-in-two-colours objective, go Sarween plus Graviton or ideally Transit Diodes. Hunter leans blue-green, but both agree blue-yellow with Transit Diodes is simpler: Saar wins in space, so reuse about six infantry all game instead of spending production on infantry. Magen Defense Grid Omega does not work with floating docks.",

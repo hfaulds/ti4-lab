@@ -23,6 +23,7 @@ const lesson = (id: string, fields: Partial<Lesson> = {}): Lesson => ({
   text: "A planet with no ground forces falls to anyone who lands.",
   topics: ["combat"],
   source: "review 2026-10",
+  learnedWith: [],
   added: "2026-10-22",
   activated: "2026-10-22",
   ...fields,
@@ -58,7 +59,7 @@ describe("lessons file", () => {
   test("drafts take the next id, and only drafts can be activated", () => {
     const { lessons, lesson: draft } = addDraft(
       [lesson("L1"), lesson("L7", { status: "retired", retired: "2026-10-22" })],
-      { text: " Keep a ship at home. ", topics: ["combat"], source: "review of a Claude game", game: "games/g.json", move: 412 },
+      { text: " Keep a ship at home. ", topics: ["combat"], source: "review of a Claude game", learnedWith: [], game: "games/g.json", move: 412 },
       "2026-10-23",
     );
     expect(draft).toEqual({
@@ -67,6 +68,7 @@ describe("lessons file", () => {
       text: "Keep a ship at home.",
       topics: ["combat"],
       source: "review of a Claude game",
+      learnedWith: [],
       game: "games/g.json",
       move: 412,
       added: "2026-10-23",
@@ -75,7 +77,17 @@ describe("lessons file", () => {
     expect(active.find((l) => l.id === "L8")).toMatchObject({ status: "active", activated: "2026-10-24" });
     expect(() => activateLesson(active, "L8", "2026-10-24")).toThrow("L8 is active, not a draft.");
     expect(() => activateLesson(active, "L99", "2026-10-24")).toThrow("No lesson L99.");
-    expect(() => addDraft(lessons, { text: "", topics: [], source: "x" }, "2026-10-23")).toThrow(/text is required/);
+    expect(() => addDraft(lessons, { text: "", topics: [], source: "x", learnedWith: [] }, "2026-10-23")).toThrow(/text is required/);
+    expect(() =>
+      addDraft(lessons, { text: "A", topics: ["combat"], source: "x", learnedWith: ["thunder" as "te"] }, "2026-10-23"),
+    ).toThrow(/learnedWith must be a list of pok/);
+    expect(() =>
+      addDraft(
+        lessons,
+        { text: "A", topics: ["combat"], source: "x", learnedWith: [], scope: { needs: ["te"], voidedBy: ["te"] } },
+        "2026-10-23",
+      ),
+    ).toThrow(/both needs and is voided by te/);
   });
 
   test("retiring keeps the lesson and says why", () => {
@@ -108,6 +120,11 @@ describe("lesson search", () => {
     lesson("L2", { text: "Never let the Mecatol Rex holder take Imperial.", topics: ["strategy cards", "mecatol"] }),
     lesson("L3", { text: "Leave ground forces on planets near enemy carriers.", status: "draft", activated: undefined }),
     lesson("L4", { text: "Diplomacy is no use in round one.", status: "retired", retired: "2026-10-22", topics: ["strategy cards"] }),
+    lesson("L5", {
+      text: "Warfare frees a carrier to expand twice.",
+      topics: ["strategy cards"],
+      scope: { needs: [], voidedBy: ["te"], note: "about the base Warfare card" },
+    }),
   ];
 
   function knowledgeBase() {
@@ -118,7 +135,7 @@ describe("lesson search", () => {
 
   test("returns active lessons only", () => {
     const kb = knowledgeBase();
-    expect(kb.activeLessons).toBe(2);
+    expect(kb.activeLessons).toBe(3);
     expect(kb.searchLessons("ground forces planets").map((l) => l.id)).toEqual(["L1"]);
     expect(kb.searchLessons("Diplo round one")).toEqual([]);
   });
@@ -131,8 +148,17 @@ describe("lesson search", () => {
       why: undefined,
       topics: ["strategy cards", "mecatol"],
       source: "review 2026-10",
+      learnedWith: [],
+      scope: undefined,
     });
     expect(kb.searchLessons("imperial or a planet", 5).map((l) => l.id).sort()).toEqual(["L1", "L2"]);
+  });
+
+  test("only lessons that hold for the content in play are found", () => {
+    const kb = knowledgeBase();
+    expect(kb.searchLessons("Warfare carrier").map((l) => l.id)).toEqual(["L5"]);
+    expect(kb.searchLessons("Warfare carrier", 3, ["pok"]).map((l) => l.id)).toEqual(["L5"]);
+    expect(kb.searchLessons("Warfare carrier", 3, ["pok", "te"])).toEqual([]);
   });
 
   test("lessons can be reloaded without rebuilding, and change the version", () => {
@@ -142,7 +168,7 @@ describe("lesson search", () => {
     expect(before.activeLessons).toBe(0);
     loadLessons(db, lessons, synonyms);
     const after = openKnowledgeBase(db, synonyms);
-    expect(after.activeLessons).toBe(2);
+    expect(after.activeLessons).toBe(3);
     expect(after.version).not.toBe(before.version);
   });
 

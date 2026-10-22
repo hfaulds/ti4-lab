@@ -246,6 +246,51 @@ moves away".
 - Lessons record where they came from (game and decision) and are retired,
   never deleted.
 
+### Content scope
+
+The engine plays the base game, and each expansion or codex is turned on or
+off per game (`state.options.expansions`: `pok`, `codex1` to `codex4`,
+`te`). A card's text, and whether advice about it holds, depends on which
+printing is in play. The engine already tags every component with its
+`source`. Knowledge carries the same tags (`app/knowledge/scope.ts`):
+- **Where it came from.** Every source records the content its games were
+  played with: `recordedWith` on each guide episode (all 17 are `[]`: base
+  game, before Prophecy of Kings), and `learnedWith` on each lesson, read from
+  the game's replay log.
+- **Where it holds.** A passage or lesson can carry a `scope`: `needs` (content
+  it is about, which must be on) and `voidedBy` (content that replaces what
+  it is about), plus a note naming the component or printing. Without a
+  scope it holds everywhere.
+- **What the agent sees.** Search returns only what holds for the game's
+  content, and shows the note. When a game has content a guide was not
+  recorded with, the results say so.
+
+What is tagged so far:
+- 121 passages about the base Warfare or Construction cards are voided by
+  Thunder's Edge, which reprints both. Lesson L7 (Warfare's double expansion)
+  is too.
+- 3 passages need Codex I: Magen Defense Grid Ω (Mentak, Yin's PDS fortress)
+  and the X-89 Ω combination with Harrow (L1Z1X).
+- 4 passages carry a note but hold everywhere: Ω printings the guides mention
+  in passing (Magen Defense Grid, Greyfire Mutagen, Wormhole Generator).
+
+Rule for new sources: no source joins the knowledge base without recording
+the content its games were played with. Games from other sites qualify only
+when that content matches ours or is tagged. For example, recent AsyncTI4
+games (bot.asyncti4.com/api/public/game/pbdNNNN) are nearly all Prophecy of
+Kings with Thunder's Edge, and often homebrew factions. They teach nothing
+about base-game play without that tagging.
+
+Two points about engine data found along the way:
+- Diplomacy's only printing is tagged `codex1`, and Construction's is tagged
+  `pok`. Base games use them on purpose: `strategyCardsFor` treats the
+  errata'd cards as shipping in every box. The Saar guide's "Codex
+  Diplomacy" is therefore the one we play.
+- Yin Spinner exists only as its Ω printing, tagged `base`. Whether the
+  engine's other single-printing cards (Greyfire Mutagen, Wormhole Generator)
+  are the original or Ω text is unchecked. Their passages tell the agent to
+  look the card up.
+
 ## Watching and improving
 
 ### Seeing what it does

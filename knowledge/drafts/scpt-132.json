@@ -1,5 +1,6 @@
 {
   "episode": 132,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -245,6 +246,7 @@
       "chunks": [
         {
           "start": "s278",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Generic round-one card ranking",
           "kind": "strategy",
           "summary": "Rounds one and two are hard for Xxcha, so treat every decision as a problem to solve. For an average faction Hunter ranks Technology or Warfare first, then Trade, Politics and Leadership.",
@@ -268,6 +270,7 @@
         },
         {
           "start": "s300",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Leadership",
           "kind": "strategy",
           "summary": "Command tokens are extremely valuable to Xxcha because every ability costs one, so Leadership is a solid third or fourth pick. Its best use round one is funding a Construction secondary for a forward dock or early PDS, which is otherwise too expensive.",
@@ -291,6 +294,7 @@
         },
         {
           "start": "s318",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Which secondaries to follow, and plastic over tech",
           "kind": "strategy",
           "summary": "Skip the Politics and Trade secondaries in round one, always do Warfare, and almost never do Technology alongside Warfare. Research early only if tech objectives demand it. Early on, position and units come before technology because Xxcha's strength is defending a slice it must first take.",
@@ -329,6 +333,7 @@
         },
         {
           "start": "s360",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Diplomacy secondary after Leadership",
           "kind": "strategy",
           "summary": "If someone else picks Diplomacy while you hold Leadership, follow it: you can refresh planets and gain Peace Accords for a rich round funding both Warfare and Technology. It rarely happens.",
@@ -347,6 +352,7 @@
         },
         {
           "start": "s370",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Diplomacy: why it is risky in round one",
           "kind": "strategy",
           "summary": "Diplomacy is better for Xxcha than any other faction because of Peace Accords and can deliver a whole slice plus an early flagship. But with one carrier Xxcha reliably takes only one system, everyone else profits more, and the Warfare holder gains leverage over you. Check the table's factions and slices before taking it.",
@@ -375,6 +381,7 @@
         },
         {
           "start": "s403",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Diplomacy as a paid last pick",
           "kind": "strategy",
           "summary": "Take Diplomacy only as last pick, and get paid for it: announce that you could take Construction instead and make the table rich only if they compensate you. Use it to win a better trade than X-1, such as five or six trade goods for four commodities.",
@@ -431,6 +438,7 @@
         },
         {
           "start": "s450",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Politics",
           "kind": "strategy",
           "summary": "Politics is mid to low. Its best use is picking right after Trade and selling the speaker token for a full wash of your commodities plus a couple of trade goods. Otherwise keep the speaker token, accept a weak round one, and go Warfare round two to place a dock and the flagship adjacent to Mecatol Rex.",
@@ -464,6 +472,7 @@
         },
         {
           "start": "s484",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction",
           "kind": "strategy",
           "summary": "Construction is a low, last-pick option but safe. Xxcha must get a second dock somewhere because one four-production home dock cannot keep up; a second home dock maximises each token spent, while a forward dock is a better place to deploy the flagship. Against a Saar neighbour, use it for two PDS.",
@@ -492,6 +501,7 @@
         },
         {
           "start": "s505",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Trade",
           "kind": "strategy",
           "summary": "Trade ties with Warfare as the best pick: milk it like a mini Hacan with four commodities and two trading cruisers. Unlike with Diplomacy, do not spend the trade goods on a round-one flagship; bank them for flexibility in the mid game and build the flagship from planets in round two.",
@@ -520,6 +530,7 @@
         },
         {
           "start": "s540",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Trade with Warfare, tech objectives last",
           "kind": "strategy",
           "summary": "With Trade, Matt still follows Warfare rather than Technology even with nine or ten trade goods, since round one tech is just Neural Motivator. Treat the tech objectives as the last stage one objectives you score, before stage twos arrive. Hunter worries this gates your tech too much; Matt concedes the case is anecdotal.",
@@ -543,6 +554,7 @@
         },
         {
           "start": "s578",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Warfare",
           "kind": "strategy",
           "summary": "Warfare is the only safe pick and reliably saves round one. With two planet systems next to home, move the carrier out, send a cruiser to trade, build a second carrier, then play Warfare late and take the second system; otherwise reuse the carrier toward the equidistant or Mecatol-adjacent system. Trade your commodities in round one.",
@@ -604,6 +616,7 @@
         },
         {
           "start": "s622",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Technology",
           "kind": "strategy",
           "summary": "As a primary, Technology is a middle pick, about level with or just below Leadership; take it to deny a neighbour. Round-one tech is almost always Neural Motivator, which does nothing for position, and teching early commits you to a path before you know which one you need. Taking Technology does mean you only need the Warfare secondary.",
@@ -632,6 +645,7 @@
         },
         {
           "start": "s656",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Imperial",
           "kind": "strategy",
           "summary": "Imperial is basically useless round one. As last pick you might take it to avoid being stalled out by Warfare, or to bank an early second secret objective for a later Mecatol Imperial plan, but it may not save you; Diplomacy or Construction is usually the choice.",
@@ -661,6 +675,7 @@
       "chunks": [
         {
           "start": "s669",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "The costs of being Xxcha",
           "kind": "strategy",
           "summary": "Hunter lists the problems: almost every ability costs a command token, the faction leans heavily on an expensive flagship, tech and mobility are weak. Matt adds that taking Construction is itself a cost because other cards net more value, so prefer a strong token economy and follow Construction's secondary.",

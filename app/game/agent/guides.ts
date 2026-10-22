@@ -4,6 +4,8 @@
  */
 import { PlayerId } from "~/types";
 import { factions } from "~/data/factionData";
+import type { Expansion } from "~/game/data/types";
+import { contentLabel, EXPANSION_NAMES, scopeLabel } from "~/knowledge/scope";
 import { GuideHit, KnowledgeBase, LessonHit } from "~/knowledge/search";
 import { GameState } from "../types";
 import { LessonSearchArgs, SearchArgs } from "./tools";
@@ -29,14 +31,27 @@ function factionName(state: GameState, faction: string) {
   return player ? (factions[player.faction]?.name ?? player.faction) : faction;
 }
 
+/** Content in play that the passage's episode was not recorded with, if any. */
+const unrecorded = (hit: GuideHit, expansions: readonly Expansion[]) =>
+  expansions.filter((e) => !hit.recordedWith.includes(e));
+
 export function formatGuideHits(
   hits: GuideHit[],
   concept?: { name: string; definition: string },
+  expansions: readonly Expansion[] = [],
 ): string {
   if (hits.length === 0 && !concept) return "No guide passages matched. Try other words.";
   const lines = [
     "From the Space Cats Peace Turtles strategy guides. This is advice for human tables; weigh it against this board.",
   ];
+  // Only passages that hold for this game's content are found; say so when it differs from the recording.
+  const newer = [...new Set(hits.flatMap((hit) => unrecorded(hit, expansions)))];
+  if (newer.length > 0) {
+    lines.push(
+      `These guides were recorded for ${contentLabel(hits[0].recordedWith)}; this game also has ` +
+        `${newer.map((e) => EXPANSION_NAMES[e]).join(" and ")}, which they may not account for.`,
+    );
+  }
   const sections = new Set<string>();
   for (const hit of hits) {
     lines.push("", `[${hit.id}] ${hit.episodeTitle}, ${clock(hit.start)}: ${hit.title}`);
@@ -48,6 +63,7 @@ export function formatGuideHits(
     lines.push(hit.summary);
     for (const advice of hit.advice) lines.push(`- ${advice.stance}: ${advice.point}`);
     if (hit.requires.length > 0) lines.push(`Depends on: ${hit.requires.join(", ")}.`);
+    if (scopeLabel(hit.scope)) lines.push(`Content: ${scopeLabel(hit.scope)}.`);
   }
   if (concept) lines.push("", `Concept "${concept.name}": ${concept.definition}`);
   return lines.join("\n");
@@ -69,10 +85,12 @@ export function formatLessonHits(lessons: LessonHit[]): string {
  * remembered, so what the agent cites can be labelled afterwards.
  */
 export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
+  // Only what holds for this game's expansions and codices is shown.
+  const { expansions } = state.options;
   const shown = new Map<string, GuideHit>();
   const shownLessons = new Map<string, LessonHit>();
   const findLessons = (query: string) => {
-    const lessons = knowledge.searchLessons(query, LESSON_RESULTS);
+    const lessons = knowledge.searchLessons(query, LESSON_RESULTS, expansions);
     for (const lesson of lessons) shownLessons.set(lesson.id, lesson);
     return lessons;
   };
@@ -81,6 +99,7 @@ export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
       query: args.query,
       faction: args.faction ? factionName(state, args.faction) : undefined,
       limit,
+      expansions,
     });
     for (const hit of hits) shown.set(hit.id, hit);
     return hits;
@@ -89,7 +108,7 @@ export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
     search(args: SearchArgs) {
       const hits = find(args);
       const [concept] = knowledge.searchConcepts(args.query, 1);
-      return { text: formatGuideHits(hits, concept), ids: hits.map((h) => h.id) };
+      return { text: formatGuideHits(hits, concept, expansions), ids: hits.map((h) => h.id) };
     },
     /** Searches the active lessons; undefined when there are none, so no tool is offered. */
     searchLessons:
@@ -127,7 +146,7 @@ export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
       const sections = searches.map(({ heading, args, limit }) => {
         const hits = find(args, limit);
         ids.push(...hits.map((h) => h.id));
-        return [`### ${heading}`, formatGuideHits(hits)].join("\n");
+        return [`### ${heading}`, formatGuideHits(hits, undefined, expansions)].join("\n");
       });
       // The lessons that bear most on the same decision, if any match.
       const lessons = findLessons(

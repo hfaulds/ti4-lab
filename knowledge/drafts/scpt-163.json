@@ -1,5 +1,6 @@
 {
   "episode": 163,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -814,6 +815,7 @@
       "chunks": [
         {
           "start": "s512",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Technology",
           "kind": "strategy",
           "summary": "As first pick, take Technology in almost every case and research Sarween Tools as your first action. Tech goes after Warfare, so you can expand with the carrier, send the cruiser to trade, then build the second carrier at home and expand again, ending round one with eight infantry, two carriers and Sarween Tools.",
@@ -1052,6 +1054,7 @@
         },
         {
           "start": "s619",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership does little for the Arborec, whose command token economy is efficient because they build on the move. Using it only to avoid being stalled on Warfare would burn all your tokens.",
@@ -1080,6 +1083,7 @@
         },
         {
           "start": "s630",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is fine but hard to use well: move the carrier out, build the second carrier at home, retrieve the token and expand again, which needs two good systems next to home and means no round-one tech. Hunter suggests using it to move aggressively next to a neighbour's home system.",
@@ -1119,6 +1123,7 @@
         },
         {
           "start": "s638",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Diplomacy",
           "kind": "strategy",
           "summary": "The old guide's Diplomacy recommendation had the wrong logic but was not far off: readying two planets (likely including home) can yield about six resources and help afford Sarween Tools in round one. Matt rates it above Politics, Warfare and Leadership, despite the usual timing issues.",
@@ -1159,6 +1164,7 @@
         },
         {
           "start": "s652",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction for PDS Arborec",
           "kind": "strategy",
           "summary": "For players who like PDS Arborec, Construction is a top round-one pick: Magen Defense Grid and Sarween Tools lead efficiently to PDS II, and spare command tokens let you follow the secondary once or twice to fill your slice with PDS, so you can push harder at your outer edges.",
@@ -1242,6 +1248,7 @@
         },
         {
           "start": "s685",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Imperial as a late pick",
           "kind": "strategy",
           "summary": "As a late pick, Hunter suggests Imperial to draw an extra secret objective and avoid being stalled out of the Warfare secondary. Matt agrees: with a bad slice and a Mecatol plan you will rarely draw secrets later, so an early extra secret widens your options. Play the Arborec like a weak hand and make unusual calls.",
@@ -1607,6 +1614,7 @@
         },
         {
           "start": "s862",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Blue-green with a forward dock",
           "kind": "strategy",
           "summary": "Hunter would skip Letani Warrior II, which solves production too late, and instead place a space dock to lift production for fighter swarms, possibly via the Construction secondary in round one while holding Trade and following Warfare. Matt agrees. Choose among the paths based on your slice.",

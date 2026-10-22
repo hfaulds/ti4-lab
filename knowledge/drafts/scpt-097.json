@@ -1,5 +1,6 @@
 {
   "episode": 97,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -274,6 +275,7 @@
         },
         {
           "start": "s314",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Leadership: trading and the Warfare secondary",
           "kind": "strategy",
           "summary": "If a neighbour picked Trade, send the starting destroyer to sit next to them and start a trading relationship. If the trade nets a good amount, around four trade goods, save a Leadership token for the Warfare secondary to build; with only one trade good it is not worth it.",
@@ -304,6 +306,7 @@
         },
         {
           "start": "s336",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Politics: watch the Warfare player",
           "kind": "strategy",
           "summary": "Politics is Matt's favourite round-one pick for Sol. Watch the Warfare player, who can stage next to Mecatol and contest it in round two; if a strong contester such as the Clan of Saar or Arborec is coming, take Mecatol with minimal forces and expect the ships there to die. Politics into round-two Leadership means only the Naalu can beat you to Mecatol.",
@@ -352,6 +355,7 @@
         },
         {
           "start": "s390",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction",
           "kind": "strategy",
           "summary": "Construction is the weakest round-one pick, usually taken only when forced; some argue it is good for Sol, but other cards feel better. Build on the path to Mecatol, not on the wings. Hunter favours a forward dock; Matt prefers two PDS when the slice is low on resources, since a bad dock is no better than a PDS. Sol will often take Construction mid-game anyway to put a PDS on Mecatol.",
@@ -369,6 +373,7 @@
         },
         {
           "start": "s424",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Trade",
           "kind": "strategy",
           "summary": "Trade is fine but can make Sol look scary. Court a neighbour to bring a ship to you and aim for at least seven trade goods, more by selling Military Support, and use the relationship to set up an early Support for the Throne swap. Follow Technology and Warfare; the downside is no Orbital Drop, so Mecatol gets a thin force and Trade secures the home slice more than Mecatol.",
@@ -386,6 +391,7 @@
         },
         {
           "start": "s454",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Warfare: three systems and a long stall",
           "kind": "strategy",
           "summary": "Warfare is the one card where Gravity Drive is not strictly needed. Take three systems in your slice, ideally two on the path to Mecatol, rather than building at home, and still research a tech. Sol can make four actions before playing Warfare, so stall it to hurt one-carrier factions who need the Warfare timing, unless paid well to play it early.",
@@ -401,6 +407,7 @@
         },
         {
           "start": "s477",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Warfare: Fighter II instead of Gravity Drive",
           "kind": "strategy",
           "summary": "With Warfare you can research Fighter II (or Dacxive Animators) instead of Gravity Drive. Fighter II round one is worth it to score the two-systems-adjacent-to-Mecatol objective or to block a rival's Mecatol play, because Sol wins by getting to Mecatol first and holding it, not by retaking it.",
@@ -431,6 +438,7 @@
         },
         {
           "start": "s507",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Technology: double tech or Warfare secondary",
           "kind": "strategy",
           "summary": "Getting a second tech means netting two trade goods from a trade partner and is usually win-more; it is worth considering only if an early public objective wants two techs in two colours. The hosts prefer the free tech plus the Warfare secondary for the six-unit build and one Orbital Drop; if you do double tech, Orbital Drop twice instead of building.",
@@ -585,6 +593,7 @@
         },
         {
           "start": "s706",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Spec Ops rush and the Warfare Fighter II path",
           "kind": "strategy",
           "summary": "Rushing Gravity Drive, Dacxive and Spec Ops II is a called shot, only when you hold Mecatol and can see a specific ground assault coming that Spec Ops II would beat. With round-one Warfare, opening Fighter II then Gravity Drive, Carrier II, Dacxive and Spec Ops II is sound. Every path ends at the same five techs; Dacxive is the weakest but still good.",
@@ -914,6 +923,7 @@
         },
         {
           "start": "s1055",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Brian: eat a home system with Warfare",
           "kind": "strategy",
           "summary": "Brian suggests Sol with round-one Warfare can take a neighbour's home system, since Sol is attacked anyway. The hosts think it is possible but risks being backdoored by the other neighbour and makes that player your enemy; they agree it is fine to lean into actions that draw attacks since you will be attacked regardless.",

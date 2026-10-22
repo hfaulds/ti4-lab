@@ -1,5 +1,6 @@
 {
   "episode": 118,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -758,6 +759,7 @@
       "chunks": [
         {
           "start": "s439",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership is upper tier for Hacan. The extra command tokens let you do the Construction secondary, and the timing works cleanly: move both carriers out on your first two actions, then build the second home space dock when Construction is played. Spending trade goods plus the 0/1 planet for one more token is an option.",
@@ -813,6 +815,7 @@
         },
         {
           "start": "s474",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Leadership and the Technology and Warfare secondaries",
           "kind": "strategy",
           "summary": "With only three home resources, Hacan must finish trades before Technology is played, and Leadership gives no leverage over the Technology player, so watch who has it and whether they will play it immediately. If you can manage the Construction, Warfare and Technology secondaries all in round one, you go into round two in great shape.",
@@ -949,6 +952,7 @@
         },
         {
           "start": "s561",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Hacan values Construction more than most factions because it fixes the home-system production problem. If you pick last and Construction is left, take it over Diplomacy.",
@@ -987,6 +991,7 @@
         },
         {
           "start": "s568",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction: where to put the PDS",
           "kind": "strategy",
           "summary": "Hacan rarely gets PDS II, so a forward PDS has little reach; put the Construction PDS in the home system. Both hosts prefer the planet with the space dock (Arretze), so attackers who win the space battle go for an empty planet instead; a PDS on the 0/1 planet usually fires once and is lost.",
@@ -1043,6 +1048,7 @@
         },
         {
           "start": "s597",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction: secondary timing and first-action play",
           "kind": "strategy",
           "summary": "Hacan wants the Construction secondary as early as possible, so if a likely Construction holder would play it on turn one, consider taking it yourself. Hacan loses little by playing Construction as its first action, and doing so denies most other factions an early forward dock.",
@@ -1186,6 +1192,7 @@
         },
         {
           "start": "s665",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare and the Custodians play",
           "kind": "strategy",
           "summary": "Warfare is generally good, and for Hacan it enables a fairly reliable round-one Mecatol Rex: move a carrier forward, play Warfare to free it, research Gravity Drive off the Technology secondary, then move onto Mecatol and buy the Custodians point. Converting all six commodities to trade goods covers it, but leaves nothing for units, so it is not usually smart. If you take the Custodians, leave Mecatol in round two.",
@@ -1344,6 +1351,7 @@
         },
         {
           "start": "s743",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Technology: the round-one Mecatol line",
           "kind": "strategy",
           "summary": "Technology also allows a round-one Mecatol: wait until Trade pops, then buy Gravity Drive and Carrier II and move a three-movement carrier to Mecatol. It costs six on tech plus the Custodians influence, so it is less reliable than the Warfare line and more of a dream scenario.",
@@ -1386,6 +1394,7 @@
         },
         {
           "start": "s757",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Round one: Imperial",
           "kind": "strategy",
           "summary": "Imperial is worse than Construction and probably worse than Diplomacy; the only reason is wanting an extra secret objective. In four-player games, pairing Warfare or Technology with Imperial gives a round-one Custodians plus Imperial point, but makes Hacan so threatening that nobody trades with it again.",

@@ -15,6 +15,8 @@ const hit = (id: string, title: string): GuideHit => ({
   advice: [{ stance: "recommended", point: "Take Trade round one.", subjects: ["Trade"] }],
   factions: ["Emirates of Hacan"],
   requires: [],
+  scope: { needs: [], voidedBy: [] },
+  recordedWith: [],
   section: { title: "Round one", summary: "Opening picks." },
 });
 
@@ -24,6 +26,7 @@ const garrison: LessonHit = {
   why: "Lost Lodor to one carrier.",
   topics: ["combat"],
   source: "review 2026-10",
+  learnedWith: [],
 };
 
 /** A knowledge base that returns fixed hits and records the searches. */

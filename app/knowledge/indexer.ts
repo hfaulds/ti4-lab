@@ -8,19 +8,20 @@ import { factions } from "~/data/factionData";
 import { Lesson, lessonsVersion } from "./lessons";
 import { factionKeyOf } from "./search";
 import { canonicalTerms, compileSynonyms, SynonymList } from "./synonyms";
+import { ALL_CONTENT } from "./scope";
 import { Concept, EpisodeChunks } from "./types";
 
 export const SCHEMA = `
   CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
   CREATE TABLE episodes (episode INTEGER PRIMARY KEY, title TEXT NOT NULL, faction_id TEXT NOT NULL,
-    faction TEXT NOT NULL, faction_key TEXT NOT NULL);
+    faction TEXT NOT NULL, faction_key TEXT NOT NULL, recorded_with TEXT NOT NULL);
   CREATE TABLE sections (id TEXT PRIMARY KEY, episode INTEGER NOT NULL, title TEXT NOT NULL,
     start REAL NOT NULL, end REAL NOT NULL, summary TEXT NOT NULL);
   CREATE TABLE chunks (id TEXT PRIMARY KEY, episode INTEGER NOT NULL, section TEXT NOT NULL,
     start REAL NOT NULL, end REAL NOT NULL, title TEXT NOT NULL, summary TEXT NOT NULL,
     advice TEXT NOT NULL, factions TEXT NOT NULL, phases TEXT NOT NULL, topics TEXT NOT NULL,
     requires TEXT NOT NULL, concepts TEXT NOT NULL, text TEXT NOT NULL,
-    factions_key TEXT NOT NULL);
+    factions_key TEXT NOT NULL, scope TEXT NOT NULL);
   CREATE VIRTUAL TABLE chunks_fts USING fts5(title, summary, advice, tags, text, tokenize = 'porter unicode61');
   CREATE TABLE concepts (name TEXT PRIMARY KEY, aliases TEXT NOT NULL, definition TEXT NOT NULL,
     explained INTEGER NOT NULL, chunks TEXT NOT NULL);
@@ -69,9 +70,9 @@ export function buildIndex(
   db.exec(SCHEMA);
   const synonyms = compileSynonyms(synonymList);
   const insert = {
-    episode: db.prepare("INSERT INTO episodes VALUES (?, ?, ?, ?, ?)"),
+    episode: db.prepare("INSERT INTO episodes VALUES (?, ?, ?, ?, ?, ?)"),
     section: db.prepare("INSERT INTO sections VALUES (?, ?, ?, ?, ?, ?)"),
-    chunk: db.prepare("INSERT INTO chunks VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+    chunk: db.prepare("INSERT INTO chunks VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
     chunkText: db.prepare(
       "INSERT INTO chunks_fts (rowid, title, summary, advice, tags, text) VALUES (?, ?, ?, ?, ?, ?)",
     ),
@@ -86,7 +87,10 @@ export function buildIndex(
   db.transaction(() => {
     for (const episode of episodes) {
       const faction = factions[episode.factionId as keyof typeof factions]?.name ?? episode.factionId;
-      insert.episode.run(episode.episode, episode.title, episode.factionId, faction, factionKeyOf(faction));
+      insert.episode.run(
+        episode.episode, episode.title, episode.factionId, faction, factionKeyOf(faction),
+        JSON.stringify(episode.recordedWith ?? []),
+      );
       for (const section of episode.sections) {
         insert.section.run(section.id, episode.episode, section.title, section.start, section.end, section.summary);
       }
@@ -99,6 +103,7 @@ export function buildIndex(
           chunk.text,
           // "|a|b|", so a faction can be matched exactly with LIKE.
           `|${chunk.factions.map(factionKeyOf).join("|")}|`,
+          JSON.stringify(chunk.scope ?? ALL_CONTENT),
         );
         const advice = chunk.advice.map((a) => `${a.point} ${a.subjects.join(" ")}`).join("\n");
         const everything = [chunk.title, chunk.summary, advice, chunk.text].join(" ");

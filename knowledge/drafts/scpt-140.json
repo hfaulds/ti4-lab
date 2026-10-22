@@ -1,5 +1,6 @@
 {
   "episode": 140,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -548,6 +549,7 @@
         },
         {
           "start": "s285",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership is a fourth or fifth pick, below most factions' rating of it: useful for the command token problem but not solving anything in round one. With it, you cannot afford both the Warfare and Technology secondaries, so build at home rather than tech.",
@@ -688,6 +690,7 @@
         },
         {
           "start": "s374",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Construction is fine and ideally taken only once. Use it for a forward dock, which L1Z1X needs since its fleets move two without Gravity Drive, or for double PDS when holding a PDS or space dock secret objective, so you only need to capture one more.",
@@ -809,6 +812,7 @@
         },
         {
           "start": "s424",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Matt, admitting it is contentious, would usually not tech with Warfare and instead expand through the slice, build at home, and push a carrier with fighters next to Mecatol Rex. Leaving one tile in your slice open early is fine because L1Z1X can retake it easily, and plastic in round one makes money later by threatening weak neighbours.",
@@ -857,6 +861,7 @@
         },
         {
           "start": "s455",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Technology and Imperial",
           "kind": "strategy",
           "summary": "The Technology card is L1Z1X's number one pick even though its secondary is useless to them: take the free tech (almost always Sarween Tools) and use the Warfare secondary for home defence. Without the card, tech takes a back seat in round one. Never take Imperial in round one.",
@@ -1335,6 +1340,7 @@
         },
         {
           "start": "s615",
+          "scope": {"needs": ["codex1"], "voidedBy": [], "note": "the Harrow combination is with X-89 Bacterial Weapon Ω (Codex I), which follows BOMBARDMENT; the base card is an action"},
           "title": "X-89 Bacterial Weapon and War Suns",
           "kind": "strategy",
           "summary": "X-89 Bacterial Weapon combines with Harrow, letting you choose which bombardment to use it on, and is the icing on the cake for finishing control objectives once you have everything else. War Suns are affordable for L1Z1X but Matt would rarely build them since they lack the dreadnoughts' direct-hit immunity.",
@@ -1991,6 +1997,7 @@
         },
         {
           "start": "s862",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Naalu Warfare as a second action",
           "kind": "strategy",
           "summary": "Schroeder suggests Naalu play Warfare as their second action in round one, before others have planned their money around Technology and Trade, catching them unable to follow and moving the same carrier twice. Hunter approves.",

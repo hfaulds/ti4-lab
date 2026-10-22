@@ -1,5 +1,6 @@
 {
   "episode": 104,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -395,6 +396,7 @@
       "chunks": [
         {
           "start": "s292",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "General round-one plan",
           "kind": "strategy",
           "summary": "Put two infantry on the carrier and one on the dreadnought to take two planets. A second carrier with two more infantry is a bonus, not worth hurting round two for. Barony grows incrementally, so build up steadily. Expect to spend four command tokens: two on expansion and both strategy tokens, normally on the Technology and Warfare secondaries, using the spare two resources for infantry if nothing else.",
@@ -446,6 +448,7 @@
         },
         {
           "start": "s325",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Leadership: five-planet expansion",
           "kind": "strategy",
           "summary": "The aggressive Leadership line uses the three extra tokens to send the destroyer to open trade with the Trade holder for exactly two trade goods, expand with carrier and dreadnought (ideally after Technology gives Gravity Drive), then use the Warfare secondary to build a carrier and two infantry and take a fifth planet. Watch your empty home system and keep the dreadnought close.",
@@ -512,6 +515,7 @@
         },
         {
           "start": "s393",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction secondary for a forward dock",
           "kind": "strategy",
           "summary": "Do the Construction secondary in round one when a system with high-value planets like Abyz and Fria or Bereg and Lirta IV is in reach, especially next to Mecatol Rex. Construction usually pops on its holder's second action, so move out first. At worst you are set to place the forward dock in round two.",
@@ -540,6 +544,7 @@
         },
         {
           "start": "s411",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Diplomacy",
           "kind": "strategy",
           "summary": "Diplomacy is a tempting but bad round-one pick for Barony: Arc Prime goes on tech, so it only pays off after you also spend Wren Terra, which depends on Warfare and Technology timing you cannot control, and by then everyone else gains nearly as much. It becomes strong in later rounds and the endgame.",
@@ -601,6 +606,7 @@
         },
         {
           "start": "s483",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction",
           "kind": "strategy",
           "summary": "Take Construction only as the last pick; it still serves Barony by placing a forward dock, or a second home dock if nothing good is in reach, though it forces you to commit early. Double docking home means striking aggressively early and then pulling back; spread docks mean steady growth.",
@@ -629,6 +635,7 @@
         },
         {
           "start": "s502",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Trade",
           "kind": "strategy",
           "summary": "Taking Trade is the only reliable income Barony gets, so use it to fix the table's attitude: be generous, wash or refresh everyone in return for a trade good, and build goodwill you hope pays off in non-binding deals at the agenda. You can also promise the Warfare holder a full wash to stop them stalling. Barony has little leverage in trade, so take nice deals.",
@@ -662,6 +669,7 @@
         },
         {
           "start": "s536",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Warfare: move north first",
           "kind": "strategy",
           "summary": "With Warfare, still do the Technology secondary. First action: move everything to a planet directly toward Mecatol Rex, then pull the token back and spread out, removing any dependence on Technology timing. Alternatively build four infantry at home first, then pull the token and expand with extra ground forces so round-two moves do not leave planets empty.",
@@ -690,6 +698,7 @@
         },
         {
           "start": "s557",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Warfare with a Construction secondary",
           "kind": "strategy",
           "summary": "Warfare combines with either dock plan: with your home or a captured forward system activated, follow Construction to place a dock there and then pull the token back with Warfare. Hunter prefers a forward dock for getting the Arc Secundus out quickly; if Bereg/Lirta IV or Abyz/Fria is in your slice, double dock that instead of home.",
@@ -718,6 +727,7 @@
         },
         {
           "start": "s585",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Technology: buy one tech and build",
           "kind": "strategy",
           "summary": "Technology is solidly Barony's best round-one card. Play it first and take only Gravity Drive for free, spending the six resources on units rather than a second tech; you may expand to five planets via the Warfare secondary. Moving out first to place a forward dock is a niche alternative.",
@@ -1301,6 +1311,7 @@
         },
         {
           "start": "s1041",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "The cheesy bread play",
           "kind": "strategy",
           "summary": "Play Technology as the first action, buying Gravity Drive and Fleet Logistics, and use the second action to capture a forward system before Construction pops so you can place a dock there. In round two take Diplomacy and combine it with Fleet Logistics: build then refresh your home for another six resources, capture a juicy system and lock it, or empty your forward base and rebuild there. Played as your first action, Diplomacy denies others its benefit.",

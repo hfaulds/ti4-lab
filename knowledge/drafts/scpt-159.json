@@ -1,5 +1,6 @@
 {
   "episode": 159,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -338,6 +339,7 @@
       "chunks": [
         {
           "start": "s267",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one goals: plastic and tech",
           "kind": "strategy",
           "summary": "Muaat is not very viable until it has Prototype War Sun II, so round one is greedy: get plastic through the Warfare secondary to expand beyond one system, and get a tech paid for by the four-resource home. If you cannot get both, take plastic; if you get neither, consider pivoting to blue Muaat for a mid game.",
@@ -405,6 +407,7 @@
       "chunks": [
         {
           "start": "s320",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership addresses the command token problem but leaves the question of money; it is mid-tier, possibly mid-low. It is stronger if you bank tokens for later rounds than if you spend them all on Star Forge to avoid being stalled out of Warfare.",
@@ -443,6 +446,7 @@
         },
         {
           "start": "s355",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Diplomacy",
           "kind": "strategy",
           "summary": "Diplomacy is a good pick for Muaat, better than for Winnu or Arborec thanks to the four-resource home: refreshing home plus planets funds both tech and a second carrier, and only a die-hard Warfare stall hurts. Use it as leverage to negotiate Warfare and Technology secondary timing, threaten to waste stalls if others won't cooperate, and it protects a vulnerable home against round-one blockades.",
@@ -476,6 +480,7 @@
         },
         {
           "start": "s380",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Politics",
           "kind": "strategy",
           "summary": "Politics is mid-tier, alongside Diplomacy and Leadership. It defers tech to a double-tech round two that costs six resources, which Hunter dislikes, though without skips you will have to double tech at some point. Action cards can be valuable (an early Flank Speed, Sabotage, or a stall against Warfare pressure), and selling the speaker token can push it higher. Don't use it to set up a Mecatol Rex rush.",
@@ -519,6 +524,7 @@
         },
         {
           "start": "s419",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Construction is very low for Muaat. A forward dock is not bad but is low priority, becomes irrelevant once War Suns move three, and is another target Muaat lacks plastic to defend. Taking it also means moving the War Sun first, which hands others their picks; PDS-heavy Muaat is untested.",
@@ -552,6 +558,7 @@
         },
         {
           "start": "s443",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Trade",
           "kind": "strategy",
           "summary": "Trade is usually the top pick, narrowly ahead of Technology, because it makes the money for both plastic and tech. The problem is having no ship to reach trade partners; an opening using Star Forge to build a trading destroyer just moves money around unless your meta stalls Warfare hard. Better to negotiate a favourable trade, such as an even four-for-four, with a neighbour who moves to you.",
@@ -585,6 +592,7 @@
         },
         {
           "start": "s463",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Technology",
           "kind": "strategy",
           "summary": "Technology is nearly as good as Trade for the same reasons, and makes it harder to be stalled out of Warfare, so in some metas it may be the better pick.",
@@ -608,6 +616,7 @@
         },
         {
           "start": "s467",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is not good for Muaat: moving the War Sun out, playing Warfare and moving again overextends it while the rest of your plastic is spread thin. Muaat can't stall well to time it, and building at home before moving gives everyone else units while only solving the plastic half of the round-one goal.",

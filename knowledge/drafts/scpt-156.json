@@ -1,5 +1,6 @@
 {
   "episode": 156,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -224,6 +225,7 @@
         },
         {
           "start": "s185",
+          "scope": {"needs": [], "voidedBy": [], "note": "about the Ω printing of Greyfire Mutagen; look up the card to check this game's text"},
           "title": "Greyfire Mutagen (Omega)",
           "kind": "strategy",
           "summary": "The Omega Greyfire Mutagen is very good, maybe the best ground combat promissory note in the game (the Barony's new note is better but is not for ground combat). Sell it in the window it will be used rather than leaving it out with no idea where it will end up, though this matters less than for Tekklar Legion because it cannot be turned against Yin.",
@@ -496,6 +498,7 @@
         },
         {
           "start": "s359",
+          "scope": {"needs": ["codex1"], "voidedBy": [], "note": "built on Magen Defense Grid Ω (Codex I); the base card needs units with PLANETARY SHIELD"},
           "title": "Red-yellow: the PDS fortress",
           "kind": "strategy",
           "summary": "Red-yellow is made possible by the strong Omega Magen Defense Grid. Slow-roll out of your slice with Plasma Scoring, PDS II, Magen Defense Grid, Graviton Laser System, Destroyer II and Space Dock II, so attackers face PDS fire, Graviton-directed hits, Destroyer II barrage and Devotion before even reaching Magen Defense Grid and Indoctrination. The weakness is mobility: Mecatol Rex is only reachable with a lucky Flank Speed.",
@@ -614,6 +617,7 @@
       "chunks": [
         {
           "start": "s443",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership is a middling pick. With few trade goods in an X-1 trade meta, Yin's four home resources go to tech, so following Warfare is inefficient. Instead Leadership stockpiles command tokens so influence can be saved for Indoctrination (two influence per use, ideally four in reserve). Mecatol Rex also helps solve Yin's command token problem.",
@@ -647,6 +651,7 @@
         },
         {
           "start": "s464",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Leadership followed by Politics or Construction",
           "kind": "strategy",
           "summary": "After taking Leadership, follow Politics to fish for Flank Speed (four in the base deck), since a Yin with a lucky round one Flank Speed is the Yin you want to be. Alternatively follow Construction for a forward dock, essential on red-yellow and useful on blue paths to get units close to Mecatol Rex.",
@@ -670,6 +675,7 @@
         },
         {
           "start": "s476",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Don't do the Leadership destroyer rush",
           "kind": "strategy",
           "summary": "A suggested Yin line puts Leadership tokens into fleet supply and builds destroyers off Warfare to devote into a neighbour's fleet. Don't: it makes a game-long enemy Yin cannot handle, sacrifices the destroyers, and opens the game for a third player. Matt tried it to extort a Muaat player and both their games tanked while a Naalu won.",
@@ -693,6 +699,7 @@
         },
         {
           "start": "s505",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Round one: Diplomacy (Matt's case)",
           "kind": "strategy",
           "summary": "Picking sixth among Diplomacy, Construction and Imperial (never Imperial), Diplomacy can beat Construction if your round one planets are not good forward dock spots. The 'no dance' Diplomacy refreshes Darien and a planet for six or seven resources of building with Sarween Tools after teching. Using Diplomacy to gain a blue skip for a round one Gravity Drive almost never works because Warfare would need to resolve before Technology.",
@@ -744,6 +751,7 @@
         },
         {
           "start": "s543",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Round one: Politics",
           "kind": "strategy",
           "summary": "Politics is a variable middle pick, a mixed bag that Hunter rates slightly higher because he likes to gamble. Politics into round two Leadership is a good route to Mecatol Rex, which Yin holds well, but getting there needs a blue skip plus favourable round two tech timing or a lucky Flank Speed. Matt sometimes takes Warfare in round two instead. Hunter picks Politics fourth or fifth over Diplomacy, Construction and even Trade; Matt ties it with Trade.",
@@ -777,6 +785,7 @@
         },
         {
           "start": "s564",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Construction is great for red-yellow Yin, which puts two PDS on the board for Magen Defense Grid and PDS II. Otherwise it is not loved, though on a blue path with a good forward dock position it is not the worst idea.",
@@ -828,6 +837,7 @@
         },
         {
           "start": "s597",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is Yin's top pick: as with any 2C4I start it gives the most versatile round one, letting you expand twice, build at home and end adjacent to Mecatol Rex. You can skip tech and spend four home resources plus Sarween Tools on plastic, filling your slice with planets Yin will keep. You may lose Mecatol to whoever takes Leadership in round two, but you still enter round two ahead on plastic with maximum money and influence. Passing on round one tech is fine unless you want Neural Motivator.",

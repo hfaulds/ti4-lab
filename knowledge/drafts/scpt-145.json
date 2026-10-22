@@ -1,5 +1,6 @@
 {
   "episode": 145,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -858,6 +859,7 @@
         },
         {
           "start": "s414",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Construction",
           "kind": "strategy",
           "summary": "Construction plugs Winnu's lack of plastic and gives an early PDS to protect a vulnerable planet. It is the pick when you have lost your shot at Mecatol Rex in round two, for example sixth pick after Politics went third. Hunter likes it slightly more than Leadership, but prefers Leadership if he will be second pick in round two.",
@@ -904,6 +906,7 @@
         },
         {
           "start": "s432",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Trade and buying the speaker token",
           "kind": "strategy",
           "summary": "Trade fixes Winnu's money problem, guarantees Gravity Drive, and leaves money to follow Warfare, though not Politics. Matt's preferred gamble is to take Trade and buy the speaker token from the Politics player, offering them free trade goods; it only works if Politics is the next pick.",
@@ -957,6 +960,7 @@
         },
         {
           "start": "s457",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Warfare",
           "kind": "strategy",
           "summary": "Hunter prefers Warfare as the odds play: with even one trade good from trading you can buy Gravity Drive and take Mecatol Rex in round one, and otherwise you are set up for round two depending on speaker position. The sequence is to trade, build at home, use Warfare, then move to Mecatol on your third or fourth action.",
@@ -1064,6 +1068,7 @@
         },
         {
           "start": "s492",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Technology and first-pick problems",
           "kind": "strategy",
           "summary": "Technology gets Gravity Drive for free, but the hosts would take Trade first. First pick is awkward for Winnu because it almost guarantees bad speaker order next round, leaving Warfare as the only good choice; second pick is more flexible and lets you steer the third player into Politics and sell you the speaker token.",

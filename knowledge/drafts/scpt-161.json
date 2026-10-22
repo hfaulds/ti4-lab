@@ -1,5 +1,6 @@
 {
   "episode": 161,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -354,6 +355,7 @@
         },
         {
           "start": "s217",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Technology",
           "kind": "strategy",
           "summary": "Technology is the light top pick: Nekro only needs to avoid a Warfare stall, and Technology's three command tokens make that impossible. Send the dreadnought and carrier out together, ideally towards Mecatol Rex, build a second carrier at home for the side system, and save the four resources for units.",
@@ -542,6 +544,7 @@
         },
         {
           "start": "s327",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is mid-pack. The optimal opening sends dreadnought and carrier together, which leaves nothing to stall with, and Nekro gets more from the Warfare secondary than the primary. Its Mecatol setup only works if Politics went before Warfare, since Nekro rarely has early Gravity Drive.",
@@ -641,6 +644,7 @@
         },
         {
           "start": "s393",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Diplomacy versus Construction",
           "kind": "strategy",
           "summary": "Diplomacy and Construction tie at the bottom, with Hunter leaning Construction for a reliable early forward dock. A big Diplomacy refresh is win-more for a faction that will get plastic anyway, and its secondary lets others build up against you. PDS hits give no tech, so place Construction's PDS to protect the forward dock rather than at home.",

@@ -10,6 +10,8 @@
  */
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import type { Expansion } from "~/game/data/types";
+import { expansionListProblems, Scope, scopeProblems } from "./scope";
 import { Topic, TOPICS } from "./types";
 
 export const LESSON_STATUSES = ["draft", "active", "retired"] as const;
@@ -26,6 +28,10 @@ export type Lesson = {
   topics: Topic[];
   /** Where it came from, e.g. "review 2026-10" or "review of a Claude game". */
   source: string;
+  /** The content of the games it was learned from; [] is the base game alone. */
+  learnedWith: Expansion[];
+  /** The content it holds for, when that is narrower than every game: left out, it holds everywhere. */
+  scope?: Scope;
   /** The replay log (a file name in games/) and decision move it was learned from, when there is one. */
   game?: string;
   move?: number;
@@ -37,7 +43,7 @@ export type Lesson = {
 };
 
 /** What a draft needs; the rest is filled in when it is added. */
-export type LessonDraft = Pick<Lesson, "text" | "why" | "topics" | "source" | "game" | "move">;
+export type LessonDraft = Pick<Lesson, "text" | "why" | "topics" | "source" | "learnedWith" | "scope" | "game" | "move">;
 
 const isText = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
@@ -63,6 +69,8 @@ function lessonProblems(value: unknown): string[] {
     problems.push(`topics must be a list of one or more of: ${TOPICS.join(", ")}`);
   }
   if (!isText(lesson.source)) problems.push("source is required");
+  problems.push(...expansionListProblems(lesson.learnedWith, "learnedWith"));
+  if (lesson.scope !== undefined) problems.push(...scopeProblems(lesson.scope, "scope").map((p) => p.slice("scope: ".length)));
   if (lesson.game !== undefined && !isText(lesson.game)) problems.push("game must be a file name");
   if (lesson.move !== undefined && !Number.isInteger(lesson.move)) problems.push("move must be a whole number");
   for (const key of ["added", "activated", "retired"] as const) {
@@ -132,6 +140,8 @@ export function addDraft(lessons: Lesson[], draft: LessonDraft, today: string) {
     ...(draft.why?.trim() ? { why: draft.why.trim() } : {}),
     topics: draft.topics,
     source: draft.source.trim(),
+    learnedWith: draft.learnedWith,
+    ...(draft.scope ? { scope: draft.scope } : {}),
     ...(draft.game ? { game: draft.game } : {}),
     ...(draft.move !== undefined ? { move: draft.move } : {}),
     added: today,

@@ -1,5 +1,6 @@
 {
   "episode": 136,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -496,6 +497,7 @@
       "chunks": [
         {
           "start": "s277",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Do not expect both Warfare and Technology",
           "kind": "strategy",
           "summary": "Accept that you probably won't do both Warfare and Technology in round one: you have only three resources, no technology that saves round one, and a persistent plastic problem. Spend round-one money on units and treat anything beyond the 2C5I expansion as a bonus.",
@@ -544,6 +546,7 @@
         },
         {
           "start": "s303",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Leadership",
           "kind": "strategy",
           "summary": "Leadership is middling in round one but a top-tier choice from round three on, when you can stall it to stop others buying tokens they need that round. In round one it mainly ensures you can use Warfare, and a third carrier only if three planet systems are in range.",
@@ -655,6 +658,7 @@
         },
         {
           "start": "s341",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Diplomacy",
           "kind": "strategy",
           "summary": "Diplomacy is a last pick and Construction is better when both remain. Yssaril have no tech skip worth justifying Diplomacy (only a green skip to Hyper Metabolism), and readying Abyz and Fria gives money without timing control over Warfare.",
@@ -703,6 +707,7 @@
         },
         {
           "start": "s357",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Politics",
           "kind": "strategy",
           "summary": "Politics synergises with Scheming, starting a strong action card hand. The main round-one goal is selling the speaker token, ideally three or four trade goods from the Trade holder on your right, to fund Warfare and Technology. Otherwise keep the token and double-tech to Gravity Drive in round two.",
@@ -772,6 +777,7 @@
         },
         {
           "start": "s380",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
           "title": "Construction",
           "kind": "strategy",
           "summary": "Yssaril have a real reason for Construction: a second space dock at home, not a forward dock, because the home system can only produce four units a round. Doing only Warfare and Politics as secondaries is a fine round alongside it.",
@@ -927,6 +933,7 @@
         },
         {
           "start": "s456",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Warfare",
           "kind": "strategy",
           "summary": "Warfare ranks below Trade and Politics. Matt's optimal line takes two adjacent systems with the carriers, trades with the cruiser, and builds a third carrier at home after Leadership has let him buy an extra token, ending round one with three carriers spread over the slice. Skip the Technology secondary and aim for a big round two.",

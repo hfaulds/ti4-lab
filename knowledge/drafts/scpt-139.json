@@ -1,5 +1,6 @@
 {
   "episode": 139,
+  "recordedWith": [],
   "sections": [
     {
       "title": "Intro",
@@ -287,6 +288,7 @@
         },
         {
           "start": "s245",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Leadership",
           "kind": "strategy",
           "summary": "Leadership is middle to low; Naalu cannot expect to afford both secondaries anyway. On an X-1 trade you have about five resources, so choose Warfare for the second carrier over Technology. The hosts are now comfortable skipping tech in round one entirely, since round-two techs do little immediately for Naalu.",
@@ -325,6 +327,7 @@
         },
         {
           "start": "s275",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Diplomacy",
           "kind": "strategy",
           "summary": "Diplomacy has no real place in Naalu's round one. The most charitable case is taking a blue skip like Gral to research Gravity Drive for a round-two Mecatol play, but blue-skip planets add influence rather than resources, one carrier cannot take more, and you build nothing while sending your only fleet away from home. As sixth pick, Construction is better.",
@@ -381,6 +384,7 @@
         },
         {
           "start": "s323",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Round one: Construction",
           "kind": "strategy",
           "summary": "Construction in round one is an investment. Play it as your first action, unless you have a choice planet for a forward dock, to lock others out of building production. Double docking the home system is questionable but carries you through the early and mid game, and the second PDS helps defend a two-planet home. It is a solid sixth pick, better than Diplomacy.",
@@ -409,6 +413,7 @@
         },
         {
           "start": "s339",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Trade",
           "kind": "strategy",
           "summary": "Trade is the hosts' favourite round-one pick: it funds both the Warfare secondary for a carrier, fighters and infantry and the Technology secondary for Antimass Deflectors. It is the only reliable way to use the 0/2 planet, and the cruiser and destroyer as trade ships let Naalu reach many neighbours. Play it first action and do deals all round, open-handed as long as the money flows to you.",
@@ -442,6 +447,7 @@
         },
         {
           "start": "s365",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
           "title": "Round one: Warfare",
           "kind": "strategy",
           "summary": "Warfare is weaker than for other factions: Naalu has one carrier and cannot stall with the zero. The safe use is to build the second carrier at home and take another adjacent system. The bold use is a round-two Mecatol rush, moving a carrier twice, which leaves the slice unprotected but lets you score points outside the public objectives and escape with Foresight. The hosts rank Politics above Warfare here.",
@@ -748,6 +754,7 @@
       "chunks": [
         {
           "start": "s551",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
           "title": "Selling first-action timing",
           "kind": "strategy",
           "summary": "The hosts' best trading idea is extortion with the zero: charge players to play a strategy card they need immediately as your first action, such as Technology when someone needs Gravity Drive, or charge them for not playing a denying card like Construction or Diplomacy with Fleet Logistics first. They admit it is not compelling; Naalu is uninteresting at trading, so just do standard deals.",

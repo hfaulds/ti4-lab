@@ -23,6 +23,7 @@ import { gunzipSync } from "node:zlib";
 import Database from "better-sqlite3";
 import { buildIndex, loadLessons } from "~/knowledge/indexer";
 import { readLessons } from "~/knowledge/lessons";
+import { ALL_CONTENT, expansionListProblems, scopeLabel, scopeProblems } from "~/knowledge/scope";
 import type { SynonymList } from "~/knowledge/synonyms";
 import {
   Chunk,
@@ -123,6 +124,7 @@ function chunkProblems(chunk: ChunkDraft, where: string): string[] {
   oneOf("topics", chunk.topics, TOPICS);
   oneOf("requires", chunk.requires, MECHANICS);
   if (!isStringList(chunk.concepts)) problems.push(`${where}: concepts must be a list of strings.`);
+  if (chunk.scope !== undefined) problems.push(...scopeProblems(chunk.scope, where));
   return problems;
 }
 
@@ -135,6 +137,7 @@ function assembleEpisode(name: string): EpisodeChunks {
   if (draft.episode !== transcript.episode) {
     problems.push(`episode is ${draft.episode}, but the transcript is episode ${transcript.episode}.`);
   }
+  problems.push(...expansionListProblems(draft.recordedWith, "recordedWith"));
 
   // Chunk starts must run from the first sentence, strictly in order.
   const flat = draft.sections.flatMap((section, s) =>
@@ -178,6 +181,7 @@ function assembleEpisode(name: string): EpisodeChunks {
       topics: chunk.topics,
       requires: chunk.requires,
       concepts: chunk.concepts,
+      scope: chunk.scope ?? ALL_CONTENT,
       text: span.map((x) => x.text).join(" "),
     };
   });
@@ -197,6 +201,7 @@ function assembleEpisode(name: string): EpisodeChunks {
     episode: transcript.episode,
     title: transcript.title,
     factionId: transcript.factionId,
+    recordedWith: draft.recordedWith,
     glossaryVersion: transcript.glossaryVersion,
     chunkerVersion: CHUNKER_VERSION,
     model: MODEL,
@@ -223,7 +228,8 @@ function assemble(only?: string) {
       const minutes = episode.chunks.map((c) => (c.end - c.start) / 60).sort((a, b) => a - b);
       console.log(
         `${name}: ${episode.sections.length} sections, ${episode.chunks.length} chunks ` +
-          `(${strategy.length} with advice, ${strategy.filter((c) => c.requires.length === 0).length} using only the core rules); ` +
+          `(${strategy.length} with advice, ${strategy.filter((c) => c.requires.length === 0).length} using only the core rules, ` +
+          `${strategy.filter((c) => scopeLabel(c.scope)).length} scoped to some content); ` +
           `median ${minutes[Math.floor(minutes.length / 2)].toFixed(1)} min, longest ${minutes[minutes.length - 1].toFixed(1)} min`,
       );
     } catch (error) {

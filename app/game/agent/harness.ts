@@ -32,6 +32,7 @@ import {
   productionChoices,
 } from "./scriptedBot";
 import { lookup, SEARCH_GUIDES_TOOL, SEARCH_LESSONS_TOOL, TOOLS } from "./tools";
+import { CHOICE_PROMPTS, describeChoice, describeMoment, withPromptChoices } from "./choices";
 import { guideSearch } from "./guides";
 import { newTableMemory, remember, TableMemory } from "./conventions";
 import type { KnowledgeBase } from "~/knowledge/search";
@@ -53,6 +54,8 @@ export function agentBoundaryProblem(
   action: GameAction,
 ): string | undefined {
   if (BLOCKED.has(action.type)) return `${action.type} is not available to agents.`;
+  // The engine takes extra votes on trust; agents vote with planets only.
+  if (action.type === "CAST_VOTES" && action.extraVotes) return "Agents vote with planets only.";
   const claims =
     action.type === "SCORE_OBJECTIVES"
       ? [action.publicObjective, action.secretObjective]
@@ -83,16 +86,20 @@ const AGENT_PROMPTS: ReadonlySet<Prompt["kind"]> = new Set<Prompt["kind"]>([
   "announceRetreat",
 ]);
 
-export const ROUTING_VERSION = 3;
+export const ROUTING_VERSION = 4;
 
 /** The agent seat that must decide now, or undefined if the bot plays. */
 export function agentToMove(state: GameState, seats: PlayerId[]): PlayerId | undefined {
   if (state.phase === "finished") return undefined;
   const [prompt] = openPrompts(state);
   if (prompt) {
-    return seats.includes(prompt.player) && AGENT_PROMPTS.has(prompt.kind)
-      ? prompt.player
-      : undefined;
+    if (!seats.includes(prompt.player)) return undefined;
+    if (AGENT_PROMPTS.has(prompt.kind)) return prompt.player;
+    // Windows, votes and tie-breaks only when there is more than one thing to do.
+    if (CHOICE_PROMPTS.has(prompt.kind) && buildMenu(state, prompt.player).length > 1) {
+      return prompt.player;
+    }
+    return undefined;
   }
   if (state.transactions.length > 0) return undefined;
   const active = state.activePlayer;
@@ -263,7 +270,12 @@ export function buildMenu(
       legal.push(action);
     }
   };
-  offer(withEverySecondary(state, player, ranked.actions));
+  const [prompt] = openPrompts(state);
+  offer(
+    prompt && CHOICE_PROMPTS.has(prompt.kind)
+      ? withPromptChoices(state, prompt, ranked.actions)
+      : withEverySecondary(state, player, ranked.actions),
+  );
   // With nothing of its own legal, the bot's fallback plays the move.
   if (legal.length === 0) return [];
   // What the bot's reservations and threshold hide comes after its own picks.
@@ -286,7 +298,7 @@ export function buildMenu(
     label: LABELS[i],
     ...(action === stalls[0]
       ? { text: stallChoice(stalls.length), stalls }
-      : { text: describeAction(state, player, action) }),
+      : { text: describeChoice(state, player, action) ?? describeAction(state, player, action) }),
     action,
   }));
 }
@@ -526,7 +538,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         if (briefing) briefed.add(key);
         const request = {
           game: games.get(seat)!,
-          turn: describeTurn(state, seat),
+          turn: [describeTurn(state, seat), describeMoment(state, seat)].filter(Boolean).join("\n\n"),
           planNote: planNotes.get(seat) ?? "",
           menu: menu.map(({ label, text }) => ({ label, text })),
           lookup: (args: Parameters<typeof lookup>[1]) => lookup(state, args),

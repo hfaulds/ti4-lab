@@ -198,4 +198,10 @@ console.log(
     `${total.requests} requests (${total.retries} retried). Tokens: ${total.input} in (${total.cached} cached), ${total.output} out; ` +
     `about $${cost.toFixed(3)} ${total.reported ? "as Claude reports it (list prices; a subscription is not billed this)" : "at peak prices"}.`,
 );
+const deals = log.talk?.deals ?? [];
+const count = (status: string) => deals.filter((d) => d.status === status).length;
+console.log(
+  `Table talk: ${log.talk?.messages.length ?? 0} messages, ${deals.length} deals ` +
+    `(${count("kept")} kept, ${count("broken")} broken, ${count("dropped")} dropped).`,
+);
 console.log(`Replay log: ${file}`);

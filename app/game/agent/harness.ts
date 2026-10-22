@@ -31,9 +31,9 @@ import {
   secondarySkipReason,
   productionChoices,
 } from "./scriptedBot";
-import { lookup, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
+import { lookup, SEARCH_GUIDES_TOOL, TALK_TOOLS, TOOLS } from "./tools";
 import { guideSearch } from "./guides";
-import { newTableMemory, remember, TableMemory } from "./conventions";
+import { TableTalk, TalkLog } from "./talk";
 import type { KnowledgeBase } from "~/knowledge/search";
 
 /** Actions an agent may never take: they bypass the rules. */
@@ -243,9 +243,9 @@ function stallMenu(state: GameState, seat: PlayerId, stalls: GameAction[]): Cand
 export function buildMenu(
   state: GameState,
   player: PlayerId,
-  memory?: TableMemory,
+  talk?: TableTalk,
 ): Candidate[] {
-  const ranked = scriptedCandidates(state, memory);
+  const ranked = scriptedCandidates(state, talk);
   if (!ranked || ranked.player !== player) return [];
   const seen = new Set<string>();
   const legal: GameAction[] = [];
@@ -267,7 +267,7 @@ export function buildMenu(
   // With nothing of its own legal, the bot's fallback plays the move.
   if (legal.length === 0) return [];
   // What the bot's reservations and threshold hide comes after its own picks.
-  const wider = withWiderChoices(() => scriptedCandidates(state, memory));
+  const wider = withWiderChoices(() => scriptedCandidates(state, talk));
   offer(wider?.actions ?? []);
   if (state.tactical?.step === "production" && state.tactical.player === player) {
     offer(
@@ -395,6 +395,8 @@ export type ReplayLog = {
   initialState?: GameState;
   actions: { player: PlayerId; action: GameAction }[];
   decisions: DecisionRecord[];
+  /** What was said at the table and the deals struck; missing in older logs. */
+  talk?: TalkLog;
   result: {
     phase: GameState["phase"];
     round: number;
@@ -417,7 +419,7 @@ export function agentVersion(
     JSON.stringify({
       policy: policy.name,
       prompt: SYSTEM_PROMPT,
-      tools: knowledge ? [...TOOLS, SEARCH_GUIDES_TOOL] : TOOLS,
+      tools: [...TOOLS, ...(knowledge ? [SEARCH_GUIDES_TOOL] : []), ...TALK_TOOLS],
       knowledge: knowledge?.version ?? null,
       briefing,
       planning,
@@ -472,7 +474,8 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
   const { agentSeats, policy } = options;
   let state = options.state;
   const planNotes = new Map<PlayerId, string>();
-  const memory = newTableMemory();
+  // Messages and deals, kept beside the game; agents talk, bots answer.
+  const talk = new TableTalk(agentSeats);
   const games = new Map<PlayerId, string>();
   // Seat, round and phase of each briefing given, so each is given once.
   const briefed = new Set<string>();
@@ -498,12 +501,13 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
   const maxMoves = options.maxMoves ?? 20000;
   for (let move = 0; move < maxMoves; move++) {
     if (options.until?.(state)) break;
+    talk.move = move;
     let player: PlayerId;
     let action: GameAction;
     let note: MoveNote | undefined;
 
     const seat = agentToMove(state, agentSeats);
-    const menu = seat !== undefined ? buildMenu(state, seat, memory) : [];
+    const menu = seat !== undefined ? buildMenu(state, seat, talk) : [];
     if (seat !== undefined && menu.length > 0) {
       player = seat;
       const started = Date.now();
@@ -520,14 +524,16 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
             ? guides.briefing(seat, step)
             : undefined;
         if (briefing) briefed.add(key);
+        const position = describeTurn(state, seat);
         const request = {
           game: games.get(seat)!,
-          turn: describeTurn(state, seat),
+          turn: position + talk.describeFor(state, seat),
           planNote: planNotes.get(seat) ?? "",
           menu: menu.map(({ label, text }) => ({ label, text })),
           lookup: (args: Parameters<typeof lookup>[1]) => lookup(state, args),
           searchGuides: guides?.search,
           briefing,
+          talk: talk.toolsFor(state, seat),
         };
         // The agent plans before each of its own turns, then moves.
         const ownTurn =
@@ -552,6 +558,8 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
             // The planner had the briefing; the plan carries what mattered.
             request.briefing = undefined;
           }
+          // Whatever was said or agreed while planning shows when deciding.
+          request.turn = position + talk.describeFor(state, seat);
         }
         const decided = await untilAnswered(
           () => policy.decide(request),
@@ -636,22 +644,27 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       note = moveNote(record);
       options.onDecision?.(record, state);
     } else {
-      const scripted = scriptedMove(state, memory);
+      const scripted = scriptedMove(state, talk);
       if (!scripted) break;
       player = scripted.player;
       action = scripted.action;
     }
 
-    remember(memory, state, player, action);
+    talk.observe(state, player, action);
     const result = applyAction(state, player, action);
     if (!result.ok) {
       throw new Error(`${action.type} by P${player} was rejected: ${result.error}`);
     }
     state = result.state;
+    talk.settle(state);
+    // What was said and agreed goes with the move, for spectators.
+    const said = talk.drain();
+    if (said.length > 0) note = { ...(note ?? { chosen: "", rationale: "", options: [] }), talk: said };
     log.actions.push({ player, action });
     await options.onMove?.({ player, action, note }, state);
   }
 
+  log.talk = talk.log();
   log.result = {
     phase: state.phase,
     round: state.round,

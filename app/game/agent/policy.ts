@@ -10,9 +10,13 @@ import {
   parseLookup,
   parseSearch,
   SEARCH_GUIDES_TOOL,
+  runTalkTool,
   SearchArgs,
+  TALK_TOOL_NAMES,
+  TALK_TOOLS,
   TOOLS,
 } from "./tools";
+import type { TalkTools } from "./talk";
 
 export type MenuEntry = { label: string; text: string };
 
@@ -33,6 +37,11 @@ export type DecisionRequest = {
   searchGuides?: (args: SearchArgs) => { text: string; ids: string[] };
   /** Guide passages searched before asking, with their ids for citing. */
   briefing?: { text: string; ids: string[] };
+  /**
+   * Messages and deals with the other players. Absent when there is no
+   * table to talk to, in which case the talk tools are not offered.
+   */
+  talk?: TalkTools;
 };
 
 export type ToolStep = { tool: string; arguments: string; result: string };
@@ -89,6 +98,7 @@ Before you choose your next move, write your plan for the rest of this round and
 - threats you will guard against or accept;
 - the standings: who leads, what they could score this round, and how you will deny them (above all, never let the player holding Mecatol Rex take Imperial);
 - the planets of your slice you do not yet hold, and when you will take them.
+- any deal worth striking or collecting at the table (the talk tools, when offered, work while you plan).
 
 Name moves by what they are (the card, the system, the units), not by their menu letters: the letters change from one decision to the next. Look up and search the guides as you need. Then reply with the plan as plain text, citing guide passages by id like [118-21] where they shaped it. Do not choose a move yet: you will choose next, with this plan in front of you.`;
 
@@ -203,9 +213,13 @@ export class ChatPolicy implements Policy {
       { role: "user", content: turnMessage(request) },
     ];
     // Searching is offered only with a knowledge base, before choose.
-    const offered = request.searchGuides
-      ? [TOOLS[0], SEARCH_GUIDES_TOOL, ...TOOLS.slice(1)]
-      : TOOLS;
+    // Talk tools come before choose too: talking does not end the decision.
+    const offered = [
+      TOOLS[0],
+      ...(request.searchGuides ? [SEARCH_GUIDES_TOOL] : []),
+      ...(request.talk ? TALK_TOOLS : []),
+      ...TOOLS.slice(1),
+    ];
     const allTools = offered.map((tool) => ({ type: "function" as const, function: tool }));
     const shown = new Set<string>(request.briefing?.ids);
     const chooseOnly = allTools.filter((tool) => tool.function.name === "choose");
@@ -285,6 +299,8 @@ export class ChatPolicy implements Policy {
             for (const id of found.ids) shown.add(id);
             result = found.text;
           }
+        } else if (TALK_TOOL_NAMES.has(call.function.name) && request.talk) {
+          result = runTalkTool(request.talk, call.function.name, call.function.arguments);
         } else if (call.function.name === "choose") {
           const args = parseChoose(call.function.arguments, labels);
           if (args.ok && !chosen) {
@@ -326,7 +342,11 @@ export class ChatPolicy implements Policy {
       { role: "user", content: request.game },
       { role: "user", content: `${turnMessage(request)}\n\n${PLANNING_REQUEST}` },
     ];
-    const tools = (request.searchGuides ? [TOOLS[0], SEARCH_GUIDES_TOOL] : [TOOLS[0]]).map((tool) => ({
+    const tools = [
+      TOOLS[0],
+      ...(request.searchGuides ? [SEARCH_GUIDES_TOOL] : []),
+      ...(request.talk ? TALK_TOOLS : []),
+    ].map((tool) => ({
       type: "function" as const,
       function: tool,
     }));
@@ -361,6 +381,8 @@ export class ChatPolicy implements Policy {
         let result: string;
         if (call.type !== "function") {
           result = "Unknown tool.";
+        } else if (TALK_TOOL_NAMES.has(call.function.name) && request.talk) {
+          result = runTalkTool(request.talk, call.function.name, call.function.arguments);
         } else if (lookups >= maxLookups) {
           result = "Lookup limit reached. Write your plan now.";
         } else if (call.function.name === "lookup") {

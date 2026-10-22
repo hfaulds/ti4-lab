@@ -2,7 +2,7 @@
  * A policy backed by Claude through the Claude Agent SDK, which runs Claude
  * Code and so signs in the way it does: with a Claude subscription login,
  * or ANTHROPIC_API_KEY when that is set. The SDK's own tools are switched
- * off; the model sees only lookup, search_guides and choose, served in
+ * off; the model sees only lookup, search_guides, the talk tools and choose, served in
  * process, and our system prompt in place of Claude Code's.
  *
  * Subscription login is for the user's own runs. Anthropic does not allow
@@ -25,7 +25,7 @@ import {
   turnMessage,
   Usage,
 } from "./policy";
-import { LOOKUP_KINDS, parseChoose, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
+import { LOOKUP_KINDS, parseChoose, runTalkTool, SEARCH_GUIDES_TOOL, TALK_TOOLS, TOOLS } from "./tools";
 
 export type ClaudePolicyOptions = {
   /** A model alias such as "haiku", or a full model id. */
@@ -71,6 +71,7 @@ export class ClaudePolicy implements Policy {
 
     const tools = [
       ...this.lookupTools(request, steps, shown, "Call choose now."),
+      ...this.talkTools(request, steps),
       tool(
         "choose",
         describe("choose"),
@@ -127,7 +128,10 @@ export class ClaudePolicy implements Policy {
   async plan(request: DecisionRequest): Promise<Plan> {
     const steps: ToolStep[] = [];
     const shown = new Set<string>(request.briefing?.ids);
-    const tools = this.lookupTools(request, steps, shown, "Write your plan now.");
+    const tools = [
+      ...this.lookupTools(request, steps, shown, "Write your plan now."),
+      ...this.talkTools(request, steps),
+    ];
     const prompt = [
       request.game,
       "",
@@ -180,6 +184,39 @@ export class ClaudePolicy implements Policy {
             ),
           ]
         : []),
+    ];
+  }
+
+  /** post_message, propose_deal, accept_deal and drop_deal, when there is a table to talk to. */
+  private talkTools(request: DecisionRequest, steps: ToolStep[]): GameTool[] {
+    const talk = request.talk;
+    if (!talk) return [];
+    const description = (name: string) => TALK_TOOLS.find((t) => t.name === name)!.description;
+    const run = (name: string) => async (args: unknown) => {
+      const result = runTalkTool(talk, name, JSON.stringify(args));
+      steps.push({ tool: name, arguments: JSON.stringify(args), result });
+      return text(result);
+    };
+    const who = z.union([z.literal("me"), z.literal("them")]);
+    return [
+      tool("post_message", description("post_message"), { text: z.string(), to: z.string().optional() }, run("post_message")),
+      tool(
+        "propose_deal",
+        description("propose_deal"),
+        {
+          to: z.string(),
+          text: z.string(),
+          refresh: who.optional(),
+          payer: who.optional(),
+          trade_goods: z.number().int().optional(),
+          truce: z.boolean().optional(),
+          due_round: z.number().int().optional(),
+          until_round: z.number().int().optional(),
+        },
+        run("propose_deal"),
+      ),
+      tool("accept_deal", description("accept_deal"), { deal: z.number().int() }, run("accept_deal")),
+      tool("drop_deal", description("drop_deal"), { deal: z.number().int(), reason: z.string().optional() }, run("drop_deal")),
     ];
   }
 

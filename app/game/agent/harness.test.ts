@@ -14,7 +14,7 @@ import {
   moveNote,
   playAgentGame,
 } from "./harness";
-import { newTableMemory, remember } from "./conventions";
+import { TableTalk } from "./talk";
 import { ChatPolicy, DecisionRequest, FirstCandidatePolicy, noUsage, Policy } from "./policy";
 import { scriptedMove, secondarySkipReason } from "./scriptedBot";
 import { setupFor } from "./setups";
@@ -47,13 +47,15 @@ describe("agent harness", () => {
     });
     let state = newGame(3);
     const scripted = [];
-    // The bots remember table conventions as the harness's do.
-    const memory = newTableMemory();
+    // The bots keep the table's deals as the harness's do.
+    const talk = new TableTalk([0]);
     for (let i = 0; i < moves; i++) {
-      const move = scriptedMove(state, memory)!;
+      talk.move = i;
+      const move = scriptedMove(state, talk)!;
       scripted.push({ player: move.player, action: move.action });
-      remember(memory, state, move.player, move.action);
+      talk.observe(state, move.player, move.action);
       state = play(state, move.player, move.action);
+      talk.settle(state);
     }
     expect(log.actions).toEqual(scripted);
     // Every move is handed on, in order, with the state it produced.

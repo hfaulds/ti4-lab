@@ -4,7 +4,7 @@ import { openPrompts } from "../engine/helpers";
 import { play, testGame } from "../engine/testing";
 import { agentToMove, buildMenu, playAgentGame } from "./harness";
 import { describeMoment } from "./choices";
-import { newTableMemory, remember } from "./conventions";
+import { TableTalk } from "./talk";
 import { FirstCandidatePolicy } from "./policy";
 import { scriptedMove } from "./scriptedBot";
 import { setupFor } from "./setups";
@@ -106,13 +106,15 @@ describe("reactions and votes", () => {
         policy: new FirstCandidatePolicy(),
       });
       let state = newGame(5);
-      const memory = newTableMemory();
+      const talk = new TableTalk([0, 1, 2, 3, 4, 5]);
       const scripted = [];
-      while (state.phase !== "finished") {
-        const move = scriptedMove(state, memory)!;
+      for (let i = 0; state.phase !== "finished"; i++) {
+        talk.move = i;
+        const move = scriptedMove(state, talk)!;
         scripted.push({ player: move.player, action: move.action });
-        remember(memory, state, move.player, move.action);
+        talk.observe(state, move.player, move.action);
         state = play(state, move.player, move.action);
+        talk.settle(state);
       }
       expect(log.result.phase).toBe("finished");
       expect(log.actions).toEqual(scripted);

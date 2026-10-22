@@ -7,9 +7,9 @@ import {
 } from "../engine/board";
 import { victoryPoints } from "../engine/control";
 import { play, testGame } from "../engine/testing";
-import { newTableMemory, remember } from "./conventions";
 import { findPayment, readyPlanets } from "./payment";
 import { scriptedMove } from "./scriptedBot";
+import { TableTalk } from "./talk";
 
 function playOut(state: GameState, until: (s: GameState) => boolean = () => false) {
   let current = state;
@@ -138,13 +138,19 @@ describe("scripted bot", () => {
         adjustment: { type: "tradeGoods", player, amount: 4 },
       });
     }
-    const memory = newTableMemory();
-    memory.refreshes.push({ player: other, by: id, round: state.round });
+    // The standard deal: a free refresh, taken, for a trade good.
+    const talk = new TableTalk();
+    const deal = talk.propose(state, id, other, "a refresh for a trade good", {
+      refresh: other,
+      payment: { from: other, to: id, amount: 1 },
+    });
+    talk.accept(state, deal.id, other);
+    deal.refreshed = true;
     type Side = { tradeGoods?: number };
     const offer = (give: Side, receive: Side) =>
       play(state, id, { type: "PROPOSE_TRANSACTION", to: other, give, receive });
     const accepts = (offered: GameState) =>
-      (scriptedMove(offered, memory)!.action as { accept?: boolean }).accept;
+      (scriptedMove(offered, talk)!.action as { accept?: boolean }).accept;
 
     const oneShort = offer({ tradeGoods: 2 }, { tradeGoods: 3 });
     expect(accepts(oneShort)).toBe(true);
@@ -153,7 +159,8 @@ describe("scripted bot", () => {
     expect(scriptedMove(oneShort)!.action).toMatchObject({ accept: false });
 
     // Accepting repays the debt, so the next one-short offer is refused.
-    remember(memory, oneShort, other, scriptedMove(oneShort, memory)!.action);
+    talk.observe(oneShort, other, scriptedMove(oneShort, talk)!.action);
+    expect(deal.status).toBe("kept");
     expect(accepts(oneShort)).toBe(false);
   });
 });

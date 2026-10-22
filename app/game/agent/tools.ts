@@ -3,7 +3,7 @@
  * arguments a model sends. Validation happens here rather than relying on
  * the provider to enforce schemas.
  */
-import { FactionId } from "~/types";
+import { FactionId, PlayerId } from "~/types";
 import { factions } from "~/data/factionData";
 import {
   abilitiesById,
@@ -19,6 +19,7 @@ import {
 import { GameState, UnitType } from "../types";
 import { planetInfo } from "../engine/board";
 import { systemRef } from "./describe";
+import type { TalkTools } from "./talk";
 
 export type ToolSchema = {
   name: string;
@@ -108,6 +109,85 @@ export const SEARCH_LESSONS_TOOL: ToolSchema = {
   },
 };
 
+/**
+ * Table talk: offered at every decision with a table to talk to. None of
+ * them is a move, so they do not end the decision.
+ */
+export const TALK_TOOLS: ToolSchema[] = [
+  {
+    name: "post_message",
+    description:
+      "Say something at the table. Not a move and not binding. to (optional): a player label like P2 " +
+      "for a private message; without it, everyone reads it.",
+    parameters: {
+      type: "object",
+      properties: { text: { type: "string" }, to: { type: "string" } },
+      required: ["text"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "propose_deal",
+    description:
+      "Propose a non-binding deal to one player; a bot answers at once. text: the terms in plain words. " +
+      "The table checks these parts, if given: refresh ('me' or 'them'), who replenishes commodities " +
+      "for free when the other plays Trade; payer ('me' or 'them') and trade_goods, a payment made later " +
+      "as the surplus of a trade; truce, neither activates a system in the other's slice or holding the " +
+      "other's units or planets. due_round: the round from which the payment is due (default now). " +
+      "until_round: the last round to keep it in (default next round).",
+    parameters: {
+      type: "object",
+      properties: {
+        to: { type: "string", description: "A player label, e.g. 'P2'." },
+        text: { type: "string" },
+        refresh: { type: "string", enum: ["me", "them"] },
+        payer: { type: "string", enum: ["me", "them"] },
+        trade_goods: { type: "integer", minimum: 1 },
+        truce: { type: "boolean" },
+        due_round: { type: "integer" },
+        until_round: { type: "integer" },
+      },
+      required: ["to", "text"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "accept_deal",
+    description: "Accept a deal proposed to you, by its number.",
+    parameters: {
+      type: "object",
+      properties: { deal: { type: "integer" } },
+      required: ["deal"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "drop_deal",
+    description:
+      "Decline a deal proposed to you, withdraw one you proposed, or back out of one you accepted " +
+      "(which the table counts as breaking it).",
+    parameters: {
+      type: "object",
+      properties: { deal: { type: "integer" }, reason: { type: "string" } },
+      required: ["deal"],
+      additionalProperties: false,
+    },
+  },
+];
+
+export const TALK_TOOL_NAMES = new Set(TALK_TOOLS.map((t) => t.name));
+
+export type ProposeDealArgs = {
+  to: PlayerId;
+  text: string;
+  refresh?: "me" | "them";
+  payer?: "me" | "them";
+  trade_goods?: number;
+  truce?: boolean;
+  due_round?: number;
+  until_round?: number;
+};
+
 export type ChooseArgs = {
   candidate: string;
   rationale: string;
@@ -186,6 +266,96 @@ export function parseLookup(raw: string): Parsed<LookupArgs> {
   }
   if (!isString(id)) return { ok: false, error: "id is required." };
   return { ok: true, value: { kind: kind as LookupKind, id: id.trim() } };
+}
+
+/** A player from "P2", "p2" or 2. */
+function playerArg(value: unknown): PlayerId | undefined {
+  if (typeof value === "number" && Number.isInteger(value)) return value;
+  const match = typeof value === "string" ? /^\s*p?(\d+)\s*$/i.exec(value) : null;
+  return match ? Number(match[1]) : undefined;
+}
+
+const role = (value: unknown) => (value === "me" || value === "them" ? value : undefined);
+
+export function parsePostMessage(raw: string): Parsed<{ text: string; to?: PlayerId }> {
+  const parsed = parseObject(raw);
+  if (!parsed.ok) return parsed;
+  const { text, to } = parsed.value;
+  if (!isString(text)) return { ok: false, error: "text is required." };
+  if (to !== undefined && to !== null && to !== "" && playerArg(to) === undefined) {
+    return { ok: false, error: "to must be a player label like P2." };
+  }
+  const player = to === undefined || to === null || to === "" ? undefined : playerArg(to);
+  return { ok: true, value: { text: text.trim(), ...(player !== undefined ? { to: player } : {}) } };
+}
+
+export function parseProposeDeal(raw: string): Parsed<ProposeDealArgs> {
+  const parsed = parseObject(raw);
+  if (!parsed.ok) return parsed;
+  const { to, text, refresh, payer, trade_goods, truce, due_round, until_round } = parsed.value;
+  const player = playerArg(to);
+  if (player === undefined) return { ok: false, error: "to must be a player label like P2." };
+  if (!isString(text)) return { ok: false, error: "text is required." };
+  if (refresh !== undefined && !role(refresh)) return { ok: false, error: "refresh must be 'me' or 'them'." };
+  if (payer !== undefined && !role(payer)) return { ok: false, error: "payer must be 'me' or 'them'." };
+  const amount = trade_goods === undefined ? undefined : Number(trade_goods);
+  if (amount !== undefined && (!Number.isInteger(amount) || amount < 1)) {
+    return { ok: false, error: "trade_goods must be a whole number of at least 1." };
+  }
+  if ((payer === undefined) !== (amount === undefined)) {
+    return { ok: false, error: "payer and trade_goods go together." };
+  }
+  const until = until_round === undefined ? undefined : Number(until_round);
+  if (until !== undefined && !Number.isInteger(until)) return { ok: false, error: "until_round must be a round number." };
+  const due = due_round === undefined ? undefined : Number(due_round);
+  if (due !== undefined && (!Number.isInteger(due) || payer === undefined)) {
+    return { ok: false, error: "due_round must be a round number, and goes with a payment." };
+  }
+  return {
+    ok: true,
+    value: {
+      to: player,
+      text: text.trim(),
+      ...(role(refresh) ? { refresh: role(refresh) } : {}),
+      ...(role(payer) ? { payer: role(payer), trade_goods: amount } : {}),
+      ...(truce === true ? { truce: true } : {}),
+      ...(due !== undefined ? { due_round: due } : {}),
+      ...(until !== undefined ? { until_round: until } : {}),
+    },
+  };
+}
+
+export function parseDealArgs(raw: string): Parsed<{ deal: number; reason?: string }> {
+  const parsed = parseObject(raw);
+  if (!parsed.ok) return parsed;
+  const deal = Number(String(parsed.value.deal ?? "").replace(/^#/, ""));
+  if (!Number.isInteger(deal) || deal < 1) return { ok: false, error: "deal must be a deal number." };
+  const { reason } = parsed.value;
+  return { ok: true, value: { deal, ...(isString(reason) ? { reason: reason.trim() } : {}) } };
+}
+
+/** Runs a talk tool call against the table, returning text for the model. */
+export function runTalkTool(talk: TalkTools, name: string, raw: string): string {
+  switch (name) {
+    case "post_message": {
+      const args = parsePostMessage(raw);
+      return args.ok ? talk.post(args.value) : `Error: ${args.error}`;
+    }
+    case "propose_deal": {
+      const args = parseProposeDeal(raw);
+      return args.ok ? talk.propose(args.value) : `Error: ${args.error}`;
+    }
+    case "accept_deal": {
+      const args = parseDealArgs(raw);
+      return args.ok ? talk.accept(args.value.deal) : `Error: ${args.error}`;
+    }
+    case "drop_deal": {
+      const args = parseDealArgs(raw);
+      return args.ok ? talk.drop(args.value.deal, args.value.reason) : `Error: ${args.error}`;
+    }
+    default:
+      return `Unknown tool ${name}.`;
+  }
 }
 
 // --- Lookup -------------------------------------------------------------------

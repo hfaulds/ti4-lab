@@ -344,6 +344,38 @@ These are for steering, not proof; a batch of 20 games is noisy.
      many.
    - Done when the agent can strike a refresh-for-a-trade-good deal in
      one round, collect it in a later one, and the history shows both.
+   - **Done.** `app/game/agent/talk.ts` keeps messages (public or to one
+     player), deals and a log of what happened to them, beside the game.
+     A deal has plain-text terms and the parts the table checks: a free
+     refresh when the other side plays Trade, trade goods paid later as
+     the surplus of a trade (from a due round on), and a truce (neither
+     activates a system in the other's slice or holding the other's
+     units or planets). Deals are proposed, accepted, then kept, broken
+     or dropped; a debt nobody had the chance to pay (never neighbours
+     with something to pay) lapses instead of breaking.
+   - The agent has `post_message`, `propose_deal`, `accept_deal` and
+     `drop_deal` while planning and deciding; none ends the decision. Its
+     turn block gains a "Table talk" section: recent messages it may
+     read, its open deals and proposals, and everyone's kept/broken
+     record.
+   - Bots answer at once: they accept deals that pay (a refresh is worth
+     the commodities it replenishes) from players who have broken none,
+     pay debts of up to 2 trade goods (what they reckon their word is
+     worth) unless the creditor broke a deal, hold a truce unless one
+     activation gains more than 6, and leave players who broke a deal
+     out of their free Trade refreshes.
+   - The old convention is now the standard deal: letting a player
+     replenish for free offers them "a trade good later" (due by the end
+     of next round) unless another deal was struck, and taking the
+     refresh accepts it. A refresh that replenishes nothing is dropped.
+   - The replay log keeps `talk` (messages, deals, events); each move's
+     note carries what was said and agreed with it, shown on the web
+     app's new Talk tab and in the history's reasoning. Notes that carry
+     only talk have an empty choice. `--policy first` games keep 0
+     fallbacks; most standard deals are kept.
+   - Not yet: bots do not propose deals of their own beyond the standard
+     refresh, or read messages; text-only deals are recorded but not
+     checked, and a bot declines them.
 8. **Drafting.** An agent that drafts like a competitive player: in a
    Milty draft it picks a faction, a slice and a speaker position in turn,
    weighing each faction against the slices left (does the slice suit

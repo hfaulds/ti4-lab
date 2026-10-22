@@ -85,7 +85,7 @@ import {
   researchableTechnologies,
 } from "../engine/technology";
 import { botMove } from "../engine/testing";
-import { owedRefresh, TableMemory, worth } from "./conventions";
+import { TableTalk, worth } from "./talk";
 import { tradePartners } from "./reach";
 import { componentPlays, reactions } from "./reactions";
 import {
@@ -106,7 +106,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 8;
+export const SCRIPTED_BOT_VERSION = 9;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -133,7 +133,7 @@ const STAGING_WEIGHT = 0.4;
  */
 export function scriptedCandidates(
   state: GameState,
-  memory?: TableMemory,
+  talk?: TableTalk,
 ): { player: PlayerId; actions: GameAction[] } | undefined {
   if (state.phase === "finished") return undefined;
   const [prompt] = openPrompts(state);
@@ -149,21 +149,21 @@ export function scriptedCandidates(
     ? answerPrompt(state, prompt)
     : offer
       ? [
-          ...(acceptsOffer(offer.give, offer.receive, !!owedRefresh(memory, state, offer.to, offer.from))
+          ...(acceptsOffer(offer.give, offer.receive, talk?.willPay(state, offer.to, offer.from))
             ? [{ type: "ANSWER_TRANSACTION", transaction: offer.id, accept: true } as const]
             : []),
           { type: "ANSWER_TRANSACTION", transaction: offer.id, accept: false },
         ]
-      : takeTurn(state, player, memory);
+      : takeTurn(state, player, talk);
   return { player, actions: candidates };
 }
 
 /** The next move for whoever the game is waiting on, if anyone. */
 export function scriptedMove(
   state: GameState,
-  memory?: TableMemory,
+  talk?: TableTalk,
 ): ScriptedMove | undefined {
-  const ranked = scriptedCandidates(state, memory);
+  const ranked = scriptedCandidates(state, talk);
   if (!ranked) return undefined;
   const { player, actions: candidates } = ranked;
   for (const action of candidates) {
@@ -594,7 +594,7 @@ const PLAY_EARLY: StrategyKind[] = [
   "diplomacy",
 ];
 
-function takeTurn(state: GameState, id: PlayerId, memory?: TableMemory): GameAction[] {
+function takeTurn(state: GameState, id: PlayerId, talk?: TableTalk): GameAction[] {
   if (state.phase === "strategy") return pickStrategyCard(state, id);
   if (state.phase !== "action") return [];
   if (state.tactical) return tacticalStep(state, id);
@@ -604,17 +604,17 @@ function takeTurn(state: GameState, id: PlayerId, memory?: TableMemory): GameAct
   const card = player.strategyCards.find((c) => !c.exhausted);
   const strategic = (): GameAction[] =>
     card
-      ? primaryPayloads(state, id, card.id).map((payload) => ({
+      ? primaryPayloads(state, id, card.id, talk).map((payload) => ({
           type: "STRATEGIC_ACTION",
           payload,
         }))
       : [];
 
-  const actions: GameAction[] = [...commodityTrades(state, id, memory)];
+  const actions: GameAction[] = [...commodityTrades(state, id, talk)];
   if (card && PLAY_EARLY.includes(strategyKind(card.id))) {
     actions.push(...strategic());
   }
-  actions.push(...activations(state, id));
+  actions.push(...activations(state, id, talk));
   actions.push(...strategic());
   actions.push(...componentPlays(state, id));
   actions.push({ type: "PASS" });
@@ -628,43 +628,48 @@ const onlyGoods = (side: TransactionSide) =>
 /**
  * Whether the bot, on the receiving end of an offer, takes it: trade goods
  * and commodities only, and at least as much coming in as going out, or
- * one short when it owes the proposer for a refresh (see conventions.ts).
- * `give` is what the proposer gives, so it is what the bot receives.
+ * up to `owes` short when it means to pay the proposer what a deal says
+ * (see talk.ts). `give` is what the proposer gives, so it is what the bot
+ * receives.
  */
-function acceptsOffer(give: TransactionSide, receive: TransactionSide, owesOne = false) {
+function acceptsOffer(give: TransactionSide, receive: TransactionSide, owes = 0) {
   const short = worth(receive) - worth(give);
   return (
     onlyGoods(give) &&
     onlyGoods(receive) &&
-    (worth(give) > 0 || (owesOne && worth(receive) > 0)) &&
-    short <= (owesOne ? 1 : 0)
+    (worth(give) > 0 || (owes > 0 && worth(receive) > 0)) &&
+    short <= owes
   );
 }
 
 /**
  * Offers each neighbor an even swap of commodities, which both sides receive
- * as trade goods. When one side owes the other for a refresh, the debtor
- * gives X commodities for X-1 (see conventions.ts). Only offers the
- * neighbor will legally accept are made, so an offer never comes back
- * round unanswered.
+ * as trade goods. When a deal says one side pays the other (see talk.ts),
+ * the payer gives X commodities for X less what it owes, or trade goods
+ * when it has no commodities. Only offers the neighbor will legally accept
+ * are made, so an offer never comes back round unanswered.
  */
-function commodityTrades(state: GameState, id: PlayerId, memory?: TableMemory): GameAction[] {
+function commodityTrades(state: GameState, id: PlayerId, talk?: TableTalk): GameAction[] {
   const mine = state.players[id].commodities;
   for (const other of neighborsOf(state, id)) {
     if (state.tradedWith.includes(other)) continue;
     const theirs = state.players[other].commodities;
-    const owedToMe = !!owedRefresh(memory, state, other, id) && theirs > 0;
-    const iOwe = !owedToMe && !!owedRefresh(memory, state, id, other) && mine > 0;
+    const toMe = theirs > 0 ? (talk?.willPay(state, other, id) ?? 0) : 0;
+    const fromMe = toMe === 0 ? (talk?.willPay(state, id, other) ?? 0) : 0;
+    const iOwe = fromMe > 0 && (mine > 0 || state.players[id].tradeGoods > 0);
     let give: TransactionSide;
     let receive: TransactionSide;
-    if (owedToMe) {
-      const swap = Math.min(theirs, mine + 1);
-      give = swap > 1 ? { commodities: swap - 1 } : {};
+    if (toMe > 0) {
+      const swap = Math.min(theirs, mine + toMe);
+      give = swap > toMe ? { commodities: swap - toMe } : {};
       receive = { commodities: swap };
+    } else if (iOwe && mine === 0) {
+      give = { tradeGoods: Math.min(fromMe, state.players[id].tradeGoods) };
+      receive = {};
     } else if (iOwe) {
-      const swap = Math.min(mine, theirs + 1);
+      const swap = Math.min(mine, theirs + fromMe);
       give = { commodities: swap };
-      receive = swap > 1 ? { commodities: swap - 1 } : {};
+      receive = swap > fromMe ? { commodities: swap - fromMe } : {};
     } else {
       const swap = Math.min(mine, theirs);
       if (swap === 0) continue;
@@ -672,7 +677,7 @@ function commodityTrades(state: GameState, id: PlayerId, memory?: TableMemory): 
       receive = { commodities: swap };
     }
     // An offer the bot pays more into is its own debt, so it takes it.
-    if (!iOwe && !acceptsOffer(give, receive, owedToMe)) continue;
+    if (!iOwe && !acceptsOffer(give, receive, toMe)) continue;
     const action: GameAction = {
       type: "PROPOSE_TRANSACTION",
       to: other,
@@ -693,7 +698,7 @@ function commodityTrades(state: GameState, id: PlayerId, memory?: TableMemory): 
 }
 
 /** Systems worth a tactic token, best first. */
-function activations(state: GameState, id: PlayerId): GameAction[] {
+function activations(state: GameState, id: PlayerId, talk?: TableTalk): GameAction[] {
   const player = state.players[id];
   const reserved = reservationOf(state, id);
   const tokensLeft = player.pools.tactic + player.pools.strategy - 1;
@@ -706,9 +711,11 @@ function activations(state: GameState, id: PlayerId): GameAction[] {
       value: bestPlan(state, id, system.key)?.value ?? 0,
     }))
     .filter((t) => t.value >= (widened ? Number.MIN_VALUE : ACTIVATION_THRESHOLD))
+    // A truce holds unless breaking it gains more than it is worth (see talk.ts).
+    .filter((t) => !talk?.holdsBack(state, id, t.key, t.value))
     .sort((a, b) => b.value - a.value || a.key - b.key);
 
-  const build = productionTargets(state, id, reserved);
+  const build = productionTargets(state, id, reserved).filter((key) => !talk?.holdsBack(state, id, key, 0));
   // With one token left, building beats a small expansion.
   const lastToken = player.pools.tactic === 1;
   const ordered =
@@ -1641,6 +1648,7 @@ function primaryPayloads(
   state: GameState,
   id: PlayerId,
   card: string,
+  talk?: TableTalk,
 ): StrategicPayload[] {
   const reserved = reservationOf(state, id);
   const kind = strategyKind(card);
@@ -1684,8 +1692,15 @@ function primaryPayloads(
         { card: kind, structures: [] },
       ];
     case "trade": {
-      // Partners refreshed for free owe one back (see conventions.ts).
-      const partners = tradePartners(state, id);
+      // Partners refreshed for free owe one back, as the deal that comes
+      // with it says (see talk.ts); those who broke a deal are left out,
+      // and those promised a refresh are let in.
+      const partners = [
+        ...new Set([
+          ...tradePartners(state, id).filter((p) => talk?.trusted(p) ?? true),
+          ...(talk?.promisedRefreshes(id) ?? []),
+        ]),
+      ];
       return partners.length > 0 ? [{ card: kind, allow: partners }, { card: kind }] : [{ card: kind }];
     }
     case "warfare": {

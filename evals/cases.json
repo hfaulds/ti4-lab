@@ -1,0 +1,51 @@
+[
+  {
+    "id": "creuss-strands-infantry-r2",
+    "description": "Round 2, Creuss builds at home with no ships there: 4 infantry and a destroyer leave the infantry with no carrier to move them.",
+    "log": "fixtures/2026-10-21T15-16-16-185Z-seed5-p0.json.gz",
+    "move": 223,
+    "seat": 0,
+    "checks": ["stranded-ground-forces"]
+  },
+  {
+    "id": "creuss-leadership-spends-sway-r3",
+    "description": "Round 3, Creuss meets Sway the Council (8 influence) but takes Leadership's secondary with the influence of all its planets, so Sway cannot be paid in the status phase.",
+    "log": "fixtures/2026-10-21T16-10-17-691Z-seed5-p0.json.gz",
+    "move": 261,
+    "seat": 0,
+    "checks": ["objective-budget"]
+  },
+  {
+    "id": "creuss-tech-thinks-ntr-gone-r3",
+    "description": "Round 3, Creuss pays 4 trade goods for Technology's secondary, believing Negotiate Trade Routes was gone because another player scored it. Dimensional Splicer meets Diversify Research in its place, so the move passes the check; the misreading is graded by the rationale.",
+    "log": "fixtures/2026-10-21T16-10-17-691Z-seed5-p0.json.gz",
+    "move": 292,
+    "seat": 0,
+    "checks": ["objective-budget"],
+    "rationaleNot": ["Negotiate Trade Routes[^.]*(taken|gone|already scored|no longer)"]
+  },
+  {
+    "id": "nekro-strands-infantry-r4",
+    "description": "Round 4, six agents: Nekro builds 6 infantry on Mordai II with room for 1 aboard its ships there.",
+    "log": "fixtures/2026-10-21T21-07-44-470Z-seed2-all.json.gz",
+    "move": 468,
+    "seat": 3,
+    "checks": ["stranded-ground-forces"]
+  },
+  {
+    "id": "creuss-rift-cargo-r4",
+    "description": "Round 4, six agents: Creuss sends a carrier with a ground force from its gate through the gravity rift, when a longer way around exists.",
+    "log": "fixtures/2026-10-21T21-07-44-470Z-seed2-all.json.gz",
+    "move": 477,
+    "seat": 4,
+    "checks": ["gravity-rift-cargo"]
+  },
+  {
+    "id": "barony-stalls-r1",
+    "description": "Round 1, six agents: the Barony stalls, spending a tactic token on an activation that does nothing.",
+    "log": "fixtures/2026-10-21T21-07-44-470Z-seed2-all.json.gz",
+    "move": 117,
+    "seat": 5,
+    "checks": ["early-stall"]
+  }
+]

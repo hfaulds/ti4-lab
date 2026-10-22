@@ -53,6 +53,7 @@ import { reactionName } from "../engine/reactions";
 import { moveBonus } from "../engine/tactical";
 import { viewFor } from "../view";
 import { neighborlyMove, shipsReaching, sliceOf } from "./reach";
+import { liftAfter } from "./lift";
 import { victoryPoints } from "../engine/control";
 import { strategyKind } from "../engine/strategic";
 import { bestPlan, scriptedMove } from "./scriptedBot";
@@ -267,18 +268,7 @@ function threatsTo(state: GameState, seat: PlayerId, key: SystemKey) {
  * the seat's ships there could carry.
  */
 function liftNote(state: GameState, seat: PlayerId, key: SystemKey, units: { type: string; count: number }[]) {
-  const system = state.systems[key];
-  const built = (type: string) => units.filter((u) => u.type === type).reduce((n, u) => n + u.count, 0);
-  const ground =
-    totalUnits(system.space[seat], isGroundForce) +
-    system.planets.reduce((n, p) => n + totalUnits(state.planets[p].units[seat], isGroundForce), 0) +
-    built("infantry") +
-    built("mech");
-  const capacity =
-    capacityIn(state, key, seat) +
-    units.reduce((n, u) => n + (unitOf(state, seat, u.type as UnitType)?.capacity ?? 0) * u.count, 0);
-  const fighters = countOf(system.space[seat], "fighter") + built("fighter");
-  const room = Math.max(0, capacity - Math.max(0, fighters - dockFighterAllowance(state, key, seat)));
+  const { ground, room } = liftAfter(state, seat, key, units);
   return `; afterwards ${ground} ground forces here and room for ${room} aboard your ships here`;
 }
 

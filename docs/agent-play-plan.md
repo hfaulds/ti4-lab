@@ -30,7 +30,7 @@ hatches, and some of the game is missing:
 | Gap | Consequence for the agent |
 | --- | --- |
 | `ADJUST`, `SET_*`, `COMPONENT_ACTION` bypass the rules | Never offered; rejected if emitted |
-| Reactions (window prompts) and agenda votes go to the scripted bot | The agent chooses turns, secondaries, scoring and retreats; the bot plays its cards in combat and votes |
+| Reactions whose choices cannot be guessed (payments, units to move or build) are offered only as the bot would play them | The agent decides every other reaction, its votes and tie-breaks; the bots still always abstain |
 | The engine picks for players in a few agenda outcomes (which ships Arms Reduction destroys, which planets Anti-Intellectual Revolution exhausts) | Rarely matters; noted in the log |
 | Expansion content (leaders, exploration, relics, PoK cards) still resolves by hand | Base game only |
 
@@ -308,8 +308,13 @@ These are for steering, not proof; a batch of 20 games is noisy.
 4. **Lessons.** The lessons file and table, `search_lessons`, drafting
    lessons from reviews, and the changelog.
 5. **Faction abilities** (an engine track). Done for the base game, along
-   with action cards, promissory notes and agendas. Still to do: let the
-   agent decide the reactions and votes that now go to the scripted bot.
+   with action cards, promissory notes and agendas. The agent decides its
+   own reactions, votes, speaker tie-breaks and free research
+   (`app/game/agent/choices.ts`): at each window where it can use
+   something, its menu lists each play the engine accepts, with targets,
+   and Pass; on a vote it can abstain, or vote for each outcome with the
+   fewest planets that would lead or with all of them. Windows with
+   nothing usable stay with the bot.
 6. **Stronger bot.** Fighting back for lost planets, a deliberate plan for
    Mecatol and Imperial, and spending idle tactic tokens. A stronger
    opponent makes the agent's wins mean more and gives it better menu

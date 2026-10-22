@@ -48,8 +48,10 @@ Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock
 
 # What this engine does not do
 
-- Faction abilities, technologies, action cards, promissory notes and agendas all take effect. When your menu offers a component action (an action card or an ability marked ACTION), it was chosen by the scripted planner; reactions during combat and the agenda phase are played for you by the same planner.
-- Agenda votes are cast for you by the scripted planner, which abstains.
+- Faction abilities, technologies, action cards, promissory notes and agendas all take effect. When your menu offers a component action (an action card or an ability marked ACTION), it was chosen by the scripted planner.
+- You decide your own reactions. When something happens that a card, ability or promissory note of yours can answer (a combat round, a card another player played, an agenda revealed), your menu lists each play the engine can carry out, with its target, and Pass. A card whose choices the planner cannot guess (a payment, units to move or build) is only offered as the planner would play it. Cards used now are gone for later, so keep them for a moment that matters.
+- You cast your own agenda votes. The menu offers abstaining, and for each outcome the fewest planets that would put it ahead of the votes so far, and all your ready planets. The other players' planner always abstains, so a single vote often decides an agenda, and with no votes the speaker chooses. Planets exhausted to vote stay exhausted through the whole next round (planets ready in the status phase, before the agenda phase), so they cannot pay for builds, technology, command tokens or spend objectives then. A rider gives up your vote on that agenda.
+- As speaker you break tied votes, and choose the outcome when nobody votes.
 - You only see public information and your own cards.
 
 # Table convention

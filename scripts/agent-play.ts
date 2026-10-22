@@ -6,7 +6,12 @@
  *                             [--model deepseek-flash|haiku] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
  *                             [--no-knowledge] [--stop-at action] [--rounds 1]
- *                             [--setup milty|random] [--no-planning]
+ *                             [--setup milty|random] [--no-planning] [--no-review]
+ *
+ * After the agent chooses, the checks (app/game/agent/checks.ts) look at
+ * its choice; if any fire, it is asked once more with the warnings and may
+ * keep its move or change it. --no-review skips that. The summary counts
+ * how often each check fired and how often the agent changed its move.
  *
  * The agent plans before each of its own turns (the strategy pick and each
  * action-phase turn) in a separate call, then chooses its move with that
@@ -144,6 +149,7 @@ const log = await playAgentGame({
   // Claude models seldom search for themselves, so they get briefings.
   briefing: knowledge !== undefined && (policyName === "claude" ? !flag("no-briefing") : flag("briefing")),
   planning: !flag("no-planning"),
+  review: !flag("no-review"),
   onWait: (ms, why) => console.log(`   waiting ${Math.round(ms / 1000)}s to ask again (${why.slice(0, 120)})`),
   until: (s) =>
     (!!stopAt && s.phase === stopAt) || (option("rounds", "") !== "" && s.round > Number(option("rounds", ""))),
@@ -158,6 +164,10 @@ const log = await playAgentGame({
     for (const step of record.steps) {
       const line = describeStep(step);
       if (line) console.log(line);
+    }
+    if (record.review) {
+      for (const f of record.review.fired) console.log(`   check ${f.check}: ${f.warning}`);
+      console.log(`   ${record.review.kept ? "kept" : `changed from ${record.review.first}`} after the warning`);
     }
     if (record.rationale) console.log(`   ${record.rationale}`);
     for (const citation of record.citations) console.log(`   cites ${citation}`);
@@ -198,4 +208,13 @@ console.log(
     `${total.requests} requests (${total.retries} retried). Tokens: ${total.input} in (${total.cached} cached), ${total.output} out; ` +
     `about $${cost.toFixed(3)} ${total.reported ? "as Claude reports it (list prices; a subscription is not billed this)" : "at peak prices"}.`,
 );
+const reviewed = decisions.filter((d) => d.review);
+if (reviewed.length > 0) {
+  const fired = new Map<string, number>();
+  for (const d of reviewed) for (const f of d.review!.fired) fired.set(f.check, (fired.get(f.check) ?? 0) + 1);
+  console.log(
+    `Checks fired on ${reviewed.length} decisions (${[...fired].map(([id, n]) => `${id} ${n}`).join(", ")}); ` +
+      `the agent changed its move ${reviewed.filter((d) => !d.review!.kept).length} times.`,
+  );
+}
 console.log(`Replay log: ${file}`);

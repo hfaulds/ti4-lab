@@ -29,7 +29,7 @@ import {
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { HistoryStep, MoveNote } from "~/game/history";
 import { GameView } from "~/game/view";
-import { useGame } from "../gameStore";
+import { storeHistoryOpen, useGame } from "../gameStore";
 import { PlayerName } from "./shared";
 
 const PHASE_NAMES = {
@@ -90,7 +90,16 @@ function phaseStart(steps: HistoryStep[], index: number) {
 export function HistoryBar({ view }: { view: GameView }) {
   const steps = useGame((state) => state.steps);
   const viewing = useGame((state) => state.viewing);
+  const urlName = useGame((state) => state.urlName);
   const { openHistory, closeHistory, viewVersion } = useGame.getState();
+  const open = () => {
+    storeHistoryOpen(urlName, true);
+    void openHistory();
+  };
+  const close = () => {
+    storeHistoryOpen(urlName, false);
+    closeHistory();
+  };
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState<Speed>("4×");
 
@@ -185,7 +194,7 @@ export function HistoryBar({ view }: { view: GameView }) {
           size="compact-sm"
           variant="default"
           leftSection={<IconHistory size={16} />}
-          onClick={() => void openHistory()}
+          onClick={open}
         >
           History
         </Button>
@@ -201,7 +210,7 @@ export function HistoryBar({ view }: { view: GameView }) {
             This game was saved before moves were recorded, so its history
             cannot be shown.
           </Text>
-          <CloseButton onClick={closeHistory} />
+          <CloseButton onClick={close} />
         </Group>
       </Paper>
     );
@@ -291,7 +300,7 @@ export function HistoryBar({ view }: { view: GameView }) {
             <CloseButton
               onClick={() => {
                 setPlaying(false);
-                closeHistory();
+                close();
               }}
             />
           </Group>

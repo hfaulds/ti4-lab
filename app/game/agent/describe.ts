@@ -12,11 +12,15 @@ import { factions } from "~/data/factionData";
 import {
   abilitiesById,
   actionCardsById,
+  breakthroughsById,
+  explorationsById,
   factionSetupFor,
   isGroundForce,
+  leadersById,
   objectivesById,
   promissoryNotesById,
   EXPANSIONS,
+  relicsById,
   strategyCardsById,
   technologiesById,
   UNIT_NAMES,
@@ -52,7 +56,7 @@ import { countOf, openPrompts, totalUnits, unitOf, unitTypes } from "../engine/h
 import { objectiveProgress, objectiveStatus } from "../engine/objectives";
 import { reactionName } from "../engine/reactions";
 import { moveBonus } from "../engine/tactical";
-import { viewFor } from "../view";
+import { GameView, viewFor } from "../view";
 import { neighborlyMove, shipsReaching, sliceOf } from "./reach";
 import { liftAfter } from "./lift";
 import { victoryPoints } from "../engine/control";
@@ -278,6 +282,55 @@ function liftNote(state: GameState, seat: PlayerId, key: SystemKey, units: { typ
   return `; afterwards ${ground} ground forces here and room for ${room} aboard your ships here`;
 }
 
+/** Everything the table can see about another player. */
+function otherPlayer(state: GameState, view: GameView, id: PlayerId): string[] {
+  const p = view.players[id];
+  const planets = Object.values(view.planets).filter((x) => x.controller === id);
+  const ready = planets.filter((x) => !x.exhausted);
+  const sum = (list: typeof planets, value: typeof planetResources) =>
+    list.reduce((s, x) => s + value(state, x.name), 0);
+  const list = (items: string[]) => items.join(", ") || "none";
+
+  const lines = [
+    `- ${playerLabel(state, id)}: ${p.victoryPoints} VP${p.eliminated ? ", eliminated" : ""}${p.passed ? ", passed" : ""}. ` +
+      `${planets.length} planets (${sum(ready, planetResources)}/${sum(planets, planetResources)} resources and ` +
+      `${sum(ready, planetInfluence)}/${sum(planets, planetInfluence)} influence ready). ` +
+      `Command tokens tactic ${p.pools.tactic}, fleet ${p.pools.fleet}, strategy ${p.pools.strategy}. ` +
+      `Trade goods ${p.tradeGoods}, commodities ${p.commodities}/${p.commodityLimit}. ` +
+      `Hand: ${p.hand.actionCards} action cards, ${p.hand.secretObjectives} secrets, ${p.hand.promissoryNotes} promissory notes.`,
+    `  Strategy cards: ${list(p.strategyCards.map((c) => `${cardName(c.id)}${c.exhausted ? " (used)" : ""}`))}.`,
+    `  Technologies: ${list(p.technologies.map((t) => `${techName(t)}${p.exhaustedTechnologies.includes(t) ? " (exhausted)" : ""}`))}.`,
+  ];
+  if (p.scoredSecrets.length) {
+    lines.push(`  Secrets scored: ${list(p.scoredSecrets.map(objectiveName))}.`);
+  }
+  if (p.leaders.length) {
+    lines.push(
+      `  Leaders: ${list(p.leaders.map((l) => `${leadersById[l.id]?.name ?? l.id} (${l.type}, ${l.status})`))}.`,
+    );
+  }
+  if (p.breakthrough) {
+    const b = p.breakthrough;
+    lines.push(
+      `  Breakthrough: ${breakthroughsById[b.id]?.name ?? b.id} (${b.unlocked ? (b.exhausted ? "exhausted" : "unlocked") : "locked"}).`,
+    );
+  }
+  if (p.relics.length || p.relicFragments.length) {
+    lines.push(
+      `  Relics: ${list(p.relics.map((r) => `${relicsById[r]?.name ?? r}${p.exhaustedRelics.includes(r) ? " (exhausted)" : ""}`))}; ` +
+        `relic fragments: ${list(p.relicFragments.map((f) => explorationsById[f]?.name ?? f))}.`,
+    );
+  }
+  if (p.promissoryNotesInPlay.length) {
+    lines.push(
+      `  Promissory notes in play: ${list(
+        p.promissoryNotesInPlay.map((n) => `${promissoryNotesById[n.id]?.name ?? n.id} from P${n.owner}`),
+      )}.`,
+    );
+  }
+  return lines;
+}
+
 /**
  * Who leads and what each player could score this round, so the agent can
  * plan to deny the leader; and who holds Mecatol Rex and Imperial.
@@ -375,7 +428,13 @@ export function describeTurn(state: GameState, seat: PlayerId) {
       me.strategyCards.map((c) => `${cardName(c.id)}${c.exhausted ? " (used)" : ""}`).join(", ") || "none"
     }.${me.passed ? " You have passed." : ""}`,
   );
-  lines.push(`Technologies: ${me.technologies.map(techName).join(", ") || "none"}.`);
+  lines.push(
+    `Technologies: ${
+      me.technologies
+        .map((t) => `${techName(t)} (${technologiesById[t]?.color?.toLowerCase() ?? "unit upgrade"})`)
+        .join(", ") || "none"
+    }.`,
+  );
   lines.push(
     `Action cards in hand: ${me.actionCards.length} (the planner offers them on your menu when one is worth playing).`,
   );
@@ -417,14 +476,7 @@ export function describeTurn(state: GameState, seat: PlayerId) {
   lines.push("", "## Other players");
   for (const id of view.seating) {
     if (id === seat) continue;
-    const p = view.players[id];
-    const count = Object.values(view.planets).filter((x) => x.controller === id).length;
-    lines.push(
-      `- ${playerLabel(state, id)}: ${p.victoryPoints} VP, ${count} planets, ${p.technologies.length} technologies, ` +
-        `cards ${p.strategyCards.map((c) => `${cardName(c.id)}${c.exhausted ? " (used)" : ""}`).join(", ") || "none"}` +
-        `${p.passed ? ", passed" : ""}. Hand: ${p.hand.actionCards} action cards, ${p.hand.secretObjectives} secrets. ` +
-        `Trade goods ${p.tradeGoods}, commodities ${p.commodities}.`,
-    );
+    lines.push(...otherPlayer(state, view, id));
   }
 
   lines.push("", "## Standings", ...standings(state, seat));

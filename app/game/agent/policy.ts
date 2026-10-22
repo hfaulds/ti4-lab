@@ -100,6 +100,7 @@ Before you choose your next move, write your plan for the rest of this round and
 - which secret objective you are working towards, and how;
 - where you will expand or attack, in what order, and with which ships and ground forces;
 - what you will build, and which other players' strategy cards are worth a strategy token this round;
+- your technology path: the technologies you are working towards, in the order you will research them. The strongest targets are carrying capacity (unit upgrades such as Carrier II), mobility (Gravity Drive, Light/Wave Deflector, unit upgrades that add move) and your best faction technologies (such as Hacan's Quantum Datahub Node). The technology-skip planets in your slice and within reach decide which colours come cheap, so set the path in your first round and keep it, changing it only when you gain or lose a skip planet. For the next step, say which prerequisites it still needs, which skips cover them, and when you will research it (Technology's primary or secondary, or a free research);
 - threats you will guard against or accept;
 - the standings: who leads, what they could score this round, and how you will deny them (above all, never let the player holding Mecatol Rex take Imperial);
 - the planets of your slice you do not yet hold, and when you will take them.

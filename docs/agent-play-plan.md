@@ -486,6 +486,36 @@ These are for steering, not proof; a batch of 20 games is noisy.
    - Done when every reviewed mistake class has a check and a case, and a
      change to the prompt, lessons or menu is judged by its eval pass rate
      as well as by games.
+10. **Human match data.** Learn from AsyncTI4's public games as well as the
+    agent's own. See `docs/async-match-data.md`.
+    - **Fetch and tag** (`scripts/async-fetch.ts`): read games politely and
+      cache them. Ask the maintainers before any bulk read. Tag each game
+      with its content (expansions in the engine's terms), player count and
+      VP target. Drop homebrew and unfinished games. Nothing reaches lessons
+      or evals untagged (see "Content scope").
+    - **Statistics as lesson drafts:** for each kind of content, measure:
+      - winners' VP by round;
+      - how often the Mecatol holder takes Imperial, and what that does to
+        their win rate;
+      - slice holding by round 3;
+      - strategy card picks.
+
+      These test lessons L4–L6 and the guides' round-one rankings. They also
+      set human targets for "Numbers to watch". Findings become draft
+      lessons with `learnedWith`, which a human activates.
+    - **Calibrating the checks:** run the milestone 9 checks on winners'
+      moves. A check that often fires on strong play is too strict, or it
+      misses a reason humans have.
+    - **Eval cases from human decisions,** such as the round-one strategy
+      pick, the round-one expansion and the Imperial pick. Each is graded
+      softly, as agreement with the winner. They need a converter from
+      AsyncTI4's game state into `GameState`, starting with the strategy
+      phase.
+    - Done when:
+      - games are fetched, tagged and cached;
+      - at least one lesson has been confirmed or retired on human data;
+      - each check's firing rate on winners' moves is known;
+      - the eval set has human-decision cases for the content we play.
 
 ## Measuring it, later
 

@@ -13,7 +13,7 @@ import {
   register,
   startEventLoopLagMonitor,
 } from "~/observability/metrics.server.js";
-import { setSocketIO } from "~/websocket/broadcast.server.js";
+import { gameSeatRoom, setSocketIO } from "~/websocket/broadcast.server.js";
 
 initEnv();
 startEventLoopLagMonitor();
@@ -85,8 +85,16 @@ io.on("connection", (socket) => {
     );
   });
 
-  socket.on("joinGame", (gameId) => {
-    socket.join("game:" + gameId);
+  // Joins the room for the seat being played, leaving any other seat's.
+  socket.on("joinGame", (gameId, player) => {
+    const seat = Number.isInteger(player) ? (player as number) : undefined;
+    const room = gameSeatRoom(gameId, seat);
+    for (const joined of socket.rooms) {
+      if (joined !== room && joined.startsWith(`game:${gameId}:`)) {
+        socket.leave(joined);
+      }
+    }
+    socket.join(room);
   });
 
   socket.on("joinSoundboardSession", (sessionId) => {

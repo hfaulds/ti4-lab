@@ -36,6 +36,8 @@ import { CHOICE_PROMPTS, describeChoice, describeMoment, withPromptChoices } fro
 import { guideSearch } from "./guides";
 import { TableTalk, TalkLog } from "./talk";
 import type { KnowledgeBase } from "~/knowledge/search";
+import { CHECKS_VERSION } from "./checks";
+import { reviewChoice, ReviewRecord } from "./review";
 
 /** Actions an agent may never take: they bypass the rules. */
 export const BLOCKED: ReadonlySet<GameActionType> = new Set<GameActionType>([
@@ -348,6 +350,8 @@ export type DecisionRecord = {
   citations: string[];
   /** Where the agent stalled, when it chose the Stall option. */
   stall?: { menu: MenuEntry[]; chosen: string; rationale: string };
+  /** What the checks found in the agent's first choice, and what it did then. */
+  review?: ReviewRecord;
   steps: Decision["steps"];
   usage: Usage;
   error?: string;
@@ -425,6 +429,7 @@ export function agentVersion(
   knowledge?: KnowledgeBase,
   briefing = false,
   planning = false,
+  review = false,
 ) {
   const hash = createHash("sha256");
   hash.update(
@@ -440,6 +445,7 @@ export function agentVersion(
       knowledge: knowledge?.version ?? null,
       briefing,
       planning,
+      ...(review ? { checks: CHECKS_VERSION } : {}),
       routing: ROUTING_VERSION,
       bot: SCRIPTED_BOT_VERSION,
       menu: [MAX_ACTIVATIONS, MAX_CANDIDATES],
@@ -466,6 +472,12 @@ export type PlayOptions = {
    * that plan in front of it. Needs a policy that can plan.
    */
   planning?: boolean;
+  /**
+   * After the agent chooses, run the checks on its choice and, if any
+   * fire, ask it once more with the warnings (see review.ts). On unless
+   * false.
+   */
+  review?: boolean;
   /** Told when a policy call failed for reasons outside the model and is retried. */
   onWait?: (ms: number, why: string) => void;
   /** The first pause before asking again after an outage, doubling after. */
@@ -502,6 +514,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       options.knowledge,
       !!options.briefing,
       !!options.planning && !!policy.plan,
+      options.review !== false,
     ),
     policy: policy.name,
     botVersion: SCRIPTED_BOT_VERSION,
@@ -531,6 +544,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
       let decision: Decision | undefined;
       let planning: Plan | undefined;
       let error: string | undefined;
+      let review: ReviewRecord | undefined;
       const guides = options.knowledge && guideSearch(options.knowledge, state);
       if (menu.length > 1) {
         if (!games.has(seat)) games.set(seat, describeGame(state, seat));
@@ -587,6 +601,21 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         );
         decision = decided.answer;
         error = decided.error ?? decision?.error ?? error;
+        // The checks look at the choice; a warned agent may keep it or change it.
+        if (decision && options.review !== false) {
+          const reviewed = await reviewChoice(state, seat, menu, request, decision, async (again) =>
+            (
+              await untilAnswered(
+                () => policy.decide(again),
+                (answer) => menu.some((c) => c.label === answer.label),
+                options.onWait,
+                options.firstWaitMs,
+              )
+            ).answer,
+          );
+          decision = reviewed.decision;
+          review = reviewed.review;
+        }
       }
       const picked = menu.find((c) => c.label === decision?.label);
       const chosen = picked ?? menu[0];
@@ -653,6 +682,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
         planNote: planNotes.get(seat) ?? "",
         citations: cited.map((id) => guides?.label(id) ?? id),
         stall,
+        review,
         steps,
         usage,
         error,

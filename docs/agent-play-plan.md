@@ -391,6 +391,39 @@ These are for steering, not proof; a batch of 20 games is noisy.
    - Done when the agent's picks come with a rationale a reviewer agrees
      with, and games on drafted setups show seat-to-seat balance close to
      the dealt ones.
+9. **Checks and evals.** Known mistakes, found in reviews, written once as
+   rule-based checks and used twice: to grade the agent offline and to
+   warn it in play.
+   - **Checks** (`app/game/agent/checks.ts`) are predicates over (state,
+     seat, chosen action) that return a plain-English warning: a build
+     that strands its ground forces (or a carrier with nothing to carry),
+     a move that leaves a public objective the seat could score this round
+     unpaid at the status phase, a planet left empty within reach of
+     another player's carriers, a strategy pick that leaves Imperial to the
+     Mecatol Rex holder, a stall in rounds 1-3, and ground forces carried
+     through a gravity rift when a way around exists.
+   - **Evals** (`evals/cases.json`, `app/game/agent/evals.ts`,
+     `scripts/eval.ts`): a case is a decision rebuilt exactly from a replay
+     log (tracked, trimmed and gzipped in `evals/fixtures/`) at a move,
+     with the checks its choice must not trip, and optionally options to
+     choose or avoid, rationale patterns that mark a misreading, and the
+     lesson it relates to. The runner asks a policy each case N times and
+     reports pass rates and cost; `scan` lists a log's choices that trip a
+     check, to find new cases, and `fixture` cuts a log down for one.
+   - **Review in play:** after the agent chooses and before the move is
+     played, the checks run on its choice. If any fire, it is asked once
+     more with the warnings ("Keep it, or choose again?") and may keep its
+     move, saying why, or change it. Warnings, never vetoes. The decision
+     record says which checks fired, whether the move changed and why;
+     `agent-play` sums them up. On by default (`--no-review` to skip); the
+     first-candidate policy keeps its choice, so bot play is unchanged.
+   - Grows with the loop: each mistake a review finds becomes a check (or
+     an option to avoid) and a case, so a fix is measured before and after,
+     and the case keeps it fixed. Pass rates over a handful of cases are
+     for steering, like the other numbers here, not proof.
+   - Done when every reviewed mistake class has a check and a case, and a
+     change to the prompt, lessons or menu is judged by its eval pass rate
+     as well as by games.
 
 ## Measuring it, later
 

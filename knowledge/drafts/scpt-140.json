@@ -1,0 +1,2120 @@
+{
+  "episode": 140,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Due date, paintball and head desking",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s66",
+          "title": "No good L1Z1X bit",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview",
+      "summary": "L1Z1X is a top faction with nothing outright bad about it, and its strength is versatility: almost every plan has a way to work. Matt rates it above the Barony of Letnev; Hunter now leans towards the Barony, which is excessively good at one thing while L1Z1X does more things less reliably. The base Super-Dreadnought is what makes the faction, and Super-Dreadnought II is worth getting mainly to protect those dreadnoughts with direct-hit immunity.",
+      "chunks": [
+        {
+          "start": "s88",
+          "title": "Versatility, and L1Z1X versus Barony",
+          "kind": "strategy",
+          "summary": "L1Z1X is extremely versatile and has no outright weaknesses, so the guide compares options rather than prescribing one plan. The hosts disagree on whether L1Z1X or the Barony of Letnev is the stronger dreadnought faction.",
+          "advice": [
+            {
+              "point": "L1Z1X is a super good faction with nothing straight-up bad about it; nearly every plan you want has a way to work.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Matt is firmly in the camp that L1Z1X is better than the Barony of Letnev; Hunter now feels the Barony is a little better because it is excessively good at its one thing, while L1Z1X has a wider range but does not always execute it reliably.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet",
+                "Barony of Letnev"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet",
+            "Barony of Letnev"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s123",
+          "title": "Super-Dreadnought I and II",
+          "kind": "strategy",
+          "summary": "The base Super-Dreadnought is amazing because its capacity makes each one half a carrier. Super-Dreadnought II is a modest step up compared with other faction upgrades, but you should still get it because a dreadnought-centred army needs the direct-hit immunity.",
+          "advice": [
+            {
+              "point": "The un-upgraded Super-Dreadnought is the faction's best asset; its two capacity alone makes L1Z1X an amazing faction.",
+              "stance": "rating",
+              "subjects": [
+                "Super-Dreadnought I"
+              ]
+            },
+            {
+              "point": "Super-Dreadnought II is good but only a step up from the base unit, not a new superpower like Exotrireme II.",
+              "stance": "rating",
+              "subjects": [
+                "Super-Dreadnought II",
+                "Exotrireme II"
+              ]
+            },
+            {
+              "point": "Get Super-Dreadnought II anyway, because your dreadnoughts are so central that they need the direct-hit immunity to stay at least as good as a normal upgraded dreadnought.",
+              "stance": "recommended",
+              "subjects": [
+                "Super-Dreadnought II"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology",
+            "combat"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Starting units, home system and Inheritance Systems",
+      "summary": "The starting fleet expands to two systems in round one without a second carrier, because the dreadnought carries two infantry. The five-resource, zero-influence home system is a lasting annoyance: Technology secondaries and Inheritance Systems both tend to waste a resource. Inheritance Systems is very good because it opens late and unusual techs, but it is not a must-have in every game.",
+      "chunks": [
+        {
+          "start": "s142",
+          "title": "Starting fleet",
+          "kind": "strategy",
+          "summary": "The capacity-two dreadnought replaces a second carrier, so the starting fleet is as good as a two-carrier, four-infantry opening and takes two planet systems in round one.",
+          "advice": [
+            {
+              "point": "Use the dreadnought as a second transport in round one: the starting fleet takes two planet systems, matching or beating a standard 2C4I opening, though without spare fighter capacity.",
+              "stance": "recommended",
+              "subjects": [
+                "Super-Dreadnought I"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "expansion"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "2C4I opening"
+          ]
+        },
+        {
+          "start": "s148",
+          "title": "Five-resource home system and wasted resources",
+          "kind": "strategy",
+          "summary": "The 5/0 home system is a thorn all game. Spending only the home system on a Technology secondary wastes a resource, and because the Inheritance Systems cost is paid separately from the tech cost, it wastes one again.",
+          "advice": [
+            {
+              "point": "The 5/0 home system has benefits and drawbacks; expect it to waste a resource whenever you spend it alone on a four-cost Technology secondary.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet",
+                "Technology"
+              ]
+            },
+            {
+              "point": "Remember that the Inheritance Systems payment is separate from the tech cost (four then two, not six), so the home system alone cannot cover both without waste; plan your planet exhausts accordingly.",
+              "stance": "situational",
+              "subjects": [
+                "Inheritance Systems"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1",
+            "any"
+          ],
+          "topics": [
+            "economy",
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "wasted resources"
+          ]
+        },
+        {
+          "start": "s168",
+          "title": "Inheritance Systems opens unusual techs",
+          "kind": "strategy",
+          "summary": "Inheritance Systems is very good but not a must-get every game. Its value is access to late or off-colour techs, making L1Z1X the faction that can justify War Suns, X-89 Bacterial Weapon or Integrated Economy.",
+          "advice": [
+            {
+              "point": "Inheritance Systems is really good but not a must-get; whether to take it or ignore it depends on circumstances.",
+              "stance": "rating",
+              "subjects": [
+                "Inheritance Systems"
+              ]
+            },
+            {
+              "point": "Use Inheritance Systems to reach late-game or off-path techs you would never otherwise get, such as War Sun, X-89 Bacterial Weapon or Integrated Economy.",
+              "stance": "situational",
+              "subjects": [
+                "Inheritance Systems",
+                "War Sun",
+                "X-89 Bacterial Weapon",
+                "Integrated Economy"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities",
+      "summary": "Both abilities push L1Z1X to be aggressive: take first, deal with the consequences later. Assimilate is best against enemy space docks, which you can build from immediately after invading, and Harrow means two infantry are usually enough for an invasion, though PDS still get in the way.",
+      "chunks": [
+        {
+          "start": "s178",
+          "title": "Assimilate",
+          "kind": "strategy",
+          "summary": "Assimilate takes effect before production, so you can invade an enemy space dock, take losses in combat, and immediately build from the captured dock so the defender cannot retaliate. It needs a PDS or dock in the right position but is amazingly good when one is.",
+          "advice": [
+            {
+              "point": "Attack enemy space docks hyper-aggressively: once you take the planet you can produce from the captured dock in the same action, reinforcing after heavy combat losses so the owner cannot strike back.",
+              "stance": "recommended",
+              "subjects": [
+                "Assimilate"
+              ]
+            },
+            {
+              "point": "Assimilate is crazy good given the right opportunity, which requires an enemy PDS or space dock in the right position.",
+              "stance": "rating",
+              "subjects": [
+                "Assimilate"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "controlled aggression"
+          ]
+        },
+        {
+          "start": "s186",
+          "title": "Harrow",
+          "kind": "strategy",
+          "summary": "Harrow is as good as or better than Assimilate. With Super-Dreadnought II bombarding on a four, two infantry that survive the first round of ground combat usually win, so you need few infantry. PDS block it, but capturing them is a reward too, so do not avoid PDS systems entirely.",
+          "advice": [
+            {
+              "point": "Harrow is as good as Assimilate, if not better.",
+              "stance": "rating",
+              "subjects": [
+                "Harrow",
+                "Assimilate"
+              ]
+            },
+            {
+              "point": "Invade with only about two infantry and let repeated bombardment from upgraded super-dreadnoughts finish the ground combat.",
+              "stance": "recommended",
+              "subjects": [
+                "Harrow",
+                "Super-Dreadnought II"
+              ]
+            },
+            {
+              "point": "PDS make Harrow useless, but winning still captures the PDS, so do not rule out targeting PDS systems.",
+              "stance": "situational",
+              "subjects": [
+                "Harrow",
+                "Assimilate",
+                "PDS"
+              ]
+            },
+            {
+              "point": "Play L1Z1X as an aggressive faction that takes control first and deals with consequences later, because it is so good at taking, reinforcing and holding.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities",
+            "faction technologies"
+          ],
+          "concepts": [
+            "controlled aggression"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Flagship",
+      "summary": "The flagship is very good, effectively a Graviton Laser System for space combat, but like any flagship it puts a point on the board for opponents. Matt is only excited to build it with Gravity Drive; without it, it is mainly defensive, stopping invasions by killing transports.",
+      "chunks": [
+        {
+          "start": "s201",
+          "title": "The [0.0.1] flagship",
+          "kind": "strategy",
+          "summary": "The flagship is strong at killing an opponent's best ship and transports, but fighters can still win the combat. Build it eagerly only with Gravity Drive; otherwise it is a defensive piece that stops invasions, even against Naalu. It won the show's flagship tournament by beating Sol.",
+          "advice": [
+            {
+              "point": "The flagship is really good, but weigh whether risking it in combat is worth offering an opponent a point.",
+              "stance": "rating",
+              "subjects": [
+                "[0.0.1]"
+              ]
+            },
+            {
+              "point": "It is weaker than Graviton Laser System in one respect: with enemy fighters present you still have to finish the combat.",
+              "stance": "rating",
+              "subjects": [
+                "[0.0.1]",
+                "Graviton Laser System"
+              ]
+            },
+            {
+              "point": "Use it to target an opponent's flagship or largest ship first, which makes destroying their best ship easy.",
+              "stance": "recommended",
+              "subjects": [
+                "[0.0.1]"
+              ]
+            },
+            {
+              "point": "Only get excited about building the flagship if you have Gravity Drive; without it, treat it as a defensive ship that kills invaders' transports so they cannot take your planets even if fighters win the space combat.",
+              "stance": "situational",
+              "subjects": [
+                "[0.0.1]",
+                "Gravity Drive",
+                "Naalu Collective"
+              ]
+            },
+            {
+              "point": "The flagship won the show's flagship tournament, beating Sol in the final.",
+              "stance": "rating",
+              "subjects": [
+                "[0.0.1]",
+                "Federation of Sol"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet",
+            "Naalu Collective",
+            "Federation of Sol"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "home system defense"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Promissory note and commodities",
+      "summary": "Cybernetic Enhancements is a fine but awkward note that does not fit the faction, and with only two commodities and an aggressive reputation L1Z1X trades poorly. The note sells for about two trade goods, which is cheap; sell it mainly to convert Leadership tokens or a high-influence slice into trade goods, not all game.",
+      "chunks": [
+        {
+          "start": "s221",
+          "title": "Cybernetic Enhancements: an odd fit",
+          "kind": "strategy",
+          "summary": "The hosts find the promissory note fine but thematically and mechanically out of place for L1Z1X, and would rather redistribute faction notes.",
+          "advice": [
+            {
+              "point": "Cybernetic Enhancements is fine and has a special niche, but it does not fit anything L1Z1X does; Matt has never used it.",
+              "stance": "rating",
+              "subjects": [
+                "Cybernetic Enhancements"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet",
+            "Federation of Sol",
+            "Arborec"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s237",
+          "title": "Two commodities and selling the note",
+          "kind": "strategy",
+          "summary": "Two commodities are bad, worse for an aggressive faction others avoid trading with. The note is hard to price because you lose a strategy token; two trade goods is the quoted price and on the cheap side. Sell it only when converting surplus Leadership tokens or a high-influence slice into trade goods, since the 5/0 home system leaves you short of influence.",
+          "advice": [
+            {
+              "point": "Only two commodities is pretty bad, made worse because neighbours tend not to want to trade with an aggressive L1Z1X.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Price Cybernetic Enhancements carefully because it costs you a strategy token; two trade goods is the quoted price and on the cheap end.",
+              "stance": "situational",
+              "subjects": [
+                "Cybernetic Enhancements"
+              ]
+            },
+            {
+              "point": "Sell the note when you are picking Leadership a lot or have a high-influence slice and want trade goods, but not all game, because your influence-poor home system makes command tokens scarce.",
+              "stance": "situational",
+              "subjects": [
+                "Cybernetic Enhancements",
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "command token economy"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "L1Z1X has no single round-one priority. Technology is the top pick, but the Technology secondary is poor because the home system wastes a resource, and without the card L1Z1X can skip tech in round one and build or expand instead, catching up with a double tech in round two. Politics, Leadership and Diplomacy (in a cooperative group) are reasonable middle picks; Construction is fine for a forward dock or PDS secrets; Warfare is used for position rather than tech; Trade is weak and Imperial is never taken.",
+      "chunks": [
+        {
+          "start": "s259",
+          "title": "Early priorities: whether to tech",
+          "kind": "strategy",
+          "summary": "The core round-one dilemma is whether to tech, wasting a home resource, or build at home. With Inheritance Systems arriving early, L1Z1X never needs a dead tech, so skipping round-one tech is not a big deal, though Sarween Tools is still a likely early pick.",
+          "advice": [
+            {
+              "point": "In plenty of games, skip tech in round one rather than waste a resource from the 5/0 home system; building at home is a reasonable alternative.",
+              "stance": "situational",
+              "subjects": [
+                "Technology",
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "With the right skips and an early Inheritance Systems you never need a dead tech, like Jol-Nar, so a late start on tech costs little.",
+              "stance": "rating",
+              "subjects": [
+                "Inheritance Systems",
+                "Universities of Jol-Nar"
+              ]
+            },
+            {
+              "point": "You will probably still get Sarween Tools early.",
+              "stance": "recommended",
+              "subjects": [
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "technology",
+            "strategy cards"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "wasted resources",
+            "tech skip"
+          ]
+        },
+        {
+          "start": "s285",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is a fourth or fifth pick, below most factions' rating of it: useful for the command token problem but not solving anything in round one. With it, you cannot afford both the Warfare and Technology secondaries, so build at home rather than tech.",
+          "advice": [
+            {
+              "point": "Leadership is about a fourth or fifth pick for L1Z1X; nice for getting ahead on tokens but not solving a round-one problem.",
+              "stance": "rating",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Do not expect extra trade goods in round one: with two commodities, no trade ships and a weak note, the five home resources are about all you will have.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "With Leadership, build at home (for example a dreadnought and two infantry) rather than take the Technology secondary, since a Sarween Tools bought with only home resources does nothing that round and wastes a resource.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership",
+                "Technology",
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "wasted resources",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s327",
+          "title": "Round one: Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is still a late pick but unusually good: readying the five-resource home planet plus a three-resource adjacent planet gives eight resources. Coordinate with the Technology player so they play it early, spend your home on tech, then ready it with Diplomacy. Skip it if the Technology player plays hardball or the group is mean.",
+          "advice": [
+            {
+              "point": "Diplomacy is unusually good for L1Z1X (still around sixth pick), especially with a three-resource planet adjacent to home, yielding about eight resources.",
+              "stance": "rating",
+              "subjects": [
+                "Diplomacy"
+              ]
+            },
+            {
+              "point": "Before picking Diplomacy, get the Technology player on board to play it early and not stall: take one system, spend your home on the tech secondary, then play Diplomacy to ready and build at home.",
+              "stance": "recommended",
+              "subjects": [
+                "Diplomacy",
+                "Technology"
+              ]
+            },
+            {
+              "point": "If the Technology player will play hardball, or the group is tough and mean, do not take Diplomacy; Construction gives more value. In deal-making groups it is not bad at all.",
+              "stance": "situational",
+              "subjects": [
+                "Diplomacy",
+                "Construction"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing",
+            "table meta"
+          ]
+        },
+        {
+          "start": "s349",
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Politics is middling: with Neural Motivator you will quickly have surplus action cards. Keep the speaker token rather than sell it, since L1Z1X will not get much for it, and plan to double tech next round.",
+          "advice": [
+            {
+              "point": "Politics is only okay; you do not need extra action cards early with Neural Motivator.",
+              "stance": "rating",
+              "subjects": [
+                "Politics",
+                "Neural Motivator"
+              ]
+            },
+            {
+              "point": "Keep the speaker token for yourself rather than sell it, and take Technology next round to double tech and make up the round-one tech.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics",
+                "Technology"
+              ]
+            },
+            {
+              "point": "As a guiding principle all game, do not complicate trade negotiations; L1Z1X lacks the tools to profit from them.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "speaker token sale"
+          ]
+        },
+        {
+          "start": "s374",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Construction is fine and ideally taken only once. Use it for a forward dock, which L1Z1X needs since its fleets move two without Gravity Drive, or for double PDS when holding a PDS or space dock secret objective, so you only need to capture one more.",
+          "advice": [
+            {
+              "point": "If you take Construction in round one, hope it is the only time you take it all game.",
+              "stance": "rating",
+              "subjects": [
+                "Construction"
+              ]
+            },
+            {
+              "point": "Holding the four-PDS or three-space-dock secret objective makes round-one Construction better: build up so you only need to capture one PDS or dock with Assimilate.",
+              "stance": "situational",
+              "subjects": [
+                "Construction",
+                "Assimilate"
+              ]
+            },
+            {
+              "point": "A forward dock is worth it positionally, because without Gravity Drive your super-dreadnought fleets move only two and cannot rely on producing at home.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "Gravity Drive",
+                "Super-Dreadnought I"
+              ]
+            },
+            {
+              "point": "PDS can work: they defend your slice, and captured PDS with PDS II become a threat inside a neighbour's slice.",
+              "stance": "situational",
+              "subjects": [
+                "PDS",
+                "PDS II",
+                "Assimilate"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "objectives"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "forward dock"
+          ]
+        },
+        {
+          "start": "s396",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is poor for L1Z1X: about six trade goods at best. If you play it, lock everyone out rather than replenish the table, since you will be extorting people later and earn no goodwill. Almost every other card is better, though take Trade if spending five trade goods is the first objective.",
+          "advice": [
+            {
+              "point": "Trade is weak for L1Z1X, netting only three trade goods plus perhaps converting two commodities with someone.",
+              "stance": "rating",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "If you play Trade, do not replenish other players or play the debt meta; take your money and lock everyone else out.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Expect non-binding deals with you not to be honoured, because L1Z1X will be extorting neighbours later.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Take Trade if spending trade goods is the first public objective, as it may be your only reliable chance to score it.",
+              "stance": "situational",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Politics, Leadership and Diplomacy are all better than Trade; prefer Diplomacy over Trade only when both are left late, not as a third pick.",
+              "stance": "rating",
+              "subjects": [
+                "Trade",
+                "Diplomacy",
+                "Politics",
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "trade and diplomacy",
+            "objectives"
+          ],
+          "requires": [],
+          "concepts": [
+            "trade agreement lockdown",
+            "debt meta",
+            "non-binding deals"
+          ]
+        },
+        {
+          "start": "s424",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Matt, admitting it is contentious, would usually not tech with Warfare and instead expand through the slice, build at home, and push a carrier with fighters next to Mecatol Rex. Leaving one tile in your slice open early is fine because L1Z1X can retake it easily, and plastic in round one makes money later by threatening weak neighbours.",
+          "advice": [
+            {
+              "point": "With Warfare, prefer expanding and building at home over the Technology secondary: a big home fleet, a fleet to one side and a fleet next to Mecatol Rex beats a wasted resource on tech (Matt concedes this is contentious).",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Technology",
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "It is acceptable to leave one tile in your slice empty early in round one, because neighbours know you can easily take it back; do not leave it all round with your fleets locked down.",
+              "stance": "situational",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Round-one plastic is worth more than a tech: it lets you exploit neighbours' weak plastic in rounds two and three to make money for tech.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "expansion",
+            "mecatol"
+          ],
+          "requires": [],
+          "concepts": [
+            "plastic advantage",
+            "wasted resources"
+          ]
+        },
+        {
+          "start": "s455",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Technology and Imperial",
+          "kind": "strategy",
+          "summary": "The Technology card is L1Z1X's number one pick even though its secondary is useless to them: take the free tech (almost always Sarween Tools) and use the Warfare secondary for home defence. Without the card, tech takes a back seat in round one. Never take Imperial in round one.",
+          "advice": [
+            {
+              "point": "The Technology strategy card is your first pick in round one; take the free tech, probably nothing else, and follow Warfare.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Warfare"
+              ]
+            },
+            {
+              "point": "The free tech is almost always Sarween Tools, occasionally Antimass Deflectors.",
+              "stance": "recommended",
+              "subjects": [
+                "Sarween Tools",
+                "Antimass Deflectors"
+              ]
+            },
+            {
+              "point": "If you do not get the Technology card, deprioritise tech in round one.",
+              "stance": "situational",
+              "subjects": [
+                "Technology"
+              ]
+            },
+            {
+              "point": "Never take Imperial in round one.",
+              "stance": "avoid",
+              "subjects": [
+                "Imperial"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "technology"
+          ],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction problems",
+      "summary": "L1Z1X's real problems are influence and trade goods. In an influence-poor slice, command tokens are short all game, so take Leadership often or seize neighbours' influence planets, ideally with smart attacks on space docks. Trade goods matter once trade-good objectives appear; then take Leadership constantly and sell Cybernetic Enhancements for two or three trade goods, especially to players short of tokens for Imperial.",
+      "chunks": [
+        {
+          "start": "s465",
+          "title": "The influence and command token problem",
+          "kind": "strategy",
+          "summary": "An influence-poor slice leaves L1Z1X with too few command tokens all game. Fix it with frequent Leadership or by taking neighbours' influence planets, which is a further reason to invest in plastic in rounds one and two. Aggression works when it is smart, typically capturing and producing from a space dock; good neighbours will avoid or defend forward docks.",
+          "advice": [
+            {
+              "point": "If your slice has good influence you are fine; if it lacks influence, expect command tokens to be a problem all game (Matt could only take one action and build at home each round).",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Solve the influence problem by taking Leadership often or by taking other players' influence planets, which justifies investing in plastic in rounds one and two.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Do not overstate the aggression: L1Z1X succeeds with it when it captures a space dock and produces from it; make smart attacks from good position rather than fighting everyone.",
+              "stance": "recommended",
+              "subjects": [
+                "Assimilate"
+              ]
+            },
+            {
+              "point": "Smart neighbours will not build forward docks near you, or will defend them, expecting you to come.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "economy",
+            "faction abilities",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "command token economy",
+            "controlled aggression",
+            "plastic advantage",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s494",
+          "title": "Trade goods: Leadership and selling the note",
+          "kind": "strategy",
+          "summary": "Trade goods only become a worry when trade-good objectives appear. Then, following Space Lawyer's advice, take Leadership at every chance and sell Cybernetic Enhancements repeatedly for two or three trade goods, targeting players who are short of strategy tokens, especially for an Imperial secondary.",
+          "advice": [
+            {
+              "point": "Do not worry about trade goods until trade-good objectives come out.",
+              "stance": "situational",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "When trade-good objectives are out, take Leadership at every opportunity and sell Cybernetic Enhancements as often as possible for about two trade goods each, converting command tokens into trade goods (Space Lawyer's tip; Matt has not used it himself).",
+              "stance": "situational",
+              "subjects": [
+                "Leadership",
+                "Cybernetic Enhancements"
+              ]
+            },
+            {
+              "point": "Charge more for the note to players who are short of strategy tokens, for example after Leadership has passed or when they want to follow Technology or Imperial; Imperial is the easiest opportunity.",
+              "stance": "recommended",
+              "subjects": [
+                "Cybernetic Enhancements",
+                "Imperial",
+                "Technology"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "economy",
+            "promissory notes",
+            "objectives",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "command token economy",
+            "trade leverage"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Technology",
+      "summary": "There is no single tech path: read the board and objectives. The one constant is Super-Dreadnought II, reached via blue or via yellow and Inheritance Systems. Gravity Drive is not necessary unless you want the flagship. Unit upgrades within reach (PDS II, Cruiser II, Fighter II) are situational, with Hyper Metabolism tempting on a green skip. With a yellow skip, rush Sarween Tools into Inheritance Systems, then Super-Dreadnought II, Assault Cannon and Destroyer II, Matt's favourite build. Every tech skip is useful.",
+      "chunks": [
+        {
+          "start": "s515",
+          "title": "No fixed path, except Super-Dreadnought II",
+          "kind": "strategy",
+          "summary": "Let the table decide the tech path, like Jol-Nar. Always get Super-Dreadnought II, through blue tech or through yellow and Inheritance Systems, so you can skip carriers entirely and expand with dreadnoughts.",
+          "advice": [
+            {
+              "point": "Do not follow one fixed tech path; watch what is on the table and let it determine the most useful techs.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Always get Super-Dreadnought II, either via blue tech or via yellow tech and Inheritance Systems.",
+              "stance": "recommended",
+              "subjects": [
+                "Super-Dreadnought II",
+                "Inheritance Systems"
+              ]
+            },
+            {
+              "point": "Aim never to build a carrier: expand with dreadnoughts reinforced by other strong ships.",
+              "stance": "recommended",
+              "subjects": [
+                "Super-Dreadnought II",
+                "Carrier"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet",
+            "Universities of Jol-Nar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path"
+          ]
+        },
+        {
+          "start": "s531",
+          "title": "Gravity Drive and the blue route",
+          "kind": "strategy",
+          "summary": "Gravity Drive is nice but not necessary; it matters mostly if you plan to build the flagship, for example for an unveil-flagship objective. With a blue skip, go Gravity Drive then Super-Dreadnought II, but otherwise yellow is almost as fast and opens more later.",
+          "advice": [
+            {
+              "point": "Gravity Drive is wanted but not necessary for L1Z1X and does little for the early game.",
+              "stance": "rating",
+              "subjects": [
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "With a blue skip, skip to Gravity Drive and then Super-Dreadnought II after Sarween Tools.",
+              "stance": "situational",
+              "subjects": [
+                "Gravity Drive",
+                "Super-Dreadnought II",
+                "Antimass Deflectors"
+              ]
+            },
+            {
+              "point": "Get Gravity Drive if you plan to field the flagship, such as for a flagship objective.",
+              "stance": "situational",
+              "subjects": [
+                "Gravity Drive",
+                "[0.0.1]"
+              ]
+            },
+            {
+              "point": "Without a blue skip, reach Super-Dreadnought II through yellow and Inheritance Systems instead, which is nearly as fast and opens more options.",
+              "stance": "recommended",
+              "subjects": [
+                "Super-Dreadnought II",
+                "Inheritance Systems"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip",
+            "tech path"
+          ]
+        },
+        {
+          "start": "s546",
+          "title": "Unit upgrades within reach: PDS II",
+          "kind": "strategy",
+          "summary": "Starting red and green plus Sarween Tools put Cruiser II and PDS II in reach, and Fighter II on the blue route. PDS II is Matt's favourite of the three, especially with two PDS covering both equidistant systems or after capturing a PDS inside a neighbour's slice.",
+          "advice": [
+            {
+              "point": "Pick among Cruiser II, PDS II and (on the blue route) Fighter II by the game situation; all three are useful.",
+              "stance": "situational",
+              "subjects": [
+                "Cruiser II",
+                "PDS II",
+                "Fighter II"
+              ]
+            },
+            {
+              "point": "PDS II is Matt's favourite of the three: good when two round-one PDS cover juicy equidistant systems, and hilarious on a PDS captured in a neighbour's slice.",
+              "stance": "rating",
+              "subjects": [
+                "PDS II",
+                "Assimilate"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s556",
+          "title": "Cruiser II",
+          "kind": "strategy",
+          "summary": "The Cruiser II rush is popular but the hosts have seen it be only fine: a scrappy, control-focused early-game solution that players always transition out of. It makes sense as a detour on a long route to Inheritance Systems, better with a yellow skip, or as a tech you grab the moment an opening appears.",
+          "advice": [
+            {
+              "point": "The Cruiser II rush is fine rather than great; it is an early-game, control-objective solution that is always abandoned later.",
+              "stance": "rating",
+              "subjects": [
+                "Cruiser II"
+              ]
+            },
+            {
+              "point": "Take Cruiser II as one detour to stay relevant when the route to Inheritance Systems is long (Sarween Tools, Graviton Laser System, then Inheritance Systems).",
+              "stance": "situational",
+              "subjects": [
+                "Cruiser II",
+                "Inheritance Systems",
+                "Graviton Laser System"
+              ]
+            },
+            {
+              "point": "Research Cruiser II at the moment you need it, for example when you have built cruisers and a neighbouring system is left open.",
+              "stance": "situational",
+              "subjects": [
+                "Cruiser II"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "combat"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "early control scoring"
+          ]
+        },
+        {
+          "start": "s583",
+          "title": "Fighter II",
+          "kind": "strategy",
+          "summary": "Fighter II is very good for defence and supports dreadnought armies, but it is the most out of the way unless you went blue.",
+          "advice": [
+            {
+              "point": "Fighter II helps defence and reinforces Super-Dreadnought II armies, but only take it if you went blue.",
+              "stance": "situational",
+              "subjects": [
+                "Fighter II",
+                "Super-Dreadnought II"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "fighter screen"
+          ]
+        },
+        {
+          "start": "s589",
+          "title": "Hyper Metabolism on a green skip",
+          "kind": "strategy",
+          "summary": "A green skip makes round-two Hyper Metabolism possible, fixing the command token problem, but it delays Inheritance Systems. You can usually survive without it, though sometimes it is worth it.",
+          "advice": [
+            {
+              "point": "With a green skip, Hyper Metabolism in round two fixes your command tokens but slows the route to Inheritance Systems; usually you can sprint for Inheritance Systems instead and survive without it.",
+              "stance": "situational",
+              "subjects": [
+                "Hyper Metabolism",
+                "Inheritance Systems",
+                "Neural Motivator"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "early"
+          ],
+          "topics": [
+            "technology",
+            "economy"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s599",
+          "title": "Inheritance Systems rush and the favourite build",
+          "kind": "strategy",
+          "summary": "With a yellow skip, always go Sarween Tools into Inheritance Systems. Matt's favourite plan then takes Super-Dreadnought II and Assault Cannon, which unlocks Destroyer II: two super-dreadnoughts and two destroyers devastate any opponent and solve almost every tech problem.",
+          "advice": [
+            {
+              "point": "With a yellow skip, absolutely get Sarween Tools then Inheritance Systems; it is too fast and too good to pass up.",
+              "stance": "recommended",
+              "subjects": [
+                "Inheritance Systems",
+                "Sarween Tools"
+              ]
+            },
+            {
+              "point": "Matt's favourite build: Sarween Tools, Inheritance Systems, then Super-Dreadnought II and Assault Cannon (in either order), which gives a second red tech for Destroyer II; a fleet of two super-dreadnoughts and two destroyers is devastating.",
+              "stance": "recommended",
+              "subjects": [
+                "Inheritance Systems",
+                "Super-Dreadnought II",
+                "Assault Cannon",
+                "Destroyer II"
+              ]
+            },
+            {
+              "point": "This build gives two unit upgrades in two colours and a fleet strong in both offence and defence; Matt wants to do it every game if he can.",
+              "stance": "rating",
+              "subjects": [
+                "Inheritance Systems",
+                "Assault Cannon",
+                "Destroyer II"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "combat"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip",
+            "tech path"
+          ]
+        },
+        {
+          "start": "s615",
+          "scope": {"needs": ["codex1"], "voidedBy": [], "note": "the Harrow combination is with X-89 Bacterial Weapon Ω (Codex I), which follows BOMBARDMENT; the base card is an action"},
+          "title": "X-89 Bacterial Weapon and War Suns",
+          "kind": "strategy",
+          "summary": "X-89 Bacterial Weapon combines with Harrow, letting you choose which bombardment to use it on, and is the icing on the cake for finishing control objectives once you have everything else. War Suns are affordable for L1Z1X but Matt would rarely build them since they lack the dreadnoughts' direct-hit immunity.",
+          "advice": [
+            {
+              "point": "X-89 Bacterial Weapon works with Harrow's bombardments, so you can pick the round to use it; get it once you have everything else to finish control objectives.",
+              "stance": "situational",
+              "subjects": [
+                "X-89 Bacterial Weapon",
+                "Harrow"
+              ]
+            },
+            {
+              "point": "War Suns are affordable for L1Z1X but Matt would probably never get them, because they lack the direct-hit immunity your dreadnoughts already have.",
+              "stance": "rating",
+              "subjects": [
+                "War Sun",
+                "Super-Dreadnought II"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction abilities",
+            "faction technologies"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s630",
+          "title": "Every tech skip is useful",
+          "kind": "strategy",
+          "summary": "Every skip helps L1Z1X: yellow for a faster Inheritance Systems, blue for Gravity Drive and an early Super-Dreadnought II, green for Hyper Metabolism, and red-skip planets for their influence rather than as skips.",
+          "advice": [
+            {
+              "point": "Value yellow skips for faster Inheritance Systems, blue for Gravity Drive and Super-Dreadnought II, and green for Hyper Metabolism.",
+              "stance": "rating",
+              "subjects": [
+                "Inheritance Systems",
+                "Gravity Drive",
+                "Super-Dreadnought II",
+                "Hyper Metabolism"
+              ]
+            },
+            {
+              "point": "Want red-skip planets for their influence, not as skips; Matt does not use them as skips.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology",
+            "expansion"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip",
+            "slice value"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trade and extortion",
+      "summary": "L1Z1X should not rely on trade; its money comes from extortion. Threaten lightly defended space docks to extract trade goods or Support for the Throne, perhaps twice a game, without making the whole table hostile. Otherwise take simple one-for-one trades and do not play the debt meta.",
+      "chunks": [
+        {
+          "start": "s643",
+          "title": "Extorting space docks",
+          "kind": "strategy",
+          "summary": "Players who dislike aggression should not play L1Z1X. When a neighbour's space dock is under-defended, make the threat and see what it is worth before attacking: their trade goods or even their Support for the Throne. L1Z1X is the best faction at extorting Support for the Throne. Do it about twice a game so the table does not turn on you.",
+          "advice": [
+            {
+              "point": "If you do not like playing aggressively, do not play L1Z1X; its main source of money is extortion.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "When a neighbour leaves a space dock lightly defended and you are in range, threaten it and extract their trade goods or Support for the Throne before or instead of attacking.",
+              "stance": "recommended",
+              "subjects": [
+                "Assimilate",
+                "Support for the Throne"
+              ]
+            },
+            {
+              "point": "L1Z1X is probably the best faction at extorting Support for the Throne, because an attack on a space dock is so devastating.",
+              "stance": "rating",
+              "subjects": [
+                "Support for the Throne",
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Limit extortion to about twice a game so you do not look crazy and turn the whole table against you.",
+              "stance": "avoid",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "faction abilities",
+            "promissory notes"
+          ],
+          "requires": [
+            "faction abilities",
+            "promissory notes"
+          ],
+          "concepts": [
+            "extortion",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s657",
+          "title": "Keep trade simple",
+          "kind": "strategy",
+          "summary": "When trade-good objectives appear, take Leadership and sell the note. Otherwise take whatever simple trade you can, such as two commodities for one trade good, and do not get drawn into the debt meta.",
+          "advice": [
+            {
+              "point": "If a trade-good objective comes up, invest in Leadership and sell Cybernetic Enhancements for trade goods.",
+              "stance": "situational",
+              "subjects": [
+                "Leadership",
+                "Cybernetic Enhancements"
+              ]
+            },
+            {
+              "point": "Take simple trades such as two commodities for one trade good and move on; do not haggle or join the debt meta.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "economy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "debt meta"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mid game",
+      "summary": "L1Z1X should score control objectives early, using early Super-Dreadnought IIs and destroyers before others have fleets, then turn captured planets into economic points and slot tech objectives into rounds when it rebuilds. Avoid over-investing in tech, ignore carriers, make a play for Mecatol Rex at some point, keep adding ground forces at home, and get a second space dock for stage two control objectives.",
+      "chunks": [
+        {
+          "start": "s665",
+          "title": "Control objectives first",
+          "kind": "strategy",
+          "summary": "Unlike Sardakk N'orr, L1Z1X scores control objectives early: with early Super-Dreadnought IIs and destroyers, nobody has an answer in the mid game. Resource objectives are easy; take planets in others' slices to meet influence and trait objectives. Plan tech objectives for rounds when you already own the tech and are rebuilding plastic.",
+          "advice": [
+            {
+              "point": "Score control objectives early in the mid game with dreadnought and destroyer fleets, before others have fleets to answer them; this is the opposite of the Sardakk N'orr ordering.",
+              "stance": "recommended",
+              "subjects": [
+                "Super-Dreadnought II",
+                "Destroyer II",
+                "Sardakk N'orr"
+              ]
+            },
+            {
+              "point": "Get plastic advantage, then planet advantage, then turn captured planets (especially influence or trait planets in others' slices) into economic objectives.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Do not research a tech just to score a tech objective; have the techs already so you can score them automatically in a round spent rebuilding plastic.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "objectives",
+            "combat"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "early control scoring",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s683",
+          "title": "Do not over-invest in tech",
+          "kind": "strategy",
+          "summary": "L1Z1X can easily spend too much on tech, given the wasted home resource and the extra cost of Inheritance Systems, and that erodes the plastic advantage it depends on.",
+          "advice": [
+            {
+              "point": "Avoid going crazy on tech: wasted home resources and the Inheritance Systems surcharge make it easy to overspend and fall behind on plastic.",
+              "stance": "avoid",
+              "subjects": [
+                "Inheritance Systems"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "economy"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "wasted resources",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s693",
+          "title": "Ignore carriers",
+          "kind": "strategy",
+          "summary": "Fleets of dreadnoughts, cruisers and destroyers, ideally all upgraded, carry enough ground forces because Harrow means you need few. Carriers add little and slow you down, especially without Gravity Drive; build one only for a fun fighter swarm.",
+          "advice": [
+            {
+              "point": "Build fleets from dreadnoughts, cruisers and destroyers, upgrading all three; two dreadnoughts carry four ground forces, enough with Harrow to take planets.",
+              "stance": "recommended",
+              "subjects": [
+                "Super-Dreadnought II",
+                "Cruiser II",
+                "Destroyer II",
+                "Harrow"
+              ]
+            },
+            {
+              "point": "Carriers do nothing for you and slow your fleet down, especially without Gravity Drive.",
+              "stance": "avoid",
+              "subjects": [
+                "Carrier",
+                "Gravity Drive"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "expansion"
+          ],
+          "requires": [
+            "faction abilities",
+            "faction technologies"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s703",
+          "title": "Mecatol Rex",
+          "kind": "strategy",
+          "summary": "The influence problem may stop you taking Mecatol Rex first, but L1Z1X can easily take it from someone else. Take Mecatol with Imperial in hand to score the point, or simply claim it in round three or four; it takes a concerted effort to dislodge you.",
+          "advice": [
+            {
+              "point": "Make a play for Mecatol Rex at some point, ideally taking it from another player in a round you hold Imperial so you score the point.",
+              "stance": "recommended",
+              "subjects": [
+                "Mecatol Rex",
+                "Imperial"
+              ]
+            },
+            {
+              "point": "Even without Imperial, seizing Mecatol Rex in round three or four is common and hard for others to undo.",
+              "stance": "situational",
+              "subjects": [
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "mecatol",
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s712",
+          "title": "Home defence and a second dock",
+          "kind": "strategy",
+          "summary": "L1Z1X often ends up a threat in the endgame, so reinforce the single-planet home system by adding two ground forces in each home build. Get a second space dock somewhere to reach stage two control objectives.",
+          "advice": [
+            {
+              "point": "Every time you build at home, make two of the units ground forces to defend the single-planet home system.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Get a second space dock on the board so you can reach stage two control objectives rather than spreading out from home.",
+              "stance": "recommended",
+              "subjects": [
+                "Space Dock"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "expansion",
+            "objectives",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "home system defense",
+            "forward dock"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Late game",
+      "summary": "L1Z1X's late game is about pulling the trigger on a big play: use plastic and tech to finish the last objectives or take a home system, or plan a swing round around secret objectives, since L1Z1X can score nearly every secret.",
+      "chunks": [
+        {
+          "start": "s719",
+          "title": "Big plays and home system attacks",
+          "kind": "strategy",
+          "summary": "With enough plastic and tech, jump on the last stage two requirements or attack a home system; L1Z1X has one of the best chances of any faction to take one, though a PDS there makes it harder.",
+          "advice": [
+            {
+              "point": "In the late game, use your plastic and tech to grab the final objective requirements or take a home system; L1Z1X has one of the best chances of any faction to do it.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "A PDS on the target home system makes this harder; War Suns or X-89 Bacterial Weapon can help.",
+              "stance": "situational",
+              "subjects": [
+                "War Sun",
+                "X-89 Bacterial Weapon"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s729",
+          "title": "Secret objectives and swing rounds",
+          "kind": "strategy",
+          "summary": "L1Z1X has an answer to every secret objective, so early secrets let you plan swing rounds: an action-phase secret plus a two-point public and another secret in the status phase. Late draws like three space docks or Turn Their Fleets to Dust without PDS can still be awkward.",
+          "advice": [
+            {
+              "point": "L1Z1X can score nearly every secret objective; draw secrets early and plan a swing round scoring an action-phase secret, a two-point public and a status-phase secret.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            },
+            {
+              "point": "Secrets such as owning three space docks or Turn Their Fleets to Dust can be hard if drawn late without the docks or PDS in place.",
+              "stance": "situational",
+              "subjects": [
+                "Turn Their Fleets to Dust"
+              ]
+            },
+            {
+              "point": "Secret objective flexibility is the most exciting thing about playing L1Z1X.",
+              "stance": "rating",
+              "subjects": [
+                "L1Z1X Mindnet"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "objectives"
+          ],
+          "requires": [],
+          "concepts": [
+            "swing round"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "How the guide has changed",
+      "summary": "The original L1Z1X guide undervalued Inheritance Systems, which Hunter now calls a mistake. Let the game tell you which tech direction to take; it is hard to make bad decisions with L1Z1X. Matt would not play L1Z1X in a tournament without a yellow skip, because a fast Inheritance Systems is key.",
+      "chunks": [
+        {
+          "start": "s744",
+          "title": "Inheritance Systems was underrated",
+          "kind": "strategy",
+          "summary": "Hunter says the original guide's scepticism about Inheritance Systems was a mistake. Experienced players should let each game decide the tech direction, and choices that make sense for the objectives and slice rarely go wrong.",
+          "advice": [
+            {
+              "point": "The earlier guide's preference for going blue and one yellow instead of Inheritance Systems was a mistake; Inheritance Systems' versatility is now clear.",
+              "stance": "rating",
+              "subjects": [
+                "Inheritance Systems"
+              ]
+            },
+            {
+              "point": "Let the game's objectives and situation dictate the tech path; for example, skip PDS if you have nothing to defend and no PDS secret.",
+              "stance": "recommended",
+              "subjects": [
+                "PDS II"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology",
+            "general strategy"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech path"
+          ]
+        },
+        {
+          "start": "s758",
+          "title": "Pick L1Z1X with a yellow skip",
+          "kind": "strategy",
+          "summary": "When choosing factions or building the map, a yellow skip is clutch for L1Z1X; Matt would not play them in a tournament without one, and would try to take a neighbour's yellow skip at the right time.",
+          "advice": [
+            {
+              "point": "When choosing a faction with known slices, pick L1Z1X only with a yellow skip in reach; Matt would not play them in a tournament without one.",
+              "stance": "recommended",
+              "subjects": [
+                "L1Z1X Mindnet",
+                "Inheritance Systems"
+              ]
+            },
+            {
+              "point": "If a neighbour has the yellow skip, plan to take it at the right time so you still get Inheritance Systems fast.",
+              "stance": "situational",
+              "subjects": [
+                "Inheritance Systems"
+              ]
+            }
+          ],
+          "factions": [
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "setup",
+            "early"
+          ],
+          "topics": [
+            "technology",
+            "expansion"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip",
+            "slice value"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Time skip",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s764",
+          "title": "Time machine to fatherhood and recording schedule",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Naalu Collective errata",
+      "summary": "Listener corrections to the previous Naalu guide: Foresight only triggers defensively, so it cannot be used for the movement trick described; the Matriarch's fighters can start an invasion and kill infantry but cannot take a planet without infantry, which can deny Make an Example of Their World; and Naalu can surprise the table by playing Warfare as a second action in round one.",
+      "chunks": [
+        {
+          "start": "s812",
+          "title": "Foresight only triggers defensively",
+          "kind": "strategy",
+          "summary": "The earlier trick of moving and then using Foresight for extra movement, for example to blockade a space dock, does not work, because Foresight triggers only after another player moves into your system.",
+          "advice": [
+            {
+              "point": "Do not plan to use Foresight offensively for extra movement or to blockade a space dock; it only works when an opponent moves into your system, unlike Skilled Retreat.",
+              "stance": "avoid",
+              "subjects": [
+                "Foresight",
+                "Skilled Retreat"
+              ]
+            }
+          ],
+          "factions": [
+            "Naalu Collective"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s839",
+          "title": "Matriarch fighters can invade but not take planets",
+          "kind": "strategy",
+          "summary": "With the Matriarch, fighters can start an invasion and wipe out ground forces, but an infantry is needed to take control. Duke Lucum notes this can deny an opponent a Make an Example of Their World target.",
+          "advice": [
+            {
+              "point": "Use the Matriarch's fighters to invade and kill a planet's infantry even without infantry of your own, accepting you cannot take the planet.",
+              "stance": "situational",
+              "subjects": [
+                "Matriarch"
+              ]
+            },
+            {
+              "point": "Wiping out a planet's infantry this way can deny an opponent's Make an Example of Their World (Duke Lucum's tip), an edge case.",
+              "stance": "situational",
+              "subjects": [
+                "Matriarch",
+                "Make an Example of Their World"
+              ]
+            }
+          ],
+          "factions": [
+            "Naalu Collective"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "faction abilities",
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "objective denial"
+          ]
+        },
+        {
+          "start": "s862",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Naalu Warfare as a second action",
+          "kind": "strategy",
+          "summary": "Schroeder suggests Naalu play Warfare as their second action in round one, before others have planned their money around Technology and Trade, catching them unable to follow and moving the same carrier twice. Hunter approves.",
+          "advice": [
+            {
+              "point": "As Naalu, consider playing Warfare as the second action of round one, when others have spent money on tech or not yet traded, and move your carrier a second time; it can devastate other players' round one.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Naalu Collective"
+              ]
+            }
+          ],
+          "factions": [
+            "Naalu Collective"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing",
+            "speaker order control"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s885",
+          "title": "Baby update and thanks",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s951",
+          "title": "Patreon thanks, poll and Twitch schedule",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s981",
+          "title": "Reading Dune",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1033",
+          "title": "Recording problems and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "L1z1x": "L1Z1X",
+    "L1Z NX": "L1Z1X",
+    "L1Z Winix": "L1Z1X",
+    "L1Z Winx": "L1Z1X",
+    "L1C1X": "L1Z1X",
+    "L1Z winner": "L1Z1X",
+    "L1Z when X": "L1Z1X",
+    "MindNet": "Mindnet",
+    "Starween Tools": "Sarween Tools",
+    "Star Wing Tools": "Sarween Tools",
+    "Starwing Tools": "Sarween Tools",
+    "Sarwen tools": "Sarween Tools",
+    "sarine tools": "Sarween Tools",
+    "Exotrime 2": "Exotrireme II",
+    "stampary note": "promissory note",
+    "Souls": "Sol",
+    "pre-arata": "errata",
+    "Abyss Fria": "Abyz, Fria",
+    "Baragler": "Bereg, Lirta IV",
+    "Aaron Amir": "Arinam, Meer",
+    "Centauri Grawl": "Centauri, Gral",
+    "Meccal": "Mecatol Rex",
+    "Jolnar": "Jol-Nar",
+    "Letnar": "Letnev",
+    "empirical": "Imperial",
+    "Nala Collective": "Naalu Collective",
+    "Naalu guy": "Naalu guide",
+    "Erie guide": "Eyrie guide",
+    "Twilight Impyrment": "Twilight Imperium",
+    "hero": "Harrow"
+  }
+}

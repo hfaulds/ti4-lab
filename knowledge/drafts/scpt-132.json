@@ -1,0 +1,1442 @@
+{
+  "episode": 132,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "Matt frames Xxcha as a hard faction with no single key to success: it needs a particular set of circumstances, and when it finds them it is very hard to stop, but in most games it has to work very hard for its points.",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro and office-space skit",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s45",
+          "title": "Community input, Omega components now standard",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s75",
+          "title": "Thesis: Xxcha is hard and needs the right circumstances",
+          "kind": "strategy",
+          "summary": "After more than a year of trying, Matt found no single key that makes Xxcha great. Xxcha succeeds only under a particular set of circumstances, and once it gets them it is very hard to stop; in most games every step has to go right.",
+          "advice": [
+            {
+              "point": "Xxcha is a hard faction: there is no single key to making it great, and in most games it must do nearly everything right to win.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            },
+            {
+              "point": "When Xxcha does find its winning circumstances, opponents have little they can do to stop it.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview",
+      "summary": "Xxcha starts with enough to make a passable round one but faces a hard first two rounds. Quash and the flagship define the faction, the two faction technologies are both strong (Instinct Training is close to essential, Nullification Field is a luxury), and nearly everything costs a strategy token, so the command token economy is central. Political Favor is usually worth more kept as a paid quash than sold.",
+      "chunks": [
+        {
+          "start": "s122",
+          "title": "Starting units and home system",
+          "kind": "strategy",
+          "summary": "The start is not bad apart from having a single carrier; the four infantry help, and the three-resource home system can just afford a second carrier. Still, the first two rounds are a mountain to climb.",
+          "advice": [
+            {
+              "point": "The starting fleet is decent except for having only one carrier; spend the three home resources on a carrier to use the extra two infantry.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom", "Carrier"]
+            },
+            {
+              "point": "Expect a very tough first two rounds even with a decent round one.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening"],
+          "requires": [],
+          "concepts": ["production capacity"]
+        },
+        {
+          "start": "s130",
+          "title": "Peace Accords",
+          "kind": "strategy",
+          "summary": "Peace Accords needs a chain of controlled planets to reach a target, which makes it useful mainly in round one; by rounds three and four nearly every reachable planet has units on it, so it rarely matters after the opening.",
+          "advice": [
+            {
+              "point": "Plan Peace Accords around planets adjacent to ones you already control; you cannot reach a planet just by parking ships next to it.",
+              "stance": "recommended",
+              "subjects": ["Peace Accords", "Diplomacy"]
+            },
+            {
+              "point": "Peace Accords is mostly a round-one tool; in the mid and late game nearly every planet has units on it, so taking Diplomacy for it then usually gains nothing.",
+              "stance": "rating",
+              "subjects": ["Peace Accords", "Diplomacy"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "mid"],
+          "topics": ["faction abilities", "expansion"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s143",
+          "title": "Quash",
+          "kind": "strategy",
+          "summary": "Quash is the defining Xxcha ability: a reusable veto as long as you have strategy tokens. It can make money, save you from a bad agenda, or, by stockpiling tokens, cycle the agenda deck until a winning agenda appears.",
+          "advice": [
+            {
+              "point": "Quash is the faction's signature ability and very strong; use it to make money, to protect yourself, or to dig for an agenda you want.",
+              "stance": "rating",
+              "subjects": ["Quash"]
+            },
+            {
+              "point": "If you stockpile many strategy tokens and can outvote the table, you can quash repeatedly until an agenda that wins you a point (such as Mutiny or Shard of the Throne) comes up.",
+              "stance": "situational",
+              "subjects": ["Quash", "Mutiny", "Shard of the Throne"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["mid", "late"],
+          "topics": ["faction abilities", "agendas"],
+          "requires": ["faction abilities", "agendas"],
+          "concepts": ["command token economy"]
+        },
+        {
+          "start": "s166",
+          "title": "Flagship Loncara Ssodu and the PDS identity",
+          "kind": "strategy",
+          "summary": "The flagship is excellent and makes Xxcha a PDS faction. Opinion is split on whether to invest further in PDS or to treat the flagship as all the PDS you need; that split maps onto the two ways of playing developed later: boost your defence heavily, or spread the defence you have as far as possible.",
+          "advice": [
+            {
+              "point": "The flagship is awesome and is what makes Xxcha a PDS faction.",
+              "stance": "rating",
+              "subjects": ["Loncara Ssodu"]
+            },
+            {
+              "point": "Whether to build up more PDS or rely on the flagship as your PDS is genuinely debated; choose between heavily boosting defence and spreading your existing defence out as widely as you can.",
+              "stance": "situational",
+              "subjects": ["Loncara Ssodu", "PDS"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["Blastoise path", "Turtles path"]
+        },
+        {
+          "start": "s188",
+          "title": "Political Favor",
+          "kind": "strategy",
+          "summary": "Selling Political Favor usually loses money: sold early and out of step with agendas it fetches a few trade goods, while waiting to quash a scary agenda when it is revealed can earn much more.",
+          "advice": [
+            {
+              "point": "Avoid selling Political Favor ahead of time; you make more by charging for a quash when a frightening agenda has just been revealed.",
+              "stance": "avoid",
+              "subjects": ["Political Favor", "Quash"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "agendas", "trade and diplomacy"],
+          "requires": ["promissory notes", "faction abilities", "agendas"],
+          "concepts": ["quash for hire"]
+        },
+        {
+          "start": "s206",
+          "title": "Instinct Training",
+          "kind": "strategy",
+          "summary": "Both faction techs are very good and Instinct Training is close to essential and easy to reach with one green. It is a sabotage that can also cancel Sabotage, and it is the only answer to a late play like Yssaril's after everyone has passed. It is strongest stopping a single card outright; stopping a Sabotage can be answered with another Sabotage.",
+          "advice": [
+            {
+              "point": "Instinct Training is top-tier and nearly a requirement for Xxcha.",
+              "stance": "rating",
+              "subjects": ["Instinct Training"]
+            },
+            {
+              "point": "Instinct Training is most reliable for cancelling one decisive card (for example Public Disgrace against your Imperial); using it to cancel a Sabotage is weaker because the opponent can play another Sabotage.",
+              "stance": "situational",
+              "subjects": ["Instinct Training", "Sabotage", "Public Disgrace", "Imperial"]
+            },
+            {
+              "point": "Keep Instinct Training ready to stop game-ending action card plays, including Yssaril's plays after everyone else has passed.",
+              "stance": "recommended",
+              "subjects": ["Instinct Training", "Yssaril Tribes", "Transparasteel Plating"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Yssaril Tribes"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "action cards"],
+          "requires": ["faction technologies", "action cards"],
+          "concepts": ["command token economy"]
+        },
+        {
+          "start": "s252",
+          "title": "Nullification Field",
+          "kind": "strategy",
+          "summary": "Nullification Field is the best defensive ability in the game, but Xxcha already has plenty of defence and is rarely everyone's target, so it is good when needed but not required. Both faction techs cost a strategy token and exhaust, which makes them powerful but taxing.",
+          "advice": [
+            {
+              "point": "Nullification Field is the strongest defensive tech in the game but is not required, since Xxcha usually already has enough defence and is rarely the main target.",
+              "stance": "rating",
+              "subjects": ["Nullification Field"]
+            },
+            {
+              "point": "Both faction techs exhaust and cost a strategy token, so they compete with Quash for your command tokens each round.",
+              "stance": "rating",
+              "subjects": ["Instinct Training", "Nullification Field"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["command token economy", "home system defense"]
+        },
+        {
+          "start": "s273",
+          "title": "Four commodities",
+          "kind": "strategy",
+          "summary": "Xxcha's four commodities are critical to its success; use them as much as possible.",
+          "advice": [
+            {
+              "point": "Use your four commodities as much as you possibly can; they are critical to Xxcha's economy.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["any"],
+          "topics": ["economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Warfare is the safest pick and Trade ties with it as the best; Leadership and Technology are middle picks, Politics mid to low, Construction and Diplomacy are last-pick options, and Imperial is nearly useless round one. Early on Xxcha prioritises board position and plastic over technology, almost always does the Warfare secondary rather than Technology, and must turn its commodities into trade goods in round one.",
+      "chunks": [
+        {
+          "start": "s278",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Generic round-one card ranking",
+          "kind": "strategy",
+          "summary": "Rounds one and two are hard for Xxcha, so treat every decision as a problem to solve. For an average faction Hunter ranks Technology or Warfare first, then Trade, Politics and Leadership.",
+          "advice": [
+            {
+              "point": "For an average faction the round-one order is roughly Technology or Warfare, then Trade, Politics, Leadership, then the rest.",
+              "stance": "rating",
+              "subjects": ["Technology", "Warfare", "Trade", "Politics", "Leadership"]
+            },
+            {
+              "point": "Play Xxcha as a hard faction from the first turn; sitting comfortable is how it falls behind.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s300",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Leadership",
+          "kind": "strategy",
+          "summary": "Command tokens are extremely valuable to Xxcha because every ability costs one, so Leadership is a solid third or fourth pick. Its best use round one is funding a Construction secondary for a forward dock or early PDS, which is otherwise too expensive.",
+          "advice": [
+            {
+              "point": "Leadership is a middle pick (third or fourth); never pass it up if your top picks are gone, since extra tokens are never bad for Xxcha.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Leadership is about the only round-one situation where you should do the Construction secondary, for a forward dock or the start of a PDS grid.",
+              "stance": "situational",
+              "subjects": ["Leadership", "Construction"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["command token economy", "forward dock", "secondary timing"]
+        },
+        {
+          "start": "s318",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Which secondaries to follow, and plastic over tech",
+          "kind": "strategy",
+          "summary": "Skip the Politics and Trade secondaries in round one, always do Warfare, and almost never do Technology alongside Warfare. Research early only if tech objectives demand it. Early on, position and units come before technology because Xxcha's strength is defending a slice it must first take.",
+          "advice": [
+            {
+              "point": "Usually skip the Politics secondary round one; save the tokens for later.",
+              "stance": "avoid",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Do not spend a token on the Trade secondary unless the Trade holder is squeezing you and a neighbour will trade with you, which is unlikely for a four-commodity faction.",
+              "stance": "avoid",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Always do the Warfare secondary; it is affordable, whereas Technology needs an extra trade good. The risk is being stalled out of Warfare's timing.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Technology"]
+            },
+            {
+              "point": "Research early only if tech objectives are out: with Develop Weaponry out start teching now; with only Diversify Research out you can wait; with both out tech immediately.",
+              "stance": "situational",
+              "subjects": ["Technology", "Develop Weaponry", "Diversify Research"]
+            },
+            {
+              "point": "Prioritise planets and units over technology early; Matt has seen almost every successful Xxcha game stay light on tech (Mick MacMoose won a semifinal with three or four techs).",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "technology", "objectives"],
+          "requires": [],
+          "concepts": ["economy before control", "secondary timing", "stall action"]
+        },
+        {
+          "start": "s360",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Diplomacy secondary after Leadership",
+          "kind": "strategy",
+          "summary": "If someone else picks Diplomacy while you hold Leadership, follow it: you can refresh planets and gain Peace Accords for a rich round funding both Warfare and Technology. It rarely happens.",
+          "advice": [
+            {
+              "point": "If another player takes Diplomacy round one, do its secondary, especially with Leadership tokens; it can fund both Warfare and Technology and add planets through Peace Accords.",
+              "stance": "situational",
+              "subjects": ["Diplomacy", "Leadership", "Peace Accords"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["secondary timing", "command token economy"]
+        },
+        {
+          "start": "s370",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Diplomacy: why it is risky in round one",
+          "kind": "strategy",
+          "summary": "Diplomacy is better for Xxcha than any other faction because of Peace Accords and can deliver a whole slice plus an early flagship. But with one carrier Xxcha reliably takes only one system, everyone else profits more, and the Warfare holder gains leverage over you. Check the table's factions and slices before taking it.",
+          "advice": [
+            {
+              "point": "Diplomacy is better for Xxcha than for any other faction and can yield the whole slice, a round-one flagship and early Gravity Drive when the recipe is right.",
+              "stance": "rating",
+              "subjects": ["Diplomacy", "Peace Accords"]
+            },
+            {
+              "point": "Do not plan to take two systems and then Diplomacy both; with one carrier you get one system reliably and need Warfare's secondary for a second.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy", "Warfare"]
+            },
+            {
+              "point": "Before taking Diplomacy, check which factions and tech skips other players can refresh; it may let a strong faction (for example Mentak to Mirror Computing) do something dangerous, and it hands leverage to the Warfare holder.",
+              "stance": "situational",
+              "subjects": ["Diplomacy", "Mentak Coalition"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Mentak Coalition"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": ["faction abilities"],
+          "concepts": ["threat perception", "trade leverage"]
+        },
+        {
+          "start": "s403",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Diplomacy as a paid last pick",
+          "kind": "strategy",
+          "summary": "Take Diplomacy only as last pick, and get paid for it: announce that you could take Construction instead and make the table rich only if they compensate you. Use it to win a better trade than X-1, such as five or six trade goods for four commodities.",
+          "advice": [
+            {
+              "point": "Take Diplomacy only when you are last pick, since almost everything else is better.",
+              "stance": "situational",
+              "subjects": ["Diplomacy"]
+            },
+            {
+              "point": "Tell the table before picking Diplomacy that you will only make everyone rich if you are paid, for example by the Trade player giving you more than face value for your commodities.",
+              "stance": "recommended",
+              "subjects": ["Diplomacy", "Trade"]
+            },
+            {
+              "point": "Round one you need a five-value planet from Diplomacy to keep pace, because factions like L1Z1X gain around eight trade goods' worth from it.",
+              "stance": "situational",
+              "subjects": ["Diplomacy", "L1Z1X Mindnet"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "L1Z1X Mindnet"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["paid strategy card pick", "X-1 trade", "trade leverage"]
+        },
+        {
+          "start": "s428",
+          "title": "Diplomacy into a round-one flagship",
+          "kind": "strategy",
+          "summary": "If you take Diplomacy, spend the refreshed planets and trade goods on a round-one flagship that acts as your second carrier, ideally with a blue skip into Gravity Drive. Hunter adds that it is not worth it unless the flagship can reach a system adjacent to Mecatol Rex in round two.",
+          "advice": [
+            {
+              "point": "With Diplomacy round one, aim to build the flagship that round as your second carrier, using Warfare timing to send it with your second pair of infantry.",
+              "stance": "recommended",
+              "subjects": ["Diplomacy", "Loncara Ssodu", "Warfare"]
+            },
+            {
+              "point": "Pair a round-one flagship with a blue skip into Gravity Drive (for example by expanding to Centauri/Gral and refreshing it) so the flagship can move forward quickly.",
+              "stance": "situational",
+              "subjects": ["Gravity Drive", "Loncara Ssodu"]
+            },
+            {
+              "point": "Hunter (Matt agrees): if the flagship cannot get adjacent to Mecatol Rex in round two, a Diplomacy flagship opening is not worth it.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy", "Loncara Ssodu", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening", "mecatol"],
+          "requires": ["faction abilities"],
+          "concepts": ["Blastoise path", "tech skip"]
+        },
+        {
+          "start": "s450",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Politics",
+          "kind": "strategy",
+          "summary": "Politics is mid to low. Its best use is picking right after Trade and selling the speaker token for a full wash of your commodities plus a couple of trade goods. Otherwise keep the speaker token, accept a weak round one, and go Warfare round two to place a dock and the flagship adjacent to Mecatol Rex.",
+          "advice": [
+            {
+              "point": "Politics is a mid-to-low round-one pick for Xxcha.",
+              "stance": "rating",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Take Politics when Trade has just been picked to your right, and sell the speaker token for a full commodity wash plus about two extra trade goods.",
+              "stance": "situational",
+              "subjects": ["Politics", "Trade"]
+            },
+            {
+              "point": "Politics round one into Warfare round two: move adjacent to Mecatol Rex, follow Construction for a dock there, use Warfare to retrieve the token, and build the flagship at the new dock.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Warfare", "Construction", "Loncara Ssodu", "Mecatol Rex"]
+            },
+            {
+              "point": "In the early game place the flagship on a border that threatens neighbours or Mecatol Rex; early on nobody will attack your slice, so a threatening flagship makes money or hurts neighbours.",
+              "stance": "recommended",
+              "subjects": ["Loncara Ssodu", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol", "trade and diplomacy"],
+          "requires": ["faction abilities"],
+          "concepts": ["speaker token sale", "speaker order control", "forward dock", "flagship pressure"]
+        },
+        {
+          "start": "s484",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Construction",
+          "kind": "strategy",
+          "summary": "Construction is a low, last-pick option but safe. Xxcha must get a second dock somewhere because one four-production home dock cannot keep up; a second home dock maximises each token spent, while a forward dock is a better place to deploy the flagship. Against a Saar neighbour, use it for two PDS.",
+          "advice": [
+            {
+              "point": "Construction is a low pick, mostly for last pick when there is no good Diplomacy scenario.",
+              "stance": "rating",
+              "subjects": ["Construction"]
+            },
+            {
+              "point": "Get a second space dock early; a home system building four units a round cannot keep up. A second home dock maximises the value of each token, while a forward dock is a better launch point for the flagship.",
+              "stance": "recommended",
+              "subjects": ["Space Dock", "Construction"]
+            },
+            {
+              "point": "Do not open with defensive PDS unless Saar is your neighbour; then place two PDS, rush Plasma Scoring and PDS II, and spread PDS to push Saar elsewhere.",
+              "stance": "situational",
+              "subjects": ["PDS", "Clan of Saar", "Plasma Scoring", "PDS II"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Clan of Saar"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "economy", "threats and matchups"],
+          "requires": [],
+          "concepts": ["production capacity", "double dock home", "forward dock", "command token economy", "home system defense"]
+        },
+        {
+          "start": "s505",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Trade",
+          "kind": "strategy",
+          "summary": "Trade ties with Warfare as the best pick: milk it like a mini Hacan with four commodities and two trading cruisers. Unlike with Diplomacy, do not spend the trade goods on a round-one flagship; bank them for flexibility in the mid game and build the flagship from planets in round two.",
+          "advice": [
+            {
+              "point": "Trade is tied for the best round-one pick; extract as much money as possible from it.",
+              "stance": "rating",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "With Trade, bank the trade goods for mid-game flexibility rather than buying a round-one flagship; build the flagship from planets in round two.",
+              "stance": "recommended",
+              "subjects": ["Trade", "Loncara Ssodu"]
+            },
+            {
+              "point": "Round-one Diplomacy is a gamble for a last pick; Trade is the steady choice and the better pick.",
+              "stance": "rating",
+              "subjects": ["Trade", "Diplomacy"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Emirates of Hacan"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["trade good banking"]
+        },
+        {
+          "start": "s540",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Trade with Warfare, tech objectives last",
+          "kind": "strategy",
+          "summary": "With Trade, Matt still follows Warfare rather than Technology even with nine or ten trade goods, since round one tech is just Neural Motivator. Treat the tech objectives as the last stage one objectives you score, before stage twos arrive. Hunter worries this gates your tech too much; Matt concedes the case is anecdotal.",
+          "advice": [
+            {
+              "point": "After taking Trade, follow Warfare rather than Technology; a round-one tech is only Neural Motivator and the money is better spent on units next round.",
+              "stance": "recommended",
+              "subjects": ["Trade", "Warfare", "Technology", "Neural Motivator"]
+            },
+            {
+              "point": "Score every other stage one objective first and leave Diversify Research for last, but before stage twos come out. Hunter worries this leaves Xxcha too gated on tech.",
+              "stance": "situational",
+              "subjects": ["Diversify Research"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "technology", "objectives"],
+          "requires": [],
+          "concepts": ["economy before control"]
+        },
+        {
+          "start": "s578",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is the only safe pick and reliably saves round one. With two planet systems next to home, move the carrier out, send a cruiser to trade, build a second carrier, then play Warfare late and take the second system; otherwise reuse the carrier toward the equidistant or Mecatol-adjacent system. Trade your commodities in round one.",
+          "advice": [
+            {
+              "point": "Warfare is Xxcha's favourite and only safe round-one pick.",
+              "stance": "rating",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "With two planet systems adjacent to home: move the carrier out, send a cruiser to trade, build a carrier at home, play Warfare as the fourth action, then move the new carrier to the second system. This stalls Warfare and slows the table.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Carrier", "Cruiser"]
+            },
+            {
+              "point": "Otherwise move the carrier out, send the trade cruiser, use Warfare to retrieve the token, and move the carrier again to an equidistant or Mecatol-adjacent system with good planets.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Carrier"]
+            },
+            {
+              "point": "Turn your commodities into trade goods in round one; games without round-one trading leave Xxcha short in rounds two and three.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": [],
+          "concepts": ["stall action", "secondary timing"]
+        },
+        {
+          "start": "s599",
+          "title": "Pushing toward Mecatol versus staying home",
+          "kind": "strategy",
+          "summary": "Hunter asks why not expand twice toward Mecatol Rex in round one. Matt prefers taking the two systems by home: an early Warfare pick means poor initiative next round, the flagship can still reach Mecatol in round two via Construction, and stretching out exposes planets. Both admit it depends on the map.",
+          "advice": [
+            {
+              "point": "Matt prefers taking two systems next to home round one rather than racing to the Mecatol-adjacent system; low initiative makes taking Mecatol Rex in round two unlikely anyway.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex", "Warfare"]
+            },
+            {
+              "point": "If you urgently need the flagship next to Mecatol Rex early in round two, push in that direction instead.",
+              "stance": "situational",
+              "subjects": ["Loncara Ssodu", "Mecatol Rex"]
+            },
+            {
+              "point": "Keeping holdings next to home protects them with PDS and the flagship; stretching toward Mecatol has let factions like Creuss jump in and take planets.",
+              "stance": "recommended",
+              "subjects": ["Ghosts of Creuss"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Ghosts of Creuss"],
+          "phases": ["round 1", "early"],
+          "topics": ["expansion", "mecatol"],
+          "requires": [],
+          "concepts": ["speaker order control", "home system defense"]
+        },
+        {
+          "start": "s622",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Technology",
+          "kind": "strategy",
+          "summary": "As a primary, Technology is a middle pick, about level with or just below Leadership; take it to deny a neighbour. Round-one tech is almost always Neural Motivator, which does nothing for position, and teching early commits you to a path before you know which one you need. Taking Technology does mean you only need the Warfare secondary.",
+          "advice": [
+            {
+              "point": "Technology is a middle pick, above Politics, Construction and Diplomacy and just below Leadership.",
+              "stance": "rating",
+              "subjects": ["Technology", "Leadership"]
+            },
+            {
+              "point": "Take Technology to keep it from a strong tech neighbour on your left.",
+              "stance": "situational",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Round-one tech is almost always Neural Motivator (sometimes Plasma Scoring); it helps nothing positionally and commits you to a tech path too early.",
+              "stance": "rating",
+              "subjects": ["Neural Motivator", "Plasma Scoring"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology"],
+          "requires": [],
+          "concepts": ["denial pick", "tech path commitment"]
+        },
+        {
+          "start": "s656",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
+          "title": "Imperial",
+          "kind": "strategy",
+          "summary": "Imperial is basically useless round one. As last pick you might take it to avoid being stalled out by Warfare, or to bank an early second secret objective for a later Mecatol Imperial plan, but it may not save you; Diplomacy or Construction is usually the choice.",
+          "advice": [
+            {
+              "point": "Imperial is basically useless round one; Diplomacy or Construction is usually better for a last pick.",
+              "stance": "rating",
+              "subjects": ["Imperial"]
+            },
+            {
+              "point": "As last pick, consider Imperial if the Warfare holder is sure to stall you out, or to draw an early second secret objective when planning a later Mecatol Imperial score; do not count on it saving your round.",
+              "stance": "situational",
+              "subjects": ["Imperial", "Warfare"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "objectives"],
+          "requires": [],
+          "concepts": ["stall action", "table meta"]
+        }
+      ]
+    },
+    {
+      "title": "Xxcha's problems and the two paths",
+      "summary": "Xxcha's costs are a strained command token economy, dependence on an expensive flagship, a weak tech position (Graviton Laser System needs Plasma Scoring and PDS II), poor mobility and the opportunity cost of Construction. Matt offers two mutually exclusive frameworks chosen via tech by the fourth objective: Blastoise (blue-green, rushed flagship and Gravity Drive, aggressive and expensive, fails in the mid game) and the Turtles (red-yellow, PDS fortress, easier to execute but dependent on lucky objectives, fails in the late game). A blue skip unlocks Blastoise; otherwise play Turtles.",
+      "chunks": [
+        {
+          "start": "s669",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "The costs of being Xxcha",
+          "kind": "strategy",
+          "summary": "Hunter lists the problems: almost every ability costs a command token, the faction leans heavily on an expensive flagship, tech and mobility are weak. Matt adds that taking Construction is itself a cost because other cards net more value, so prefer a strong token economy and follow Construction's secondary.",
+          "advice": [
+            {
+              "point": "Manage the command token economy in the early game or you will run out of options in the mid game.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            },
+            {
+              "point": "Avoid taking Construction as a primary; it mainly helps two secret objectives and nets less than Technology or Warfare. Prefer a healthy token pool and follow its secondary.",
+              "stance": "avoid",
+              "subjects": ["Construction"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["early", "mid"],
+          "topics": ["general strategy", "strategy cards", "economy"],
+          "requires": [],
+          "concepts": ["command token economy", "secondary timing"]
+        },
+        {
+          "start": "s691",
+          "title": "Graviton Laser System and early PDS",
+          "kind": "strategy",
+          "summary": "Graviton Laser System is weak on its own and needs Plasma Scoring and PDS II, but it is why Xxcha is a PDS faction. Early, spread PDS with Graviton deters small invasions very well; later destroyers soak the Graviton hits.",
+          "advice": [
+            {
+              "point": "Graviton Laser System is a weak starting tech alone and needs Plasma Scoring and PDS II to be really useful.",
+              "stance": "rating",
+              "subjects": ["Graviton Laser System", "Plasma Scoring", "PDS II"]
+            },
+            {
+              "point": "Spread PDS early: with Graviton they deter a carrier, fighters and infantry trying to take a planet; in the late game destroyers absorb Graviton hits, so it is weaker.",
+              "stance": "situational",
+              "subjects": ["Graviton Laser System", "PDS", "Destroyer"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["early", "late"],
+          "topics": ["technology", "combat"],
+          "requires": [],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s708",
+          "title": "Two frameworks, chosen early",
+          "kind": "strategy",
+          "summary": "All these problems come to a head in the race to ten points and the stage two objectives. Matt offers two frameworks, not the only ways to play; once you commit to one, there is no going back.",
+          "advice": [
+            {
+              "point": "Pick one of two frameworks (Blastoise or Turtles) and commit; switching later is not realistic.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["early"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["Blastoise path", "Turtles path", "tech path commitment"]
+        },
+        {
+          "start": "s721",
+          "title": "Blastoise: blue-green flagship aggression",
+          "kind": "strategy",
+          "summary": "Blastoise rushes the flagship (round one if possible) and Gravity Drive (round two), then drives the flagship into the equidistant system or neighbours' slices to threaten and profit. It is fun and proactive, but costs around 16 trade goods early, delays spend and control objectives, and is easier to stop than it looks; when it fails you are out of the game. Fleet Logistics with frequent Diplomacy can slow it to a balanced pace.",
+          "advice": [
+            {
+              "point": "Blastoise: get the flagship out as fast as possible, Gravity Drive by round two, and push the flagship into the equidistant system or a neighbour's slice.",
+              "stance": "situational",
+              "subjects": ["Loncara Ssodu", "Gravity Drive"]
+            },
+            {
+              "point": "Blastoise is easier to stop than it seems without Plasma Scoring; do not over-extend the flagship against a neighbour willing to commit to killing it.",
+              "stance": "avoid",
+              "subjects": ["Loncara Ssodu"]
+            },
+            {
+              "point": "Blastoise costs about 16 trade goods immediately, so expect no early spend objectives; if it backfires you are out of the game barring late kingslaying.",
+              "stance": "rating",
+              "subjects": ["Loncara Ssodu", "Gravity Drive"]
+            },
+            {
+              "point": "A slower Blastoise with an early Fleet Logistics and Diplomacy taken repeatedly (Matt took it four times) worked well with a blue skip, a good slice and favourable objectives.",
+              "stance": "situational",
+              "subjects": ["Fleet Logistics", "Diplomacy"]
+            },
+            {
+              "point": "Blastoise is the only Xxcha style aggressive players like Matt will enjoy.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "early", "mid"],
+          "topics": ["general strategy", "technology", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["Blastoise path", "flagship pressure", "economy before control"]
+        },
+        {
+          "start": "s764",
+          "title": "The Turtles: red-yellow PDS fortress",
+          "kind": "strategy",
+          "summary": "The Turtles stack PDS, build the flagship around round three or four, spend on objectives and tech, and aim for an almost indestructible slice by the final round. It scores only from its own slice, so control objectives, Found Research Outposts, Corner the Market and most stage twos are hard; it relies on Found a Golden Age or Manipulate Galactic Law plus points outside the public objectives, so start a Support for the Throne swap early.",
+          "advice": [
+            {
+              "point": "Turtles: fortify with PDS, delay the flagship to round three or four, and spend on spend objectives and tech, aiming for an impregnable slice in the final round.",
+              "stance": "situational",
+              "subjects": ["PDS", "Loncara Ssodu"]
+            },
+            {
+              "point": "The Turtles struggle with Found Research Outposts, Corner the Market and stage twos like Unify the Colonies, Form Galactic Brain Trust, Conquer the Weak and Master the Sciences; they often stall at seven or eight points.",
+              "stance": "rating",
+              "subjects": ["Found Research Outposts", "Corner the Market", "Unify the Colonies", "Form Galactic Brain Trust", "Conquer the Weak", "Master the Sciences"]
+            },
+            {
+              "point": "The best stage twos for Xxcha are Found a Golden Age and especially Manipulate Galactic Law.",
+              "stance": "rating",
+              "subjects": ["Found a Golden Age", "Manipulate Galactic Law"]
+            },
+            {
+              "point": "Seek points outside public objectives (Mecatol Rex, agendas, Support for the Throne), and start Support for the Throne swaps early, especially on the Turtles path.",
+              "stance": "recommended",
+              "subjects": ["Support for the Throne", "Mecatol Rex"]
+            },
+            {
+              "point": "The path is chosen before the objectives are known, so a good Turtles slice can meet Blastoise objectives; this uncertainty is Xxcha's core weakness.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["mid", "late"],
+          "topics": ["general strategy", "objectives"],
+          "requires": ["promissory notes"],
+          "concepts": ["Turtles path", "home system defense", "support for the throne swap", "tenth point problem"]
+        },
+        {
+          "start": "s815",
+          "title": "Committing to a tech path",
+          "kind": "strategy",
+          "summary": "The path choice is made through technology, earlier than you would like, based on available tech skips and the first two or three objectives. By the time the fourth objective is revealed you must be committed.",
+          "advice": [
+            {
+              "point": "Choose your tech path from your tech skips and the first two or three objectives; by the fourth objective reveal you must be fully committed.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["early"],
+          "topics": ["technology", "objectives"],
+          "requires": [],
+          "concepts": ["tech path commitment", "tech skip"]
+        },
+        {
+          "start": "s822",
+          "title": "Tech path with no skip",
+          "kind": "strategy",
+          "summary": "With no skip, go Neural Motivator first (Plasma Scoring first only against a threatening Saar neighbour), then Plasma Scoring, then Cruiser II or PDS II depending on need, then Instinct Training, and probably stop there to spend on ships. You may need an off-path tech for Diversify Research; Xxcha's tech position resembles Sardakk's.",
+          "advice": [
+            {
+              "point": "No skip: Neural Motivator first so it draws action cards for longer; take Plasma Scoring first only if Saar or a similar neighbour is coming for you.",
+              "stance": "recommended",
+              "subjects": ["Neural Motivator", "Plasma Scoring", "Clan of Saar"]
+            },
+            {
+              "point": "After Neural and Plasma, take Cruiser II if you lack territory for control objectives, or PDS II if you just need to be left alone.",
+              "stance": "situational",
+              "subjects": ["Cruiser II", "PDS II"]
+            },
+            {
+              "point": "Finish with Instinct Training and then probably stop teching to spend on ships; add other tech only if objectives require it.",
+              "stance": "recommended",
+              "subjects": ["Instinct Training"]
+            },
+            {
+              "point": "Since Xxcha usually cannot afford a round-one tech, its tech position going into round two is like Sardakk's, with Graviton giving only a colour for objectives.",
+              "stance": "rating",
+              "subjects": ["Graviton Laser System", "Sardakk N'orr"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Clan of Saar", "Sardakk N'orr"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["Turtles path", "tech path commitment"]
+        },
+        {
+          "start": "s852",
+          "title": "Tech path with a green skip",
+          "kind": "strategy",
+          "summary": "A green skip is the most complicated case. Neural Motivator into an early Hyper Metabolism can fix the command token economy and may justify teching in round one; then Plasma Scoring and the usual PDS II, Cruiser II and Instinct Training. Both no-skip and green-skip paths lead to the Turtles.",
+          "advice": [
+            {
+              "point": "With a green skip, consider teching in round one to get Neural Motivator then skip to Hyper Metabolism in round two to fix your token economy.",
+              "stance": "situational",
+              "subjects": ["Neural Motivator", "Hyper Metabolism"]
+            },
+            {
+              "point": "After Hyper Metabolism, return to Plasma Scoring, then PDS II, Cruiser II and Instinct Training as needed; you may still need to divert for Diversify Research.",
+              "stance": "recommended",
+              "subjects": ["Plasma Scoring", "PDS II", "Cruiser II", "Instinct Training", "Diversify Research"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["Turtles path", "command token economy", "tech skip"]
+        },
+        {
+          "start": "s867",
+          "title": "Tech path with a blue skip (Blastoise)",
+          "kind": "strategy",
+          "summary": "A blue skip is what unlocks Blastoise; without it Blastoise is too slow and expensive. Gravity Drive in round one matters only to set up taking Mecatol Rex in round two; usually Neural Motivator first, then Gravity Drive, then Instinct Training or Fleet Logistics, then Carrier II, Dreadnought II and Infantry II, which covers the tech objectives.",
+          "advice": [
+            {
+              "point": "Go Blastoise only with a blue skip; without one it is too costly and slow.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive"]
+            },
+            {
+              "point": "Gravity Drive round one is only needed to set up taking Mecatol Rex in round two; otherwise get Neural Motivator first, then Gravity Drive.",
+              "stance": "situational",
+              "subjects": ["Gravity Drive", "Neural Motivator", "Mecatol Rex"]
+            },
+            {
+              "point": "After Gravity Drive take Instinct Training or Fleet Logistics (skipping Antimass Deflectors); Fleet Logistics pairs well with Xxcha's frequent Diplomacy to take a system and lock it down.",
+              "stance": "recommended",
+              "subjects": ["Fleet Logistics", "Instinct Training", "Diplomacy"]
+            },
+            {
+              "point": "Then take Carrier II, Dreadnought II and Infantry II in any order; this covers Diversify Research and Revolutionize Warfare, and Carrier II supports the flagship.",
+              "stance": "recommended",
+              "subjects": ["Carrier II", "Dreadnought II", "Infantry II", "Revolutionize Warfare"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["round 1", "early", "mid"],
+          "topics": ["technology", "mecatol"],
+          "requires": ["faction technologies"],
+          "concepts": ["Blastoise path", "tech skip"]
+        },
+        {
+          "start": "s886",
+          "title": "Yellow skip and Nullification Field",
+          "kind": "strategy",
+          "summary": "A yellow skip does little; follow the no-skip path and fit in Nullification Field only if you want it, perhaps for a faction-tech secret objective. Nullification Field locks down a won position but solves a problem a well-defended Xxcha should not have. Using it aggressively from inside neighbours' slices is possible but experimental.",
+          "advice": [
+            {
+              "point": "Take Nullification Field only with a yellow skip; otherwise it costs too much for too little.",
+              "stance": "situational",
+              "subjects": ["Nullification Field"]
+            },
+            {
+              "point": "Nullification Field shines when you have locked down the win and must stop the one player who could hit your home system, but if you need it you are already in trouble.",
+              "stance": "rating",
+              "subjects": ["Nullification Field"]
+            },
+            {
+              "point": "An aggressive Nullification Field build with Cruiser II sneaking into neighbours' slices is possible but experimental and hard to make work.",
+              "stance": "situational",
+              "subjects": ["Nullification Field", "Cruiser II"]
+            },
+            {
+              "point": "Instinct Training pays for itself; Nullification Field does not help you find a victory.",
+              "stance": "rating",
+              "subjects": ["Instinct Training", "Nullification Field"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["Turtles path", "home system defense"]
+        },
+        {
+          "start": "s912",
+          "title": "Red skip and tech path summary",
+          "kind": "strategy",
+          "summary": "A red skip is irrelevant; the planet is just more influence. No skip, green skip and yellow skip lead to the Turtles; a blue skip enables Blastoise.",
+          "advice": [
+            {
+              "point": "Ignore a red skip for teching.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            },
+            {
+              "point": "Play the Turtles with no skip, a green skip or a yellow skip; play Blastoise only with a blue skip.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["early"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": ["Blastoise path", "Turtles path", "tech skip"]
+        },
+        {
+          "start": "s916",
+          "title": "Opportunity cost: Blastoise versus Turtles",
+          "kind": "strategy",
+          "summary": "The Turtles are easier to execute but leave scoring to luck; Blastoise is proactive but crashes more often. Blastoise fails in the mid game, Turtles fail in the late game. Aggressive point-every-round players suit Blastoise; patient manipulators who do well from behind suit the Turtles, as Mick MacMoose showed in a semifinal won with Manipulate Galactic Law.",
+          "advice": [
+            {
+              "point": "Choose the path that fits your style: Blastoise for players who take points whenever they can and accept mid-game collapse; Turtles for patient players who manipulate the late game from behind.",
+              "stance": "situational",
+              "subjects": ["Xxcha Kingdom"]
+            },
+            {
+              "point": "Turtles are easier to pull off but rely on the objectives coming your way; Blastoise creates more scoring opportunities but fails more often.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["mid", "late"],
+          "topics": ["general strategy", "objectives"],
+          "requires": [],
+          "concepts": ["Blastoise path", "Turtles path"]
+        }
+      ]
+    },
+    {
+      "title": "Trading and deal-making",
+      "summary": "Xxcha should demand favourable trades, using its strong defence to tolerate losing some table goodwill. Political Favor should almost never be sold, since a quash sold at the moment of need earns far more. Selling or threatening Instinct Training is a minor tool, not a solution, and its threats often fail. In the mid and late game, take Politics to stack harsh agendas and get paid to quash them.",
+      "chunks": [
+        {
+          "start": "s948",
+          "title": "Working the commodities",
+          "kind": "strategy",
+          "summary": "Throughout the game make trades favourable: four commodities for three trade goods keeps you behind. Take Trade to control negotiations; Xxcha's defence lets it refuse bad deals in a way Sardakk cannot.",
+          "advice": [
+            {
+              "point": "Do not accept four commodities for three trade goods; take Trade to control negotiations and extract more than face value.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Because Xxcha is well defended, it can afford to lose some table goodwill by refusing bad trade deals, unlike Sardakk.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom", "Sardakk N'orr"]
+            },
+            {
+              "point": "Offering X-1 trades to everyone can work but has not worked often for Matt; maximising trade goods when Trade is played matters more.",
+              "stance": "situational",
+              "subjects": ["Trade"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["trade and diplomacy", "economy"],
+          "requires": [],
+          "concepts": ["X-1 trade", "trade leverage"]
+        },
+        {
+          "start": "s969",
+          "title": "Selling Political Favor",
+          "kind": "strategy",
+          "summary": "Political Favor is worth little mid-round, only to a rich leader (Creuss, Hacan, Mentak or whoever holds Mecatol) afraid of a specific agenda. Charging for a quash when that agenda, such as Economic Equality, is actually revealed earns far more, so almost never sell it; a desperate Xxcha might, Hunter notes, but weigh it first.",
+          "advice": [
+            {
+              "point": "Almost never sell Political Favor; selling a quash at the moment a feared agenda like Economic Equality is revealed earns far more, and the note lets others quash without your consent.",
+              "stance": "avoid",
+              "subjects": ["Political Favor", "Quash", "Economic Equality"]
+            },
+            {
+              "point": "If desperate for money you may sell Political Favor cheaply, but first ask whether selling the quash later would be worth more.",
+              "stance": "situational",
+              "subjects": ["Political Favor"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Emirates of Hacan", "Ghosts of Creuss", "Mentak Coalition"],
+          "phases": ["mid", "late"],
+          "topics": ["promissory notes", "agendas", "trade and diplomacy"],
+          "requires": ["promissory notes", "faction abilities", "agendas"],
+          "concepts": ["quash for hire"]
+        },
+        {
+          "start": "s1011",
+          "title": "Selling and threatening Instinct Training",
+          "kind": "strategy",
+          "summary": "Selling Instinct Training is a small tool, not a fix for Xxcha's economy. Never sell it in a round where you need it yourself; when you do sell, charge three or four trade goods, which few action cards are worth. Threatening to cancel a card unless paid rarely works and forces you to spend a token you did not plan to. Its best use is stopping someone else's win, and some tables will not pay you even then.",
+          "advice": [
+            {
+              "point": "Selling Instinct Training is a minor tool, not the solution to Xxcha's economy.",
+              "stance": "rating",
+              "subjects": ["Instinct Training"]
+            },
+            {
+              "point": "Do not sell Instinct Training in a round where your own big play relies on it; in a quiet round, look for a buyer at three to four trade goods or more.",
+              "stance": "situational",
+              "subjects": ["Instinct Training"]
+            },
+            {
+              "point": "Avoid threatening to cancel cards like Rise of the Messiah unless paid; few cards are worth that much, opponents call the bluff, and you then spend a token you did not plan to.",
+              "stance": "avoid",
+              "subjects": ["Instinct Training", "Rise of the Messiah"]
+            },
+            {
+              "point": "Use Instinct Training to stop someone else's win; as a weak faction you can demand payment for it, but many tables will not pay.",
+              "stance": "situational",
+              "subjects": ["Instinct Training", "Public Disgrace"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["mid", "late"],
+          "topics": ["action cards", "trade and diplomacy", "technology"],
+          "requires": ["faction technologies", "action cards"],
+          "concepts": ["kingmaking", "command token economy"]
+        },
+        {
+          "start": "s1050",
+          "title": "Politics to set up paid quashes",
+          "kind": "strategy",
+          "summary": "In the mid to late game take Politics as often as possible and stack the nastiest agendas on top, such as Economic Equality when others are rich or agendas that punish one faction like Publicize Weapon Schematics, then get paid to quash them. It can backfire.",
+          "advice": [
+            {
+              "point": "In the mid to late game take Politics often and put punishing agendas on top, then charge the threatened players to quash them.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Quash", "Economic Equality", "Publicize Weapon Schematics"]
+            },
+            {
+              "point": "Look especially for agendas that hurt a single player (for example ones targeting Creuss, Winnu or Muaat's war suns), since that player will pay.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Ghosts of Creuss", "Winnu", "Embers of Muaat"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Ghosts of Creuss", "Winnu", "Embers of Muaat"],
+          "phases": ["mid", "late"],
+          "topics": ["agendas", "strategy cards", "trade and diplomacy"],
+          "requires": ["faction abilities", "agendas"],
+          "concepts": ["quash for hire"]
+        }
+      ]
+    },
+    {
+      "title": "Mid game and the race to ten",
+      "summary": "Xxcha rarely scores in rounds one and two, so rounds three and four decide its game: plan a swing round with Imperial, ideally while holding Mecatol Rex. Xxcha reliably reaches eight or nine points but struggles to find the tenth, so map out all ten points from round two, including status-phase timing and multi-round secret objectives, according to the chosen path. Do not make unnecessary enemies.",
+      "chunks": [
+        {
+          "start": "s1065",
+          "title": "Swing round with Imperial",
+          "kind": "strategy",
+          "summary": "Xxcha almost never scores in round one and rarely in round two, so it cannot keep pace with Jol-Nar, Sol or Saar. Get Imperial in round three or four for a swing round, ideally while on Mecatol Rex.",
+          "advice": [
+            {
+              "point": "Plan a swing round with Imperial in round three or four to catch up with factions that score every round.",
+              "stance": "recommended",
+              "subjects": ["Imperial"]
+            },
+            {
+              "point": "Try to hold Mecatol Rex during your Imperial swing round.",
+              "stance": "recommended",
+              "subjects": ["Imperial", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Universities of Jol-Nar", "Federation of Sol", "Clan of Saar"],
+          "phases": ["mid"],
+          "topics": ["objectives", "strategy cards", "mecatol"],
+          "requires": [],
+          "concepts": ["swing round"]
+        },
+        {
+          "start": "s1081",
+          "title": "Point math: finding the tenth point",
+          "kind": "strategy",
+          "summary": "All ten stage one objectives are achievable for Xxcha, giving five points; secret objectives are a coin flip; a Support for the Throne swap gives a ninth. Xxcha reliably reaches eight or nine but rarely finds the tenth, so map a trajectory for all ten points rather than chasing points every round.",
+          "advice": [
+            {
+              "point": "Every stage one objective is achievable for Xxcha; count on five public points, about half your secrets and a Support for the Throne swap.",
+              "stance": "rating",
+              "subjects": ["Support for the Throne"]
+            },
+            {
+              "point": "Map out a trajectory for all ten points rather than trying to score every round; finding the tenth point is Xxcha's hardest problem.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["mid", "late"],
+          "topics": ["objectives"],
+          "requires": ["promissory notes"],
+          "concepts": ["tenth point problem", "support for the throne swap"]
+        },
+        {
+          "start": "s1098",
+          "title": "Planning objectives rounds ahead",
+          "kind": "strategy",
+          "summary": "From round two, plan which status phase you will meet each objective, and build toward multi-round secret objectives like blockading a space dock well in advance. If Imperial becomes available earlier than planned, move the swing round to that round. Turtles swing when tech objectives and a fourth planet of a trait line up; Blastoise swings when money finally stops going to tech and the flagship.",
+          "advice": [
+            {
+              "point": "From round two, schedule your objectives round by round (when you will have eight resources, the tech, the fourth planet of a trait).",
+              "stance": "recommended",
+              "subjects": ["Erect a Monument", "Corner the Market"]
+            },
+            {
+              "point": "If Imperial is available a round earlier than planned and will not be next round, rebuild your plan to swing this round.",
+              "stance": "situational",
+              "subjects": ["Imperial"]
+            },
+            {
+              "point": "Build toward secret objectives over several rounds; Xxcha cannot complete something like a space dock blockade on short notice.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            },
+            {
+              "point": "Blastoise's swing round is when money stops going to tech and the flagship (tech objective plus Erect a Monument); the Turtles swing when tech objectives coincide with taking a fourth planet of a trait.",
+              "stance": "situational",
+              "subjects": ["Erect a Monument", "Corner the Market"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["early", "mid"],
+          "topics": ["objectives", "general strategy"],
+          "requires": [],
+          "concepts": ["swing round", "Blastoise path", "Turtles path"]
+        },
+        {
+          "start": "s1129",
+          "title": "Frustration of playing Xxcha",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Xxcha Kingdom"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1141",
+          "title": "Do not make unnecessary enemies",
+          "kind": "strategy",
+          "summary": "With PDS and defences up, the table will usually leave Xxcha alone. Be a shrewd negotiator but do not anger people, since Xxcha lacks the tools to back up aggressive talk.",
+          "advice": [
+            {
+              "point": "Be a shrewd negotiator but avoid making enemies; Xxcha lacks the tools to back up aggressive talk.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["any"],
+          "topics": ["trade and diplomacy"],
+          "requires": [],
+          "concepts": ["table talk", "threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Support for the Throne",
+      "summary": "Xxcha is a middling to poor Support for the Throne partner: it is not threatening enough for neighbours to buy safety and, if well defended, offers no target worth protecting. Because it needs points outside the public objectives, it should always try for a swap and start the conversation early, and look for other ways to gain leverage, as Mick MacMoose did with two Supports for the Throne.",
+      "chunks": [
+        {
+          "start": "s1147",
+          "title": "Xxcha as a support partner",
+          "kind": "strategy",
+          "summary": "Some factions make better support partners because the swap creates leverage, as with Nekro's tech stealing. Xxcha is slow and defensive, so neighbours neither fear it nor see it as a target, making it a middling to poor partner. Still, it needs the point, so always try and start early.",
+          "advice": [
+            {
+              "point": "Xxcha is a middling to poor Support for the Throne partner because neighbours neither fear it nor plan to attack it.",
+              "stance": "rating",
+              "subjects": ["Support for the Throne", "Xxcha Kingdom"]
+            },
+            {
+              "point": "Always try to get a Support for the Throne swap as Xxcha, and open the conversation as early as possible before others decide you are not worth it.",
+              "stance": "recommended",
+              "subjects": ["Support for the Throne"]
+            },
+            {
+              "point": "Swapping supports with Nekro gives leverage, since Nekro cannot take tech from you without losing the point.",
+              "stance": "situational",
+              "subjects": ["Support for the Throne", "Nekro Virus"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Nekro Virus"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["support for the throne swap", "threat perception"]
+        },
+        {
+          "start": "s1182",
+          "title": "Blastoise and support swaps, finding leverage",
+          "kind": "strategy",
+          "summary": "Even in Matt's best Blastoise game he could not get a swap: an early point lead and sitting in Sardakk's slice made the neighbour unwilling, while others judged the flagship easy to pop. Swaps come to the extremes, very aggressive or very defensive, so a middling Xxcha must manufacture leverage with friendly above-the-table play.",
+          "advice": [
+            {
+              "point": "Do not park units in a neighbour's slice if you want their Support for the Throne; back off first.",
+              "stance": "avoid",
+              "subjects": ["Support for the Throne", "Sardakk N'orr"]
+            },
+            {
+              "point": "A Blastoise Xxcha sits between aggressive and defensive, which gives no one a reason to swap; swaps come to players who are clearly too dangerous or clearly impregnable.",
+              "stance": "rating",
+              "subjects": ["Support for the Throne", "Loncara Ssodu"]
+            },
+            {
+              "point": "Xxcha has no easy leverage, so play nice and build leverage through above-the-table play; watch Mick MacMoose's semifinal game four as an example.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom", "Support for the Throne"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom", "Sardakk N'orr"],
+          "phases": ["mid", "late"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["support for the throne swap", "Blastoise path", "above-the-table play", "threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Conclusion",
+      "summary": "Xxcha's problems converge in the race for the tenth point: it posts high scores but a poor win rate, and must find Imperial, Support for the Throne, agenda or easy stage two points faster than everyone else. It relies on luck more than top factions, and good, friendly above-the-table play is the main way to reduce that uncertainty.",
+      "chunks": [
+        {
+          "start": "s1213",
+          "title": "It all comes down to the tenth point",
+          "kind": "strategy",
+          "summary": "Xxcha players often feel they have good games but have a poor win rate, because every choice commits them to a direction early. They must find Imperial, Support for the Throne, agenda or easy stage two spend points faster than everyone else, and rely on luck more than top factions.",
+          "advice": [
+            {
+              "point": "Xxcha has a high scoring ratio but a poor win rate; plan specifically for the tenth point from Imperial, Support for the Throne, agendas or easy stage two spend objectives.",
+              "stance": "rating",
+              "subjects": ["Imperial", "Support for the Throne", "Found a Golden Age", "Manipulate Galactic Law"]
+            },
+            {
+              "point": "Accept that Xxcha relies on luck more than top-tier factions; push the odds your way but play knowing it.",
+              "stance": "rating",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["late"],
+          "topics": ["objectives", "general strategy"],
+          "requires": [],
+          "concepts": ["tenth point problem"]
+        },
+        {
+          "start": "s1234",
+          "title": "Above-the-table play and reputation",
+          "kind": "strategy",
+          "summary": "Hunter argues that Xxcha's uncertainty can be reduced mainly by very good above-the-table play, which suits charismatic, friendly players like Mick MacMoose more than aggressive ones like Matt, whose reputation makes others unwilling to deal. Matt concedes deal-making players may be right that Xxcha should be open-handed rather than squeezing every trade.",
+          "advice": [
+            {
+              "point": "Use friendly, cooperative above-the-table play to offset Xxcha's lack of options; a hard-nosed, aggressive negotiating style makes others unwilling to deal with you.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom"]
+            },
+            {
+              "point": "Matt's advice to squeeze trades may be wrong; generous deal-makers may do better with Xxcha. Use whichever earns the most money.",
+              "stance": "situational",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["any"],
+          "topics": ["trade and diplomacy", "general strategy"],
+          "requires": [],
+          "concepts": ["above-the-table play", "table meta", "non-binding deals"]
+        },
+        {
+          "start": "s1297",
+          "title": "Garbage Turtle: an untested idea",
+          "kind": "strategy",
+          "summary": "Hunter's untested theory, with low confidence: sell everything early like Sardakk to boost the economy, score the difficult points first in the mid game, then turtle in the late game.",
+          "advice": [
+            {
+              "point": "Untested idea (Hunter has low confidence): sell anything early to build the economy, score the hard points in the mid game, then turtle up late.",
+              "stance": "situational",
+              "subjects": ["Xxcha Kingdom"]
+            }
+          ],
+          "factions": ["Xxcha Kingdom"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["general strategy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["garbage turtle", "Turtles path"]
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1309",
+          "title": "Upcoming guides: Winnu and Arborec",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1328",
+          "title": "Patreon poll, Twitch schedule, 14-point invitational",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1410",
+          "title": "Thanks and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Extra Kingdom": "Xxcha Kingdom",
+    "Extra": "Xxcha",
+    "Xtra": "Xxcha",
+    "X-Cha": "Xxcha",
+    "X-Jaw": "Xxcha",
+    "X-Traw": "Xxcha",
+    "X-Child": "Xxcha",
+    "X Job": "Xxcha",
+    "XJA": "Xxcha",
+    "X Shot": "Xxcha",
+    "Lankara Sodu": "Loncara Ssodu",
+    "piece accords": "Peace Accords",
+    "Mechital Rex": "Mecatol Rex",
+    "Mechatar Rex": "Mecatol Rex",
+    "Mecha Rex": "Mecatol Rex",
+    "Mentech": "Mentak",
+    "Is Sarl": "Yssaril",
+    "Isaro": "Yssaril",
+    "transparent steel plating": "Transparasteel Plating",
+    "Centauri Grawl": "Centauri and Gral",
+    "Joel and Har": "Jol-Nar",
+    "Jill and R": "Jol-Nar",
+    "Mooah": "Muaat",
+    "Hakar": "Hacan",
+    "Arbor Ac": "Arborec",
+    "Winno": "Winnu",
+    "Mick Macmos": "Mick MacMoose",
+    "Mic Mac Moose": "Mick MacMoose",
+    "Necrovirus": "Nekro Virus",
+    "Strict 9": "Strychnine",
+    "Twilight Island Imperium": "Twilight Imperium"
+  }
+}

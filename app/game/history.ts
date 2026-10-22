@@ -21,6 +21,13 @@ export type MoveNote = {
   fallback?: string;
   /** Only one move was on offer; the rationale says why. */
   forced?: boolean;
+  /** Strategy guide passages the agent cited, as readable labels. */
+  citations?: string[];
+  /**
+   * What was said and agreed at the table with this move: messages and deal
+   * changes. A note carrying only talk has an empty choice.
+   */
+  talk?: string[];
 };
 
 export type RecordedMove = {

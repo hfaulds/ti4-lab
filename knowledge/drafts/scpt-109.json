@@ -1,0 +1,1535 @@
+{
+  "episode": 109,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro, recording troubles and PAX Unplugged",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview",
+      "summary": "Sardakk N'orr is a lower-tier faction that is given only combat tools in a game that is not won by fighting. New players who play it as a simple warmonger usually fail; it needs a patient, economy-first approach.",
+      "chunks": [
+        {
+          "start": "s55",
+          "title": "A weak faction that is not a warmonger",
+          "kind": "strategy",
+          "summary": "The hosts rate Sardakk N'orr in the lower half of factions (Matt says bottom tier; Hunter enjoys them and thinks that is too harsh). Playing them as the fighty faction is a trap, especially for new players, because Twilight Imperium is not simply a fighting game.",
+          "advice": [
+            {
+              "point": "Sardakk N'orr is a lower-half faction; Matt calls them bottom tier, while Hunter, who enjoys playing them, does not think they are straight-up bottom tier.",
+              "stance": "rating",
+              "subjects": ["Sardakk N'orr"]
+            },
+            {
+              "point": "Do not play Sardakk N'orr as a simple aggressive warmonger; just going out to fight almost always falls flat, which is why their win rate among newer players is poor.",
+              "stance": "avoid",
+              "subjects": ["Sardakk N'orr"]
+            },
+            {
+              "point": "Approach the faction with a different mindset: turn warmongering tools into a win in a game that rewards more than fighting.",
+              "stance": "recommended",
+              "subjects": ["Sardakk N'orr"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Starting units, tech, abilities and home system",
+      "summary": "The starting fleet supports a standard two-system opening but has only three ships and no fighters, so it is weak at protecting carriers and the home system. Having no starting tech is a large handicap, especially against tech objectives. Unrelenting is narrow but makes cheap units (fighters, infantry) hit very well, the faction dreadnoughts are strong and worth investing in, and the two-planet home system gives four resources and suits double docking.",
+      "chunks": [
+        {
+          "start": "s90",
+          "title": "Starting fleet",
+          "kind": "strategy",
+          "summary": "The starting units allow the standard opening of taking two two-planet systems in round one, but with only three ships and no fighters the fleet is actually a bad start: carriers cannot be protected, and round one forces a choice about leaving the home system undefended or where to commit the cruiser.",
+          "advice": [
+            {
+              "point": "The starting fleet is a bad start despite looking good: only three ships and no fighters to protect the carriers.",
+              "stance": "rating",
+              "subjects": ["Sardakk N'orr"]
+            },
+            {
+              "point": "The two carriers and five infantry still allow the best normal opening of taking two systems' worth of planets in round one.",
+              "stance": "recommended",
+              "subjects": ["Carrier", "Infantry"]
+            },
+            {
+              "point": "In round one, think carefully about whether to leave the home system undefended and whether to send the cruiser out at all, because it is one of only three ships.",
+              "stance": "situational",
+              "subjects": ["Cruiser"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening", "expansion"],
+          "requires": [],
+          "concepts": ["2C4I opening", "home system defense"]
+        },
+        {
+          "start": "s112",
+          "title": "No starting technology",
+          "kind": "strategy",
+          "summary": "Starting with no technology puts Sardakk N'orr one or two techs behind in a game where players get only five or six techs, which the hosts call a colossal disadvantage. Tech objectives are the biggest problem, and the faction must plan around starting from behind.",
+          "advice": [
+            {
+              "point": "Having no starting tech is a huge disadvantage; the tech game is where Sardakk N'orr falls apart.",
+              "stance": "rating",
+              "subjects": ["Sardakk N'orr"]
+            },
+            {
+              "point": "Expect the tech objectives to come out and plan how to tackle them, since they are nearly free points for factions like the Universities of Jol-Nar and very hard for you.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "Universities of Jol-Nar"],
+          "phases": ["setup", "early"],
+          "topics": ["technology", "objectives"],
+          "requires": [],
+          "concepts": ["tech objectives handicap"]
+        },
+        {
+          "start": "s136",
+          "title": "Unrelenting and avoiding ability-based tech",
+          "kind": "strategy",
+          "summary": "Unrelenting only helps ordinary combat rolls, not unit abilities or action cards, so Sardakk N'orr should avoid investing in technologies and units whose value comes from ability rolls.",
+          "advice": [
+            {
+              "point": "Because Unrelenting does not help ability rolls such as Anti-Fighter Barrage, Space Cannon or Bombardment, avoid leaning into technologies whose value is in ability text.",
+              "stance": "avoid",
+              "subjects": ["Unrelenting"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "technology", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s145",
+          "title": "Exotrireme dreadnoughts",
+          "kind": "strategy",
+          "summary": "The faction dreadnoughts are excellent even unupgraded, because their bombardment already bakes in the bonus Unrelenting cannot give, and they are worth investing in throughout the game.",
+          "advice": [
+            {
+              "point": "The Exotrireme I dreadnoughts are incredible at the base level, mostly because of their strong built-in bombardment, and are very much worth investing in.",
+              "stance": "rating",
+              "subjects": ["Exotrireme I"]
+            },
+            {
+              "point": "The dreadnoughts are the most potent part of Sardakk N'orr.",
+              "stance": "rating",
+              "subjects": ["Exotrireme I", "Exotrireme II"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s151",
+          "title": "Unrelenting on cheap units: fighters and infantry",
+          "kind": "strategy",
+          "summary": "The +1 is worth more on small, cheap units than on big ships, so fighters and infantry are the efficient way to use it. Sardakk infantry already match Sol's base infantry, which makes infantry upgrades a strong consideration.",
+          "advice": [
+            {
+              "point": "Unrelenting is mathematically worth more on cheap units like fighters than on large ships, so mass cheap fighters for efficient firepower.",
+              "stance": "recommended",
+              "subjects": ["Unrelenting", "Fighter"]
+            },
+            {
+              "point": "Sardakk infantry hit as well as Sol's; upgrading them is worth considering because infantry combat rolls decide ground fights.",
+              "stance": "situational",
+              "subjects": ["Infantry II", "Federation of Sol"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s164",
+          "title": "Two-planet home system",
+          "kind": "strategy",
+          "summary": "The home system gives four resources, enough for a standard round one, with influence that is nearly worthless. Its two planets allow a double dock at home for big late-game fighter swarms, like a poor man's Barony of Letnev.",
+          "advice": [
+            {
+              "point": "The four home resources are enough for most standard round ones; the home influence will rarely be used.",
+              "stance": "rating",
+              "subjects": ["Sardakk N'orr"]
+            },
+            {
+              "point": "Double docking at home is a good option, giving eight or more production for large fighter swarms later in the game.",
+              "stance": "situational",
+              "subjects": ["Space Dock"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["setup", "late"],
+          "topics": ["economy", "general strategy"],
+          "requires": [],
+          "concepts": ["double dock home", "production capacity"]
+        }
+      ]
+    },
+    {
+      "title": "Flagship and promissory note",
+      "summary": "The flagship is best used defensively over the home system and is one of the few flagships worth building even without the Unveil Flagship objective. Tekklar Legion is a strong trading chip: offer it widely but hand it over only within the activation where it is needed, using it to build relationships with invading players.",
+      "chunks": [
+        {
+          "start": "s174",
+          "title": "C'morran N'orr flagship",
+          "kind": "strategy",
+          "summary": "The flagship makes late-game fighter swarms hit very hard, and it is best used defensively, parked over the home system when fleet supply runs out. Unlike most flagships, it is worth building even without the secret objective.",
+          "advice": [
+            {
+              "point": "The flagship is a really great ship and the core of Sardakk's late-game punch with upgraded fighters.",
+              "stance": "rating",
+              "subjects": ["C'morran N'orr"]
+            },
+            {
+              "point": "Build the flagship as a home defense when you have ships at home but no fleet supply for more, even without the Unveil Flagship objective.",
+              "stance": "recommended",
+              "subjects": ["C'morran N'orr", "Unveil Flagship"]
+            },
+            {
+              "point": "Park the flagship above the home system in the late game while coasting to the last points, so you cannot lose your home system.",
+              "stance": "recommended",
+              "subjects": ["C'morran N'orr"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["late"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s201",
+          "title": "Tekklar Legion: when to hand it over",
+          "kind": "strategy",
+          "summary": "Tekklar Legion lasts the whole invasion combat and helps people in clutch fights, but it is very dangerous if used against you. Hunter only gives it within the activation where it is needed, so it comes straight back, while promising it to many players in advance.",
+          "advice": [
+            {
+              "point": "Tekklar Legion is a strong note because it lasts a whole invasion combat and invasion combats are where clutch fights happen; its danger is being used against you.",
+              "stance": "rating",
+              "subjects": ["Tekklar Legion"]
+            },
+            {
+              "point": "Trade Tekklar Legion only within the activation where it is needed, so it gets used and returns immediately rather than being passed around.",
+              "stance": "recommended",
+              "subjects": ["Tekklar Legion"]
+            },
+            {
+              "point": "Promise Tekklar Legion to players ahead of their planned invasions; it is a superpower you can keep offering.",
+              "stance": "recommended",
+              "subjects": ["Tekklar Legion"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals"]
+        },
+        {
+          "start": "s222",
+          "title": "Tekklar Legion for invaders and defenders",
+          "kind": "strategy",
+          "summary": "Because transactions are only possible with the active player, Tekklar Legion naturally goes to whoever is invading, which makes an enemy of the defender but can win you favour with the players who are doing things on the board. Lending it to defenders is possible outside the activation if kept discreet.",
+          "advice": [
+            {
+              "point": "Give Tekklar Legion to players invading important planets to build relationships with the right people, accepting that you annoy the defender.",
+              "stance": "recommended",
+              "subjects": ["Tekklar Legion"]
+            },
+            {
+              "point": "You can lend Tekklar Legion to a defender before they need it, outside the activation, ideally keeping the trade secret; it is trickier but fine for a turn.",
+              "stance": "situational",
+              "subjects": ["Tekklar Legion"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["friend of the table enemy", "table talk"]
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies and commodities",
+      "summary": "Exotrireme II is very strong, especially defensively and for destroy-ship objectives, but it is four techs deep and not essential; the base dreadnought is already good. Valkyrie Particle Weave is a good defensive tech that does not fit the tech path. The secret objective for two faction techs should be discarded. Three commodities are a real asset and should be traded aggressively.",
+      "chunks": [
+        {
+          "start": "s236",
+          "title": "Exotrireme II",
+          "kind": "strategy",
+          "summary": "Exotrireme II can remove two of the enemy's biggest ships and is great defensively and for objectives like Destroy Their Greatest Ship, but needing four prerequisites makes it just beyond essential. Without such objectives it can be win-more, since the flagship already covers late-game defence.",
+          "advice": [
+            {
+              "point": "Exotrireme II is ridiculously powerful, better defensively than offensively, but not the must-have some players claim.",
+              "stance": "rating",
+              "subjects": ["Exotrireme II"]
+            },
+            {
+              "point": "Its four prerequisites make it a tricky puzzle depending on the objectives; treat it as just beyond essential.",
+              "stance": "rating",
+              "subjects": ["Exotrireme II"]
+            },
+            {
+              "point": "Go for Exotrireme II when you have Destroy Their Greatest Ship or control objectives to score.",
+              "stance": "situational",
+              "subjects": ["Exotrireme II", "Destroy Their Greatest Ship"]
+            },
+            {
+              "point": "Without such objectives Exotrireme II can be win-more; the base Exotrireme and the flagship already handle late-game defence.",
+              "stance": "situational",
+              "subjects": ["Exotrireme II", "Exotrireme I", "C'morran N'orr"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat", "objectives"],
+          "requires": ["faction technologies"],
+          "concepts": []
+        },
+        {
+          "start": "s271",
+          "title": "Valkyrie Particle Weave and the two-faction-tech secret",
+          "kind": "strategy",
+          "summary": "Valkyrie Particle Weave is a really good tech, best defensively because it stalls invasions, but its two red prerequisites keep it off Sardakk's tech path. The secret objective for owning both faction techs is one of the worst draws and should be discarded.",
+          "advice": [
+            {
+              "point": "Valkyrie Particle Weave is a great tech that is stronger defensively than offensively, forcing invaders to bring more ground forces.",
+              "stance": "rating",
+              "subjects": ["Valkyrie Particle Weave"]
+            },
+            {
+              "point": "Valkyrie Particle Weave does not fit the tech path; Exotrireme II beats it every time.",
+              "stance": "avoid",
+              "subjects": ["Valkyrie Particle Weave", "Exotrireme II"]
+            },
+            {
+              "point": "The secret objective to own two faction technologies is one of the worst draws for Sardakk N'orr; get rid of it.",
+              "stance": "avoid",
+              "subjects": ["Valkyrie Particle Weave", "Exotrireme II"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["technology", "objectives"],
+          "requires": ["faction technologies"],
+          "concepts": []
+        },
+        {
+          "start": "s291",
+          "title": "Three commodities",
+          "kind": "strategy",
+          "summary": "Three commodities is a good amount that Sardakk players often forget. Spend them as if you had six, getting heavily involved in the trade game.",
+          "advice": [
+            {
+              "point": "Remember that three commodities is a good amount and use them aggressively, as if you had six, to get involved in trade.",
+              "stance": "recommended",
+              "subjects": ["Sardakk N'orr"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["trade and diplomacy", "economy"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Strategy cards in round one",
+      "summary": "Technology and Politics are the best round-one picks, because each solves more than one problem: tech, plastic and money. Leadership is a solid middle option for a slow round one into a better round two, Construction is fine (especially for a forward dock), and Trade is conditional on guaranteed trade partners. Warfare and Diplomacy are poor, and Imperial is useless.",
+      "chunks": [
+        {
+          "start": "s305",
+          "title": "How to read the round-one rankings",
+          "kind": "strategy",
+          "summary": "A game is not made or broken in round one, and the ranking is not absolute; the point is what to do with whichever card you get.",
+          "advice": [
+            {
+              "point": "Treat the round-one ranking as a guide, not a rule; circumstances can make any card the right one.",
+              "stance": "situational",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s313",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is a middle-to-top pick (third or fourth). Take the command tokens, do nothing fancy, and bank them for a much better round two. With Leadership, prefer the Technology secondary, then Warfare for fighters, but do not try to also trade and follow everything.",
+          "advice": [
+            {
+              "point": "Leadership is a middle-to-top round-one pick, about third or fourth.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "With Leadership, avoid fancy round-one plays; take the command tokens and bank them for a stronger round two.",
+              "stance": "recommended",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "With Leadership, the Technology secondary is the priority, then Warfare for fighters; pick one or two goals rather than trying to also trade for enough money to do everything.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Warfare"]
+            },
+            {
+              "point": "Do not send the cruiser out as a trade ship in round one; it costs too much position for two or three trade goods. Trade only if partners come to you.",
+              "stance": "avoid",
+              "subjects": ["Cruiser", "Trade"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["secondary timing", "trade ship"]
+        },
+        {
+          "start": "s349",
+          "title": "Round one: Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is not recommended: it gives the rest of the table, who already start better than you, more than it gives you. Only a great system outside home could change that.",
+          "advice": [
+            {
+              "point": "Do not take Diplomacy in round one; it helps the rest of the table, who already have a better start, more than you.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s362",
+          "title": "Round one: Politics and selling action cards",
+          "kind": "strategy",
+          "summary": "Politics is Hunter's favourite round-one pick. Act as a mercenary with action cards, selling them or selling their use to other players (Hacan especially), and sell the speaker token to a neighbour rather than keeping it.",
+          "advice": [
+            {
+              "point": "Politics is Hunter's number one round-one pick for Sardakk N'orr.",
+              "stance": "rating",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Act as a mercenary with action cards: sell useful cards, or playing them on someone's behalf, for trade goods, especially to the Emirates of Hacan.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Emirates of Hacan"]
+            },
+            {
+              "point": "An early Flank Speed can help with the faction's mobility problems.",
+              "stance": "situational",
+              "subjects": ["Flank Speed"]
+            },
+            {
+              "point": "You do not need the speaker token going into round two; sell it to a neighbour.",
+              "stance": "recommended",
+              "subjects": ["Politics"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "Emirates of Hacan"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "action cards", "trade and diplomacy"],
+          "requires": ["action cards"],
+          "concepts": ["speaker token sale", "action card brokering"]
+        },
+        {
+          "start": "s385",
+          "title": "Selling the speaker token for leverage",
+          "kind": "strategy",
+          "summary": "Selling the speaker token means offering to choose a player, typically the one to your right, as speaker in exchange for payment. Holding the speaker token gives leverage so others come to you to trade, which solves Sardakk's need for money without moving ships; if nobody buys, you are still first pick in round two.",
+          "advice": [
+            {
+              "point": "Offer to make the player on your right speaker in exchange for payment; being second in order is rarely a problem.",
+              "stance": "recommended",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Use the leverage of holding the speaker token to get others to send ships to you to trade, rather than moving your own ships out.",
+              "stance": "recommended",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "If nobody buys the speaker token, keep it and take exactly the card you need in round two.",
+              "stance": "situational",
+              "subjects": ["Politics"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["speaker token sale", "speaker order control", "trade leverage"]
+        },
+        {
+          "start": "s406",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Construction is middle of the road and not bad if you are stuck with it. A forward dock on a good three-resource planet lets you reinforce your slice from round two; a double dock at home also works, and the PDS deters early aggression. The hosts reject the all-in early plastic approach because it sacrifices tech and position.",
+          "advice": [
+            {
+              "point": "Construction is a middle-of-the-road pick; getting stuck with it last is not bad for Sardakk N'orr.",
+              "stance": "rating",
+              "subjects": ["Construction"]
+            },
+            {
+              "point": "Use Construction for a forward dock on a good planet taken in round one so you can reinforce the middle of your slice from round two.",
+              "stance": "recommended",
+              "subjects": ["Construction", "Space Dock"]
+            },
+            {
+              "point": "Depending on the slice, a second home space dock is also an option.",
+              "stance": "situational",
+              "subjects": ["Construction", "Space Dock"]
+            },
+            {
+              "point": "Place the PDS to stop looking like an easy target to mobile neighbours early.",
+              "stance": "recommended",
+              "subjects": ["Construction", "PDS"]
+            },
+            {
+              "point": "Do not go all in on early plastic while ignoring tech; it improves your position little and leaves your tech too slow.",
+              "stance": "avoid",
+              "subjects": ["Sardakk N'orr"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "expansion", "opening"],
+          "requires": [],
+          "concepts": ["forward dock", "double dock home", "threat perception"]
+        },
+        {
+          "start": "s430",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is a conditional pick: Sardakk has little plastic and no leverage, so take it only when you are confident of making a lot of money, with partners arranged before picking who will send ships to you. A Hacan neighbour will probably cut past you, while a Ghosts of Creuss or Hacan at the table willing to deal can make Trade a top pick.",
+          "advice": [
+            {
+              "point": "Take Trade in round one only if you are confident of making a lot of money; three trade goods alone does not fix your problems.",
+              "stance": "situational",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Arrange trade partners before picking Trade, ones willing to send ships to you, because Sardakk has no natural leverage.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "If you can get seven or eight trade goods, for example with the Emirates of Hacan and the Ghosts of Creuss as partners, Trade can rise to the third-best pick or better.",
+              "stance": "situational",
+              "subjects": ["Trade", "Emirates of Hacan", "Ghosts of Creuss"]
+            },
+            {
+              "point": "A Hacan next to you will probably trade past you regardless, so Trade is weaker for you there.",
+              "stance": "situational",
+              "subjects": ["Trade", "Emirates of Hacan"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "Emirates of Hacan", "Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["trade leverage", "table meta"]
+        },
+        {
+          "start": "s466",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is usually great but poor for Sardakk N'orr in round one: there is not enough plastic, a lone carrier is easy prey even at +1, and an early Mecatol Rex is out of the question. If you do get Warfare, play close to home and take only systems adjacent to your home system.",
+          "advice": [
+            {
+              "point": "Avoid Warfare in round one; you lack the plastic to use it and will spread yourself too thin. Take it only if it is left to you over Imperial or Diplomacy.",
+              "stance": "avoid",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Do not go for an early round-two Mecatol Rex with Sardakk N'orr; you cannot take the heat.",
+              "stance": "avoid",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "The +1 does not make the starting carrier a threat; a neighbour with a carrier, two fighters and a cruiser or destroyer will beat it.",
+              "stance": "rating",
+              "subjects": ["Unrelenting", "Carrier"]
+            },
+            {
+              "point": "If you have Warfare, play close to the vest and take only the systems adjacent to home, not equidistant systems or systems next to Mecatol Rex.",
+              "stance": "situational",
+              "subjects": ["Warfare"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "expansion", "mecatol"],
+          "requires": [],
+          "concepts": ["magic christmas land", "threat perception"]
+        },
+        {
+          "start": "s508",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Warfare to build at home first",
+          "kind": "strategy",
+          "summary": "Using Warfare to build fighters at home on the first action and then move out wastes a resource because of production limits, kills any chance of tech in rounds one and two, and gives everyone else more value from the secondary unless you can stall it out.",
+          "advice": [
+            {
+              "point": "Do not use Warfare to build fighters at home first action and then move out; production limits waste a resource and you lose the tech game.",
+              "stance": "avoid",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Ignoring tech for plastic makes Sardakk N'orr almost impossible to win with once one or two tech objectives appear.",
+              "stance": "avoid",
+              "subjects": ["Sardakk N'orr"]
+            },
+            {
+              "point": "Only want Warfare if you can stall it out reliably, since playing it early lets everyone else build extra fleets, but stalling usually means spreading thin.",
+              "stance": "situational",
+              "subjects": ["Warfare"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology"],
+          "requires": [],
+          "concepts": ["production capacity", "stall action", "secondary timing"]
+        },
+        {
+          "start": "s532",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is the top pick along with Politics: it gets a tech and leaves money to follow Warfare for a carrier or fighters. Spending everything on two techs in round one is risky because it does not fix the plastic problem.",
+          "advice": [
+            {
+              "point": "Technology is the top round-one pick, tied with Politics, because it solves several problems at once.",
+              "stance": "rating",
+              "subjects": ["Technology", "Politics"]
+            },
+            {
+              "point": "With Technology, keep money to follow Warfare for fighters, a carrier or a cruiser, depending on timing.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Warfare"]
+            },
+            {
+              "point": "Trading into a double tech in round one is risky because it leaves the plastic problem unsolved.",
+              "stance": "avoid",
+              "subjects": ["Technology"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology"],
+          "requires": [],
+          "concepts": ["secondary timing"]
+        },
+        {
+          "start": "s547",
+          "title": "Round one: Imperial",
+          "kind": "strategy",
+          "summary": "Imperial is useless in round one; do not take it.",
+          "advice": [
+            {
+              "point": "Imperial is basically useless in round one; do not take it.",
+              "stance": "avoid",
+              "subjects": ["Imperial"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Round two and the early game",
+      "summary": "In round two Sardakk N'orr should aim at economic objectives first, double tech early, build a forward dock, and trade with anyone who will come to them. Stay defensive with the few ships you have, and expect to feel thin until round three; this is not an early Mecatol Rex faction.",
+      "chunks": [
+        {
+          "start": "s549",
+          "title": "Economic objectives first",
+          "kind": "strategy",
+          "summary": "From round two focus on economic objectives, planning for them even before they appear. Sardakk is good at fighting, so control objectives can wait until the late game; going for them early breaks the engine.",
+          "advice": [
+            {
+              "point": "Prioritise economic objectives from round two, and plan for them before they come out.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Do not chase control objectives early; Sardakk is an engine builder that scores them in the late game.",
+              "stance": "avoid",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early"],
+          "topics": ["objectives", "general strategy"],
+          "requires": [],
+          "concepts": ["economy before control"]
+        },
+        {
+          "start": "s564",
+          "title": "Double tech early: Politics into Technology",
+          "kind": "strategy",
+          "summary": "In nearly every Sardakk win Hunter has seen, the player double-teched in the early or mid game. His ideal opening is Politics in round one, selling the speaker token to someone who will not take Technology, then Technology in round two.",
+          "advice": [
+            {
+              "point": "Plan to take Technology and research two techs at least once in the early or mid game, ideally in round two.",
+              "stance": "recommended",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Ideal opening: Politics in round one, sell the speaker token to a player who will not take Technology, then take Technology in round two.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Technology"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "technology", "opening"],
+          "requires": [],
+          "concepts": ["speaker token sale", "speaker order control"]
+        },
+        {
+          "start": "s572",
+          "title": "Forward dock, Fighter II and dealing in round two",
+          "kind": "strategy",
+          "summary": "A forward dock is very important to secure the slice with Fighter II and to support mid-game control plays. Stay involved in trade even without the Trade card, sell action cards and offer generous commodity deals. Within the first three rounds you should have taken Technology and Trade once each.",
+          "advice": [
+            {
+              "point": "Build a forward dock; it helps secure the slice with upgraded fighters and supports later control objectives.",
+              "stance": "recommended",
+              "subjects": ["Space Dock", "Fighter II"]
+            },
+            {
+              "point": "In round two, keep wheeling and dealing: sell action cards and give favourable commodity trades even without the Trade card.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "If you have not taken Technology and Trade at least once each within the first three rounds, you are probably falling behind; Politics, Technology, Trade is the ideal sequence.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Trade", "Politics"]
+            },
+            {
+              "point": "Do not be hyper-aggressive early; it costs trade partners.",
+              "stance": "avoid",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early"],
+          "topics": ["strategy cards", "expansion", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["forward dock", "fighter screen", "action card brokering"]
+        },
+        {
+          "start": "s592",
+          "title": "Defensive use of the starting cruiser",
+          "kind": "strategy",
+          "summary": "You will feel thin early, so be careful where ships go. Use the cruiser defensively, either as a blocker that makes attacking you not worth it or kept home to respond, and expect not to feel safe until round three.",
+          "advice": [
+            {
+              "point": "Use the starting cruiser defensively in the first two rounds: place it where an attacker must fight it first, or keep it home to respond to attacks.",
+              "stance": "recommended",
+              "subjects": ["Cruiser"]
+            },
+            {
+              "point": "Expect to look thin and not feel safe until round three; this plan is not an early Mecatol Rex Sardakk.",
+              "stance": "rating",
+              "subjects": ["Mecatol Rex"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1", "early"],
+          "topics": ["combat", "general strategy"],
+          "requires": [],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s603",
+          "title": "Trade with anyone who comes to you",
+          "kind": "strategy",
+          "summary": "Be shameless about trade: deal with whoever will trade, even if the table objects, but prefer partners who send ships to you so you give up no plastic or position.",
+          "advice": [
+            {
+              "point": "Trade with anyone who will trade with you, even if the table wants that player isolated.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Get partners to send their ships to you rather than sending yours; early position and plastic matter most.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early"],
+          "topics": ["trade and diplomacy"],
+          "requires": [],
+          "concepts": ["friend of the table enemy"]
+        }
+      ]
+    },
+    {
+      "title": "Technology paths",
+      "summary": "Every tech counts, so stay in blue and green: Neural Motivator first, then Antimass Deflectors into Fighter II, then Gravity Drive. Without skips continue to Carrier II, Sarween Tools and Exotrireme II. A yellow skip is by far the best (straight to Exotrireme II), then green, then blue; never take red paths or Valkyrie Particle Weave. If tech objectives come fast, add Dacxive Animators and Infantry II, and never skip a point for efficiency.",
+      "chunks": [
+        {
+          "start": "s615",
+          "title": "Neural Motivator first",
+          "kind": "strategy",
+          "summary": "Sardakk cannot afford wasted tech purchases. Hunter will not negotiate on Neural Motivator in round one, because action cards are a resource to sell and use.",
+          "advice": [
+            {
+              "point": "Do not make any wasted tech purchases; Sardakk's tech path matters more than any other faction's.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Research Neural Motivator in round one, to have more action cards to sell and use.",
+              "stance": "recommended",
+              "subjects": ["Neural Motivator"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["round 1"],
+          "topics": ["technology", "action cards"],
+          "requires": ["action cards"],
+          "concepts": ["action card brokering"]
+        },
+        {
+          "start": "s631",
+          "title": "Antimass Deflectors into Fighter II",
+          "kind": "strategy",
+          "summary": "After Neural Motivator, take Antimass Deflectors only to reach Fighter II, the most efficient upgrade for Sardakk. Cheap fighters that hit very well make the slice safe while plastic is lower than everyone else's; Silence of Space is the only counter.",
+          "advice": [
+            {
+              "point": "Take Antimass Deflectors second, purely as the route to Fighter II.",
+              "stance": "recommended",
+              "subjects": ["Antimass Deflectors", "Fighter II"]
+            },
+            {
+              "point": "Fighter II is probably the most efficient upgrade for Sardakk N'orr; use the fighters to gum up the slice and deter attacks.",
+              "stance": "rating",
+              "subjects": ["Fighter II"]
+            },
+            {
+              "point": "Following this plan you will have less plastic than others going into round three; Fighter II makes that acceptable.",
+              "stance": "rating",
+              "subjects": ["Fighter II"]
+            },
+            {
+              "point": "Silence of Space can get past the fighter defence; there is little you can do about it.",
+              "stance": "situational",
+              "subjects": ["Silence of Space"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["fighter screen"]
+        },
+        {
+          "start": "s645",
+          "title": "Gravity Drive after Fighter II",
+          "kind": "strategy",
+          "summary": "Gravity Drive comes after Fighter II, later than for most factions, because Sardakk is about avoiding attention and building up early rather than doing things early.",
+          "advice": [
+            {
+              "point": "Take Gravity Drive after Fighter II, once the slice is secure, to start being more ambitious with objectives.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Fighter II"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s650",
+          "title": "Neural Motivator over Sarween Tools; stay blue and green",
+          "kind": "strategy",
+          "summary": "Starting with Sarween Tools is tempting, but the path is too tight to go two blue and two yellow; two blue and two green is the optimum, with Neural Motivator giving a repeated action-card economy.",
+          "advice": [
+            {
+              "point": "Start with Neural Motivator rather than Sarween Tools; the tech path is too tight for two blue and two yellow.",
+              "stance": "recommended",
+              "subjects": ["Neural Motivator", "Sarween Tools"]
+            },
+            {
+              "point": "Two blue and two green is the optimum tech base; a basic version is Gravity Drive, Dacxive Animators, Carrier II, Infantry II and Fighter II.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Dacxive Animators", "Carrier II", "Infantry II", "Fighter II"]
+            },
+            {
+              "point": "Neural Motivator can earn more than one or two trade goods a round through selling action cards.",
+              "stance": "rating",
+              "subjects": ["Neural Motivator"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early"],
+          "topics": ["technology"],
+          "requires": ["action cards"],
+          "concepts": ["action card brokering"]
+        },
+        {
+          "start": "s666",
+          "title": "No tech skips: Carrier II, Sarween Tools, Exotrireme II",
+          "kind": "strategy",
+          "summary": "With no skips, after Gravity Drive take Carrier II, then Sarween Tools late, then Exotrireme II. Carrier II is about capacity: keep the two starting carriers and fill them with cheap, accurate fighters. Exotrireme II is the late-game deterrent and helps with action-phase secrets.",
+          "advice": [
+            {
+              "point": "With no skips, after Gravity Drive go Carrier II, then Sarween Tools, then Exotrireme II.",
+              "stance": "recommended",
+              "subjects": ["Carrier II", "Sarween Tools", "Exotrireme II"]
+            },
+            {
+              "point": "Carrier II is for capacity: upgrade the two starting carriers and load them with fighters rather than spending on expensive ships.",
+              "stance": "recommended",
+              "subjects": ["Carrier II", "Fighter II"]
+            },
+            {
+              "point": "Get Exotrireme II if you can; it is a late-game killer and deterrent, and helps score action-phase secret objectives.",
+              "stance": "recommended",
+              "subjects": ["Exotrireme II"]
+            },
+            {
+              "point": "Do not rush Carrier II or Exotrireme II; establish everything else first, then become unstoppable late.",
+              "stance": "avoid",
+              "subjects": ["Carrier II", "Exotrireme II"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["mid", "late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s689",
+          "title": "Green skip: Hyper Metabolism or Infantry II",
+          "kind": "strategy",
+          "summary": "A green skip is a great situation. Matt finds an early Hyper Metabolism after Neural Motivator tempting; Hunter still prefers Fighter II first as the safest play. Hunter would even skip Hyper Metabolism and use the green skip for Infantry II, one of the few situations where Infantry II is worth it.",
+          "advice": [
+            {
+              "point": "With a green skip, Hyper Metabolism right after Neural Motivator is tempting, but Hunter considers going to Fighter II as fast as possible the safer play.",
+              "stance": "situational",
+              "subjects": ["Hyper Metabolism", "Fighter II", "Neural Motivator"]
+            },
+            {
+              "point": "Use a green skip for Infantry II; this and Diversify Research being out are the only situations where Infantry II is worth getting.",
+              "stance": "situational",
+              "subjects": ["Infantry II", "Diversify Research"]
+            },
+            {
+              "point": "Without a green skip, do not make time for Infantry II; work toward Exotrireme II instead.",
+              "stance": "avoid",
+              "subjects": ["Infantry II", "Exotrireme II"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s711",
+          "title": "Blue skip",
+          "kind": "strategy",
+          "summary": "A blue skip gets Neural Motivator into Fighter II fast, so Technology can wait until round three or four if tech objectives allow. But reusing the skip in place of Antimass Deflectors every time gains little, so the blue skip is the most lackluster; consider still taking Antimass Deflectors.",
+          "advice": [
+            {
+              "point": "With a blue skip, go Neural Motivator into Fighter II quickly, and you may delay taking Technology until round three or four if tech objectives do not hurt you.",
+              "stance": "situational",
+              "subjects": ["Neural Motivator", "Fighter II", "Technology"]
+            },
+            {
+              "point": "The blue skip is the most lackluster skip, since repeatedly skipping Antimass Deflectors gains little; consider getting Antimass Deflectors anyway after Fighter II.",
+              "stance": "rating",
+              "subjects": ["Antimass Deflectors"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "strategy cards"],
+          "requires": [],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s726",
+          "title": "Ranking skips; why not red",
+          "kind": "strategy",
+          "summary": "Yellow skip is by far the best (skip Sarween Tools into Exotrireme II), then green, then blue, never red. Plasma Scoring is only half useful because the dreadnoughts already roll two bombardment dice and space cannon does not benefit from Unrelenting, and red-skip planets are worth more as a command token. Valkyrie Particle Weave is not happening in a 10-point game.",
+          "advice": [
+            {
+              "point": "Skip planets ranked: yellow by far the best, then green, then blue, never red.",
+              "stance": "rating",
+              "subjects": ["Sarween Tools", "Exotrireme II"]
+            },
+            {
+              "point": "Plasma Scoring is only half useful for Sardakk N'orr; a third bombardment die is win-more and space cannon does not get the +1.",
+              "stance": "rating",
+              "subjects": ["Plasma Scoring"]
+            },
+            {
+              "point": "Do not use a red skip for a red path to Valkyrie Particle Weave; spend the planet on a command token instead. Maybe try it in 14-point games.",
+              "stance": "avoid",
+              "subjects": ["Valkyrie Particle Weave", "Magen Defense Grid"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s746",
+          "title": "When tech objectives come out fast",
+          "kind": "strategy",
+          "summary": "If tech objectives come early, go Neural Motivator, Antimass Deflectors, Fighter II, Gravity Drive, Carrier II, Dacxive Animators, Infantry II, though it is a lot of tech and Exotrireme II is unlikely after. Hunter would rather avoid one tech objective and build around Fighter II, Carrier II and Exotrireme II; upgrade objectives are fine, spreading across colours is the hard part.",
+          "advice": [
+            {
+              "point": "If tech objectives come early, follow Neural Motivator, Antimass Deflectors, Fighter II, Gravity Drive, Carrier II, Dacxive Animators, Infantry II.",
+              "stance": "situational",
+              "subjects": ["Neural Motivator", "Antimass Deflectors", "Fighter II", "Gravity Drive", "Carrier II", "Dacxive Animators", "Infantry II"]
+            },
+            {
+              "point": "Prefer to give up on one tech objective and build a Fighter II, Carrier II, Exotrireme II setup.",
+              "stance": "recommended",
+              "subjects": ["Fighter II", "Carrier II", "Exotrireme II"]
+            },
+            {
+              "point": "Unit-upgrade objectives are not bad for Sardakk, who should end with three upgrades; techs across colours are the hard ones.",
+              "stance": "rating",
+              "subjects": ["Develop Weaponry", "Diversify Research"]
+            },
+            {
+              "point": "Score Diversify Research late, with Dacxive Animators as the second-to-last tech, unless the order of objectives forces it earlier.",
+              "stance": "situational",
+              "subjects": ["Diversify Research", "Dacxive Animators"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "objectives"],
+          "requires": ["faction technologies"],
+          "concepts": []
+        },
+        {
+          "start": "s771",
+          "title": "Simplified tech plan",
+          "kind": "strategy",
+          "summary": "Simplified: Neural Motivator, Antimass Deflectors, Fighter II, then adapt to what you need, staying in blue and green with Sarween Tools as the only yellow. Never sacrifice a point for tech efficiency.",
+          "advice": [
+            {
+              "point": "Get Neural Motivator, Antimass Deflectors and Fighter II; after that adapt as needed, even Gravity Drive is debatable.",
+              "stance": "recommended",
+              "subjects": ["Neural Motivator", "Antimass Deflectors", "Fighter II", "Gravity Drive"]
+            },
+            {
+              "point": "Stay in blue and green; take Sarween Tools only if you must, and never go down red or other yellow.",
+              "stance": "avoid",
+              "subjects": ["Sarween Tools"]
+            },
+            {
+              "point": "Never sacrifice a point for a more efficient tech path; take Dacxive Animators just to score if needed.",
+              "stance": "recommended",
+              "subjects": ["Dacxive Animators"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["technology", "objectives"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Mid game: trade, objectives and Mecatol",
+      "summary": "In the mid game Sardakk becomes a used-car salesman: everything is for sale, Tekklar Legion is promised to anyone invading, action cards are sold, and scary factions like Jol-Nar and Hacan are befriended. Objectives run opposite to most factions: easy economic ones first, tech when possible (keeping Technology with Political Stability), building in rounds three and four, and control objectives and a late Mecatol Rex in a round-five swing.",
+      "chunks": [
+        {
+          "start": "s781",
+          "title": "Everything is for sale",
+          "kind": "strategy",
+          "summary": "Once you have a decent board position and neighbours around round four, make lots of promises and treat everything as tradable, including action cards like Sabotage, political secrets and trade agreements.",
+          "advice": [
+            {
+              "point": "In the mid game treat everything you have as tradable: action cards (even Sabotage), political secrets and trade agreements.",
+              "stance": "recommended",
+              "subjects": ["Sabotage", "Political Secret", "Trade Agreement"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "Universities of Jol-Nar"],
+          "phases": ["mid"],
+          "topics": ["trade and diplomacy", "promissory notes", "action cards"],
+          "requires": ["promissory notes", "action cards"],
+          "concepts": ["action card brokering", "non-binding deals"]
+        },
+        {
+          "start": "s795",
+          "title": "Selling Tekklar Legion promises",
+          "kind": "strategy",
+          "summary": "Promise Tekklar Legion to many players, cheaply, since the promise is worth less than the card. Whenever anyone attacks a planet, offer it for a trade good or two, and use your three commodities for two to four trade goods a round, like a used-car salesman.",
+          "advice": [
+            {
+              "point": "Promise Tekklar Legion to half the table at a discount (one or two trade goods), since a promise is worth less than the note in hand.",
+              "stance": "recommended",
+              "subjects": ["Tekklar Legion"]
+            },
+            {
+              "point": "Every time someone invades a planet, offer Tekklar Legion for a trade good or two; always be talking to people.",
+              "stance": "recommended",
+              "subjects": ["Tekklar Legion"]
+            },
+            {
+              "point": "Your three commodities can earn two to four trade goods a round with good negotiation.",
+              "stance": "rating",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["mid"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals", "table talk"]
+        },
+        {
+          "start": "s814",
+          "title": "Selling action cards to avoid looking threatening",
+          "kind": "strategy",
+          "summary": "Selling action cards rather than holding a big hand keeps the table from seeing Sardakk as a threat until the engine is ready. Make every deal look favourable to the other side, sell below value if needed, and do free washes to build goodwill.",
+          "advice": [
+            {
+              "point": "Sell action cards instead of holding a big hand, so nobody sees you as a threat until your engine is ready.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Make trades happen even at below value; be generous with commodity trades and wash for free to build goodwill.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["mid"],
+          "topics": ["action cards", "trade and diplomacy"],
+          "requires": ["action cards"],
+          "concepts": ["threat perception", "action card brokering"]
+        },
+        {
+          "start": "s827",
+          "title": "Befriending scary factions: Jol-Nar and Hacan",
+          "kind": "strategy",
+          "summary": "Make friends with the scarier factions. Jol-Nar needs help taking planets, which Tekklar Legion provides, and its Research Agreement gives you tech you otherwise could not get. Be Hacan's henchman for trade goods; a fed Sardakk is game over for everyone.",
+          "advice": [
+            {
+              "point": "Partner with the Universities of Jol-Nar: trade Tekklar Legion for their invasions in exchange for Research Agreement.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar", "Tekklar Legion", "Research Agreement"]
+            },
+            {
+              "point": "Work for the Emirates of Hacan to get their trade goods; a well-fed Sardakk becomes the most dangerous player.",
+              "stance": "recommended",
+              "subjects": ["Emirates of Hacan"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "Universities of Jol-Nar", "Emirates of Hacan"],
+          "phases": ["mid"],
+          "topics": ["trade and diplomacy", "promissory notes", "threats and matchups"],
+          "requires": ["promissory notes"],
+          "concepts": ["friend of the table enemy"]
+        },
+        {
+          "start": "s835",
+          "title": "Objectives in reverse order",
+          "kind": "strategy",
+          "summary": "Most factions take hard positional objectives early; Sardakk does the opposite. Go for peaceful spend objectives early, skip the hard ones, and aim to reach the mid game without losing a single unit or fighting until the engine is built.",
+          "advice": [
+            {
+              "point": "Score the easy, peaceful economic objectives (spending resources, influence, command tokens) first and skip the hard positional ones early.",
+              "stance": "recommended",
+              "subjects": ["Erect a Monument", "Sway the Council", "Lead from the Front"]
+            },
+            {
+              "point": "Aim to reach the mid game without losing any plastic or fighting at all until the engine is built.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early", "mid"],
+          "topics": ["objectives", "general strategy"],
+          "requires": [],
+          "concepts": ["economy before control"]
+        },
+        {
+          "start": "s851",
+          "title": "Keeping Technology with Political Stability",
+          "kind": "strategy",
+          "summary": "Hope tech objectives arrive by mid game and take Technology twice, even in a row. Burning an early Political Stability to keep Technology is a favourite play: nobody bothers to Sabotage it for Sardakk in round two, unlike late-game Imperial.",
+          "advice": [
+            {
+              "point": "Take Technology twice, even twice in a row, to catch up for tech objectives.",
+              "stance": "recommended",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Play Political Stability in round two to keep Technology; the table rarely spends Sabotage on Sardakk early.",
+              "stance": "recommended",
+              "subjects": ["Political Stability", "Technology", "Sabotage"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early"],
+          "topics": ["strategy cards", "action cards", "technology"],
+          "requires": ["action cards"],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s860",
+          "title": "Round-by-round pacing",
+          "kind": "strategy",
+          "summary": "Rounds one and two: hold on, make money and prepare. Rounds three and four: build lots of units. Rounds five and six: strike for control objectives while you still can.",
+          "advice": [
+            {
+              "point": "Pace the game: money and preparation in rounds one and two, heavy building in rounds three and four, then strike for control objectives in rounds five and six.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["general strategy", "objectives"],
+          "requires": [],
+          "concepts": ["swing round"]
+        },
+        {
+          "start": "s867",
+          "title": "Late Mecatol Rex as an uprooter",
+          "kind": "strategy",
+          "summary": "Do not take Mecatol Rex first or chase the custodians point. With Exotrireme II and strong ground combat by round five or six, Sardakk can uproot entrenched holders like Arborec or Sol late. A round-four swing with Imperial and Mecatol Rex can recover three points, and the second holder of Mecatol is rarely dislodged.",
+          "advice": [
+            {
+              "point": "Do not take Mecatol Rex first or chase the custodians point with Sardakk N'orr except in unusual situations.",
+              "stance": "avoid",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Use bombardment and strong ground forces to uproot late-game Mecatol Rex holders such as the Arborec or Sol.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "Exotrireme II", "The Arborec", "Federation of Sol"]
+            },
+            {
+              "point": "Set up a swing round (around round four) with Imperial, taking Mecatol Rex and scoring held objectives for about three points.",
+              "stance": "situational",
+              "subjects": ["Imperial", "Mecatol Rex"]
+            },
+            {
+              "point": "Being the second to take Mecatol Rex is safer; with upgraded infantry and an Exotrireme II there it is too costly to retake.",
+              "stance": "rating",
+              "subjects": ["Mecatol Rex", "Exotrireme II", "Infantry II"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "The Arborec", "Federation of Sol"],
+          "phases": ["mid", "late"],
+          "topics": ["mecatol", "objectives", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["custodians rush", "swing round", "uprooter"]
+        },
+        {
+          "start": "s891",
+          "title": "Friend of the enemy of the table",
+          "kind": "strategy",
+          "summary": "Trade is so important that you should deal with the player everyone else shuns, which gives you leverage you otherwise lack. Feed them while it benefits you, then use the economy you built to crush them in the late game.",
+          "advice": [
+            {
+              "point": "Trade with the player the rest of the table refuses to deal with; it gives Sardakk rare leverage.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Once your engine is built, turn on the leader you fed and stop them winning.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "Universities of Jol-Nar"],
+          "phases": ["mid", "late"],
+          "topics": ["trade and diplomacy", "threats and matchups"],
+          "requires": [],
+          "concepts": ["friend of the table enemy", "kingmaking"]
+        }
+      ]
+    },
+    {
+      "title": "Late game",
+      "summary": "The late-game plan builds on Fighter II, Carrier II and Exotrireme II: spread fighters to defend early, regroup into carrier swarms with dreadnoughts, then push for Mecatol Rex and risky control objectives while the home system is easy to defend. The flagship is best kept defensive, with occasional one-round tricks. Overall: economy, then tech, then control.",
+      "chunks": [
+        {
+          "start": "s909",
+          "title": "Late-game fleet plan",
+          "kind": "strategy",
+          "summary": "Spread fighters early to gum up the slice, regroup them around upgraded carriers with a dreadnought or two, then add Exotrireme IIs and push for Mecatol Rex or risky control objectives. Sardakk's bombardment makes objectives like destroying the last ground forces easy, and the home system is easy to reinforce.",
+          "advice": [
+            {
+              "point": "Early, spread fighters to gum up the slice; after Carrier II, regroup them into carrier swarms with a dreadnought or two.",
+              "stance": "recommended",
+              "subjects": ["Fighter II", "Carrier II"]
+            },
+            {
+              "point": "With Exotrireme II, push dreadnoughts forward to take Mecatol Rex or high-risk control objectives.",
+              "stance": "recommended",
+              "subjects": ["Exotrireme II", "Mecatol Rex"]
+            },
+            {
+              "point": "Strong bombardment makes objectives about destroying a planet's last ground forces easy for Sardakk.",
+              "stance": "rating",
+              "subjects": ["Make an Example of Their World", "Exotrireme I"]
+            },
+            {
+              "point": "Late, defend home by destroying attacking fleets with fighter swarms and Exotrireme IIs rather than holding forward positions.",
+              "stance": "recommended",
+              "subjects": ["Exotrireme II", "Fighter II"]
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "objectives", "general strategy"],
+          "requires": ["faction technologies"],
+          "concepts": ["fighter screen", "home system defense"]
+        },
+        {
+          "start": "s928",
+          "title": "Flagship in the late game",
+          "kind": "strategy",
+          "summary": "The flagship is risky forward because effects that hit fighters, such as the Xxcha or L1Z1X flagships or Graviton Laser System, blunt its swarm. Defensively it is excellent and cheap with six to eight fighters. A one-round trick, like building it with Warfare in round five where you will use it, can work.",
+          "advice": [
+            {
+              "point": "Be careful sending the flagship forward; opponents with tools against fighter swarms (Graviton Laser System, the L1Z1X flagship) can blunt it.",
+              "stance": "avoid",
+              "subjects": ["C'morran N'orr", "Graviton Laser System", "The L1Z1X Mindnet"]
+            },
+            {
+              "point": "Defensively, the flagship over the home system with six to eight fighters is a cheap, near-unstoppable defence.",
+              "stance": "recommended",
+              "subjects": ["C'morran N'orr", "Fighter II"]
+            },
+            {
+              "point": "For one fancy late round, build the flagship in the round you will use it, e.g. with Warfare in round five and Gravity Drive.",
+              "stance": "situational",
+              "subjects": ["C'morran N'orr", "Warfare", "Gravity Drive"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "The L1Z1X Mindnet", "The Xxcha Kingdom"],
+          "phases": ["late"],
+          "topics": ["combat", "faction abilities", "threats and matchups"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense", "swing round"]
+        },
+        {
+          "start": "s940",
+          "title": "Summary: economy, tech, then control",
+          "kind": "strategy",
+          "summary": "The plan is economic objectives, then tech, then control, with a secure home and a restricted blue-green tech game. It was inspired by Schroeder's semifinal game; Hunter won two games in a row with it. Matt, a risk-prone player, sees it as a useful training exercise; the faction is about punching hard late, not warmongering.",
+          "advice": [
+            {
+              "point": "Play the tightest, safest game: economy first, then tech, then control objectives late, with a secure home system and a blue-green tech game plus perhaps Sarween Tools for Exotrireme II.",
+              "stance": "recommended",
+              "subjects": ["Sarween Tools", "Exotrireme II"]
+            },
+            {
+              "point": "It has become standard for winning Sardakk players to take Technology and double tech once or twice.",
+              "stance": "recommended",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Playing for plastic is risky with a faction that gets heavily punished for taking risks.",
+              "stance": "avoid",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["economy before control"]
+        }
+      ]
+    },
+    {
+      "title": "Community feedback",
+      "summary": "Jasper's numbers show Valkyrie Particle Weave makes Sardakk planets the hardest to invade in the game, which the hosts accept, but it still does not fit a 10-point tech path. Vaunt argues for an early unit focus taking one or both equidistant systems and then defending and trading; the hosts think it suits strong diplomatic players, not their beginner-friendly guide.",
+      "chunks": [
+        {
+          "start": "s969",
+          "title": "Jasper on Valkyrie Particle Weave",
+          "kind": "strategy",
+          "summary": "Jasper's simulations show Valkyrie Particle Weave on base infantry defends like Magen Defense Grid with a PDS, and with Infantry II gives by far the best infantry in the game. The hosts agree but say starting with no tech and needing Magen Defense Grid keeps it off the path; possibly viable in 14-point games.",
+          "advice": [
+            {
+              "point": "Valkyrie Particle Weave makes Sardakk planets the most defensive in the game, especially with Infantry II (community view, accepted by the hosts).",
+              "stance": "rating",
+              "subjects": ["Valkyrie Particle Weave", "Infantry II"]
+            },
+            {
+              "point": "The hosts still skip Valkyrie Particle Weave in 10-point games because the tight blue-green tech path cannot afford it; it may suit 14-point games.",
+              "stance": "situational",
+              "subjects": ["Valkyrie Particle Weave", "Magen Defense Grid"]
+            }
+          ],
+          "factions": ["Sardakk N'orr", "The Yin Brotherhood"],
+          "phases": ["late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["magic christmas land"]
+        },
+        {
+          "start": "s1003",
+          "title": "Vaunt's bolder early-unit approach",
+          "kind": "strategy",
+          "summary": "Vaunt agrees tech must be optimal but argues the start is not that bad: focus on units early, take a wider slice including one or both equidistant systems, then defend hard and trade heavily. Matt says he could not keep a friend after taking an equidistant; the hosts see it as a strategy for strong diplomatic players and kept their guide simpler for newer players.",
+          "advice": [
+            {
+              "point": "Community alternative (Vaunt): focus on units early and take one or both equidistant systems, then defend and trade heavily in the mid game.",
+              "stance": "situational",
+              "subjects": []
+            },
+            {
+              "point": "The hosts think Vaunt's approach needs a strong diplomatic player able to take an equidistant and stay friendly; for most players, do not try to do everything at once.",
+              "stance": "avoid",
+              "subjects": []
+            }
+          ],
+          "factions": ["Sardakk N'orr"],
+          "phases": ["early", "mid"],
+          "topics": ["expansion", "trade and diplomacy", "general strategy"],
+          "requires": [],
+          "concepts": ["slice value", "threat perception"]
+        },
+        {
+          "start": "s1043",
+          "title": "Patreon tournament finals",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1052",
+          "title": "PAX Unplugged, socials, tournament and comedy shows",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Sardaknor": "Sardakk N'orr",
+    "Stardaknor": "Sardakk N'orr",
+    "Stardeknor": "Sardakk N'orr",
+    "Sardakk Noor": "Sardakk N'orr",
+    "Zardak": "Sardakk",
+    "Kimoran Noor": "C'morran N'orr",
+    "Kimora Noor": "C'morran N'orr",
+    "Kimura Noora": "C'morran N'orr",
+    "Techlar Legion": "Tekklar Legion",
+    "Teklar Legion": "Tekklar Legion",
+    "Tech Lar Legion": "Tekklar Legion",
+    "exotri-remes": "Exotriremes",
+    "Exotririum 2": "Exotrireme II",
+    "Exotry Remember 2": "Exotrireme II",
+    "Extra Trim 2": "Exotrireme II",
+    "Ectotrireme": "Exotrireme",
+    "XO2": "Exotrireme II",
+    "Star Wing Tools": "Sarween Tools",
+    "Starween": "Sarween Tools",
+    "Grab Drive": "Gravity Drive",
+    "Dax of Animators": "Dacxive Animators",
+    "Daxive": "Dacxive Animators",
+    "Mage and Defense Grid": "Magen Defense Grid",
+    "Majin": "Magen Defense Grid",
+    "Seoul": "Sol",
+    "Mecha Tol Rex": "Mecatol Rex",
+    "Baron Eletnev": "Barony of Letnev",
+    "X-Traw": "Creuss",
+    "X chose": "Xxcha",
+    "L1 flagship": "L1Z1X flagship",
+    "Yinfantry": "Yin infantry",
+    "pre-arada": "pre-errata",
+    "Vaughn": "Vaunt",
+    "Font": "Vaunt"
+  }
+}

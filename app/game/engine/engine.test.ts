@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { unitFor } from "../data";
+import { objectivesById, unitFor } from "../data";
 import { GameState } from "../types";
 import {
   adjacentSystems,
@@ -12,7 +12,7 @@ import { rollAbility } from "./combat";
 import { victoryPoints } from "./control";
 import { countOf, openPrompts, totalUnits } from "./helpers";
 import { applyAction } from "./index";
-import { objectiveStatus } from "./objectives";
+import { objectiveProgress, objectiveStatus } from "./objectives";
 import { missingPrerequisites } from "./technology";
 import {
   autoplay,
@@ -46,6 +46,11 @@ function toActionPhase(state: GameState) {
   }
   return current;
 }
+
+/** A system with nothing in it, so a move there involves no combat or landing. */
+const isEmptySystem = (state: GameState, key: number) =>
+  state.systems[key].planets.length === 0 &&
+  Object.values(state.systems[key].space).every((units) => totalUnits(units) === 0);
 
 const leadershipHolder = (state: GameState) =>
   state.seating.find((id) =>
@@ -263,6 +268,24 @@ describe("strategy phase", () => {
 });
 
 describe("tactical action", () => {
+  test("a Floating Factory moves like a ship and produces where it arrives", () => {
+    const start = toActionPhase(testGame({ factions: ["saar", "hacan", "jolnar", "xxcha", "barony", "yin"] }));
+    const id = start.activePlayer!;
+    const home = start.players[id].home;
+    const target = adjacentSystems(start, home).find(
+      (key) => isEmptySystem(start, key),
+    )!;
+    let state = play(start, id, { type: "ACTIVATE_SYSTEM", system: target });
+    state = play(state, id, {
+      type: "MOVE_SHIPS",
+      moves: [{ from: home, ships: { spacedock: 1 } }],
+      cargo: [],
+    });
+    expect(countOf(state.systems[target].space[id], "spacedock")).toBe(1);
+    expect(countOf(state.systems[home].space[id], "spacedock")).toBe(0);
+    expect(state.tactical?.step).toBe("production");
+  });
+
   function solReady() {
     const state = toActionPhase(testGame());
     const id = state.activePlayer!;
@@ -715,6 +738,27 @@ describe("technology", () => {
 });
 
 describe("objectives", () => {
+  test("progress agrees with whether a count objective is met", () => {
+    let state = testGame({ seed: 7 });
+    for (let i = 0; i < 3000 && state.round < 4; i++) {
+      const move = botMove(state);
+      if (!move) break;
+      state = play(state, move.player, move.action);
+    }
+    let checked = 0;
+    for (const objective of Object.keys(objectivesById)) {
+      for (const id of state.seating) {
+        const progress = objectiveProgress(state, id, objective);
+        if (!progress) continue;
+        checked++;
+        expect(progress.have >= progress.need, objective).toBe(
+          objectiveStatus(state, id, objective).met === true,
+        );
+      }
+    }
+    expect(checked).toBeGreaterThan(50);
+  });
+
   test("spend objectives report what they cost", () => {
     const state = testGame();
     expect(objectiveStatus(state, SOL, "monument").cost).toEqual({

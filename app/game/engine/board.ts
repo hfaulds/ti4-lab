@@ -389,7 +389,7 @@ export const systemsWithShips = (state: GameState, player: PlayerId) =>
   Object.values(state.systems).filter((s) => hasShips(s.space[player]));
 
 /** Systems where a player has a unit or controls a planet (for neighbors). */
-function presence(state: GameState, player: PlayerId): SystemKey[] {
+export function presence(state: GameState, player: PlayerId): SystemKey[] {
   return Object.values(state.systems)
     .filter(
       (system) =>

@@ -4,7 +4,22 @@
  */
 import OpenAI from "openai";
 import { SYSTEM_PROMPT } from "./rules";
-import { LookupArgs, parseChoose, parseLookup, TOOLS } from "./tools";
+import {
+  LessonSearchArgs,
+  LookupArgs,
+  parseChoose,
+  parseLessonSearch,
+  parseLookup,
+  parseSearch,
+  SEARCH_GUIDES_TOOL,
+  SEARCH_LESSONS_TOOL,
+  runTalkTool,
+  SearchArgs,
+  TALK_TOOL_NAMES,
+  TALK_TOOLS,
+  TOOLS,
+} from "./tools";
+import type { TalkTools } from "./talk";
 
 export type MenuEntry = { label: string; text: string };
 
@@ -17,6 +32,21 @@ export type DecisionRequest = {
   planNote: string;
   menu: MenuEntry[];
   lookup: (args: LookupArgs) => string;
+  /**
+   * Searches the strategy guides, returning text for the model and the
+   * passage ids in it. Absent when there is no knowledge base, in which
+   * case the tool is not offered.
+   */
+  searchGuides?: (args: SearchArgs) => { text: string; ids: string[] };
+  /** Searches the active lessons, like searchGuides; absent when there are none. */
+  searchLessons?: (args: LessonSearchArgs) => { text: string; ids: string[] };
+  /** Guide passages (and lessons) searched before asking, with their ids for citing. */
+  briefing?: { text: string; ids: string[] };
+  /**
+   * Messages and deals with the other players. Absent when there is no
+   * table to talk to, in which case the talk tools are not offered.
+   */
+  talk?: TalkTools;
 };
 
 export type ToolStep = { tool: string; arguments: string; result: string };
@@ -28,6 +58,8 @@ export type Usage = {
   requests: number;
   /** Requests sent again after a timeout or a dropped connection. */
   retries: number;
+  /** Cost the provider reports, where it does; otherwise worked out from tokens. */
+  costUsd?: number;
 };
 
 export type Decision = {
@@ -35,6 +67,18 @@ export type Decision = {
   label?: string;
   rationale: string;
   planNote: string;
+  /** Guide passage ids the agent cited; only ones it was shown. */
+  citations: string[];
+  steps: ToolStep[];
+  usage: Usage;
+  error?: string;
+};
+
+/** A planning call's result: the agent's plan, in its own words. */
+export type Plan = {
+  text: string;
+  /** Guide passages the plan cites by id, among those it was shown. */
+  citations: string[];
   steps: ToolStep[];
   usage: Usage;
   error?: string;
@@ -44,6 +88,29 @@ export interface Policy {
   /** Identifies the policy and model in replay logs. */
   readonly name: string;
   decide(request: DecisionRequest): Promise<Decision>;
+  /** Writes or revises the agent's plan before its own turn; optional. */
+  plan?(request: DecisionRequest): Promise<Plan>;
+}
+
+/** What a planning call is asked for, after the position and the menu. */
+export const PLANNING_REQUEST = `# Plan before you move
+
+Before you choose your next move, write your plan for the rest of this round and the next. Revise your last plan in light of what has happened since; keep what still holds. Cover:
+- which public objective you will score at the end of this round (and, if you hold Imperial, whether you can score a second with its primary), and what you must keep ready to pay for it;
+- which secret objective you are working towards, and how;
+- where you will expand or attack, in what order, and with which ships and ground forces;
+- what you will build, and which other players' strategy cards are worth a strategy token this round;
+- threats you will guard against or accept;
+- the standings: who leads, what they could score this round, and how you will deny them (above all, never let the player holding Mecatol Rex take Imperial);
+- the planets of your slice you do not yet hold, and when you will take them.
+- any deal worth striking or collecting at the table (the talk tools, when offered, work while you plan).
+
+Name moves by what they are (the card, the system, the units), not by their menu letters: the letters change from one decision to the next. Look up and search the guides as you need. Then reply with the plan as plain text, citing guide passages by id like [118-21] (and lessons like [L3]) where they shaped it. Do not choose a move yet: you will choose next, with this plan in front of you.`;
+
+/** The plan a planning reply gives, and the guide and lesson ids it cites among those shown. */
+export function planFrom(text: string, shown: Set<string>): Pick<Plan, "text" | "citations"> {
+  const cited = [...text.matchAll(/\[(\d+-\d+|L\d+)\]/g)].map((m) => m[1]).filter((id) => shown.has(id));
+  return { text: text.trim(), citations: [...new Set(cited)] };
 }
 
 export const noUsage = (): Usage => ({
@@ -63,6 +130,7 @@ export class FirstCandidatePolicy implements Policy {
       label: request.menu[0]?.label,
       rationale: "The scripted bot's top candidate.",
       planNote: request.planNote,
+      citations: [],
       steps: [],
       usage: noUsage(),
     };
@@ -74,9 +142,14 @@ export function turnMessage(request: DecisionRequest) {
   return [
     request.turn,
     "",
-    "## Your plan note from last time",
-    request.planNote || "(none yet)",
+    "## Your plan",
+    request.planNote
+      ? `${request.planNote}\n\nFollow this plan unless something on the board makes it wrong now; if you choose otherwise, say in your rationale what changed.`
+      : "(none yet)",
     "",
+    ...(request.briefing
+      ? ["## From the strategy guides, searched for this decision", request.briefing.text, ""]
+      : []),
     "## Candidates",
     ...request.menu.map((entry) => `${entry.label}. ${entry.text}`),
   ].join("\n");
@@ -104,8 +177,11 @@ type Message = OpenAI.Chat.Completions.ChatCompletionMessageParam;
 type CreateParams = OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming;
 
 const REQUEST_TIMEOUT_MS = 180_000;
-/** Enough to check a few facts; the menu and turn already hold most of them. */
-const MAX_LOOKUPS = 10;
+/**
+ * Lookups and guide searches per decision: enough to read up on every
+ * faction at the table in round one as well as the board.
+ */
+export const MAX_LOOKUPS = 50;
 
 /**
  * Whether a failed request is worth sending again: timeouts, dropped
@@ -141,12 +217,23 @@ export class ChatPolicy implements Policy {
       { role: "user", content: request.game },
       { role: "user", content: turnMessage(request) },
     ];
-    const allTools = TOOLS.map((tool) => ({ type: "function" as const, function: tool }));
+    // Searching is offered only with a knowledge base, before choose.
+    // Talk tools come before choose too: talking does not end the decision.
+    const offered = [
+      TOOLS[0],
+      ...(request.searchGuides ? [SEARCH_GUIDES_TOOL] : []),
+      ...(request.searchLessons ? [SEARCH_LESSONS_TOOL] : []),
+      ...(request.talk ? TALK_TOOLS : []),
+      ...TOOLS.slice(1),
+    ];
+    const allTools = offered.map((tool) => ({ type: "function" as const, function: tool }));
+    const shown = new Set<string>(request.briefing?.ids);
     const chooseOnly = allTools.filter((tool) => tool.function.name === "choose");
     const usage = noUsage();
     const steps: ToolStep[] = [];
-    const maxRequests = this.options.maxRequests ?? 8;
     const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
+    // Room for one lookup per request, then choose, and a nudge if needed.
+    const maxRequests = this.options.maxRequests ?? maxLookups + 3;
     let lookups = 0;
     let nudged = false;
     let warned = false;
@@ -206,6 +293,32 @@ export class ChatPolicy implements Policy {
             lookups++;
             result = args.ok ? request.lookup(args.value) : `Error: ${args.error}`;
           }
+        } else if (call.function.name === "search_guides" && request.searchGuides) {
+          const args = parseSearch(call.function.arguments);
+          if (lookups >= maxLookups) {
+            result = "Lookup limit reached for this decision. Call choose now.";
+          } else if (!args.ok) {
+            result = `Error: ${args.error}`;
+          } else {
+            lookups++;
+            const found = request.searchGuides(args.value);
+            for (const id of found.ids) shown.add(id);
+            result = found.text;
+          }
+        } else if (call.function.name === "search_lessons" && request.searchLessons) {
+          const args = parseLessonSearch(call.function.arguments);
+          if (lookups >= maxLookups) {
+            result = "Lookup limit reached for this decision. Call choose now.";
+          } else if (!args.ok) {
+            result = `Error: ${args.error}`;
+          } else {
+            lookups++;
+            const found = request.searchLessons(args.value);
+            for (const id of found.ids) shown.add(id);
+            result = found.text;
+          }
+        } else if (TALK_TOOL_NAMES.has(call.function.name) && request.talk) {
+          result = runTalkTool(request.talk, call.function.name, call.function.arguments);
         } else if (call.function.name === "choose") {
           const args = parseChoose(call.function.arguments, labels);
           if (args.ok && !chosen) {
@@ -213,6 +326,7 @@ export class ChatPolicy implements Policy {
               label: args.value.candidate,
               rationale: args.value.rationale,
               planNote: args.value.plan_note,
+              citations: args.value.citations.filter((id) => shown.has(id)),
               steps,
               usage,
             };
@@ -233,10 +347,96 @@ export class ChatPolicy implements Policy {
     return {
       rationale: "",
       planNote: request.planNote,
+      citations: [],
       steps,
       usage,
       error: `No valid choice after ${usage.requests} requests.`,
     };
+  }
+
+  async plan(request: DecisionRequest): Promise<Plan> {
+    const messages: Message[] = [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "user", content: request.game },
+      { role: "user", content: `${turnMessage(request)}\n\n${PLANNING_REQUEST}` },
+    ];
+    const tools = [
+      TOOLS[0],
+      ...(request.searchGuides ? [SEARCH_GUIDES_TOOL] : []),
+      ...(request.searchLessons ? [SEARCH_LESSONS_TOOL] : []),
+      ...(request.talk ? TALK_TOOLS : []),
+    ].map((tool) => ({
+      type: "function" as const,
+      function: tool,
+    }));
+    const shown = new Set<string>(request.briefing?.ids);
+    const usage = noUsage();
+    const steps: ToolStep[] = [];
+    const maxLookups = this.options.maxLookups ?? MAX_LOOKUPS;
+    let lookups = 0;
+
+    for (let i = 0; i < maxLookups + 2; i++) {
+      // Once lookups are spent, ask for the plan with no tools.
+      const done = lookups >= maxLookups;
+      const response = await this.complete(
+        { model: this.options.model, messages, ...(done ? {} : { tools }), ...this.options.extraBody },
+        usage,
+      );
+      usage.requests++;
+      usage.inputTokens += response.usage?.prompt_tokens ?? 0;
+      usage.outputTokens += response.usage?.completion_tokens ?? 0;
+      const extra = response.usage as { prompt_cache_hit_tokens?: number } | undefined;
+      usage.cachedInputTokens +=
+        extra?.prompt_cache_hit_tokens ?? response.usage?.prompt_tokens_details?.cached_tokens ?? 0;
+      const message = response.choices[0]?.message;
+      if (!message) break;
+      messages.push(message as Message);
+      const calls = message.tool_calls ?? [];
+      if (calls.length === 0) {
+        if (message.content?.trim()) return { ...planFrom(message.content, shown), steps, usage };
+        break;
+      }
+      for (const call of calls) {
+        let result: string;
+        if (call.type !== "function") {
+          result = "Unknown tool.";
+        } else if (TALK_TOOL_NAMES.has(call.function.name) && request.talk) {
+          result = runTalkTool(request.talk, call.function.name, call.function.arguments);
+        } else if (lookups >= maxLookups) {
+          result = "Lookup limit reached. Write your plan now.";
+        } else if (call.function.name === "lookup") {
+          const args = parseLookup(call.function.arguments);
+          lookups++;
+          result = args.ok ? request.lookup(args.value) : `Error: ${args.error}`;
+        } else if (call.function.name === "search_guides" && request.searchGuides) {
+          const args = parseSearch(call.function.arguments);
+          lookups++;
+          if (args.ok) {
+            const found = request.searchGuides(args.value);
+            for (const id of found.ids) shown.add(id);
+            result = found.text;
+          } else {
+            result = `Error: ${args.error}`;
+          }
+        } else if (call.function.name === "search_lessons" && request.searchLessons) {
+          const args = parseLessonSearch(call.function.arguments);
+          lookups++;
+          if (args.ok) {
+            const found = request.searchLessons(args.value);
+            for (const id of found.ids) shown.add(id);
+            result = found.text;
+          } else {
+            result = `Error: ${args.error}`;
+          }
+        } else {
+          result = `Unknown tool ${call.function.name}.`;
+        }
+        const name = call.type === "function" ? call.function.name : call.type;
+        steps.push({ tool: name, arguments: call.type === "function" ? call.function.arguments : "", result });
+        messages.push({ role: "tool", tool_call_id: call.id, content: result });
+      }
+    }
+    return { text: "", citations: [], steps, usage, error: "No plan was written." };
   }
 
   /** One request, abandoned after the timeout and sent again if worth it. */

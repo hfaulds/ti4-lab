@@ -1,0 +1,1566 @@
+{
+  "episode": 104,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro and the Barony mood",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Barony of Letnev"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview: starting units, home system and tech",
+      "summary": "Barony has an awkward start of one carrier, one dreadnought and three infantry, but the best home system in the game at six resources split over two planets, plus two starting technologies. Despite looking strong on paper, the hosts warn that Barony underperforms its reputation, sitting with Mentak at the bottom of the two-tech factions, and needs to be played with its weak areas in mind.",
+      "chunks": [
+        {
+          "start": "s38",
+          "title": "Starting fleet",
+          "kind": "strategy",
+          "summary": "The starting fleet is roughly one and a half of the usual two-carrier, four-infantry opening, which is enough for a one-planet and a two-planet system nearby but less than you would like. This is the start of Barony's somewhat underwhelming feel.",
+          "advice": [
+            {
+              "point": "Barony's starting fleet is the weirdest start in the game: it covers only about one and a half of a standard two-carrier, four-infantry opening, enough for one two-planet and one one-planet system near home.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening"],
+          "requires": [],
+          "concepts": ["2C4I opening"]
+        },
+        {
+          "start": "s50",
+          "title": "Home system and starting technologies",
+          "kind": "strategy",
+          "summary": "The six-resource home system, split 4/0 and 2/1, is the best in the game. Starting with two techs is normally a sign of a strong faction, but of the two-tech factions Barony and Mentak are towards the bottom in results.",
+          "advice": [
+            {
+              "point": "The home system is excellent: six resources, the most of any faction, split across two planets.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev", "Arc Prime", "Wren Terra"]
+            },
+            {
+              "point": "Plasma Scoring is a good starting tech because Barony will do a lot of bombardment.",
+              "stance": "rating",
+              "subjects": ["Plasma Scoring"]
+            },
+            {
+              "point": "Among factions that start with two technologies, Barony sits near the bottom alongside Mentak: they should be great but often fall apart.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev", "Mentak Coalition"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Mentak Coalition"],
+          "phases": ["setup"],
+          "topics": ["technology", "economy"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s60",
+          "title": "Disclaimer: a strong faction with a poor win rate",
+          "kind": "strategy",
+          "summary": "Barony is perceived as very strong but has a poor win rate in the statistics the hosts half-trust. Approach the faction carefully and look for its weak areas rather than assuming doing everything will win.",
+          "advice": [
+            {
+              "point": "Do not treat Barony as a faction that wins just by doing everything; it has a poor win rate, so identify and play around its weak areas.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities",
+      "summary": "Armada's real value is an early boost to the command token economy: move the two extra fleet tokens out of the fleet pool by the end of round one for a much stronger round two. Munitions Reserves is costly for a faction short of trade goods and is best saved for a single decisive battle.",
+      "chunks": [
+        {
+          "start": "s68",
+          "title": "Armada",
+          "kind": "strategy",
+          "summary": "Do not use Armada to keep big fleets. In the round-one status phase (or with Warfare) move at least two tokens out of the fleet pool down to three, the same as everyone else, and spend them on extra actions and secondaries in round two. Effectively Armada gives you two free command tokens and a better round two.",
+          "advice": [
+            {
+              "point": "Pull at least two command tokens out of the fleet pool at the end of round one (or with Warfare) and put them into tactics or strategy; Armada's real benefit is a stronger round two, not bigger fleets.",
+              "stance": "recommended",
+              "subjects": ["Armada"]
+            },
+            {
+              "point": "There is almost no situation where you have more than three ships in one system in round two or three, and you should be spreading out rather than stacking, so the extra fleet capacity is wasted early.",
+              "stance": "avoid",
+              "subjects": ["Armada"]
+            },
+            {
+              "point": "Round two is starved for most factions; Barony can enter it with four or five tokens in tactics and strategy, so you can always secure your slice.",
+              "stance": "rating",
+              "subjects": ["Armada", "Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early"],
+          "topics": ["faction abilities", "opening"],
+          "requires": ["faction abilities"],
+          "concepts": ["command token economy"]
+        },
+        {
+          "start": "s108",
+          "title": "Munitions Reserves",
+          "kind": "strategy",
+          "summary": "Matt has used Munitions Reserves only a couple of times ever. Barony is not a trade faction, so spending two scarce trade goods on a reroll is expensive when trade goods are best saved for objectives. Use it for one critical, game-deciding battle.",
+          "advice": [
+            {
+              "point": "Munitions Reserves is not a bad ability but is costly for Barony, which rarely holds spare trade goods.",
+              "stance": "rating",
+              "subjects": ["Munitions Reserves"]
+            },
+            {
+              "point": "Do not spend trade goods on rerolls every round; bank them for scoring objectives.",
+              "stance": "avoid",
+              "subjects": ["Munitions Reserves"]
+            },
+            {
+              "point": "Save Munitions Reserves for the one big fight that wins you the game.",
+              "stance": "situational",
+              "subjects": ["Munitions Reserves"]
+            },
+            {
+              "point": "Rerolls are more effective with many dice, so a swarm of Fighter II and destroyers gets more out of it, but the cost of getting the trade goods still limits it.",
+              "stance": "situational",
+              "subjects": ["Munitions Reserves", "Fighter II", "Destroyer"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["late", "any"],
+          "topics": ["faction abilities", "combat", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["trade good banking"]
+        }
+      ]
+    },
+    {
+      "title": "Flagship",
+      "summary": "The hosts call the Arc Secundus arguably the best flagship in the game: it does everything a flagship should, and with Non-Euclidean Shielding and Duranium Armor it is very hard to beat. Barony is good in a 10-point game but dominant in a 14-point game, where the plan is to add those techs and get the flagship out.",
+      "chunks": [
+        {
+          "start": "s130",
+          "title": "Arc Secundus",
+          "kind": "strategy",
+          "summary": "The Arc Secundus is a candidate for best flagship: it ignores PDS for bombardment, repairs every round and hits as well as any flagship. Combined with Non-Euclidean Shielding and Duranium Armor it is nearly unbeatable, especially in 14-point games.",
+          "advice": [
+            {
+              "point": "The Arc Secundus is arguably the best flagship in the game, even though it did not win the SCPT flagship tournament.",
+              "stance": "rating",
+              "subjects": ["Arc Secundus"]
+            },
+            {
+              "point": "Pair the flagship with Non-Euclidean Shielding and Duranium Armor to make it so durable it effectively has to be killed in one round.",
+              "stance": "recommended",
+              "subjects": ["Arc Secundus", "Non-Euclidean Shielding", "Duranium Armor"]
+            },
+            {
+              "point": "In a 14-point game Barony is far stronger: also get Non-Euclidean Shielding and Duranium Armor and send the flagship out to win every space combat and take any planet.",
+              "stance": "situational",
+              "subjects": ["Barony of Letnev", "Arc Secundus"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "faction abilities", "technology"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies",
+      "summary": "Both faction techs are good but somewhat 'win more'. Non-Euclidean Shielding is excellent for locking down a game you are already winning but should not be rushed, since the red path hurts. L4 Disruptors is situational but strong whenever a neighbour has PDS, and it helps with Barony's shortage of ground forces.",
+      "chunks": [
+        {
+          "start": "s157",
+          "title": "Non-Euclidean Shielding",
+          "kind": "strategy",
+          "summary": "Non-Euclidean Shielding is extremely strong on dreadnoughts and especially the flagship, but the hosts no longer call it a must-get. It helps hold games you have already won rather than win them, so get the points first.",
+          "advice": [
+            {
+              "point": "Non-Euclidean Shielding makes Dreadnought II fleets and the Arc Secundus extremely hard to beat.",
+              "stance": "rating",
+              "subjects": ["Non-Euclidean Shielding", "Dreadnought II", "Arc Secundus"]
+            },
+            {
+              "point": "Do not treat it as a must-get: the red tech path costs too much early, and the tech helps you hold a game you have already won rather than win it. Secure points first.",
+              "stance": "avoid",
+              "subjects": ["Non-Euclidean Shielding"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["win more"]
+        },
+        {
+          "start": "s177",
+          "title": "L4 Disruptors",
+          "kind": "strategy",
+          "summary": "L4 Disruptors is situational, not bad: if neighbours have even a modest number of PDS it is great, and it is only one step after Sarween Tools. It eases Barony's infantry shortage since you need fewer ground forces against defended planets. If both neighbours are PDS factions, go down yellow to Sarween Tools, L4 Disruptors and Transit Diodes.",
+          "advice": [
+            {
+              "point": "L4 Disruptors is a situational tech, not a bad one: get it when a neighbour has some PDS, which is common.",
+              "stance": "situational",
+              "subjects": ["L4 Disruptors"]
+            },
+            {
+              "point": "It is a good second faction tech for the 'two faction technologies' secret objective, being one step from Sarween Tools.",
+              "stance": "situational",
+              "subjects": ["L4 Disruptors", "Sarween Tools"]
+            },
+            {
+              "point": "It is deceptively good for Barony because it reduces how many infantry you need to invade, which is Barony's biggest shortage.",
+              "stance": "rating",
+              "subjects": ["L4 Disruptors", "Barony of Letnev"]
+            },
+            {
+              "point": "If both neighbours are PDS factions, abandon the standard plan and go straight down yellow: Sarween Tools, L4 Disruptors and Transit Diodes, moving ground forces onto the Arc Secundus to bombard then invade.",
+              "stance": "situational",
+              "subjects": ["L4 Disruptors", "Transit Diodes", "Sarween Tools", "Arc Secundus"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "combat", "threats and matchups"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": ["infantry shortage"]
+        },
+        {
+          "start": "s196",
+          "title": "Both faction techs are win-more; avoid rushing red",
+          "kind": "strategy",
+          "summary": "The tech path in this guide is about staying flexible. Non-Euclidean Shielding will often be a late-game pick, but do not sprint for it. Going down red early with Magen Defense Grid leaves you with slow, beefy dreadnoughts that achieve nothing without blue tech.",
+          "advice": [
+            {
+              "point": "Do not rush Non-Euclidean Shielding; get it late, when you just take whatever you need.",
+              "stance": "avoid",
+              "subjects": ["Non-Euclidean Shielding"]
+            },
+            {
+              "point": "Going heavily down red early (Magen Defense Grid, early dreadnoughts) without blue tech leaves slow fleets that go nowhere; this is the common downfall of red-tech Barony.",
+              "stance": "avoid",
+              "subjects": ["Magen Defense Grid", "Dreadnought"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["early", "late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["win more"]
+        }
+      ]
+    },
+    {
+      "title": "Commodities and promissory note",
+      "summary": "Two commodities is Barony's biggest weakness; the hosts disagree on how crippling it is. War Funding should only be handed over at the start of a combat the receiver will use it in immediately, while you hold no trade goods, and it effectively cannot be sold for trade goods.",
+      "chunks": [
+        {
+          "start": "s211",
+          "title": "Two commodities",
+          "kind": "strategy",
+          "summary": "Having only two commodities is the biggest drawback of the faction. Matt thinks it is a bummer; Hunter calls it an Achilles' heel and believes Barony would be one of the best factions with more.",
+          "advice": [
+            {
+              "point": "Only two commodities is Barony's biggest weakness; Hunter considers it a critical Achilles' heel, Matt a lesser bummer.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["any"],
+          "topics": ["economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s224",
+          "title": "War Funding",
+          "kind": "strategy",
+          "summary": "Only give War Funding out at the start of a combat the receiver will use it in right away, and only when you have no trade goods to lose. Leaving it in circulation risks losing two trade goods at a critical moment. It cannot really be sold for trade goods, so trade it for notes, favours or non-binding payment.",
+          "advice": [
+            {
+              "point": "Hand War Funding to someone only at the start of a combat they will use it in immediately, ideally as the aggressor, and when you hold no trade goods.",
+              "stance": "recommended",
+              "subjects": ["War Funding"]
+            },
+            {
+              "point": "Do not give it out as a casual trade; if it circulates it can take two trade goods you were counting on for a point (this happened to Matt).",
+              "stance": "avoid",
+              "subjects": ["War Funding"]
+            },
+            {
+              "point": "You cannot usefully sell War Funding for trade goods since you would lose them; sell it for other promissory notes, favours or a non-binding later payment.",
+              "stance": "situational",
+              "subjects": ["War Funding"]
+            },
+            {
+              "point": "War Funding is not a very good promissory note to trade.",
+              "stance": "rating",
+              "subjects": ["War Funding"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy", "combat"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals"]
+        }
+      ]
+    },
+    {
+      "title": "Home system and overall approach",
+      "summary": "The two-planet, six-resource home system is practically a faction ability; the hosts favour double docking it, while also considering a forward dock. Barony is a wide faction with no single correct plan, so stay flexible and adapt your round-one plan to the strategy card you get.",
+      "chunks": [
+        {
+          "start": "s257",
+          "title": "Double docking the home system",
+          "kind": "strategy",
+          "summary": "With a space dock on each home planet you have ten production capacity, and the hosts are very much in favour of double docking home, though a forward dock is the other main approach. Even without it, the split 4/0 and 2/1 lets you spend four on tech and still have two to build in round one, unlike L1Z1X's single 5/0.",
+          "advice": [
+            {
+              "point": "Double docking the home system (adding a space dock on Wren Terra) is a strong play, though there are arguments against it.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev", "Wren Terra", "Space Dock"]
+            },
+            {
+              "point": "The split home planets are especially useful in round one: spend Arc Prime's four on technology and still have two resources from Wren Terra to build.",
+              "stance": "recommended",
+              "subjects": ["Arc Prime", "Wren Terra"]
+            },
+            {
+              "point": "Barony's home system is better than L1Z1X's because a 5/0 planet forces spending five on a tech.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev", "L1Z1X Mindnet"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "L1Z1X Mindnet"],
+          "phases": ["setup", "round 1", "early"],
+          "topics": ["economy", "expansion"],
+          "requires": [],
+          "concepts": ["double dock home", "forward dock", "production capacity"]
+        },
+        {
+          "start": "s271",
+          "title": "Barony is wide: stay flexible",
+          "kind": "strategy",
+          "summary": "Unlike Sol, there is no single thing Barony does best; it is hard to pin down the winning approach. Keep your head on a swivel and be ready to change course, and expect your round-one plan to depend heavily on which strategy card you get.",
+          "advice": [
+            {
+              "point": "There is no one best way to play Barony; watch the table and be ready to change plan at any moment.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            },
+            {
+              "point": "Barony's main problem exists above the table, in how other players treat them, more than in their components.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["general strategy"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        }
+      ]
+    },
+    {
+      "title": "Round one by strategy card",
+      "summary": "Round one should be steady: send two infantry on the carrier and one on the dreadnought to take two systems, and almost always use both strategy tokens on the Technology and Warfare secondaries. Technology is the best pick and usually buys Gravity Drive for free while you spend six on units. Leadership enables either a token stockpile or a five-planet expansion; Construction is a fine last pick for a dock; Trade is great for goodwill; Politics needs a speaker token sale to work; Diplomacy is bad in round one and Imperial should not be taken.",
+      "chunks": [
+        {
+          "start": "s292",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "General round-one plan",
+          "kind": "strategy",
+          "summary": "Put two infantry on the carrier and one on the dreadnought to take two planets. A second carrier with two more infantry is a bonus, not worth hurting round two for. Barony grows incrementally, so build up steadily. Expect to spend four command tokens: two on expansion and both strategy tokens, normally on the Technology and Warfare secondaries, using the spare two resources for infantry if nothing else.",
+          "advice": [
+            {
+              "point": "Send the carrier with two infantry and the dreadnought with one infantry to take two planets in round one.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev", "Carrier", "Dreadnought"]
+            },
+            {
+              "point": "Do not break your back to add another carrier and two infantry in round one if it costs your round two.",
+              "stance": "avoid",
+              "subjects": ["Carrier"]
+            },
+            {
+              "point": "Use both strategy tokens in round one: you can afford the Technology secondary with Arc Prime and should spend the remaining two on the Warfare secondary, at least for four infantry.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Warfare"]
+            },
+            {
+              "point": "Do not fear overspending command tokens in round one, because Armada tokens get moved out of the fleet pool for round two.",
+              "stance": "recommended",
+              "subjects": ["Armada"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1"],
+          "topics": ["opening", "expansion", "strategy cards"],
+          "requires": ["faction abilities"],
+          "concepts": ["infantry shortage", "command token economy"]
+        },
+        {
+          "start": "s315",
+          "title": "Leadership: stockpile command tokens",
+          "kind": "strategy",
+          "summary": "Leadership has the least clear answer. One option is to play a normal round one and stockpile the extra command tokens, giving a strong round two and an even stronger round three.",
+          "advice": [
+            {
+              "point": "With Leadership, play a normal round one and bank the extra tokens to set up rounds two and three.",
+              "stance": "recommended",
+              "subjects": ["Leadership"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["command token economy"]
+        },
+        {
+          "start": "s325",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Leadership: five-planet expansion",
+          "kind": "strategy",
+          "summary": "The aggressive Leadership line uses the three extra tokens to send the destroyer to open trade with the Trade holder for exactly two trade goods, expand with carrier and dreadnought (ideally after Technology gives Gravity Drive), then use the Warfare secondary to build a carrier and two infantry and take a fifth planet. Watch your empty home system and keep the dreadnought close.",
+          "advice": [
+            {
+              "point": "Send the destroyer next to the Trade holder to secure two trade goods, which with Wren Terra pay for an extra carrier and two infantry; abort if they are on the far side of the map.",
+              "stance": "situational",
+              "subjects": ["Leadership", "Trade", "Destroyer"]
+            },
+            {
+              "point": "To get the two trade goods, be generous: wash a four-commodity player's commodities just to get your two, and avoid deals that leave you with only one.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Move the carrier out after Technology pops so it has Gravity Drive and can reach a two-planet system next to Mecatol Rex or an equidistant.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Technology"]
+            },
+            {
+              "point": "Delay until Warfare pops, then build a carrier and two infantry at home and expand again to take five planets in round one.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Leadership"]
+            },
+            {
+              "point": "This leaves the home system empty; do not do it if a faction like the Ghosts of Creuss can sneak in, and keep the dreadnought central as a response force rather than sending it far away.",
+              "stance": "situational",
+              "subjects": ["Ghosts of Creuss", "Dreadnought"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Ghosts of Creuss"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["commodity wash", "secondary timing", "home system defense", "stall action"]
+        },
+        {
+          "start": "s382",
+          "title": "Leadership: when to abandon the expansion plan",
+          "kind": "strategy",
+          "summary": "If there are not three systems worth taking in range, abandon the five-planet plan and stockpile tokens instead; a trade relationship may still be worth it but not a command token for the destroyer. The Politics secondary might fit; never the Trade secondary, which costs too much with two commodities.",
+          "advice": [
+            {
+              "point": "Without three worthwhile systems in range, drop the expansion plan and stockpile command tokens for rounds two and three.",
+              "stance": "situational",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Never take the Trade secondary as Barony; it costs too much for two commodities.",
+              "stance": "avoid",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "A Politics secondary can be a reasonable use of a stockpiled token.",
+              "stance": "situational",
+              "subjects": ["Politics"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["command token economy"]
+        },
+        {
+          "start": "s393",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Construction secondary for a forward dock",
+          "kind": "strategy",
+          "summary": "Do the Construction secondary in round one when a system with high-value planets like Abyz and Fria or Bereg and Lirta IV is in reach, especially next to Mecatol Rex. Construction usually pops on its holder's second action, so move out first. At worst you are set to place the forward dock in round two.",
+          "advice": [
+            {
+              "point": "Take the Construction secondary in round one if you can first capture a high-production system such as Abyz/Fria or Bereg/Lirta IV, especially adjacent to Mecatol Rex; not for a PDS.",
+              "stance": "situational",
+              "subjects": ["Construction", "Space Dock"]
+            },
+            {
+              "point": "Move out before the Construction holder plays it, since it usually goes on their second action.",
+              "stance": "recommended",
+              "subjects": ["Construction"]
+            },
+            {
+              "point": "Having the forward dock out by round two means you are fully expanded and ready for the mid game.",
+              "stance": "rating",
+              "subjects": ["Space Dock"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "expansion", "opening"],
+          "requires": [],
+          "concepts": ["forward dock", "secondary timing"]
+        },
+        {
+          "start": "s411",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is a tempting but bad round-one pick for Barony: Arc Prime goes on tech, so it only pays off after you also spend Wren Terra, which depends on Warfare and Technology timing you cannot control, and by then everyone else gains nearly as much. It becomes strong in later rounds and the endgame.",
+          "advice": [
+            {
+              "point": "Do not take Diplomacy in round one; you need the Warfare and Technology holders to cooperate with your timing, and by the time you can use it others gain about as much as you.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy"]
+            },
+            {
+              "point": "Diplomacy is very useful for Barony in later rounds and the endgame; Matt has taken it for the last three rounds of a game without regret.",
+              "stance": "recommended",
+              "subjects": ["Diplomacy"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "late"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": ["stall action"]
+        },
+        {
+          "start": "s444",
+          "title": "Politics",
+          "kind": "strategy",
+          "summary": "Politics sets up a round-two Mecatol Rex take, if six influence is available in your slice, usually with Leadership (or perhaps Diplomacy) in round two. Barony struggles to find influence and is bad at trading, so sell the speaker token to the player on your right, unless they are racing you for Mecatol. Without that sale Politics is a poor pick. Do not get Neural Motivator.",
+          "advice": [
+            {
+              "point": "Take Politics to engineer a round-two Mecatol Rex take, only if six influence is reachable in your slice; plan Leadership in round two to go first.",
+              "stance": "situational",
+              "subjects": ["Politics", "Leadership", "Mecatol Rex"]
+            },
+            {
+              "point": "Sell the speaker token to the player on your right for trade goods, unless they are a Mecatol racer such as Sol, Saar, Hacan or Jol-Nar.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Federation of Sol", "Clan of Saar", "Emirates of Hacan", "Universities of Jol-Nar"]
+            },
+            {
+              "point": "Selling the speaker token plus your two commodities to a right-hand Trade holder for about four trade goods makes Politics worth it on its own.",
+              "stance": "situational",
+              "subjects": ["Politics", "Trade"]
+            },
+            {
+              "point": "Without a speaker token sale, Politics is a bad pull for Barony.",
+              "stance": "rating",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Do not get Neural Motivator as Barony.",
+              "stance": "avoid",
+              "subjects": ["Neural Motivator"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Federation of Sol", "Clan of Saar", "Emirates of Hacan", "Universities of Jol-Nar"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["speaker token sale", "custodians rush", "speaker order control"]
+        },
+        {
+          "start": "s483",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Construction",
+          "kind": "strategy",
+          "summary": "Take Construction only as the last pick; it still serves Barony by placing a forward dock, or a second home dock if nothing good is in reach, though it forces you to commit early. Double docking home means striking aggressively early and then pulling back; spread docks mean steady growth.",
+          "advice": [
+            {
+              "point": "Construction is a last-pick card for Barony, but not a disaster.",
+              "stance": "rating",
+              "subjects": ["Construction"]
+            },
+            {
+              "point": "Use it for a forward dock on the best planet you capture; if none is good, double dock home, though you will still want a forward dock eventually.",
+              "stance": "situational",
+              "subjects": ["Construction", "Space Dock"]
+            },
+            {
+              "point": "Double docking home suits an aggressive early strike for control objectives followed by pulling back; forward docks suit slow, steady snowballing.",
+              "stance": "situational",
+              "subjects": ["Space Dock"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "expansion"],
+          "requires": [],
+          "concepts": ["double dock home", "forward dock"]
+        },
+        {
+          "start": "s502",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Trade",
+          "kind": "strategy",
+          "summary": "Taking Trade is the only reliable income Barony gets, so use it to fix the table's attitude: be generous, wash or refresh everyone in return for a trade good, and build goodwill you hope pays off in non-binding deals at the agenda. You can also promise the Warfare holder a full wash to stop them stalling. Barony has little leverage in trade, so take nice deals.",
+          "advice": [
+            {
+              "point": "When you take Trade, be friends with everyone: wash every player or refresh them for a promised trade good.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Use round-one Trade to build goodwill that you hope holds in non-binding deals during the agenda phase.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "If Warfare looks likely to stall, promise its holder a full wash in return for playing it early enough to help you.",
+              "stance": "situational",
+              "subjects": ["Trade", "Warfare"]
+            },
+            {
+              "point": "Barony has little to offer in trades, so take generous deals and do light favours that create non-binding debts rather than leaning on leverage early.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "any"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["commodity wash", "non-binding deals", "table meta", "stall action"]
+        },
+        {
+          "start": "s536",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Warfare: move north first",
+          "kind": "strategy",
+          "summary": "With Warfare, still do the Technology secondary. First action: move everything to a planet directly toward Mecatol Rex, then pull the token back and spread out, removing any dependence on Technology timing. Alternatively build four infantry at home first, then pull the token and expand with extra ground forces so round-two moves do not leave planets empty.",
+          "advice": [
+            {
+              "point": "Move all ships and ground forces north toward Mecatol Rex as your first action, then use Warfare to pull the token and spread out from there.",
+              "stance": "recommended",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Grabbing far planets with Gravity Drive is possible but not recommended.",
+              "stance": "avoid",
+              "subjects": ["Gravity Drive"]
+            },
+            {
+              "point": "Alternatively build four infantry at Wren Terra first, then pull the token and expand with four infantry so you can leave ground forces behind and keep expanding in round two.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Wren Terra"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": [],
+          "concepts": ["infantry shortage"]
+        },
+        {
+          "start": "s557",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
+          "title": "Warfare with a Construction secondary",
+          "kind": "strategy",
+          "summary": "Warfare combines with either dock plan: with your home or a captured forward system activated, follow Construction to place a dock there and then pull the token back with Warfare. Hunter prefers a forward dock for getting the Arc Secundus out quickly; if Bereg/Lirta IV or Abyz/Fria is in your slice, double dock that instead of home.",
+          "advice": [
+            {
+              "point": "Activate home (or move north to a good planet), follow the Construction secondary to place the dock in the activated system, then use Warfare to remove the token.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Construction"]
+            },
+            {
+              "point": "Hunter prefers a forward dock over the popular double home dock because it gets the flagship out quickly.",
+              "stance": "rating",
+              "subjects": ["Arc Secundus", "Space Dock"]
+            },
+            {
+              "point": "If Bereg/Lirta IV or Abyz/Fria is in your slice, double dock that system instead of home almost every time.",
+              "stance": "recommended",
+              "subjects": ["Space Dock"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "expansion"],
+          "requires": ["faction abilities"],
+          "concepts": ["double dock home", "forward dock", "secondary timing"]
+        },
+        {
+          "start": "s585",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Technology: buy one tech and build",
+          "kind": "strategy",
+          "summary": "Technology is solidly Barony's best round-one card. Play it first and take only Gravity Drive for free, spending the six resources on units rather than a second tech; you may expand to five planets via the Warfare secondary. Moving out first to place a forward dock is a niche alternative.",
+          "advice": [
+            {
+              "point": "Technology is the best round-one pick for Barony.",
+              "stance": "rating",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Play Technology as your first action and take only Gravity Drive; spend all six resources on units rather than buying a second tech.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Gravity Drive"]
+            },
+            {
+              "point": "Carrier II and Sarween Tools give little value in round one, so do not double tech by default.",
+              "stance": "avoid",
+              "subjects": ["Carrier II", "Sarween Tools"]
+            },
+            {
+              "point": "Moving out first so you can place a forward dock with the Construction secondary is an option if Construction is not used immediately.",
+              "stance": "situational",
+              "subjects": ["Technology", "Construction"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology", "opening"],
+          "requires": [],
+          "concepts": ["secondary timing"]
+        },
+        {
+          "start": "s617",
+          "title": "Technology: when to double tech",
+          "kind": "strategy",
+          "summary": "Double tech when you start with tech objectives, but do not buy Gravity Drive and Magen Defense Grid just to qualify early; tech objectives can be banked later. With a yellow skip, Gravity Drive and Sarween Tools lead to Transit Diodes in round two, which pairs well with a double home dock.",
+          "advice": [
+            {
+              "point": "Double tech in round one if the opening public objectives include technology objectives.",
+              "stance": "situational",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "Do not buy Magen Defense Grid in round one just to qualify for two technologies in two colours; tech objectives cannot be taken away, so qualify later.",
+              "stance": "avoid",
+              "subjects": ["Magen Defense Grid"]
+            },
+            {
+              "point": "With a yellow skip in your slice, take Gravity Drive and Sarween Tools in round one to reach Transit Diodes in round two and redeploy ground forces; this pairs well with a double home dock.",
+              "stance": "situational",
+              "subjects": ["Sarween Tools", "Transit Diodes", "Gravity Drive"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "technology", "objectives"],
+          "requires": [],
+          "concepts": ["tech skip", "double dock home", "infantry shortage"]
+        },
+        {
+          "start": "s633",
+          "title": "Teaser: the 'cheesy bread' Fleet Logistics play",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Barony of Letnev"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s644",
+          "title": "Request for faction manifestos and shout-outs",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s654",
+          "title": "Imperial",
+          "kind": "strategy",
+          "summary": "Do not take Imperial in round one as Barony.",
+          "advice": [
+            {
+              "point": "Do not take Imperial in round one.",
+              "stance": "avoid",
+              "subjects": ["Imperial"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Round two",
+      "summary": "In round two, check whether you can take Mecatol Rex first, which needs six influence (likely only after Trade or Politics in round one); a dreadnought, destroyer and infantry can hold it. Otherwise secure your whole slice, taking equidistants where it will not ruin a neighbour, building from every dock, and choosing between Sarween Tools and Carrier II.",
+      "chunks": [
+        {
+          "start": "s656",
+          "title": "Taking Mecatol Rex in round two",
+          "kind": "strategy",
+          "summary": "With Gravity Drive almost certain, check whether you can take Mecatol Rex before anyone else. You need six influence, likely only if you had Trade or Politics. Hunter still thinks a lone carrier and infantry is too costly, but Barony can send a dreadnought, destroyer and infantry that are hard to dislodge.",
+          "advice": [
+            {
+              "point": "In round two, look for a way to take Mecatol Rex and the custodians token before others, given Gravity Drive range.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "Gravity Drive"]
+            },
+            {
+              "point": "You need six influence; without having taken Trade or Politics in round one you probably lack it, so play safe.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Hunter considers taking Mecatol with one carrier and one infantry too costly, but Barony can take it with a dreadnought, destroyer and infantry that others struggle to remove.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex", "Dreadnought", "Destroyer"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["early"],
+          "topics": ["mecatol"],
+          "requires": [],
+          "concepts": ["custodians rush"]
+        },
+        {
+          "start": "s672",
+          "title": "Securing the slice and round-two tech",
+          "kind": "strategy",
+          "summary": "Take aggressive ground such as equidistants when it will not ruin a neighbour relationship, and fill out your slice by building from every space dock. Aim for a decent, scary fleet everywhere rather than one super fleet like Saar. In round two take Sarween Tools or Carrier II; do not take Magen Defense Grid or use a red skip on Non-Euclidean Shielding, since the command token is worth more now.",
+          "advice": [
+            {
+              "point": "Use round two to secure and fill your whole slice, taking equidistants if it does not wreck a neighbour relationship.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            },
+            {
+              "point": "Build out of every space dock you have, so there is a decent fleet everywhere rather than one super fleet.",
+              "stance": "recommended",
+              "subjects": ["Space Dock"]
+            },
+            {
+              "point": "Research Sarween Tools in round two, or Carrier II if you need the reach.",
+              "stance": "recommended",
+              "subjects": ["Sarween Tools", "Carrier II"]
+            },
+            {
+              "point": "Do not use a red skip on Non-Euclidean Shielding in round two; keep the command token instead. Avoid Magen Defense Grid.",
+              "stance": "avoid",
+              "subjects": ["Non-Euclidean Shielding", "Magen Defense Grid"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Clan of Saar"],
+          "phases": ["early"],
+          "topics": ["expansion", "technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip", "command token economy"]
+        }
+      ]
+    },
+    {
+      "title": "Early-game pitfalls",
+      "summary": "Barony's strength makes the table wary: people slow it down simply by not trading with it. Combined with a shortage of infantry, this means you should secure your slice before getting aggressive and pick your targets so you anger one neighbour, not the whole table.",
+      "chunks": [
+        {
+          "start": "s691",
+          "title": "The caution sign: people stop trading",
+          "kind": "strategy",
+          "summary": "Barony needs to use its fast, strong fleets to take equidistants, but that makes people nervous to trade with them. Unlike Sol or Saar, which take real commitment to stop, anyone can slow Barony just by not playing along, and Barony needs the money.",
+          "advice": [
+            {
+              "point": "Do not sit passively in your slice; your fleets should be taking equidistant systems.",
+              "stance": "avoid",
+              "subjects": ["Barony of Letnev"]
+            },
+            {
+              "point": "Expect neighbours to avoid trading with you once you look powerful; Barony can be slowed with no effort simply by being ignored, so manage how strong you appear.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Federation of Sol", "Clan of Saar"],
+          "phases": ["early"],
+          "topics": ["threats and matchups", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s715",
+          "title": "Infantry shortage and controlled aggression",
+          "kind": "strategy",
+          "summary": "Expanding with few infantry leaves captured planets empty. Make your slice work well before getting crazy: grabbing the system in front of Mecatol in a neighbour's slice with Carrier II can ruin that relationship for the game. Barony must be aggressive at some point, but anger one player, not five.",
+          "advice": [
+            {
+              "point": "Be safe before getting aggressive: make every system in your slice productive and defended before invading a neighbour's slice.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            },
+            {
+              "point": "Avoid early grabs into a neighbour's slice (for example the system in front of Mecatol with Carrier II) that permanently ruin that relationship.",
+              "stance": "avoid",
+              "subjects": ["Carrier II"]
+            },
+            {
+              "point": "You must be aggressive at some point to use your strengths, but angering one player is fine while angering all five is a disaster.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["early", "mid"],
+          "topics": ["general strategy", "expansion"],
+          "requires": [],
+          "concepts": ["infantry shortage", "controlled aggression"]
+        }
+      ]
+    },
+    {
+      "title": "Tech path",
+      "summary": "Barony has a fixed first four techs: Gravity Drive, Sarween Tools, Carrier II and Dreadnought II. After that, follow skips and objectives: PDS II only as the cheapest third unit upgrade, a yellow skip to Transit Diodes or Space Dock II, a red skip to Non-Euclidean Shielding and Destroyer II (the best case), Fighter II only with a green skip, and no need for a blue skip.",
+      "chunks": [
+        {
+          "start": "s736",
+          "title": "The standard first four techs",
+          "kind": "strategy",
+          "summary": "Get Gravity Drive, then Sarween Tools (or Carrier II if you need to go somewhere), then Carrier II, then Dreadnought II, before considering anything else. Dreadnought II before Carrier II only if you are being very aggressive, which you should not be. Next, PDS II is only worth it as the cheapest route to three unit upgrades.",
+          "advice": [
+            {
+              "point": "Standard path: Gravity Drive, Sarween Tools, Carrier II, Dreadnought II, in that order, before anything else.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Sarween Tools", "Carrier II", "Dreadnought II"]
+            },
+            {
+              "point": "Get Sarween Tools early since its value grows the sooner you have it; take Carrier II first only when you need the reach.",
+              "stance": "situational",
+              "subjects": ["Sarween Tools", "Carrier II"]
+            },
+            {
+              "point": "PDS II is worth it only as the cheapest way to qualify for three unit upgrades.",
+              "stance": "situational",
+              "subjects": ["PDS II"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "objectives"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s756",
+          "title": "Two technologies in two colours",
+          "kind": "strategy",
+          "summary": "For the two-in-two-colours objective choose yellow or red. A yellow skip means Sarween Tools then Transit Diodes (Hunter leans yellow); a red skip means Non-Euclidean Shielding. Hold off on Magen Defense Grid until late unless a tech objective is your only possible point that round.",
+          "advice": [
+            {
+              "point": "With a yellow skip, take Sarween Tools then skip to Transit Diodes; the hosts lean towards yellow.",
+              "stance": "recommended",
+              "subjects": ["Transit Diodes", "Sarween Tools"]
+            },
+            {
+              "point": "With a red skip, skip to Non-Euclidean Shielding for two red.",
+              "stance": "situational",
+              "subjects": ["Non-Euclidean Shielding"]
+            },
+            {
+              "point": "Delay Magen Defense Grid until late unless a tech objective is the only point you can score that round.",
+              "stance": "situational",
+              "subjects": ["Magen Defense Grid"]
+            },
+            {
+              "point": "Barony will not get Graviton Laser System.",
+              "stance": "avoid",
+              "subjects": ["Graviton Laser System"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "objectives"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s772",
+          "title": "Red skip: Non-Euclidean Shielding and Destroyer II",
+          "kind": "strategy",
+          "summary": "A red skip may be the most important thing Barony can find: skip to Non-Euclidean Shielding, then Destroyer II. Destroyer IIs counter fighter screens and fighter swarms (the main counter to an early Barony), absorb Graviton Laser System hits, and fill spare fleet supply late. Going through Magen Defense Grid instead is too slow.",
+          "advice": [
+            {
+              "point": "A red skip is extremely valuable: skip to Non-Euclidean Shielding, then get Destroyer II.",
+              "stance": "recommended",
+              "subjects": ["Non-Euclidean Shielding", "Destroyer II"]
+            },
+            {
+              "point": "Do not go through Magen Defense Grid to reach Destroyer II and Non-Euclidean Shielding; it is too slow.",
+              "stance": "avoid",
+              "subjects": ["Magen Defense Grid"]
+            },
+            {
+              "point": "Destroyer II counters fighter screens and fighter swarms, the main counter to an early Barony, and soaks Graviton Laser System hits.",
+              "stance": "recommended",
+              "subjects": ["Destroyer II", "Graviton Laser System"]
+            },
+            {
+              "point": "Build a destroyer with every build (Hunter budgets two resources for a destroyer and two infantry each time) to fill fleet supply and gum up access to your slice.",
+              "stance": "recommended",
+              "subjects": ["Destroyer"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip", "fighter screen"]
+        },
+        {
+          "start": "s794",
+          "title": "Yellow skip: Transit Diodes or Space Dock II",
+          "kind": "strategy",
+          "summary": "A yellow skip can go to Transit Diodes or, when two-in-two-colours is not out, to Space Dock II as another unit upgrade. Space Dock II is overkill for a double home dock (Matt never built 14 units); it belongs with spread-out docks, while Transit Diodes belongs with a double home dock. Do not take both.",
+          "advice": [
+            {
+              "point": "Skip to Space Dock II instead of PDS II as a unit upgrade when two-in-two-colours is not out.",
+              "stance": "situational",
+              "subjects": ["Space Dock II", "PDS II"]
+            },
+            {
+              "point": "Space Dock II is not worth it on a double-docked home system; ten capacity is enough.",
+              "stance": "avoid",
+              "subjects": ["Space Dock II"]
+            },
+            {
+              "point": "Pair Space Dock II with several spread-out docks, and Transit Diodes with a double home dock; having both is redundant.",
+              "stance": "recommended",
+              "subjects": ["Space Dock II", "Transit Diodes"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["mid"],
+          "topics": ["technology", "economy"],
+          "requires": [],
+          "concepts": ["tech skip", "double dock home", "forward dock", "production capacity"]
+        },
+        {
+          "start": "s820",
+          "title": "Green skip: Fighter II",
+          "kind": "strategy",
+          "summary": "Fighter II is viable only with a green skip; without one it is not worth it. Carrier II and Dreadnought II already carry enough fighters, and a faction can only plan on four or five techs, so Fighter II delays the core techs and leaves a lone carrier surrounded by fighters that is easy to break. The best plan is the standard path plus a red skip into Non-Euclidean Shielding (and Destroyer II if three upgrades appear).",
+          "advice": [
+            {
+              "point": "Take Fighter II only if you have a green skip; otherwise it is not worth it. The community contributor John disagreed with the hosts on Fighter II.",
+              "stance": "situational",
+              "subjects": ["Fighter II"]
+            },
+            {
+              "point": "Neural Motivator is a great tech generally but there is too much else Barony wants; plan on only four or five techs per game.",
+              "stance": "avoid",
+              "subjects": ["Neural Motivator"]
+            },
+            {
+              "point": "Rushing Fighter II leaves a lone carrier surrounded by fighters, which is easy to break; carriers and dreadnoughts with upgrades plus some fighters are more reliable.",
+              "stance": "avoid",
+              "subjects": ["Fighter II", "Carrier II", "Dreadnought II"]
+            },
+            {
+              "point": "The strongest outcome is the standard path then a red skip into Non-Euclidean Shielding (plus Destroyer II if three-upgrade objectives appear); it cannot be planned for, but those are the games you win hardest.",
+              "stance": "rating",
+              "subjects": ["Non-Euclidean Shielding", "Destroyer II"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["mid", "late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip", "magic christmas land"]
+        },
+        {
+          "start": "s852",
+          "title": "Blue skip",
+          "kind": "strategy",
+          "summary": "Barony does not need a blue skip since it starts with Antimass Deflectors; skipping Fleet Logistics for Light/Wave Deflector is rarely useful and you usually come back for Fleet Logistics anyway.",
+          "advice": [
+            {
+              "point": "A blue skip is of little use; only skip to Light/Wave Deflector if you need it right away.",
+              "stance": "avoid",
+              "subjects": ["Light/Wave Deflector", "Fleet Logistics"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["mid"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": ["tech skip"]
+        }
+      ]
+    },
+    {
+      "title": "Trading and Support for the Throne",
+      "summary": "Expect money only when you hold Trade, so take it often to stay in everyone's good graces. Give Support for the Throne out early: Barony's support is worth more because it is the scary fleet faction, and the hosts conclude it should go to one neighbour so you can safely attack the other, rather than pincering a neighbour with someone further away.",
+      "chunks": [
+        {
+          "start": "s863",
+          "title": "Take Trade often",
+          "kind": "strategy",
+          "summary": "Barony only gets money reliably when it holds Trade, and by the mid game others catch up and bank more trade goods. Take Trade often to stay in everyone's good graces and plug the faction's biggest hole.",
+          "advice": [
+            {
+              "point": "Take Trade frequently throughout the game; it is Barony's only reliable money and keeps the table friendly.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["any"],
+          "topics": ["strategy cards", "economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["trade good banking"]
+        },
+        {
+          "start": "s874",
+          "title": "Support for the Throne swaps",
+          "kind": "strategy",
+          "summary": "In metas where everyone swaps Support for the Throne, do it early. Barony's support is worth more because it is feared; swap early with a neighbour before you look too strong, signalling you will not attack them. Matt's instinct was to pincer a neighbour with that neighbour's other neighbour, but he accepted Hunter's view that this leaves a flank open; the steadier play is to swap with one neighbour and attack the other.",
+          "advice": [
+            {
+              "point": "In metas where Support for the Throne swaps are common, give yours out early rather than being the last to swap.",
+              "stance": "situational",
+              "subjects": ["Support for the Throne"]
+            },
+            {
+              "point": "Barony's Support for the Throne is worth more than most because it is the scary fleet faction; swap early with a neighbour before you look too threatening to trust.",
+              "stance": "recommended",
+              "subjects": ["Support for the Throne", "Barony of Letnev"]
+            },
+            {
+              "point": "Swap with one neighbour so you can safely be aggressive toward your other neighbour.",
+              "stance": "recommended",
+              "subjects": ["Support for the Throne"]
+            },
+            {
+              "point": "Giving support to your neighbour's other neighbour to pincer them can pay off, but it leaves your other flank exposed; Matt originally favoured it but came round to Hunter's steadier view.",
+              "stance": "situational",
+              "subjects": ["Support for the Throne"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Emirates of Hacan", "L1Z1X Mindnet"],
+          "phases": ["early", "mid"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["support for the throne swap", "table meta", "controlled aggression"]
+        }
+      ]
+    },
+    {
+      "title": "Mid game: double dock home versus spread-out docks",
+      "summary": "A double-docked home is a strike-early-then-pull-back plan: rush control objectives, return home, and score economic objectives, but it likely needs the custodians point, makes it hard to get the flagship out, and relies on coasting to victory. Forward or spread-out docks are the steadier choice when the path to victory is unclear. Either way, win the economic and plastic game before the fighting starts, and choose enemies deliberately.",
+      "chunks": [
+        {
+          "start": "s917",
+          "title": "Double dock home: strike early, then pull back",
+          "kind": "strategy",
+          "summary": "With a double-docked home, the units you send out early must aggressively take the planets needed for control objectives, then you fall back and score the economic objectives Barony finds easy. It probably needs the custodians point to get ahead. Hunter dislikes it because the flagship is hard to get out, and it relies on coasting, forcing you to attack whoever threatens to win.",
+          "advice": [
+            {
+              "point": "With a double home dock, send early units aggressively for control objectives (planets in other systems, planets of one trait, tech specialties), then pull back and score economic objectives.",
+              "stance": "situational",
+              "subjects": ["Barony of Letnev", "Space Dock"]
+            },
+            {
+              "point": "The double home dock plan probably needs the custodians point or other out-of-circulation points to get ahead.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Its drawbacks: it is hard to get the Arc Secundus out, and coasting to victory forces you to attack sneaky threats such as the Yssaril Tribes blindly.",
+              "stance": "rating",
+              "subjects": ["Arc Secundus", "Yssaril Tribes"]
+            },
+            {
+              "point": "Only choose the double home dock if you can see your path to victory early.",
+              "stance": "situational",
+              "subjects": ["Space Dock"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Yssaril Tribes"],
+          "phases": ["early", "mid", "late"],
+          "topics": ["expansion", "objectives", "general strategy"],
+          "requires": ["faction abilities"],
+          "concepts": ["double dock home", "home system defense", "custodians rush"]
+        },
+        {
+          "start": "s954",
+          "title": "Forward or spread-out docks: slow and steady",
+          "kind": "strategy",
+          "summary": "Forward or spread-out docks suit games without a clear path: you build steadily, avoid making enemies and grow bigger fleets, then turn on people for the last points when your fleets are too scary to stop. The whole slice stays defended. Aim to have already won the economic and plastic game before the fighting starts.",
+          "advice": [
+            {
+              "point": "Choose forward or spread-out docks when the path to victory is unclear: build steadily, keep friends, then turn on people for the final points.",
+              "stance": "recommended",
+              "subjects": ["Space Dock"]
+            },
+            {
+              "point": "Do not let fighting start before your war machine is built; win economically and on plastic first.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["mid", "late"],
+          "topics": ["expansion", "general strategy"],
+          "requires": [],
+          "concepts": ["forward dock", "controlled aggression", "plastic advantage"]
+        },
+        {
+          "start": "s977",
+          "title": "The unstoppable late-game Barony",
+          "kind": "strategy",
+          "summary": "A fully set-up Barony, with Non-Euclidean Shielding, the Arc Secundus and enough dreadnoughts, practically never loses a fight and can become unstoppable. Barony is a vanilla faction plus: protect your investment, stay in the pack without leading early, and be deliberate about making enemies and friends. 'Risk it for the biscuit' is the wrong mindset.",
+          "advice": [
+            {
+              "point": "A fully set-up Barony with Non-Euclidean Shielding, the Arc Secundus and several dreadnoughts is nearly unbeatable in combat.",
+              "stance": "rating",
+              "subjects": ["Non-Euclidean Shielding", "Arc Secundus", "Dreadnought"]
+            },
+            {
+              "point": "Stay in the pack rather than taking an early lead, protect your investment, and you will have the strongest final round.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            },
+            {
+              "point": "Be deliberate: when making an enemy, commit; when making a friend, commit. Do not play Barony as an ambiguous wheeler-dealer or gamble.",
+              "stance": "recommended",
+              "subjects": ["Barony of Letnev"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Clan of Saar"],
+          "phases": ["late"],
+          "topics": ["general strategy", "combat"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["controlled aggression"]
+        },
+        {
+          "start": "s1007",
+          "title": "World War II tangent",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Pre-errata: the 'cheesy bread' Fleet Logistics play",
+      "summary": "A listener's play: with first pick of Technology in round one, take Gravity Drive and Fleet Logistics, use the extra action to capture a forward system before Construction pops, then in round two combine Fleet Logistics with Diplomacy to refresh your planets immediately. The hosts call it one of the best errata they have received, though it requires early Technology and invests heavily in blue before tech objectives.",
+      "chunks": [
+        {
+          "start": "s1023",
+          "title": "Introducing the pre-errata and thanking contributors",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1041",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "The cheesy bread play",
+          "kind": "strategy",
+          "summary": "Play Technology as the first action, buying Gravity Drive and Fleet Logistics, and use the second action to capture a forward system before Construction pops so you can place a dock there. In round two take Diplomacy and combine it with Fleet Logistics: build then refresh your home for another six resources, capture a juicy system and lock it, or empty your forward base and rebuild there. Played as your first action, Diplomacy denies others its benefit.",
+          "advice": [
+            {
+              "point": "With Technology first pick in round one, buy Gravity Drive and Fleet Logistics and use the extra action to capture a forward system in time for the Construction secondary.",
+              "stance": "situational",
+              "subjects": ["Technology", "Fleet Logistics", "Gravity Drive", "Construction"]
+            },
+            {
+              "point": "In round two take Diplomacy: build at home or the forward base, then use Fleet Logistics to play Diplomacy on your home system and spend the six resources again.",
+              "stance": "recommended",
+              "subjects": ["Diplomacy", "Fleet Logistics"]
+            },
+            {
+              "point": "Alternatively capture a valuable system and immediately play Diplomacy on it so nobody can take it back, or empty the forward base, play Diplomacy and rebuild there.",
+              "stance": "situational",
+              "subjects": ["Diplomacy", "Fleet Logistics"]
+            },
+            {
+              "point": "Playing Diplomacy as your first action is the most value it can give, since other players get almost nothing from the secondary that early.",
+              "stance": "rating",
+              "subjects": ["Diplomacy"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "technology", "opening", "economy"],
+          "requires": [],
+          "concepts": ["forward dock", "plastic advantage"]
+        },
+        {
+          "start": "s1073",
+          "title": "Assessing the cheesy bread play",
+          "kind": "strategy",
+          "summary": "The hosts love it: it needs only first or second pick to get Technology, and the build-then-refresh option puts you a full round ahead on plastic. The drawback is three blue techs before any upgrades, so watch technology objectives; the plastic lead should let you catch up with a swing round in round three or four.",
+          "advice": [
+            {
+              "point": "This is one of the best errata the show has had; it only requires being first or second pick to get Technology in round one.",
+              "stance": "rating",
+              "subjects": ["Fleet Logistics", "Diplomacy", "Technology"]
+            },
+            {
+              "point": "Building then refreshing your home with Diplomacy gives about twelve resources of builds and puts you a round ahead on plastic.",
+              "stance": "rating",
+              "subjects": ["Diplomacy"]
+            },
+            {
+              "point": "Three blue techs early delays upgrades and other colours; if technology objectives come out, refocus so you qualify before round four, using a swing round to catch up.",
+              "stance": "situational",
+              "subjects": ["Fleet Logistics"]
+            }
+          ],
+          "factions": ["Barony of Letnev"],
+          "phases": ["round 1", "early", "mid"],
+          "topics": ["technology", "objectives", "strategy cards"],
+          "requires": [],
+          "concepts": ["plastic advantage", "swing round", "magic christmas land"]
+        }
+      ]
+    },
+    {
+      "title": "Community feedback and errata",
+      "summary": "Show business about the Patreon tournament, then errata on the earlier Mecatol Rex episode. The hosts endorse a listener's split of factions into Mecatol racers, holders and takers (Barony is a racer and a taker). On grabbing the custodians point with a throwaway carrier, a listener argues the point is almost always worth it, while others note the full cost of six influence and a command token and the meta cost of holding Mecatol; the hosts conclude there is no single right answer.",
+      "chunks": [
+        {
+          "start": "s1108",
+          "title": "Patreon tournament draft and map",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1184",
+          "title": "Mecatol racers, holders and takers",
+          "kind": "strategy",
+          "summary": "A listener splits factions into Mecatol racers (Hacan, Barony, Sol, Saar, Naalu, Mentak, Ghosts, Jol-Nar), holders (Sol, Saar, Arborec, Yin, Winnu, Xxcha, Sardakk) and takers (Barony, L1Z1X, Muaat, Saar, Sardakk, Yin, Yssaril). The hosts agree, with doubts about Xxcha (parking the flagship on Mecatol draws too much heat; next to it is better), Yssaril and Winnu.",
+          "advice": [
+            {
+              "point": "Barony is both a Mecatol racer (starts with a blue tech) and a Mecatol taker that can uproot whoever holds it.",
+              "stance": "rating",
+              "subjects": ["Barony of Letnev", "Mecatol Rex"]
+            },
+            {
+              "point": "Xxcha should park the flagship next to Mecatol Rex rather than on it, since on Mecatol it invites attacks that win both the flagship and Mecatol.",
+              "stance": "recommended",
+              "subjects": ["Xxcha Kingdom", "Mecatol Rex"]
+            },
+            {
+              "point": "Winnu are only a good Mecatol holder if everything goes perfectly; the hosts doubt they belong on the list.",
+              "stance": "rating",
+              "subjects": ["Winnu"]
+            }
+          ],
+          "factions": ["Barony of Letnev", "Emirates of Hacan", "Federation of Sol", "Clan of Saar", "Naalu Collective", "Mentak Coalition", "Ghosts of Creuss", "Universities of Jol-Nar", "Arborec", "Yin Brotherhood", "Winnu", "Xxcha Kingdom", "Sardakk N'orr", "L1Z1X Mindnet", "Embers of Muaat", "Yssaril Tribes"],
+          "phases": ["early", "mid"],
+          "topics": ["mecatol", "threats and matchups"],
+          "requires": ["faction abilities"],
+          "concepts": ["mecatol racers, holders and takers"]
+        },
+        {
+          "start": "s1223",
+          "title": "Is a throwaway custodians grab worth it?",
+          "kind": "strategy",
+          "summary": "One listener takes Mecatol with a ship and infantry he is willing to lose almost every time, because a point nobody else can score is almost always worth it. Another notes the full cost is about 3.5 resources, six influence and a command token in the early game. Winnu shows the danger: losing your only carrier can lose your slice. The hosts see no universal answer.",
+          "advice": [
+            {
+              "point": "A point nobody else can score is more valuable than a normal point; one listener grabs the custodians point almost every time with a disposable ship and one infantry.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Count the full cost of a custodians grab: about 3.5 resources of units, six influence and a command token, which is a lot early; Hunter remains wary of it.",
+              "stance": "rating",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Do not risk your only expansion units on Mecatol, as Winnu can by sending their single carrier; losing them can lose the rest of your slice.",
+              "stance": "avoid",
+              "subjects": ["Winnu", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Winnu"],
+          "phases": ["early"],
+          "topics": ["mecatol"],
+          "requires": [],
+          "concepts": ["custodians rush"]
+        },
+        {
+          "start": "s1263",
+          "title": "The meta cost of holding Mecatol",
+          "kind": "strategy",
+          "summary": "Holding Mecatol can make the table stop trading with you, which is crippling for trade-reliant factions like Hacan. This applies more to holding Mecatol than to grabbing the custodians point. Sol can generally absorb the meta loss, which is why it is a good Mecatol faction.",
+          "advice": [
+            {
+              "point": "Factions that depend on trading, such as Hacan, should be wary of holding Mecatol, since the table may stop trading with them.",
+              "stance": "avoid",
+              "subjects": ["Emirates of Hacan", "Mecatol Rex"]
+            },
+            {
+              "point": "Sol is a good Mecatol holder because it can mostly absorb the loss of goodwill.",
+              "stance": "rating",
+              "subjects": ["Federation of Sol", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Emirates of Hacan", "Federation of Sol"],
+          "phases": ["early", "mid"],
+          "topics": ["mecatol", "trade and diplomacy"],
+          "requires": ["faction abilities"],
+          "concepts": ["threat perception", "table meta"]
+        },
+        {
+          "start": "s1283",
+          "title": "Different metas, different strategies",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1316",
+          "title": "Radiohead, ratings and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Let's Nev": "Letnev",
+    "Berenieletnev": "Barony of Letnev",
+    "Baron Yeletnev": "Barony of Letnev",
+    "Berenia Letnev": "Barony of Letnev",
+    "Baron Yoletniv": "Barony of Letnev",
+    "Berenioletnev": "Barony of Letnev",
+    "Baronio Letnev": "Barony of Letnev",
+    "Bernie Oletnev": "Barony of Letnev",
+    "Barony Aletnev": "Barony of Letnev",
+    "Varity": "Barony",
+    "Barity": "Barony",
+    "Verity": "Barony",
+    "Baronet": "Barony",
+    "Barney": "Barony",
+    "Ark Secundus": "Arc Secundus",
+    "Arksecundus": "Arc Secundus",
+    "Arxecundus": "Arc Secundus",
+    "Arksecundis": "Arc Secundus",
+    "Jan Euclidean shielding": "Non-Euclidean Shielding",
+    "anti-mass deflectors": "Antimass Deflectors",
+    "Starween Tools": "Sarween Tools",
+    "Sarwen": "Sarween Tools",
+    "SARWing tools": "Sarween Tools",
+    "deranium armor": "Duranium Armor",
+    "uranium": "Duranium Armor",
+    "Majin": "Magen Defense Grid",
+    "Wrath of Kanara": "Wrath of Kenara",
+    "Ren Terra": "Wren Terra",
+    "Renterra": "Wren Terra",
+    "Abyss Frea": "Abyz, Fria",
+    "Abyss Fria": "Abyz, Fria",
+    "a biz": "Abyz",
+    "Baraglerta 4": "Bereg, Lirta IV",
+    "Bear Glerdifor": "Bereg, Lirta IV",
+    "Bergler to 4": "Bereg, Lirta IV",
+    "Barraglerta 4": "Bereg, Lirta IV",
+    "Soudor": "Saudor",
+    "L1, Z1, and X": "L1Z1X",
+    "Mekatarx": "Mecatol Rex",
+    "Mechatola Rex": "Mecatol Rex",
+    "Mechital Rex": "Mecatol Rex",
+    "Mechitaur Rex": "Mecatol Rex",
+    "Mechatell Rex": "Mecatol Rex",
+    "Mechatar Rex": "Mecatol Rex",
+    "Mecca Tol Rex": "Mecatol Rex",
+    "Clan Assaur": "Clan of Saar",
+    "Extra": "Xxcha",
+    "Excha": "Xxcha",
+    "Isarl": "Yssaril",
+    "Isaral": "Yssaril",
+    "Asarals": "Yssaril",
+    "Arbreck": "Arborec",
+    "Mson": "Imson",
+    "Impson": "Imson",
+    "Emson": "Imson",
+    "Joel Narbinks": "Jol-Nar Binks",
+    "Jolnar Binks": "Jol-Nar Binks",
+    "Thomas Yorkie": "Thom Yorke",
+    "Thom Yorky": "Thom Yorke"
+  }
+}

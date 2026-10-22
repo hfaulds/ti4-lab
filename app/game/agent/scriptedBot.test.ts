@@ -9,6 +9,7 @@ import { victoryPoints } from "../engine/control";
 import { play, testGame } from "../engine/testing";
 import { findPayment, readyPlanets } from "./payment";
 import { scriptedMove } from "./scriptedBot";
+import { TableTalk } from "./talk";
 
 function playOut(state: GameState, until: (s: GameState) => boolean = () => false) {
   let current = state;
@@ -119,5 +120,47 @@ describe("scripted bot", () => {
     expect(greedy.action).toMatchObject({ type: "ANSWER_TRANSACTION", accept: false });
     const fair = answer({ tradeGoods: 2 }, { tradeGoods: 2 });
     expect(fair.action).toMatchObject({ type: "ANSWER_TRANSACTION", accept: true });
+  });
+
+  test("give one back to the Trade holder who refreshed them, once", () => {
+    const hasNeighbor = (s: GameState) =>
+      s.phase === "action" &&
+      s.prompts.length === 0 &&
+      s.transactions.length === 0 &&
+      s.activePlayer !== undefined &&
+      neighborsOf(s, s.activePlayer).length > 0;
+    let state = playOut(testGame(), hasNeighbor).state;
+    const id = state.activePlayer!;
+    const other = state.seating.find((p) => neighborsOf(state, id).includes(p))!;
+    for (const player of [id, other]) {
+      state = play(state, id, {
+        type: "ADJUST",
+        adjustment: { type: "tradeGoods", player, amount: 4 },
+      });
+    }
+    // The standard deal: a free refresh, taken, for a trade good.
+    const talk = new TableTalk();
+    const deal = talk.propose(state, id, other, "a refresh for a trade good", {
+      refresh: other,
+      payment: { from: other, to: id, amount: 1 },
+    });
+    talk.accept(state, deal.id, other);
+    deal.refreshed = true;
+    type Side = { tradeGoods?: number };
+    const offer = (give: Side, receive: Side) =>
+      play(state, id, { type: "PROPOSE_TRANSACTION", to: other, give, receive });
+    const accepts = (offered: GameState) =>
+      (scriptedMove(offered, talk)!.action as { accept?: boolean }).accept;
+
+    const oneShort = offer({ tradeGoods: 2 }, { tradeGoods: 3 });
+    expect(accepts(oneShort)).toBe(true);
+    expect(accepts(offer({ tradeGoods: 1 }, { tradeGoods: 3 }))).toBe(false);
+    // Without the refresh, one short is too much.
+    expect(scriptedMove(oneShort)!.action).toMatchObject({ accept: false });
+
+    // Accepting repays the debt, so the next one-short offer is refused.
+    talk.observe(oneShort, other, scriptedMove(oneShort, talk)!.action);
+    expect(deal.status).toBe("kept");
+    expect(accepts(oneShort)).toBe(false);
   });
 });

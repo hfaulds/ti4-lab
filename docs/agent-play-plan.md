@@ -30,7 +30,7 @@ hatches, and some of the game is missing:
 | Gap | Consequence for the agent |
 | --- | --- |
 | `ADJUST`, `SET_*`, `COMPONENT_ACTION` bypass the rules | Never offered; rejected if emitted |
-| Reactions (window prompts) and agenda votes go to the scripted bot | The agent chooses turns, secondaries, scoring and retreats; the bot plays its cards in combat and votes |
+| Reactions whose choices cannot be guessed (payments, units to move or build) are offered only as the bot would play them | The agent decides every other reaction, its votes and tie-breaks; the bots still always abstain |
 | The engine picks for players in a few agenda outcomes (which ships Arms Reduction destroys, which planets Anti-Intellectual Revolution exhausts) | Rarely matters; noted in the log |
 | Thunder's Edge core systems the card data does not describe (The Fracture board, neutral units, coexistence, breaches, plots, galactic events, placing Thunder's Edge) | Not modelled; the agent plays the base game |
 
@@ -257,8 +257,56 @@ moves away".
   build loads it into the `lessons` table.
 - A model may draft a lesson from a review note (as `draft`); only a human
   makes it `active`.
+- Each has an id (`L3`), a status (`draft`, `active`, `retired`), the
+  heuristic, an optional why, topics, and dates; `scripts/lessons.ts`
+  keeps the file, and only active lessons reach the agent.
 - Lessons record where they came from (game and decision) and are retired,
   never deleted.
+
+### Content scope
+
+The engine plays the base game, and each expansion or codex is turned on or
+off per game (`state.options.expansions`: `pok`, `codex1` to `codex4`,
+`te`). A card's text, and whether advice about it holds, depends on which
+printing is in play. The engine already tags every component with its
+`source`. Knowledge carries the same tags (`app/knowledge/scope.ts`):
+- **Where it came from.** Every source records the content its games were
+  played with: `recordedWith` on each guide episode (all 17 are `[]`: base
+  game, before Prophecy of Kings), and `learnedWith` on each lesson, read from
+  the game's replay log.
+- **Where it holds.** A passage or lesson can carry a `scope`: `needs` (content
+  it is about, which must be on) and `voidedBy` (content that replaces what
+  it is about), plus a note naming the component or printing. Without a
+  scope it holds everywhere.
+- **What the agent sees.** Search returns only what holds for the game's
+  content, and shows the note. When a game has content a guide was not
+  recorded with, the results say so.
+
+What is tagged so far:
+- 121 passages about the base Warfare or Construction cards are voided by
+  Thunder's Edge, which reprints both. Lesson L7 (Warfare's double expansion)
+  is too.
+- 3 passages need Codex I: Magen Defense Grid Ω (Mentak, Yin's PDS fortress)
+  and the X-89 Ω combination with Harrow (L1Z1X).
+- 4 passages carry a note but hold everywhere: Ω printings the guides mention
+  in passing (Magen Defense Grid, Greyfire Mutagen, Wormhole Generator).
+
+Rule for new sources: no source joins the knowledge base without recording
+the content its games were played with. Games from other sites qualify only
+when that content matches ours or is tagged. For example, recent AsyncTI4
+games (bot.asyncti4.com/api/public/game/pbdNNNN) are nearly all Prophecy of
+Kings with Thunder's Edge, and often homebrew factions. They teach nothing
+about base-game play without that tagging.
+
+Two points about engine data found along the way:
+- Diplomacy's only printing is tagged `codex1`, and Construction's is tagged
+  `pok`. Base games use them on purpose: `strategyCardsFor` treats the
+  errata'd cards as shipping in every box. The Saar guide's "Codex
+  Diplomacy" is therefore the one we play.
+- Yin Spinner exists only as its Ω printing, tagged `base`. Whether the
+  engine's other single-printing cards (Greyfire Mutagen, Wormhole Generator)
+  are the original or Ω text is unchecked. Their passages tell the agent to
+  look the card up.
 
 ## Watching and improving
 
@@ -322,15 +370,122 @@ These are for steering, not proof; a batch of 20 games is noisy.
 3. **Knowledge.** Transcription, glossary correction, chunking with
    playability tags, the FTS5 index, `search_guides`, and citations in
    decisions and on the cards.
-4. **Lessons.** The lessons file and table, `search_lessons`, drafting
-   lessons from reviews, and the changelog.
+4. **Lessons.** Done: `knowledge/lessons.jsonl` (seeded with eleven
+   active lessons from the October reviews), loaded into `lessons` and
+   `lessons_fts` by `tsx scripts/kb.ts index` (or alone by
+   `tsx scripts/kb.ts lessons`); a `search_lessons` tool over active
+   lessons, which the agent can cite as `[L3]`, and the best-matching
+   lessons in each briefing; `scripts/lessons.ts` to read a reviewed
+   decision, draft a lesson from it, list, activate (human) and retire;
+   and `docs/agent-changelog.md`.
 5. **Faction abilities** (an engine track). Done for the base game, along
-   with action cards, promissory notes and agendas. Still to do: let the
-   agent decide the reactions and votes that now go to the scripted bot.
+   with action cards, promissory notes and agendas. The agent decides its
+   own reactions, votes, speaker tie-breaks and free research
+   (`app/game/agent/choices.ts`): at each window where it can use
+   something, its menu lists each play the engine accepts, with targets,
+   and Pass; on a vote it can abstain, or vote for each outcome with the
+   fewest planets that would lead or with all of them. Windows with
+   nothing usable stay with the bot.
 6. **Stronger bot.** Fighting back for lost planets, a deliberate plan for
    Mecatol and Imperial, and spending idle tactic tokens. A stronger
    opponent makes the agent's wins mean more and gives it better menu
    candidates.
+7. **Table talk.** Public and private chat between players, so they can
+   make and remember non-binding deals, such as a free commodity refresh
+   for a trade good later, or staying out of each other's slice.
+   - Messages and a deal log live with the game (not in the engine's
+     rules), shown in the web app and in each player's turn block.
+   - The agent gets tools to post a message and to propose, accept or
+     drop a deal, and sees its open deals and who has kept or broken
+     theirs.
+   - Bots answer from simple rules: accept deals that pay, keep them
+     unless keeping them costs more than they are worth, and remember
+     who broke one.
+   - Replaces the hard-coded "owe one for a free refresh" convention in
+     `app/game/agent/conventions.ts`, which then becomes one deal among
+     many.
+   - Done when the agent can strike a refresh-for-a-trade-good deal in
+     one round, collect it in a later one, and the history shows both.
+   - **Done.** `app/game/agent/talk.ts` keeps messages (public or to one
+     player), deals and a log of what happened to them, beside the game.
+     A deal has plain-text terms and the parts the table checks: a free
+     refresh when the other side plays Trade, trade goods paid later as
+     the surplus of a trade (from a due round on), and a truce (neither
+     activates a system in the other's slice or holding the other's
+     units or planets). Deals are proposed, accepted, then kept, broken
+     or dropped; a debt nobody had the chance to pay (never neighbours
+     with something to pay) lapses instead of breaking.
+   - The agent has `post_message`, `propose_deal`, `accept_deal` and
+     `drop_deal` while planning and deciding; none ends the decision. Its
+     turn block gains a "Table talk" section: recent messages it may
+     read, its open deals and proposals, and everyone's kept/broken
+     record.
+   - Bots answer at once: they accept deals that pay (a refresh is worth
+     the commodities it replenishes) from players who have broken none,
+     pay debts of up to 2 trade goods (what they reckon their word is
+     worth) unless the creditor broke a deal, hold a truce unless one
+     activation gains more than 6, and leave players who broke a deal
+     out of their free Trade refreshes.
+   - The old convention is now the standard deal: letting a player
+     replenish for free offers them "a trade good later" (due by the end
+     of next round) unless another deal was struck, and taking the
+     refresh accepts it. A refresh that replenishes nothing is dropped.
+   - The replay log keeps `talk` (messages, deals, events); each move's
+     note carries what was said and agreed with it, shown on the web
+     app's new Talk tab and in the history's reasoning. Notes that carry
+     only talk have an empty choice. `--policy first` games keep 0
+     fallbacks; most standard deals are kept.
+   - Not yet: bots do not propose deals of their own beyond the standard
+     refresh, or read messages; text-only deals are recorded but not
+     checked, and a bot declines them.
+8. **Drafting.** An agent that drafts like a competitive player: in a
+   Milty draft it picks a faction, a slice and a speaker position in turn,
+   weighing each faction against the slices left (does the slice suit
+   what the faction needs: plastic for Ghosts, influence for Barony),
+   neighbours, and what others have already taken.
+   - Today `draftedSetupFor` deals balanced Milty slices and factions at
+     random; drafting replaces the dealing, so the seat, slice and
+     faction come from picks.
+   - The SCPT guides already rate factions and say what each wants from a
+     slice, so the drafter can search them like the player does.
+   - Bots draft by simple rules (best slice value left, then a faction
+     that fits it) so a table of bots and one agent can draft together.
+   - Done when the agent's picks come with a rationale a reviewer agrees
+     with, and games on drafted setups show seat-to-seat balance close to
+     the dealt ones.
+9. **Checks and evals.** Known mistakes, found in reviews, written once as
+   rule-based checks and used twice: to grade the agent offline and to
+   warn it in play.
+   - **Checks** (`app/game/agent/checks.ts`) are predicates over (state,
+     seat, chosen action) that return a plain-English warning: a build
+     that strands its ground forces (or a carrier with nothing to carry),
+     a move that leaves a public objective the seat could score this round
+     unpaid at the status phase, a planet left empty within reach of
+     another player's carriers, a strategy pick that leaves Imperial to the
+     Mecatol Rex holder, a stall in rounds 1-3, and ground forces carried
+     through a gravity rift when a way around exists.
+   - **Evals** (`evals/cases.json`, `app/game/agent/evals.ts`,
+     `scripts/eval.ts`): a case is a decision rebuilt exactly from a replay
+     log (tracked, trimmed and gzipped in `evals/fixtures/`) at a move,
+     with the checks its choice must not trip, and optionally options to
+     choose or avoid, rationale patterns that mark a misreading, and the
+     lesson it relates to. The runner asks a policy each case N times and
+     reports pass rates and cost; `scan` lists a log's choices that trip a
+     check, to find new cases, and `fixture` cuts a log down for one.
+   - **Review in play:** after the agent chooses and before the move is
+     played, the checks run on its choice. If any fire, it is asked once
+     more with the warnings ("Keep it, or choose again?") and may keep its
+     move, saying why, or change it. Warnings, never vetoes. The decision
+     record says which checks fired, whether the move changed and why;
+     `agent-play` sums them up. On by default (`--no-review` to skip); the
+     first-candidate policy keeps its choice, so bot play is unchanged.
+   - Grows with the loop: each mistake a review finds becomes a check (or
+     an option to avoid) and a case, so a fix is measured before and after,
+     and the case keeps it fixed. Pass rates over a handful of cases are
+     for steering, like the other numbers here, not proof.
+   - Done when every reviewed mistake class has a check and a case, and a
+     change to the prompt, lessons or menu is judged by its eval pass rate
+     as well as by games.
 
 ## Measuring it, later
 

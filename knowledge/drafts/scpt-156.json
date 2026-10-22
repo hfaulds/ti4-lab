@@ -1,0 +1,1311 @@
+{
+  "episode": 156,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Show intro and frat-bro and movie banter",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s64",
+          "title": "Retracting the old dislike of Yin",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Yin Brotherhood"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Starting units and tech",
+      "summary": "Yin's single-planet 4/4 home system is excellent and easy to defend, the two-carrier, four-infantry starting fleet is among the top five starts in the game, and starting with Sarween Tools is a convenience that removes a tech decision.",
+      "chunks": [
+        {
+          "start": "s85",
+          "title": "Home system, starting fleet and Sarween Tools",
+          "kind": "strategy",
+          "summary": "Darien is a crazy good home system: a single planet is easier to hold than two or three, especially with Yin's infantry. The starting fleet is a top-five start that supports a two-carrier, four-infantry opening, and having Sarween Tools already means one less tech consideration.",
+          "advice": [
+            {
+              "point": "Darien is a crazy good home system; a single planet is much easier to defend than a two- or three-planet home, especially with Yin's infantry abilities.",
+              "stance": "rating",
+              "subjects": ["Darien", "Yin Brotherhood"]
+            },
+            {
+              "point": "The starting fleet is among the top five starts in the game and supports a two-carrier, four-infantry opening.",
+              "stance": "rating",
+              "subjects": ["Yin Brotherhood"]
+            },
+            {
+              "point": "Starting with Sarween Tools is nice despite some players cooling on it: you never have to weigh whether to research it.",
+              "stance": "rating",
+              "subjects": ["Sarween Tools"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening", "technology"],
+          "requires": [],
+          "concepts": ["2C4I opening", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Faction abilities and flagship",
+      "summary": "Indoctrination is the heart of the faction, strong on offence against weakly held planets and one of the best defensive abilities in the game; Yin would be a good faction with it alone. Devotion is mainly a defensive deterrent, and the hosts' original low opinion of Yin came from overrating it. The Van Hauge flagship is fun and a strong deterrent but rarely a strategic offensive tool; a big infantry stack is the better defence.",
+      "chunks": [
+        {
+          "start": "s101",
+          "title": "Indoctrination",
+          "kind": "strategy",
+          "summary": "Indoctrination is Yin's bread and butter: use it offensively to snap up weakly defended planets with few infantry, and rely on it defensively, since opponents must badly overcommit infantry to dislodge even one or two Yin infantry. Attackers often must depend on bombardment.",
+          "advice": [
+            {
+              "point": "Indoctrination is the bread and butter of the faction and one of the better defensive abilities in the game.",
+              "stance": "rating",
+              "subjects": ["Indoctrination"]
+            },
+            {
+              "point": "Use Indoctrination offensively to take weakly defended planets with only a few infantry.",
+              "stance": "recommended",
+              "subjects": ["Indoctrination"]
+            },
+            {
+              "point": "Even one or two Yin infantry on a planet force opponents to overcommit infantry or rely on bombardment to take it, so spread small infantry garrisons as deterrents.",
+              "stance": "recommended",
+              "subjects": ["Indoctrination", "Infantry"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "combat", "expansion"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s113",
+          "title": "Devotion and why the hosts once underrated Yin",
+          "kind": "strategy",
+          "summary": "Devotion is almost always used with destroyers. The hosts originally disliked Yin because in their TI3 group players overrated Devotion and made suicidal early plays, sacrificing ships and leaving nothing behind. They now say they badly underestimated Indoctrination, which alone would make Yin one of the better factions.",
+          "advice": [
+            {
+              "point": "Use Devotion with destroyers rather than cruisers in almost all cases.",
+              "stance": "recommended",
+              "subjects": ["Devotion", "Destroyer"]
+            },
+            {
+              "point": "Do not overcommit to Devotion with early suicidal attacks that sacrifice your ships to kill a single carrier; it guarantees nothing and leaves you with no fleet.",
+              "stance": "avoid",
+              "subjects": ["Devotion"]
+            },
+            {
+              "point": "Even without Devotion, Indoctrination alone would make Yin one of the better factions; the hosts' early dismissal of Yin was wrong.",
+              "stance": "rating",
+              "subjects": ["Yin Brotherhood", "Indoctrination", "Devotion"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["early", "any"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s132",
+          "title": "Devotion as a defensive deterrent",
+          "kind": "strategy",
+          "summary": "Devotion is best on defence: leave a destroyer in space above infantry-held planets so an attacker cannot just bring a single carrier, because if neither side hits in the first round you can devote the destroyer to kill the carrier before its infantry land.",
+          "advice": [
+            {
+              "point": "Leave a destroyer in space above planets garrisoned with infantry; with Devotion it deters lone carriers, which you can kill before they drop infantry.",
+              "stance": "recommended",
+              "subjects": ["Devotion", "Destroyer"]
+            },
+            {
+              "point": "Devotion is very good defensively as an extra deterrent on top of the infantry garrison.",
+              "stance": "rating",
+              "subjects": ["Devotion"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s136",
+          "title": "Van Hauge as a deterrent",
+          "kind": "strategy",
+          "summary": "The Van Hauge is great but overrated: it is mainly a defensive deterrent parked over the home system or Mecatol Rex, and offensive uses come up rarely. It is not foolproof, since one sacrificial player can trigger it and let a second walk in, so a large infantry stack on the home planet is the real defence. Park it over home when you would otherwise surely lose the home system to a space battle.",
+          "advice": [
+            {
+              "point": "People overstate the Van Hauge; its real use is as a deterrent parked above the home system or Mecatol Rex, and offensive opportunities are few and far between.",
+              "stance": "rating",
+              "subjects": ["Van Hauge"]
+            },
+            {
+              "point": "Do not rely on the Van Hauge to protect your home; one player can sacrifice a fleet to trigger it and another can then walk in. A stack of around ten infantry on the home planet is the better defence.",
+              "stance": "avoid",
+              "subjects": ["Van Hauge", "Infantry"]
+            },
+            {
+              "point": "If you would almost certainly lose your home system after losing the space battle, park the Van Hauge above it so attackers lose everything they bring.",
+              "stance": "situational",
+              "subjects": ["Van Hauge"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "faction abilities", "mecatol"],
+          "requires": ["faction abilities"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s159",
+          "title": "Using the Van Hauge offensively",
+          "kind": "strategy",
+          "summary": "The Van Hauge can never win a space combat, but it reliably destroys the enemy's best ships, and because Sustain Damage is optional it can force the mutual destruction. If you send it, target the fleet that positionally threatens you, such as a neighbour massing toward your home, rather than the fleet with the highest resource value. Hunter would rather spend the eight resources on a good fleet than keep it as a floating deterrent.",
+          "advice": [
+            {
+              "point": "Since you can decline Sustain Damage, you can throw the Van Hauge at a neighbour's fleet gearing up to attack you to wipe it out.",
+              "stance": "situational",
+              "subjects": ["Van Hauge"]
+            },
+            {
+              "point": "Choose Van Hauge targets by position, the fleet that will hurt you, not by trading eight resources for a fleet worth more.",
+              "stance": "recommended",
+              "subjects": ["Van Hauge"]
+            },
+            {
+              "point": "Hunter would rather have a good fleet than a Van Hauge sitting as a deterrent, since the flagship cannot do anything else; Matt agrees it is fun but mainly a defensive piece.",
+              "stance": "rating",
+              "subjects": ["Van Hauge"]
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Barony of Letnev"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Promissory note",
+      "summary": "The Omega Greyfire Mutagen, from the Codex, is maybe the best ground combat promissory note in the game. Like Tekklar Legion, sell it only in the window when it is about to be used, though leaving it out is less risky because it cannot be used against Yin.",
+      "chunks": [
+        {
+          "start": "s180",
+          "title": "Dating the guide: Prophecy of Kings and Omega components",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Yin Brotherhood"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s185",
+          "scope": {"needs": [], "voidedBy": [], "note": "about the Ω printing of Greyfire Mutagen; look up the card to check this game's text"},
+          "title": "Greyfire Mutagen (Omega)",
+          "kind": "strategy",
+          "summary": "The Omega Greyfire Mutagen is very good, maybe the best ground combat promissory note in the game (the Barony's new note is better but is not for ground combat). Sell it in the window it will be used rather than leaving it out with no idea where it will end up, though this matters less than for Tekklar Legion because it cannot be turned against Yin.",
+          "advice": [
+            {
+              "point": "Greyfire Mutagen (Omega) is maybe the best ground combat promissory note in the game.",
+              "stance": "rating",
+              "subjects": ["Greyfire Mutagen"]
+            },
+            {
+              "point": "Sell Greyfire Mutagen only in the window when it is about to be used, not into open-ended circulation; the risk is lower than with Tekklar Legion because it cannot be used against Yin.",
+              "stance": "recommended",
+              "subjects": ["Greyfire Mutagen", "Tekklar Legion"]
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["promissory note sale timing"]
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies and weaknesses",
+      "summary": "Yin Spinner (Omega) is ridiculously good and lessens the need for Transit Diodes, though the two combine well; Impulse Core is meh because Devotion already does most of its job. Neither faction tech is essential: both are win-more extensions of what Yin already does well, while Yin's real weaknesses are space combat, mobility and a poor two-commodity trade game.",
+      "chunks": [
+        {
+          "start": "s210",
+          "title": "Yin Spinner (Omega)",
+          "kind": "strategy",
+          "summary": "Yin Spinner is a ridiculously good tech that acts like a better, free Orbital Drop, held back only by needing two green prerequisites. It has dented the importance of Transit Diodes: going blue-green now works without craving Transit Diodes, though the two are excellent together.",
+          "advice": [
+            {
+              "point": "Yin Spinner is ridiculously good; its only downside is that it sits deep in the green path.",
+              "stance": "rating",
+              "subjects": ["Yin Spinner"]
+            },
+            {
+              "point": "Yin Spinner reduces the need to chase Transit Diodes, making a blue-green path fully viable; the two together are insane.",
+              "stance": "rating",
+              "subjects": ["Yin Spinner", "Transit Diodes"]
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Federation of Sol"],
+          "phases": ["mid", "late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path"]
+        },
+        {
+          "start": "s230",
+          "title": "Impulse Core",
+          "kind": "strategy",
+          "summary": "Impulse Core is much weaker than Yin Spinner and is not a good substitute for Transit Diodes at the same depth. Devotion already lets you pick a target such as a carrier full of infantry, while Impulse Core lets the opponent assign the hit, and you rarely have the fleet supply to devote two ships in one combat.",
+          "advice": [
+            {
+              "point": "Impulse Core is not nearly as good as Yin Spinner and is a poor substitute for Transit Diodes, which better plays to Yin's ground strength.",
+              "stance": "rating",
+              "subjects": ["Impulse Core", "Transit Diodes"]
+            },
+            {
+              "point": "Use Devotion to snipe the carrier carrying the enemy's infantry; this target choice is Devotion's main strength and something Impulse Core lacks.",
+              "stance": "recommended",
+              "subjects": ["Devotion", "Carrier"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["mid"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s252",
+          "title": "Faction techs are win more; space is the weakness",
+          "kind": "strategy",
+          "summary": "Unlike many factions, Yin does not need its faction techs to function, and Hunter sometimes researches neither. Both are win-more extensions of strengths. Yin's real weaknesses are mobility and space combat: on the ground they win most fights, so prefer upgrades that help them get to planets and survive in the air.",
+          "advice": [
+            {
+              "point": "Yin's faction techs are not essential; both are win-more extensions of abilities Yin is already good at, so it is fine to skip them.",
+              "stance": "rating",
+              "subjects": ["Yin Spinner", "Impulse Core"]
+            },
+            {
+              "point": "Prioritise tech that fixes Yin's weaknesses, mobility and space combat, over tech that doubles down on ground strength.",
+              "stance": "recommended",
+              "subjects": ["Yin Brotherhood"]
+            },
+            {
+              "point": "Devotion is fairly meh and the Van Hauge is a crazy button, so Yin has nothing that reliably wins in space.",
+              "stance": "rating",
+              "subjects": ["Devotion", "Van Hauge"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["any"],
+          "topics": ["technology", "general strategy"],
+          "requires": ["faction technologies"],
+          "concepts": ["win more"]
+        },
+        {
+          "start": "s273",
+          "title": "Two commodities and weak trade",
+          "kind": "strategy",
+          "summary": "With two commodities and a conditional promissory note, Yin's trade game is weak. They compensate by holding every planet they take and, with Sarween Tools and Yin Spinner, by getting free units; the strong home system means they do not need extra early trade goods.",
+          "advice": [
+            {
+              "point": "Yin is poor at trading; accept it and lean on holding planets and free units from Sarween Tools and Yin Spinner rather than trade goods.",
+              "stance": "rating",
+              "subjects": ["Yin Brotherhood", "Greyfire Mutagen"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["any"],
+          "topics": ["economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Tech paths",
+      "summary": "Yin's tech path is wide open but must be committed to early, and it changes the strategy card picks. Blue-green is the best path, especially now that Yin Spinner exists, with Gravity Drive first for a Mecatol Rex play. Blue-yellow mostly means going for Dreadnought II or Transit Diodes with a yellow skip. Red-yellow is a campy PDS fortress for a self-sufficient slice with no Mecatol ambitions. Green-yellow is outclassed and red-blue unproven.",
+      "chunks": [
+        {
+          "start": "s284",
+          "title": "Why tech paths come before strategy cards",
+          "kind": "strategy",
+          "summary": "The hosts discuss tech paths first because Yin's path is wide open yet must be committed to right away, and the right strategy card choices depend on which path you are taking.",
+          "advice": [
+            {
+              "point": "Commit to a tech path early as Yin; strategy card choices differ significantly depending on the path.",
+              "stance": "recommended",
+              "subjects": ["Yin Brotherhood"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["setup", "round 1"],
+          "topics": ["technology", "strategy cards"],
+          "requires": [],
+          "concepts": ["tech path commitment"]
+        },
+        {
+          "start": "s291",
+          "title": "Blue-green: the best path",
+          "kind": "strategy",
+          "summary": "Hunter used to prefer blue-yellow, but the option of Yin Spinner makes blue-green the best path. Even without skips, Neural Motivator, Antimass Deflectors, Gravity Drive and Dacxive Animators all fit, and Carrier II and Fighter II help Yin's weak space game deliver infantry; Infantry II may be unnecessary if you already win ground fights. Dacxive Animators is great for Yin even without a skip.",
+          "advice": [
+            {
+              "point": "Blue-green is the best tech path for Yin, made better by the option of Yin Spinner.",
+              "stance": "rating",
+              "subjects": ["Yin Spinner", "Yin Brotherhood"]
+            },
+            {
+              "point": "Prioritise Carrier II and Fighter II, which shore up Yin's weaker space game and let carriers deliver infantry past defended systems.",
+              "stance": "recommended",
+              "subjects": ["Carrier II", "Fighter II"]
+            },
+            {
+              "point": "Infantry II is strong but may be unnecessary depending on the other factions, if you are already winning ground combats.",
+              "stance": "situational",
+              "subjects": ["Infantry II"]
+            },
+            {
+              "point": "Dacxive Animators is great for Yin even without a skip, because it immediately reinforces a newly taken planet; some players even skip Neural Motivator to get it.",
+              "stance": "recommended",
+              "subjects": ["Dacxive Animators", "Neural Motivator"]
+            },
+            {
+              "point": "Transit Diodes combines well with Dacxive Animators, moving the new ground force elsewhere.",
+              "stance": "rating",
+              "subjects": ["Transit Diodes", "Dacxive Animators"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "tech skip"]
+        },
+        {
+          "start": "s313",
+          "title": "Gravity Drive first, then green or yellow",
+          "kind": "strategy",
+          "summary": "Both blue paths are about getting Gravity Drive first to make a Mecatol Rex play, which is harder for Yin than for factions starting with a blue tech; a blue skip rarely helps in round one. Going into round two with Gravity Drive lets you take Mecatol and hold it with infantry. Choose between green (Fighter II, Yin Spinner) and yellow (Dreadnought II, Transit Diodes) based on neighbours: can they ignore fighters or cut through Sustain Damage?",
+          "advice": [
+            {
+              "point": "On a blue path, research Gravity Drive first to make a Mecatol Rex play in round two, then hold Mecatol with infantry.",
+              "stance": "recommended",
+              "subjects": ["Gravity Drive", "Mecatol Rex"]
+            },
+            {
+              "point": "A blue skip rarely speeds up Gravity Drive because it is hard to use in round one.",
+              "stance": "rating",
+              "subjects": ["Gravity Drive"]
+            },
+            {
+              "point": "Choose between blue-green and blue-yellow based on neighbouring factions: whether they can ignore your fighters or cut through your Sustain Damage.",
+              "stance": "situational",
+              "subjects": ["Fighter II", "Dreadnought II"]
+            },
+            {
+              "point": "On blue-green, weigh each unit upgrade against what you need to deal with this round rather than marrying one upgrade as the best.",
+              "stance": "recommended",
+              "subjects": ["Carrier II", "Fighter II", "Dreadnought II"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1", "early"],
+          "topics": ["technology", "mecatol"],
+          "requires": [],
+          "concepts": ["tech path", "custodians rush"]
+        },
+        {
+          "start": "s335",
+          "title": "Dacxive Animators or Hyper Metabolism",
+          "kind": "strategy",
+          "summary": "Dacxive Animators is cooler for Yin than for most factions, but there is an argument to skip it for Hyper Metabolism, because Indoctrination is an extra influence drain and a low-influence slice needs the command token economy. With a green skip, get Hyper Metabolism right away. Some players skip Neural Motivator for Dacxive and skip again for Hyper Metabolism; Hunter does not, as he loves Neural Motivator.",
+          "advice": [
+            {
+              "point": "Consider skipping Dacxive Animators for Hyper Metabolism, especially with a low-influence slice, because Indoctrination competes with command tokens for influence.",
+              "stance": "situational",
+              "subjects": ["Hyper Metabolism", "Dacxive Animators", "Indoctrination"]
+            },
+            {
+              "point": "With a green skip, get Hyper Metabolism right away.",
+              "stance": "recommended",
+              "subjects": ["Hyper Metabolism"]
+            },
+            {
+              "point": "Some players skip Neural Motivator for Dacxive Animators and then skip again for Hyper Metabolism; Hunter prefers to take Neural Motivator.",
+              "stance": "situational",
+              "subjects": ["Neural Motivator", "Dacxive Animators", "Hyper Metabolism"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech skip", "command token economy"]
+        },
+        {
+          "start": "s344",
+          "title": "Yin Spinner versus Space Dock II: blue-green over blue-yellow",
+          "kind": "strategy",
+          "summary": "On blue-yellow the third unit upgrade is usually Space Dock II, never the first, but Yin Spinner provides the same extra production as a free bonus, another point for blue-green. Dreadnought II can be picked up on blue-green anyway thanks to Sarween Tools, so blue-yellow is really a commitment to Transit Diodes, mainly worth it with a yellow skip (Graviton Laser System, then Transit Diodes, then Space Dock II).",
+          "advice": [
+            {
+              "point": "Do not take Space Dock II as Yin's first unit upgrade; Yin does not need the production early.",
+              "stance": "avoid",
+              "subjects": ["Space Dock II"]
+            },
+            {
+              "point": "Yin Spinner works like extra production capacity and an extra Sarween Tools, doing Space Dock II's job, which favours blue-green.",
+              "stance": "rating",
+              "subjects": ["Yin Spinner", "Space Dock II"]
+            },
+            {
+              "point": "Go blue-yellow mainly when you have a yellow skip to go straight to Transit Diodes; Dreadnought II alone does not require it, since it can be researched off a blue-green path.",
+              "stance": "situational",
+              "subjects": ["Transit Diodes", "Dreadnought II", "Graviton Laser System"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "tech skip", "production capacity"]
+        },
+        {
+          "start": "s359",
+          "scope": {"needs": ["codex1"], "voidedBy": [], "note": "built on Magen Defense Grid Ω (Codex I); the base card needs units with PLANETARY SHIELD"},
+          "title": "Red-yellow: the PDS fortress",
+          "kind": "strategy",
+          "summary": "Red-yellow is made possible by the strong Omega Magen Defense Grid. Slow-roll out of your slice with Plasma Scoring, PDS II, Magen Defense Grid, Graviton Laser System, Destroyer II and Space Dock II, so attackers face PDS fire, Graviton-directed hits, Destroyer II barrage and Devotion before even reaching Magen Defense Grid and Indoctrination. The weakness is mobility: Mecatol Rex is only reachable with a lucky Flank Speed.",
+          "advice": [
+            {
+              "point": "Red-yellow is a fun, viable, scrappy path built on Magen Defense Grid; Hunter likes it, though he lost the game he tried it in.",
+              "stance": "rating",
+              "subjects": ["Magen Defense Grid", "Yin Brotherhood"]
+            },
+            {
+              "point": "On red-yellow, take Graviton Laser System so PDS fire kills non-fighters, Destroyer II kills fighters and Devotion finishes carriers before they land.",
+              "stance": "recommended",
+              "subjects": ["Graviton Laser System", "Destroyer II", "PDS II", "Devotion"]
+            },
+            {
+              "point": "Red-yellow gives up a Mecatol Rex play unless you draw Flank Speed at the right time.",
+              "stance": "rating",
+              "subjects": ["Mecatol Rex", "Flank Speed"]
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Clan of Saar"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech path", "camping slice"]
+        },
+        {
+          "start": "s388",
+          "title": "Red-yellow needs a self-sufficient slice",
+          "kind": "strategy",
+          "summary": "Because red-yellow has no mobility, choose it only with a killer slice and easily reached equidistant systems, ideally with a planet in front of home for PDS II coverage of both equidistants. If the slice's economy and planet traits can score enough, you can camp all game. Factors include a secret objective like four PDS and how satisfied you are with the slice; the main danger is a crazy aggressive neighbour, so solidify the slice or negotiate them off.",
+          "advice": [
+            {
+              "point": "Choose red-yellow only with a strong, self-sufficient slice whose economy and planet traits can score points, and equidistants you can easily take.",
+              "stance": "situational",
+              "subjects": ["Yin Brotherhood"]
+            },
+            {
+              "point": "Place PDS on a planet in front of home so PDS II covers both equidistant systems, then snatch an equidistant planet whenever the neighbour leaves it lightly defended.",
+              "stance": "recommended",
+              "subjects": ["PDS II"]
+            },
+            {
+              "point": "A secret objective requiring four PDS is a good reason to commit to red-yellow.",
+              "stance": "situational",
+              "subjects": ["PDS"]
+            },
+            {
+              "point": "The threat to a red-yellow camp is a crazy aggressive neighbour; solidify the slice before they jump on you or negotiate them off for long enough.",
+              "stance": "recommended",
+              "subjects": ["Yin Brotherhood"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["setup", "early", "mid"],
+          "topics": ["technology", "expansion", "objectives", "threats and matchups"],
+          "requires": [],
+          "concepts": ["camping slice", "slice value", "tech path commitment"]
+        },
+        {
+          "start": "s407",
+          "title": "Red-yellow skips and alternatives",
+          "kind": "strategy",
+          "summary": "Graviton Laser System is not the cornerstone of red-yellow, and Transit Diodes is less needed if you plan a forward dock from frequent Construction. A green skip gives Cruiser II as mobility, though Hunter finds it too flimsy. With a red skip, skip Duranium Armor for Assault Cannon so destroyers pile up pre-combat, barrage, regular and Devotion hits to close most combats in round one.",
+          "advice": [
+            {
+              "point": "On red-yellow you will take Construction a lot, so plan a forward dock instead of relying on Transit Diodes or Graviton Laser System.",
+              "stance": "recommended",
+              "subjects": ["Construction", "Transit Diodes"]
+            },
+            {
+              "point": "A green skip into Cruiser II can fix red-yellow's mobility, but Hunter considers Cruiser II too flimsy for Yin and it struggles in space.",
+              "stance": "situational",
+              "subjects": ["Cruiser II"]
+            },
+            {
+              "point": "With a red skip, skip Duranium Armor for Assault Cannon; combined with Destroyer II and Devotion you close almost every combat in the first round.",
+              "stance": "recommended",
+              "subjects": ["Assault Cannon", "Duranium Armor", "Destroyer II", "Devotion"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["mid"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech skip", "forward dock", "pre-combat fire"]
+        },
+        {
+          "start": "s424",
+          "title": "Green-yellow and red-blue",
+          "kind": "strategy",
+          "summary": "Green-yellow is old Yin, built around the two faction techs; Yin Spinner and Transit Diodes together are deadly defensively, especially with a yellow skip, but it lacks mobility and does not stand up to red-yellow. Every common path works for Yin except perhaps red-blue, which the hosts have rarely seen and think is worse than green, though Yin's versatility could make a case.",
+          "advice": [
+            {
+              "point": "Green-yellow is outclassed by red-yellow and still lacks mobility; consider it only with yellow (or green and yellow) skips for the Yin Spinner and Transit Diodes combination.",
+              "stance": "situational",
+              "subjects": ["Yin Spinner", "Transit Diodes"]
+            },
+            {
+              "point": "Red-blue is an unusual, unproven path for Yin; the hosts rate it below green paths but would not be surprised if someone made it work.",
+              "stance": "rating",
+              "subjects": ["PDS II", "Dreadnought II"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["early", "mid"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech path", "tech skip"]
+        }
+      ]
+    },
+    {
+      "title": "Strategy cards in round one",
+      "summary": "Warfare is the top pick: it gives a 2C4I start the most versatile round one and a route to Mecatol Rex. Technology is good, especially for Neural Motivator on a green path, with plastic as the cost. Politics is a variable middle pick for a Mecatol play; Trade is about even with it; Leadership is middling; Construction is good only for red-yellow or with a good forward dock; Diplomacy has a niche; Imperial is never taken. Never do a Leadership destroyer rush.",
+      "chunks": [
+        {
+          "start": "s443",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is a middling pick. With few trade goods in an X-1 trade meta, Yin's four home resources go to tech, so following Warfare is inefficient. Instead Leadership stockpiles command tokens so influence can be saved for Indoctrination (two influence per use, ideally four in reserve). Mecatol Rex also helps solve Yin's command token problem.",
+          "advice": [
+            {
+              "point": "Leadership is a middling round one pick for Yin.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "Following Warfare's secondary is inefficient round one: the home resources go to tech and the X-1 trade leaves only one trade good.",
+              "stance": "avoid",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Use Leadership to stockpile command tokens so you can save influence, at least two and ideally four per round, for Indoctrination.",
+              "stance": "recommended",
+              "subjects": ["Leadership", "Indoctrination"]
+            },
+            {
+              "point": "Mecatol Rex is doubly valuable to Yin: easy to hold and its influence eases the command token problem.",
+              "stance": "rating",
+              "subjects": ["Mecatol Rex"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["X-1 trade", "command token economy", "secondary timing"]
+        },
+        {
+          "start": "s464",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Leadership followed by Politics or Construction",
+          "kind": "strategy",
+          "summary": "After taking Leadership, follow Politics to fish for Flank Speed (four in the base deck), since a Yin with a lucky round one Flank Speed is the Yin you want to be. Alternatively follow Construction for a forward dock, essential on red-yellow and useful on blue paths to get units close to Mecatol Rex.",
+          "advice": [
+            {
+              "point": "With Leadership, follow Politics to try to draw Flank Speed for an early Mecatol Rex play.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Flank Speed"]
+            },
+            {
+              "point": "Follow Construction for a forward dock; red-yellow needs it for mobility and blue paths want it near Mecatol Rex.",
+              "stance": "situational",
+              "subjects": ["Construction"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "mecatol", "action cards"],
+          "requires": ["action cards"],
+          "concepts": ["secondary timing", "forward dock", "custodians rush"]
+        },
+        {
+          "start": "s476",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Don't do the Leadership destroyer rush",
+          "kind": "strategy",
+          "summary": "A suggested Yin line puts Leadership tokens into fleet supply and builds destroyers off Warfare to devote into a neighbour's fleet. Don't: it makes a game-long enemy Yin cannot handle, sacrifices the destroyers, and opens the game for a third player. Matt tried it to extort a Muaat player and both their games tanked while a Naalu won.",
+          "advice": [
+            {
+              "point": "Never do an early Leadership-and-Warfare destroyer rush to devote into a neighbour's fleet; it makes a lifelong enemy, wastes your destroyers and hands the game to someone else.",
+              "stance": "avoid",
+              "subjects": ["Leadership", "Warfare", "Devotion", "Destroyer"]
+            },
+            {
+              "point": "Focusing all your power on ruining one neighbour's game means you both lose; it is not how TI4 is won.",
+              "stance": "avoid",
+              "subjects": []
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Embers of Muaat", "Naalu Collective"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "combat", "threats and matchups"],
+          "requires": ["faction abilities"],
+          "concepts": ["controlled aggression"]
+        },
+        {
+          "start": "s505",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
+          "title": "Round one: Diplomacy (Matt's case)",
+          "kind": "strategy",
+          "summary": "Picking sixth among Diplomacy, Construction and Imperial (never Imperial), Diplomacy can beat Construction if your round one planets are not good forward dock spots. The 'no dance' Diplomacy refreshes Darien and a planet for six or seven resources of building with Sarween Tools after teching. Using Diplomacy to gain a blue skip for a round one Gravity Drive almost never works because Warfare would need to resolve before Technology.",
+          "advice": [
+            {
+              "point": "Never take Imperial in round one.",
+              "stance": "avoid",
+              "subjects": ["Imperial"]
+            },
+            {
+              "point": "If picking late with only Diplomacy, Construction and Imperial left, and your reachable planets are poor forward dock spots, take Diplomacy to refresh Darien and build six or seven resources of units after Technology.",
+              "stance": "situational",
+              "subjects": ["Diplomacy", "Construction", "Darien"]
+            },
+            {
+              "point": "Do not plan on Diplomacy enabling a round one blue skip into Gravity Drive; it needs Warfare to pop before Technology, which almost never happens.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy", "Gravity Drive"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["forward dock"]
+        },
+        {
+          "start": "s532",
+          "title": "Diplomacy: Hunter's reservations",
+          "kind": "strategy",
+          "summary": "Hunter would not take Diplomacy round one even if it is a good play, because of the shenanigans other players can do once it is on the table; check which factions have tech skips. If you take it, be as mean with it as possible, which is hard because annoying others' timings tends to hurt you more.",
+          "advice": [
+            {
+              "point": "Hunter avoids round one Diplomacy because of what the other players can do with its secondary; check other factions' tech skips before taking it.",
+              "stance": "situational",
+              "subjects": ["Diplomacy"]
+            },
+            {
+              "point": "If you take Diplomacy, use it as meanly as possible, though this is hard to do without hurting yourself more.",
+              "stance": "situational",
+              "subjects": ["Diplomacy"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards"],
+          "requires": [],
+          "concepts": ["table meta"]
+        },
+        {
+          "start": "s543",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Politics is a variable middle pick, a mixed bag that Hunter rates slightly higher because he likes to gamble. Politics into round two Leadership is a good route to Mecatol Rex, which Yin holds well, but getting there needs a blue skip plus favourable round two tech timing or a lucky Flank Speed. Matt sometimes takes Warfare in round two instead. Hunter picks Politics fourth or fifth over Diplomacy, Construction and even Trade; Matt ties it with Trade.",
+          "advice": [
+            {
+              "point": "Politics is a middling, variable pick; Hunter rates it slightly higher than Matt.",
+              "stance": "rating",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Take Politics round one into Leadership round two to grab Mecatol Rex, but only if you can get there: a blue skip and good round two tech timing, or a drawn Flank Speed.",
+              "stance": "situational",
+              "subjects": ["Politics", "Leadership", "Mecatol Rex", "Flank Speed"]
+            },
+            {
+              "point": "If other players are slow to Mecatol Rex, round two Warfare can still take it on your third action.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Mecatol Rex"]
+            },
+            {
+              "point": "Picking fourth or fifth, Hunter takes Politics over Diplomacy, Construction and Trade to guarantee a better next pick; Matt treats Politics and Trade as equal.",
+              "stance": "situational",
+              "subjects": ["Politics", "Trade"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol"],
+          "requires": ["action cards"],
+          "concepts": ["speaker order control", "custodians rush"]
+        },
+        {
+          "start": "s564",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Construction is great for red-yellow Yin, which puts two PDS on the board for Magen Defense Grid and PDS II. Otherwise it is not loved, though on a blue path with a good forward dock position it is not the worst idea.",
+          "advice": [
+            {
+              "point": "Take Construction round one on red-yellow to place two PDS ready for Magen Defense Grid and PDS II, if the slice suits it.",
+              "stance": "recommended",
+              "subjects": ["Construction", "Magen Defense Grid", "PDS II"]
+            },
+            {
+              "point": "On a blue path, take Construction only with a good forward dock position.",
+              "stance": "situational",
+              "subjects": ["Construction"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "expansion"],
+          "requires": [],
+          "concepts": ["forward dock", "tech path"]
+        },
+        {
+          "start": "s574",
+          "title": "Round one: Trade and buying the speaker",
+          "kind": "strategy",
+          "summary": "Yin is bad at trade, but Trade gives money for a Mecatol Rex push and a chance to buy the speaker token, letting you go first in round two as an alternative to Politics. Speaker deals are non-binding and Matt has been burned. Don't buy the speaker by promising the seller first pick if you want Leadership for Mecatol yourself, unless the seller clearly won't contest Mecatol.",
+          "advice": [
+            {
+              "point": "Trade can fund a Mecatol Rex push and let you buy the speaker token to go first in round two instead of picking Politics.",
+              "stance": "situational",
+              "subjects": ["Trade", "Mecatol Rex"]
+            },
+            {
+              "point": "Speaker token deals are non-binding and can burn you; Matt has stopped relying on them.",
+              "stance": "rating",
+              "subjects": []
+            },
+            {
+              "point": "Do not buy the speaker token by promising its seller first pick if you need Leadership yourself for Mecatol Rex, unless that player clearly is not making a Mecatol play.",
+              "stance": "avoid",
+              "subjects": ["Leadership", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy", "mecatol"],
+          "requires": [],
+          "concepts": ["speaker token sale", "non-binding deals", "table meta"]
+        },
+        {
+          "start": "s597",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is Yin's top pick: as with any 2C4I start it gives the most versatile round one, letting you expand twice, build at home and end adjacent to Mecatol Rex. You can skip tech and spend four home resources plus Sarween Tools on plastic, filling your slice with planets Yin will keep. You may lose Mecatol to whoever takes Leadership in round two, but you still enter round two ahead on plastic with maximum money and influence. Passing on round one tech is fine unless you want Neural Motivator.",
+          "advice": [
+            {
+              "point": "Warfare is Yin's top round one pick; take it if first in the order.",
+              "stance": "rating",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Use Warfare to move out, pull the token and end adjacent to Mecatol Rex, or move out twice and build at home.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Mecatol Rex"]
+            },
+            {
+              "point": "With Warfare, consider skipping round one tech entirely and spending all resources on plastic; tech can be caught up later, especially on red-yellow where nothing is needed round one except Neural Motivator for green.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Technology", "Neural Motivator"]
+            },
+            {
+              "point": "Warfare's Mecatol Rex play can be beaten by whoever takes Leadership in round two, but you still end ahead on plastic with a filled slice.",
+              "stance": "rating",
+              "subjects": ["Warfare", "Leadership"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "mecatol"],
+          "requires": [],
+          "concepts": ["2C4I opening", "plastic advantage", "custodians rush"]
+        },
+        {
+          "start": "s628",
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is good: home resources go to plastic. On a green path, get Neural Motivator out of the way; on a blue path with two trade goods you can double-tech to Gravity Drive for Mecatol Rex, though a bad speaker position may waste it. Hunter warns that double-teching gives up plastic and leaves Yin vulnerable in space; justify it with an early tech objective. One tech plus plastic is a fairly good opening.",
+          "advice": [
+            {
+              "point": "Take Technology on a green path to get Neural Motivator early and spend the rest on plastic.",
+              "stance": "recommended",
+              "subjects": ["Technology", "Neural Motivator"]
+            },
+            {
+              "point": "On a blue path, double-tech to Gravity Drive round one for Mecatol Rex if you get two trade goods, accepting the risk of a poor speaker position in round two.",
+              "stance": "situational",
+              "subjects": ["Technology", "Gravity Drive", "Mecatol Rex"]
+            },
+            {
+              "point": "Hunter is wary of double-teching round one because giving up plastic leaves Yin vulnerable in space and slow to land infantry; do it only with a reason such as an early tech objective and no skips. Matt does not feel strongly against it as Yin.",
+              "stance": "situational",
+              "subjects": ["Technology"]
+            },
+            {
+              "point": "One tech plus the rest on plastic is a fairly good opening.",
+              "stance": "recommended",
+              "subjects": ["Technology"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology", "opening"],
+          "requires": [],
+          "concepts": ["plastic advantage", "custodians rush"]
+        }
+      ]
+    },
+    {
+      "title": "Early-game weaknesses",
+      "summary": "Yin is slice- and influence-dependent: influence in twos suits Indoctrination, and Matt would rather have an all-influence slice than one with none. Never sacrifice command tokens for Indoctrination. Neighbours see Yin as a threat from the start and Yin has little to trade, so use the strong starting fleet to claim contested planets before others do, without overplaying it.",
+      "chunks": [
+        {
+          "start": "s651",
+          "title": "Influence-dependent slices",
+          "kind": "strategy",
+          "summary": "Yin is slice- and influence-dependent: influence in twos (one-twos, zero-twos) suits Indoctrination, while threes suit command tokens. Matt would take a three-resource, nine-influence slice and prefer an all-influence slice over one with none, since Darien covers resources. Darien's four influence is awkward and mainly helps in agendas. Never go short of command tokens to afford Indoctrination.",
+          "advice": [
+            {
+              "point": "In the draft, prefer influence for Yin; an all-influence slice beats one with no influence because Darien already supplies resources.",
+              "stance": "recommended",
+              "subjects": ["Yin Brotherhood", "Darien"]
+            },
+            {
+              "point": "Planets with two influence (one-twos, zero-twos) suit Indoctrination better than one-threes or zero-threes.",
+              "stance": "rating",
+              "subjects": ["Indoctrination"]
+            },
+            {
+              "point": "Do not give up command tokens to keep influence for Indoctrination.",
+              "stance": "avoid",
+              "subjects": ["Indoctrination"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["setup", "any"],
+          "topics": ["economy", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": ["slice value", "command token economy"]
+        },
+        {
+          "start": "s672",
+          "title": "Starting as the table's enemy",
+          "kind": "strategy",
+          "summary": "Yin is poor at trading and neighbours know that once Yin takes planets near them, uprooting it is hardly worth the effort. So Yin often starts as people's enemy, gets no money or space from them, and must fight for territory, which its strong starting fleet allows.",
+          "advice": [
+            {
+              "point": "Expect neighbours to treat Yin as a threat and refuse it money or territory; be ready to fight for your planets with the strong starting fleet.",
+              "stance": "rating",
+              "subjects": ["Yin Brotherhood"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["early"],
+          "topics": ["trade and diplomacy", "threats and matchups", "expansion"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s680",
+          "title": "Listener feedback: use the strong starting fleet",
+          "kind": "strategy",
+          "summary": "Jasper notes that Yin's starting fleet beats most factions' fleets in a straight fight, so don't let a weaker faction grab a border system you want; unless it is Muaat, Naalu, Mentak or Nekro, tell them they are overreaching. Splitting or selling equidistants as Yin can haunt you all game. The hosts agree: take planets because they stay yours, but don't overplay the advantage and let others get ahead.",
+          "advice": [
+            {
+              "point": "Do not let a weaker faction take a border system you want; Yin's starting fleet beats most fleets, except Muaat, Naalu, Mentak or Nekro using their specific strengths.",
+              "stance": "recommended",
+              "subjects": ["Yin Brotherhood", "Embers of Muaat", "Naalu Collective", "Mentak Coalition", "Nekro Virus"]
+            },
+            {
+              "point": "Splitting equidistant systems with a neighbour, or selling them, is awkward for Yin and can haunt you all game.",
+              "stance": "avoid",
+              "subjects": ["Yin Brotherhood"]
+            },
+            {
+              "point": "Beat neighbours to contested planets rather than overplaying the starting fleet advantage in fights that let others get ahead.",
+              "stance": "recommended",
+              "subjects": ["Yin Brotherhood"]
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Embers of Muaat", "Naalu Collective", "Mentak Coalition", "Nekro Virus"],
+          "phases": ["round 1", "early"],
+          "topics": ["expansion", "combat", "threats and matchups"],
+          "requires": [],
+          "concepts": ["plastic advantage", "controlled aggression"]
+        }
+      ]
+    },
+    {
+      "title": "Selling Greyfire Mutagen",
+      "summary": "Greyfire Mutagen is worth far more than half a trade good: costing Yin nothing, it shifts a ground combat by two, so it can regularly sell for two or three trade goods. Following a community guide, prove its value with a cheap first sale, then sell it nearly every round to the active player right before a ground combat, and avoid letting it get stuck.",
+      "chunks": [
+        {
+          "start": "s705",
+          "title": "Pricing Greyfire Mutagen",
+          "kind": "strategy",
+          "summary": "Following a Reddit guide by Just the Bay 6, the hosts argue Greyfire Mutagen is not worth half a trade good: it costs Yin nothing and its combat swing can be worth the planets at stake, so it can regularly fetch three trade goods even though buyers will balk.",
+          "advice": [
+            {
+              "point": "Value Greyfire Mutagen by its combat swing and the planets at stake, not as one infantry; it can be worth about three trade goods regularly.",
+              "stance": "rating",
+              "subjects": ["Greyfire Mutagen"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["promissory note pricing"]
+        },
+        {
+          "start": "s721",
+          "title": "Sales tactics: foot in the door and money-back guarantee",
+          "kind": "strategy",
+          "summary": "First sell it cheaply, for one trade good, to a player outnumbered one versus two or three so the table sees how strong it is, then charge two or three trade goods. Try to sell it nearly every round, since few factions besides Yin, Sol or Arborec outnumber opponents on the ground; pitch it to players who could attack with only two infantry. A money-back guarantee at three trade goods is possible but non-binding; Matt would start at two.",
+          "advice": [
+            {
+              "point": "Sell Greyfire Mutagen cheaply once to an outnumbered player to show the table its power, then charge two or three trade goods afterwards.",
+              "stance": "recommended",
+              "subjects": ["Greyfire Mutagen"]
+            },
+            {
+              "point": "Try to sell Greyfire Mutagen almost every round, whenever a ground combat is coming, and pitch it to enable attacks players otherwise could not make.",
+              "stance": "recommended",
+              "subjects": ["Greyfire Mutagen"]
+            },
+            {
+              "point": "Offering a money-back guarantee at three trade goods is a fun non-binding deal; Matt would rather price it at two and see how it goes.",
+              "stance": "situational",
+              "subjects": ["Greyfire Mutagen"]
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Federation of Sol", "Arborec"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["promissory note pricing", "non-binding deals", "above-the-table play"]
+        },
+        {
+          "start": "s736",
+          "title": "Timing Greyfire Mutagen sales",
+          "kind": "strategy",
+          "summary": "Sell it at the moment the attacker needs it. It can help a defender, but since you can only sell to the active player, a defender must buy it ahead of an expected attack. Avoid selling it in advance where it can get stuck; you want to sell it repeatedly. It cannot be used against you, so offer it freely.",
+          "advice": [
+            {
+              "point": "Sell Greyfire Mutagen to the attacker at the moment they need it.",
+              "stance": "recommended",
+              "subjects": ["Greyfire Mutagen"]
+            },
+            {
+              "point": "To help a defender, sell it ahead of an attack you see coming, because you can only trade with the active player.",
+              "stance": "situational",
+              "subjects": ["Greyfire Mutagen"]
+            },
+            {
+              "point": "Be careful selling it ahead of time so it does not get stuck with one player; you want to sell it multiple times.",
+              "stance": "avoid",
+              "subjects": ["Greyfire Mutagen"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["promissory note sale timing"]
+        }
+      ]
+    },
+    {
+      "title": "Mid and late game",
+      "summary": "The mid game splits on whether Yin took Mecatol Rex. If so, win from ahead: stack infantry and small defences on Mecatol, collect free points, and one or two Imperial points may be enough. If not, go plastic-heavy and aggressive, spread destroyers for Devotion, and plan points from secrets, stage ones, Support for the Throne and a stage two. Bombardment is Yin's main threat, so outnumber it with huge infantry stacks, and always keep influence ready for Indoctrination.",
+      "chunks": [
+        {
+          "start": "s748",
+          "title": "Holding Mecatol Rex",
+          "kind": "strategy",
+          "summary": "If Mecatol Rex worked, push the advantage: launch to territory objectives, hold Mecatol, take Imperial points and free points. Yin is the faction Matt most likes to win from ahead with, given decent destroyer-backed fleets. Reinforce Mecatol with Transit Diodes, Yin Spinner or a forward dock, and add a single PDS since bombardment is the main way to clear Yin, but expect Cripple Defenses and maybe hold a Sabotage. Two or three Mecatol Imperial points nearly wins; even one is great.",
+          "advice": [
+            {
+              "point": "Once on Mecatol Rex, win from ahead: hold it, score Imperial points and free points, and launch out for territory objectives.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "Imperial"]
+            },
+            {
+              "point": "Keep reinforcing Mecatol Rex with infantry via Transit Diodes, Yin Spinner or a forward dock.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "Transit Diodes", "Yin Spinner"]
+            },
+            {
+              "point": "Put a single PDS on Mecatol Rex against bombardment, but expect Cripple Defenses and consider holding a Sabotage for it.",
+              "stance": "recommended",
+              "subjects": ["PDS", "Cripple Defenses", "Sabotage"]
+            },
+            {
+              "point": "Two or three Imperial points while holding Mecatol Rex nearly wins the game for Yin; even one is a strong result.",
+              "stance": "rating",
+              "subjects": ["Imperial", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["mid", "late"],
+          "topics": ["mecatol", "objectives", "combat"],
+          "requires": ["action cards", "faction technologies"],
+          "concepts": ["win from ahead", "free points"]
+        },
+        {
+          "start": "s772",
+          "title": "When Mecatol Rex doesn't work out",
+          "kind": "strategy",
+          "summary": "Without Mecatol Rex, Yin must get aggressive in the mid game. If you know early you won't go for it, switch to a plastic-focused game, dig into neighbours or go through a wormhole, and spread destroyers to defend your slice with Devotion and add to attacking fleets. You will need three secrets, five stage ones, Support for the Throne and a tenth point or stage two, so build a strong economy with a spread of planet traits and tech skips.",
+          "advice": [
+            {
+              "point": "If you won't contest Mecatol Rex, commit to a plastic-focused game from the start and expand into neighbours or through a wormhole.",
+              "stance": "situational",
+              "subjects": ["Mecatol Rex"]
+            },
+            {
+              "point": "Spread destroyers around your slice for Devotion defence, adding one to attacking fleets to secure landings, without overdoing offensive Devotion.",
+              "stance": "recommended",
+              "subjects": ["Destroyer", "Devotion"]
+            },
+            {
+              "point": "Without Mecatol points, plan for three secrets, five stage ones, Support for the Throne and a tenth point or stage two, which needs a strong economy and varied planet traits and tech skips, likely taken from others.",
+              "stance": "recommended",
+              "subjects": ["Support for the Throne"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["mid", "late"],
+          "topics": ["objectives", "expansion", "general strategy"],
+          "requires": ["faction abilities"],
+          "concepts": ["plastic advantage", "tenth point problem", "controlled aggression"]
+        },
+        {
+          "start": "s786",
+          "title": "Game-long plan after the Mecatol decision",
+          "kind": "strategy",
+          "summary": "Yin's mid and late game are basically the same: root down on the planets you need to score, hold them on the ground, stay competitive in space, position infantry across your planets and watch for bombardment, since PDS defence will meet Cripple Defenses.",
+          "advice": [
+            {
+              "point": "Root down on planets needed for objectives, hold them with infantry and stay competitive in space throughout the mid and late game.",
+              "stance": "recommended",
+              "subjects": ["Yin Brotherhood"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["mid", "late"],
+          "topics": ["general strategy", "objectives"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s794",
+          "title": "Threats: Sol and bombardment factions",
+          "kind": "strategy",
+          "summary": "Sol (and maybe Arborec with Letani Warrior II) can sometimes outnumber Yin on the ground, though Yin usually wins on numbers; Sol is better overall. Bombardment is the bigger threat: Muaat's War Suns are the scariest since Devotion assigns only one hit, followed by L1Z1X, the Barony flagship and Sardakk's Exotriremes. Plan for PDS to disappear and keep enough infantry on Mecatol Rex to outnumber bombardment, using Dacxive Animators, Yin Spinner or Transit Diodes from home.",
+          "advice": [
+            {
+              "point": "Yin generally beats Sol in pure ground fights by having more infantry, though Sol is the better faction overall.",
+              "stance": "rating",
+              "subjects": ["Federation of Sol", "Yin Brotherhood"]
+            },
+            {
+              "point": "Muaat is the most feared opponent for Yin: War Sun bombardment chews through infantry and Devotion's single hit rarely kills a War Sun without a Direct Hit.",
+              "stance": "rating",
+              "subjects": ["Embers of Muaat", "War Sun", "Devotion", "Direct Hit"]
+            },
+            {
+              "point": "Plan for your PDS to be removed and budget enough infantry on Mecatol Rex to outnumber any bombardment.",
+              "stance": "recommended",
+              "subjects": ["PDS", "Mecatol Rex", "Infantry"]
+            }
+          ],
+          "factions": ["Yin Brotherhood", "Federation of Sol", "Arborec", "Embers of Muaat", "L1Z1X Mindnet", "Barony of Letnev", "Sardakk N'orr"],
+          "phases": ["mid", "late"],
+          "topics": ["threats and matchups", "combat", "mecatol"],
+          "requires": ["faction abilities", "faction technologies"],
+          "concepts": ["infantry stacking"]
+        },
+        {
+          "start": "s818",
+          "title": "Swords to Plowshares: cashing in infantry",
+          "kind": "strategy",
+          "summary": "Matt will often take an agenda like Swords to Plowshares late in the game to convert big infantry stacks into trade goods for fleet or points, if he has a stopgap such as the Van Hauge over home. Hunter disagrees: bombardment caps around six shots, and halving a twelve-infantry Mecatol stack can drop you under that ceiling, so he prefers giant stacks unless an economic stage two needs the money.",
+          "advice": [
+            {
+              "point": "Matt: late game, take Swords to Plowshares-style agendas to turn large infantry stacks into trade goods for fleet or points, if you have a stopgap like the Van Hauge at home.",
+              "stance": "situational",
+              "subjects": ["Swords to Plowshares", "Van Hauge"]
+            },
+            {
+              "point": "Hunter disagrees: keep giant infantry stacks above the bombardment ceiling (about six shots), and cash in only if it scores an economic stage two you could not otherwise get.",
+              "stance": "situational",
+              "subjects": ["Swords to Plowshares", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["late"],
+          "topics": ["agendas", "economy", "mecatol"],
+          "requires": ["agendas"],
+          "concepts": ["bombardment ceiling", "infantry stacking"]
+        },
+        {
+          "start": "s836",
+          "title": "Keep influence ready for Indoctrination",
+          "kind": "strategy",
+          "summary": "In the final round command tokens matter less, but keeping influence for Indoctrination is critical, since someone may try a slick move for their last point. Let the table know you have it by setting the planet aside. Hunter banks two trade goods specifically for Indoctrination, so he never has to keep a planet ready.",
+          "advice": [
+            {
+              "point": "Always keep influence available for a defensive Indoctrination, especially in the final round, and show the table you have it.",
+              "stance": "recommended",
+              "subjects": ["Indoctrination"]
+            },
+            {
+              "point": "Set aside two trade goods specifically for Indoctrination, separate from spending and objective money.",
+              "stance": "recommended",
+              "subjects": ["Indoctrination"]
+            },
+            {
+              "point": "The hosts now rate Yin a great faction, possibly their favourite.",
+              "stance": "rating",
+              "subjects": ["Yin Brotherhood"]
+            }
+          ],
+          "factions": ["Yin Brotherhood"],
+          "phases": ["late"],
+          "topics": ["faction abilities", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["trade good banking", "influence reserve"]
+        }
+      ]
+    },
+    {
+      "title": "Outro and Prophecy of Kings spoilers",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s851",
+          "title": "Patron thanks, Galactic Council and stream schedule",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s931",
+          "title": "Spoiler: Brother Milor, the Yin agent",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Yin Brotherhood"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s956",
+          "title": "Spoiler: Search Warrant agenda and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "yen": "Yin",
+    "Yen": "Yin",
+    "Yan Brotherhood": "Yin Brotherhood",
+    "In Spinner": "Yin Spinner",
+    "Van Hog": "Van Hauge",
+    "Van Hogg": "Van Hauge",
+    "Van Hawk": "Van Hauge",
+    "huge van": "Van Hauge",
+    "Gray Fire Mutagen": "Greyfire Mutagen",
+    "Grayfire": "Greyfire Mutagen",
+    "Gray Fire Mutant": "Greyfire Mutagen",
+    "Techlar Legion": "Tekklar Legion",
+    "Kardak": "Sardakk N'orr",
+    "Daxiv": "Dacxive Animators",
+    "Daxive": "Dacxive Animators",
+    "Daxif": "Dacxive Animators",
+    "Anti-Masks": "Antimass Deflectors",
+    "Majin Defense Grid": "Magen Defense Grid",
+    "Mage and Defense Grid": "Magen Defense Grid",
+    "Majin": "Magen Defense Grid",
+    "Gravitone": "Graviton Laser System",
+    "Space Talk 2": "Space Dock II",
+    "Starween tools": "Sarween Tools",
+    "Sarwen": "Sarween Tools",
+    "Mechitaw Rex": "Mecatol Rex",
+    "Mechital": "Mecatol Rex",
+    "L1Z Winx": "L1Z1X Mindnet",
+    "Latani 2s": "Letani Warrior II",
+    "neuroglave": "Neuroglaive",
+    "Fires of the Gashlight": "Fires of the Gashlai",
+    "source plow shares": "Swords to Plowshares",
+    "forward DACA Zian": "forward dock as Yin",
+    "Brother Mylore": "Brother Milor",
+    "Brother Milo": "Brother Milor",
+    "Alex Player": "Elect Player"
+  }
+}

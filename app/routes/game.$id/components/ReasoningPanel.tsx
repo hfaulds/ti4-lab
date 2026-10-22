@@ -45,7 +45,8 @@ export function ReasoningPanel({
       .then((body?: { steps: HistoryStep[] }) => {
         if (cancelled || !body || body.steps.length === 0) return;
         known.current = body.steps[body.steps.length - 1].version;
-        const reasoned = body.steps.filter((step) => step.note);
+        // Notes carrying only table talk are on the Talk tab.
+        const reasoned = body.steps.filter((step) => step.note?.chosen);
         if (reasoned.length > 0) setNotes((current) => [...current, ...reasoned]);
       });
     return () => {

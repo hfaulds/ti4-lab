@@ -2,9 +2,10 @@ import { describe, expect, test } from "vitest";
 import OpenAI from "openai";
 import { GameState, Prompt } from "../types";
 import { objectivesById, strategyCardsById } from "../data";
+import { totalUnits } from "../engine/helpers";
 import { objectiveStatus } from "../engine/objectives";
 import { play, testGame } from "../engine/testing";
-import { describeGame, describeTurn } from "./describe";
+import { activationCosts, describeGame, describeTurn } from "./describe";
 import {
   agentBoundaryProblem,
   agentToMove,
@@ -13,10 +14,11 @@ import {
   moveNote,
   playAgentGame,
 } from "./harness";
-import { ChatPolicy, DecisionRequest, FirstCandidatePolicy } from "./policy";
+import { TableTalk } from "./talk";
+import { ChatPolicy, DecisionRequest, FirstCandidatePolicy, noUsage, Policy } from "./policy";
 import { scriptedMove, secondarySkipReason } from "./scriptedBot";
 import { setupFor } from "./setups";
-import { lookup, parseChoose } from "./tools";
+import { lookup, parseChoose, parseLessonSearch } from "./tools";
 
 const newGame = (seed: number) => testGame({ seed, ...setupFor(seed) });
 
@@ -45,10 +47,15 @@ describe("agent harness", () => {
     });
     let state = newGame(3);
     const scripted = [];
+    // The bots keep the table's deals as the harness's do.
+    const talk = new TableTalk([0]);
     for (let i = 0; i < moves; i++) {
-      const move = scriptedMove(state)!;
+      talk.move = i;
+      const move = scriptedMove(state, talk)!;
       scripted.push({ player: move.player, action: move.action });
+      talk.observe(state, move.player, move.action);
       state = play(state, move.player, move.action);
+      talk.settle(state);
     }
     expect(log.actions).toEqual(scripted);
     // Every move is handed on, in order, with the state it produced.
@@ -125,6 +132,145 @@ describe("agent harness", () => {
   });
 });
 
+describe("building", () => {
+  test("the agent chooses what to build, the bot's build first", async () => {
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: new FirstCandidatePolicy(),
+      until: (s) => s.round > 2,
+    });
+    const builds = log.decisions.filter(
+      (d) => !d.forced && d.menu.some((m) => m.text.startsWith("Build ")),
+    );
+    expect(builds.length).toBeGreaterThan(0);
+    for (const decision of builds) {
+      expect(decision.menu.every((m) => m.text.startsWith("Build"))).toBe(true);
+      expect(decision.menu.length).toBeGreaterThan(1);
+    }
+  });
+});
+
+describe("planning", () => {
+  test("happens before each of the agent's own turns, and its plan is the note", async () => {
+    const planned: string[] = [];
+    let plans = 0;
+    const planner: Policy = {
+      name: "planner",
+      async plan(req) {
+        plans++;
+        planned.push(req.menu[0].text);
+        // Every third plan is a non-answer, which must not replace the last plan.
+        const text = plans % 3 === 0 ? "See the plan above." : `Plan ${plans}: ${"keep influence ready for Sway the Council. ".repeat(6)}`;
+        return { text, citations: [], steps: [], usage: noUsage() };
+      },
+      async decide(req) {
+        return { label: req.menu[0].label, rationale: "First.", planNote: "ignored", citations: [], steps: [], usage: noUsage() };
+      },
+    };
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: planner,
+      planning: true,
+      until: (s) => s.round > 1,
+    });
+    const own = log.decisions.filter((d) => !d.forced && (d.phase === "strategy" || d.steps.some((s) => s.tool === "plan")));
+    expect(plans).toBeGreaterThan(3);
+    // Every note in force is a real plan, never the non-answer.
+    expect(log.decisions.every((d) => !d.planNote.startsWith("See the plan above"))).toBe(true);
+    // Secondaries and builds are not own turns, so they are not planned.
+    expect(planned.every((text) => !text.startsWith("Use the secondary") && !text.startsWith("Build"))).toBe(true);
+    for (const decision of own.filter((d) => d.steps.some((s) => s.tool === "plan"))) {
+      expect(decision.planNote).toMatch(/^Plan \d+: /);
+    }
+  });
+});
+
+describe("outages", () => {
+  test("are waited out, and a model that never chooses falls back after a few tries", async () => {
+    let calls = 0;
+    let waits = 0;
+    // Fails twice like a sleeping laptop, then answers; on its next turns
+    // it answers with no usable label.
+    const flaky: Policy = {
+      name: "flaky",
+      async decide(req) {
+        calls++;
+        if (calls <= 2) throw new TypeError("fetch failed");
+        const label = calls === 3 ? req.menu[0].label : "Z";
+        return { label, rationale: "", planNote: "", citations: [], steps: [], usage: noUsage() };
+      },
+    };
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: flaky,
+      firstWaitMs: 1,
+      onWait: () => waits++,
+      until: (s) => s.phase === "action",
+    });
+    const [first, ...rest] = log.decisions.filter((d) => !d.forced);
+    expect(waits).toBe(2);
+    expect(first.fallback).toBe(false);
+    // Three unusable answers, then the bot plays.
+    expect(rest[0].fallback).toBe(true);
+    expect(calls).toBe(3 + 3 * rest.length);
+  });
+});
+
+describe("stalling", () => {
+  test("is one menu option, then a choice of where", async () => {
+    let asked = 0;
+    // Stalls whenever it can, in the last place offered.
+    const staller: Policy = {
+      name: "staller",
+      async decide(request) {
+        const stall = request.menu.find((m) => m.text.startsWith("Stall:"));
+        const where = request.menu.at(-1)!;
+        if (request.menu.every((m) => m.text.startsWith("Stall in"))) asked++;
+        return {
+          label: stall?.label ?? (asked ? where.label : request.menu[0].label),
+          rationale: "Stalling.",
+          planNote: "",
+          citations: [],
+          steps: [],
+          usage: noUsage(),
+        };
+      },
+    };
+    const log = await playAgentGame({
+      state: newGame(3),
+      agentSeats: [0],
+      policy: staller,
+      until: (s) => s.round > 1,
+    });
+    const stalled = log.decisions.filter((d) => d.stall);
+    expect(stalled.length).toBeGreaterThan(0);
+    for (const decision of stalled) {
+      expect(decision.menu.filter((m) => m.text.startsWith("Stall:"))).toHaveLength(1);
+      expect(decision.stall!.menu.length).toBeGreaterThan(1);
+      expect(decision.stall!.chosen).toBe(decision.stall!.menu.at(-1)!.label);
+    }
+    expect(asked).toBe(stalled.length);
+  });
+});
+
+describe("activation costs", () => {
+  test("say when activating returns Support for the Throne", () => {
+    const state = structuredClone(advance(newGame(3), (s) => s.phase === "action" && s.activePlayer === 0 && s.prompts.length === 0));
+    const giver = state.seating.find((id) => id !== 0)!;
+    state.players[0].promissoryNotesInPlay.push({ id: "sftt", owner: giver });
+    const costs = activationCosts(state, 0, state.players[giver].home);
+    expect(costs).toContain(`returns Support for the Throne to P${giver}, losing its victory point`);
+    // A system holding no one's units costs nothing.
+    const empty = Object.values(state.systems).find(
+      (s) => s.onBoard && s.planets.length === 0 && state.seating.every((id) => totalUnits(s.space[id]) === 0),
+    )!;
+    expect(activationCosts(state, 0, empty.key)).toEqual([]);
+  });
+});
+
 describe("skipped secondaries", () => {
   type SecondaryPrompt = Extract<Prompt, { kind: "secondary" }>;
   const secondary = (state: GameState, player: number, card: string): SecondaryPrompt => ({
@@ -144,9 +290,10 @@ describe("skipped secondaries", () => {
     const withPrompt = { ...state, prompts: [prompt] };
     const menu = buildMenu(withPrompt, seat);
     // The bot never uses Politics' secondary, so its choice, Skip, stays first.
-    expect(menu[0].text).toBe("Skip the secondary");
+    const whose = `of Politics (P${prompt.from} played it)`;
+    expect(menu[0].text).toBe(`Skip the secondary ${whose}`);
     expect(menu.map((c) => c.text)).toContain(
-      "Use the secondary: draw 2 action cards (they cannot be played in this engine) (costs 1 strategy token)",
+      `Use the secondary ${whose}: draw 2 action cards (costs 1 strategy token)`,
     );
   });
 
@@ -178,7 +325,7 @@ describe("skipped secondaries", () => {
       maxMoves: 600,
     });
     const skipOnly = log.decisions.filter(
-      (d) => d.forced && d.menu[0].text === "Skip the secondary",
+      (d) => d.forced && d.menu[0].text.startsWith("Skip the secondary"),
     );
     expect(skipOnly.length).toBeGreaterThan(0);
     for (const decision of skipOnly) {
@@ -214,6 +361,12 @@ describe("tool arguments", () => {
     expect(parseChoose('{"candidate":"Z","rationale":"x"}', ["A", "B"]).ok).toBe(false);
     expect(parseChoose('{"candidate":"A"}', ["A"]).ok).toBe(false);
     expect(parseChoose("not json", ["A"]).ok).toBe(false);
+  });
+
+  test("a lesson search needs a query", () => {
+    expect(parseLessonSearch('{"query":" bare planets "}')).toEqual({ ok: true, value: { query: "bare planets" } });
+    expect(parseLessonSearch('{"query":""}')).toEqual({ ok: false, error: "query is required." });
+    expect(parseLessonSearch("[]").ok).toBe(false);
   });
 });
 
@@ -342,6 +495,105 @@ describe("chat policy", () => {
     const patient = new ChatPolicy({ model: "m", apiKey: "k", client: stuck.client, requestTimeoutMs: 20 });
     await expect(patient.decide(request)).rejects.toThrow();
     expect(stuck.requests).toHaveLength(2);
+  });
+
+  test("searches the guides and keeps only citations it was shown", async () => {
+    const { client, requests } = fakeClient([
+      { calls: [{ name: "search_guides", args: '{"query":"diplo round one","faction":"P1"}' }] },
+      {
+        calls: [
+          {
+            name: "choose",
+            args: '{"candidate":"B","rationale":"Guide says so.","plan_note":"","citations":["[7-2]","9-9"]}',
+          },
+        ],
+      },
+    ]);
+    const searches: unknown[] = [];
+    const policy = new ChatPolicy({ model: "m", apiKey: "k", client });
+    const decision = await policy.decide({
+      ...request,
+      searchGuides: (args) => {
+        searches.push(args);
+        return { text: "[7-2] Take Diplomacy.", ids: ["7-2"] };
+      },
+    });
+    expect(searches).toEqual([{ query: "diplo round one", faction: "P1" }]);
+    expect(decision.steps[0].result).toBe("[7-2] Take Diplomacy.");
+    // "9-9" was never shown, so it is not a citation.
+    expect(decision.citations).toEqual(["7-2"]);
+    type Body = { tools: { function: { name: string } }[] };
+    expect((requests[0] as Body).tools.map((t) => t.function.name)).toEqual([
+      "lookup",
+      "search_guides",
+      "choose",
+    ]);
+  });
+
+  test("lets the agent cite passages from a briefing", async () => {
+    const { client } = fakeClient([
+      {
+        calls: [
+          { name: "choose", args: '{"candidate":"B","rationale":"Per the guide.","plan_note":"","citations":["7-2"]}' },
+        ],
+      },
+    ]);
+    const decision = await new ChatPolicy({ model: "m", apiKey: "k", client }).decide({
+      ...request,
+      briefing: { text: "[7-2] Take Diplomacy.", ids: ["7-2"] },
+    });
+    expect(decision.citations).toEqual(["7-2"]);
+  });
+
+  test("searches lessons when offered and lets the agent cite them", async () => {
+    const { client, requests } = fakeClient([
+      { calls: [{ name: "search_lessons", args: '{"query":"bare planets"}' }] },
+      {
+        calls: [
+          { name: "choose", args: '{"candidate":"B","rationale":"Per L3.","plan_note":"","citations":["L3","L9"]}' },
+        ],
+      },
+    ]);
+    const decision = await new ChatPolicy({ model: "m", apiKey: "k", client }).decide({
+      ...request,
+      searchLessons: () => ({ text: "[L3] Garrison your planets.", ids: ["L3"] }),
+    });
+    expect(decision.steps[0].result).toBe("[L3] Garrison your planets.");
+    expect(decision.citations).toEqual(["L3"]);
+    type Body = { tools: { function: { name: string } }[] };
+    expect((requests[0] as Body).tools.map((t) => t.function.name)).toEqual(["lookup", "search_lessons", "choose"]);
+  });
+
+  test("a plan can cite lessons it was shown", async () => {
+    const { client } = fakeClient([{ content: "Garrison Lodor first [L3], and mind [L9]." }]);
+    const plan = await new ChatPolicy({ model: "m", apiKey: "k", client }).plan({
+      ...request,
+      briefing: { text: "[L3] Garrison your planets.", ids: ["L3"] },
+    });
+    expect(plan.citations).toEqual(["L3"]);
+  });
+
+  test("plans in plain text after looking things up, citing what it was shown", async () => {
+    const { client, requests } = fakeClient([
+      { calls: [{ name: "search_guides", args: '{"query":"opening"}' }] },
+      { content: "Score Sway the Council this round, per [7-2]; ignore [9-9]." },
+    ]);
+    const plan = await new ChatPolicy({ model: "m", apiKey: "k", client }).plan({
+      ...request,
+      searchGuides: () => ({ text: "[7-2] Take Diplomacy.", ids: ["7-2"] }),
+    });
+    expect(plan.text).toBe("Score Sway the Council this round, per [7-2]; ignore [9-9].");
+    expect(plan.citations).toEqual(["7-2"]);
+    type Body = { tools?: { function: { name: string } }[] };
+    // Planning offers lookups and searches, never choose.
+    expect((requests[0] as Body).tools!.map((t) => t.function.name)).toEqual(["lookup", "search_guides"]);
+  });
+
+  test("offers no guide search without a knowledge base", async () => {
+    const { client, requests } = fakeClient([choose]);
+    await new ChatPolicy({ model: "m", apiKey: "k", client }).decide(request);
+    type Body = { tools: { function: { name: string } }[] };
+    expect((requests[0] as Body).tools.map((t) => t.function.name)).toEqual(["lookup", "choose"]);
   });
 
   test("does not resend a request the API rejected", async () => {

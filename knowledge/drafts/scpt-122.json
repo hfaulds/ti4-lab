@@ -1,0 +1,1351 @@
+{
+  "episode": 122,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "The hosts frame the guide around fixing Jol-Nar's few weaknesses rather than explaining an obviously strong faction: nearly all of those weaknesses come down to infantry.",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Cold open: accents and noodling",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s50",
+          "title": "Framing: fixing Jol-Nar's pitfalls",
+          "kind": "strategy",
+          "summary": "Jol-Nar is strong enough that new players mostly figure them out; the guide instead focuses on the problems baked into the design, all of which revolve around infantry and ground combat.",
+          "advice": [
+            {
+              "point": "Jol-Nar is a top faction; the main things to plan around are the shortage of starting infantry and weak ground combat, which can lose even favourable invasions such as a four-on-one.",
+              "stance": "rating",
+              "subjects": ["Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["any"],
+          "topics": ["general strategy", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Starting units and faction abilities",
+      "summary": "Jol-Nar starts with every basic technology and a defensive home system, but only two infantry, which is their first problem to solve. Fragile matters little in space but badly hurts ground combat. Brilliant makes technology nearly free, so the hosts rarely double-tech and prefer to spend resources on plastic; Hunter thinks Analytical is almost unnecessary but it means Jol-Nar never researches a useless tech.",
+      "chunks": [
+        {
+          "start": "s91",
+          "title": "Starting technologies and fleet",
+          "kind": "strategy",
+          "summary": "All four starting techs are good, and two PDS with Plasma Scoring make the home system hard to attack early. The real issue is starting with only two infantry when the carriers and dreadnought could carry five or more and take many planets in round one.",
+          "advice": [
+            {
+              "point": "Starting with two PDS and Plasma Scoring gives three space cannon shots at home, so Jol-Nar starts out quite defensive and can leave the home system lightly guarded.",
+              "stance": "rating",
+              "subjects": ["Plasma Scoring", "PDS", "Universities of Jol-Nar"]
+            },
+            {
+              "point": "Only two starting infantry is the first problem to solve; the carriers and dreadnought can carry five or more, so with enough infantry Jol-Nar could take up to five planets in round one.",
+              "stance": "rating",
+              "subjects": ["Infantry", "Carrier", "Dreadnought"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["setup", "round 1"],
+          "topics": ["opening", "expansion"],
+          "requires": [],
+          "concepts": ["2C4I opening", "magic christmas land", "home system defense"]
+        },
+        {
+          "start": "s116",
+          "title": "Fragile",
+          "kind": "strategy",
+          "summary": "Fragile hurts less in space, where there are many ways to get ahead in a fight, than in ground combat, where infantry are the only unit and the minus one becomes a chokehold. Ground combat is the main problem the faction must work around.",
+          "advice": [
+            {
+              "point": "In space combat Fragile is less impactful than Sardakk N'orr's plus one, because there are many ways to win a space fight.",
+              "stance": "rating",
+              "subjects": ["Fragile"]
+            },
+            {
+              "point": "Fragile is a serious problem in ground combat, where infantry are the only unit; plan from the start to work around weak invasions.",
+              "stance": "rating",
+              "subjects": ["Fragile", "Infantry"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "combat"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s134",
+          "title": "Brilliant and Analytical",
+          "kind": "strategy",
+          "summary": "Hunter thinks Jol-Nar would still be great without Analytical, though Matt points out it means they skip the weak techs and only research the good ones. Brilliant makes tech cost only a command token each round, so the hosts rarely pay for a second tech and prefer to put plastic on the board.",
+          "advice": [
+            {
+              "point": "Analytical means Jol-Nar never has to research a useless prerequisite and can jump to the third tech in any colour from the start; Hunter considers it almost unnecessary given Brilliant.",
+              "stance": "rating",
+              "subjects": ["Analytical"]
+            },
+            {
+              "point": "With Brilliant you rarely need to pay for tech; double-tech with the 6 resources only in maybe two rounds a game and otherwise focus on getting units on the board, since plastic fixes more problems than extra tech.",
+              "stance": "recommended",
+              "subjects": ["Brilliant", "Technology"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["any"],
+          "topics": ["faction abilities", "technology", "economy"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech skip"]
+        }
+      ]
+    },
+    {
+      "title": "Flagship",
+      "summary": "Matt loves the J.N.S. Hylarion for its swingy triple hits, which can win a fight in one round, but it is unreliable and does nothing else. Hunter thinks it does not clear the bar for building a flagship, which gives opponents a target for secret objectives, unless you hold Unveil Flagship.",
+      "chunks": [
+        {
+          "start": "s171",
+          "title": "J.N.S. Hylarion: a swingy hitter",
+          "kind": "strategy",
+          "summary": "The flagship effectively hits like an average flagship but triples its damage on a nine or ten, which can decide a combat in the first round. It is fun but unreliable, so it does not truly fix Jol-Nar's combat weakness.",
+          "advice": [
+            {
+              "point": "The J.N.S. Hylarion is a very strong ship for its cost, potentially matching two War Suns of hits, but its damage is random and it has no other utility, so do not rely on it to fix your combat problem.",
+              "stance": "rating",
+              "subjects": ["J.N.S. Hylarion"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "faction abilities"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s201",
+          "title": "Hunter: build it only for Unveil Flagship",
+          "kind": "strategy",
+          "summary": "Hunter argues you may only fight once with it, and a flagship puts a target on the board for opponents' secret objectives, so it does not clear the threshold for building. It is a good flagship for the secret that requires winning a combat with your flagship.",
+          "advice": [
+            {
+              "point": "Do not build the flagship by default: you may see little combat, and it gives opponents a target for their secret objectives.",
+              "stance": "avoid",
+              "subjects": ["J.N.S. Hylarion"]
+            },
+            {
+              "point": "Build it if you hold the secret objective to win a combat with your flagship (Unveil Flagship); it is good at winning combats.",
+              "stance": "situational",
+              "subjects": ["J.N.S. Hylarion", "Unveil Flagship"]
+            },
+            {
+              "point": "The Emirates of Hacan and Arborec flagships are the ones the hosts would be reluctant to build even for Unveil Flagship.",
+              "stance": "rating",
+              "subjects": ["Emirates of Hacan", "Arborec", "Unveil Flagship"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Emirates of Hacan", "Arborec"],
+          "phases": ["mid", "late"],
+          "topics": ["combat", "objectives"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s223",
+          "title": "Tangent: the Ghosts of Creuss flagship",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Ghosts of Creuss"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Promissory note",
+      "summary": "Research Agreement is widely agreed to be the best promissory note in the game by a large margin: everyone wants it, it costs Jol-Nar nothing, and it comes back to be sold again. Sell it freely and often, holding it back only to deny a dangerous tech, and charge more when it will score someone a point.",
+      "chunks": [
+        {
+          "start": "s237",
+          "title": "Research Agreement: the best note in the game",
+          "kind": "strategy",
+          "summary": "Research Agreement is one of the only plannable ways for other players to get extra tech, costs Jol-Nar nothing, and returns to be sold again, so it can be sold over and over, even twice in one round when Jol-Nar researches two techs.",
+          "advice": [
+            {
+              "point": "Research Agreement is the best promissory note in the game by a wide margin because it is in high demand, costs you nothing and can be resold every time it comes back.",
+              "stance": "rating",
+              "subjects": ["Research Agreement"]
+            },
+            {
+              "point": "When you take the Technology strategy card and research two techs, sell Research Agreement between the two to sell it twice in a round; this is a reason to take Technology in the mid game.",
+              "stance": "recommended",
+              "subjects": ["Research Agreement", "Technology"]
+            },
+            {
+              "point": "Buying Research Agreement as another faction can carry a whole strategy: Hunter won a Sardakk N'orr game largely by acquiring it as often as possible.",
+              "stance": "rating",
+              "subjects": ["Research Agreement", "Sardakk N'orr"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Sardakk N'orr"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy", "strategy cards"],
+          "requires": ["promissory notes", "faction abilities"],
+          "concepts": []
+        },
+        {
+          "start": "s264",
+          "title": "When to hold Research Agreement and charging for leverage",
+          "kind": "strategy",
+          "summary": "Others getting tech is not a threat since Jol-Nar stays ahead, so be loose with the note. Hold it only when you are researching something dangerous for others to have, and charge more when the tech will score the buyer a point.",
+          "advice": [
+            {
+              "point": "Be loose with Research Agreement; other players copying your techs does not hurt you because you stay ahead.",
+              "stance": "recommended",
+              "subjects": ["Research Agreement"]
+            },
+            {
+              "point": "Hold the note back when you are researching something dangerous in an opponent's hands, such as War Sun or Light/Wave Deflector, and sell it again after.",
+              "stance": "situational",
+              "subjects": ["Research Agreement", "War Sun", "Light/Wave Deflector"]
+            },
+            {
+              "point": "If the tech will score the buyer a point that round, ask for more; recognise when someone badly needs it and use that leverage.",
+              "stance": "recommended",
+              "subjects": ["Research Agreement"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["non-binding deals"]
+        }
+      ]
+    },
+    {
+      "title": "Faction technologies, commodities and home system",
+      "summary": "E-res Siphons is among the best faction technologies in the game, on a par with Mirror Computing, and can be researched at any time; it turns every attack or obstruction into income. Spatial Conduit Cylinder is a decent defensive tech that Jol-Nar rarely needs, useful mainly for pulling everything home for a final round. Four commodities and a 1/2 and 2/3 home system round out a faction with almost no downsides.",
+      "chunks": [
+        {
+          "start": "s277",
+          "title": "E-res Siphons",
+          "kind": "strategy",
+          "summary": "E-res Siphons is broken: its prerequisites are effectively free, so it can be had from round one, and every activation of a system with your ships pays you heavily. Placing ships in others' way makes them pay you to deal with you.",
+          "advice": [
+            {
+              "point": "E-res Siphons is one of the best faction technologies ever, alongside Mirror Computing; it would still be very good at half the payout.",
+              "stance": "rating",
+              "subjects": ["E-res Siphons"]
+            },
+            {
+              "point": "Put ships in other players' way so that anyone who wants to target you or pass through has to pay you; this compensates for Fragile and makes attacking you costly.",
+              "stance": "recommended",
+              "subjects": ["E-res Siphons"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["any"],
+          "topics": ["technology", "economy", "faction abilities"],
+          "requires": ["faction technologies"],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s301",
+          "title": "Spatial Conduit Cylinder",
+          "kind": "strategy",
+          "summary": "A good defensive tech that Jol-Nar rarely needs, because PDS, Plasma Scoring and E-res Siphons already defend them. Its use is the late game: research it the round before everyone attacks and pull everything home, for example when you only need Galvanize the People and a locked-down home system to win.",
+          "advice": [
+            {
+              "point": "Spatial Conduit Cylinder is mostly garnish for Jol-Nar; E-res Siphons is a far better defensive tool.",
+              "stance": "rating",
+              "subjects": ["Spatial Conduit Cylinder", "E-res Siphons"]
+            },
+            {
+              "point": "Pick it up late (for example round five) when you expect the table to attack you next round and want to consolidate everything in your home system for the finish.",
+              "stance": "situational",
+              "subjects": ["Spatial Conduit Cylinder"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["late"],
+          "topics": ["technology"],
+          "requires": ["faction technologies"],
+          "concepts": ["home system defense"]
+        },
+        {
+          "start": "s328",
+          "title": "No tech paths: almost any tech in round one",
+          "kind": "strategy",
+          "summary": "Because Jol-Nar can skip prerequisites and the order does not matter, they have no tech paths. With a double tech, every technology except War Sun is reachable in round one, such as Gravity Drive into Dreadnought II.",
+          "advice": [
+            {
+              "point": "Do not think in tech paths as Jol-Nar; pick whatever tech the situation needs, since everything except War Sun is reachable from round one.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar", "War Sun"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["any"],
+          "topics": ["technology"],
+          "requires": ["faction abilities"],
+          "concepts": ["tech skip"]
+        },
+        {
+          "start": "s341",
+          "title": "Commodities and home system",
+          "kind": "strategy",
+          "summary": "Four commodities are another strength. The three-resource home system would hurt another faction that must pay for tech, but Jol-Nar's tech is free, so the resources go to units; spending the three influence on a command token in round one is reasonable, and the high influence helps in agenda phases.",
+          "advice": [
+            {
+              "point": "The 1/2 and 2/3 home system is not a weakness because round-one tech is free; use the resources (with Sarween Tools) for units.",
+              "stance": "rating",
+              "subjects": ["Universities of Jol-Nar", "Sarween Tools"]
+            },
+            {
+              "point": "Spending the 2/3 planet's influence on a command token in round one can be worth it depending on your plan.",
+              "stance": "situational",
+              "subjects": ["Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["setup", "round 1"],
+          "topics": ["economy", "opening"],
+          "requires": ["faction abilities"],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "No card is truly bad for Jol-Nar; every pick is judged on whether it fixes the two-infantry problem and allows expansion beyond one system. Warfare is the clear first choice and should be taken whenever available. Politics and Trade are next (Trade is weaker than usual in round one but excellent afterwards), then Leadership, with the hosts split on Technology versus Construction; Diplomacy is bad, and Imperial is a debatable last pick. Transit Diodes is the fallback if Warfare's secondary is stalled.",
+      "chunks": [
+        {
+          "start": "s361",
+          "title": "The round-one question: fixing two infantry",
+          "kind": "strategy",
+          "summary": "Round one matters because Jol-Nar starts with two infantry; every strategy card is judged by whether it lets you build more infantry and expand to more than one system.",
+          "advice": [
+            {
+              "point": "When picking a round-one strategy card, ask whether it lets you fix the infantry shortage and expand to more than one system this round.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar", "Infantry"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s376",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Transit Diodes backup and the Warfare stall",
+          "kind": "strategy",
+          "summary": "Community member Brian suggests Transit Diodes in round one as a fallback: take a planet, use Transit Diodes to bring the infantry home and take another. It is only worth it when you expect the Warfare holder to stall their card and leave you unable to move newly built infantry.",
+          "advice": [
+            {
+              "point": "If you expect a Warfare stall, research Transit Diodes in round one so your two infantry can take a planet, return home and take another.",
+              "stance": "situational",
+              "subjects": ["Transit Diodes", "Warfare"]
+            },
+            {
+              "point": "Otherwise Transit Diodes is not especially useful in round one.",
+              "stance": "rating",
+              "subjects": ["Transit Diodes"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "technology", "opening"],
+          "requires": [],
+          "concepts": ["stall action", "secondary timing"]
+        },
+        {
+          "start": "s398",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership avoids no Warfare timing problem directly and its tokens are hard to use well with two infantry; waiting for Warfare can mean burning one or two tokens on wasted activations. Pairing it with Hyper Metabolism roughly evens it out. Ranked mid to low.",
+          "advice": [
+            {
+              "point": "Leadership is mid to low for Jol-Nar in round one: you may need to burn a token or two before Warfare's secondary to move a second carrier out, which is costly unless the planets are very valuable.",
+              "stance": "rating",
+              "subjects": ["Leadership"]
+            },
+            {
+              "point": "If you take Leadership, consider Transit Diodes, or research Hyper Metabolism instead to make up for burned tokens and enter round two in better shape.",
+              "stance": "situational",
+              "subjects": ["Leadership", "Transit Diodes", "Hyper Metabolism"]
+            },
+            {
+              "point": "On a weak slice it can be fine to take little in round one and save the command tokens for later.",
+              "stance": "situational",
+              "subjects": ["Leadership"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": [],
+          "concepts": ["secondary timing", "slice value"]
+        },
+        {
+          "start": "s426",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Diplomacy",
+          "kind": "strategy",
+          "summary": "Diplomacy is especially bad for Jol-Nar: the usual reasons to take it (affording tech plus units or reaching a key tech skip) do not apply since tech is free, the home PDS mean you do not need emergency plastic, and its initiative is too low to avoid a Warfare stall.",
+          "advice": [
+            {
+              "point": "Avoid Diplomacy in round one as Jol-Nar; it fixes nothing, you do not need two techs, and its initiative is too late to beat a Warfare stall.",
+              "stance": "avoid",
+              "subjects": ["Diplomacy"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Mentak Coalition"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["tech skip", "secondary timing"]
+        },
+        {
+          "start": "s444",
+          "title": "Round one: Politics and a round-two Mecatol take",
+          "kind": "strategy",
+          "summary": "Politics ranks above Leadership and Diplomacy; Jol-Nar shines in round two, and the speaker token sets up taking Mecatol Rex first in round two. Matt dislikes risking a carrier on an early custodians grab, but E-res Siphons and a hard-to-kill dreadnought plus infantry make it safe for Jol-Nar.",
+          "advice": [
+            {
+              "point": "Politics is a good round-one pick: the round-two speaker token makes up for a slow start and enables an early Mecatol Rex play.",
+              "stance": "rating",
+              "subjects": ["Politics"]
+            },
+            {
+              "point": "Research Gravity Drive in round one and E-res Siphons early in round two, then take Mecatol Rex with the dreadnought and an infantry on your first action of round two; few players will bother to attack you there.",
+              "stance": "recommended",
+              "subjects": ["Mecatol Rex", "Gravity Drive", "E-res Siphons", "Dreadnought"]
+            },
+            {
+              "point": "Matt generally dislikes sending a carrier and infantry for the custodians point because losing an early carrier can be devastating, though he notes he may be in the minority.",
+              "stance": "avoid",
+              "subjects": ["Carrier", "Mecatol Rex"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "mecatol", "opening"],
+          "requires": ["faction technologies"],
+          "concepts": ["custodians rush"]
+        },
+        {
+          "start": "s467",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Politics: selling the speaker token for Warfare timing",
+          "kind": "strategy",
+          "summary": "If the Warfare holder is your likely speaker-token buyer, sell the token in exchange for using Warfare as their second action so you can build infantry and move them out. With Research Agreement and commodities as well, the Warfare player has every reason to cooperate.",
+          "advice": [
+            {
+              "point": "Sell the speaker token to the Warfare holder in exchange for an early Warfare action, so you can build infantry at home and still expand in round one.",
+              "stance": "recommended",
+              "subjects": ["Politics", "Warfare"]
+            },
+            {
+              "point": "Use Research Agreement and your commodities as extra bargaining chips; Jol-Nar has the best negotiating assets at the table.",
+              "stance": "recommended",
+              "subjects": ["Research Agreement"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["speaker token sale", "secondary timing"]
+        },
+        {
+          "start": "s476",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Matt ranks Construction lower for Jol-Nar than for most factions: the home system already has a dock and two PDS. It is worth it with a strong forward dock planet, or with round-one PDS II against a hyper-aggressive table, but its low initiative risks a Warfare stall; as last pick Matt weighs Imperial instead.",
+          "advice": [
+            {
+              "point": "Construction is a low pick for Jol-Nar because the home system already has a dock and PDS and its initiative is too low to avoid a Warfare stall.",
+              "stance": "rating",
+              "subjects": ["Construction"]
+            },
+            {
+              "point": "Take Construction when there is a good forward dock planet (such as a three-resource planet) that out-produces your weak home system.",
+              "stance": "situational",
+              "subjects": ["Construction", "Space Dock"]
+            },
+            {
+              "point": "Against a hyper-aggressive table, research PDS II in round one and use Construction to place two PDS forward on the path to Mecatol, giving five shots with Plasma Scoring over your area.",
+              "stance": "situational",
+              "subjects": ["Construction", "PDS II", "Plasma Scoring"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": [],
+          "concepts": ["forward dock", "production capacity", "secondary timing", "home system defense"]
+        },
+        {
+          "start": "s499",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
+          "title": "Construction counterpoint: deal with the Warfare neighbour",
+          "kind": "strategy",
+          "summary": "Hunter argues that as sixth pick your neighbour likely has Warfare, and with Research Agreement (for example a round-one Gravity Drive) you can buy a good secondary timing and set up a forward dock and PDS next to Mecatol. Matt agrees the deal is possible but costly, and the Warfare player will not let you take their equidistant system, so build away from them.",
+          "advice": [
+            {
+              "point": "As last pick with Construction, offer the Warfare holder Research Agreement for a round-one Gravity Drive in exchange for favourable Warfare timing, then set up a forward dock and PDS near Mecatol.",
+              "stance": "situational",
+              "subjects": ["Construction", "Warfare", "Research Agreement", "Gravity Drive"]
+            },
+            {
+              "point": "Do not expect the Warfare player to let you fortify the equidistant system between you; place forward positions adjacent to Mecatol or away from them, which may make trading with them harder.",
+              "stance": "avoid",
+              "subjects": ["Construction"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy", "opening"],
+          "requires": ["promissory notes"],
+          "concepts": ["forward dock", "secondary timing"]
+        },
+        {
+          "start": "s527",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is fine but less good for Jol-Nar in round one than for most: you do not need the money, and with only slow ships you lack a trade ship to reach neighbours, so you may trade with only one person. From round two onward Trade is excellent. Refreshing others for later favours works but fixes nothing for Jol-Nar.",
+          "advice": [
+            {
+              "point": "In round one Trade is roughly tied with or slightly below Politics for Jol-Nar: you lack a fast ship to become adjacent to neighbours, so you often trade with only one player.",
+              "stance": "rating",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "From round two onward, take Trade often; it becomes one of Jol-Nar's best cards.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Trade can also help pay the Warfare holder for favourable secondary timing.",
+              "stance": "situational",
+              "subjects": ["Trade", "Warfare"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1", "early"],
+          "topics": ["strategy cards", "trade and diplomacy", "economy"],
+          "requires": [],
+          "concepts": ["secondary timing", "X-1 trade"]
+        },
+        {
+          "start": "s570",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Second pick behind Warfare: Politics or Trade",
+          "kind": "strategy",
+          "summary": "If your neighbour took Warfare first, the choice depends on the map: with something useful on the path to Mecatol for a round-two take, Politics; with a poor path to Mecatol, Trade, expanding toward the Warfare player and trading with them. Matt leans towards Trade after reflection, since you cannot sell the speaker token to someone who already picked.",
+          "advice": [
+            {
+              "point": "Picking second behind a Warfare neighbour, take Politics if your slice sets up a round-two Mecatol take, otherwise take Trade and expand toward them to trade.",
+              "stance": "situational",
+              "subjects": ["Politics", "Trade", "Warfare", "Mecatol Rex"]
+            },
+            {
+              "point": "Matt rates Trade a bit higher here, since with Trade and Research Agreement you can make the Warfare player cooperate.",
+              "stance": "rating",
+              "subjects": ["Trade", "Research Agreement"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["slice value", "secondary timing", "magic christmas land"]
+        },
+        {
+          "start": "s594",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is the best round-one pick and should always be taken if available. Expand with one carrier first, build four infantry at home with the 1/2 planet and Sarween Tools, then use Warfare to recover the home token and send out the other carrier and the dreadnought. Command tokens get tight, so choose between a third expansion and building more at home.",
+          "advice": [
+            {
+              "point": "If Warfare is available in round one, take it every time; it solves the infantry problem and lets you sell its timing to others.",
+              "stance": "recommended",
+              "subjects": ["Warfare"]
+            },
+            {
+              "point": "Sequence: first action expand with one carrier, second action build four infantry at home, third action Warfare to remove your home token, then move the other carrier (and the dreadnought if in range, ideally after Gravity Drive) out to take more systems.",
+              "stance": "recommended",
+              "subjects": ["Warfare", "Carrier", "Infantry", "Gravity Drive"]
+            },
+            {
+              "point": "With limited tokens, Matt would rather build more at home than make a third expansion with the dreadnought; spend the 2/3 planet on a command token if needed.",
+              "stance": "situational",
+              "subjects": ["Warfare", "Dreadnought"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening", "expansion"],
+          "requires": [],
+          "concepts": ["2C4I opening", "production capacity", "secondary timing"]
+        },
+        {
+          "start": "s632",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare and Construction cards, both of which Thunder's Edge replaces"},
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is weird for Jol-Nar, who only need someone to take it, and someone will. Its late initiative avoids most Warfare stalls, but you may still burn a token waiting; a good place for the dreadnought, which becomes a trade ship, helps. Ranked as a fourth pick, with Hunter putting it below Construction on a good slice.",
+          "advice": [
+            {
+              "point": "Technology is a middling round-one pick for Jol-Nar: Matt puts it below Leadership and above Construction, Hunter puts it below Construction when the slice has a good forward dock.",
+              "stance": "rating",
+              "subjects": ["Technology", "Construction", "Leadership"]
+            },
+            {
+              "point": "If you take Technology, expect to burn a command token while waiting for Warfare; use it to move the dreadnought somewhere useful, where it can act as a trade ship.",
+              "stance": "situational",
+              "subjects": ["Technology", "Dreadnought"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "opening"],
+          "requires": [],
+          "concepts": ["secondary timing", "slice value", "forward dock"]
+        },
+        {
+          "start": "s661",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Round one: Imperial as a last pick",
+          "kind": "strategy",
+          "summary": "Matt tentatively argues that on a weak slice Imperial could beat Construction as sixth pick, to draw a second secret early and plan the game, but admits others may take the secondary and it is almost never seen. The hosts disagree on the Leadership player's choice: Hunter prefers Imperial's secret, Matt two action cards from Politics. Construction is almost always better than Diplomacy or Imperial.",
+          "advice": [
+            {
+              "point": "As last pick on a weak slice, Imperial for an early second secret objective is a possible alternative to Construction, though the hosts are not convinced.",
+              "stance": "situational",
+              "subjects": ["Imperial", "Construction"]
+            },
+            {
+              "point": "Construction is almost always a better round-one pick than Diplomacy or Imperial.",
+              "stance": "rating",
+              "subjects": ["Construction", "Diplomacy", "Imperial"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["strategy cards", "objectives"],
+          "requires": [],
+          "concepts": ["slice value"]
+        }
+      ]
+    },
+    {
+      "title": "Weaknesses and the table's reaction",
+      "summary": "Jol-Nar's problems are a complicated round one, weak ground combat and table hostility. Experienced players see a clear way to hurt Jol-Nar, but E-res Siphons and plentiful trade assets blunt that hate, and being a friend to the table pays. The real danger is overreaching, such as a round-two Mecatol take before the infantry problem is fixed.",
+      "chunks": [
+        {
+          "start": "s684",
+          "title": "Recap of Jol-Nar's problems",
+          "kind": "strategy",
+          "summary": "Round one is harder because of two infantry; ground combat stays weak even after Infantry II, since others upgrade too; and experienced tables turn on Jol-Nar early.",
+          "advice": [
+            {
+              "point": "Expect to lose ground combats you would normally win, even after upgrading infantry; plan invasions with a margin.",
+              "stance": "rating",
+              "subjects": ["Fragile", "Infantry II"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["any"],
+          "topics": ["combat", "threats and matchups"],
+          "requires": ["faction abilities"],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s695",
+          "title": "Table hostility and why it hurts less",
+          "kind": "strategy",
+          "summary": "Jol-Nar draws more heat than well-rounded factions like Naalu or Sol because there is a visible way to hurt them through weak ground forces. But E-res Siphons pays them for every attack, and their commodities and Research Agreement give the table reasons to be friends; someone will always buy.",
+          "advice": [
+            {
+              "point": "Expect experienced players to target you because your weak ground forces offer a clear line of attack.",
+              "stance": "rating",
+              "subjects": ["Universities of Jol-Nar"]
+            },
+            {
+              "point": "Counter hostility by offering trades, commodities and Research Agreement; there will always be a player willing to deal, and being Jol-Nar's friend can win them the game.",
+              "stance": "recommended",
+              "subjects": ["Research Agreement", "E-res Siphons"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Naalu Collective", "Federation of Sol"],
+          "phases": ["any"],
+          "topics": ["threats and matchups", "trade and diplomacy"],
+          "requires": ["faction technologies", "promissory notes"],
+          "concepts": ["threat perception", "table meta"]
+        },
+        {
+          "start": "s719",
+          "title": "Do not overreach early",
+          "kind": "strategy",
+          "summary": "Jol-Nar sometimes makes big plays before they are set up, such as going for Mecatol in round two without fixing the infantry problem. They are a popular target for early home-system attacks, so do not get cocky.",
+          "advice": [
+            {
+              "point": "Avoid making big plays like a round-two Mecatol take before you have fixed your infantry problem; Jol-Nar is a popular early target.",
+              "stance": "avoid",
+              "subjects": ["Mecatol Rex", "Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["early"],
+          "topics": ["threats and matchups", "mecatol"],
+          "requires": [],
+          "concepts": ["threat perception", "home system defense"]
+        }
+      ]
+    },
+    {
+      "title": "Technology choices",
+      "summary": "Get one tech in round one, never two: Hyper Metabolism is the top pick (easy to sell Research Agreement for, and it opens Infantry II), with Gravity Drive second when the slice or a Mecatol play demands reach. E-res Siphons is a must but not urgent in round one, though get it before anyone plans to attack. Then Infantry II, Fighter II, Transit Diodes, with Carrier II and Dreadnought II later; for fun, War Suns, Light/Wave Deflector, Fleet Logistics and Integrated Economy are all live options only Jol-Nar can afford.",
+      "chunks": [
+        {
+          "start": "s729",
+          "title": "No tech paths, and only one tech in round one",
+          "kind": "strategy",
+          "summary": "Matt dislikes double-teching in round one: take the free tech and build units. Spending 6 on a second tech leaves you with no board presence and makes you a bigger target, and you will get plenty of tech in rounds two and three.",
+          "advice": [
+            {
+              "point": "Do not buy a second tech in round one as Jol-Nar; take the free tech and spend your resources on units.",
+              "stance": "avoid",
+              "subjects": ["Brilliant", "Technology"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["technology", "opening"],
+          "requires": ["faction abilities"],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s745",
+          "title": "Round-one tech: Hyper Metabolism",
+          "kind": "strategy",
+          "summary": "Hyper Metabolism is the best round-one tech (from RoboFish's community feedback): everyone wants it, so Research Agreement sells for four or more trade goods, it gives competitors no new options, it is worth most when taken early, and as a second green tech it opens Infantry II at any time.",
+          "advice": [
+            {
+              "point": "Research Hyper Metabolism in round one; announce it and sell Research Agreement on it for about four trade goods or more.",
+              "stance": "recommended",
+              "subjects": ["Hyper Metabolism", "Research Agreement"]
+            },
+            {
+              "point": "Selling Hyper Metabolism is safer than selling Gravity Drive, which creates competition for your own early plays.",
+              "stance": "recommended",
+              "subjects": ["Hyper Metabolism", "Gravity Drive"]
+            },
+            {
+              "point": "Hyper Metabolism plus Infantry II essentially solves Jol-Nar's main weakness; after that you can take whatever tech comes up.",
+              "stance": "rating",
+              "subjects": ["Hyper Metabolism", "Infantry II"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["technology", "promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": ["Hunter's Law"]
+        },
+        {
+          "start": "s772",
+          "title": "Round-one tech: Gravity Drive",
+          "kind": "strategy",
+          "summary": "Gravity Drive is second to Hyper Metabolism and slice-dependent: take it to reach a juicy system or to set up the round-two Mecatol take. Doubling into Carrier II or Dreadnought II in round one is hyper-aggressive and not advised.",
+          "advice": [
+            {
+              "point": "Research Gravity Drive in round one when a valuable system is just out of reach or you plan a round-two Mecatol take.",
+              "stance": "situational",
+              "subjects": ["Gravity Drive", "Mecatol Rex"]
+            },
+            {
+              "point": "Avoid double-teching Gravity Drive into Carrier II or Dreadnought II in round one; it is too aggressive.",
+              "stance": "avoid",
+              "subjects": ["Gravity Drive", "Carrier II", "Dreadnought II"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1"],
+          "topics": ["technology", "expansion"],
+          "requires": [],
+          "concepts": ["slice value"]
+        },
+        {
+          "start": "s782",
+          "title": "Community: round-one PDS II",
+          "kind": "strategy",
+          "summary": "Phantasma favours PDS II in round one to shut down early harassment. The hosts accept this against a very aggressive table, and Hunter notes it would kill the pre-E-res Siphons attack he would advise against Jol-Nar in a tournament, but most tables are not that hostile and PDS II does not lead into a stronger round two or economy.",
+          "advice": [
+            {
+              "point": "Research PDS II in round one only if you expect the table to attack you in round two; otherwise it can wait until round two.",
+              "stance": "situational",
+              "subjects": ["PDS II"]
+            },
+            {
+              "point": "The hosts disagree with Phantasma that PDS II beats Hyper Metabolism or E-res Siphons generally, because it delays Jol-Nar's economy.",
+              "stance": "rating",
+              "subjects": ["PDS II", "Hyper Metabolism", "E-res Siphons"]
+            },
+            {
+              "point": "When playing against Jol-Nar, attack before E-res Siphons comes online.",
+              "stance": "recommended",
+              "subjects": ["E-res Siphons", "Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1", "early"],
+          "topics": ["technology", "threats and matchups"],
+          "requires": ["faction technologies"],
+          "concepts": ["table meta", "home system defense", "threat perception"]
+        },
+        {
+          "start": "s800",
+          "title": "Community: E-res Siphons and Fighter II gum",
+          "kind": "strategy",
+          "summary": "Jesse Phenom rushes E-res Siphons and Fighter II, takes Leadership and fills every free space in front of opponents, making about 16 trade goods by round three. The hosts find it fun and cheeky but say it makes you the table's enemy and may kill Research Agreement sales; suited to casual games.",
+          "advice": [
+            {
+              "point": "Parking Fighter IIs in empty systems in others' paths with E-res Siphons can generate a lot of money early, but it makes you the table's enemy and may stop people buying Research Agreement.",
+              "stance": "situational",
+              "subjects": ["E-res Siphons", "Fighter II", "Leadership"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["early"],
+          "topics": ["technology", "economy", "threats and matchups"],
+          "requires": ["faction technologies"],
+          "concepts": ["threat perception", "table meta"]
+        },
+        {
+          "start": "s818",
+          "title": "When E-res Siphons is worth getting first",
+          "kind": "strategy",
+          "summary": "Matt pushes back on E-res Siphons first: you do not need it in round one or early round two. The exception is when you will take Mecatol as your first action of round two without Gravity Drive, for example with an early Flank Speed.",
+          "advice": [
+            {
+              "point": "Do not rush E-res Siphons in round one; get it in round two.",
+              "stance": "avoid",
+              "subjects": ["E-res Siphons"]
+            },
+            {
+              "point": "Take E-res Siphons first if you can reach Mecatol Rex for your first round-two action without Gravity Drive, such as with Flank Speed.",
+              "stance": "situational",
+              "subjects": ["E-res Siphons", "Mecatol Rex", "Flank Speed"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["round 1", "early"],
+          "topics": ["technology", "mecatol"],
+          "requires": ["faction technologies", "action cards"],
+          "concepts": []
+        },
+        {
+          "start": "s826",
+          "title": "Safe picks: Infantry II and Fighter II",
+          "kind": "strategy",
+          "summary": "Tech is a buffet for Jol-Nar. Get Infantry II before opponents start eyeing your weak planets. Fighter II is good despite Fragile because the fighters soak hits so your big ships (such as War Suns) get more rolls, and they serve as cheap gum to trigger E-res Siphons.",
+          "advice": [
+            {
+              "point": "Get Infantry II early, before players realise your planets are easy to invade.",
+              "stance": "recommended",
+              "subjects": ["Infantry II"]
+            },
+            {
+              "point": "Fighter II is good for Jol-Nar as hit soak for War Suns and other heavy ships and as cheap units that trigger E-res Siphons, not for their own hits.",
+              "stance": "recommended",
+              "subjects": ["Fighter II", "War Sun", "E-res Siphons"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Sardakk N'orr"],
+          "phases": ["early", "mid"],
+          "topics": ["technology", "combat"],
+          "requires": ["faction technologies"],
+          "concepts": ["fighter screen"]
+        },
+        {
+          "start": "s853",
+          "title": "E-res Siphons: get it before anyone attacks",
+          "kind": "strategy",
+          "summary": "E-res Siphons is a definitely-get-at-some-point tech, needed by the time people would start activating you. Attackers will not warn you, so get it earlier rather than trying to read the table.",
+          "advice": [
+            {
+              "point": "Research E-res Siphons before anyone is likely to attack you; do not try to time it by reading the table, since attackers will strike before you have it.",
+              "stance": "recommended",
+              "subjects": ["E-res Siphons"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["early"],
+          "topics": ["technology", "threats and matchups"],
+          "requires": ["faction technologies"],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s868",
+          "title": "Carrier II, Dreadnought II and Transit Diodes",
+          "kind": "strategy",
+          "summary": "Carrier II and Dreadnought II come third on the list: Jol-Nar is bad at holding what it takes and wants to stay friendly, saving control objectives for the late game. Transit Diodes is nearly always worth picking up to keep infantry flexible.",
+          "advice": [
+            {
+              "point": "Hold off on Carrier II and Dreadnought II; early mobility makes enemies and Jol-Nar is bad at holding territory until its combat problem is fixed.",
+              "stance": "rating",
+              "subjects": ["Carrier II", "Dreadnought II"]
+            },
+            {
+              "point": "If you did not get Transit Diodes early, get it; flexible infantry offsets your infantry problem.",
+              "stance": "recommended",
+              "subjects": ["Transit Diodes"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Federation of Sol", "Yin Brotherhood", "Xxcha Kingdom"],
+          "phases": ["mid"],
+          "topics": ["technology", "objectives"],
+          "requires": [],
+          "concepts": ["threat perception"]
+        },
+        {
+          "start": "s878",
+          "title": "War Suns for Jol-Nar",
+          "kind": "strategy",
+          "summary": "Fragile hurts a few big hitters less than many small units, and War Sun bombardment solves the infantry problem when invading. Their weakness is Direct Hit, so screen them with Fighter IIs, which Jol-Nar can afford. X-89 Bacterial Weapon remains bad.",
+          "advice": [
+            {
+              "point": "War Suns are very good for Jol-Nar: Fragile barely matters on their hits and their bombardment clears infantry before your weak ground forces land.",
+              "stance": "recommended",
+              "subjects": ["War Sun"]
+            },
+            {
+              "point": "Always back War Suns with a fighter screen of Fighter IIs so they cannot be easily removed by Direct Hit.",
+              "stance": "recommended",
+              "subjects": ["War Sun", "Fighter II", "Direct Hit"]
+            },
+            {
+              "point": "X-89 Bacterial Weapon is still bad, though Jol-Nar can afford it if a specific problem calls for it.",
+              "stance": "rating",
+              "subjects": ["X-89 Bacterial Weapon"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Sardakk N'orr"],
+          "phases": ["mid", "late"],
+          "topics": ["technology", "combat"],
+          "requires": ["action cards"],
+          "concepts": ["fighter screen"]
+        },
+        {
+          "start": "s905",
+          "title": "Light/Wave Deflector and Fleet Logistics",
+          "kind": "strategy",
+          "summary": "Light/Wave Deflector is very good. Hunter normally skips Fleet Logistics because its value is hard to predict, but Jol-Nar can afford speculative techs; it can make a final-round plan possible, and holding it unused until the table forgets is a nice surprise.",
+          "advice": [
+            {
+              "point": "Light/Wave Deflector is a very good pickup for Jol-Nar.",
+              "stance": "rating",
+              "subjects": ["Light/Wave Deflector"]
+            },
+            {
+              "point": "As Jol-Nar, research Fleet Logistics speculatively since tech is cheap; it can win the last round by scoring and retreating in one turn, and is most effective if you sit on it until opponents forget you have it.",
+              "stance": "recommended",
+              "subjects": ["Fleet Logistics"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["mid", "late"],
+          "topics": ["technology"],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s929",
+          "title": "Integrated Economy",
+          "kind": "strategy",
+          "summary": "Jol-Nar is the one faction for which Integrated Economy is a serious option, because they can get it in round two (or even round one) while there are still planets to take, using it to drop infantry and fighters on new planets and fix the infantry problem. Hunter still finds it a little risky.",
+          "advice": [
+            {
+              "point": "Consider Integrated Economy in round two, while there is still expansion left, to put infantry and fighters on freshly taken planets; Hunter considers it somewhat risky.",
+              "stance": "situational",
+              "subjects": ["Integrated Economy"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["early"],
+          "topics": ["technology", "expansion"],
+          "requires": [],
+          "concepts": ["tech skip"]
+        }
+      ]
+    },
+    {
+      "title": "Mid game: trade and Research Agreement",
+      "summary": "In the mid game, keep Research Agreement circulating at around two to four trade goods by tying it to techs buyers want, take Trade often from rounds two to five to build a huge bank, and stay friendly so the table does not see you coming. The goal is to fix Fragile with upgrades, have tech and economy objectives locked down, and simply out-plastic everyone for late control objectives.",
+      "chunks": [
+        {
+          "start": "s942",
+          "title": "Keep Research Agreement circulating",
+          "kind": "strategy",
+          "summary": "Some players buy Research Agreement and never use it to deny Jol-Nar income, and a table might even pool money to lock it down. Keep the note enticing: research techs buyers want, make the desired tech part of the deal, and when someone sits on it, research something they want to coax it back.",
+          "advice": [
+            {
+              "point": "Sell Research Agreement as often as possible and tie each sale to a tech the buyer wants, so they use it and it returns to you.",
+              "stance": "recommended",
+              "subjects": ["Research Agreement"]
+            },
+            {
+              "point": "Watch for buyers who hold the note to shut you down; tempt them to use it by researching something they want, such as War Sun.",
+              "stance": "situational",
+              "subjects": ["Research Agreement", "War Sun"]
+            },
+            {
+              "point": "Against Jol-Nar, buying Research Agreement and never using it, even pooled as a table, is a real way to deny them income.",
+              "stance": "situational",
+              "subjects": ["Research Agreement", "Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["mid"],
+          "topics": ["promissory notes", "trade and diplomacy", "threats and matchups"],
+          "requires": ["promissory notes"],
+          "concepts": ["trade agreement lockdown", "table talk"]
+        },
+        {
+          "start": "s977",
+          "title": "Pricing Research Agreement",
+          "kind": "strategy",
+          "summary": "Do not sell it for nothing; two to four trade goods is the usual range, two only on a mean table. Negotiate flexibly and raise the price for techs that help the buyer a lot, such as Transit Diodes for the Yin Brotherhood. The core pitch is that it saves them a command token.",
+          "advice": [
+            {
+              "point": "Price Research Agreement at roughly two to four trade goods and haggle flexibly; never give it away.",
+              "stance": "recommended",
+              "subjects": ["Research Agreement"]
+            },
+            {
+              "point": "Charge more when the tech is especially valuable to the buyer or this is their last easy chance at it.",
+              "stance": "situational",
+              "subjects": ["Research Agreement", "Transit Diodes"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Yin Brotherhood"],
+          "phases": ["any"],
+          "topics": ["promissory notes", "trade and diplomacy"],
+          "requires": ["promissory notes"],
+          "concepts": []
+        },
+        {
+          "start": "s997",
+          "title": "Mid-game Trade and staying friendly",
+          "kind": "strategy",
+          "summary": "Taking Trade from round two to four or five to build a huge trade good pile is common and solid. Keep trades fair or slightly favourable to others so you do not look aggressive; lie low until your tech and plastic are ready and then hit like a freight train.",
+          "advice": [
+            {
+              "point": "Take Trade often from round two through round four or five and bank trade goods.",
+              "stance": "recommended",
+              "subjects": ["Trade"]
+            },
+            {
+              "point": "Make trades even or favourable for partners so you stay a friend of the table until you are ready to strike.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["mid"],
+          "topics": ["strategy cards", "economy", "trade and diplomacy"],
+          "requires": [],
+          "concepts": ["trade good banking", "threat perception"]
+        },
+        {
+          "start": "s1004",
+          "title": "Selling to the table's outcast",
+          "kind": "strategy",
+          "summary": "If the table agrees to stop buying from Jol-Nar, approach the unpopular player at the table and deal with them; Matt has been that player and says it works.",
+          "advice": [
+            {
+              "point": "When the table boycotts Research Agreement, sell it to the most unpopular player, who has every reason to break ranks.",
+              "stance": "situational",
+              "subjects": ["Research Agreement"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": ["mid", "late"],
+          "topics": ["trade and diplomacy", "promissory notes"],
+          "requires": ["promissory notes"],
+          "concepts": ["trade agreement lockdown", "metagame manipulation"]
+        },
+        {
+          "start": "s1008",
+          "title": "The goal: stop being fragile and out-plastic everyone",
+          "kind": "strategy",
+          "summary": "Aim to overcome Fragile with tech and upgrades while banking trade goods, so that by the late game every tech and economy objective is ready and only control objectives remain. Win by having more fleet supply and plastic than everyone; Jol-Nar often out-earns even the Emirates of Hacan.",
+          "advice": [
+            {
+              "point": "By the late game have every technology and spend objective ready to score, then use your plastic for control objectives.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar"]
+            },
+            {
+              "point": "Overcome Fragile by fielding more units and fleet supply than any opponent, keeping your coming strength hidden as long as possible.",
+              "stance": "recommended",
+              "subjects": ["Fragile"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Emirates of Hacan"],
+          "phases": ["mid", "late"],
+          "topics": ["objectives", "economy", "general strategy"],
+          "requires": ["faction abilities"],
+          "concepts": ["trade good banking", "threat perception"]
+        },
+        {
+          "start": "s1023",
+          "title": "Letting the Nekro Virus copy E-res Siphons",
+          "kind": "strategy",
+          "summary": "If the Nekro Virus is in the game, letting them get E-res Siphons is not the worst thing: the two of you can activate each other for mutual profit. Nekro gains more from it, so use the arrangement mainly to keep Nekro from attacking you and do not let them pull too far ahead.",
+          "advice": [
+            {
+              "point": "Consider letting the Nekro Virus take E-res Siphons and activating each other for trade goods, mainly to keep Nekro from attacking you; watch that Nekro, who benefits more, does not get too far ahead.",
+              "stance": "situational",
+              "subjects": ["E-res Siphons", "Nekro Virus"]
+            }
+          ],
+          "factions": ["Universities of Jol-Nar", "Nekro Virus"],
+          "phases": ["mid"],
+          "topics": ["threats and matchups", "trade and diplomacy", "economy"],
+          "requires": ["faction technologies", "faction abilities"],
+          "concepts": ["non-binding deals"]
+        },
+        {
+          "start": "s1052",
+          "title": "Why Hunter does not play Jol-Nar",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Universities of Jol-Nar"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Tournament reports",
+      "summary": "Five Patreon tournament game reports. The lessons the hosts draw: when a table cannot agree to stop everyone, stopping nobody is fairer than picking a winner, and feeding a rival a point to avoid a threat can hand them the game.",
+      "chunks": [
+        {
+          "start": "s1061",
+          "title": "Tournament updates and thanks to Space Lawyer",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1077",
+          "title": "Game 24: Ghosts win when nobody kingmakes",
+          "kind": "strategy",
+          "summary": "Jol-Nar was punched hard mid-game and lost its home system after declining to use the Sardakk N'orr ceasefire. In the final round the table refused to stop either leader, and the hosts agree that stopping nobody is fairer than stopping only one player.",
+          "advice": [
+            {
+              "point": "When the table cannot stop every contender, choosing to stop nobody is less like kingmaking than stopping only one player; Matt disagrees with the idea that doing nothing is itself kingmaking.",
+              "stance": "rating",
+              "subjects": []
+            },
+            {
+              "point": "When Jol-Nar is attacked at home, use any available ceasefire; declining Sardakk N'orr's note cost Jol-Nar its home system.",
+              "stance": "recommended",
+              "subjects": ["Universities of Jol-Nar", "Sardakk N'orr"]
+            }
+          ],
+          "factions": ["Ghosts of Creuss", "Universities of Jol-Nar", "Sardakk N'orr"],
+          "phases": ["late"],
+          "topics": ["general strategy", "threats and matchups"],
+          "requires": ["promissory notes"],
+          "concepts": ["kingmaking"]
+        },
+        {
+          "start": "s1127",
+          "title": "Game 25: Barony's space highway",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Barony of Letnev"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1163",
+          "title": "Game 26: Nekro wins on tech objectives",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Nekro Virus"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1212",
+          "title": "Game 27: Sol takes the win from a rider",
+          "kind": "strategy",
+          "summary": "Fearing Sol's tech, the table voted to give Sol a point and trade goods instead, and Sol won. The hosts' lesson: if your choice is between risking your own game and handing someone a point, risk your game rather than feeding a rival.",
+          "advice": [
+            {
+              "point": "Do not let the Federation of Sol get away with anything, even when someone else looks like the bigger threat.",
+              "stance": "recommended",
+              "subjects": ["Federation of Sol"]
+            },
+            {
+              "point": "When an agenda outcome would hand a rival a point, prefer the devil you know over feeding them a point, even at some risk to your own game.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": ["Federation of Sol", "Ghosts of Creuss"],
+          "phases": ["late"],
+          "topics": ["agendas", "threats and matchups"],
+          "requires": ["agendas"],
+          "concepts": ["threat perception", "kingmaking"]
+        },
+        {
+          "start": "s1254",
+          "title": "Game 28: the hot rod Baron and the space goblin",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": ["Yssaril Tribes", "Barony of Letnev"],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1321",
+          "title": "Tournament schedule, Patreon and streams",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1397",
+          "title": "Ratings, thanks and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Jolnar": "Jol-Nar",
+    "Jolenar": "Jol-Nar",
+    "Joel Mar": "Jol-Nar",
+    "Joel Nar": "Jol-Nar",
+    "Jill Nar": "Jol-Nar",
+    "Jilnar": "Jol-Nar",
+    "Jonnar": "Jol-Nar",
+    "Jonar": "Jol-Nar",
+    "Jolnard": "Jol-Nar",
+    "John R": "Jol-Nar",
+    "E-Res Saffins": "E-res Siphons",
+    "E-Rez siphons": "E-res Siphons",
+    "eras siphons": "E-res Siphons",
+    "He Rez": "E-res",
+    "Sardaknor": "Sardakk N'orr",
+    "Sardax": "Sardakk",
+    "JNS High Larm": "J.N.S. Hylarion",
+    "JNS Hylarum": "J.N.S. Hylarion",
+    "JNS Tyler": "J.N.S. Hylarion",
+    "Hill Kalish": "Hil Colish",
+    "Hill Calicia": "Hil Colish",
+    "Arborc": "Arborec",
+    "Arborex": "Arborec",
+    "plasma scoring": "Plasma Scoring",
+    "Gravity charge": "Gravity Drive",
+    "Mechatell Rex": "Mecatol Rex",
+    "Mechatar Rex": "Mecatol Rex",
+    "Megatol": "Mecatol",
+    "Mekatol": "Mecatol",
+    "Mekital Rex": "Mecatol Rex",
+    "x89": "X-89 Bacterial Weapon",
+    "Daxiv": "Daxcive Animators",
+    "Majin": "Magen Defense Grid",
+    "Biz Fria": "Abyz/Fria",
+    "Baragler to 4": "Bereg/Lirta IV",
+    "Analu": "Naalu",
+    "Asaral tribes": "Yssaril Tribes",
+    "Asaro": "Yssaril",
+    "Isarl": "Yssaril",
+    "Isaro": "Yssaril",
+    "Isarul": "Yssaril",
+    "Xarul": "Yssaril",
+    "Sorrel": "Yssaril",
+    "Seoul's": "Sol's",
+    "Bereny": "Barony",
+    "Barney": "Barony",
+    "Bernie": "Barony",
+    "Mentech": "Mentak",
+    "Mintac": "Mentak",
+    "Thiba": "Thibah",
+    "Thibaut": "Thibah",
+    "Ixthi and Artifact": "Ixthian Artifact",
+    "Ark Secundus": "Arc Secundus",
+    "Arksecundus": "Arc Secundus",
+    "Mua": "Muaat",
+    "XChod": "Xxcha",
+    "XJet": "Xxcha",
+    "Necrovirus": "Nekro Virus",
+    "Necro": "Nekro"
+  }
+}

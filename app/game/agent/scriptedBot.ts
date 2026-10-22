@@ -28,6 +28,7 @@ import {
 import {
   CommandPools,
   GameState,
+  Payment,
   Prompt,
   SystemKey,
   TransactionSide,
@@ -43,6 +44,7 @@ import {
   MECATOL_REX,
   moveRulesFor,
   neighborsOf,
+  presence,
   nonFighterShips,
   otherShipOwners,
   planetInfluence,
@@ -56,6 +58,8 @@ import { productionCapacity, productionCost } from "../engine/economy";
 import {
   COMMAND_TOKEN_LIMIT,
   countOf,
+  hasTech,
+  movesAsShip,
   openPrompts,
   sumCounts,
   tokensOnBoard,
@@ -73,6 +77,7 @@ import { availableStrategyCards } from "../engine/phases";
 import { fleetPoolLimit, StrategyKind, strategyKind } from "../engine/strategic";
 import {
   bombardmentTargets,
+  moveBonus,
   spaceCannonOffenseShooters,
 } from "../engine/tactical";
 import {
@@ -81,6 +86,8 @@ import {
 } from "../engine/technology";
 import { botMove } from "../engine/testing";
 import { effectAnswers } from "../engine/reactions";
+import { TableTalk, worth } from "./talk";
+import { tradePartners } from "./reach";
 import { componentPlays, reactions } from "./reactions";
 import {
   chasesPosition,
@@ -91,6 +98,7 @@ import {
 } from "./goals";
 import {
   findPayment,
+  NO_RESERVATION,
   objectivePayment,
   readyPlanets,
   Reservation,
@@ -99,7 +107,7 @@ import {
 } from "./payment";
 
 /** Bumped whenever the bot's behaviour changes, for replay attribution. */
-export const SCRIPTED_BOT_VERSION = 3;
+export const SCRIPTED_BOT_VERSION = 9;
 
 export type ScriptedMove = {
   player: PlayerId;
@@ -126,6 +134,7 @@ const STAGING_WEIGHT = 0.4;
  */
 export function scriptedCandidates(
   state: GameState,
+  talk?: TableTalk,
 ): { player: PlayerId; actions: GameAction[] } | undefined {
   if (state.phase === "finished") return undefined;
   const [prompt] = openPrompts(state);
@@ -141,18 +150,21 @@ export function scriptedCandidates(
     ? answerPrompt(state, prompt)
     : offer
       ? [
-          ...(acceptsOffer(offer.give, offer.receive)
+          ...(acceptsOffer(offer.give, offer.receive, talk?.willPay(state, offer.to, offer.from))
             ? [{ type: "ANSWER_TRANSACTION", transaction: offer.id, accept: true } as const]
             : []),
           { type: "ANSWER_TRANSACTION", transaction: offer.id, accept: false },
         ]
-      : takeTurn(state, player);
+      : takeTurn(state, player, talk);
   return { player, actions: candidates };
 }
 
 /** The next move for whoever the game is waiting on, if anyone. */
-export function scriptedMove(state: GameState): ScriptedMove | undefined {
-  const ranked = scriptedCandidates(state);
+export function scriptedMove(
+  state: GameState,
+  talk?: TableTalk,
+): ScriptedMove | undefined {
+  const ranked = scriptedCandidates(state, talk);
   if (!ranked) return undefined;
   const { player, actions: candidates } = ranked;
   for (const action of candidates) {
@@ -177,7 +189,29 @@ export function scriptedMove(state: GameState): ScriptedMove | undefined {
  * What the bot holds back from spending: its planned objective, plus 6
  * influence for the custodians token while its ships are near Mecatol Rex.
  */
+/**
+ * While set, the bot holds nothing back and considers every activation
+ * worth anything. Its reservations and threshold are its own plan, not
+ * rules, so an agent's menu also offers what they would hide.
+ */
+let widened = false;
+
+/**
+ * Runs `plan` as if the bot held nothing back for objectives or custodians
+ * and would take any activation that gains something.
+ */
+export function withWiderChoices<T>(plan: () => T): T {
+  const was = widened;
+  widened = true;
+  try {
+    return plan();
+  } finally {
+    widened = was;
+  }
+}
+
 function reservationOf(state: GameState, id: PlayerId): Reservation {
+  if (widened) return NO_RESERVATION;
   const base = reservationFor(state, id);
   const mecatol = state.planets[MECATOL_REX]?.system;
   if (!state.custodians || mecatol === undefined) return base;
@@ -568,7 +602,7 @@ const PLAY_EARLY: StrategyKind[] = [
   "diplomacy",
 ];
 
-function takeTurn(state: GameState, id: PlayerId): GameAction[] {
+function takeTurn(state: GameState, id: PlayerId, talk?: TableTalk): GameAction[] {
   if (state.phase === "strategy") return pickStrategyCard(state, id);
   if (state.phase !== "action") return [];
   if (state.tactical) return tacticalStep(state, id);
@@ -578,17 +612,17 @@ function takeTurn(state: GameState, id: PlayerId): GameAction[] {
   const card = player.strategyCards.find((c) => !c.exhausted);
   const strategic = (): GameAction[] =>
     card
-      ? primaryPayloads(state, id, card.id).map((payload) => ({
+      ? primaryPayloads(state, id, card.id, talk).map((payload) => ({
           type: "STRATEGIC_ACTION",
           payload,
         }))
       : [];
 
-  const actions: GameAction[] = [...commodityTrades(state, id)];
+  const actions: GameAction[] = [...commodityTrades(state, id, talk)];
   if (card && PLAY_EARLY.includes(strategyKind(card.id))) {
     actions.push(...strategic());
   }
-  actions.push(...activations(state, id));
+  actions.push(...activations(state, id, talk));
   actions.push(...strategic());
   actions.push(...componentPlays(state, id));
   actions.push({ type: "PASS" });
@@ -599,37 +633,59 @@ const onlyGoods = (side: TransactionSide) =>
   !side.promissoryNotes?.length &&
   !side.actionCards?.length &&
   !side.relicFragments?.length;
-const worth = (side: TransactionSide) =>
-  (side.tradeGoods ?? 0) + (side.commodities ?? 0);
-
 /**
  * Whether the bot, on the receiving end of an offer, takes it: trade goods
- * and commodities only, and at least as much coming in as going out.
- * `give` is what the proposer gives, so it is what the bot receives.
+ * and commodities only, and at least as much coming in as going out, or
+ * up to `owes` short when it means to pay the proposer what a deal says
+ * (see talk.ts). `give` is what the proposer gives, so it is what the bot
+ * receives.
  */
-function acceptsOffer(give: TransactionSide, receive: TransactionSide) {
+function acceptsOffer(give: TransactionSide, receive: TransactionSide, owes = 0) {
+  const short = worth(receive) - worth(give);
   return (
     onlyGoods(give) &&
     onlyGoods(receive) &&
-    worth(give) > 0 &&
-    worth(give) >= worth(receive)
+    (worth(give) > 0 || (owes > 0 && worth(receive) > 0)) &&
+    short <= owes
   );
 }
 
 /**
  * Offers each neighbor an even swap of commodities, which both sides receive
- * as trade goods. Only offers the neighbor will legally accept are made, so
- * an offer never comes back round unanswered.
+ * as trade goods. When a deal says one side pays the other (see talk.ts),
+ * the payer gives X commodities for X less what it owes, or trade goods
+ * when it has no commodities. Only offers the neighbor will legally accept
+ * are made, so an offer never comes back round unanswered.
  */
-function commodityTrades(state: GameState, id: PlayerId): GameAction[] {
+function commodityTrades(state: GameState, id: PlayerId, talk?: TableTalk): GameAction[] {
   const mine = state.players[id].commodities;
-  if (mine === 0) return [];
   for (const other of neighborsOf(state, id)) {
-    const swap = Math.min(mine, state.players[other].commodities);
-    if (swap === 0 || state.tradedWith.includes(other)) continue;
-    const give = { commodities: swap };
-    const receive = { commodities: swap };
-    if (!acceptsOffer(give, receive)) continue;
+    if (state.tradedWith.includes(other)) continue;
+    const theirs = state.players[other].commodities;
+    const toMe = theirs > 0 ? (talk?.willPay(state, other, id) ?? 0) : 0;
+    const fromMe = toMe === 0 ? (talk?.willPay(state, id, other) ?? 0) : 0;
+    const iOwe = fromMe > 0 && (mine > 0 || state.players[id].tradeGoods > 0);
+    let give: TransactionSide;
+    let receive: TransactionSide;
+    if (toMe > 0) {
+      const swap = Math.min(theirs, mine + toMe);
+      give = swap > toMe ? { commodities: swap - toMe } : {};
+      receive = { commodities: swap };
+    } else if (iOwe && mine === 0) {
+      give = { tradeGoods: Math.min(fromMe, state.players[id].tradeGoods) };
+      receive = {};
+    } else if (iOwe) {
+      const swap = Math.min(mine, theirs + fromMe);
+      give = { commodities: swap };
+      receive = swap > fromMe ? { commodities: swap - fromMe } : {};
+    } else {
+      const swap = Math.min(mine, theirs);
+      if (swap === 0) continue;
+      give = { commodities: swap };
+      receive = { commodities: swap };
+    }
+    // An offer the bot pays more into is its own debt, so it takes it.
+    if (!iOwe && !acceptsOffer(give, receive, toMe)) continue;
     const action: GameAction = {
       type: "PROPOSE_TRANSACTION",
       to: other,
@@ -650,7 +706,7 @@ function commodityTrades(state: GameState, id: PlayerId): GameAction[] {
 }
 
 /** Systems worth a tactic token, best first. */
-function activations(state: GameState, id: PlayerId): GameAction[] {
+function activations(state: GameState, id: PlayerId, talk?: TableTalk): GameAction[] {
   const player = state.players[id];
   const reserved = reservationOf(state, id);
   const tokensLeft = player.pools.tactic + player.pools.strategy - 1;
@@ -662,10 +718,12 @@ function activations(state: GameState, id: PlayerId): GameAction[] {
       key: system.key,
       value: bestPlan(state, id, system.key)?.value ?? 0,
     }))
-    .filter((t) => t.value >= ACTIVATION_THRESHOLD)
+    .filter((t) => t.value >= (widened ? Number.MIN_VALUE : ACTIVATION_THRESHOLD))
+    // A truce holds unless breaking it gains more than it is worth (see talk.ts).
+    .filter((t) => !talk?.holdsBack(state, id, t.key, t.value))
     .sort((a, b) => b.value - a.value || a.key - b.key);
 
-  const build = productionTargets(state, id, reserved);
+  const build = productionTargets(state, id, reserved).filter((key) => !talk?.holdsBack(state, id, key, 0));
   // With one token left, building beats a small expansion.
   const lastToken = player.pools.tactic === 1;
   const ordered =
@@ -722,11 +780,54 @@ const shipStrength = (state: GameState, id: PlayerId, type: UnitType) => {
  * capacity and the ground forces they can lift; an attack brings every
  * warship that can reach, up to the fleet pool.
  */
+/**
+ * How a ship gets from `origin` to the active system: on its own move
+ * (with bonuses such as Slipstream), only with Gravity Drive's +1, or not
+ * at all.
+ */
+function reachBy(
+  state: GameState,
+  id: PlayerId,
+  origin: SystemKey,
+  type: UnitType,
+  rules: ReturnType<typeof moveRulesFor>,
+): "move" | "gravityDrive" | undefined {
+  const move = unitOf(state, id, type)?.move;
+  if (!move) return undefined;
+  const reach = move + moveBonus(state, id, origin);
+  if (findRoute(state, origin, reach, rules)) return "move";
+  if (hasTech(state, id, "gd") && findRoute(state, origin, reach + 1, rules)) {
+    return "gravityDrive";
+  }
+  return undefined;
+}
+
+/** A move for a mobile dock (Floating Factory) that can reach `key`, if any. */
+function mobileDockFor(state: GameState, id: PlayerId, key: SystemKey): ShipMove | undefined {
+  const rules = moveRulesFor(state, id, key);
+  for (const origin of systemsWithShips(state, id).concat(
+    Object.values(state.systems).filter((s) => countOf(s.space[id], "spacedock") > 0),
+  )) {
+    if (origin.key === key || origin.commandTokens.includes(id)) continue;
+    if (countOf(origin.space[id], "spacedock") === 0 || !movesAsShip(state, id, "spacedock")) continue;
+    const how = reachBy(state, id, origin.key, "spacedock", rules);
+    if (how === "move") return { from: origin.key, ships: { spacedock: 1 } };
+  }
+  return undefined;
+}
+
+/** Worth of bringing a mobile dock forward, to produce where it arrives. */
+const FACTORY_VALUE = 2;
+
+/** Infantry kept at a home space dock for the next carrier built there. */
+const HOME_INFANTRY = 2;
+
 function planMovement(
   state: GameState,
   id: PlayerId,
   target: SystemKey,
-  intent: { attack: boolean; groundForces: number },
+  /** `spare` is how many of `groundForces` are extra, for onward expansion. */
+  intent: { attack: boolean; groundForces: number; spare?: number },
 ): MovementPlan {
   const player = state.players[id];
   const rules = moveRulesFor(state, id, target);
@@ -744,18 +845,25 @@ function planMovement(
     .sort((a, b) => a.distance - b.distance || a.system.key - b.system.key)
     .map((o) => o.system);
 
+  // Gravity Drive lifts one ship per tactical action.
+  let gravityUsed = false;
   for (const origin of origins) {
     if (room === 0) break;
     if (!intent.attack && wanted <= 0) break;
     const group = origin.space[id];
+    // Mobile docks (Floating Factories) travel with invasions, not attacks:
+    // they cannot fight, and are lost if blockaded.
+    const moves = (type: UnitType) =>
+      type !== "fighter" &&
+      (isShip(type) || (!intent.attack && movesAsShip(state, id, type)));
+    const reach = new Map(
+      unitTypes(group)
+        .filter(moves)
+        .map((type) => [type, reachBy(state, id, origin.key, type, rules)]),
+    );
     const types = unitTypes(group).filter((type) => {
-      const unit = unitOf(state, id, type);
-      return (
-        isShip(type) &&
-        type !== "fighter" &&
-        !!unit?.move &&
-        !!findRoute(state, origin.key, unit.move, rules)
-      );
+      const how = reach.get(type);
+      return how === "move" || (how === "gravityDrive" && !gravityUsed);
     });
     const capacityOf = (type: UnitType) => unitOf(state, id, type)?.capacity ?? 0;
     types.sort((a, b) =>
@@ -774,9 +882,15 @@ function planMovement(
           )[0]
         : undefined;
     const ships: UnitCounts = {};
+    const boosted: UnitCounts = {};
     let capacity = 0;
     for (const type of types) {
-      const free = countOf(group, type) - (type === guard ? 1 : 0);
+      const lifted = reach.get(type) === "gravityDrive";
+      if (lifted && gravityUsed) continue;
+      const free = Math.min(
+        countOf(group, type) - (type === guard ? 1 : 0),
+        lifted ? 1 : Infinity,
+      );
       const unitCapacity = capacityOf(type);
       if (!intent.attack && unitCapacity === 0) continue;
       let count = 0;
@@ -786,12 +900,22 @@ function planMovement(
         room--;
         capacity += unitCapacity;
       }
-      if (count > 0) ships[type] = count;
+      if (count === 0) continue;
+      if (lifted) {
+        boosted[type] = count;
+        gravityUsed = true;
+      } else {
+        ships[type] = count;
+      }
     }
-    if (Object.keys(ships).length === 0) continue;
+    const moving = addCounts(ships, boosted);
+    if (Object.keys(moving).length === 0) continue;
 
-    plan.moves.push({ from: origin.key, ships });
-    plan.ships = addCounts(plan.ships, ships);
+    if (Object.keys(ships).length > 0) plan.moves.push({ from: origin.key, ships });
+    if (Object.keys(boosted).length > 0) {
+      plan.moves.push({ from: origin.key, ships: boosted, gravityDrive: true });
+    }
+    plan.ships = addCounts(plan.ships, moving);
 
     // Cargo: ground forces in space, then from planets, then fighters.
     let lift = capacity;
@@ -807,16 +931,42 @@ function planMovement(
       wanted -= count;
     }
     const guarded = origin.key === player.home && homeThreatened;
-    for (const name of origin.planets) {
-      if (state.planets[name].controller !== id) continue;
+    // Planets enemy ships could reach keep one infantry, so a neighbor
+    // cannot just land and take them.
+    const exposed = origin.key !== player.home && enemyShipsNear(state, id, origin.key, 2);
+    const mine = origin.planets.filter((name) => state.planets[name].controller === id);
+    const garrisonOf = (type: UnitType) => ((guarded || exposed) && type === "infantry" ? 1 : 0);
+    // Spare infantry stay at a home dock, HOME_INFANTRY across the system
+    // (garrisons included), to fill the next carrier built there; unless
+    // an unplayed Warfare can free this carrier to take a second system now.
+    const warfareToCome = player.strategyCards.some(
+      (c) => !c.exhausted && strategyKind(c.id) === "warfare",
+    );
+    let spareHome =
+      origin.key === player.home && productionCapacity(state, origin.key, id) > 0 && !warfareToCome
+        ? Math.max(
+            0,
+            mine.reduce((sum, name) => sum + countOf(state.planets[name].units[id], "infantry"), 0) -
+              HOME_INFANTRY,
+          )
+        : Infinity;
+    for (const name of mine) {
       for (const type of ["infantry", "mech"] as UnitType[]) {
         const present = countOf(state.planets[name].units[id], type);
-        const garrison = guarded && type === "infantry" ? 1 : 0;
-        const count = Math.min(lift, Math.max(0, wanted), present - garrison);
+        const garrison = garrisonOf(type);
+        const needed = Math.max(0, wanted - (intent.spare ?? 0));
+        const spare = type === "infantry" ? spareHome : Infinity;
+        const count = Math.min(
+          lift,
+          Math.max(0, wanted),
+          present - garrison,
+          Math.max(needed, Math.min(spare, present - garrison)),
+        );
         if (count <= 0) continue;
         take({ system: origin.key, planet: name, units: { [type]: count } }, count);
         plan.groundForces += count;
         wanted -= count;
+        if (type === "infantry") spareHome -= count;
       }
     }
     const fighters = countOf(group, "fighter");
@@ -856,12 +1006,25 @@ function targetValue(
   const onward = enemies.length === 0 ? onwardTargets(state, id, key, custodians) : [];
   if (!attack && groundNeeded === 0 && onward.length === 0) return undefined;
 
+  const spare = Math.min(3, Math.max(1, onward.length));
   const plan = planMovement(state, id, key, {
     attack,
-    groundForces: groundNeeded + Math.min(3, Math.max(1, onward.length)),
+    groundForces: groundNeeded + spare,
+    spare,
   });
   const arriving = sumCounts(plan.ships);
   if (arriving === 0 && plan.groundForces === 0) return undefined;
+  // A mobile dock brought along can produce here in this same tactical
+  // action; it stays out of reach of enemy ships, since a blockade sinks it.
+  if (!attack && key !== state.players[id].home && !plan.ships.spacedock && !enemyShipsNear(state, id, key, 1)) {
+    const dock = mobileDockFor(state, id, key);
+    if (dock) {
+      plan.moves.push(dock);
+      plan.ships = addCounts(plan.ships, { spacedock: 1 });
+    }
+  }
+  const factory =
+    key !== state.players[id].home && (plan.ships.spacedock ?? 0) > 0 ? FACTORY_VALUE : 0;
 
   let value = 0;
   if (attack) {
@@ -887,6 +1050,7 @@ function targetValue(
       STAGING_WEIGHT *
       onward.slice(0, available).reduce((sum, planet) => sum + planetValue(state, id, planet), 0);
   }
+  value += factory;
   if (value === 0) return undefined;
   return { value, plan, landings };
 }
@@ -934,7 +1098,13 @@ function onwardTargets(
     );
 }
 
-export type Plan = { value: number; moves: ShipMove[]; cargo: CargoPickup[] };
+export type Plan = {
+  value: number;
+  moves: ShipMove[];
+  cargo: CargoPickup[];
+  /** Planets an invasion means to take, with the ground forces each gets. */
+  landings?: { planet: string; need: number }[];
+};
 
 /** The most valuable tactical action in `key`: an invasion or a position. */
 export function bestPlan(
@@ -950,9 +1120,12 @@ export function bestPlan(
       value: invasion.value,
       moves: invasion.plan.moves,
       cargo: invasion.plan.cargo,
+      landings: invasion.landings,
     });
   }
   if (position) options.push(position);
+  const trade = tradeShipPlan(state, id, key);
+  if (trade) options.push(trade);
   return options.sort((a, b) => b.value - a.value)[0];
 }
 
@@ -972,8 +1145,54 @@ function positionPlan(
 
   const fleets = systemsWithShips(state, id).map((s) => s.key);
   const before = positionScore(state, id, fleets);
+  return oneShipMove(state, id, key, (origin, leaves) => {
+    const after = [...fleets.filter((k) => k !== origin || !leaves), key];
+    return positionScore(state, id, after) - before;
+  });
+}
+
+/**
+ * Moves one cheap ship into an empty system next to a player who is not
+ * yet a neighbor, so the two can trade, when the bot has commodities or
+ * an unplayed Trade card.
+ */
+function tradeShipPlan(state: GameState, id: PlayerId, key: SystemKey): Plan | undefined {
+  const player = state.players[id];
+  const holdsTrade = player.strategyCards.some(
+    (c) => !c.exhausted && strategyKind(c.id) === "trade",
+  );
+  if (player.commodities === 0 && !holdsTrade) return undefined;
+  if (presence(state, id).includes(key)) return undefined;
+  const others = state.seating.filter((other) => other !== id);
+  if (others.some((other) => presence(state, other).includes(key))) return undefined;
+  const neighbors = neighborsOf(state, id);
+  const near = new Set([key, ...adjacentSystems(state, key)]);
+  const partners = others.filter(
+    (other) =>
+      !neighbors.includes(other) &&
+      !state.players[other].eliminated &&
+      presence(state, other).some((k) => near.has(k)),
+  );
+  if (partners.length === 0) return undefined;
+  // Worth about the commodities it turns into trade goods.
+  const commodities = holdsTrade ? player.commodityLimit : player.commodities;
+  return oneShipMove(state, id, key, () => 0.6 * commodities + 0.5 * (partners.length - 1));
+}
+
+/**
+ * The cheapest single ship that can move to `key` without stranding cargo,
+ * among the origins where `gainOf` is positive, and the best gain.
+ */
+function oneShipMove(
+  state: GameState,
+  id: PlayerId,
+  key: SystemKey,
+  gainOf: (origin: SystemKey, leaves: boolean) => number,
+): Plan | undefined {
   const rules = moveRulesFor(state, id, key);
-  let best: { gain: number; cost: number; from: SystemKey; type: UnitType } | undefined;
+  let best:
+    | { gain: number; cost: number; from: SystemKey; type: UnitType; gravityDrive: boolean }
+    | undefined;
 
   for (const origin of systemsWithShips(state, id)) {
     if (origin.key === key || origin.commandTokens.includes(id)) continue;
@@ -983,8 +1202,7 @@ function positionPlan(
     const leaves = nonFighterShips(state, origin.key, id) === 1;
     // A lone ship leaving would strand its fighters and ground forces.
     if (leaves && cargo > 0) continue;
-    const after = [...fleets.filter((k) => k !== origin.key || !leaves), key];
-    const gain = positionScore(state, id, after) - before;
+    const gain = gainOf(origin.key, leaves);
     if (gain <= 0) continue;
 
     for (const type of unitTypes(group)) {
@@ -996,21 +1214,28 @@ function positionPlan(
         dockFighterAllowance(state, origin.key, id) -
         capacity;
       if (capacity > 0 && cargo > spare) continue;
-      if (!findRoute(state, origin.key, unit.move, rules)) continue;
+      const how = reachBy(state, id, origin.key, type, rules);
+      if (!how) continue;
       const cost = unit.cost ?? 0;
       if (
         !best ||
         gain > best.gain ||
         (gain === best.gain && cost < best.cost)
       ) {
-        best = { gain, cost, from: origin.key, type };
+        best = { gain, cost, from: origin.key, type, gravityDrive: how === "gravityDrive" };
       }
     }
   }
   if (!best) return undefined;
   return {
     value: best.gain,
-    moves: [{ from: best.from, ships: { [best.type]: 1 } }],
+    moves: [
+      {
+        from: best.from,
+        ships: { [best.type]: 1 },
+        ...(best.gravityDrive ? { gravityDrive: true } : {}),
+      },
+    ],
     cargo: [],
   };
 }
@@ -1130,12 +1355,48 @@ const unitCost = (state: GameState, id: PlayerId, type: UnitType) => {
  * Units to build in a system: carriers until there are enough to expand
  * with, infantry to fill them, then warships, then fighters.
  */
+/** What a recipe can do: add units, within the system's limits and budget. */
+type OrderBuilder = {
+  add: (type: UnitType, count: number, planet?: string) => boolean;
+  /** The planet with the space dock, where ground forces are placed. */
+  dockPlanet?: string;
+};
+
+/** Build recipes the agent chooses between, besides the bot's own build. */
+export const BUILD_RECIPES: { name: string; build: (b: OrderBuilder) => void }[] = [
+  {
+    name: "a carrier filled with infantry",
+    build: (b) => {
+      if (!b.add("carrier", 1)) return;
+      for (let i = 0; i < 2 && b.add("infantry", 2, b.dockPlanet); i++);
+    },
+  },
+  {
+    name: "ground forces",
+    build: (b) => {
+      for (let i = 0; i < 5 && b.add("infantry", 2, b.dockPlanet); i++);
+    },
+  },
+  {
+    name: "warships",
+    build: (b) => {
+      for (let i = 0; i < 5 && ["cruiser", "destroyer"].some((t) => b.add(t as UnitType, 1)); i++);
+    },
+  },
+  {
+    name: "fighters",
+    build: (b) => {
+      for (let i = 0; i < 5 && b.add("fighter", 2); i++);
+    },
+  },
+];
+
 function productionOrders(
   state: GameState,
   id: PlayerId,
   key: SystemKey,
   budget: number,
-  options: { docksOnly?: boolean } = {},
+  options: { docksOnly?: boolean; recipe?: (b: OrderBuilder) => void } = {},
 ): ProductionOrder[] {
   const system = state.systems[key];
   let slots = productionCapacity(state, key, id, options);
@@ -1186,6 +1447,11 @@ function productionOrders(
     return true;
   };
 
+  if (options.recipe) {
+    options.recipe({ add, dockPlanet });
+    return orders;
+  }
+
   let infantryBuilt = 0;
   for (let guard = 0; guard < 20 && slots > 0 && remaining > 0; guard++) {
     const carriers = unitsOnBoard(state, id, "carrier") + (counts.carrier ?? 0);
@@ -1210,6 +1476,34 @@ function productionOrders(
     break;
   }
   return orders;
+}
+
+/**
+ * Builds to choose from in `key`: each recipe, paid with planets first and,
+ * where trade goods alone cover it, with trade goods (so planets stay ready
+ * for an objective). For the Warfare secondary, only docks produce.
+ */
+export function productionChoices(
+  state: GameState,
+  id: PlayerId,
+  key: SystemKey,
+  options: { docksOnly?: boolean } = {},
+): { units: ProductionOrder[]; payment: Payment }[] {
+  const budget = spendable(state, id, "resources");
+  const choices: { units: ProductionOrder[]; payment: Payment }[] = [];
+  const keepPlanets: Reservation = { ...NO_RESERVATION, planets: readyPlanets(state, id) };
+  for (const recipe of BUILD_RECIPES) {
+    const units = productionOrders(state, id, key, budget, { ...options, recipe: recipe.build });
+    if (units.length === 0) continue;
+    const cost = productionCost(state, id, units);
+    for (const reserved of [NO_RESERVATION, keepPlanets]) {
+      const payment = findPayment(state, id, cost, "resources", reserved);
+      if (!payment) continue;
+      if (choices.some((c) => JSON.stringify(c) === JSON.stringify({ units, payment }))) continue;
+      choices.push({ units, payment });
+    }
+  }
+  return choices;
 }
 
 function productionActions(
@@ -1362,6 +1656,7 @@ function primaryPayloads(
   state: GameState,
   id: PlayerId,
   card: string,
+  talk?: TableTalk,
 ): StrategicPayload[] {
   const reserved = reservationOf(state, id);
   const kind = strategyKind(card);
@@ -1404,8 +1699,18 @@ function primaryPayloads(
         })),
         { card: kind, structures: [] },
       ];
-    case "trade":
-      return [{ card: kind }];
+    case "trade": {
+      // Partners refreshed for free owe one back, as the deal that comes
+      // with it says (see talk.ts); those who broke a deal are left out,
+      // and those promised a refresh are let in.
+      const partners = [
+        ...new Set([
+          ...tradePartners(state, id).filter((p) => talk?.trusted(p) ?? true),
+          ...(talk?.promisedRefreshes(id) ?? []),
+        ]),
+      ];
+      return partners.length > 0 ? [{ card: kind, allow: partners }, { card: kind }] : [{ card: kind }];
+    }
     case "warfare": {
       const withShips = Object.values(state.systems)
         .filter((s) => s.commandTokens.includes(id))

@@ -459,10 +459,24 @@ export function Reasoning({ note }: { note: MoveNote }) {
   return (
     <Blockquote p="sm" mt={4} color="violet">
       <Stack gap={6}>
-        <Text size="sm" fw={600}>
-          {note.forced ? "No choice: " : "Chose "}
-          {note.chosen}
-        </Text>
+        {note.chosen && (
+          <Text size="sm" fw={600}>
+            {note.forced ? "No choice: " : "Chose "}
+            {note.chosen}
+          </Text>
+        )}
+        {note.talk && note.talk.length > 0 && (
+          <Stack gap={2}>
+            <Text size="xs" c="dimmed" fw={600}>
+              Table talk
+            </Text>
+            {note.talk.map((line, i) => (
+              <Text key={i} size="xs">
+                {line}
+              </Text>
+            ))}
+          </Stack>
+        )}
         {note.fallback && (
           <Text size="sm" c="orange">
             The agent&apos;s own choice failed ({note.fallback}), so the
@@ -479,15 +493,29 @@ export function Reasoning({ note }: { note: MoveNote }) {
             Plan: {note.plan}
           </Text>
         )}
-        <Group>
-          <Button
-            size="compact-xs"
-            variant="subtle"
-            onClick={() => setShowOptions(!showOptions)}
-          >
-            {showOptions ? "Hide" : "Show"} the {note.options.length} options
-          </Button>
-        </Group>
+        {note.citations && note.citations.length > 0 && (
+          <Stack gap={2}>
+            <Text size="xs" c="dimmed" fw={600}>
+              Guides cited
+            </Text>
+            {note.citations.map((citation) => (
+              <Text key={citation} size="xs" c="dimmed">
+                {citation}
+              </Text>
+            ))}
+          </Stack>
+        )}
+        {note.options.length > 0 && (
+          <Group>
+            <Button
+              size="compact-xs"
+              variant="subtle"
+              onClick={() => setShowOptions(!showOptions)}
+            >
+              {showOptions ? "Hide" : "Show"} the {note.options.length} options
+            </Button>
+          </Group>
+        )}
         {showOptions && (
           <Stack gap={2}>
             {note.options.map((option) => (

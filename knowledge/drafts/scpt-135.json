@@ -1,0 +1,2115 @@
+{
+  "episode": 135,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "Mostly show news and the hosts' 14-point tournament games. The one strategic idea is counter-kingmaking: if someone openly hands the game to another player, the rest of the table can respond by handing it to someone else, which may deter kingmaking.",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Community pirate cold open and show news",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s53",
+          "title": "Matt's 14-point game decided by kingmaking",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s132",
+          "title": "Counter-kingmaking as a deterrent",
+          "kind": "strategy",
+          "summary": "When one player deliberately hands the game to another, the remaining players can answer by giving the win to someone else instead. Hunter suggests that if tables routinely did this, kingmaking would be deterred because it would no longer pay off.",
+          "advice": [
+            {
+              "point": "If a player openly starts handing the game to someone, consider retaliating by helping a different player win; it is the only real counterplay to targeted kingmaking.",
+              "stance": "situational",
+              "subjects": []
+            },
+            {
+              "point": "Hunter thinks a table meta of routine counter-kingmaking would reduce kingmaking overall, but he presents it as an idea to explore rather than something he is promoting.",
+              "stance": "rating",
+              "subjects": []
+            }
+          ],
+          "factions": [],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "general strategy",
+            "trade and diplomacy"
+          ],
+          "requires": [],
+          "concepts": [
+            "kingmaking",
+            "counter-kingmaking",
+            "table meta"
+          ]
+        },
+        {
+          "start": "s149",
+          "title": "Hunter's 14-point game as Mentak",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Mentak Coalition",
+            "L1Z1X Mindnet"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview",
+      "summary": "Mentak's two abilities, Ambush and Pillage, are among the best in the game, giving huge pre-combat fire and a steady trade-good income. The Fourth Moon is now rated one of the best flagships, strong defensively and usable offensively. Both faction technologies are excellent and synergise: Mirror Computing is perhaps the best technology in the game and Salvage Operations is undervalued. The promissory note should rarely be given out.",
+      "chunks": [
+        {
+          "start": "s208",
+          "title": "Starting units and home system",
+          "kind": "strategy",
+          "summary": "Mentak is a one-carrier faction, so getting a second carrier early matters. The single 4-resource home planet comfortably pays for a technology in round one.",
+          "advice": [
+            {
+              "point": "The one-carrier start is a weakness to fix early; plan to get a second carrier in round one.",
+              "stance": "rating",
+              "subjects": [
+                "Mentak Coalition",
+                "Carrier"
+              ]
+            },
+            {
+              "point": "The 4-resource home planet means Mentak can research a technology in round one.",
+              "stance": "rating",
+              "subjects": [
+                "Mentak Coalition"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "setup",
+            "round 1"
+          ],
+          "topics": [
+            "opening",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s221",
+          "title": "Ambush",
+          "kind": "strategy",
+          "summary": "Ambush is one of the best abilities in the game. Stacked with Destroyer II's anti-fighter barrage and PDS II (one tech away from the red-yellow start), Mentak can deal so much fire before combat that it barely needs to fight, especially on defence.",
+          "advice": [
+            {
+              "point": "Ambush is usually used with cruisers, but Destroyer II adds a lot more pre-combat fire against fleets with fighters.",
+              "stance": "recommended",
+              "subjects": [
+                "Ambush",
+                "Destroyer II",
+                "Cruiser"
+              ]
+            },
+            {
+              "point": "Combine PDS II, Destroyer II, cruisers and Ambush for overwhelming pre-fire; set up properly, especially defensively, you hardly have to fight a real space combat.",
+              "stance": "recommended",
+              "subjects": [
+                "Ambush",
+                "PDS II",
+                "Destroyer II"
+              ]
+            },
+            {
+              "point": "The Plasma Scoring and Sarween Tools start leaves Mentak one tech from PDS II all game.",
+              "stance": "rating",
+              "subjects": [
+                "Plasma Scoring",
+                "Sarween Tools",
+                "PDS II"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "combat",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "pre-combat fire"
+          ]
+        },
+        {
+          "start": "s232",
+          "title": "Pillage",
+          "kind": "strategy",
+          "summary": "Pillage is one of the most infamous abilities in the game. Watch every transaction at the table, including ones where no goods change hands, and treat Pillage as a tax you are owed rather than as theft.",
+          "advice": [
+            {
+              "point": "Watch the whole table for every transaction, of any kind, because each one is a Pillage opportunity, even when no goods are exchanged.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "Frame Pillage as a tax (the 'Mentax') that is owed to you rather than as piracy.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "economy",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "pillage tax"
+          ]
+        },
+        {
+          "start": "s242",
+          "title": "Flagship: Fourth Moon",
+          "kind": "strategy",
+          "summary": "The Fourth Moon is one of the best flagships because it hard-counters sustain-damage fleets: Barony of Letnev above all, plus L1Z1X, Sol, Jol-Nar dreadnought fleets and especially Muaat. Matt prefers keeping it home with cruisers and a PDS grid for a near-impregnable defence; Hunter has had success using it offensively with Cruiser IIs.",
+          "advice": [
+            {
+              "point": "The Fourth Moon is one of the best flagships in the game; both hosts have come around to it.",
+              "stance": "rating",
+              "subjects": [
+                "The Fourth Moon"
+              ]
+            },
+            {
+              "point": "It is a direct counter to sustain-damage factions, devastating against Barony of Letnev with Non-Euclidean Shielding, and strong against L1Z1X, Sol, Jol-Nar dreadnought fleets and Muaat.",
+              "stance": "rating",
+              "subjects": [
+                "The Fourth Moon",
+                "Barony of Letnev",
+                "L1Z1X Mindnet",
+                "Federation of Sol",
+                "Universities of Jol-Nar",
+                "Embers of Muaat",
+                "Non-Euclidean Shielding"
+              ]
+            },
+            {
+              "point": "Matt prefers to leave it in the home system with two cruisers and a PDS network (ideally with Graviton Laser System), so nothing gets through and you do not put a point on the board.",
+              "stance": "recommended",
+              "subjects": [
+                "The Fourth Moon",
+                "Graviton Laser System",
+                "PDS"
+              ]
+            },
+            {
+              "point": "Hunter uses it offensively with ordinary Cruiser IIs (and possibly Destroyer IIs) and found he could fight anyone; it only gives up a point if someone can actually win the space battle.",
+              "stance": "situational",
+              "subjects": [
+                "The Fourth Moon",
+                "Cruiser II"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Barony of Letnev",
+            "L1Z1X Mindnet",
+            "Federation of Sol",
+            "Universities of Jol-Nar",
+            "Embers of Muaat"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "faction abilities",
+            "threats and matchups"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "home system defense",
+            "pre-combat fire"
+          ]
+        },
+        {
+          "start": "s279",
+          "title": "Promise of Protection",
+          "kind": "strategy",
+          "summary": "Both hosts have turned against giving out Promise of Protection; only hand it over in a near-perfect situation for a high price. Do not assume you can force the holder to return it: Matt held it as Jol-Nar for nearly a whole game by planning around Mentak's units, and a holder will happily give it up if it becomes a problem.",
+          "advice": [
+            {
+              "point": "Give out Promise of Protection only in a near-perfect scenario and for a very high price.",
+              "stance": "situational",
+              "subjects": [
+                "Promise of Protection"
+              ]
+            },
+            {
+              "point": "Do not use it as a lure expecting to provoke the holder into returning it; a capable holder can plan around ever activating your systems, and it is a much weaker trap than Support for the Throne.",
+              "stance": "avoid",
+              "subjects": [
+                "Promise of Protection",
+                "Support for the Throne"
+              ]
+            },
+            {
+              "point": "Giving it to a trade-heavy faction such as Jol-Nar is especially costly, because they can trade freely without being pillaged.",
+              "stance": "avoid",
+              "subjects": [
+                "Promise of Protection",
+                "Universities of Jol-Nar"
+              ]
+            },
+            {
+              "point": "Because playing it is an action, a holder can use it as a stall.",
+              "stance": "situational",
+              "subjects": [
+                "Promise of Protection"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Universities of Jol-Nar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes",
+            "faction abilities"
+          ],
+          "concepts": [
+            "stall action"
+          ]
+        },
+        {
+          "start": "s308",
+          "title": "Salvage Operations: trade goods on demand",
+          "kind": "strategy",
+          "summary": "Salvage Operations is the lesser faction tech but combos beautifully with Mirror Computing. Its trade good on every combat, win or lose, makes Mentak the only faction that can manufacture trade goods on demand, so it can reliably score trade-good and spending objectives late; send throwaway destroyers into fights to top up.",
+          "advice": [
+            {
+              "point": "Salvage Operations and Mirror Computing are perhaps the best-synergising pair of faction techs in the game; take both.",
+              "stance": "rating",
+              "subjects": [
+                "Salvage Operations",
+                "Mirror Computing"
+              ]
+            },
+            {
+              "point": "When you need trade goods for an objective, launch cheap attacks (for example a lone destroyer) purely to collect Salvage Operations trade goods; winning or losing does not matter.",
+              "stance": "recommended",
+              "subjects": [
+                "Salvage Operations"
+              ]
+            },
+            {
+              "point": "Combined with Pillage you need fewer salvage fights than you expect, but Salvage Operations guarantees you can always reach trade-good objectives if you must.",
+              "stance": "rating",
+              "subjects": [
+                "Salvage Operations",
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "economy",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies",
+            "faction abilities"
+          ],
+          "concepts": [
+            "trade good banking"
+          ]
+        },
+        {
+          "start": "s335",
+          "title": "Salvage Operations: building dreadnoughts at the front",
+          "kind": "strategy",
+          "summary": "Do not build dreadnoughts at home, since Mentak rarely gets Gravity Drive and they cannot keep up. Instead build them on the front line with Salvage Operations after winning a fight that destroyed one, which can even enable a bombardment for Make an Example of Their World and helps hold a newly taken system. The hosts admit they used to undervalue this tech.",
+          "advice": [
+            {
+              "point": "Attack a system containing a dreadnought; if you win, produce a dreadnought there with Salvage Operations before bombardment, which can set up Make an Example of Their World.",
+              "stance": "situational",
+              "subjects": [
+                "Salvage Operations",
+                "Dreadnought",
+                "Make an Example of Their World"
+              ]
+            },
+            {
+              "point": "Avoid building dreadnoughts at home: without Gravity Drive they are too slow to keep up with Mentak's fleets. Wait to get them from Salvage Operations at the front.",
+              "stance": "avoid",
+              "subjects": [
+                "Dreadnought",
+                "Gravity Drive",
+                "Salvage Operations"
+              ]
+            },
+            {
+              "point": "A salvaged dreadnought parked with two cruisers over a newly taken weak system makes a scary defensive fleet.",
+              "stance": "recommended",
+              "subjects": [
+                "Salvage Operations",
+                "Dreadnought",
+                "Cruiser"
+              ]
+            },
+            {
+              "point": "Salvage Operations gives some value every game and is sometimes the thing that saves your game; the hosts previously undervalued it.",
+              "stance": "rating",
+              "subjects": [
+                "Salvage Operations"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s364",
+          "title": "Mirror Computing",
+          "kind": "strategy",
+          "summary": "Mirror Computing is probably the best faction technology and maybe the best tech in the game, because Mentak can generate its own trade goods. It makes spending objectives (16 resources or influence) a cakewalk, but it does not help objectives or cards that count trade goods directly.",
+          "advice": [
+            {
+              "point": "Mirror Computing is probably the best tech in the game for Mentak; unlike E-res Siphons it is fully under your control.",
+              "stance": "rating",
+              "subjects": [
+                "Mirror Computing",
+                "E-res Siphons"
+              ]
+            },
+            {
+              "point": "Its biggest value is objectives: spend-resources and spend-influence objectives become easy, which is the backbone of the late-game plan.",
+              "stance": "recommended",
+              "subjects": [
+                "Mirror Computing",
+                "Amass Wealth",
+                "Centralize Galactic Trade"
+              ]
+            },
+            {
+              "point": "It does not halve trade-good objectives or cards that ask for trade goods (such as Focused Research or Bribery), so plan the full count for those.",
+              "stance": "situational",
+              "subjects": [
+                "Mirror Computing",
+                "Focused Research",
+                "Bribery"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "economy",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "trade good banking"
+          ]
+        },
+        {
+          "start": "s396",
+          "title": "Two commodities",
+          "kind": "strategy",
+          "summary": "Mentak's two commodities barely matter to its economy, but they are its foot in the door to trade so it can make a deal and pillage on top of it.",
+          "advice": [
+            {
+              "point": "Use your small commodity value as an entry point into trade discussions, then pillage on top of the deal.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "economy",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "trade leverage"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Round one strategy cards",
+      "summary": "Mentak must do the Warfare secondary for a second carrier and ideally also research a tech, so Technology is the top pick with Warfare a near-tied second. Leadership is a middle pick for its command tokens, Trade is wildly contextual (second to fifth) depending on Pillage options, Politics is a slow fallback, Construction a fine last pick, and Diplomacy and Imperial are not recommended. The old Cruiser II round one rush via Diplomacy is withdrawn.",
+      "chunks": [
+        {
+          "start": "s404",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one goals: second carrier and a tech",
+          "kind": "strategy",
+          "summary": "As a one-carrier faction Mentak should always do the Warfare secondary to get a second carrier moving in round one. Mentak wants both faction techs (two and three yellow prerequisites) almost every game, so it also wants to research in round one.",
+          "advice": [
+            {
+              "point": "Plan to use the Warfare secondary in round one to build and move a second carrier.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Carrier"
+              ]
+            },
+            {
+              "point": "Plan to research almost every game toward both Salvage Operations and Mirror Computing; Mirror Computing is non-negotiable, and some might prefer Transit Diodes over Salvage Operations.",
+              "stance": "recommended",
+              "subjects": [
+                "Mirror Computing",
+                "Salvage Operations",
+                "Transit Diodes"
+              ]
+            },
+            {
+              "point": "Ideally take Technology and do Warfare in round one.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Warfare"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s423",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is a middle pick, rated higher than usual because Mentak needs command tokens for the Warfare and Technology secondaries. Put at least one token in tactics so both cruisers can move into positions adjacent to many players before Trade resolves, while the carriers take planets.",
+          "advice": [
+            {
+              "point": "Leadership is a middle pick in round one for Mentak, higher than usual, because you need extra tokens for secondaries.",
+              "stance": "rating",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "With Leadership, put at least one new token in tactics: two for carriers to take planets and two for cruisers to move into positions adjacent to many players before Trade is played, making Mentak part of every trade negotiation.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership",
+                "Cruiser",
+                "Pillage"
+              ]
+            },
+            {
+              "point": "Secondaries worth considering with the spare tokens: Warfare (essential), Technology (Neural Motivator is a strong round one tech that leads to Cruiser II in round two), Politics if not getting Neural Motivator, Construction if heading for PDS II. Banking tokens never hurts.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Technology",
+                "Neural Motivator",
+                "Cruiser II",
+                "Politics",
+                "Construction",
+                "PDS II"
+              ]
+            },
+            {
+              "point": "Getting plastic out in round one matters; it can be worth spending a command token just to send a cruiser somewhere it reliably gets one Pillage. With 4 home resources and Sarween Tools, about two trade goods covers both the tech and a carrier.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage",
+                "Cruiser",
+                "Sarween Tools"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s455",
+          "title": "Round one: Diplomacy and the Cruiser II rush",
+          "kind": "strategy",
+          "summary": "The hosts now rate Diplomacy round one at zero, withdrawing their old advice to use a green skip and Diplomacy for Cruiser II in round one. It gives more value to the table than to you, positions the cruisers badly for Pillage and skips Neural Motivator. Send the cruisers to different places instead; even a single ambushing cruiser is scary early.",
+          "advice": [
+            {
+              "point": "Do not take Diplomacy in round one, even as last pick; it gives the table more value than it gives you.",
+              "stance": "avoid",
+              "subjects": [
+                "Diplomacy"
+              ]
+            },
+            {
+              "point": "The round one Cruiser II rush (green skip plus Diplomacy) is flashy fun for casual games but should not be used in competitive games: it hurts your plastic and positioning and means skipping Neural Motivator.",
+              "stance": "avoid",
+              "subjects": [
+                "Cruiser II",
+                "Diplomacy",
+                "Neural Motivator"
+              ]
+            },
+            {
+              "point": "Send your two starting cruisers to different places for Pillage and threat; a lone ambushing cruiser is nearly a coin flip against a dreadnought, and even a draw costs the opponent more.",
+              "stance": "recommended",
+              "subjects": [
+                "Cruiser",
+                "Ambush"
+              ]
+            },
+            {
+              "point": "Even as last pick, Construction is better than Diplomacy, since the red-yellow start gets use out of PDS.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "Diplomacy"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "fighter screen"
+          ]
+        },
+        {
+          "start": "s496",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Politics is a fourth or fifth pick: a slow, safe backup. With it you can skip researching in round one, save command tokens, do the Warfare secondary, and then take Technology first action in round two for Neural Motivator and Cruiser II. Do not sell the speaker token; Mentak does not need the money.",
+          "advice": [
+            {
+              "point": "Politics is a fourth or fifth pick in round one, a slow fallback when the remaining options are poor.",
+              "stance": "rating",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "If you take Politics, skip researching in round one, do the Warfare secondary, and take Technology as your first action in round two for Neural Motivator and Cruiser II.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Technology",
+                "Neural Motivator",
+                "Cruiser II"
+              ]
+            },
+            {
+              "point": "With Politics' action cards you may not need Neural Motivator early and can go Destroyer II before Cruiser II.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Destroyer II",
+                "Neural Motivator"
+              ]
+            },
+            {
+              "point": "Matt would not sell the speaker token from Politics as Mentak, since Pillage provides money anyway.",
+              "stance": "avoid",
+              "subjects": [
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "speaker token sale"
+          ]
+        },
+        {
+          "start": "s522",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Round one: Construction",
+          "kind": "strategy",
+          "summary": "Construction is about a sixth pick and an acceptable last pick. Mentak often has money it cannot spend for lack of production, so a forward dock (Hunter likes an aggressive one next to Mecatol Rex) or Space Dock II helps. Matt prefers two PDS round one, spread onto important planets such as tech-specialty planets, since Mentak's planets are thinly held by infantry.",
+          "advice": [
+            {
+              "point": "Construction is about a sixth pick; Mentak is not afraid of taking it last.",
+              "stance": "rating",
+              "subjects": [
+                "Construction"
+              ]
+            },
+            {
+              "point": "Mentak often gets stuck with unspendable money because of production limits; a forward dock or Space Dock II avoids this.",
+              "stance": "recommended",
+              "subjects": [
+                "Space Dock II",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "Hunter likes a more aggressive forward dock next to Mecatol Rex rather than one just in front of the home system.",
+              "stance": "situational",
+              "subjects": [
+                "Construction",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "Matt prefers placing two PDS in round one, spreading PDS onto important planets (especially tech-specialty planets), since Mentak is not an infantry-heavy faction and Magen Defense Grid rewards structures.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "PDS",
+                "Magen Defense Grid"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "economy"
+          ],
+          "requires": [],
+          "concepts": [
+            "forward dock",
+            "production capacity"
+          ]
+        },
+        {
+          "start": "s547",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Like Hacan and Jol-Nar with their specialties, Mentak would rather not take Trade itself and instead use Pillage to insert itself into others' trades. Round one Trade is wildly contextual (second to fifth pick): take it if you cannot reach any pillage targets, for example because anomalies block your cruisers or your only neighbours are not afraid of them. Matt thinks it gives only about three extra trade goods and the table won't want to trade with you anyway.",
+          "advice": [
+            {
+              "point": "For most of the game, prefer letting others take Trade and use Pillage to lever into their trade deals; inserting yourself is better than starting trades with your weak commodities.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade",
+                "Pillage"
+              ]
+            },
+            {
+              "point": "Round one Trade ranges from second to fifth pick depending on Pillage prospects; if you cannot get any Pillage (no route past an asteroid field without Antimass Deflectors, no wormholes, or only neighbours like Muaat who do not fear a cruiser), take Trade.",
+              "stance": "situational",
+              "subjects": [
+                "Trade",
+                "Pillage",
+                "Antimass Deflectors",
+                "Embers of Muaat"
+              ]
+            },
+            {
+              "point": "If someone else takes Trade in round one, move a cruiser next to them to pillage their transactions.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade",
+                "Pillage",
+                "Cruiser"
+              ]
+            },
+            {
+              "point": "Matt rates round one Trade low for Mentak: about three extra trade goods, other players won't cooperate with you, and you still have to spend tokens to get cruisers out.",
+              "stance": "rating",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "A small upside of Trade is that you can park a cruiser by a neighbour under the cover of wanting to trade.",
+              "stance": "situational",
+              "subjects": [
+                "Trade",
+                "Cruiser"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Emirates of Hacan",
+            "Universities of Jol-Nar",
+            "Embers of Muaat"
+          ],
+          "phases": [
+            "round 1",
+            "any"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "anti-pick faction",
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s594",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is the near-tied second pick. Use it slowly: move the first carrier and a cruiser out, activate home to build a carrier, then play Warfare as the fourth action to remove the token and move the new carrier. Do the Politics secondary if a stall card would hurt the table.",
+          "advice": [
+            {
+              "point": "Warfare is the second-best round one pick for Mentak, nearly tied with Technology.",
+              "stance": "rating",
+              "subjects": [
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Sequence: move the first carrier, move a cruiser, activate home and build a carrier, then play Warfare as the fourth action to move the new carrier.",
+              "stance": "recommended",
+              "subjects": [
+                "Warfare",
+                "Carrier"
+              ]
+            },
+            {
+              "point": "Consider the Politics secondary so a drawn stall action card can disrupt the rest of the table's round one.",
+              "stance": "situational",
+              "subjects": [
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing",
+            "stall action"
+          ]
+        },
+        {
+          "start": "s610",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is the top round one pick for Mentak, but single-tech only: positioning and Pillage income are too thin to justify six resources for a double research. Research once and do the Warfare secondary, which you cannot be stalled out of, and take the Politics secondary.",
+          "advice": [
+            {
+              "point": "Technology is the number one round one pick for Mentak.",
+              "stance": "rating",
+              "subjects": [
+                "Technology"
+              ]
+            },
+            {
+              "point": "Do not double-research in round one; you will rarely pillage enough, and your plastic and position cannot justify the six resources.",
+              "stance": "avoid",
+              "subjects": [
+                "Technology"
+              ]
+            },
+            {
+              "point": "Single-research, then do the Warfare secondary and the Politics secondary; having enough actions means you are not stalled out of Warfare.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Warfare",
+                "Politics"
+              ]
+            },
+            {
+              "point": "Pillage is limited in round one because players trade little, so the free tech plus four resources for plastic is the best value and sets up Cruiser II or PDS II in round two.",
+              "stance": "rating",
+              "subjects": [
+                "Technology",
+                "Pillage",
+                "Cruiser II",
+                "PDS II"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening",
+            "technology"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing"
+          ]
+        },
+        {
+          "start": "s636",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Round one: Imperial",
+          "kind": "strategy",
+          "summary": "Imperial is not recommended in round one, although Mentak is a strong secret-objective faction and would not mind it as a last pick in a four-player game. Construction is still better in almost every case.",
+          "advice": [
+            {
+              "point": "Do not take Imperial in round one; Construction is better in almost every way.",
+              "stance": "avoid",
+              "subjects": [
+                "Imperial",
+                "Construction"
+              ]
+            },
+            {
+              "point": "Mentak scores most secret objectives easily, so Imperial as a last pick in a four-player game is acceptable.",
+              "stance": "situational",
+              "subjects": [
+                "Imperial"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives"
+          ],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Early game problems",
+      "summary": "The second carrier is easy to solve; the real problem is that Mentak starts as the most hated faction at the table. Mentak is weak at late control objectives, so it should score control objectives in rounds two and three while it can. Read how the table reacts to Pillage early and soften it if needed so you can coast to victory later.",
+      "chunks": [
+        {
+          "start": "s646",
+          "title": "The table already dislikes Mentak",
+          "kind": "strategy",
+          "summary": "Mentak's worst early problem is reputation: it starts as the most hated player at the table, worse than Nekro.",
+          "advice": [
+            {
+              "point": "Expect to be the most disliked player from the start; Mentak's presence changes the feel of the game.",
+              "stance": "rating",
+              "subjects": [
+                "Mentak Coalition",
+                "Nekro Virus"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Nekro Virus"
+          ],
+          "phases": [
+            "early"
+          ],
+          "topics": [
+            "threats and matchups",
+            "trade and diplomacy"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s658",
+          "title": "Score control objectives early",
+          "kind": "strategy",
+          "summary": "Mentak is excellent at some hard objectives but weak at control objectives later, since it never fields mass infantry. In rounds two and three, though, Ambush and Cruiser II can grab control objectives faster than almost anyone (like Ghosts), so prioritise them early. A control objective revealed as the last stage one is your worst enemy.",
+          "advice": [
+            {
+              "point": "Prioritise control objectives in rounds two and three, scoring them while you can; later they get hard.",
+              "stance": "recommended",
+              "subjects": [
+                "Cruiser II",
+                "Ambush"
+              ]
+            },
+            {
+              "point": "If a control objective comes out early, plan your game around scoring it; one revealed late in stage one is the worst case.",
+              "stance": "situational",
+              "subjects": []
+            },
+            {
+              "point": "Mentak's game is front-loaded: the tension is in the early and mid game, then Mirror Computing lets you coast late.",
+              "stance": "rating",
+              "subjects": [
+                "Mirror Computing"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Ghosts of Creuss"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "objectives",
+            "general strategy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "early control scoring"
+          ]
+        },
+        {
+          "start": "s687",
+          "title": "Read the table's reaction to Pillage",
+          "kind": "strategy",
+          "summary": "With unfamiliar players, use rounds one and two to read how each player reacts to Pillage and adapt. If the table will punish you for a few trade goods, soften your Pillage to reduce heat. Some players pillage relentlessly on principle, which can be right but many metas punish it.",
+          "advice": [
+            {
+              "point": "In rounds one and two, read how each player feels about Pillage, especially with strangers or in tournaments, and adapt your pillaging for the rest of the game.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "If a table will flip on you over pillaging, soften your Pillage to reduce the heat so you can coast into the late game.",
+              "stance": "situational",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "Always pillaging regardless of reaction can be correct, but many metas will crush you for it; Hunter treats Pillage as about half a point of leverage he is willing to forfeit.",
+              "stance": "situational",
+              "subjects": [
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "faction abilities",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "table meta",
+            "threat perception",
+            "pillage restraint"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Technology",
+      "summary": "Mirror Computing, Cruiser II and Salvage Operations are the backbone and essentially required. The recommended path is traditional red-yellow, boosted by Magen Defense Grid and Destroyer II for huge pre-combat fire. A community-proposed blue-yellow path (Gravity Drive, fast Mirror Computing reinvested in big fleets, Carrier II) is interesting but untested and probably suits expert players and 14-point games better.",
+      "chunks": [
+        {
+          "start": "s717",
+          "title": "Core techs: Mirror Computing, Cruiser II, Salvage Operations",
+          "kind": "strategy",
+          "summary": "Three techs are essentially required: Mirror Computing above all, Cruiser II (with Ambush it lets infantry sneak onto lightly defended planets), and Salvage Operations, which keeps generating trade goods so opponents cannot shut you out by refusing to trade.",
+          "advice": [
+            {
+              "point": "Mirror Computing is mandatory; there is no way to play Mentak without it.",
+              "stance": "rating",
+              "subjects": [
+                "Mirror Computing"
+              ]
+            },
+            {
+              "point": "Cruiser II with Ambush lets you slip infantry onto undefended or lightly defended planets; it gives enormous utility.",
+              "stance": "rating",
+              "subjects": [
+                "Cruiser II",
+                "Ambush"
+              ]
+            },
+            {
+              "point": "Salvage Operations means the table cannot lock you out of trade-good objectives by stopping trade or skipping a strategy card, as often happens with stage two objectives.",
+              "stance": "rating",
+              "subjects": [
+                "Salvage Operations"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies",
+            "faction abilities"
+          ],
+          "concepts": [
+            "trade agreement lockdown"
+          ]
+        },
+        {
+          "start": "s735",
+          "title": "Tech skips and skipping Neural Motivator",
+          "kind": "strategy",
+          "summary": "A yellow skip gets you to Mirror Computing faster. Skipping Graviton Laser System or Neural Motivator is acceptable but each is good in its own right. Skipping Neural Motivator makes most sense if you went first into PDS II, Destroyer II or a Mirror Computing sprint, but Cruiser II shines most in rounds two and three.",
+          "advice": [
+            {
+              "point": "A yellow skip speeds up Mirror Computing.",
+              "stance": "recommended",
+              "subjects": [
+                "Mirror Computing"
+              ]
+            },
+            {
+              "point": "Skipping Graviton Laser System or Neural Motivator is fine but consider the late-game cost; both are good techs.",
+              "stance": "situational",
+              "subjects": [
+                "Graviton Laser System",
+                "Neural Motivator"
+              ]
+            },
+            {
+              "point": "Skip Neural Motivator only if you went a different direction first (PDS II, Destroyer II or a Mirror Computing sprint); Hunter prefers getting Cruiser II early since it shines in rounds two and three.",
+              "stance": "situational",
+              "subjects": [
+                "Neural Motivator",
+                "Cruiser II",
+                "PDS II",
+                "Destroyer II",
+                "Mirror Computing"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "early"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "tech skip"
+          ]
+        },
+        {
+          "start": "s751",
+          "scope": {"needs": ["codex1"], "voidedBy": [], "note": "about Magen Defense Grid Ω (Codex I), which works from any structure; the base card needs units with PLANETARY SHIELD"},
+          "title": "Magen Defense Grid and Destroyer II",
+          "kind": "strategy",
+          "summary": "Magen Defense Grid and Destroyer II are the new way to round out red-yellow Mentak and help with two-techs-in-two-colours style objectives. Magen makes thinly held docks, PDS planets and the home system sturdier; Destroyer II plus the Fourth Moon makes Mentak as deadly in space as Barony or L1Z1X. Dacxive Animators and Infantry II rarely pay off.",
+          "advice": [
+            {
+              "point": "Magen Defense Grid makes Mentak's one-infantry planets, forward dock, PDS planets and home system much harder to take, which matters for a hated faction.",
+              "stance": "recommended",
+              "subjects": [
+                "Magen Defense Grid"
+              ]
+            },
+            {
+              "point": "Destroyer II keeps Mentak competitive in space; with the Fourth Moon, Mentak can be as deadly as Barony, L1Z1X or Nekro, because Mentak's strength is the hits it deals.",
+              "stance": "recommended",
+              "subjects": [
+                "Destroyer II",
+                "The Fourth Moon",
+                "Barony of Letnev",
+                "L1Z1X Mindnet",
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "Dacxive Animators and Infantry II rarely pay off for Mentak, which takes planets by the path of least resistance and has no answer to being overwhelmed on the ground.",
+              "stance": "rating",
+              "subjects": [
+                "Dacxive Animators",
+                "Infantry II"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Barony of Letnev",
+            "L1Z1X Mindnet",
+            "Nekro Virus"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "pre-combat fire",
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s776",
+          "title": "Counting Mentak's pre-combat fire",
+          "kind": "strategy",
+          "summary": "A small fleet of one Cruiser II and two Destroyer IIs with two PDS in range can roll ten or more dice before the opponent rolls, clearing fighters with anti-fighter barrage and going through sustain damage. Defensively, with Graviton Laser System and the Fourth Moon, it is even more extreme.",
+          "advice": [
+            {
+              "point": "A cruiser plus two Destroyer IIs with PDS support is a strong strike force that kills fighters and lands hits before combat starts.",
+              "stance": "rating",
+              "subjects": [
+                "Destroyer II",
+                "Cruiser II",
+                "PDS II",
+                "Ambush"
+              ]
+            },
+            {
+              "point": "Defensively add Graviton Laser System and the Fourth Moon so pre-combat hits land on real ships and sustain damage is denied.",
+              "stance": "recommended",
+              "subjects": [
+                "Graviton Laser System",
+                "The Fourth Moon"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "pre-combat fire",
+            "fighter screen"
+          ]
+        },
+        {
+          "start": "s797",
+          "title": "PDS II and early tech objectives",
+          "kind": "strategy",
+          "summary": "PDS II is good but optional. If the first objectives are two-techs-in-two-colours and two unit upgrades, Hunter would go Cruiser II and Destroyer II, while Matt would play slowly through red-yellow (PDS II, Magen, Destroyer II, Graviton) before Cruiser II. Both stress not getting Mirror Computing too late; Matt would score one tech objective early and bank the other for around round four.",
+          "advice": [
+            {
+              "point": "PDS II is good but you do not need it.",
+              "stance": "rating",
+              "subjects": [
+                "PDS II"
+              ]
+            },
+            {
+              "point": "Against early two-colour and unit-upgrade objectives, Hunter favours Cruiser II plus Destroyer II; Matt would slow-roll red-yellow (PDS II, then Magen Defense Grid, Destroyer II and Graviton) before activating the cruisers, though both find the choice hard.",
+              "stance": "situational",
+              "subjects": [
+                "Cruiser II",
+                "Destroyer II",
+                "PDS II",
+                "Magen Defense Grid",
+                "Graviton Laser System",
+                "Diversify Research"
+              ]
+            },
+            {
+              "point": "Do not chase so many early techs that you still lack Mirror Computing around round five.",
+              "stance": "avoid",
+              "subjects": [
+                "Mirror Computing"
+              ]
+            },
+            {
+              "point": "When two tech objectives appear early, plan to score one early and bank the other for a planned later round rather than sprinting both.",
+              "stance": "recommended",
+              "subjects": [
+                "Diversify Research"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s834",
+          "title": "Experimental blue-yellow Mentak",
+          "kind": "strategy",
+          "summary": "Community players (Green Flame, Patience is a Virtue, Pink) propose blue-yellow: get Gravity Drive and Mirror Computing fast and reinvest the doubled trade goods in large fleets to win stage two area-control objectives. The hosts prefer the riskier mid-game Cruiser II plan, see blue-yellow as untested and better suited to 14-point games or tables that reinforce well, and Hunter answers the late-game fleet worry with the Fourth Moon plus carriers of fighters for cruisers to pick up.",
+          "advice": [
+            {
+              "point": "The community case: Cruiser II lacks capacity and hit-soakers, so rush Gravity Drive and Mirror Computing and spend trade goods on carriers, fighters and dreadnoughts to dominate stage two control objectives.",
+              "stance": "situational",
+              "subjects": [
+                "Gravity Drive",
+                "Mirror Computing",
+                "Cruiser II",
+                "Dreadnought"
+              ]
+            },
+            {
+              "point": "The hosts still prefer mid-game Cruiser II Mentak that steals planets; they consider blue-yellow untested, more suited to 14-point games, or to groups that defend everything quickly.",
+              "stance": "rating",
+              "subjects": [
+                "Cruiser II",
+                "Mirror Computing"
+              ]
+            },
+            {
+              "point": "Hunter's answer to late-game weakness: use the Fourth Moon offensively supported by cruisers, and keep carriers with fighters nearby that cruisers can pull into battles to absorb hits.",
+              "stance": "recommended",
+              "subjects": [
+                "The Fourth Moon",
+                "Cruiser II",
+                "Carrier",
+                "Fighter"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies",
+            "faction abilities"
+          ],
+          "concepts": [
+            "fighter screen"
+          ]
+        },
+        {
+          "start": "s879",
+          "title": "Carrier II over Dreadnought II, and the hosts' verdict",
+          "kind": "strategy",
+          "summary": "If going blue-yellow, Carrier II is the bigger upgrade than Dreadnought II, since Dreadnought II can be stopped by PDS and fast carriers bring fighters to soak hits with the cruisers. The hosts find the idea interesting but would need to see it work; they like that red-yellow plays to Mentak's unique strengths. War Suns on Mentak seem fun but probably not good.",
+          "advice": [
+            {
+              "point": "In a blue-yellow build, prioritise Carrier II over Dreadnought II so fighters move with the cruisers to soak hits and take planets.",
+              "stance": "situational",
+              "subjects": [
+                "Carrier II",
+                "Dreadnought II"
+              ]
+            },
+            {
+              "point": "Dreadnought II is not unanswerable: a PDS stops it bombarding.",
+              "stance": "rating",
+              "subjects": [
+                "Dreadnought II",
+                "PDS"
+              ]
+            },
+            {
+              "point": "The hosts like red-yellow Mentak because its abilities make that path uniquely viable; a dreadnought Mentak is arguably just playing another faction.",
+              "stance": "rating",
+              "subjects": [
+                "Mentak Coalition"
+              ]
+            },
+            {
+              "point": "War Suns on Mentak are fun but probably not good.",
+              "stance": "rating",
+              "subjects": [
+                "War Sun"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Pillage and trade diplomacy",
+      "summary": "To pillage without making the table hate you, Hunter settles with the Trade player for a lump sum a couple of trade goods below what pillaging every transaction would yield, which is quick and treats Pillage as having a real cost. Skip pillaging during unresolved deals or when the table is coordinating against a rival. Pillage tokens (promises not to pillage) are popular online; the hosts are wary of committing to them but will turn a small debt into pillage forgiveness.",
+      "chunks": [
+        {
+          "start": "s908",
+          "title": "Settle Pillage with the Trade player for a lump sum",
+          "kind": "strategy",
+          "summary": "Let someone else take Trade, then offer the Trade holder a quick deal: compute what you would get by pillaging every transaction and ask for about two trade goods less. You earn almost as much as the Trade player without slowing the game or drawing the table's ire. Like Yin's Devotion or Yssaril's stall tactics, Pillage has a cost, here other players' anger, and should be weighed each time.",
+          "advice": [
+            {
+              "point": "Approach the Trade holder, estimate the trade goods you would get by pillaging every transaction, and ask for two less up front instead of pillaging; it saves time and goodwill.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage",
+                "Trade"
+              ]
+            },
+            {
+              "point": "Avoid long, drawn-out Pillage calculations; every minute others wait builds heat against you.",
+              "stance": "avoid",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "Treat Pillage like Devotion or Yssaril's stall: it has a cost (how angry people get), so judge each use rather than always pillaging.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage",
+                "Devotion"
+              ]
+            },
+            {
+              "point": "This approach is for TTS games with strangers or groups whose attitude to Pillage you do not know; in groups that treat Pillage as automatic, ignore it.",
+              "stance": "situational",
+              "subjects": [
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Yin Brotherhood",
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "faction abilities",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "pillage restraint",
+            "table meta",
+            "threat perception",
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s968",
+          "title": "When not to pillage",
+          "kind": "strategy",
+          "summary": "Do not pillage someone you have an unresolved non-binding deal with, such as a point-for-control-objective trade (which Mentak should seek since it is weak at control), because it gives them reason to flip. Also hold off when the table is coordinating to hurt your rival, for example with an agenda. If the table plays purely to optimise against each other, pillage as much as possible.",
+          "advice": [
+            {
+              "point": "Seek victory-point trades for control objectives, since Mentak is weak at them.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Do not pillage a player while an unresolved non-binding deal with them is pending; it gives them leverage to flip.",
+              "stance": "avoid",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "When the table is working to stop your main rival (for example with an agenda), do not pillage those players; encourage them instead.",
+              "stance": "avoid",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "If the group does not care and everyone plays purely to optimise, pillage as many times as possible.",
+              "stance": "situational",
+              "subjects": [
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "non-binding deals",
+            "pillage restraint",
+            "table meta"
+          ]
+        },
+        {
+          "start": "s987",
+          "title": "Pillage tokens",
+          "kind": "strategy",
+          "summary": "Pillage tokens, popular on TTS, are promises not to pillage someone later in exchange for something now. They are cheap leverage, since you often would not have pillaged anyway, but Matt dislikes them because they rely heavily on a debt meta.",
+          "advice": [
+            {
+              "point": "Pillage tokens can buy planets or other favours for a promise that may cost nothing, since you are not always going to pillage anyway.",
+              "stance": "situational",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "Matt dislikes pillage tokens because they depend on a debt meta, which gets awkward at tables that do not play that way.",
+              "stance": "rating",
+              "subjects": [
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "pillage token",
+            "debt meta",
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s1006",
+          "title": "Turning a debt into pillage forgiveness",
+          "kind": "strategy",
+          "summary": "Hunter avoids handing out pillage tokens in advance because they can force him to break a non-binding promise late, when he needs one trade good to win. Instead, when he owes someone a trade good (for example for a refresh), he offers to not pillage them in place of paying it, after the fact.",
+          "advice": [
+            {
+              "point": "When you owe someone a trade good, offer afterwards to skip pillaging them instead of paying; people usually accept.",
+              "stance": "recommended",
+              "subjects": [
+                "Pillage"
+              ]
+            },
+            {
+              "point": "Avoid promising pillage immunity up front; late in the game you may need that one trade good and would have to break your word.",
+              "stance": "avoid",
+              "subjects": [
+                "Pillage"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "pillage token",
+            "debt meta",
+            "non-binding deals"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mid and late game",
+      "summary": "In the mid game use Cruiser II, Ambush and action cards to take control objectives while they are vulnerable, score secret objectives, finish both faction techs, and build a trade-good bank for stage two spending objectives. Late, use the spread-out cruisers to deny other players' stage twos, secure the home system, and Hunter likes holding the speaker token with repeated Politics while stalling the game until the right objectives appear, keeping watch on the neighbours who benefit.",
+      "chunks": [
+        {
+          "start": "s1039",
+          "title": "Mid-game: control objectives and secret objectives",
+          "kind": "strategy",
+          "summary": "Combine pre-combat fire, Ambush, Cruiser II and action cards to take control objectives while they are vulnerable. Mentak is great at secret objectives, especially four-of-a-colour tech and space-control secrets, but planet-control secrets are hard and worth discarding. Unlike some, do not hold an easy secret in reserve, since Mentak tends to weaken late.",
+          "advice": [
+            {
+              "point": "Use Ambush, Cruiser II and action cards together to seize control-objective planets while they are lightly defended.",
+              "stance": "recommended",
+              "subjects": [
+                "Ambush",
+                "Cruiser II"
+              ]
+            },
+            {
+              "point": "Space-control secrets (both wormholes, ships adjacent to anomalies, ships next to a neighbour) and four-techs-of-a-colour are easy for Mentak.",
+              "stance": "rating",
+              "subjects": [
+                "Become the Gatekeeper",
+                "Master the Laws of Physics"
+              ]
+            },
+            {
+              "point": "Planet-control secrets (four industrial, four hazardous, ships around Mecatol Rex) are hard; consider swapping them for a new secret.",
+              "stance": "situational",
+              "subjects": [
+                "Mine Rare Metals",
+                "Monopolize Production",
+                "Occupy the Seat of the Empire"
+              ]
+            },
+            {
+              "point": "Do not hold an easy secret objective in reserve as Mentak, since your position tends to weaken late and one Fourth Moon only protects one system.",
+              "stance": "avoid",
+              "subjects": [
+                "The Fourth Moon"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "objectives",
+            "combat",
+            "action cards"
+          ],
+          "requires": [
+            "faction abilities",
+            "action cards"
+          ],
+          "concepts": [
+            "early control scoring"
+          ]
+        },
+        {
+          "start": "s1067",
+          "title": "Finish faction techs and bank trade goods",
+          "kind": "strategy",
+          "summary": "By mid-game get Salvage Operations and Mirror Computing if you have not, so you never need Technology in the final round. Matt advocates building a trade-good stack (around eight going into round five) rather than spending everything on plastic, so the first stage two spending or trade-good objective is safe. Two-tech objectives and late control objectives remain the weak points.",
+          "advice": [
+            {
+              "point": "If you still lack Salvage Operations or Mirror Computing in the mid game, get them now rather than waiting.",
+              "stance": "recommended",
+              "subjects": [
+                "Salvage Operations",
+                "Mirror Computing"
+              ]
+            },
+            {
+              "point": "Bank trade goods (around eight by round five) instead of spending all Mirror Computing value on plastic, so the first stage two is secured; with 4 home resources even six suffices for a 16-resource objective.",
+              "stance": "recommended",
+              "subjects": [
+                "Mirror Computing",
+                "Centralize Galactic Trade",
+                "Amass Wealth"
+              ]
+            },
+            {
+              "point": "Stage two tech and control objectives are Mentak's weak points, though with a good action-card hand some control objectives are still stealable around round five.",
+              "stance": "situational",
+              "subjects": []
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "economy",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": [
+            "trade good banking"
+          ]
+        },
+        {
+          "start": "s1087",
+          "title": "Denying other players' stage twos",
+          "kind": "strategy",
+          "summary": "Mentak is uniquely good at stopping others from scoring hard stage two objectives: cruisers already spread across the map for Pillage can snipe carriers or flagships at short notice. Sitting on a trade-good stockpile, you can extend the game round after round until an objective you can score appears.",
+          "advice": [
+            {
+              "point": "Use cruisers spread across the map to snipe carriers, flagships or other pieces opponents need for stage two objectives.",
+              "stance": "recommended",
+              "subjects": [
+                "Cruiser II"
+              ]
+            },
+            {
+              "point": "With a trade-good stockpile, keep denying others' objectives to extend the game until the right objective comes out for you.",
+              "stance": "recommended",
+              "subjects": []
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "objectives",
+            "combat",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "objective denial",
+            "trade good banking"
+          ]
+        },
+        {
+          "start": "s1099",
+          "title": "Holding the speaker token with Politics",
+          "kind": "strategy",
+          "summary": "From around round four or five, Hunter takes Politics every round to keep the speaker token, since with stage twos banked he needs no other strategy card until the final round. He spends his actions on disruptive action cards and Cruiser II or Fourth Moon strikes to stop others scoring. It makes games long and is not foolproof (it failed against a dominant L1Z1X), but wins many games, especially combined with coordinating the table against leaders.",
+          "advice": [
+            {
+              "point": "Once your stage twos are banked, take Politics repeatedly to control the speaker token, since you need no other card until the last round.",
+              "stance": "situational",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "Spend your actions on disruptive action cards and Cruiser II or Fourth Moon attacks that wreck opponents' ability to score.",
+              "stance": "recommended",
+              "subjects": [
+                "Cruiser II",
+                "The Fourth Moon"
+              ]
+            },
+            {
+              "point": "Combine this with coordinating the table against whoever is ahead all game; it works poorly when one player is already far ahead with a secure home system.",
+              "stance": "situational",
+              "subjects": []
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "L1Z1X Mindnet"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "strategy cards",
+            "objectives",
+            "general strategy"
+          ],
+          "requires": [
+            "action cards",
+            "faction abilities"
+          ],
+          "concepts": [
+            "speaker order control",
+            "objective denial",
+            "stall action"
+          ]
+        },
+        {
+          "start": "s1133",
+          "title": "Secure the home system late",
+          "kind": "strategy",
+          "summary": "Once you have a decent trade-good stockpile, build plastic to defend your home system and make yourself impervious; around round five bring the Fourth Moon home. Mentak can stop control objectives only before infantry lands; after that options are limited to the Salvage Operations dreadnought trick.",
+          "advice": [
+            {
+              "point": "After locking in a trade-good stockpile, build up defences in the home system.",
+              "stance": "recommended",
+              "subjects": []
+            },
+            {
+              "point": "Around round five, pull the Fourth Moon back home and use it defensively.",
+              "stance": "recommended",
+              "subjects": [
+                "The Fourth Moon"
+              ]
+            },
+            {
+              "point": "Deny control objectives before opponents land infantry; once infantry is down, Mentak has few answers besides building a dreadnought with Salvage Operations to bombard.",
+              "stance": "situational",
+              "subjects": [
+                "Salvage Operations"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "objectives"
+          ],
+          "requires": [
+            "faction abilities",
+            "faction technologies"
+          ],
+          "concepts": [
+            "home system defense",
+            "objective denial"
+          ]
+        },
+        {
+          "start": "s1146",
+          "title": "Speaker control: watch your neighbours",
+          "kind": "strategy",
+          "summary": "Controlling the speaker token means passing it to someone at times, so make sure that player cannot win. Matt likes holding the speaker all game, which means keeping the players to your left (effectively first or second pick each round) and right (first pick every other round) in check; Hunter thinks Mentak's early game does not suit holding it from round one.",
+          "advice": [
+            {
+              "point": "When you must pass the speaker token, give it only to someone who cannot win.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "If you hold the speaker token by repeated Politics, keep the players on your left and right in check, since they get the best picks.",
+              "stance": "recommended",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "Matt likes holding the speaker token from round one; Hunter thinks Mentak is not a good candidate for that because of its early game.",
+              "stance": "situational",
+              "subjects": [
+                "Politics"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition"
+          ],
+          "phases": [
+            "late",
+            "any"
+          ],
+          "topics": [
+            "strategy cards",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "speaker order control"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Wrap-up",
+      "summary": "The hosts drop the round one Cruiser II rush in favour of this plan. Mentak has the tools of a top faction but its strategy is narrow and meta-dependent, which is why it underperforms in tournaments; the guide should crush local groups but is not foolproof, and blue-yellow may suit elite players.",
+      "chunks": [
+        {
+          "start": "s1157",
+          "title": "Why Mentak underperforms and who this guide is for",
+          "kind": "strategy",
+          "summary": "Mentak has all the tools of a strong faction but underperforms because players mishandle the meta around Pillage, and because its plan is narrower than true top factions like Sol or Jol-Nar. This guide is for reliable games in local groups; elite players may get more from blue-yellow.",
+          "advice": [
+            {
+              "point": "Mentak's weakness is that its winning strategies are specific rather than broadly strong like Sol or Jol-Nar, and players often fail to manage the table meta.",
+              "stance": "rating",
+              "subjects": [
+                "Mentak Coalition",
+                "Federation of Sol",
+                "Universities of Jol-Nar"
+              ]
+            },
+            {
+              "point": "This red-yellow Cruiser II plan is the reliable standard approach; blue-yellow is more for top players who can manage its demands.",
+              "stance": "rating",
+              "subjects": [
+                "Cruiser II",
+                "Mirror Computing"
+              ]
+            }
+          ],
+          "factions": [
+            "Mentak Coalition",
+            "Federation of Sol",
+            "Universities of Jol-Nar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "table meta"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s1185",
+          "title": "Patreon thanks, votes and streaming news",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Mintak": "Mentak",
+    "MenTech": "Mentak",
+    "Mentech": "Mentak",
+    "Mentec": "Mentak",
+    "Mentac": "Mentak",
+    "Mentag": "Mentak",
+    "Bentach": "Mentak",
+    "Men Tech": "Mentak",
+    "Extra": "Xxcha",
+    "plasma scoring": "Plasma Scoring",
+    "sarween tools": "Sarween Tools",
+    "Sarwen": "Sarween Tools",
+    "fourth moon": "The Fourth Moon",
+    "mirror computer": "Mirror Computing",
+    "Megan Defense Grid": "Magen Defense Grid",
+    "Megan": "Magen Defense Grid",
+    "Majin": "Magen Defense Grid",
+    "Daxa": "Dacxive Animators",
+    "Dax have": "Dacxive Animators",
+    "E-Rez": "E-res Siphons",
+    "E-Res siphons": "E-res Siphons",
+    "Isarl": "Yssaril",
+    "Asaral": "Yssaril",
+    "Sorrel": "Yssaril",
+    "L1Z-Winx": "L1Z1X",
+    "Jolnar": "Jol-Nar",
+    "Joel Narrow": "Jol-Nar",
+    "Mecca Tol": "Mecatol Rex",
+    "Sar": "Saar",
+    "Star": "Saar",
+    "Seoul": "Sol",
+    "Duke Lucum": "Duke Lukem",
+    "Tekken Four Colors": "two tech in four colors",
+    "Warsaw": "War Sun"
+  }
+}

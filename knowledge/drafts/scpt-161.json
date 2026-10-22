@@ -1,0 +1,1663 @@
+{
+  "episode": 161,
+  "recordedWith": [],
+  "sections": [
+    {
+      "title": "Intro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s0",
+          "title": "Hunter's birthday and the Extra Life stream",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s62",
+          "title": "Introducing Nekro, Magi's guide and faction tech combos",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Faction overview: starting units, abilities, flagship and promissory note",
+      "summary": "Nekro is a strong faction because Propagation turns every would-be research into command tokens while Technological Singularity gives an unthrottled stream of tech from destroying units, so they get ahead on both command tokens and technology. The Alastor is one of the best and most must-build flagships, anchoring a huge home infantry stack. Galactic Threat should be used on for/against agendas. Antivirus is situationally useful to others but rarely traded.",
+      "chunks": [
+        {
+          "start": "s93",
+          "title": "Starting units and home system",
+          "kind": "strategy",
+          "summary": "Nekro's single-planet 4/0 home system is a plus: four resources pay for units from round one, since resources are not needed for research.",
+          "advice": [
+            {
+              "point": "The single four-resource home planet is a good production base; it is liked by the hosts even though spending on tech works differently for Nekro.",
+              "stance": "rating",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "setup"
+          ],
+          "topics": [
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s108",
+          "title": "Galactic Threat",
+          "kind": "strategy",
+          "summary": "Use the prediction on a for/against agenda for the best odds; skip the first agenda if it is an elect agenda. It can also be used to scare players off an option, though it is less threatening than an Imperial or Technology Rider.",
+          "advice": [
+            {
+              "point": "Aim the prediction at a for/against agenda, a coin flip, rather than an elect-planet or elect-player agenda, which drastically lowers your odds.",
+              "stance": "recommended",
+              "subjects": [
+                "Galactic Threat"
+              ]
+            },
+            {
+              "point": "If the first agenda is not for/against, basically do not use the ability on it, unless you are running blocker to scare people away from one outcome.",
+              "stance": "situational",
+              "subjects": [
+                "Galactic Threat"
+              ]
+            },
+            {
+              "point": "As a blocking threat it is weak: Nekro copying an existing tech scares people less than a rider granting a brand-new one.",
+              "stance": "rating",
+              "subjects": [
+                "Galactic Threat",
+                "Imperial Rider",
+                "Technology Rider"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "agendas"
+          ],
+          "requires": [
+            "faction abilities",
+            "agendas"
+          ],
+          "concepts": [
+            "blocker pick"
+          ]
+        },
+        {
+          "start": "s130",
+          "title": "Technological Singularity",
+          "kind": "strategy",
+          "summary": "Each space combat and each separate ground combat is its own combat, so an invasion of a multi-planet system can yield several techs. Nekro gets lots of tech once it starts winning fights, and this is its only source of tech.",
+          "advice": [
+            {
+              "point": "Invade multi-planet systems to get one tech per ground combat in addition to the space combat; the more fights you win, the more tech you gain.",
+              "stance": "recommended",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "combat",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s137",
+          "title": "Propagation and Nekro's twin advantages",
+          "kind": "strategy",
+          "summary": "Propagation is the key to why Nekro feels busted: resources convert into command tokens and influence can all go to Leadership, so Nekro never runs short. With no throttle on tech speed beyond how often they destroy units, Nekro gets ahead on both command tokens and technology.",
+          "advice": [
+            {
+              "point": "Propagation is the core of Nekro's strength; treat command tokens as abundant and spend influence on Leadership rather than worrying about tech costs.",
+              "stance": "rating",
+              "subjects": [
+                "Propagation",
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Nekro's tech pace is limited only by how often it destroys enemy units, not by winning whole fights.",
+              "stance": "rating",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "faction abilities",
+            "economy",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s151",
+          "title": "The Alastor flagship",
+          "kind": "strategy",
+          "summary": "Raw stats are poor, but the ability makes it a fan favourite, top-three flagship and one of the top must-builds. Build at least two infantry every time you produce at home; late game a flagship plus a big home infantry stack is almost impossible to break.",
+          "advice": [
+            {
+              "point": "The Alastor is a top-tier flagship and a must-build despite weak raw stats (Matt calls it probably the best; Hunter puts it top three).",
+              "stance": "rating",
+              "subjects": [
+                "The Alastor"
+              ]
+            },
+            {
+              "point": "Stockpile infantry at home all game by adding at least two infantry every time you build there; a flagship and a big infantry stack defends the home system against almost anything.",
+              "stance": "recommended",
+              "subjects": [
+                "The Alastor",
+                "Infantry"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "home system defense",
+            "fighter screen"
+          ]
+        },
+        {
+          "start": "s169",
+          "title": "Antivirus promissory note",
+          "kind": "strategy",
+          "summary": "Antivirus is okay: very Nekro-specific, but the constant threat of Technological Singularity makes it useful to holders of juicy techs. It is rarely traded, because the common Support for the Throne swap already shields one player and the note's value to a target can exceed anything they would pay.",
+          "advice": [
+            {
+              "point": "Antivirus is an okay note; it is most useful to a player who will own a tech Nekro badly wants, such as Jol-Nar with E-Res Siphons.",
+              "stance": "rating",
+              "subjects": [
+                "Antivirus",
+                "E-Res Siphons",
+                "Universities of Jol-Nar"
+              ]
+            },
+            {
+              "point": "Be wary of giving Antivirus out when you will also swap Support for the Throne with someone: you may end the game with two players you cannot take tech from.",
+              "stance": "avoid",
+              "subjects": [
+                "Antivirus",
+                "Support for the Throne"
+              ]
+            },
+            {
+              "point": "In practice it is rarely traded, since the player who wants it values it more than Nekro can accept in payment.",
+              "stance": "rating",
+              "subjects": [
+                "Antivirus"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Universities of Jol-Nar"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes",
+            "faction abilities"
+          ],
+          "concepts": [
+            "support for the throne swap",
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s188",
+          "title": "Valefar Assimilators",
+          "kind": "strategy",
+          "summary": "Remember that a copied faction tech lives on the Valefar Assimilator card itself, which matters for exhausting and replacing it. Copying the card onto the table, as on Tabletop Simulator, hides this.",
+          "advice": [
+            {
+              "point": "Track copied faction techs as the Valefar Assimilator card's own text, not as a separate copy of the other faction's card; this governs exhausting and swapping.",
+              "stance": "recommended",
+              "subjects": [
+                "Valefar Assimilator X",
+                "Valefar Assimilator Y"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Strategy cards in round one",
+      "summary": "Trade and Leadership are Nekro's bread-and-butter cards for most of the game. In round one Technology is a light top pick because it cannot be stalled by Warfare, gives three command tokens and frees resources for units, with Trade close behind. Leadership is a versatile third, Warfare a middling fourth, Politics low because Nekro is not a custodians faction, and Diplomacy and Construction tied at the bottom with Hunter leaning Construction for a forward dock.",
+      "chunks": [
+        {
+          "start": "s199",
+          "title": "Trade and Leadership as staples",
+          "kind": "strategy",
+          "summary": "Pay attention to the specific scenario as much as general advice. Over most of the game Trade and Leadership are Nekro's bread and butter: Trade feeds the plastic advantage and Leadership compounds the command token surplus.",
+          "advice": [
+            {
+              "point": "For most of the game, favour Trade and Leadership: Trade turns into money for plastic since you need nothing for tech, and Leadership doubles down on command tokens.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade",
+                "Leadership"
+              ]
+            },
+            {
+              "point": "Nekro rarely runs out of command tokens; Hunter won a game with a slice that had essentially no influence.",
+              "stance": "rating",
+              "subjects": [
+                "Nekro Virus",
+                "Propagation"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "strategy cards",
+            "economy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "plastic advantage",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s217",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Technology",
+          "kind": "strategy",
+          "summary": "Technology is the light top pick: Nekro only needs to avoid a Warfare stall, and Technology's three command tokens make that impossible. Send the dreadnought and carrier out together, ideally towards Mecatol Rex, build a second carrier at home for the side system, and save the four resources for units.",
+          "advice": [
+            {
+              "point": "Technology is the round one top pick (narrowly): it makes you unstallable by Warfare and the three command tokens let you save all four resources for units.",
+              "stance": "recommended",
+              "subjects": [
+                "Technology",
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Plan to become a two-carrier, four-infantry faction: you start with one carrier and two infantry and need a second carrier and two more infantry.",
+              "stance": "recommended",
+              "subjects": [
+                "Carrier",
+                "Infantry"
+              ]
+            },
+            {
+              "point": "Do not split the dreadnought and carrier in round one; send them together, preferably towards Mecatol Rex, and build a second carrier at home to take the side system.",
+              "stance": "recommended",
+              "subjects": [
+                "Dreadnought",
+                "Carrier"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "opening"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "2C4I opening",
+            "stall action",
+            "plastic advantage",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s248",
+          "title": "Round one: Trade",
+          "kind": "strategy",
+          "summary": "Trade is a close second to Technology; some argue Nekro should simply take Trade every round. It extends the plastic lead and banks trade goods for negotiating, because modern Nekro buys early tech through deals rather than striking neighbours early as in TI3; aggression is a mid-to-late-game thing.",
+          "advice": [
+            {
+              "point": "Trade is close to Technology in round one and good all game; taking it every round is a defensible simple plan.",
+              "stance": "rating",
+              "subjects": [
+                "Trade"
+              ]
+            },
+            {
+              "point": "Bank trade goods early to pay neighbours when you destroy their units for tech, instead of attacking them outright early; save real aggression for mid to late game.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade",
+                "Technological Singularity"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "strategy cards",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "plastic advantage",
+            "trade good banking",
+            "tech nibble"
+          ]
+        },
+        {
+          "start": "s267",
+          "title": "What a nibble is",
+          "kind": "strategy",
+          "summary": "A nibble is sending a small force, such as a cruiser or two, to pick off a single cheap unit like a lone destroyer or fighter, just to trigger a tech copy. It is pitched as harmless to the victim, unlike killing a carrier that carries their infantry.",
+          "advice": [
+            {
+              "point": "Nibble by sending a cruiser or two against a lone destroyer or fighter to get a tech without wrecking the victim's game.",
+              "stance": "recommended",
+              "subjects": [
+                "Cruiser",
+                "Technological Singularity"
+              ]
+            },
+            {
+              "point": "Do not call attacking a carrier a nibble: it costs the victim their transport and genuinely hurts them.",
+              "stance": "avoid",
+              "subjects": [
+                "Carrier"
+              ]
+            },
+            {
+              "point": "Negotiate nibbles: ask a neighbour to leave a unit you can kill, pointing out that otherwise you will fight their whole stack with a superior fleet.",
+              "stance": "recommended",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "combat",
+            "trade and diplomacy",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech nibble",
+            "plastic advantage",
+            "threat perception"
+          ]
+        },
+        {
+          "start": "s292",
+          "title": "Round one: Leadership",
+          "kind": "strategy",
+          "summary": "Leadership is the third pick, below Technology and Trade, for its versatility given unknowns such as a forward dock spot or wanting Politics or Diplomacy secondaries. It keeps you unstallable. Hold the extra tokens flexible in round one and move one to fleet supply at status for a round two build or attack.",
+          "advice": [
+            {
+              "point": "Leadership is a mid-tier third pick round one: versatile and unstallable, but Technology does the same plus more.",
+              "stance": "rating",
+              "subjects": [
+                "Leadership",
+                "Technology"
+              ]
+            },
+            {
+              "point": "Do not put a token in fleet supply right away in round one; keep options open and add it in the status phase for a big build or strike in round two.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership"
+              ]
+            },
+            {
+              "point": "A small fleet of destroyers picking off fighters is not crazy for Nekro, especially with Destroyer II.",
+              "stance": "situational",
+              "subjects": [
+                "Destroyer",
+                "Destroyer II"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards"
+          ],
+          "requires": [],
+          "concepts": [
+            "command token economy",
+            "forward dock"
+          ]
+        },
+        {
+          "start": "s327",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Warfare card, which Thunder's Edge replaces"},
+          "title": "Round one: Warfare",
+          "kind": "strategy",
+          "summary": "Warfare is mid-pack. The optimal opening sends dreadnought and carrier together, which leaves nothing to stall with, and Nekro gets more from the Warfare secondary than the primary. Its Mecatol setup only works if Politics went before Warfare, since Nekro rarely has early Gravity Drive.",
+          "advice": [
+            {
+              "point": "Warfare is a middling pick for Nekro: the best opening uses the ships Warfare would stall with, and other players benefit more from it; doing the secondary is better than the primary.",
+              "stance": "rating",
+              "subjects": [
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Take Warfare for a Mecatol Rex setup only if Politics has already been picked before it and you can afford the custodians token; otherwise prefer Trade, Technology or Leadership.",
+              "stance": "situational",
+              "subjects": [
+                "Warfare",
+                "Politics",
+                "Mecatol Rex"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol"
+          ],
+          "requires": [],
+          "concepts": [
+            "secondary timing",
+            "custodians rush",
+            "speaker order control"
+          ]
+        },
+        {
+          "start": "s357",
+          "title": "Round one: Politics",
+          "kind": "strategy",
+          "summary": "Politics is low: Nekro is not a custodians faction without reliable Gravity Drive and has no pressing need for action cards. The best case is when a Ghosts of Creuss neighbour sends an opening destroyer somewhere it cannot retreat, giving a guaranteed Gravity Drive nibble, or can be negotiated into one.",
+          "advice": [
+            {
+              "point": "Politics is a low pick: Nekro cannot reliably get Gravity Drive for a Mecatol rush and needs nothing specific from action cards.",
+              "stance": "rating",
+              "subjects": [
+                "Politics"
+              ]
+            },
+            {
+              "point": "Take Politics to set up Mecatol only if you can see a guaranteed early Gravity Drive, e.g. nibbling a Ghosts of Creuss opening destroyer that cannot retreat.",
+              "stance": "situational",
+              "subjects": [
+                "Politics",
+                "Gravity Drive",
+                "Ghosts of Creuss"
+              ]
+            },
+            {
+              "point": "Retreats spoil nibbles; target units that cannot retreat, or negotiate (e.g. offer Ghosts trades and promise to take only their Gravity Drive).",
+              "stance": "recommended",
+              "subjects": [
+                "Technological Singularity",
+                "Gravity Drive"
+              ]
+            },
+            {
+              "point": "Hunter, as the Ghosts in that spot, would demand Nekro's Support for the Throne in return; Matt thinks that asks too much.",
+              "stance": "situational",
+              "subjects": [
+                "Support for the Throne",
+                "Ghosts of Creuss"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Ghosts of Creuss"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "mecatol",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "custodians rush",
+            "tech nibble"
+          ]
+        },
+        {
+          "start": "s393",
+          "scope": {"needs": [], "voidedBy": ["te"], "note": "about the base Construction card, which Thunder's Edge replaces"},
+          "title": "Round one: Diplomacy versus Construction",
+          "kind": "strategy",
+          "summary": "Diplomacy and Construction tie at the bottom, with Hunter leaning Construction for a reliable early forward dock. A big Diplomacy refresh is win-more for a faction that will get plastic anyway, and its secondary lets others build up against you. PDS hits give no tech, so place Construction's PDS to protect the forward dock rather than at home.",
+          "advice": [
+            {
+              "point": "Diplomacy and Construction are tied as the bottom picks; Hunter usually prefers Construction for a reliable early forward dock.",
+              "stance": "rating",
+              "subjects": [
+                "Diplomacy",
+                "Construction"
+              ]
+            },
+            {
+              "point": "A seven-resource Diplomacy refresh is win-more for Nekro, which is not desperate for early plastic, and Diplomacy can fall flat; it is a gamble while Construction is steady.",
+              "stance": "avoid",
+              "subjects": [
+                "Diplomacy"
+              ]
+            },
+            {
+              "point": "If you take Construction, put a PDS with the forward dock, not on the home system, which the flagship plan already defends.",
+              "stance": "recommended",
+              "subjects": [
+                "Construction",
+                "PDS",
+                "Space Dock"
+              ]
+            },
+            {
+              "point": "PDS and bombardment hits happen outside combat rounds and yield no tech; you want in-combat hits such as anti-fighter barrage, so PDS works against your goals.",
+              "stance": "rating",
+              "subjects": [
+                "PDS",
+                "PDS II",
+                "Technological Singularity"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "round 1"
+          ],
+          "topics": [
+            "strategy cards",
+            "expansion"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "forward dock",
+            "Hunter's Law",
+            "win more",
+            "magic christmas land",
+            "pre-combat fire"
+          ]
+        },
+        {
+          "start": "s458",
+          "title": "Early goals: infantry, carriers and the first tech",
+          "kind": "strategy",
+          "summary": "Avoid sending the dreadnought out with a single infantry; get to two carriers and four infantry using Warfare's secondary. Having no tech after round two is acceptable. Spread cruisers out for nibbles and anticipate which techs neighbours will get.",
+          "advice": [
+            {
+              "point": "Do not send the dreadnought out with a single infantry; build the carrier and two infantry and avoid being stalled out of the Warfare secondary.",
+              "stance": "recommended",
+              "subjects": [
+                "Dreadnought",
+                "Carrier",
+                "Warfare"
+              ]
+            },
+            {
+              "point": "Coming out of round two with no tech is fine.",
+              "stance": "rating",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            },
+            {
+              "point": "Spread cruisers (or destroyers) out early and position them near neighbours whose upcoming techs you want.",
+              "stance": "recommended",
+              "subjects": [
+                "Cruiser",
+                "Destroyer"
+              ]
+            },
+            {
+              "point": "Modern Nekro is played as an economic powerhouse that pays for tech, not the TI3-style always-hostile attacker.",
+              "stance": "rating",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "opening",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "2C4I opening",
+            "tech nibble"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Technologies to copy",
+      "summary": "There is no tech path; take good tech where you can. Gravity Drive is the top target, ideally by round two. Destroyer II is an auto-nibbler, Fleet Logistics is a great tech for double strikes, and Infantry II pairs with The Alastor's home stack. Understand the unit-upgrade stacking and Valefar Assimilator exhaust rules.",
+      "chunks": [
+        {
+          "start": "s485",
+          "title": "Gravity Drive first",
+          "kind": "strategy",
+          "summary": "Nekro has no tech path, just good tech. The first goal is to find who has or will have Gravity Drive and get cruisers in range to copy it, ideally by round two, since it is the only mobility help until neighbours get unit upgrades.",
+          "advice": [
+            {
+              "point": "Make Gravity Drive the first tech target: identify who will get it and position cruisers to copy it, ideally by round two.",
+              "stance": "recommended",
+              "subjects": [
+                "Gravity Drive",
+                "Cruiser"
+              ]
+            },
+            {
+              "point": "Do not plan a tech path as Nekro; look for good techs on the table.",
+              "stance": "recommended",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "early"
+          ],
+          "topics": [
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech nibble",
+            "tech path"
+          ]
+        },
+        {
+          "start": "s499",
+          "title": "Destroyer II",
+          "kind": "strategy",
+          "summary": "Destroyer II reliably kills a fighter with its barrage, so even a single one sent at a full fleet will probably nibble a tech. A destroyer plus a command token is cheap for Nekro. Avoid systems covered by PDS.",
+          "advice": [
+            {
+              "point": "Copy Destroyer II early: a single Destroyer II sent at any stack with fighters is an auto-nibbler that almost guarantees a tech.",
+              "stance": "recommended",
+              "subjects": [
+                "Destroyer II",
+                "Technological Singularity"
+              ]
+            },
+            {
+              "point": "Do not send a lone destroyer into a system with a PDS screen.",
+              "stance": "avoid",
+              "subjects": [
+                "Destroyer II",
+                "PDS"
+              ]
+            },
+            {
+              "point": "Command tokens are cheap for Nekro, which is why spending a token to send one destroyer for a tech is a good trade (Magi's two resources equals three influence math derives partly from Nekro).",
+              "stance": "rating",
+              "subjects": [
+                "Propagation"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech nibble",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s520",
+          "title": "Fleet Logistics",
+          "kind": "strategy",
+          "summary": "Fleet Logistics is lower on the list but one of the best techs in the game. Nekro sometimes uses it once a game for a first-action double strike; otherwise Nekro often stalls and acts after others pass.",
+          "advice": [
+            {
+              "point": "Fleet Logistics is great for a round-opening double strike on two targets, and surplus command tokens mean you still have actions left afterwards.",
+              "stance": "situational",
+              "subjects": [
+                "Fleet Logistics"
+              ]
+            },
+            {
+              "point": "Its value for Nekro is uneven because Nekro often stalls and acts after everyone passes.",
+              "stance": "rating",
+              "subjects": [
+                "Fleet Logistics"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "technology",
+            "combat"
+          ],
+          "requires": [],
+          "concepts": [
+            "double action turn",
+            "stall action"
+          ]
+        },
+        {
+          "start": "s531",
+          "title": "Infantry II with The Alastor",
+          "kind": "strategy",
+          "summary": "Infantry II is not essential but combines very well with The Alastor: infantry become a huge cheap cruiser fleet in space, and dead infantry often return home to refill the stack, so after round three you barely need to build at home.",
+          "advice": [
+            {
+              "point": "Infantry II pairs very well with The Alastor home defence; grab it when available but it is not a must.",
+              "stance": "situational",
+              "subjects": [
+                "Infantry II",
+                "The Alastor"
+              ]
+            },
+            {
+              "point": "With Infantry II, build infantry everywhere and let casualties refill the home stack; once The Alastor is home you may never need to build there again if you have a good forward dock.",
+              "stance": "recommended",
+              "subjects": [
+                "Infantry II",
+                "The Alastor",
+                "Space Dock"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "home system defense",
+            "forward dock"
+          ]
+        },
+        {
+          "start": "s547",
+          "title": "Story: the unbreakable home stack",
+          "kind": "strategy",
+          "summary": "In a remembered tournament game the whole table teamed against a winning Nekro holding Mecatol Rex and home, but attacking Nekro's units elsewhere only fed the Infantry II home stack, so they could not find a way to stop it.",
+          "advice": [
+            {
+              "point": "With The Alastor and Infantry II, losses elsewhere reinforce home, so you can reach positions the table cannot break even when ganged up on.",
+              "stance": "rating",
+              "subjects": [
+                "The Alastor",
+                "Infantry II"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "combat",
+            "threats and matchups"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "home system defense"
+          ]
+        },
+        {
+          "start": "s565",
+          "title": "Copying stacked unit upgrades",
+          "kind": "strategy",
+          "summary": "Read the Nekro sections of the rules reference. A faction unit upgrade copied on top of a generic one (e.g. Exotrireme II over Dreadnought II) counts as a single unit upgrade for objectives, and you revert to the generic one if the faction tech is replaced.",
+          "advice": [
+            {
+              "point": "Stacking a copied faction upgrade on the same unit's generic upgrade counts only once toward unit-upgrade objectives; do not count it twice.",
+              "stance": "avoid",
+              "subjects": [
+                "Dreadnought II",
+                "Exotrireme II",
+                "Valefar Assimilator X"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Sardakk N'orr"
+          ],
+          "phases": [
+            "any"
+          ],
+          "topics": [
+            "technology",
+            "objectives"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s577",
+          "title": "Valefar exhaust tricks with Mageon Implants",
+          "kind": "strategy",
+          "summary": "Exhausting a copied tech exhausts the Valefar card. You can re-copy the same faction tech onto the other unexhausted Valefar to use it twice in a round, which matters for desperate final-round schemes, but re-copying onto the already-exhausted card does not refresh it.",
+          "advice": [
+            {
+              "point": "For a last-round scheme, move an exhausted copied tech like Mageon Implants to the other, unexhausted Valefar Assimilator by fighting its owner again to use it twice.",
+              "stance": "situational",
+              "subjects": [
+                "Valefar Assimilator X",
+                "Valefar Assimilator Y",
+                "Mageon Implants"
+              ]
+            },
+            {
+              "point": "Re-copying a tech onto a Valefar card you already exhausted this round does not let you use it again.",
+              "stance": "avoid",
+              "subjects": [
+                "Valefar Assimilator X",
+                "Mageon Implants"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "technology",
+            "faction abilities"
+          ],
+          "requires": [
+            "faction technologies"
+          ],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Trading and metagame",
+      "summary": "Nekro's metagame centres on paying for nibbles. Hunter pays around two to four trade goods only when the target can retreat, and simply attacks units that cannot. Matt goes further and argues against paying when you hold the advantage, while Hunter defends the nice, paying Nekro as viable and values being upfront to avoid table gang-ups. Nekro's Support for the Throne is unusually valuable.",
+      "chunks": [
+        {
+          "start": "s601",
+          "title": "Paying for nibbles",
+          "kind": "strategy",
+          "summary": "If a unit cannot retreat, Hunter just destroys it without paying. If it can, he offers money for it to stand and fight, opening at two trade goods and going up to four. Pay up front rather than making payment contingent on the kill; binding per-instance or non-binding deals both work. Nekro's Support for the Throne is very valuable because breaking it costs Nekro a point.",
+          "advice": [
+            {
+              "point": "When the target unit cannot retreat and you can win, just attack it without paying.",
+              "stance": "recommended",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            },
+            {
+              "point": "When the target can retreat, pay it to stand and fight: open around two trade goods and go up to four.",
+              "stance": "situational",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            },
+            {
+              "point": "Do not make payment contingent on actually destroying the unit; pay for the non-retreat and win the fight yourself. A binding per-instance payment or a non-binding up-front deal both work.",
+              "stance": "recommended",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            },
+            {
+              "point": "Nekro's Support for the Throne and ceasefire are among the most valuable in the game, since attacking a holder for tech costs Nekro a point; use that to trade.",
+              "stance": "rating",
+              "subjects": [
+                "Support for the Throne",
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "After round one Hunter mostly takes Trade and Leadership every round, either stalling or building plastic.",
+              "stance": "recommended",
+              "subjects": [
+                "Trade",
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "faction abilities",
+            "strategy cards"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "tech nibble",
+            "non-binding deals",
+            "support for the throne swap",
+            "plastic advantage",
+            "stall action"
+          ]
+        },
+        {
+          "start": "s648",
+          "title": "Scary Nekro versus nice Nekro",
+          "kind": "strategy",
+          "summary": "Compared with Saar, Nekro has more command tokens and can abandon its home system behind the Alastor stack, so it is inherently scarier. Matt argues against always paying and pretending to be nice; Hunter thinks the nice, paying Nekro is viable and stresses being upfront so the table does not gang up, though both agree not to overpay when there is no leverage.",
+          "advice": [
+            {
+              "point": "Do not pay for every kill out of goodness; when you hold the advantage, take it, soften the blow by explaining you only want the tech, and do not send so much that you swallow them (Matt).",
+              "stance": "recommended",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            },
+            {
+              "point": "Hunter disagrees in part: paying for everything is a viable nice-Nekro style, small payments may buy goodwill, and being upfront early and mid game avoids the whole table turning on you.",
+              "stance": "situational",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "Both hosts agree people overpay for moral points that net nothing; do not negotiate when there is no leverage on you.",
+              "stance": "avoid",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "Nekro is scarier than Clan of Saar: more command tokens and a self-defending home let it push everything to the front lines.",
+              "stance": "rating",
+              "subjects": [
+                "Nekro Virus",
+                "Clan of Saar",
+                "The Alastor"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Clan of Saar"
+          ],
+          "phases": [
+            "early",
+            "mid"
+          ],
+          "topics": [
+            "trade and diplomacy",
+            "threats and matchups"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "threat perception",
+            "controlled aggression",
+            "trade leverage",
+            "plastic advantage",
+            "table talk"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Agenda phase",
+      "summary": "Use Galactic Threat on outcomes the table already wants and frame it as a win-win, inviting a likely-voter to let you copy a tech instead of losing plastic to a nibble. Once you are ahead it gets treated like a poison rider, but it can also cut players out of a vote or run blocker on scary faction techs.",
+      "chunks": [
+        {
+          "start": "s696",
+          "title": "Galactic Threat in the agenda phase",
+          "kind": "strategy",
+          "summary": "Predict the outcome most of the table wants, then pitch the prediction as a win-win: a player gives you a tech by voting rather than losing a unit to a nibble. When you are far ahead, people treat it as poison; you can exploit that to cut someone out of a vote or block scary techs.",
+          "advice": [
+            {
+              "point": "Predict the outcome the table clearly wants and offer a likely voter the deal of giving you their tech by vote instead of losing plastic to a planned nibble; the win-win tone has worked better than playing it like a rider.",
+              "stance": "recommended",
+              "subjects": [
+                "Galactic Threat"
+              ]
+            },
+            {
+              "point": "Once you are ahead on tech, players will treat your prediction like a poison Imperial Rider and avoid voting with you.",
+              "stance": "situational",
+              "subjects": [
+                "Galactic Threat",
+                "Imperial Rider"
+              ]
+            },
+            {
+              "point": "Use the prediction aggressively to cut someone out of a vote, e.g. on Shard of the Throne predict for the Barony of Letnev so they must choose between voting for themselves and giving you their faction tech.",
+              "stance": "situational",
+              "subjects": [
+                "Galactic Threat",
+                "Shard of the Throne",
+                "Barony of Letnev",
+                "Non-Euclidean Shielding"
+              ]
+            },
+            {
+              "point": "Run blocker when you know which techs the table fears you getting, such as faction techs that change your faction like the Arborec's Letani Warrior II.",
+              "stance": "situational",
+              "subjects": [
+                "Galactic Threat",
+                "Letani Warrior II",
+                "Arborec"
+              ]
+            },
+            {
+              "point": "Nekro otherwise has little to do in the agenda phase.",
+              "stance": "rating",
+              "subjects": [
+                "Galactic Threat"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Barony of Letnev",
+            "Arborec"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "agendas",
+            "faction abilities",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "faction abilities",
+            "agendas"
+          ],
+          "concepts": [
+            "blocker pick",
+            "tech nibble",
+            "trade leverage"
+          ]
+        },
+        {
+          "start": "s735",
+          "title": "Cat attack",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Mid and late game",
+      "summary": "Mid game, scoring is easy and the goal is to park The Alastor with an infantry stack at home, freeing the fleet to range across the board, and to finish off anyone you commit to attacking. Late game Nekro is probably the best space-risk faction and also excellent at stage two objectives, able to win holding only Mecatol Rex, home and one enemy home, with Leadership stalls taking control objectives. The base game has little answer to Nekro short of table-wide coordination.",
+      "chunks": [
+        {
+          "start": "s742",
+          "title": "Mid game: home stack and stalling",
+          "kind": "strategy",
+          "summary": "Spend objectives come easily and Nekro can stall the table out and take whatever planets control objectives need; a round five Leadership stall is terrifying. Get The Alastor and an infantry stack home so the rest of the fleet can go forward.",
+          "advice": [
+            {
+              "point": "In the mid game get The Alastor into your home system with a stack of infantry, then send all other ships out for a forward plastic advantage.",
+              "stance": "recommended",
+              "subjects": [
+                "The Alastor",
+                "Infantry"
+              ]
+            },
+            {
+              "point": "Use surplus command tokens to stall the table and take planets for control objectives late in the round; a round five Leadership stall is especially strong.",
+              "stance": "recommended",
+              "subjects": [
+                "Leadership"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "objectives",
+            "general strategy",
+            "combat"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "home system defense",
+            "stall action",
+            "plastic advantage",
+            "command token economy"
+          ]
+        },
+        {
+          "start": "s761",
+          "title": "Finish the job",
+          "kind": "strategy",
+          "summary": "Do not go all-in on a round three space-risk whim, but if the game forces you to go after someone, finish them. Hunter regretted pulling back from a weak Yssaril, who then sat behind with a full action card hand to play against him.",
+          "advice": [
+            {
+              "point": "Do not decide in round three to just play space risk without a reason.",
+              "stance": "avoid",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "If you commit to attacking someone, finish the job; your spare command tokens and plastic let you afford the extra actions, and your home is safe meanwhile.",
+              "stance": "recommended",
+              "subjects": [
+                "Nekro Virus",
+                "The Alastor"
+              ]
+            },
+            {
+              "point": "Pulling back from a crippled Yssaril leaves a bitter player with a large action card hand to use against you.",
+              "stance": "avoid",
+              "subjects": [
+                "Yssaril Tribes"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Yssaril Tribes"
+          ],
+          "phases": [
+            "mid"
+          ],
+          "topics": [
+            "combat",
+            "threats and matchups"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": [
+            "controlled aggression",
+            "nothing to lose"
+          ]
+        },
+        {
+          "start": "s781",
+          "title": "Late game: space risk and stage two objectives",
+          "kind": "strategy",
+          "summary": "Nekro is probably the best space-risk faction, likely above L1Z1X and Barony once the unknown tech haul is counted. It is also among the best at stage two objectives thanks to economy, command tokens and stalling for control objectives, so it can catch up after a too-aggressive mid game and need not score every stage one.",
+          "advice": [
+            {
+              "point": "Nekro is probably the best space-risk faction late game, likely above L1Z1X Mindnet and Barony of Letnev.",
+              "stance": "rating",
+              "subjects": [
+                "Nekro Virus",
+                "L1Z1X Mindnet",
+                "Barony of Letnev"
+              ]
+            },
+            {
+              "point": "Lean on stage two objectives: stall others out and take big control objectives like six planets of one trait; this lets you recover from an overly aggressive mid game.",
+              "stance": "recommended",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "L1Z1X Mindnet",
+            "Barony of Letnev"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "objectives",
+            "combat",
+            "threats and matchups"
+          ],
+          "requires": [],
+          "concepts": [
+            "stall action",
+            "win from behind"
+          ]
+        },
+        {
+          "start": "s801",
+          "title": "Two technologies in four colours",
+          "kind": "strategy",
+          "summary": "The objective to own two technologies in each of four colours is easy for Nekro only if the table collectively owns enough of each colour; often nobody has a second yellow or red tech, making it unscorable for Nekro.",
+          "advice": [
+            {
+              "point": "Before relying on the two-techs-in-four-colours objective, check that other players actually own enough techs in each colour (yellow and red are commonly missing).",
+              "stance": "situational",
+              "subjects": [
+                "Technological Singularity"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "objectives",
+            "technology"
+          ],
+          "requires": [
+            "faction abilities"
+          ],
+          "concepts": []
+        },
+        {
+          "start": "s817",
+          "title": "Winning from three systems",
+          "kind": "strategy",
+          "summary": "With spend-style objectives Nekro can win holding only Mecatol Rex, its home and one chewed-up enemy home, because its economy is locked in and fleets there can still take control objectives, even ones it does not yet qualify for. Hunter made a four-planet swing for six planets of one trait by stalling.",
+          "advice": [
+            {
+              "point": "Late game you only need Mecatol Rex, your home and one conquered home system: from there, strong fleets can go take the control objectives you still need.",
+              "stance": "recommended",
+              "subjects": [
+                "Mecatol Rex"
+              ]
+            },
+            {
+              "point": "Stall out the table, then make a big planet swing for a control objective at round's end.",
+              "stance": "recommended",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "Overall arc: grow the plastic lead in the mid game through bullying or negotiating, then spend it on whatever late objectives require.",
+              "stance": "recommended",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus"
+          ],
+          "phases": [
+            "late"
+          ],
+          "topics": [
+            "objectives",
+            "mecatol",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "swing round",
+            "stall action",
+            "plastic advantage"
+          ]
+        },
+        {
+          "start": "s830",
+          "title": "Why the table rarely stops Nekro",
+          "kind": "strategy",
+          "summary": "The meta has largely accepted Nekro's lead like Jol-Nar's tech lead; the best counter others use is charging Nekro for kills to drain its trade goods. Nekro is not unstoppable and can overreach, but at a steady pace (tech from about round three, focus on economy and plastic) it is usually in a winning position.",
+          "advice": [
+            {
+              "point": "As an opponent, charge Nekro for every kill to drain its trade goods; base game otherwise has little answer short of table-wide coordination.",
+              "stance": "situational",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "Do not bite off more than you can chew by chaining home system invasions; keep a steady pace of tech from around round three while focusing on economy and plastic.",
+              "stance": "avoid",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            },
+            {
+              "point": "Nekro is in a game-winning scoring position most games; the risk is others scoring out first.",
+              "stance": "rating",
+              "subjects": [
+                "Nekro Virus"
+              ]
+            }
+          ],
+          "factions": [
+            "Nekro Virus",
+            "Universities of Jol-Nar"
+          ],
+          "phases": [
+            "mid",
+            "late"
+          ],
+          "topics": [
+            "threats and matchups",
+            "general strategy"
+          ],
+          "requires": [],
+          "concepts": [
+            "threat perception",
+            "plastic advantage",
+            "tenth point problem"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Community feedback",
+      "summary": "A listener suggests selling the Ghosts of Creuss promissory note for a commodity or two and then paying the buyer to play it for you; the hosts like the mentality but warn it is not safe, since the buyer can simply keep the note.",
+      "chunks": [
+        {
+          "start": "s864",
+          "title": "Ghosts errata: selling the Creuss IFF",
+          "kind": "strategy",
+          "summary": "Sell the Creuss IFF for one or two commodities, then pay the holder to use it as you want, so you are paid either way. The hosts like it in round one but warn it depends on the buyer, timing and neighbours, and the buyer may just hold it for the late game.",
+          "advice": [
+            {
+              "point": "Selling Creuss IFF cheaply and then paying the holder to play it for you is a useful round one mentality: you are paid either way.",
+              "stance": "situational",
+              "subjects": [
+                "Creuss IFF",
+                "Ghosts of Creuss"
+              ]
+            },
+            {
+              "point": "It is not a safe bet: the buyer may simply keep the note, especially with Lodor or Quann in their slice, so price it with that in mind.",
+              "stance": "rating",
+              "subjects": [
+                "Creuss IFF"
+              ]
+            }
+          ],
+          "factions": [
+            "Ghosts of Creuss"
+          ],
+          "phases": [
+            "round 1",
+            "early"
+          ],
+          "topics": [
+            "promissory notes",
+            "trade and diplomacy"
+          ],
+          "requires": [
+            "promissory notes"
+          ],
+          "concepts": [
+            "commodity wash",
+            "non-binding deals",
+            "table meta"
+          ]
+        },
+        {
+          "start": "s894",
+          "title": "Playing Arborec next",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    },
+    {
+      "title": "Outro",
+      "summary": "",
+      "chunks": [
+        {
+          "start": "s901",
+          "title": "Galactic Council, Extra Life and show news",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s967",
+          "title": "Prophecy of Kings spoilers: new system and Nekro hero",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        },
+        {
+          "start": "s1030",
+          "title": "Extra Life hot wings goal and sign-off",
+          "kind": "banter",
+          "summary": "",
+          "advice": [],
+          "factions": [],
+          "phases": [],
+          "topics": [],
+          "requires": [],
+          "concepts": []
+        }
+      ]
+    }
+  ],
+  "nameFixes": {
+    "Phantasy Flight": "Fantasy Flight",
+    "Necrovirus": "Nekro Virus",
+    "Necro": "Nekro",
+    "Valifar": "Valefar",
+    "Valafar": "Valefar",
+    "Veilfar": "Valefar",
+    "Elaster": "The Alastor",
+    "Alistair": "The Alastor",
+    "Isarl": "Yssaril",
+    "Isaral": "Yssaril",
+    "Asaril": "Yssaril",
+    "Asarl": "Yssaril",
+    "Assaral": "Yssaril",
+    "Asarul": "Yssaril",
+    "Magion": "Mageon",
+    "Magian": "Mageon",
+    "Priyarata": "previous errata",
+    "Mecca Tol": "Mecatol",
+    "Makatol Rex": "Mecatol Rex",
+    "Mechital Rex": "Mecatol Rex",
+    "MechTall Rex": "Mecatol Rex",
+    "Arborak": "Arborec",
+    "Arborc": "Arborec",
+    "Joel Narrows": "Jol-Nar",
+    "Jolnar": "Jol-Nar",
+    "Kwan": "Quann",
+    "NES": "Non-Euclidean Shielding",
+    "Latani 2": "Letani Warrior II",
+    "Majin": "Magen Defense Grid",
+    "Necker": "Nekro"
+  }
+}

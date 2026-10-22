@@ -30,6 +30,8 @@ function parseNote(value: unknown): MoveNote | undefined {
     (note.fallback !== undefined && !text(note.fallback)) ||
     !Array.isArray(note.options) ||
     !note.options.every(text) ||
+    (note.talk !== undefined &&
+      (!Array.isArray(note.talk) || !note.talk.every(text))) ||
     JSON.stringify(note).length > MAX_NOTE_LENGTH
   ) {
     return undefined;
@@ -40,6 +42,7 @@ function parseNote(value: unknown): MoveNote | undefined {
     plan: note.plan as string | undefined,
     options: note.options as string[],
     fallback: note.fallback as string | undefined,
+    talk: note.talk as string[] | undefined,
   };
 }
 

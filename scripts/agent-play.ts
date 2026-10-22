@@ -1,23 +1,59 @@
 /**
- * Plays one game with an agent seat against scripted bots and writes the
- * replay log to games/.
+ * Plays one game with an agent seat (or several) against scripted bots and
+ * writes the replay log to games/.
  *
- *   tsx scripts/agent-play.ts [--seed 1] [--seat 0] [--policy deepseek|first]
- *                             [--model deepseek-flash] [--quiet]
+ *   tsx scripts/agent-play.ts [--seed 1] [--seat 0|all] [--policy deepseek|claude|first]
+ *                             [--model deepseek-flash|haiku] [--quiet]
  *                             [--spectate] [--server http://localhost:3000] [--pace 300]
+ *                             [--no-knowledge] [--stop-at action] [--rounds 1]
+ *                             [--setup milty|random] [--no-planning] [--no-review]
  *
+ * After the agent chooses, the checks (app/game/agent/checks.ts) look at
+ * its choice; if any fire, it is asked once more with the warnings and may
+ * keep its move or change it. --no-review skips that. The summary counts
+ * how often each check fired and how often the agent changed its move.
+ *
+ * The agent plans before each of its own turns (the strategy pick and each
+ * action-phase turn) in a separate call, then chooses its move with that
+ * plan in front of it; --no-planning skips the planning call.
+ *
+ * Guide briefings (passages searched before the strategy pick and the first
+ * action of each round) are on for --policy claude and off otherwise;
+ * --briefing and --no-briefing override.
+ *
+ * --policy claude plays through the Claude Agent SDK, signed in as Claude
+ * Code is: a Claude subscription login, or ANTHROPIC_API_KEY when set. Its
+ * model defaults to haiku. Subscription login is for your own runs only.
+ *
+ * --setup milty (the default) plays on a seeded Milty draft of the base-game
+ * systems, with balanced slices dealt to the seats; random lays the systems
+ * out at random.
+ * --seat all makes every player an agent. --stop-at ends the game when it
+ * first reaches that phase, e.g. to look at strategy card picks alone.
+ * --rounds ends it once that many rounds are over.
  * The deepseek policy reads DEEPSEEK_API_KEY from the environment or .env.
  * --spectate saves the game to the web app's database (TI4_LAB_DATABASE_PATH)
  * and plays every move through the running app, so it can be watched live.
  * The app's copy counts: each move waits until the app accepts it, the game
  * pauses while the app is down, and it stops if the app disagrees. --pace
  * waits that many milliseconds between moves.
+ *
+ * The agent can search the strategy guides in knowledge/knowledge.db when it
+ * has been built (tsx scripts/kb.ts index); --no-knowledge plays without them.
+ *
+ * Each decision is printed with the tools the agent called, and appended to
+ * a .decisions.jsonl file in games/ as it is made, so a game stopped early
+ * still leaves its decisions behind.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { playAgentGame } from "~/game/agent/harness";
+import { ClaudePolicy } from "~/game/agent/claudePolicy";
 import { ChatPolicy, FirstCandidatePolicy, Policy } from "~/game/agent/policy";
-import { setupFor } from "~/game/agent/setups";
+import { draftedSetupFor, setupFor } from "~/game/agent/setups";
 import { testGame } from "~/game/engine/testing";
+import { PlayerId } from "~/types";
+import { KnowledgeBase, openKnowledgeBase } from "~/knowledge/search";
+import { SynonymList } from "~/knowledge/synonyms";
 
 /** deepseek-flash prices per million tokens at peak; off-peak is half. */
 const PRICES = { cacheMiss: 0.3, cacheHit: 0.006, output: 1.2 };
@@ -35,13 +71,15 @@ try {
 }
 
 const seed = Number(option("seed", "1"));
-const seat = Number(option("seat", "0"));
+const seatOption = option("seat", "0");
 const policyName = option("policy", "deepseek");
-const model = option("model", "deepseek-flash");
+const model = option("model", policyName === "claude" ? "haiku" : "deepseek-flash");
 
 let policy: Policy;
 if (policyName === "first") {
   policy = new FirstCandidatePolicy();
+} else if (policyName === "claude") {
+  policy = new ClaudePolicy({ model });
 } else {
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
@@ -52,14 +90,18 @@ if (policyName === "first") {
 }
 
 // Names show in the web app and in the game log.
-const state = structuredClone(testGame({ seed, ...setupFor(seed) }));
+const setup = option("setup", "milty") === "random" ? setupFor(seed) : draftedSetupFor(seed);
+const state = structuredClone(testGame({ seed, ...setup }));
+const agentSeats = seatOption === "all" ? [...state.seating] : [Number(seatOption) as PlayerId];
+// The first agent seat names the files and the spectator's suggested seat.
+const seat = agentSeats[0];
 for (const player of Object.values(state.players)) {
-  player.name = player.id === seat ? `Agent (${policy.name})` : `Bot ${player.id}`;
+  player.name = agentSeats.includes(player.id) ? `Agent ${player.id} (${policy.name})` : `Bot ${player.id}`;
 }
-console.log(
-  `Seed ${seed}: agent is P${seat} (${state.players[seat].faction}); ` +
-    `others ${state.seating.filter((id) => id !== seat).map((id) => state.players[id].faction).join(", ")}.`,
-);
+const describe = (ids: PlayerId[]) => ids.map((id) => `P${id} ${state.players[id].faction}`).join(", ");
+const bots = state.seating.filter((id) => !agentSeats.includes(id));
+console.log(`Seed ${seed}: agents ${describe(agentSeats)}; bots ${bots.length > 0 ? describe(bots) : "none"}.`);
+const stopAt = option("stop-at", "");
 
 let onMove: Parameters<typeof playAgentGame>[0]["onMove"];
 if (flag("spectate")) {
@@ -73,20 +115,65 @@ if (flag("spectate")) {
   console.log(`Watch: ${spectating.url} (pick seat P${seat} in the page to see the agent's hand)`);
 }
 
+const KNOWLEDGE = "knowledge/knowledge.db";
+let knowledge: KnowledgeBase | undefined;
+if (!flag("no-knowledge") && policyName !== "first") {
+  if (existsSync(KNOWLEDGE)) {
+    const synonyms = JSON.parse(readFileSync("knowledge/synonyms.json", "utf8")) as SynonymList;
+    knowledge = openKnowledgeBase(KNOWLEDGE, synonyms);
+  } else {
+    console.log(`No ${KNOWLEDGE}, so the agent plays without the strategy guides.`);
+  }
+}
+
+mkdirSync("games", { recursive: true });
+const seatTag = seatOption === "all" ? "all" : `p${seat}`;
+const live = `games/${new Date().toISOString().replace(/[:.]/g, "-")}-seed${seed}-${seatTag}.decisions.jsonl`;
+console.log(`Decisions: ${live}`);
+
+/** One line for a tool call: what was asked, and what came back in brief. */
+function describeStep(step: { tool: string; arguments: string; result: string }) {
+  if (step.tool === "choose") return undefined;
+  if (step.tool === "plan") return `   plan: ${step.result.replace(/\s+/g, " ").slice(0, 400)}`;
+  const ids = [...step.result.matchAll(/^\[([^\]]+)\]/gm)].map((m) => m[1]);
+  const brief = ids.length > 0 ? ids.join(", ") : step.result.split("\n")[0].slice(0, 100);
+  return `   ${step.tool} ${step.arguments} -> ${brief}`;
+}
+
 const log = await playAgentGame({
   state,
   seed,
-  agentSeats: [seat],
+  agentSeats,
   policy,
+  knowledge,
+  // Claude models seldom search for themselves, so they get briefings.
+  briefing: knowledge !== undefined && (policyName === "claude" ? !flag("no-briefing") : flag("briefing")),
+  planning: !flag("no-planning"),
+  review: !flag("no-review"),
+  onWait: (ms, why) => console.log(`   waiting ${Math.round(ms / 1000)}s to ask again (${why.slice(0, 120)})`),
+  until: (s) =>
+    (!!stopAt && s.phase === stopAt) || (option("rounds", "") !== "" && s.round > Number(option("rounds", ""))),
   onMove,
   onDecision: (record) => {
+    appendFileSync(live, `${JSON.stringify(record)}\n`);
     if (flag("quiet") || record.forced) return;
     const chosen = record.menu.find((m) => m.label === record.chosen);
     const tag = record.fallback ? ` [fallback: ${record.error ?? "no choice"}]` : "";
-    console.log(`r${record.round} ${record.phase} ${record.chosen}. ${chosen?.text}${tag}`);
+    const who = agentSeats.length > 1 ? `P${record.player} ` : "";
+    console.log(`${who}r${record.round} ${record.phase} ${record.chosen}. ${chosen?.text}${tag}`);
+    for (const step of record.steps) {
+      const line = describeStep(step);
+      if (line) console.log(line);
+    }
+    if (record.review) {
+      for (const f of record.review.fired) console.log(`   check ${f.check}: ${f.warning}`);
+      console.log(`   ${record.review.kept ? "kept" : `changed from ${record.review.first}`} after the warning`);
+    }
     if (record.rationale) console.log(`   ${record.rationale}`);
+    for (const citation of record.citations) console.log(`   cites ${citation}`);
   },
 });
+knowledge?.close();
 
 const decisions = log.decisions.filter((d) => !d.forced);
 const total = decisions.reduce(
@@ -96,26 +183,44 @@ const total = decisions.reduce(
     output: sum.output + d.usage.outputTokens,
     requests: sum.requests + d.usage.requests,
     retries: sum.retries + (d.usage.retries ?? 0),
+    reported: sum.reported + (d.usage.costUsd ?? 0),
   }),
-  { input: 0, cached: 0, output: 0, requests: 0, retries: 0 },
+  { input: 0, cached: 0, output: 0, requests: 0, retries: 0, reported: 0 },
 );
+// Claude reports its own estimate at list prices; DeepSeek's is worked out here.
 const cost =
+  total.reported ||
   ((total.input - total.cached) * PRICES.cacheMiss +
     total.cached * PRICES.cacheHit +
     total.output * PRICES.output) /
-  1e6;
+    1e6;
 
-mkdirSync("games", { recursive: true });
-const file = `games/${log.startedAt.replace(/[:.]/g, "-")}-seed${seed}-p${seat}.json`;
+const file = `games/${log.startedAt.replace(/[:.]/g, "-")}-seed${seed}-${seatTag}.json`;
 writeFileSync(file, JSON.stringify(log, null, 2));
 
 console.log(
   `\nGame ${log.result.phase} in round ${log.result.round}; winner ${log.result.winner !== undefined ? `P${log.result.winner}` : "none"}; ` +
-    `VP ${log.result.vp.join("/")} (agent P${seat}: ${log.result.vp[seat]}).`,
+    `VP ${log.result.vp.join("/")}` +
+    (agentSeats.length === 1 ? ` (agent P${seat}: ${log.result.vp[seat]}).` : "."),
 );
 console.log(
   `${decisions.length} agent decisions, ${decisions.filter((d) => d.fallback).length} fallbacks, ` +
     `${total.requests} requests (${total.retries} retried). Tokens: ${total.input} in (${total.cached} cached), ${total.output} out; ` +
-    `about $${cost.toFixed(3)} at peak prices.`,
+    `about $${cost.toFixed(3)} ${total.reported ? "as Claude reports it (list prices; a subscription is not billed this)" : "at peak prices"}.`,
 );
+const deals = log.talk?.deals ?? [];
+const count = (status: string) => deals.filter((d) => d.status === status).length;
+console.log(
+  `Table talk: ${log.talk?.messages.length ?? 0} messages, ${deals.length} deals ` +
+    `(${count("kept")} kept, ${count("broken")} broken, ${count("dropped")} dropped).`,
+);
+const reviewed = decisions.filter((d) => d.review);
+if (reviewed.length > 0) {
+  const fired = new Map<string, number>();
+  for (const d of reviewed) for (const f of d.review!.fired) fired.set(f.check, (fired.get(f.check) ?? 0) + 1);
+  console.log(
+    `Checks fired on ${reviewed.length} decisions (${[...fired].map(([id, n]) => `${id} ${n}`).join(", ")}); ` +
+      `the agent changed its move ${reviewed.filter((d) => !d.review!.kept).length} times.`,
+  );
+}
 console.log(`Replay log: ${file}`);

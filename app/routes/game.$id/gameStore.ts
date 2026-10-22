@@ -36,6 +36,8 @@ type GameStore = {
   chooseSeat: (seat?: Seat) => Promise<void>;
   selectSystem: (system?: SystemKey) => void;
   refresh: () => Promise<void>;
+  /** Takes in a move pushed over the socket. */
+  receive: (update: GameUpdate) => Promise<void>;
   /** Sends an action as `as`, defaulting to the seat being played. */
   dispatch: (action: GameAction, as?: PlayerId) => Promise<boolean>;
   openHistory: () => Promise<void>;
@@ -44,8 +46,18 @@ type GameStore = {
   viewVersion: (version?: number) => Promise<void>;
 };
 
+/** What the server pushes when a game moves on. */
+export type GameUpdate = {
+  version: number;
+  /** The seat `view` is shown to; undefined for a spectator's. */
+  viewer?: PlayerId;
+  /** Missing from servers that only announced the new version. */
+  view?: GameView;
+};
+
 const seatKey = (urlName: string) => `game:seat:${urlName}`;
 const sidebarKey = (urlName: string) => `game:sidebar:${urlName}`;
+const historyKey = (urlName: string) => `game:history:${urlName}`;
 /** Where the seat was kept before spectators and developers existed. */
 const legacyPlayerKey = (urlName: string) => `game:player:${urlName}`;
 
@@ -116,6 +128,19 @@ export const useGame = create<GameStore>((set, get) => {
       // A slow response must not replace something newer.
       const current = get().view;
       if (!current || view.version >= current.version) set({ view });
+      await followTurn();
+      if (get().steps) await get().openHistory();
+    },
+
+    receive: async ({ version, viewer, view }) => {
+      const { player, view: current } = get();
+      if (current && version <= current.version) return;
+      // A view for a seat this browser has since left is no use.
+      if (!view || viewer !== player) {
+        await get().refresh();
+        return;
+      }
+      set({ view });
       await followTurn();
       if (get().steps) await get().openHistory();
     },
@@ -243,6 +268,23 @@ export function storeSidebarOpen(urlName: string, open: boolean) {
     else localStorage.setItem(sidebarKey(urlName), "closed");
   } catch {
     // Unwritable storage just means the panel reopens next visit.
+  }
+}
+
+export function storedHistoryOpen(urlName: string): boolean {
+  try {
+    return localStorage.getItem(historyKey(urlName)) === "open";
+  } catch {
+    return false;
+  }
+}
+
+export function storeHistoryOpen(urlName: string, open: boolean) {
+  try {
+    if (open) localStorage.setItem(historyKey(urlName), "open");
+    else localStorage.removeItem(historyKey(urlName));
+  } catch {
+    // Unwritable storage just means the timeline starts closed next visit.
   }
 }
 

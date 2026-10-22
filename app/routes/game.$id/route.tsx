@@ -49,6 +49,7 @@ import { TradePanel } from "./components/TradePanel";
 import classes from "./layout.module.css";
 import {
   Seat,
+  storedHistoryOpen,
   storedSeat,
   storedSidebarOpen,
   storeSidebarOpen,
@@ -86,7 +87,8 @@ export default function Game() {
   const seat = useGame((state) => state.seat);
   const player = useGame((state) => state.player);
   const busy = useGame((state) => state.busy);
-  const { load, chooseSeat, refresh } = useGame.getState();
+  const { load, chooseSeat, refresh, receive, openHistory } =
+    useGame.getState();
   // The seat lives in this browser's storage, so it is only known once the
   // page is running here.
   const [seatRead, setSeatRead] = useState(false);
@@ -100,7 +102,10 @@ export default function Game() {
 
   useEffect(() => {
     load(loaded.urlName, loaded.view);
-    void chooseSeat(storedSeat(loaded.urlName));
+    // History is read as the seat, so it opens once the seat is known.
+    void chooseSeat(storedSeat(loaded.urlName)).then(() => {
+      if (storedHistoryOpen(loaded.urlName)) void openHistory();
+    });
     setSidebarOpen(storedSidebarOpen(loaded.urlName));
     setSeatRead(true);
     // Only a different game should reset what is on screen.
@@ -109,23 +114,22 @@ export default function Game() {
 
   const { socket, isDisconnected } = useSocketConnection({
     onConnect: () => {
-      socket?.emit("joinGame", loaded.id);
+      socket?.emit("joinGame", loaded.id, useGame.getState().player);
       void refresh();
     },
   });
   useEffect(() => {
     if (!socket) return;
-    socket.emit("joinGame", loaded.id);
-    const onUpdate = ({ version }: { version: number }) => {
-      const current = useGame.getState().view;
-      if (!current || version > current.version) void refresh();
-    };
-    socket.on("gameUpdated", onUpdate);
+    socket.on("gameUpdated", receive);
     return () => {
-      socket.off("gameUpdated", onUpdate);
+      socket.off("gameUpdated", receive);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, loaded.id]);
+  }, [socket]);
+  // Each seat is sent its own view, so the room follows the seat played.
+  useEffect(() => {
+    socket?.emit("joinGame", loaded.id, player);
+  }, [socket, loaded.id, player]);
 
   // While looking back, everything below shows the game as it was then.
   const inPast = viewing !== undefined;

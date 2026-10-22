@@ -130,7 +130,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         note: parseNote(body.note),
       })
     ) {
-      broadcastGameUpdate(game.id, result.state.version);
+      broadcastGameUpdate(game.id, result.state);
       return data({ success: true, view: viewFor(result.state, player) });
     }
   }

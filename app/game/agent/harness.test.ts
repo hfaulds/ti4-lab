@@ -18,7 +18,7 @@ import { newTableMemory, remember } from "./conventions";
 import { ChatPolicy, DecisionRequest, FirstCandidatePolicy, noUsage, Policy } from "./policy";
 import { scriptedMove, secondarySkipReason } from "./scriptedBot";
 import { setupFor } from "./setups";
-import { lookup, parseChoose } from "./tools";
+import { lookup, parseChoose, parseLessonSearch } from "./tools";
 
 const newGame = (seed: number) => testGame({ seed, ...setupFor(seed) });
 
@@ -360,6 +360,12 @@ describe("tool arguments", () => {
     expect(parseChoose('{"candidate":"A"}', ["A"]).ok).toBe(false);
     expect(parseChoose("not json", ["A"]).ok).toBe(false);
   });
+
+  test("a lesson search needs a query", () => {
+    expect(parseLessonSearch('{"query":" bare planets "}')).toEqual({ ok: true, value: { query: "bare planets" } });
+    expect(parseLessonSearch('{"query":""}')).toEqual({ ok: false, error: "query is required." });
+    expect(parseLessonSearch("[]").ok).toBe(false);
+  });
 });
 
 describe("chat policy", () => {
@@ -535,6 +541,34 @@ describe("chat policy", () => {
       briefing: { text: "[7-2] Take Diplomacy.", ids: ["7-2"] },
     });
     expect(decision.citations).toEqual(["7-2"]);
+  });
+
+  test("searches lessons when offered and lets the agent cite them", async () => {
+    const { client, requests } = fakeClient([
+      { calls: [{ name: "search_lessons", args: '{"query":"bare planets"}' }] },
+      {
+        calls: [
+          { name: "choose", args: '{"candidate":"B","rationale":"Per L3.","plan_note":"","citations":["L3","L9"]}' },
+        ],
+      },
+    ]);
+    const decision = await new ChatPolicy({ model: "m", apiKey: "k", client }).decide({
+      ...request,
+      searchLessons: () => ({ text: "[L3] Garrison your planets.", ids: ["L3"] }),
+    });
+    expect(decision.steps[0].result).toBe("[L3] Garrison your planets.");
+    expect(decision.citations).toEqual(["L3"]);
+    type Body = { tools: { function: { name: string } }[] };
+    expect((requests[0] as Body).tools.map((t) => t.function.name)).toEqual(["lookup", "search_lessons", "choose"]);
+  });
+
+  test("a plan can cite lessons it was shown", async () => {
+    const { client } = fakeClient([{ content: "Garrison Lodor first [L3], and mind [L9]." }]);
+    const plan = await new ChatPolicy({ model: "m", apiKey: "k", client }).plan({
+      ...request,
+      briefing: { text: "[L3] Garrison your planets.", ids: ["L3"] },
+    });
+    expect(plan.citations).toEqual(["L3"]);
   });
 
   test("plans in plain text after looking things up, citing what it was shown", async () => {

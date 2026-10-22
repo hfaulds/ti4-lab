@@ -240,6 +240,9 @@ moves away".
   build loads it into the `lessons` table.
 - A model may draft a lesson from a review note (as `draft`); only a human
   makes it `active`.
+- Each has an id (`L3`), a status (`draft`, `active`, `retired`), the
+  heuristic, an optional why, topics, and dates; `scripts/lessons.ts`
+  keeps the file, and only active lessons reach the agent.
 - Lessons record where they came from (game and decision) and are retired,
   never deleted.
 
@@ -305,8 +308,14 @@ These are for steering, not proof; a batch of 20 games is noisy.
 3. **Knowledge.** Transcription, glossary correction, chunking with
    playability tags, the FTS5 index, `search_guides`, and citations in
    decisions and on the cards.
-4. **Lessons.** The lessons file and table, `search_lessons`, drafting
-   lessons from reviews, and the changelog.
+4. **Lessons.** Done: `knowledge/lessons.jsonl` (seeded with eleven
+   active lessons from the October reviews), loaded into `lessons` and
+   `lessons_fts` by `tsx scripts/kb.ts index` (or alone by
+   `tsx scripts/kb.ts lessons`); a `search_lessons` tool over active
+   lessons, which the agent can cite as `[L3]`, and the best-matching
+   lessons in each briefing; `scripts/lessons.ts` to read a reviewed
+   decision, draft a lesson from it, list, activate (human) and retire;
+   and `docs/agent-changelog.md`.
 5. **Faction abilities** (an engine track). Done for the base game, along
    with action cards, promissory notes and agendas. Still to do: let the
    agent decide the reactions and votes that now go to the scripted bot.

@@ -64,6 +64,8 @@ Use the lookup tool for exact data on a faction, unit, technology, objective or 
 
 When the search_guides tool is offered, it searches strategy guides from experienced players: how factions open, which strategy cards and technologies to take, how to score and when to trade. Search when the decision is a strategic one (a strategy card pick, a technology, a faction's first rounds, a deal), not for routine moves. Searches share the lookup limit.
 
+When the search_lessons tool is offered, it searches lessons learned from reviews of your own past games: short heuristics about mistakes you have made before. Search it when a move risks something (leaving a system or planet bare, spending what an objective needs, moving through an anomaly) or when your plan rests on a judgment call.
+
 Before choosing, look up what bears on the decision:
 - In round 1, search the guides for the first-round strategy of every faction at the table, yours and the others' (which strategy card each wants, where each will expand, what each will build), before your first picks and moves, so you can anticipate their picks and moves as well as plan your own.
 - Look up your own faction and the factions at the table, especially your neighbours and anyone you could fight or trade with: their abilities, faction technologies and promissory notes change what is safe and what is worth doing. Search the guides for how to play against them.
@@ -100,7 +102,7 @@ Then call choose exactly once with:
 - candidate: the label of the move (for example "C").
 - rationale: two or three sentences in terms of this board: what the move gains, and why it beats the next best option.
 - plan_note: a short plan for your next few turns, or your plan as it stands if you were given one. It is shown to you at your next decision, so use it to stay consistent.
-- citations: the ids of any guide passages that shaped the choice, or an empty list.
+- citations: the ids of any guide passages or lessons that shaped the choice, or an empty list.
 
 Every decision must end with a call to choose.
 `;

@@ -5,11 +5,14 @@
 import OpenAI from "openai";
 import { SYSTEM_PROMPT } from "./rules";
 import {
+  LessonSearchArgs,
   LookupArgs,
   parseChoose,
+  parseLessonSearch,
   parseLookup,
   parseSearch,
   SEARCH_GUIDES_TOOL,
+  SEARCH_LESSONS_TOOL,
   SearchArgs,
   TOOLS,
 } from "./tools";
@@ -31,7 +34,9 @@ export type DecisionRequest = {
    * case the tool is not offered.
    */
   searchGuides?: (args: SearchArgs) => { text: string; ids: string[] };
-  /** Guide passages searched before asking, with their ids for citing. */
+  /** Searches the active lessons, like searchGuides; absent when there are none. */
+  searchLessons?: (args: LessonSearchArgs) => { text: string; ids: string[] };
+  /** Guide passages (and lessons) searched before asking, with their ids for citing. */
   briefing?: { text: string; ids: string[] };
 };
 
@@ -90,11 +95,11 @@ Before you choose your next move, write your plan for the rest of this round and
 - the standings: who leads, what they could score this round, and how you will deny them (above all, never let the player holding Mecatol Rex take Imperial);
 - the planets of your slice you do not yet hold, and when you will take them.
 
-Name moves by what they are (the card, the system, the units), not by their menu letters: the letters change from one decision to the next. Look up and search the guides as you need. Then reply with the plan as plain text, citing guide passages by id like [118-21] where they shaped it. Do not choose a move yet: you will choose next, with this plan in front of you.`;
+Name moves by what they are (the card, the system, the units), not by their menu letters: the letters change from one decision to the next. Look up and search the guides as you need. Then reply with the plan as plain text, citing guide passages by id like [118-21] (and lessons like [L3]) where they shaped it. Do not choose a move yet: you will choose next, with this plan in front of you.`;
 
-/** The plan a planning reply gives, and the guide ids it cites among those shown. */
+/** The plan a planning reply gives, and the guide and lesson ids it cites among those shown. */
 export function planFrom(text: string, shown: Set<string>): Pick<Plan, "text" | "citations"> {
-  const cited = [...text.matchAll(/\[(\d+-\d+)\]/g)].map((m) => m[1]).filter((id) => shown.has(id));
+  const cited = [...text.matchAll(/\[(\d+-\d+|L\d+)\]/g)].map((m) => m[1]).filter((id) => shown.has(id));
   return { text: text.trim(), citations: [...new Set(cited)] };
 }
 
@@ -203,9 +208,12 @@ export class ChatPolicy implements Policy {
       { role: "user", content: turnMessage(request) },
     ];
     // Searching is offered only with a knowledge base, before choose.
-    const offered = request.searchGuides
-      ? [TOOLS[0], SEARCH_GUIDES_TOOL, ...TOOLS.slice(1)]
-      : TOOLS;
+    const offered = [
+      TOOLS[0],
+      ...(request.searchGuides ? [SEARCH_GUIDES_TOOL] : []),
+      ...(request.searchLessons ? [SEARCH_LESSONS_TOOL] : []),
+      ...TOOLS.slice(1),
+    ];
     const allTools = offered.map((tool) => ({ type: "function" as const, function: tool }));
     const shown = new Set<string>(request.briefing?.ids);
     const chooseOnly = allTools.filter((tool) => tool.function.name === "choose");
@@ -285,6 +293,18 @@ export class ChatPolicy implements Policy {
             for (const id of found.ids) shown.add(id);
             result = found.text;
           }
+        } else if (call.function.name === "search_lessons" && request.searchLessons) {
+          const args = parseLessonSearch(call.function.arguments);
+          if (lookups >= maxLookups) {
+            result = "Lookup limit reached for this decision. Call choose now.";
+          } else if (!args.ok) {
+            result = `Error: ${args.error}`;
+          } else {
+            lookups++;
+            const found = request.searchLessons(args.value);
+            for (const id of found.ids) shown.add(id);
+            result = found.text;
+          }
         } else if (call.function.name === "choose") {
           const args = parseChoose(call.function.arguments, labels);
           if (args.ok && !chosen) {
@@ -326,7 +346,11 @@ export class ChatPolicy implements Policy {
       { role: "user", content: request.game },
       { role: "user", content: `${turnMessage(request)}\n\n${PLANNING_REQUEST}` },
     ];
-    const tools = (request.searchGuides ? [TOOLS[0], SEARCH_GUIDES_TOOL] : [TOOLS[0]]).map((tool) => ({
+    const tools = [
+      TOOLS[0],
+      ...(request.searchGuides ? [SEARCH_GUIDES_TOOL] : []),
+      ...(request.searchLessons ? [SEARCH_LESSONS_TOOL] : []),
+    ].map((tool) => ({
       type: "function" as const,
       function: tool,
     }));
@@ -372,6 +396,16 @@ export class ChatPolicy implements Policy {
           lookups++;
           if (args.ok) {
             const found = request.searchGuides(args.value);
+            for (const id of found.ids) shown.add(id);
+            result = found.text;
+          } else {
+            result = `Error: ${args.error}`;
+          }
+        } else if (call.function.name === "search_lessons" && request.searchLessons) {
+          const args = parseLessonSearch(call.function.arguments);
+          lookups++;
+          if (args.ok) {
+            const found = request.searchLessons(args.value);
             for (const id of found.ids) shown.add(id);
             result = found.text;
           } else {

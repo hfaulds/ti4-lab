@@ -65,7 +65,7 @@ export const TOOLS: ToolSchema[] = [
         citations: {
           type: "array",
           items: { type: "string" },
-          description: "Ids of guide passages that informed the choice, e.g. ['118-21'].",
+          description: "Ids of guide passages or lessons that informed the choice, e.g. ['118-21', 'L3'].",
         },
       },
       required: ["candidate", "rationale", "plan_note"],
@@ -93,6 +93,21 @@ export const SEARCH_GUIDES_TOOL: ToolSchema = {
   },
 };
 
+/** Offered only when the knowledge base has active lessons. */
+export const SEARCH_LESSONS_TOOL: ToolSchema = {
+  name: "search_lessons",
+  description:
+    "Search lessons learned from reviews of your own past games: short heuristics a human has " +
+    "checked, with ids like [L3] you can cite. query: the situation, e.g. 'leaving home undefended' " +
+    "or 'spending before the status phase'.",
+  parameters: {
+    type: "object",
+    properties: { query: { type: "string" } },
+    required: ["query"],
+    additionalProperties: false,
+  },
+};
+
 export type ChooseArgs = {
   candidate: string;
   rationale: string;
@@ -100,6 +115,7 @@ export type ChooseArgs = {
   citations: string[];
 };
 export type SearchArgs = { query: string; faction?: string };
+export type LessonSearchArgs = { query: string };
 export type LookupArgs = { kind: LookupKind; id: string };
 
 type Parsed<T> = { ok: true; value: T } | { ok: false; error: string };
@@ -151,6 +167,14 @@ export function parseSearch(raw: string): Parsed<SearchArgs> {
     ok: true,
     value: { query: query.trim(), faction: isString(faction) ? faction.trim() : undefined },
   };
+}
+
+export function parseLessonSearch(raw: string): Parsed<LessonSearchArgs> {
+  const parsed = parseObject(raw);
+  if (!parsed.ok) return parsed;
+  const { query } = parsed.value;
+  if (!isString(query)) return { ok: false, error: "query is required." };
+  return { ok: true, value: { query: query.trim() } };
 }
 
 export function parseLookup(raw: string): Parsed<LookupArgs> {

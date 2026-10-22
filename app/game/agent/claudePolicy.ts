@@ -2,8 +2,8 @@
  * A policy backed by Claude through the Claude Agent SDK, which runs Claude
  * Code and so signs in the way it does: with a Claude subscription login,
  * or ANTHROPIC_API_KEY when that is set. The SDK's own tools are switched
- * off; the model sees only lookup, search_guides and choose, served in
- * process, and our system prompt in place of Claude Code's.
+ * off; the model sees only lookup, search_guides, search_lessons and
+ * choose, served in process, and our system prompt in place of Claude Code's.
  *
  * Subscription login is for the user's own runs. Anthropic does not allow
  * offering claude.ai login in products built on the SDK, so anything shared
@@ -25,7 +25,7 @@ import {
   turnMessage,
   Usage,
 } from "./policy";
-import { LOOKUP_KINDS, parseChoose, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
+import { LOOKUP_KINDS, parseChoose, SEARCH_GUIDES_TOOL, SEARCH_LESSONS_TOOL, TOOLS } from "./tools";
 
 export type ClaudePolicyOptions = {
   /** A model alias such as "haiku", or a full model id. */
@@ -178,6 +178,17 @@ export class ClaudePolicy implements Policy {
                 return record("search_guides", args, found.text);
               },
             ),
+          ]
+        : []),
+      ...(request.searchLessons
+        ? [
+            tool("search_lessons", SEARCH_LESSONS_TOOL.description, { query: z.string() }, async (args) => {
+              if (lookups >= maxLookups) return record("search_lessons", args, spent);
+              lookups++;
+              const found = request.searchLessons!(args);
+              for (const id of found.ids) shown.add(id);
+              return record("search_lessons", args, found.text);
+            }),
           ]
         : []),
     ];

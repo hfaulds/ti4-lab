@@ -7,6 +7,7 @@
 import Database from "better-sqlite3";
 import { factions } from "~/data/factionData";
 import { Advice, Concept, Mechanic } from "./types";
+import type { Lesson } from "./lessons";
 import { compileSynonyms, SynonymList } from "./synonyms";
 
 /** Relative weight of each indexed field: title, summary, advice, tags, text. */
@@ -27,6 +28,8 @@ export type GuideHit = {
 };
 
 export type ConceptHit = Pick<Concept, "name" | "aliases" | "definition" | "explained">;
+
+export type LessonHit = Pick<Lesson, "id" | "text" | "why" | "topics" | "source">;
 
 /** Common words that would only add noise to a full-text query. */
 const STOPWORDS = new Set(
@@ -126,6 +129,10 @@ export type KnowledgeBase = {
   version: string;
   searchGuides(options: { query: string; faction?: string; limit?: number }): GuideHit[];
   searchConcepts(query: string, limit?: number): ConceptHit[];
+  /** Active lessons only; none in an index built before lessons existed. */
+  searchLessons(query: string, limit?: number): LessonHit[];
+  /** How many lessons are active, so the agent is offered no empty search. */
+  activeLessons: number;
   close(): void;
 };
 
@@ -156,6 +163,17 @@ export function openKnowledgeBase(
     SELECT c.* FROM concepts_fts f JOIN concepts c ON c.rowid = f.rowid
     WHERE concepts_fts MATCH ? ORDER BY bm25(concepts_fts, 5, 3, 1) LIMIT ?`);
   const allConcepts = db.prepare("SELECT * FROM concepts").all() as Record<string, string | number>[];
+  const hasLessons =
+    db.prepare("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'lessons'").get() !== undefined;
+  const lessonQuery = hasLessons
+    ? db.prepare(`
+        SELECT l.data FROM lessons_fts f JOIN lessons l ON l.rowid = f.rowid
+        WHERE lessons_fts MATCH ? AND l.status = 'active'
+        ORDER BY bm25(lessons_fts, 3, 1, 2) LIMIT ?`)
+    : undefined;
+  const activeLessons = hasLessons
+    ? (db.prepare("SELECT COUNT(*) AS n FROM lessons WHERE status = 'active'").get() as { n: number }).n
+    : 0;
 
   type Row = Record<string, string | number>;
   const toHit = (row: Row): GuideHit => ({
@@ -184,7 +202,10 @@ export function openKnowledgeBase(
   );
 
   return {
-    version: `${meta.builtAt ?? "unknown"} synonyms ${meta.synonymsVersion ?? "?"}`,
+    version:
+      `${meta.builtAt ?? "unknown"} synonyms ${meta.synonymsVersion ?? "?"}` +
+      (meta.lessonsVersion ? ` lessons ${meta.lessonsVersion}` : ""),
+    activeLessons,
     searchGuides({ query, faction, limit = 5 }) {
       const queries = ftsQueries(query, synonyms);
       if (!queries) return [];
@@ -215,6 +236,19 @@ export function openKnowledgeBase(
       const ranked = queries ? (conceptQuery.all(queries.any, limit) as Row[]) : [];
       const rows = [...exact, ...ranked.filter((r) => !exact.some((e) => e.name === r.name))];
       return rows.slice(0, limit).map(toConcept);
+    },
+    searchLessons(query, limit = 3) {
+      const queries = ftsQueries(query, synonyms);
+      if (!queries || !lessonQuery) return [];
+      const found = new Map<string, Lesson>();
+      // Every word first, then any of them to fill out the list.
+      for (const match of [queries.all, queries.any]) {
+        for (const row of lessonQuery.all(match, limit) as { data: string }[]) {
+          const lesson = JSON.parse(row.data) as Lesson;
+          if (found.size < limit) found.set(lesson.id, lesson);
+        }
+      }
+      return [...found.values()].map(({ id, text, why, topics, source }) => ({ id, text, why, topics, source }));
     },
     close: () => db.close(),
   };

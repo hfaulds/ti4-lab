@@ -31,7 +31,7 @@ import {
   secondarySkipReason,
   productionChoices,
 } from "./scriptedBot";
-import { lookup, SEARCH_GUIDES_TOOL, TOOLS } from "./tools";
+import { lookup, SEARCH_GUIDES_TOOL, SEARCH_LESSONS_TOOL, TOOLS } from "./tools";
 import { guideSearch } from "./guides";
 import { newTableMemory, remember, TableMemory } from "./conventions";
 import type { KnowledgeBase } from "~/knowledge/search";
@@ -332,7 +332,7 @@ export type DecisionRecord = {
   forced: boolean;
   rationale: string;
   planNote: string;
-  /** Guide passages the agent cited, as readable labels. */
+  /** Guide passages and lessons the agent cited, as readable labels. */
   citations: string[];
   /** Where the agent stalled, when it chose the Stall option. */
   stall?: { menu: MenuEntry[]; chosen: string; rationale: string };
@@ -417,7 +417,11 @@ export function agentVersion(
     JSON.stringify({
       policy: policy.name,
       prompt: SYSTEM_PROMPT,
-      tools: knowledge ? [...TOOLS, SEARCH_GUIDES_TOOL] : TOOLS,
+      tools: [
+        ...TOOLS,
+        ...(knowledge ? [SEARCH_GUIDES_TOOL] : []),
+        ...(knowledge?.activeLessons ? [SEARCH_LESSONS_TOOL] : []),
+      ],
       knowledge: knowledge?.version ?? null,
       briefing,
       planning,
@@ -527,6 +531,7 @@ export async function playAgentGame(options: PlayOptions): Promise<ReplayLog> {
           menu: menu.map(({ label, text }) => ({ label, text })),
           lookup: (args: Parameters<typeof lookup>[1]) => lookup(state, args),
           searchGuides: guides?.search,
+          searchLessons: guides?.searchLessons,
           briefing,
         };
         // The agent plans before each of its own turns, then moves.

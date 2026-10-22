@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { factions } from "~/data/factionData";
-import { GuideHit, KnowledgeBase } from "~/knowledge/search";
+import { GuideHit, KnowledgeBase, LessonHit } from "~/knowledge/search";
 import { testGame } from "../engine/testing";
 import { guideSearch } from "./guides";
 import { setupFor } from "./setups";
@@ -18,8 +18,16 @@ const hit = (id: string, title: string): GuideHit => ({
   section: { title: "Round one", summary: "Opening picks." },
 });
 
+const garrison: LessonHit = {
+  id: "L3",
+  text: "A planet with no ground forces falls to anyone who lands.",
+  why: "Lost Lodor to one carrier.",
+  topics: ["combat"],
+  source: "review 2026-10",
+};
+
 /** A knowledge base that returns fixed hits and records the searches. */
-function stubKnowledge(hits: GuideHit[]) {
+function stubKnowledge(hits: GuideHit[], lessons: LessonHit[] = []) {
   const searches: { query: string; faction?: string }[] = [];
   const knowledge: KnowledgeBase = {
     version: "test",
@@ -30,6 +38,8 @@ function stubKnowledge(hits: GuideHit[]) {
     searchConcepts: () => [
       { name: "X-1 trade", aliases: [], definition: "Trading one for one.", explained: false },
     ],
+    searchLessons: () => lessons,
+    activeLessons: lessons.length,
     close: () => {},
   };
   return { knowledge, searches };
@@ -71,5 +81,23 @@ describe("guide search", () => {
     expect(briefing.text).toContain("(P0, you)");
     // What a briefing shows can be cited.
     expect(guides.label("118-3")).toBe("SCPT ep 118 at 0:43:12: Trade first");
+  });
+
+  test("searches lessons, labels them, and offers no search without any", () => {
+    const state = testGame({ seed: 1, ...setupFor(1) });
+    expect(guideSearch(stubKnowledge([]).knowledge, state).searchLessons).toBe(undefined);
+    const guides = guideSearch(stubKnowledge([], [garrison]).knowledge, state);
+    const found = guides.searchLessons!({ query: "undefended planets" });
+    expect(found.ids).toEqual(["L3"]);
+    expect(found.text).toContain("[L3] A planet with no ground forces falls to anyone who lands.\nWhy: Lost Lodor");
+    expect(guides.label("L3")).toBe("Lesson L3: A planet with no ground forces falls to anyone who lands.");
+  });
+
+  test("a briefing adds the lessons that match, citable by id", () => {
+    const state = testGame({ seed: 1, ...setupFor(1) });
+    const guides = guideSearch(stubKnowledge([hit("118-3", "Trade first")], [garrison]).knowledge, state);
+    const briefing = guides.briefing(0, "action");
+    expect(briefing.ids).toEqual(["118-3", "L3"]);
+    expect(briefing.text).toContain("### Lessons from your past games\nLessons from reviews");
   });
 });

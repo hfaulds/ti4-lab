@@ -1,10 +1,11 @@
 /**
  * Builds the knowledge base's search index (knowledge/knowledge.db) from
- * assembled episodes and concepts. Used by `tsx scripts/kb.ts index`, and by
- * tests with made-up episodes.
+ * assembled episodes and concepts, and the lessons from the agent's games.
+ * Used by `tsx scripts/kb.ts index`, and by tests with made-up episodes.
  */
 import type { Database } from "better-sqlite3";
 import { factions } from "~/data/factionData";
+import { Lesson, lessonsVersion } from "./lessons";
 import { factionKeyOf } from "./search";
 import { canonicalTerms, compileSynonyms, SynonymList } from "./synonyms";
 import { Concept, EpisodeChunks } from "./types";
@@ -26,12 +27,44 @@ export const SCHEMA = `
   CREATE VIRTUAL TABLE concepts_fts USING fts5(name, aliases, definition, tokenize = 'porter unicode61');
 `;
 
+/**
+ * Lessons live apart from the guides, so they can be reloaded without
+ * rebuilding the rest. Every lesson is stored; search shows only active ones.
+ */
+export const LESSONS_SCHEMA = `
+  DROP TABLE IF EXISTS lessons;
+  DROP TABLE IF EXISTS lessons_fts;
+  CREATE TABLE lessons (id TEXT PRIMARY KEY, status TEXT NOT NULL, text TEXT NOT NULL,
+    why TEXT NOT NULL, topics TEXT NOT NULL, data TEXT NOT NULL);
+  CREATE VIRTUAL TABLE lessons_fts USING fts5(text, why, tags, tokenize = 'porter unicode61');
+`;
+
+/** Replaces the lessons in a built index, or one being built. */
+export function loadLessons(db: Database, lessons: Lesson[], synonymList: SynonymList) {
+  const synonyms = compileSynonyms(synonymList);
+  db.transaction(() => {
+    db.exec(LESSONS_SCHEMA);
+    const insert = db.prepare("INSERT INTO lessons VALUES (?, ?, ?, ?, ?, ?)");
+    const insertText = db.prepare("INSERT INTO lessons_fts (rowid, text, why, tags) VALUES (?, ?, ?, ?)");
+    for (const lesson of lessons) {
+      const why = lesson.why ?? "";
+      const result = insert.run(
+        lesson.id, lesson.status, lesson.text, why, JSON.stringify(lesson.topics), JSON.stringify(lesson),
+      );
+      const tags = [...lesson.topics, ...canonicalTerms(`${lesson.text} ${why}`, synonyms)].join(" ");
+      insertText.run(result.lastInsertRowid, lesson.text, why, tags);
+    }
+    db.prepare("INSERT OR REPLACE INTO meta VALUES (?, ?)").run("lessonsVersion", lessonsVersion(lessons));
+  })();
+}
+
 /** Fills an empty database; returns how many chunks were indexed. */
 export function buildIndex(
   db: Database,
   episodes: EpisodeChunks[],
   conceptList: Concept[],
   synonymList: SynonymList,
+  lessons: Lesson[] = [],
 ): number {
   db.exec(SCHEMA);
   const synonyms = compileSynonyms(synonymList);
@@ -93,5 +126,6 @@ export function buildIndex(
     insert.meta.run("chunkerVersions", JSON.stringify([...new Set(episodes.map((e) => e.chunkerVersion))]));
     insert.meta.run("synonymsVersion", String(synonymList.version));
   })();
+  loadLessons(db, lessons, synonymList);
   return indexed;
 }

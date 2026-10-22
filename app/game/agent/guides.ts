@@ -1,14 +1,16 @@
 /**
- * The agent's view of the strategy guides: search results formatted for the
- * model, and readable labels for the passages it cites.
+ * The agent's view of the strategy guides and its lessons: search results
+ * formatted for the model, and readable labels for what it cites.
  */
 import { PlayerId } from "~/types";
 import { factions } from "~/data/factionData";
-import { GuideHit, KnowledgeBase } from "~/knowledge/search";
+import { GuideHit, KnowledgeBase, LessonHit } from "~/knowledge/search";
 import { GameState } from "../types";
-import { SearchArgs } from "./tools";
+import { LessonSearchArgs, SearchArgs } from "./tools";
 
 const RESULTS = 4;
+/** Lessons a search returns, and a briefing adds. */
+const LESSON_RESULTS = 3;
 
 const clock = (seconds: number) => {
   const s = Math.floor(seconds);
@@ -51,12 +53,29 @@ export function formatGuideHits(
   return lines.join("\n");
 }
 
+/** How a cited lesson reads to a spectator, e.g. "Lesson L3: A planet with no ground forces...". */
+export const lessonLabel = (lesson: LessonHit) => `Lesson ${lesson.id}: ${lesson.text}`;
+
+export function formatLessonHits(lessons: LessonHit[]): string {
+  if (lessons.length === 0) return "No lessons matched. Try other words.";
+  return [
+    "Lessons from reviews of your own past games, each checked by a human. Check that it applies on this board.",
+    ...lessons.map((l) => `\n[${l.id}] ${l.text}${l.why ? `\nWhy: ${l.why}` : ""}`),
+  ].join("\n");
+}
+
 /**
- * A search function for one decision. Every passage it shows is
- * remembered, so the passages the agent cites can be labelled afterwards.
+ * A search function for one decision. Every passage and lesson it shows is
+ * remembered, so what the agent cites can be labelled afterwards.
  */
 export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
   const shown = new Map<string, GuideHit>();
+  const shownLessons = new Map<string, LessonHit>();
+  const findLessons = (query: string) => {
+    const lessons = knowledge.searchLessons(query, LESSON_RESULTS);
+    for (const lesson of lessons) shownLessons.set(lesson.id, lesson);
+    return lessons;
+  };
   const find = (args: SearchArgs, limit = RESULTS) => {
     const hits = knowledge.searchGuides({
       query: args.query,
@@ -72,6 +91,14 @@ export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
       const [concept] = knowledge.searchConcepts(args.query, 1);
       return { text: formatGuideHits(hits, concept), ids: hits.map((h) => h.id) };
     },
+    /** Searches the active lessons; undefined when there are none, so no tool is offered. */
+    searchLessons:
+      knowledge.activeLessons > 0
+        ? (args: LessonSearchArgs) => {
+            const lessons = findLessons(args.query);
+            return { text: formatLessonHits(lessons), ids: lessons.map((l) => l.id) };
+          }
+        : undefined,
     /**
      * Guide passages for a decision, searched before the agent is asked:
      * every faction's opening for the round one strategy pick, otherwise
@@ -102,11 +129,20 @@ export function guideSearch(knowledge: KnowledgeBase, state: GameState) {
         ids.push(...hits.map((h) => h.id));
         return [`### ${heading}`, formatGuideHits(hits)].join("\n");
       });
+      // The lessons that bear most on the same decision, if any match.
+      const lessons = findLessons(
+        step === "strategy" ? "strategy cards objectives mecatol" : "expansion combat objectives economy",
+      );
+      if (lessons.length > 0) {
+        ids.push(...lessons.map((l) => l.id));
+        sections.push(["### Lessons from your past games", formatLessonHits(lessons)].join("\n"));
+      }
       return { text: sections.join("\n\n"), ids };
     },
     label: (id: string) => {
       const hit = shown.get(id);
-      return hit ? citationLabel(hit) : id;
+      const lesson = shownLessons.get(id);
+      return hit ? citationLabel(hit) : lesson ? lessonLabel(lesson) : id;
     },
   };
 }

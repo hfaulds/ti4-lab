@@ -8,6 +8,7 @@
  *   tsx scripts/kb.ts mentions           concept names across all chunks
  *   tsx scripts/kb.ts concepts           check the concepts draft, write concepts.json
  *   tsx scripts/kb.ts index              build knowledge/knowledge.db for search
+ *   tsx scripts/kb.ts lessons            reload knowledge/lessons.jsonl into it
  *
  * Files:
  *   knowledge/work/scpt-NNN.sentences.txt   "s412 [0:43:02] text", for agents to read
@@ -20,7 +21,8 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import Database from "better-sqlite3";
-import { buildIndex } from "~/knowledge/indexer";
+import { buildIndex, loadLessons } from "~/knowledge/indexer";
+import { readLessons } from "~/knowledge/lessons";
 import type { SynonymList } from "~/knowledge/synonyms";
 import {
   Chunk,
@@ -324,13 +326,29 @@ function index() {
     ? (JSON.parse(readFileSync(conceptsFile, "utf8")) as Concept[])
     : [];
   const synonyms = JSON.parse(readFileSync("knowledge/synonyms.json", "utf8")) as SynonymList;
-  const indexed = buildIndex(db, episodes, conceptList, synonyms);
+  const lessons = readLessons();
+  const indexed = buildIndex(db, episodes, conceptList, synonyms, lessons);
   db.exec("VACUUM");
   db.close();
   console.log(
     `${INDEX_PATH}: ${episodes.length} episodes, ${indexed} chunks with advice, ${conceptList.length} concepts` +
-      (conceptList.length === 0 ? " (run the concepts step to add them)" : "") + ".",
+      (conceptList.length === 0 ? " (run the concepts step to add them)" : "") +
+      `, ${lessons.filter((l) => l.status === "active").length} active lessons.`,
   );
+}
+
+/** Reloads knowledge/lessons.jsonl into the built index, leaving the guides as they are. */
+function reloadLessons() {
+  if (!existsSync(INDEX_PATH)) {
+    console.error(`No ${INDEX_PATH}; run tsx scripts/kb.ts index first.`);
+    process.exit(1);
+  }
+  const db = new Database(INDEX_PATH);
+  const lessons = readLessons();
+  const synonyms = JSON.parse(readFileSync("knowledge/synonyms.json", "utf8")) as SynonymList;
+  loadLessons(db, lessons, synonyms);
+  db.close();
+  console.log(`${INDEX_PATH}: ${lessons.filter((l) => l.status === "active").length} active lessons of ${lessons.length}.`);
 }
 
 // --- Main -----------------------------------------------------------------------------
@@ -342,8 +360,9 @@ if (process.argv[1]?.endsWith("kb.ts")) {
   else if (command === "mentions") mentions();
   else if (command === "concepts") concepts();
   else if (command === "index") index();
+  else if (command === "lessons") reloadLessons();
   else {
-    console.error("Usage: tsx scripts/kb.ts prepare | assemble [episode] | mentions | concepts | index");
+    console.error("Usage: tsx scripts/kb.ts prepare | assemble [episode] | mentions | concepts | index | lessons");
     process.exit(1);
   }
 }

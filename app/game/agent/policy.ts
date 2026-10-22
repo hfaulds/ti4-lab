@@ -86,7 +86,9 @@ Before you choose your next move, write your plan for the rest of this round and
 - which secret objective you are working towards, and how;
 - where you will expand or attack, in what order, and with which ships and ground forces;
 - what you will build, and which other players' strategy cards are worth a strategy token this round;
-- threats you will guard against or accept.
+- threats you will guard against or accept;
+- the standings: who leads, what they could score this round, and how you will deny them (above all, never let the player holding Mecatol Rex take Imperial);
+- the planets of your slice you do not yet hold, and when you will take them.
 
 Name moves by what they are (the card, the system, the units), not by their menu letters: the letters change from one decision to the next. Look up and search the guides as you need. Then reply with the plan as plain text, citing guide passages by id like [118-21] where they shaped it. Do not choose a move yet: you will choose next, with this plan in front of you.`;
 

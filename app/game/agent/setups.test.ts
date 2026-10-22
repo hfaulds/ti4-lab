@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { testGame } from "../engine/testing";
+import { sliceOf } from "./reach";
 import { draftedSetupFor } from "./setups";
 
 describe("drafted setups", () => {
@@ -18,5 +19,18 @@ describe("drafted setups", () => {
       expect(state.seating).toHaveLength(6);
       for (const id of state.seating) expect(state.systems[state.players[id].home]).toBeDefined();
     }
+  });
+
+  test("give each seat its own slice of four systems and an equidistant", () => {
+    const state = testGame({ seed: 2, ...draftedSetupFor(2) });
+    const all: number[] = [];
+    for (const id of state.seating) {
+      const { own, equidistant } = sliceOf(state, id);
+      expect(own).toHaveLength(4);
+      expect(equidistant).toHaveLength(1);
+      all.push(...own, ...equidistant);
+    }
+    // Six seats, five systems each, none shared: the whole Milty map but Mecatol.
+    expect(new Set(all).size).toBe(30);
   });
 });

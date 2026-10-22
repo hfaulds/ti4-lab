@@ -52,7 +52,9 @@ import { objectiveProgress, objectiveStatus } from "../engine/objectives";
 import { reactionName } from "../engine/reactions";
 import { moveBonus } from "../engine/tactical";
 import { viewFor } from "../view";
-import { neighborlyMove, shipsReaching } from "./reach";
+import { neighborlyMove, shipsReaching, sliceOf } from "./reach";
+import { victoryPoints } from "../engine/control";
+import { strategyKind } from "../engine/strategic";
 import { bestPlan, scriptedMove } from "./scriptedBot";
 import { applyAction } from "../engine/index";
 import { productionCapacity } from "../engine/economy";
@@ -280,6 +282,65 @@ function liftNote(state: GameState, seat: PlayerId, key: SystemKey, units: { typ
   return `; afterwards ${ground} ground forces here and room for ${room} aboard your ships here`;
 }
 
+/**
+ * Who leads and what each player could score this round, so the agent can
+ * plan to deny the leader; and who holds Mecatol Rex and Imperial.
+ */
+function standings(state: GameState, seat: PlayerId): string[] {
+  const mecatol = state.planets[MECATOL_REX]?.controller;
+  const imperial = state.strategyCards.find((c) => strategyKind(c) === "imperial");
+  const imperialHolder = state.seating.find((id) =>
+    state.players[id].strategyCards.some((c) => strategyKind(c.id) === "imperial"),
+  );
+  const rows = [...state.seating]
+    .sort((a, b) => victoryPoints(state, b) - victoryPoints(state, a))
+    .map((id) => {
+      const scorable = state.publicObjectives
+        .filter((o) => o.revealed && !o.scoredBy.includes(id))
+        .filter((o) => objectiveStatus(state, id, o.id).met === true)
+        .map((o) => objectiveName(o.id));
+      const notes = [
+        id === mecatol ? "holds Mecatol Rex" : "",
+        id === imperialHolder ? "holds Imperial" : "",
+        scorable.length ? `could score now: ${scorable.join(", ")}` : "",
+      ].filter(Boolean);
+      return `- ${id === seat ? "You" : playerLabel(state, id)}: ${victoryPoints(state, id)} VP` +
+        (notes.length ? `; ${notes.join("; ")}` : "");
+    });
+  const warnings: string[] = [];
+  if (mecatol !== undefined && imperial && imperialHolder === undefined && state.phase === "strategy") {
+    warnings.push(
+      `Imperial is still unpicked and P${mecatol} holds Mecatol Rex: with Imperial they score a public objective and a point for Mecatol. Deny it if you can.`,
+    );
+  }
+  if (mecatol !== undefined && imperialHolder === mecatol) {
+    warnings.push(`P${mecatol} holds both Mecatol Rex and Imperial: taking Mecatol from them before they play it denies the extra point.`);
+  }
+  return [...rows, ...warnings];
+}
+
+/** The seat's slice and equidistant, with who holds each planet. */
+function sliceSummary(state: GameState, seat: PlayerId): string[] {
+  const { own, equidistant } = sliceOf(state, seat);
+  const line = (key: SystemKey, label: string) => {
+    const planets = state.systems[key].planets.map((p) => {
+      const owner = state.planets[p].controller;
+      return `${p} (${owner === seat ? "yours" : owner === undefined ? "unclaimed" : `P${owner}'s`})`;
+    });
+    return `- ${label} ${systemRef(state, key)}: ${planets.join(", ") || "no planets"}`;
+  };
+  const missing = own
+    .flatMap((k) => state.systems[k].planets)
+    .filter((p) => state.planets[p].controller !== seat);
+  return [
+    ...own.map((k) => line(k, "Slice")),
+    ...equidistant.map((k) => line(k, "Equidistant (shared with a neighbour)")),
+    missing.length
+      ? `You do not yet hold ${missing.join(", ")} in your slice; each player is expected to own their slice, and not owning it is a severe economic disadvantage.`
+      : "You hold every planet in your slice.",
+  ];
+}
+
 /** Who could become your neighbor with one move, by you or by them. */
 function neighborsInReach(state: GameState, seat: PlayerId, neighbors: PlayerId[]) {
   return state.seating.flatMap((id) => {
@@ -370,6 +431,8 @@ export function describeTurn(state: GameState, seat: PlayerId) {
     );
   }
 
+  lines.push("", "## Standings", ...standings(state, seat));
+  lines.push("", "## Your slice", ...sliceSummary(state, seat));
   lines.push("", "## Your forces", ...forcesSummary(state, seat));
 
   lines.push("", "## Board", "Systems with units or controlled planets:");

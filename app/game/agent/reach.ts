@@ -13,6 +13,7 @@ import {
 } from "../engine/board";
 import { hasTech, unitOf, unitTypes } from "../engine/helpers";
 import { moveBonus } from "../engine/tactical";
+import { draftConfig } from "~/draft/draftConfig";
 
 /**
  * A system `mover` could move a ship to in one move that would make them
@@ -62,6 +63,28 @@ export function shipsReaching(state: GameState, mover: PlayerId, target: SystemK
     }
   }
   return ships;
+}
+
+/**
+ * A seat's slice on the six-player Milty map: the systems on either side of
+ * its home and the two in front, which it is expected to own, and the
+ * equidistant it shares with a neighbour. Placement offsets follow Milty's
+ * slice order: left, front, right, equidistant, far front.
+ */
+export function sliceOf(state: GameState, seat: PlayerId) {
+  // Player ids are seat numbers on the map, so the home tile is the seat's
+  // home position (for the Ghosts, the Creuss Gate).
+  const config = draftConfig.milty;
+  const home = state.map.find((t) => t.idx === config.homeIdxInMapString[seat]);
+  if (!home) return { own: [], equidistant: [] };
+  const offsets = config.seatTilePlacement[seat] ?? [];
+  const at = ([x, y]: [number, number]) =>
+    state.map.find((t) => t.position.x === home.position.x + x && t.position.y === home.position.y + y);
+  const keys = offsets.map((offset) => at(offset)?.idx).map((idx) =>
+    idx !== undefined && state.systems[idx] ? idx : undefined,
+  );
+  const present = (k: SystemKey | undefined): k is SystemKey => k !== undefined;
+  return { own: [keys[0], keys[1], keys[2], keys[4]].filter(present), equidistant: [keys[3]].filter(present) };
 }
 
 /** Neighbors, then players either side could neighbor with one move. */

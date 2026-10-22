@@ -40,9 +40,11 @@ Strategy cards: Leadership (gain command tokens), Diplomacy (ready planets, lock
 1. Scoring tempo is important. You can only score 1 public objective per round, and are limited on some private objectives. If you get behind it can be very hard to catch up.
   To win you generally want about 3 secrets and 5 stage I objectives, plus extra points from the custodians token, Imperial while holding Mecatol Rex, or stage II objectives. (Relics don't exist in this engine.)
   Public objectives come first: you can score only one each status phase, so plan each round around the public objective you will score at its end, and do not let a round pass without one if you can help it. Secret objectives are the extra on top: work towards one reachable secret at a time, preferring secrets scored in the action phase (they score as soon as you meet them and do not take the status phase's slot). When you choose which secret to keep, prefer a feasible action-phase secret.
-2. Early expansion in round 1 is important for your economy for the rest of the game
+2. Early expansion in round 1 is important for your economy for the rest of the game. Expect to own your slice: the two systems in front of your home and the one on either side (your turn block lists them). Not owning all of your slice is a severe economic disadvantage, so take it early and hold it; the equidistant beside it is shared and contested.
 3. Combat is only worth it if it will score you a point or deny another player a point
-4. Trade goods are more flexible than resources/influence
+4. Watch the leader. The standings show who leads and what each player could score this round. Deny the leader points where you can: contest the objective they need, take a strategy card they want, or attack what scores for them.
+5. Never let the player holding Mecatol Rex take Imperial: with it they score a public objective and a point for Mecatol in the same action. In the strategy phase, if they could still pick Imperial, take it first when you can; if they already hold it, take Mecatol from them before they play it.
+6. Trade goods are more flexible than resources/influence
 
 # What this engine does not do
 
